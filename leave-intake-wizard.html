@@ -7460,7 +7460,7 @@ body.vi-active { background: #f8fbfd; }
           <div id="rlv2DurationHint" style="font-size:11px;color:#525252;margin-top:4px;font-weight:500;">~8 weeks</div>
         </div>
         <div class="sim-field" id="rlv2FieldLeaveType" style="grid-column:1/-1;">
-          <label>How will you take your time off? <span class="req">*</span></label>
+          <label>How will you take your absence? <span class="req">*</span></label>
           <select id="rlv2LeaveTypeSelect" onchange="_rlv2SelectedLeaveType=this.value;rlv2ToggleLeaveTypeFields(this.value)">
             <option value="continuous" selected>Continuous</option>
             <option value="intermittent">Intermittent</option>
@@ -7931,7 +7931,7 @@ body.vi-active { background: #f8fbfd; }
           <div class="dlp-sidebar" id="rlv2SideLeaveTypeCard">
             <div class="dlp-sidebar-group-label">TIME OFF TYPE</div>
             <div class="dlp-sidebar-group-body">
-              <div class="dlp-side-field" style="margin-bottom:0;"><label>How will you take your time off?</label>
+              <div class="dlp-side-field" style="margin-bottom:0;"><label>How will you take your absence?</label>
                 <select id="rlv2SideLeaveType" onchange="rlv2ChangeSideLeaveType(this.value)">
                   <option value="continuous" selected>Continuous</option>
                   <option value="intermittent">Intermittent</option>
@@ -8389,12 +8389,13 @@ const state = {
   tempAddress: true, tempStreet: '8827 SW 8th Street', tempCity: 'Lee Summit', tempState: 'MO', tempZip: '64086', tempStart: '2026-05-01', tempEnd: '2026-08-15',
   // Step 3 - Absence Type
   leaveType: 'continuous', // continuous | intermittent | reduced
-  alreadyMissedTime: false, missedDates: '2026-04-28', missedHours: '8',
+  alreadyMissedTime: false, missedDateEntries: [{ date: '2026-04-28', hours: '8' }],
   reducedHoursPerWeek: '20',
   // Step 4 - Leave Details
   leaveStartDate: '2026-06-01', expectedReturnDate: '2026-09-15', hoursLastDay: '8',
   previouslyMissed: false,
   scheduleHours: { sun: '0', mon: '8', tue: '8', wed: '8', thu: '8', fri: '8', sat: '0' },
+  extraWeeks: [],
   rotatingSchedule: false,
   rotationWeeks: [
     { sun: '0', mon: '8', tue: '8', wed: '8', thu: '8', fri: '8', sat: '0' },
@@ -8420,6 +8421,9 @@ const state = {
   // Step 11 - Medical Details
   isJobRelated: false, diagnosis: '', firstTreatment: '', nextAppointment: '',
   familyFirstName: '', familyLastName: '', familyRelationship: '', familyDob: '',
+  // Existing leave linkage
+  relatedToExisting: null, // null = not answered, true = yes, false = no
+  linkedCaseId: null, // ID of the related case from CaseStore
   // Scenario tracking
   workersComp: 'no', // yes | no — for medical_self, is the illness/injury job-related?
   leaveScenario: '', // child | medical_self | medical_family — set by reason selection or plan handoff
@@ -8712,9 +8716,15 @@ function renderLeaveTimeline() {
 // Which steps to show based on scenario
 function getVisibleSteps() {
   const steps = [];
+  var isMedical = state.leaveScenario === 'medical_self' || state.leaveScenario === 'medical_family';
   // Skip reason/dates/type when coming from planner (already collected)
   if (!_fromPlanner) {
     steps.push({ id: 'leaveReason', label: 'Reason', title: 'Why do you need time off?' });
+    // For medical/injury scenarios: Details → Provider → Dates → Type
+    if (isMedical) {
+      steps.push({ id: 'medical', label: 'Details', title: state.leaveScenario === 'medical_family' ? 'About your family member' : 'About your condition' });
+      steps.push({ id: 'provider', label: 'Provider', title: 'Your healthcare provider' });
+    }
     steps.push(
       { id: 'leaveDates', label: 'Dates', title: 'When does your absence start?' },
       { id: 'leaveType', label: 'Type', title: 'How will you take your absence?' }
@@ -8728,10 +8738,6 @@ function getVisibleSteps() {
     steps.push({ id: 'planAware', label: 'Benefits', title: 'Your absence benefits' });
     steps.push({ id: 'bondingIntent', label: 'Bonding', title: 'Planning your bonding time' });
   }
-  if (state.leaveScenario === 'medical_self' || state.leaveScenario === 'medical_family') {
-    steps.push({ id: 'provider', label: 'Provider', title: 'Your healthcare provider' });
-    steps.push({ id: 'medical', label: 'Details', title: state.leaveScenario === 'medical_family' ? 'About your family member' : 'About your condition' });
-  }
   // Verify & Contact moved here (just before Review)
   steps.push({ id: 'demographics', label: 'Verify', title: 'Let\u2019s confirm your info' });
   steps.push({ id: 'contact', label: 'Contact', title: 'How to reach you' });
@@ -8743,9 +8749,286 @@ let currentStepIndex = 0;
 var _fromPlanner = false;
 
 // ═══════════════════════════════════════
+// EXISTING LEAVE UPDATE MODE
+// ═══════════════════════════════════════
+var _existingLeaveMode = false;
+var _existingLeaveCase = null;
+var _existingLeaveStep = 0;
+var _showExistingLeaveCard = false; // toggled from Scenarios toolbar
+var _eluState = {
+  updateDates: false, newStartDate: '', newReturnDate: '',
+  missedTime: null, missedDates: '', missedHours: '',
+  hasDocuments: null, documentNotes: '',
+  rtwReady: null, rtwDate: '', rtwSchedule: 'full', rtwHoursPerWeek: ''
+};
+
+function _getEluSteps() {
+  return [
+    { id: 'eluDates', label: 'Dates', title: 'Update your absence dates' },
+    { id: 'eluMissedTime', label: 'Time Missed', title: 'Any additional time missed?' },
+    { id: 'eluDocuments', label: 'Documents', title: 'Updated documentation' },
+    { id: 'eluRtw', label: 'Return', title: 'Return to work' },
+    { id: 'eluReview', label: 'Review', title: 'Review your updates' }
+  ];
+}
+
+function renderEluDates() {
+  var c = _existingLeaveCase;
+  return `
+    <h2>Update your absence dates</h2>
+    <p class="subtitle">Has anything changed since your original request?</p>
+    <div style="background:#f8fafc;border:1px solid #e2e2e5;border-radius:10px;padding:16px;margin-bottom:20px;font-size:13px;color:#525252">
+      <div style="display:flex;gap:24px">
+        <div><span style="color:#737373">Current start:</span> <strong style="color:#0f0f14">${_formatDateShort(c.startDate)}</strong></div>
+        <div><span style="color:#737373">Expected return:</span> <strong style="color:#0f0f14">${_formatDateShort(c.endDate)}</strong></div>
+      </div>
+    </div>
+    <div class="bordered-section">
+      <div class="section-title" style="margin-bottom:12px">Do you need to update these dates?</div>
+      <div class="yesno" style="margin-bottom:0">
+        <button class="yesno-btn ${_eluState.updateDates === true ? 'selected' : ''}" onclick="_eluState.updateDates=true;render()">Yes, dates have changed</button>
+        <button class="yesno-btn ${_eluState.updateDates === false ? 'selected' : ''}" onclick="_eluState.updateDates=false;render()">No, dates are the same</button>
+      </div>
+      ${_eluState.updateDates ? `
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:16px">
+        <div class="form-group" style="margin-bottom:0">
+          <label>New Start Date</label>
+          <input type="date" value="${_eluState.newStartDate || c.startDate}" onchange="_eluState.newStartDate=this.value">
+        </div>
+        <div class="form-group" style="margin-bottom:0">
+          <label>New Expected Return Date</label>
+          <input type="date" value="${_eluState.newReturnDate || c.endDate}" onchange="_eluState.newReturnDate=this.value">
+        </div>
+      </div>` : ''}
+    </div>`;
+}
+
+function renderEluMissedTime() {
+  return `
+    <h2>Have you missed any additional work time?</h2>
+    <p class="subtitle">Let us know about any time you\u2019ve missed since your last update so we can keep your records accurate.</p>
+    <div class="bordered-section">
+      <div class="yesno" style="margin-bottom:0">
+        <button class="yesno-btn ${_eluState.missedTime === true ? 'selected' : ''}" onclick="_eluState.missedTime=true;render()">Yes</button>
+        <button class="yesno-btn ${_eluState.missedTime === false ? 'selected' : ''}" onclick="_eluState.missedTime=false;render()">No additional time missed</button>
+      </div>
+      ${_eluState.missedTime ? `
+      <div style="margin-top:16px;padding-top:16px;border-top:1px solid #e8e8ec">
+        <div class="form-row cols-2" style="margin-bottom:0">
+          <div class="form-group" style="margin-bottom:0">
+            <label>Date(s) Missed</label>
+            <input type="text" value="${_eluState.missedDates}" onchange="_eluState.missedDates=this.value" placeholder="e.g. 4/10, 4/12">
+          </div>
+          <div class="form-group" style="margin-bottom:0">
+            <label>Total Hours Missed</label>
+            <input type="number" value="${_eluState.missedHours}" onchange="_eluState.missedHours=this.value" placeholder="e.g. 16">
+          </div>
+        </div>
+      </div>` : ''}
+    </div>`;
+}
+
+function renderEluDocuments() {
+  var c = _existingLeaveCase;
+  var docsNeeded = c.docsRequired && c.docsNeeded;
+  return `
+    <h2>Updated documentation</h2>
+    <p class="subtitle">Upload any new or updated documents related to your absence.</p>
+    ${docsNeeded ? `
+    <div style="display:flex;align-items:flex-start;gap:10px;padding:14px 18px;background:#fef3c7;border:1px solid #fde68a;border-radius:8px;font-size:13px;color:#92400e;line-height:1.5;margin-bottom:20px;">
+      <svg width="16" height="16" viewBox="0 0 16 16" fill="none" style="flex-shrink:0;margin-top:2px;"><circle cx="8" cy="8" r="7" stroke="#d97706" stroke-width="1.2"/><path d="M8 5v3.5" stroke="#d97706" stroke-width="1.2" stroke-linecap="round"/><circle cx="8" cy="11" r="0.75" fill="#d97706"/></svg>
+      <div><strong>Outstanding:</strong> ${c.docsNeeded}</div>
+    </div>` : ''}
+    <div class="bordered-section">
+      <div class="section-title" style="margin-bottom:12px">Do you have new documents to provide?</div>
+      <div class="yesno" style="margin-bottom:0">
+        <button class="yesno-btn ${_eluState.hasDocuments === true ? 'selected' : ''}" onclick="_eluState.hasDocuments=true;render()">Yes, I have documents</button>
+        <button class="yesno-btn ${_eluState.hasDocuments === false ? 'selected' : ''}" onclick="_eluState.hasDocuments=false;render()">Not right now</button>
+      </div>
+      ${_eluState.hasDocuments ? `
+      <div style="margin-top:16px;padding:20px;border:2px dashed #d0d0d5;border-radius:10px;text-align:center;color:#737373;font-size:14px">
+        <svg width="32" height="32" viewBox="0 0 24 24" fill="none" style="margin-bottom:8px"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z" stroke="#a3a3a3" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/><path d="M14 2v6h6M12 18v-6M9 15h6" stroke="#a3a3a3" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        <div>Drag files here or <a href="#" onclick="return false" style="color:#3b82f6;font-weight:600">browse</a></div>
+        <div style="font-size:12px;margin-top:4px">PDF, JPG, PNG up to 10MB</div>
+      </div>
+      <div class="form-group" style="margin-top:12px;margin-bottom:0">
+        <label>Notes about these documents</label>
+        <textarea style="width:100%;min-height:60px;border:1px solid #d0d0d5;border-radius:8px;padding:10px;font-family:inherit;font-size:14px;resize:vertical" placeholder="Optional \u2014 any context about what you\u2019re uploading" onchange="_eluState.documentNotes=this.value">${_eluState.documentNotes}</textarea>
+      </div>` : ''}
+    </div>`;
+}
+
+function renderEluRtw() {
+  return `
+    <h2>Return to work</h2>
+    <p class="subtitle">Let us know about your plans to return so we can coordinate with your team.</p>
+    <div class="bordered-section">
+      <div class="section-title" style="margin-bottom:12px">Are you ready to return to work?</div>
+      <div class="yesno" style="margin-bottom:0">
+        <button class="yesno-btn ${_eluState.rtwReady === true ? 'selected' : ''}" onclick="_eluState.rtwReady=true;render()">Yes, I\u2019m ready to return</button>
+        <button class="yesno-btn ${_eluState.rtwReady === false ? 'selected' : ''}" onclick="_eluState.rtwReady=false;render()">Not yet</button>
+      </div>
+      ${_eluState.rtwReady ? `
+      <div style="margin-top:16px;padding-top:16px;border-top:1px solid #e8e8ec">
+        <div class="form-group" style="margin-bottom:16px">
+          <label>Return Date</label>
+          <input type="date" value="${_eluState.rtwDate}" onchange="_eluState.rtwDate=this.value">
+        </div>
+        <div class="section-title" style="margin-bottom:12px">What does your return schedule look like?</div>
+        <div class="yesno">
+          <button class="yesno-btn ${_eluState.rtwSchedule === 'full' ? 'selected' : ''}" onclick="_eluState.rtwSchedule='full';render()">Full schedule</button>
+          <button class="yesno-btn ${_eluState.rtwSchedule === 'reduced' ? 'selected' : ''}" onclick="_eluState.rtwSchedule='reduced';render()">Reduced hours</button>
+        </div>
+        ${_eluState.rtwSchedule === 'reduced' ? `
+        <div class="form-group" style="margin-bottom:0">
+          <label>Hours per week</label>
+          <input type="number" value="${_eluState.rtwHoursPerWeek}" onchange="_eluState.rtwHoursPerWeek=this.value" placeholder="e.g. 20">
+        </div>` : ''}
+      </div>` : ''}
+    </div>`;
+}
+
+function renderEluReview() {
+  var c = _existingLeaveCase;
+  return `
+    <h2>Review your updates</h2>
+    <p class="subtitle">Here\u2019s a summary of the changes you\u2019re submitting for case <strong>${c.id}</strong>.</p>
+    <div class="bordered-section" style="padding:0;overflow:hidden">
+      <div style="background:#f8fafc;padding:16px 20px;border-bottom:1px solid #e2e2e5;display:flex;align-items:center;justify-content:space-between">
+        <div style="font-weight:600;color:#0f0f14">${c.title}</div>
+        <span style="font-size:11px;font-weight:700;color:#10b981;background:#10b98118;padding:3px 8px;border-radius:6px">${c.benefits || '\u2014'}</span>
+      </div>
+      <div style="padding:16px 20px">
+        <div style="display:grid;gap:12px;font-size:14px">
+          <div style="display:flex;justify-content:space-between;padding-bottom:12px;border-bottom:1px solid #f0f0f2">
+            <span style="color:#737373">Dates updated</span>
+            <span style="font-weight:500;color:#0f0f14">${_eluState.updateDates ? 'Yes \u2014 ' + _formatDateShort(_eluState.newStartDate || c.startDate) + ' to ' + _formatDateShort(_eluState.newReturnDate || c.endDate) : 'No changes'}</span>
+          </div>
+          <div style="display:flex;justify-content:space-between;padding-bottom:12px;border-bottom:1px solid #f0f0f2">
+            <span style="color:#737373">Additional time missed</span>
+            <span style="font-weight:500;color:#0f0f14">${_eluState.missedTime ? _eluState.missedDates + ' (' + _eluState.missedHours + ' hrs)' : 'None'}</span>
+          </div>
+          <div style="display:flex;justify-content:space-between;padding-bottom:12px;border-bottom:1px solid #f0f0f2">
+            <span style="color:#737373">Documents</span>
+            <span style="font-weight:500;color:#0f0f14">${_eluState.hasDocuments ? 'Uploaded' : 'None'}</span>
+          </div>
+          <div style="display:flex;justify-content:space-between">
+            <span style="color:#737373">Return to work</span>
+            <span style="font-weight:500;color:#0f0f14">${_eluState.rtwReady ? _formatDateShort(_eluState.rtwDate) + ' (' + (_eluState.rtwSchedule === 'full' ? 'Full schedule' : 'Reduced \u2014 ' + _eluState.rtwHoursPerWeek + ' hrs/wk') + ')' : 'Not yet'}</span>
+          </div>
+        </div>
+      </div>
+    </div>`;
+}
+
+function renderEluStep() {
+  var steps = _getEluSteps();
+  var step = steps[_existingLeaveStep];
+  var card = document.getElementById('wizardCard');
+  var renderers = {
+    eluDates: renderEluDates,
+    eluMissedTime: renderEluMissedTime,
+    eluDocuments: renderEluDocuments,
+    eluRtw: renderEluRtw,
+    eluReview: renderEluReview
+  };
+  var footerHtml;
+  if (step.id === 'eluReview') {
+    footerHtml = '<div class="wizard-footer"><div class="footer-left">' +
+      '<button class="btn btn-back" onclick="eluGoBack()">\u2190 Back</button>' +
+      '</div><button class="btn btn-submit" onclick="eluSubmit()">Submit Updates</button></div>';
+  } else {
+    footerHtml = '<div class="wizard-footer"><div class="footer-left">' +
+      (_existingLeaveStep > 0 ? '<button class="btn btn-back" onclick="eluGoBack()">\u2190 Back</button>' : '<button class="btn btn-back" onclick="eluExit()">\u2190 Back to dates</button>') +
+      '</div><button class="btn btn-next" onclick="eluGoNext()">Continue \u2192</button></div>';
+  }
+  var content = '<div class="step-content">' + (renderers[step.id]?.() || '') + footerHtml + '</div>';
+  card.innerHTML = content;
+
+  // Update stepper
+  var el = document.getElementById('stepper');
+  el.innerHTML = '<div class="stepper"><div class="stepper-counter">Step <strong>' + (_existingLeaveStep + 1) + '</strong> of <strong>' + steps.length + '</strong></div><div class="stepper-title">' + step.title + '</div></div>';
+  var pct = ((_existingLeaveStep + 1) / steps.length * 100).toFixed(0);
+  document.getElementById('progressFill').style.width = pct + '%';
+  document.getElementById('stepMeta').innerHTML = '';
+}
+
+function eluGoNext() {
+  var steps = _getEluSteps();
+  if (_existingLeaveStep < steps.length - 1) { _existingLeaveStep++; render(); }
+}
+function eluGoBack() {
+  if (_existingLeaveStep > 0) { _existingLeaveStep--; render(); }
+}
+function eluExit() {
+  _existingLeaveMode = false;
+  _existingLeaveCase = null;
+  _existingLeaveStep = 0;
+  state.relatedToExisting = null;
+  state.linkedCaseId = null;
+  render();
+}
+function toggleExistingLeaveCard() {
+  _showExistingLeaveCard = !_showExistingLeaveCard;
+  var btn = document.getElementById('eluCardToggle');
+  if (btn) btn.textContent = (_showExistingLeaveCard ? '\u2713 ' : '') + 'Show Existing Leave Card';
+  // Re-render if currently on the dates step
+  if (typeof render === 'function') render();
+  if (typeof viRender === 'function' && document.getElementById('visualIntakePage') && document.getElementById('visualIntakePage').style.display !== 'none') viRender();
+}
+
+function launchExistingLeaveUpdate() {
+  // Launch directly into existing-leave update mode with the first active case
+  var activeCases = CaseStore.getActive();
+  var targetCase = activeCases[0];
+  if (!targetCase) { alert('No active leaves found.'); return; }
+  // Show the wizard page
+  startRequestAbsence();
+  setTimeout(function() {
+    // Activate existing-leave mode
+    _existingLeaveMode = true;
+    _existingLeaveCase = targetCase;
+    _existingLeaveStep = 0;
+    state.relatedToExisting = true;
+    state.linkedCaseId = targetCase.id;
+    // Show wizard UI elements
+    document.getElementById('stepper').style.display = '';
+    document.getElementById('progressBar').style.display = '';
+    document.getElementById('stepMeta').style.display = '';
+    var wizCard = document.getElementById('wizardCard');
+    if (wizCard) wizCard.style.display = '';
+    // Hide welcome card
+    var welcome = document.getElementById('reqWelcomeCard');
+    if (welcome) welcome.remove();
+    render();
+  }, 200);
+}
+
+function eluSubmit() {
+  // Apply updates to the case
+  var updates = {};
+  if (_eluState.updateDates && _eluState.newStartDate) updates.startDate = _eluState.newStartDate;
+  if (_eluState.updateDates && _eluState.newReturnDate) updates.endDate = _eluState.newReturnDate;
+  CaseStore.updateCase(_existingLeaveCase.id, updates);
+
+  // Show success and navigate to details
+  _existingLeaveMode = false;
+  CaseStore.setActiveCaseId(_existingLeaveCase.id);
+  _existingLeaveCase = null;
+  _existingLeaveStep = 0;
+  switchTab('details');
+}
+
+// ═══════════════════════════════════════
 // RENDER ENGINE
 // ═══════════════════════════════════════
 function render() {
+  // Check if we're in existing-leave update mode
+  if (_existingLeaveMode && _existingLeaveCase) {
+    renderEluStep();
+    setTimeout(function(){ if(typeof cmRefreshPins==='function') cmRefreshPins(); }, 50);
+    return;
+  }
   const steps = getVisibleSteps();
   if (currentStepIndex >= steps.length) currentStepIndex = steps.length - 1;
   const step = steps[currentStepIndex];
@@ -9224,7 +9507,7 @@ function renderLeaveType() {
   var sel = state.leaveType || 'continuous';
   var d = details[sel];
   return `
-    <h2>How will you take your time off?</h2>
+    <h2>How will you take your absence?</h2>
     <p class="subtitle">This helps us figure out which benefits and protections apply.</p>
     <div class="lt-picker">
       ${types.map(function(t) {
@@ -9236,9 +9519,26 @@ function renderLeaveType() {
     </div>
     <div class="lt-context">
       <p class="lt-context-desc">${d.desc}</p>
+      ${sel === 'continuous' ? renderLeaveTypeContinuous() : ''}
       ${sel === 'intermittent' ? renderLeaveTypeIntermittent() : ''}
       ${sel === 'reduced' ? renderLeaveTypeReduced() : ''}
     </div>`;
+}
+
+// ── INLINE: Continuous fields (inside leave type step) ──
+function renderLeaveTypeContinuous() {
+  return `
+      <div class="lt-detail-fields">
+        <div class="lt-detail-req-label">Have you already missed work time because of this condition?</div>
+        <div class="yesno" style="margin-bottom:0">
+          <button class="yesno-btn ${state.alreadyMissedTime === true ? 'selected' : ''}" onclick="setState('alreadyMissedTime', true)">Yes</button>
+          <button class="yesno-btn ${state.alreadyMissedTime === false ? 'selected' : ''}" onclick="setState('alreadyMissedTime', false)">No</button>
+        </div>
+        ${state.alreadyMissedTime === true ? `
+        <div style="margin-top:12px">
+          ${_renderMissedDateEntries()}
+        </div>` : ''}
+      </div>`;
 }
 
 // ── INLINE: Intermittent fields (inside leave type step) ──
@@ -9268,18 +9568,17 @@ function renderLeaveTypeIntermittent() {
             </select>
           </div>
         </div>
-        <div class="lt-detail-req-label">Have you already missed time?</div>
+        <div style="border-top:1px solid #e2e2e5;padding-top:16px;margin-top:4px">
+        <div class="lt-detail-req-label">Have you already missed work time because of this condition?</div>
         <div class="yesno" style="margin-bottom:0">
           <button class="yesno-btn ${state.alreadyMissedTime === true ? 'selected' : ''}" onclick="setState('alreadyMissedTime', true)">Yes</button>
           <button class="yesno-btn ${state.alreadyMissedTime === false ? 'selected' : ''}" onclick="setState('alreadyMissedTime', false)">No</button>
         </div>
         ${state.alreadyMissedTime === true ? `
         <div style="margin-top:12px">
-          <div class="form-row cols-2" style="margin-bottom:0">
-            <div class="form-group" style="margin-bottom:0"><label>Date(s) Missed</label><input type="text" value="${esc(state.missedDates)}" data-field="missedDates" placeholder="e.g. 3/15, 3/18, 3/22"></div>
-            <div class="form-group" style="margin-bottom:0"><label>Total Hours Missed</label><input type="number" value="${esc(state.missedHours)}" data-field="missedHours" placeholder="e.g. 16"></div>
-          </div>
+          ${_renderMissedDateEntries()}
         </div>` : ''}
+        </div>
       </div>`;
 }
 
@@ -9288,10 +9587,21 @@ function renderLeaveTypeReduced() {
   return `
       <div class="lt-detail-fields">
         <div class="lt-detail-req-label">Your reduced schedule</div>
-        <div class="form-group" style="margin-bottom:0">
+        <div class="form-group" style="margin-bottom:12px">
           <label>Hours per week you plan to work</label>
           <input type="number" value="${esc(state.reducedHoursPerWeek)}" data-field="reducedHoursPerWeek" placeholder="e.g. 20">
           <div class="helper">Your current schedule is 40 hours/week.</div>
+        </div>
+        <div style="border-top:1px solid #e2e2e5;padding-top:16px;margin-top:4px">
+        <div class="lt-detail-req-label">Have you already missed work time because of this condition?</div>
+        <div class="yesno" style="margin-bottom:0">
+          <button class="yesno-btn ${state.alreadyMissedTime === true ? 'selected' : ''}" onclick="setState('alreadyMissedTime', true)">Yes</button>
+          <button class="yesno-btn ${state.alreadyMissedTime === false ? 'selected' : ''}" onclick="setState('alreadyMissedTime', false)">No</button>
+        </div>
+        ${state.alreadyMissedTime === true ? `
+        <div style="margin-top:12px">
+          ${_renderMissedDateEntries()}
+        </div>` : ''}
         </div>
       </div>`;
 }
@@ -9299,7 +9609,7 @@ function renderLeaveTypeReduced() {
 // ── STEP: MISSED TIME (intermittent only — kept for backwards compat) ──
 function renderMissedTime() {
   return `
-    <h2>Have you already missed time for this?</h2>
+    <h2>Have you already missed work time because of this condition?</h2>
     <p class="subtitle">It\u2019s okay if you have \u2014 we can often cover time you\u2019ve already missed. Just let us know so we can include it in your request.</p>
     <div class="bordered-section">
       <div class="yesno" ${state.alreadyMissedTime !== true ? 'style="margin-bottom:0"' : ''}>
@@ -9309,10 +9619,7 @@ function renderMissedTime() {
       ${state.alreadyMissedTime === true ? `
       <div style="margin-top:16px;padding-top:16px;border-top:1px solid #e8e8ec">
         <p style="font-size:14px;color:#3d3d47;margin-bottom:14px">Roughly when and how much? Don\u2019t worry about being exact \u2014 your provider can confirm the details.</p>
-        <div class="form-row cols-2" style="margin-bottom:0">
-          <div class="form-group" style="margin-bottom:0"><label>Date(s) Missed</label><input type="text" value="${esc(state.missedDates)}" data-field="missedDates" placeholder="e.g. 3/15, 3/18, 3/22"></div>
-          <div class="form-group" style="margin-bottom:0"><label>Total Hours Missed</label><input type="number" value="${esc(state.missedHours)}" data-field="missedHours" placeholder="e.g. 16"></div>
-        </div>
+        ${_renderMissedDateEntries()}
       </div>` : ''}
     </div>`;
 }
@@ -9362,12 +9669,65 @@ function renderReducedHours() {
 }
 
 // ── STEP: LEAVE DATES (split out as its own step) ──
+function _findSimilarActiveLeave() {
+  var activeCases = CaseStore.getActive();
+  if (!activeCases || activeCases.length === 0) return null;
+  // Find the most recent active/pending/approved leave
+  // If user has selected a scenario, try to match by scenario first
+  if (state.leaveScenario) {
+    var matched = activeCases.find(function(c) { return c.scenario === state.leaveScenario; });
+    if (matched) return matched;
+  }
+  // Otherwise return the most recent active leave
+  return activeCases[0];
+}
+
+function _formatDateShort(d) {
+  if (!d) return '\u2014';
+  var parts = d.split('-');
+  if (parts.length !== 3) return d;
+  var months = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+  return months[parseInt(parts[1]) - 1] + ' ' + parseInt(parts[2]) + ', ' + parts[0];
+}
+
 function renderLeaveDates() {
+  var similarLeave = _showExistingLeaveCard ? _findSimilarActiveLeave() : null;
+  var existingLeaveCard = '';
+
+  if (similarLeave) {
+    var statusColors = { pending: '#f59e0b', approved: '#10b981', active: '#10b981', in_review: '#f59e0b' };
+    var statusColor = statusColors[similarLeave.status] || '#737373';
+    var statusText = _statusLabel(similarLeave.status, similarLeave);
+    existingLeaveCard = `
+    <div style="margin-top:20px;background:#fffbeb;border:1px solid #fde68a;border-radius:12px;padding:20px;">
+      <div style="display:flex;align-items:flex-start;gap:10px;margin-bottom:16px">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" style="flex-shrink:0;margin-top:1px"><path d="M12 9v4M12 17h.01" stroke="#d97706" stroke-width="2" stroke-linecap="round"/><path d="M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z" stroke="#d97706" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        <div style="font-size:15px;font-weight:600;color:#92400e;line-height:1.4">Hey, it looks like you have a recent/active leave event. Is this situation related?</div>
+      </div>
+      <div style="background:#fff;border:1px solid #e5e7eb;border-radius:10px;padding:16px;margin-bottom:16px">
+        <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:12px">
+          <div style="font-size:14px;font-weight:600;color:#0f0f14">${similarLeave.title || 'Absence'}</div>
+          <span style="font-size:11px;font-weight:700;color:${statusColor};background:${statusColor}18;padding:3px 8px;border-radius:6px;text-transform:uppercase;letter-spacing:0.3px">${statusText}</span>
+        </div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;font-size:13px;color:#525252">
+          <div><span style="color:#737373">Leave type:</span> <strong style="color:#0f0f14">${similarLeave.benefits || '\u2014'}</strong></div>
+          <div><span style="color:#737373">Case:</span> <strong style="color:#0f0f14">${similarLeave.id}</strong></div>
+          <div><span style="color:#737373">Start date:</span> <strong style="color:#0f0f14">${_formatDateShort(similarLeave.startDate)}</strong></div>
+          <div><span style="color:#737373">Expected return:</span> <strong style="color:#0f0f14">${_formatDateShort(similarLeave.endDate)}</strong></div>
+        </div>
+      </div>
+      <div class="yesno" style="margin-bottom:0">
+        <button class="yesno-btn ${state.relatedToExisting === true ? 'selected' : ''}" onclick="linkExistingLeave('${similarLeave.id}')">Yes, this is related</button>
+        <button class="yesno-btn ${state.relatedToExisting === false ? 'selected' : ''}" onclick="setState('relatedToExisting', false)">No, this is a new situation</button>
+      </div>
+    </div>`;
+  }
+
   return `
     <h2>When does your absence start?</h2>
     <p class="subtitle">${state.leaveType === 'intermittent' ? 'Enter the first date you need (or needed) time off for this reason.' : 'If you\u2019re not sure of the exact date yet, give us your best estimate. We can adjust later.'}</p>
     <div class="bordered-section">
-      <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:20px">
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px">
         <div class="form-group" style="margin-bottom:0">
           <label>Anticipated Start Date <span class="req">*</span></label>
           <input type="date" value="${state.leaveStartDate}" data-field="leaveStartDate">
@@ -9378,14 +9738,8 @@ function renderLeaveDates() {
           <div class="helper">Your best estimate of when you expect to return to work.</div>
         </div>
       </div>
-      <div class="divider"></div>
-      <div class="section-title">Is this related to an existing or previously approved leave of absence?</div>
-      <p class="helper" style="margin-bottom:12px">For example, if you left work early or missed a day before formally requesting an absence.</p>
-      <div class="yesno" style="margin-bottom:0">
-        <button class="yesno-btn ${state.previouslyMissed === true ? 'selected' : ''}" onclick="setState('previouslyMissed', true)">Yes</button>
-        <button class="yesno-btn ${state.previouslyMissed === false ? 'selected' : ''}" onclick="setState('previouslyMissed', false)">No</button>
-      </div>
-    </div>`;
+    </div>
+    ${existingLeaveCard}`;
 }
 
 // ── STEP 4: LEAVE DETAILS (Work Schedule) ──
@@ -9410,66 +9764,41 @@ function renderLeaveDetails() {
             </div>
           </div>`;
         }).join('')}
-      </div>
-      <div class="schedule-total">
-        <span class="schedule-total-label">Weekly total</span>
-        <span class="schedule-total-value">${total}<span>hrs / week</span></span>
       </div>`;
   }
 
-  let rotatingHtml = '';
-  if (state.rotatingSchedule) {
-    rotatingHtml = `
-    <div class="bordered-section" style="margin-top:20px">
-      <div class="section-title" style="display:flex;align-items:center;gap:8px">
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M4 4v5h5" stroke="#3d3d47" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/><path d="M20 12a8 8 0 00-14.4-4.8L4 9" stroke="#3d3d47" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/><path d="M20 20v-5h-5" stroke="#3d3d47" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/><path d="M4 12a8 8 0 0014.4 4.8L20 15" stroke="#3d3d47" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
-        Rotating Schedule
-      </div>
-      <p class="helper" style="margin-bottom:16px">Define each week in your rotation. Hours will cycle through these weeks automatically.</p>
-      <div class="rotation-weeks">
-        ${state.rotationWeeks.map((week, wi) => `
-          <div class="rotation-week">
-            <div class="rotation-week-header">
-              <div class="rotation-week-title">
-                <span class="rotation-week-badge">Week ${wi + 1}</span>
-                ${wi === 0 ? '<span style="font-size:12px;color:#62626e;font-weight:400">Current week</span>' : ''}
-              </div>
-              ${state.rotationWeeks.length > 2 ? `<button class="rotation-remove" onclick="removeRotationWeek(${wi})">Remove</button>` : ''}
-            </div>
-            ${scheduleGrid(week, 'rot_' + wi + '_')}
+  function weekBlock(hours, prefix, weekNum, removable) {
+    const total = days.reduce((s, d) => s + (parseFloat(hours[d]) || 0), 0);
+    return `
+      <div class="bordered-section" ${weekNum > 1 ? 'style="margin-top:16px"' : ''}>
+        <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:12px">
+          <div class="section-title" style="display:flex;align-items:center;gap:8px;margin-bottom:0">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><rect x="3" y="6" width="18" height="13" rx="2" stroke="#3d3d47" stroke-width="1.5"/><path d="M3 10h18" stroke="#3d3d47" stroke-width="1.5"/><path d="M8 3v4M16 3v4" stroke="#3d3d47" stroke-width="1.5" stroke-linecap="round"/></svg>
+            Week ${weekNum}
           </div>
-        `).join('')}
-      </div>
-      <button class="rotation-add" onclick="addRotationWeek()">
-        <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M8 3v10M3 8h10" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
-        Add another week to rotation
-      </button>
-    </div>`;
+          <div style="display:flex;align-items:center;gap:12px">
+            <span style="font-size:13px;color:#62626e;font-weight:500">${total} hrs / week</span>
+            ${removable ? `<button class="rotation-remove" onclick="removeScheduleWeek(${weekNum - 2})">Remove</button>` : ''}
+          </div>
+        </div>
+        <p class="helper" style="margin-bottom:16px">${weekNum === 1 ? 'Click each day to enter hours. Default is 8 hours/day for weekdays.' : 'Enter the hours for this week.'}</p>
+        ${scheduleGrid(hours, prefix)}
+      </div>`;
   }
 
+  let extraWeeksHtml = state.extraWeeks ? state.extraWeeks.map((week, wi) =>
+    weekBlock(week, 'extra_' + wi + '_', wi + 2, true)
+  ).join('') : '';
+
   return `
-    <h2>What does your typical week look like?</h2>
-    <p class="subtitle">This helps us calculate your absence accurately. Most full-time employees work about 40 hours a week \u2014 just adjust the numbers if yours is different.</p>
-    <div class="bordered-section${state.rotatingSchedule ? ' disabled-section' : ''}">
-      <div class="section-title" style="display:flex;align-items:center;gap:8px">
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><rect x="3" y="6" width="18" height="13" rx="2" stroke="#3d3d47" stroke-width="1.5"/><path d="M3 10h18" stroke="#3d3d47" stroke-width="1.5"/><path d="M8 3v4M16 3v4" stroke="#3d3d47" stroke-width="1.5" stroke-linecap="round"/></svg>
-        Weekly Hours
-      </div>
-      ${state.rotatingSchedule
-        ? '<p class="helper" style="margin-bottom:0">Disabled while rotating schedule is active. Hours are defined per rotation week below.</p>'
-        : `<p class="helper" style="margin-bottom:16px">Click each day to enter hours. Default is 8 hours/day for weekdays.</p>
-      ${scheduleGrid(state.scheduleHours, '')}`}
-    </div>
-    <div class="bordered-section">
-      <div style="display:flex;align-items:center;justify-content:space-between">
-        <div>
-          <div class="section-title" style="margin-bottom:4px">Rotating Schedule</div>
-          <p class="helper" style="margin-top:0">Does your schedule change from week to week?</p>
-        </div>
-        <div class="toggle ${state.rotatingSchedule ? 'on' : ''}" data-toggle="rotatingSchedule"><div class="toggle-knob"></div></div>
-      </div>
-    </div>
-    ${rotatingHtml}`;
+    <h2>What does your typical work week look like?</h2>
+    <p class="subtitle">This should reflect your usual work schedule before your absence.</p>
+    ${weekBlock(state.scheduleHours, '', 1, false)}
+    ${extraWeeksHtml}
+    <button class="rotation-add" style="margin-top:16px" onclick="addScheduleWeek()">
+      <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M8 3v10M3 8h10" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+      Add another week
+    </button>`;
 }
 
 // ── STEP 5: CHILD SCENARIO ──
@@ -9939,9 +10268,16 @@ function renderReview() {
   var schedDays = ['Mon','Tue','Wed','Thu','Fri','Sat','Sun'];
   var schedVals = [state.scheduleHours.mon, state.scheduleHours.tue, state.scheduleHours.wed, state.scheduleHours.thu, state.scheduleHours.fri, state.scheduleHours.sat, state.scheduleHours.sun];
   var schedStr = schedDays.map(function(d,i) { return schedVals[i] !== '0' ? d + ' ' + schedVals[i] + 'h' : ''; }).filter(Boolean).join(', ');
+  var extraWeeksStr = '';
+  if (state.extraWeeks && state.extraWeeks.length > 0) {
+    extraWeeksStr = state.extraWeeks.map(function(w, i) {
+      var vals = [w.mon, w.tue, w.wed, w.thu, w.fri, w.sat, w.sun];
+      return brField('Week ' + (i + 2), schedDays.map(function(d,j) { return vals[j] !== '0' ? d + ' ' + vals[j] + 'h' : ''; }).filter(Boolean).join(', ') || '\u2014');
+    }).join('');
+  }
   html += brSection('Work Schedule', getVisibleSteps().findIndex(function(s){return s.id==='leaveDetails';}),
-    brField('Weekly Schedule', schedStr || '\u2014') +
-    brField('Rotating Schedule', state.rotatingSchedule ? 'Yes' : 'No')
+    brField(state.extraWeeks && state.extraWeeks.length > 0 ? 'Week 1' : 'Weekly Schedule', schedStr || '\u2014') +
+    extraWeeksStr
   );
 
   // Child & Bonding (if applicable)
@@ -10099,7 +10435,12 @@ function bindEvents() {
   document.querySelectorAll('[data-schedule]').forEach(el => {
     const key = el.dataset.schedule;
     el.addEventListener('change', () => {
-      if (key.startsWith('rot_')) {
+      if (key.startsWith('extra_')) {
+        const parts = key.split('_'); // extra_0_mon
+        const weekIdx = parseInt(parts[1]);
+        const day = parts[2];
+        if (state.extraWeeks && state.extraWeeks[weekIdx]) state.extraWeeks[weekIdx][day] = el.value;
+      } else if (key.startsWith('rot_')) {
         const parts = key.split('_'); // rot_0_mon
         const weekIdx = parseInt(parts[1]);
         const day = parts[2];
@@ -10110,7 +10451,12 @@ function bindEvents() {
       render();
     });
     el.addEventListener('input', () => {
-      if (key.startsWith('rot_')) {
+      if (key.startsWith('extra_')) {
+        const parts = key.split('_');
+        const weekIdx = parseInt(parts[1]);
+        const day = parts[2];
+        if (state.extraWeeks && state.extraWeeks[weekIdx]) state.extraWeeks[weekIdx][day] = el.value;
+      } else if (key.startsWith('rot_')) {
         const parts = key.split('_');
         const weekIdx = parseInt(parts[1]);
         const day = parts[2];
@@ -10142,9 +10488,124 @@ function setState(key, val) {
   render();
 }
 
+function linkExistingLeave(caseId) {
+  state.relatedToExisting = true;
+  state.linkedCaseId = caseId;
+  render();
+  // Show confirmation modal
+  _showEluConfirmModal(caseId);
+}
+
+function _showEluConfirmModal(caseId) {
+  var c = CaseStore.getById(caseId);
+  if (!c) return;
+  // Remove existing modal if any
+  var existing = document.getElementById('eluConfirmModal');
+  if (existing) existing.remove();
+
+  var overlay = document.createElement('div');
+  overlay.id = 'eluConfirmModal';
+  overlay.style.cssText = 'position:fixed;inset:0;z-index:10000;background:rgba(0,0,0,0.45);display:flex;align-items:center;justify-content:center;animation:fadeIn 0.2s ease';
+  overlay.innerHTML =
+    '<div style="background:#fff;border-radius:16px;max-width:460px;width:90%;padding:32px;box-shadow:0 20px 60px rgba(0,0,0,0.2);animation:fadeIn 0.25s ease">' +
+      '<div style="display:flex;align-items:center;gap:12px;margin-bottom:16px">' +
+        '<div style="width:40px;height:40px;border-radius:10px;background:#fef3c7;display:flex;align-items:center;justify-content:center;flex-shrink:0">' +
+          '<svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M12 9v4M12 17h.01" stroke="#d97706" stroke-width="2" stroke-linecap="round"/><path d="M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z" stroke="#d97706" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>' +
+        '</div>' +
+        '<div style="font-size:17px;font-weight:700;color:#0f0f14;line-height:1.3">Switch to existing leave?</div>' +
+      '</div>' +
+      '<p style="font-size:14px;color:#525252;line-height:1.6;margin:0 0 20px">We\u2019ll take you out of this new absence request and redirect you to your existing leave of absence so you can update it instead.</p>' +
+      '<div style="background:#f8fafc;border:1px solid #e2e2e5;border-radius:10px;padding:14px;margin-bottom:24px;font-size:13px;color:#525252">' +
+        '<div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:6px">' +
+          '<strong style="color:#0f0f14">' + (c.title || 'Absence') + '</strong>' +
+          '<span style="font-size:11px;font-weight:700;color:#10b981;background:#10b98118;padding:2px 6px;border-radius:4px">' + _statusLabel(c.status, c) + '</span>' +
+        '</div>' +
+        '<div style="color:#737373">' + c.id + ' &middot; ' + _formatDateShort(c.startDate) + ' \u2013 ' + _formatDateShort(c.endDate) + '</div>' +
+      '</div>' +
+      '<div style="display:flex;gap:10px;justify-content:flex-end">' +
+        '<button onclick="dismissEluModal()" style="padding:10px 20px;border:1px solid #d4d4d8;border-radius:8px;background:#fff;font-size:14px;font-weight:600;color:#525252;cursor:pointer;font-family:inherit;transition:0.15s">Discard</button>' +
+        '<button onclick="confirmEluSwitch(\'' + caseId + '\')" style="padding:10px 20px;border:none;border-radius:8px;background:#0f0f14;font-size:14px;font-weight:600;color:#fff;cursor:pointer;font-family:inherit;transition:0.15s">Confirm</button>' +
+      '</div>' +
+    '</div>';
+  document.body.appendChild(overlay);
+
+  // Close on backdrop click
+  overlay.addEventListener('click', function(e) {
+    if (e.target === overlay) dismissEluModal();
+  });
+}
+
+function dismissEluModal() {
+  var modal = document.getElementById('eluConfirmModal');
+  if (modal) {
+    modal.style.opacity = '0';
+    modal.style.transition = 'opacity 0.2s ease';
+    setTimeout(function() { modal.remove(); }, 200);
+  }
+  // Reset selection
+  state.relatedToExisting = null;
+  state.linkedCaseId = null;
+  render();
+}
+
+function confirmEluSwitch(caseId) {
+  var modal = document.getElementById('eluConfirmModal');
+  if (modal) modal.remove();
+  // Switch to existing-leave update flow
+  _existingLeaveMode = true;
+  _existingLeaveCase = CaseStore.getById(caseId);
+  _existingLeaveStep = 0;
+  render();
+}
+
 function toggleCheckbox(key) {
   state[key] = !state[key];
   render();
+}
+
+// ═══════════════════════════════════════
+// MISSED DATE ENTRIES
+// ═══════════════════════════════════════
+function addMissedDateEntry() {
+  if (!state.missedDateEntries) state.missedDateEntries = [];
+  state.missedDateEntries.push({ date: '', hours: '' });
+  render();
+}
+function removeMissedDateEntry(idx) {
+  if (state.missedDateEntries && state.missedDateEntries.length > 1) {
+    state.missedDateEntries.splice(idx, 1);
+    render();
+  }
+}
+function updateMissedDateEntry(idx, field, value) {
+  if (state.missedDateEntries && state.missedDateEntries[idx]) {
+    state.missedDateEntries[idx][field] = value;
+  }
+}
+function _renderMissedDateEntries() {
+  if (!state.missedDateEntries || state.missedDateEntries.length === 0) {
+    state.missedDateEntries = [{ date: '', hours: '' }];
+  }
+  var totalHours = state.missedDateEntries.reduce(function(sum, e) { return sum + (parseFloat(e.hours) || 0); }, 0);
+  var html = state.missedDateEntries.map(function(entry, i) {
+    return '<div style="display:flex;align-items:flex-end;gap:10px;margin-bottom:10px">' +
+      '<div class="form-group" style="flex:1;margin-bottom:0"><' + (i === 0 ? 'label>Date missed</label>' : 'label style="visibility:hidden">Date</label>') +
+        '<input type="date" value="' + esc(entry.date) + '" onchange="updateMissedDateEntry(' + i + ',\'date\',this.value)">' +
+      '</div>' +
+      '<div class="form-group" style="width:100px;margin-bottom:0"><' + (i === 0 ? 'label>Hours</label>' : 'label style="visibility:hidden">Hours</label>') +
+        '<input type="number" value="' + esc(entry.hours) + '" onchange="updateMissedDateEntry(' + i + ',\'hours\',this.value)" placeholder="e.g. 8" min="0" max="24">' +
+      '</div>' +
+      (state.missedDateEntries.length > 1
+        ? '<button onclick="removeMissedDateEntry(' + i + ')" style="width:32px;height:36px;border:1px solid #e2e2e5;border-radius:6px;background:#fff;color:#dc2626;cursor:pointer;display:flex;align-items:center;justify-content:center;flex-shrink:0;' + (i === 0 ? 'margin-bottom:0' : '') + '" title="Remove"><svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M3 7h8" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></button>'
+        : '') +
+    '</div>';
+  }).join('');
+  html += '<button onclick="addMissedDateEntry()" style="display:flex;align-items:center;gap:6px;padding:8px 14px;border:2px dashed #d0d0d5;border-radius:8px;background:none;font-size:13px;font-weight:600;color:#62626e;cursor:pointer;font-family:inherit;transition:0.15s;width:100%">' +
+    '<svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M7 2v10M2 7h10" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg> Add another date</button>';
+  if (totalHours > 0) {
+    html += '<div style="margin-top:10px;text-align:right;font-size:13px;color:#62626e"><span style="font-weight:600;color:#0f0f14">' + totalHours + '</span> total hours missed</div>';
+  }
+  return html;
 }
 
 // ═══════════════════════════════════════
@@ -10164,6 +10625,18 @@ function removeRotationWeek(idx) {
 
 // ═══════════════════════════════════════
 // NAVIGATION
+function addScheduleWeek() {
+  if (!state.extraWeeks) state.extraWeeks = [];
+  state.extraWeeks.push({ sun: '0', mon: '8', tue: '8', wed: '8', thu: '8', fri: '8', sat: '0' });
+  render();
+}
+function removeScheduleWeek(idx) {
+  if (state.extraWeeks && state.extraWeeks.length > 0) {
+    state.extraWeeks.splice(idx, 1);
+    render();
+  }
+}
+
 // ═══════════════════════════════════════
 function goNext() {
   const steps = getVisibleSteps();
@@ -13313,7 +13786,7 @@ function viRenderType() {
     { val: 'intermittent', icon: '<svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>', title: 'Intermittent', tip: "I\u2019ll need time off here and there \u2014 like for appointments or flare-ups." },
     { val: 'reduced', icon: '<svg width="22" height="22" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="1" fill="currentColor"/><circle cx="19" cy="12" r="1" fill="currentColor"/><circle cx="5" cy="12" r="1" fill="currentColor"/></svg>', title: 'Reduced Schedule', tip: "I\u2019ll keep working, but with fewer hours or days." }
   ];
-  var html = '<h2>How will you take your time off?</h2>' +
+  var html = '<h2>How will you take your absence?</h2>' +
     '<p class="vi-subtitle">This helps us figure out which benefits and protections apply. Pick the option that fits best.</p>' +
     '<div class="vi-info-box" style="margin-bottom:16px">' +
       '<div class="vi-info-bar"><svg width="20" height="20" viewBox="0 0 20 20" fill="none"><circle cx="10" cy="10" r="8" stroke="#fff" stroke-width="1.5"/><path d="M10 9v4" stroke="#fff" stroke-width="1.5" stroke-linecap="round"/><circle cx="10" cy="6.5" r="0.9" fill="#fff"/></svg></div>' +
@@ -13337,9 +13810,42 @@ function viRenderDates() {
   var subtitleText = viState.leaveType === 'intermittent'
     ? 'Enter the first date you need (or needed) time off for this reason.'
     : 'If you\u2019re not sure of the exact date yet, give us your best estimate. We can adjust later.';
+
+  // Check for existing similar leave (only when toggled from Scenarios toolbar)
+  var similarLeave = _showExistingLeaveCard ? _findSimilarActiveLeave() : null;
+  var existingCard = '';
+  if (similarLeave) {
+    var statusColors = { pending: '#f59e0b', approved: '#10b981', active: '#10b981', in_review: '#f59e0b' };
+    var statusColor = statusColors[similarLeave.status] || '#737373';
+    var statusText = _statusLabel(similarLeave.status, similarLeave);
+    existingCard =
+      '<div style="margin-top:16px;background:#fffbeb;border:1px solid #fde68a;border-radius:12px;padding:20px;">' +
+        '<div style="display:flex;align-items:flex-start;gap:10px;margin-bottom:16px">' +
+          '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" style="flex-shrink:0;margin-top:1px"><path d="M12 9v4M12 17h.01" stroke="#d97706" stroke-width="2" stroke-linecap="round"/><path d="M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z" stroke="#d97706" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>' +
+          '<div style="font-size:15px;font-weight:600;color:#92400e;line-height:1.4">Hey, it looks like you have a recent/active leave event. Is this situation related?</div>' +
+        '</div>' +
+        '<div style="background:#fff;border:1px solid #e5e7eb;border-radius:10px;padding:16px;margin-bottom:16px">' +
+          '<div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:12px">' +
+            '<div style="font-size:14px;font-weight:600;color:#0f0f14">' + (similarLeave.title || 'Absence') + '</div>' +
+            '<span style="font-size:11px;font-weight:700;color:' + statusColor + ';background:' + statusColor + '18;padding:3px 8px;border-radius:6px;text-transform:uppercase;letter-spacing:0.3px">' + statusText + '</span>' +
+          '</div>' +
+          '<div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;font-size:13px;color:#525252">' +
+            '<div><span style="color:#737373">Leave type:</span> <strong style="color:#0f0f14">' + (similarLeave.benefits || '\u2014') + '</strong></div>' +
+            '<div><span style="color:#737373">Case:</span> <strong style="color:#0f0f14">' + similarLeave.id + '</strong></div>' +
+            '<div><span style="color:#737373">Start date:</span> <strong style="color:#0f0f14">' + _formatDateShort(similarLeave.startDate) + '</strong></div>' +
+            '<div><span style="color:#737373">Expected return:</span> <strong style="color:#0f0f14">' + _formatDateShort(similarLeave.endDate) + '</strong></div>' +
+          '</div>' +
+        '</div>' +
+        '<div class="vi-radio-group stacked" style="margin-top:0">' +
+          viRadio('relatedToExisting', 'yes', 'Yes, this is related') +
+          viRadio('relatedToExisting', 'no', 'No, this is a new situation') +
+        '</div>' +
+      '</div>';
+  }
+
   return '<h2>When does your absence start?</h2>' +
     '<p class="vi-subtitle">' + subtitleText + '</p>' +
-    '<div style="background:#fbfbfb;border-radius:12px;padding:24px;margin-bottom:16px">' +
+    '<div style="background:#fbfbfb;border-radius:12px;padding:24px">' +
       '<div class="vi-form-row cols-2">' +
         '<div class="vi-form-group" style="margin-bottom:0">' +
           '<label>Anticipated Start Date <span class="vi-req">*</span></label>' +
@@ -13352,14 +13858,7 @@ function viRenderDates() {
         '</div>' +
       '</div>' +
     '</div>' +
-    '<div style="background:#fbfbfb;border-radius:12px;padding:24px">' +
-      '<div class="vi-section-title" style="margin-bottom:12px">Is this related to an existing or previously approved leave of absence?</div>' +
-      '<p style="font-size:13px;color:#838383;margin:0 0 16px 0">For example, if you left work early or missed a day before formally requesting an absence.</p>' +
-      '<div class="vi-radio-group stacked" style="margin-top:0">' +
-        viRadio('previouslyMissed', 'yes', 'Yes') +
-        viRadio('previouslyMissed', 'no', 'No') +
-      '</div>' +
-    '</div>';
+    existingCard;
 }
 
 function viRadio(field, val, label) {
@@ -13371,8 +13870,8 @@ function viRadio(field, val, label) {
 function viRenderSchedule() {
   var days = ['SUN', 'MON', 'TUE', 'WED', 'THUR', 'FRI', 'SAT'];
   var total = viState.hours.reduce(function(a, b) { return a + b; }, 0);
-  var html = '<h2>What does your typical week look like?</h2>' +
-    '<p class="vi-subtitle">This helps us calculate your absence accurately. Most full-time employees work about 40 hours a week.</p>' +
+  var html = '<h2>What does your typical work week look like?</h2>' +
+    '<p class="vi-subtitle">This should reflect your usual work schedule before your absence.</p>' +
     '<div style="background:#fbfbfb;border-radius:12px;padding:24px;margin-bottom:16px">' +
       '<div class="vi-section-title">Weekly Hours</div>' +
       '<p style="font-size:13px;color:#838383;margin:0 0 16px 0">Click each day to enter hours. Default is 8 hours/day for weekdays.</p>' +
@@ -18687,6 +19186,8 @@ function expCapture() {
   <div class="variant-panel-group">
     <div class="variant-panel-label">Flow</div>
     <button class="variant-item" onclick="switchTab('flow');toggleVariantPanel()"><span class="variant-dot" style="background:#6366f1"></span>Absence Planning</button>
+    <button class="variant-item" id="eluCardToggle" onclick="toggleExistingLeaveCard()"><span class="variant-dot" style="background:#f59e0b"></span>Show Existing Leave Card</button>
+    <button class="variant-item" onclick="launchExistingLeaveUpdate();toggleVariantPanel()"><span class="variant-dot" style="background:#f59e0b"></span>Existing Leave Update Flow</button>
   </div>
 </div>
 <!-- Export Panel -->
