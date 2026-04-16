@@ -1,6 +1,9 @@
 import { NavLink, Navigate, Route, Routes, useLocation } from 'react-router-dom';
 import OverviewReactPage from './features/overview/OverviewReactPage';
+import PlanAbsenceReactPage from './features/plan-absence/PlanAbsenceReactPage';
 import RequestLeaveReactPage from './features/request-leave/RequestLeaveReactPage';
+import AbsenceDetailsReactPage from './features/absence-details/AbsenceDetailsReactPage';
+import AbsenceHistoryReactPage from './features/absence-history/AbsenceHistoryReactPage';
 
 function FrameView({ eyebrow, title, description, src, standaloneLabel }) {
   return (
@@ -40,10 +43,10 @@ function Home() {
             <span className="route-card-meta">Structured React files with content preserved from the original overview</span>
           </NavLink>
 
-          <NavLink className="route-card" to="/request-leave-react">
-            <span className="route-card-label">Request Absence</span>
+          <NavLink className="route-card" to="/plan-absence">
+            <span className="route-card-label">Plan Absence</span>
             <strong className="route-card-title">React Flow</strong>
-            <span className="route-card-meta">React version of the original request-leave wizard and welcome state</span>
+            <span className="route-card-meta">React version of the original plan-absence wizard and welcome state</span>
           </NavLink>
 
           <NavLink className="route-card" to="/wizard">
@@ -80,8 +83,8 @@ function AppNav() {
           <NavLink className="app-nav-link" to="/overview-react">
             Overview React
           </NavLink>
-          <NavLink className="app-nav-link" to="/request-leave-react">
-            Request React
+          <NavLink className="app-nav-link" to="/plan-absence">
+            Plan for Absence
           </NavLink>
           <NavLink className="app-nav-link" to="/coverage">
             Coverage
@@ -94,13 +97,21 @@ function AppNav() {
 
 export default function App() {
   const location = useLocation();
-  const hideAppNav = location.pathname === '/overview-react' || location.pathname === '/request-leave-react';
+  const hideAppNav =
+    location.pathname === '/overview-react' ||
+    location.pathname === '/absence-history' ||
+    location.pathname === '/request-leave-react' ||
+    location.pathname === '/plan-absence' ||
+    location.pathname.startsWith('/absence-details/');
   return (
     <>
       {!hideAppNav && <AppNav />}
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/overview-react" element={<OverviewReactPage />} />
+        <Route path="/absence-history" element={<AbsenceHistoryReactPage />} />
+        <Route path="/absence-details/:caseId" element={<AbsenceDetailsReactPage />} />
+        <Route path="/plan-absence" element={<PlanAbsenceReactPage />} />
         <Route path="/request-leave-react" element={<RequestLeaveReactPage />} />
         <Route
           path="/wizard"
