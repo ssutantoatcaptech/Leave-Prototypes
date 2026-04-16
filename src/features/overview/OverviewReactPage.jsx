@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom';
 import { overviewActiveAbsences } from '../../data/overviewData';
 import './overview-react.css';
 
@@ -69,7 +70,7 @@ function ActionCards() {
         </div>
         <svg width="8" height="14" viewBox="0 0 8 14" fill="none" style={{flexShrink:0,color:'#a3a3a3'}}><path d="M1.5 1L6.5 7l-5 6" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/></svg>
       </div>
-      <div className="ov-action-card">
+      <Link className="ov-action-card" to="/request-leave-react" style={{textDecoration:'none'}}>
         <div className="ov-action-icon dark">
           <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M10 2H4.5A1.5 1.5 0 003 3.5v9A1.5 1.5 0 004.5 14h7a1.5 1.5 0 001.5-1.5V5z" stroke="#fff" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/><path d="M10 2v3h3M6 9h4M6 11.5h2.5" stroke="#fff" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/></svg>
         </div>
@@ -78,7 +79,7 @@ function ActionCards() {
           <p>Ready to submit? File your absence request now</p>
         </div>
         <svg width="8" height="14" viewBox="0 0 8 14" fill="none" style={{flexShrink:0,color:'#a3a3a3'}}><path d="M1.5 1L6.5 7l-5 6" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/></svg>
-      </div>
+      </Link>
     </div>
   );
 }

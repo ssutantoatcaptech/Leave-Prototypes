@@ -1,5 +1,6 @@
 import { NavLink, Navigate, Route, Routes, useLocation } from 'react-router-dom';
 import OverviewReactPage from './features/overview/OverviewReactPage';
+import RequestLeaveReactPage from './features/request-leave/RequestLeaveReactPage';
 
 function FrameView({ eyebrow, title, description, src, standaloneLabel }) {
   return (
@@ -39,6 +40,12 @@ function Home() {
             <span className="route-card-meta">Structured React files with content preserved from the original overview</span>
           </NavLink>
 
+          <NavLink className="route-card" to="/request-leave-react">
+            <span className="route-card-label">Request Absence</span>
+            <strong className="route-card-title">React Flow</strong>
+            <span className="route-card-meta">React version of the original request-leave wizard and welcome state</span>
+          </NavLink>
+
           <NavLink className="route-card" to="/wizard">
             <span className="route-card-label">Leave Intake</span>
             <strong className="route-card-title">Wizard Flow</strong>
@@ -73,6 +80,9 @@ function AppNav() {
           <NavLink className="app-nav-link" to="/overview-react">
             Overview React
           </NavLink>
+          <NavLink className="app-nav-link" to="/request-leave-react">
+            Request React
+          </NavLink>
           <NavLink className="app-nav-link" to="/coverage">
             Coverage
           </NavLink>
@@ -84,13 +94,14 @@ function AppNav() {
 
 export default function App() {
   const location = useLocation();
-  const hideAppNav = location.pathname === '/overview-react';
+  const hideAppNav = location.pathname === '/overview-react' || location.pathname === '/request-leave-react';
   return (
     <>
       {!hideAppNav && <AppNav />}
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/overview-react" element={<OverviewReactPage />} />
+        <Route path="/request-leave-react" element={<RequestLeaveReactPage />} />
         <Route
           path="/wizard"
           element={
