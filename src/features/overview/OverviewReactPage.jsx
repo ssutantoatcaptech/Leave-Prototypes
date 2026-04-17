@@ -60,7 +60,7 @@ function SiteNav() {
 function ActionCards() {
   return (
     <div className="ov-action-cards">
-      <div className="ov-action-card">
+      <Link className="ov-action-card" to="/plan-absence" style={{textDecoration:'none'}}>
         <div className="ov-action-icon dark">
           <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><rect x="2" y="3" width="12" height="11" rx="1.5" stroke="#fff" strokeWidth="1.5"/><path d="M2 6.5h12M5.5 1.5v3M10.5 1.5v3" stroke="#fff" strokeWidth="1.5" strokeLinecap="round"/></svg>
         </div>
@@ -69,7 +69,7 @@ function ActionCards() {
           <p>Explore your coverage and plan your time off before submitting</p>
         </div>
         <svg width="8" height="14" viewBox="0 0 8 14" fill="none" style={{flexShrink:0,color:'#a3a3a3'}}><path d="M1.5 1L6.5 7l-5 6" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/></svg>
-      </div>
+      </Link>
       <Link className="ov-action-card" to="/request-leave-react" style={{textDecoration:'none'}}>
         <div className="ov-action-icon dark">
           <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M10 2H4.5A1.5 1.5 0 003 3.5v9A1.5 1.5 0 004.5 14h7a1.5 1.5 0 001.5-1.5V5z" stroke="#fff" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/><path d="M10 2v3h3M6 9h4M6 11.5h2.5" stroke="#fff" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/></svg>
@@ -89,7 +89,7 @@ function AbsenceCard({ absence }) {
   const statusClass = absence.status === 'APPROVED' ? 'st-approved' : 'st-pending';
   const isReduced = Boolean(absence.schedule);
   return (
-    <div className="ov-active-card">
+    <Link className="ov-active-card" to={`/absence-details/${absence.id}`} style={{ textDecoration: 'none', color: 'inherit' }}>
       <div className="ov-active-card-body">
         <div className="ov-active-card-header">
           <div className="ov-active-card-icon" style={{background:icon.bg}}>{icon.svg}</div>
@@ -114,12 +114,12 @@ function AbsenceCard({ absence }) {
               {absence.documentsRequired}
             </div>
           )}
-          <button className="ov-active-card-btn" style={{marginLeft:'auto'}} type="button">
+          <span className="ov-active-card-btn" style={{marginLeft:'auto'}}>
             View Details <svg width="8" height="12" viewBox="0 0 8 12" fill="none"><path d="M1.5 1L6.5 6l-5 5" stroke="#3d3d47" strokeWidth="1.2" strokeLinecap="round" strokeLinejoin="round"/></svg>
-          </button>
+          </span>
         </div>
       </div>
-    </div>
+    </Link>
   );
 }
 
@@ -128,7 +128,7 @@ function ActiveAbsences() {
     <div>
       <div style={{display:'flex',justifyContent:'space-between',alignItems:'center',marginBottom:'16px'}}>
         <h3 style={{margin:0,fontSize:'18px',fontWeight:600,color:'#0f0f14'}}>Active Absences</h3>
-        <button type="button" style={{padding:'5px 14px',fontSize:'12px',fontWeight:600,fontFamily:'inherit',color:'#3d3d47',background:'#fff',border:'1px solid #d0d0d5',borderRadius:'6px',cursor:'pointer'}}>View Absence History</button>
+        <Link to="/absence-history" style={{padding:'5px 14px',fontSize:'12px',fontWeight:600,fontFamily:'inherit',color:'#3d3d47',background:'#fff',border:'1px solid #d0d0d5',borderRadius:'6px',cursor:'pointer',textDecoration:'none'}}>View Absence History</Link>
       </div>
       <div className="ov-active-container-cards">
         {overviewActiveAbsences.map((a) => <AbsenceCard key={a.id} absence={a}/>)}
