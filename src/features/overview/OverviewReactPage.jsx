@@ -1,4 +1,5 @@
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
+import { useMemo, useState } from 'react';
 import { overviewActiveAbsences } from '../../data/overviewData';
 import './overview-react.css';
 
@@ -15,9 +16,152 @@ const ABSENCE_ICONS = {
   personal:  { bg: '#f3f4f6', svg: <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><circle cx="8" cy="6" r="3" stroke="#6b7280" strokeWidth="1.2"/><path d="M3 14c0-2.76 2.24-5 5-5s5 2.24 5 5" stroke="#6b7280" strokeWidth="1.2" strokeLinecap="round"/></svg> },
 };
 
+function SiteFooter() {
+  return (
+    <footer className="site-footer">
+      <div className="site-footer-inner">
+        <div className="site-footer-grid">
+          <div className="site-footer-col">
+            <h4>Resources</h4>
+            <a>Absence Policies</a><a>FAQs</a><a>Forms &amp; Documents</a>
+          </div>
+          <div className="site-footer-col">
+            <h4>Support</h4>
+            <a>Contact HR</a><a>Help Center</a><a>Report an Issue</a>
+          </div>
+          <div className="site-footer-col">
+            <h4>Legal</h4>
+            <a>Privacy Policy</a><a>Terms of Use</a><a>Accessibility</a>
+          </div>
+          <div className="site-footer-col">
+            <h4>Contact</h4>
+            <a>Phone: 1-800-HR-HELP</a><a>Email: hrbenefits@company.com</a><a>Hours: Mon–Fri, 8am–6pm EST</a>
+          </div>
+        </div>
+        <div className="site-footer-bottom">
+          <span>&copy; 2026 HR Benefits Portal. All rights reserved.</span>
+          <div className="site-footer-social">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M16 8a6 6 0 016 6v7h-4v-7a2 2 0 00-4 0v7h-4v-7a6 6 0 016-6zM2 9h4v12H2zM4 6a2 2 0 100-4 2 2 0 000 4z" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/></svg>
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M23 3a10.9 10.9 0 01-3.14 1.53A4.48 4.48 0 0012 7.5v1A10.66 10.66 0 013 4s-4 9 5 13a11.64 11.64 0 01-7 2c9 5 20 0 20-11.5a4.5 4.5 0 00-.08-.83A7.72 7.72 0 0023 3z" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/></svg>
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M12 2C6.48 2 2 6.48 2 12c0 4.42 2.87 8.17 6.84 9.5.5.08.66-.23.66-.5v-1.69C6.73 19.91 6.14 18 6.14 18c-.46-1.16-1.11-1.47-1.11-1.47-.91-.62.07-.6.07-.6 1 .07 1.53 1.03 1.53 1.03.87 1.52 2.34 1.07 2.91.83.09-.65.35-1.09.63-1.34-2.22-.25-4.55-1.11-4.55-4.92 0-1.11.38-2 1.03-2.71-.1-.25-.45-1.29.1-2.64 0 0 .84-.27 2.75 1.02.8-.22 1.65-.33 2.5-.33.85 0 1.7.12 2.5.33 1.91-1.29 2.75-1.02 2.75-1.02.55 1.35.2 2.39.1 2.64.65.71 1.03 1.6 1.03 2.71 0 3.82-2.34 4.66-4.57 4.91.36.31.69.92.69 1.85V21c0 .27.16.59.67.5C19.14 20.16 22 16.42 22 12A10 10 0 0012 2z" stroke="currentColor" strokeWidth="1.5"/></svg>
+          </div>
+        </div>
+      </div>
+    </footer>
+  );
+}
+
 function SiteNav() {
+  const location = useLocation();
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [expandedPrimary, setExpandedPrimary] = useState('absence');
+  const mobilePrimaryItems = [
+    { id: 'dashboard', label: 'Dashboard' },
+    { id: 'coverage', label: 'Coverage' },
+    { id: 'claims', label: 'Claims' },
+    { id: 'absence', label: 'Absence', active: true },
+    { id: 'support', label: 'Support' },
+  ];
+  const mobileSubNavItems = [
+    { id: 'overview', label: 'Overview', to: '/overview-react' },
+    { id: 'plan', label: 'Plan for Absence', to: '/plan-absence' },
+    { id: 'request', label: 'Request for Absence', to: '/wizard' },
+    { id: 'history', label: 'My Absences', to: '/absence-history' },
+  ];
+  const mobileUtilityItems = [
+    'ID Card',
+    'Messages',
+    'Notifications',
+    'Profile',
+  ];
+  const activeSubNavId = location.pathname === '/plan-absence'
+    ? 'plan'
+    : location.pathname === '/wizard' || location.pathname === '/request-leave-react'
+      ? 'request'
+      : location.pathname === '/absence-history' || location.pathname.startsWith('/absence-details/')
+        ? 'history'
+        : 'overview';
+
   return (
     <div className="top-nav">
+      <div className="nav-mobile-bar" role="navigation" aria-label="Mobile header">
+        <button className="nav-mobile-icon-btn" type="button" aria-label="Open menu" onClick={() => setMobileMenuOpen(true)}>
+          <svg width="30" height="24" viewBox="0 0 30 24" fill="none"><path d="M3 3h24M3 12h24M3 21h24" stroke="currentColor" strokeWidth="2" strokeLinecap="round"/></svg>
+        </button>
+        <button className="nav-mobile-id" type="button" aria-label="ID Cards">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none"><rect x="2" y="5" width="20" height="14" rx="2" stroke="currentColor" strokeWidth="1.8"/><circle cx="8" cy="12" r="2" stroke="currentColor" strokeWidth="1.6"/><path d="M12.5 10h5M12.5 13h5" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round"/></svg>
+          <span>ID Cards</span>
+        </button>
+        <button className="nav-mobile-icon-btn nav-mobile-bell" type="button" aria-label="Notifications">
+          <svg width="26" height="26" viewBox="0 0 24 24" fill="none"><path d="M12 3C8.69 3 6 5.69 6 9v4l-2 3h16l-2-3V9c0-3.31-2.69-6-6-6z" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"/><path d="M10 21a2 2 0 004 0" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round"/></svg>
+          <span className="nav-bell-dot"/>
+        </button>
+        <button className="nav-mobile-avatar" type="button" aria-label="Profile">SJ</button>
+      </div>
+
+      <div className={"nav-mobile-drawer-overlay " + (mobileMenuOpen ? 'open' : '')} onClick={() => setMobileMenuOpen(false)}>
+        <aside className="nav-mobile-drawer" aria-label="Mobile menu" onClick={(e) => e.stopPropagation()}>
+          <div className="nav-mobile-drawer-top">
+            <div className="nav-mobile-drawer-heading">
+              <span className="nav-mobile-kicker">Low-fidelity</span>
+              <strong>Mobile menu</strong>
+            </div>
+            <button className="nav-mobile-close" type="button" aria-label="Close menu" onClick={() => setMobileMenuOpen(false)}>
+              Close
+            </button>
+          </div>
+
+          <nav className="nav-mobile-primary" aria-label="Primary navigation">
+            {mobilePrimaryItems.map((item) => {
+              const isExpandable = item.id === 'absence';
+              const isExpanded = expandedPrimary === item.id;
+
+              return (
+                <div key={item.id} className={"nav-mobile-accordion" + (item.active ? ' active' : '')}>
+                  <button
+                    type="button"
+                    className={"nav-mobile-accordion-trigger" + (item.active ? ' active' : '')}
+                    aria-expanded={isExpandable ? isExpanded : undefined}
+                    onClick={() => {
+                      if (!isExpandable) return;
+                      setExpandedPrimary(isExpanded ? '' : item.id);
+                    }}
+                  >
+                    <span className="nav-mobile-item-title">{item.label}</span>
+                    <span className="nav-mobile-accordion-icon" aria-hidden="true">{isExpandable ? (isExpanded ? '−' : '+') : '--'}</span>
+                  </button>
+                  {isExpandable && isExpanded && (
+                    <div className="nav-mobile-subnav" aria-label="Absence sub-navigation">
+                      {mobileSubNavItems.map((subNavItem) => (
+                        <Link
+                          key={subNavItem.id}
+                          className={"nav-mobile-subnav-link" + (activeSubNavId === subNavItem.id ? ' active' : '')}
+                          to={subNavItem.to}
+                          onClick={() => setMobileMenuOpen(false)}
+                        >
+                          <span>{subNavItem.label}</span>
+                          <span className="nav-mobile-subnav-marker" aria-hidden="true">{activeSubNavId === subNavItem.id ? 'Current' : '--'}</span>
+                        </Link>
+                      ))}
+                    </div>
+                  )}
+                </div>
+              );
+            })}
+          </nav>
+
+          <div className="nav-mobile-utility-panel" aria-label="Utility actions">
+            <div className="nav-mobile-section-title">Utilities</div>
+            {mobileUtilityItems.map((item) => (
+              <button key={item} type="button">
+                <span className="nav-mobile-item-title">{item}</span>
+                <span className="nav-mobile-subnav-marker" aria-hidden="true">--</span>
+              </button>
+            ))}
+          </div>
+        </aside>
+      </div>
+
       <div className="nav-main">
         <div className="nav-main-left">
           <div className="nav-brand">my<span>Mutual</span></div>
@@ -49,9 +193,10 @@ function SiteNav() {
         </div>
       </div>
       <div className="nav-secondary">
-        <button className="nav-tab active" type="button">Overview</button>
-        <button className="nav-tab" type="button">Plan &amp; Request Absence</button>
-        <button className="nav-tab" type="button">My Absences</button>
+        <Link className="nav-tab active" to="/overview-react">Overview</Link>
+        <Link className="nav-tab" to="/plan-absence">Plan for Absence</Link>
+        <Link className="nav-tab" to="/wizard">Request for Absence</Link>
+        <Link className="nav-tab" to="/absence-history">My Absences</Link>
       </div>
     </div>
   );
@@ -98,14 +243,22 @@ function AbsenceCard({ absence }) {
         </div>
         <div className="ov-active-card-desc">Case #{absence.id} &middot; {absence.frequency} Absence{absence.benefits ? " \u00b7 " + absence.benefits : ""}</div>
         <div className="ov-active-card-fields">
-          <div className="ov-active-card-flabel">Start Date</div>
-          <div className="ov-active-card-flabel">End Date</div>
-          <div className="ov-active-card-flabel">{isReduced ? 'Schedule' : 'Return to Work'}</div>
-          <div className="ov-active-card-flabel">Duration</div>
-          <div className="ov-active-card-fvalue">{formatDate(absence.startDate)}</div>
-          <div className="ov-active-card-fvalue">{formatDate(absence.endDate)}</div>
-          <div className="ov-active-card-fvalue">{isReduced ? absence.schedule : formatDate(absence.returnDate)}</div>
-          <div className="ov-active-card-fvalue">{absence.duration}</div>
+          <div className="ov-active-card-field">
+            <div className="ov-active-card-flabel">Start Date</div>
+            <div className="ov-active-card-fvalue">{formatDate(absence.startDate)}</div>
+          </div>
+          <div className="ov-active-card-field">
+            <div className="ov-active-card-flabel">End Date</div>
+            <div className="ov-active-card-fvalue">{formatDate(absence.endDate)}</div>
+          </div>
+          <div className="ov-active-card-field">
+            <div className="ov-active-card-flabel">{isReduced ? 'Schedule' : 'Return to Work'}</div>
+            <div className="ov-active-card-fvalue">{isReduced ? absence.schedule : formatDate(absence.returnDate)}</div>
+          </div>
+          <div className="ov-active-card-field">
+            <div className="ov-active-card-flabel">Duration</div>
+            <div className="ov-active-card-fvalue">{absence.duration}</div>
+          </div>
         </div>
         <div className="ov-active-card-footer">
           {absence.documentsRequired && (
@@ -126,9 +279,9 @@ function AbsenceCard({ absence }) {
 function ActiveAbsences() {
   return (
     <div>
-      <div style={{display:'flex',justifyContent:'space-between',alignItems:'center',marginBottom:'16px'}}>
-        <h3 style={{margin:0,fontSize:'18px',fontWeight:600,color:'#0f0f14'}}>Active Absences</h3>
-        <Link to="/absence-history" style={{padding:'5px 14px',fontSize:'12px',fontWeight:600,fontFamily:'inherit',color:'#3d3d47',background:'#fff',border:'1px solid #d0d0d5',borderRadius:'6px',cursor:'pointer',textDecoration:'none'}}>View Absence History</Link>
+      <div className="ov-active-section-header">
+        <h3>Active Absences</h3>
+        <Link className="ov-view-history-btn" to="/absence-history">View Absence History</Link>
       </div>
       <div className="ov-active-container-cards">
         {overviewActiveAbsences.map((a) => <AbsenceCard key={a.id} absence={a}/>)}
@@ -171,6 +324,39 @@ function LearnAboutOptions() {
   );
 }
 
+function FAQs() {
+  const [openId, setOpenId] = useState(null);
+  const items = [
+    { id: 1, question: 'How do I request a leave of absence?', answer: 'You can start a new request by clicking "Request Absence" on this page. The wizard will guide you through selecting your leave type, dates, and required documentation.' },
+    { id: 2, question: 'What types of leave are available?', answer: 'Available leave types include Federal Job Protection (FMLA), State Leave/Disability, and Company-Sponsored Leave. Each has different eligibility requirements and benefits.' },
+    { id: 3, question: 'How long does approval take?', answer: 'Most leave requests are reviewed within 3–5 business days. Complex cases or those requiring additional documentation may take longer.' },
+    { id: 4, question: 'Can I extend an existing leave?', answer: 'Yes. Go to your active absence details and select "Request Extension." You may need to provide updated documentation from your healthcare provider.' },
+  ];
+  return (
+    <div className="ov-faq-section">
+      <div className="ov-faq-card">
+        <h3 className="ov-faq-title">Frequently Asked Questions</h3>
+        <div className="ov-faq-list">
+          {items.map(item => (
+            <div key={item.id} className={"ov-faq-item" + (openId === item.id ? ' open' : '')}>
+              <button className="ov-faq-question" type="button" onClick={() => setOpenId(openId === item.id ? null : item.id)}>
+                <span>{item.question}</span>
+                <svg className="ov-faq-chevron" width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M3 4.5L6 7.5L9 4.5" stroke="currentColor" strokeWidth="1.3" strokeLinecap="round" strokeLinejoin="round"/></svg>
+              </button>
+              {openId === item.id && <div className="ov-faq-answer">{item.answer}</div>}
+            </div>
+          ))}
+        </div>
+        <div className="ov-faq-footer">
+          <button className="ov-faq-view-more" type="button">
+            View all FAQs <svg width="10" height="10" viewBox="0 0 10 10" fill="none"><path d="M1 5h8M6 2l3 3-3 3" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round" strokeLinejoin="round"/></svg>
+          </button>
+        </div>
+      </div>
+    </div>
+  );
+}
+
 function QuickActions() {
   const items = [
     { id:'saved', label:'Saved absences', svg:<svg width="16" height="16" viewBox="0 0 16 16" fill="none" style={{flexShrink:0}}><path d="M2 4a2 2 0 012-2h5l3 3v7a2 2 0 01-2 2H4a2 2 0 01-2-2V4z" stroke="#3d3d47" strokeWidth="1.2"/><path d="M5 9h6M5 11.5h4" stroke="#3d3d47" strokeWidth="1.1" strokeLinecap="round"/></svg> },
@@ -179,13 +365,13 @@ function QuickActions() {
     { id:'policy', label:'Absence Policy Guide', svg:<svg width="16" height="16" viewBox="0 0 16 16" fill="none" style={{flexShrink:0}}><path d="M2 4a2 2 0 012-2h8a2 2 0 012 2v8a2 2 0 01-2 2H4a2 2 0 01-2-2V4z" stroke="#3d3d47" strokeWidth="1.2"/><path d="M5 7h6M5 10h4" stroke="#3d3d47" strokeWidth="1.1" strokeLinecap="round"/></svg> },
   ];
   return (
-    <div className="ov-resources" style={{background:'#fff',border:'1px solid #e2e2e5',boxShadow:'0 1px 2px rgba(0,0,0,0.05)'}}>
+    <div className="ov-resources">
       <div className="ov-sidebar-label">Quick Actions</div>
-      <div style={{display:'flex',flexDirection:'column',gap:'4px'}}>
+      <div className="ov-resource-list">
         {items.map(item => (
-          <div key={item.id} className="ov-resource-item" style={{padding:'10px 12px'}}>
+          <div key={item.id} className="ov-resource-item">
             {item.svg}
-            <div className="ov-resource-text"><div className="title" style={{fontSize:'14px'}}>{item.label}</div></div>
+            <div className="ov-resource-text"><div className="title">{item.label}</div></div>
             <svg width="8" height="12" viewBox="0 0 8 12" fill="none"><path d="M1.5 1L6.5 6l-5 5" stroke="#a3a3a3" strokeWidth="1.2" strokeLinecap="round" strokeLinejoin="round"/></svg>
           </div>
         ))}
@@ -195,24 +381,56 @@ function QuickActions() {
 }
 
 export default function OverviewReactPage() {
+  const location = useLocation();
+  const forcedView = useMemo(() => {
+    const queryValue = new URLSearchParams(location.search).get('view');
+    const normalized = String(queryValue || '').toLowerCase();
+    if (normalized === 'mobile') return 'mobile';
+    if (normalized === 'tablet') return 'tablet';
+    return '';
+  }, [location.search]);
+
+  const forcedWidth = useMemo(() => {
+    const widthValue = new URLSearchParams(location.search).get('width');
+    const parsed = Number.parseInt(String(widthValue || ''), 10);
+    if (!Number.isFinite(parsed)) return null;
+    if (parsed < 280 || parsed > 1024) return null;
+    return parsed;
+  }, [location.search]);
+
+  const pageClassName = [
+    'ovx-page-shell',
+    forcedView === 'mobile' ? 'ovx-force-mobile' : '',
+    forcedView === 'tablet' ? 'ovx-force-tablet' : '',
+    forcedView === 'mobile' && forcedWidth ? 'ovx-force-width' : '',
+  ]
+    .filter(Boolean)
+    .join(' ');
+
+  const pageStyle = forcedView === 'mobile' && forcedWidth
+    ? { '--ovx-force-mobile-width': `${forcedWidth}px` }
+    : undefined;
+
   return (
-    <div style={{fontFamily:"'Source Sans Pro',system-ui,sans-serif",background:'#f5f5f7',color:'#0f0f14',WebkitFontSmoothing:'antialiased',minHeight:'100vh'}}>
+    <div className={pageClassName} style={pageStyle}>
       <SiteNav/>
       <div className="overview-page">
         <div className="overview-header">
           <h1>Plan or Request Time Off</h1>
-          <p>Understand your options or start your absence request \u2014 we\u2019ll guide you step by step.</p>
+          <p>Understand your options or start your absence request - we'll guide you step by step.</p>
         </div>
         <div className="overview-grid">
           <div className="overview-main">
             <ActionCards/>
             <ActiveAbsences/>
+            <FAQs/>
           </div>
           <div className="overview-sidebar">
             <QuickActions/>
           </div>
         </div>
       </div>
+      <SiteFooter />
     </div>
   );
 }
