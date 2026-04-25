@@ -4,6 +4,9 @@ import PlanAbsenceReactPage from './features/plan-absence/PlanAbsenceReactPage';
 import RequestLeaveReactPage from './features/request-leave/RequestLeaveReactPage';
 import AbsenceDetailsReactPage from './features/absence-details/AbsenceDetailsReactPage';
 import AbsenceHistoryReactPage from './features/absence-history/AbsenceHistoryReactPage';
+import ReturnToWorkPage from './features/return-to-work/ReturnToWorkPage';
+import MyLeavesPage from './features/my-leaves/MyLeavesPage';
+import LeaveDocumentsPage from './features/leave-documents/LeaveDocumentsPage';
 
 function FrameView({ eyebrow, title, description, src, standaloneLabel }) {
   return (
@@ -51,8 +54,8 @@ function Home() {
 
           <NavLink className="route-card" to="/wizard">
             <span className="route-card-label">Leave Intake</span>
-            <strong className="route-card-title">Wizard Flow</strong>
-            <span className="route-card-meta">Original single-file experience embedded intact</span>
+            <strong className="route-card-title">React Wizard</strong>
+            <span className="route-card-meta">Fully React leave-intake flow with no embedded HTML iframe</span>
           </NavLink>
 
           <NavLink className="route-card" to="/coverage">
@@ -78,7 +81,7 @@ function AppNav() {
             Home
           </NavLink>
           <NavLink className="app-nav-link" to="/wizard">
-            Wizard
+            Leave Wizard
           </NavLink>
           <NavLink className="app-nav-link" to="/overview-react">
             Overview React
@@ -101,30 +104,24 @@ export default function App() {
     location.pathname === '/overview-react' ||
     location.pathname === '/absence-history' ||
     location.pathname === '/request-leave-react' ||
+    location.pathname === '/wizard' ||
     location.pathname === '/plan-absence' ||
-    location.pathname.startsWith('/absence-details/');
+    location.pathname === '/my-leaves' ||
+    location.pathname === '/leave-documents' ||
+    location.pathname.startsWith('/absence-details/') ||
+    location.pathname.includes('/return-to-work');
   return (
     <>
       {!hideAppNav && <AppNav />}
       <Routes>
         <Route path="/" element={<Home />} />
+        <Route path="/overview" element={<Navigate to="/overview-react" replace />} />
         <Route path="/overview-react" element={<OverviewReactPage />} />
         <Route path="/absence-history" element={<AbsenceHistoryReactPage />} />
         <Route path="/absence-details/:caseId" element={<AbsenceDetailsReactPage />} />
         <Route path="/plan-absence" element={<PlanAbsenceReactPage />} />
         <Route path="/request-leave-react" element={<RequestLeaveReactPage />} />
-        <Route
-          path="/wizard"
-          element={
-            <FrameView
-              eyebrow="React Route"
-              title="Leave Intake Wizard"
-              description="This route preserves the full original HTML structure and interactions inside the React app."
-              src="/leave-intake-wizard.html"
-              standaloneLabel="Open standalone wizard"
-            />
-          }
-        />
+        <Route path="/wizard" element={<RequestLeaveReactPage />} />
         <Route
           path="/coverage"
           element={
@@ -137,6 +134,9 @@ export default function App() {
             />
           }
         />
+        <Route path="/my-leaves" element={<MyLeavesPage />} />
+        <Route path="/leave-documents" element={<LeaveDocumentsPage />} />
+        <Route path="/absence-details/:caseId/return-to-work" element={<ReturnToWorkPage />} />
         <Route path="*" element={<Navigate to="/" replace />} />
       </Routes>
     </>

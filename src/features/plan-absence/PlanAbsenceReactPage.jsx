@@ -1,4 +1,4 @@
-import { useMemo, useState } from 'react';
+import { useMemo, useState, useRef, useCallback } from 'react';
 import { Link } from 'react-router-dom';
 import '../overview/overview-react.css';
 import '../request-leave/request-leave-react.css';
@@ -6,7 +6,9 @@ import './plan-absence-react.css';
 
 // ─── Constants ────────────────────────────────────────────────────────────────
 
-const STEP_LABELS = ['Reason', 'Employment & Details', 'Design Your Plan'];
+const STEP_LABELS = ['Reason', 'Employment & Details', 'Design Your Plan', 'Plan Review', 'Details', 'Provider', 'Schedule', 'Verify', 'Contact', 'Review & Submit'];
+
+const US_STATES = ['AL','AK','AZ','AR','CA','CO','CT','DE','FL','GA','HI','ID','IL','IN','IA','KS','KY','LA','ME','MD','MA','MI','MN','MS','MO','MT','NE','NV','NH','NJ','NM','NY','NC','ND','OH','OK','OR','PA','RI','SC','SD','TN','TX','UT','VT','VA','WA','WV','WI','WY'];
 
 const REASON_OPTIONS = [
   {
@@ -52,7 +54,7 @@ const STATE_BENEFITS = {
   CA: { name: 'CA SDI / PFL', desc: 'California provides State Disability Insurance (SDI) at ~60-70% pay for own illness, and Paid Family Leave (PFL) at ~60-70% for family care and bonding, up to 8 weeks.', note: '60-70% pay via SDI/PFL', card: 'Up to 8 weeks paid' },
   NY: { name: 'NY DBL / PFL', desc: 'New York provides Disability Benefits Law (DBL) at 50% pay (capped) for own illness, and Paid Family Leave (PFL) at 67% pay for up to 12 weeks for family care and bonding.', note: '50-67% pay via DBL/PFL', card: 'Up to 12 weeks paid' },
   NJ: { name: 'NJ TDI / FLI', desc: 'New Jersey provides Temporary Disability Insurance (TDI) at ~85% pay for own illness, and Family Leave Insurance (FLI) at ~85% for up to 12 weeks for family care.', note: '~85% pay via TDI/FLI', card: 'Up to 12 weeks paid' },
-  WA: { name: 'WA PFML', desc: 'Washington provides Paid Family and Medical Absence (PFML) at up to 90% pay for up to 12 weeks for medical leave and 12 weeks for family leave (16 weeks combined max).', note: 'Up to 90% pay via PFML', card: 'Up to 12-16 weeks paid' },
+  WA: { name: 'WA PFML', desc: 'Washington provides Paid Family and Medical Leave (PFML) at up to 90% pay for up to 12 weeks for medical leave and 12 weeks for family leave (16 weeks combined max).', note: 'Up to 90% pay via PFML', card: 'Up to 12-16 weeks paid' },
 };
 
 const LEAVE_TYPE_HINTS = {
@@ -96,6 +98,41 @@ function snapDur(calcWeeks) {
 
 // ─── Sub-components ───────────────────────────────────────────────────────────
 
+function SiteFooter() {
+  return (
+    <footer className="site-footer">
+      <div className="site-footer-inner">
+        <div className="site-footer-grid">
+          <div className="site-footer-col">
+            <h4>Resources</h4>
+            <a>Leave Policies</a><a>FAQs</a><a>Forms &amp; Documents</a>
+          </div>
+          <div className="site-footer-col">
+            <h4>Support</h4>
+            <a>Contact HR</a><a>Help Center</a><a>Report an Issue</a>
+          </div>
+          <div className="site-footer-col">
+            <h4>Legal</h4>
+            <a>Privacy Policy</a><a>Terms of Use</a><a>Accessibility</a>
+          </div>
+          <div className="site-footer-col">
+            <h4>Contact</h4>
+            <a>Phone: 1-800-HR-HELP</a><a>Email: hrbenefits@company.com</a><a>Hours: Mon–Fri, 8am–6pm EST</a>
+          </div>
+        </div>
+        <div className="site-footer-bottom">
+          <span>&copy; 2026 HR Benefits Portal. All rights reserved.</span>
+          <div className="site-footer-social">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M16 8a6 6 0 016 6v7h-4v-7a2 2 0 00-4 0v7h-4v-7a6 6 0 016-6zM2 9h4v12H2zM4 6a2 2 0 100-4 2 2 0 000 4z" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/></svg>
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M23 3a10.9 10.9 0 01-3.14 1.53A4.48 4.48 0 0012 7.5v1A10.66 10.66 0 013 4s-4 9 5 13a11.64 11.64 0 01-7 2c9 5 20 0 20-11.5a4.5 4.5 0 00-.08-.83A7.72 7.72 0 0023 3z" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/></svg>
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M12 2C6.48 2 2 6.48 2 12c0 4.42 2.87 8.17 6.84 9.5.5.08.66-.23.66-.5v-1.69C6.73 19.91 6.14 18 6.14 18c-.46-1.16-1.11-1.47-1.11-1.47-.91-.62.07-.6.07-.6 1 .07 1.53 1.03 1.53 1.03.87 1.52 2.34 1.07 2.91.83.09-.65.35-1.09.63-1.34-2.22-.25-4.55-1.11-4.55-4.92 0-1.11.38-2 1.03-2.71-.1-.25-.45-1.29.1-2.64 0 0 .84-.27 2.75 1.02.8-.22 1.65-.33 2.5-.33.85 0 1.7.12 2.5.33 1.91-1.29 2.75-1.02 2.75-1.02.55 1.35.2 2.39.1 2.64.65.71 1.03 1.6 1.03 2.71 0 3.82-2.34 4.66-4.57 4.91.36.31.69.92.69 1.85V21c0 .27.16.59.67.5C19.14 20.16 22 16.42 22 12A10 10 0 0012 2z" stroke="currentColor" strokeWidth="1.5"/></svg>
+          </div>
+        </div>
+      </div>
+    </footer>
+  );
+}
+
 function SiteNav() {
   return (
     <div className="top-nav">
@@ -106,7 +143,7 @@ function SiteNav() {
             <button className="nav-link" type="button">Dashboard</button>
             <button className="nav-link" type="button">My Coverages <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M3 4.5L6 7.5L9 4.5" stroke="currentColor" strokeWidth="1.3" strokeLinecap="round" strokeLinejoin="round"/></svg></button>
             <button className="nav-link" type="button">Claims</button>
-            <button className="nav-link active" type="button">Absences</button>
+            <button className="nav-link active" type="button">Leaves</button>
             <button className="nav-link" type="button">Support</button>
           </nav>
         </div>
@@ -121,9 +158,11 @@ function SiteNav() {
         </div>
       </div>
       <div className="nav-secondary">
-        <Link className="nav-tab" to="/overview-react">Overview</Link>
-        <button className="nav-tab active" type="button">Plan &amp; Request Absence</button>
-        <button className="nav-tab" type="button">My Absences</button>
+        <Link className="nav-tab" to="/overview-react">My Leave</Link>
+        <Link className="nav-tab active" to="/plan-absence">Plan Leave</Link>
+        <Link className="nav-tab" to="/wizard">Request Leave</Link>
+        <Link className="nav-tab" to="/absence-history">Leave History</Link>
+        <Link className="nav-tab" to="/leave-documents">Leave Documents</Link>
       </div>
     </div>
   );
@@ -149,7 +188,9 @@ export default function PlanAbsenceReactPage() {
 
   // Step 2
   const [workState, setWorkState] = useState('MO');
+  const [homeState, setHomeState] = useState('same');
   const [hireDate, setHireDate] = useState('2019-01-15');
+  const [avgHours, setAvgHours] = useState('40');
   const [leaveStart, setLeaveStart] = useState('2026-05-01');
   const [leaveReturn, setLeaveReturn] = useState('2026-06-26');
   const [leaveType, setLeaveType] = useState('continuous');
@@ -173,17 +214,66 @@ export default function PlanAbsenceReactPage() {
   const [unpaidDuration, setUnpaidDuration] = useState(4);
 
   // Step 3 — birth toggles
-  const [preBirthOn, setPreBirthOn] = useState(false);
+  const [preBirthOn, setPreBirthOn] = useState(true);
   const [postBirthOn, setPostBirthOn] = useState(true);
   const [bondingOn, setBondingOn] = useState(true);
 
-  // Step 3 — sidebar TIME OFF TYPE
-  const [sideLeaveType, setSideLeaveType] = useState('continuous');
+  // Step 5 — Details (Diagnosis & Treatment)
+  const [diagnosis, setDiagnosis] = useState('');
+  const [firstTreatment, setFirstTreatment] = useState('');
+  const [nextAppt, setNextAppt] = useState('');
+  const [hospitalized, setHospitalized] = useState(null);
+  const [jobRelated, setJobRelated] = useState(null);
+
+  // Step 6 — Provider
+  const [facilityName, setFacilityName] = useState('');
+  const [providerName, setProviderName] = useState('');
+  const [providerSuffix, setProviderSuffix] = useState('');
+  const [providerPhone, setProviderPhone] = useState('');
+  const [providerFax, setProviderFax] = useState('');
+  const [providerEmail, setProviderEmail] = useState('');
+  const [providerStreet, setProviderStreet] = useState('');
+  const [providerCity, setProviderCity] = useState('');
+  const [providerState, setProviderState] = useState('');
+  const [providerZip, setProviderZip] = useState('');
+  const [providerAuth, setProviderAuth] = useState(true);
+
+  // Step 7 — Schedule
+  const [schedWeeks, setSchedWeeks] = useState([
+    { sun: 0, mon: 8, tue: 8, wed: 8, thu: 8, fri: 8, sat: 0 },
+  ]);
+
+  // Step 9 — Contact
+  const [contactEmail, setContactEmail] = useState('sarah.johnson@email.com');
+  const [contactPhone, setContactPhone] = useState('(402) 555-0147');
+  const [prefEmail, setPrefEmail] = useState(true);
+  const [prefPhone, setPrefPhone] = useState(false);
+  const [prefSMS, setPrefSMS] = useState(false);
+  const [tempAddr, setTempAddr] = useState(false);
+  const [tempStreet, setTempStreet] = useState('');
+  const [tempCity, setTempCity] = useState('');
+  const [tempState, setTempState] = useState('');
+  const [tempZip, setTempZip] = useState('');
+  const [tempFrom, setTempFrom] = useState('');
+  const [tempTo, setTempTo] = useState('');
 
   // Step 3 — UI state
   const [activeView, setActiveView] = useState('pay');
   const [openDetail, setOpenDetail] = useState(null);
   const [openAccordion, setOpenAccordion] = useState(null);
+
+  // Hover tooltip for timeline
+  const [hoveredRow, setHoveredRow] = useState(null);
+  const [tooltipPos, setTooltipPos] = useState({ x: 0, y: 0 });
+  const timelineRef = useRef(null);
+  const handleRowMouseMove = useCallback((e, rowId) => {
+    const rect = timelineRef.current?.getBoundingClientRect();
+    if (rect) {
+      setTooltipPos({ x: e.clientX - rect.left, y: e.clientY - rect.top });
+    }
+    setHoveredRow(rowId);
+  }, []);
+  const handleRowMouseLeave = useCallback(() => setHoveredRow(null), []);
 
   // ─── Derived ──────────────────────────────────────────────────────────────
 
@@ -275,8 +365,8 @@ export default function PlanAbsenceReactPage() {
         absenceWeeks: durWks,
         weeklyPay: 0,
         details: {
-          fmla: fmlaWks > 0 ? { title: 'FMLA Job Protection', duration: `${fmlaWks} weeks`, dates: `${fmtDate(start)} – ${fmtDate(fmlaEnd)}`, protection: { text: 'FMLA', cls: 'eligible' }, pay: { text: 'No income replacement', cls: 'unpaid' }, coveredBy: 'Family and Medical Leave Act (federal)', paidBy: 'No paid benefit — job-protected absence only' } : null,
-          unpaid: unpaidWks > 0 ? { title: 'Extended Absence (beyond FMLA)', duration: `${unpaidWks} weeks`, dates: `${fmtDate(fmlaEnd)} – ${fmtDate(totalEnd)}`, protection: { text: 'Not protected', cls: 'unpaid' }, pay: { text: 'Unpaid', cls: 'unpaid' }, coveredBy: 'Employer discretion / ADA accommodation', paidBy: 'No paid benefit' } : null,
+          fmla: fmlaWks > 0 ? { title: 'FMLA Job Protection', duration: `${fmlaWks} weeks`, dates: `${fmtDate(start)} – ${fmtDate(fmlaEnd)}`, protection: { text: 'FMLA', cls: 'eligible' }, pay: { text: 'No income replacement', cls: 'unpaid' }, coveredBy: 'Family and Medical Leave Act (federal)', paidBy: 'No paid benefit — job-protected leave only' } : null,
+          unpaid: unpaidWks > 0 ? { title: 'Extended Leave (beyond FMLA)', duration: `${unpaidWks} weeks`, dates: `${fmtDate(fmlaEnd)} – ${fmtDate(totalEnd)}`, protection: { text: 'Not protected', cls: 'unpaid' }, pay: { text: 'Unpaid', cls: 'unpaid' }, coveredBy: 'Employer discretion / ADA accommodation', paidBy: 'No paid benefit' } : null,
         },
       };
     }
@@ -310,7 +400,7 @@ export default function PlanAbsenceReactPage() {
       details: {
         std:   stdOn   ? { title: 'Short-Term Disability',              duration: `${stdWks} weeks`,   dates: `${fmtDate(start)} – ${fmtDate(stdEnd)}`,          protection: { text: fmlaEligible ? 'FMLA' : 'None', cls: fmlaEligible ? 'eligible' : 'unpaid' }, pay: { text: '60% via STD', cls: 'partial' }, coveredBy: 'Short-Term Disability insurance',         paidBy: 'STD insurance (60% of base salary, after 7-day waiting period)' } : null,
         fmla:  fmlaOn  ? { title: 'FMLA Job Protection',                duration: `${fmlaWks} weeks`,  dates: `${fmtDate(start)} – ${fmtDate(fmlaEnd)}`,         protection: { text: 'FMLA', cls: 'eligible' },                                                    pay: stdOn ? { text: '60% via STD (if enrolled)', cls: 'partial' } : { text: 'No income replacement', cls: 'unpaid' }, coveredBy: 'Family and Medical Leave Act (federal)', paidBy: stdOn ? 'STD runs concurrently with FMLA' : 'No paid benefit — job-protected only' } : null,
-        unpaid: unpaidOn ? { title: 'Extended Absence (beyond protections)', duration: `${unpaidWks} weeks`, dates: `${fmtDate(unpaidStartDate)} – ${fmtDate(unpaidEndDate)}`, protection: { text: 'Not protected', cls: 'unpaid' }, pay: { text: 'Unpaid', cls: 'unpaid' }, coveredBy: 'Employer discretion / ADA accommodation', paidBy: 'No paid benefit' } : null,
+        unpaid: unpaidOn ? { title: 'Extended Leave (beyond protections)', duration: `${unpaidWks} weeks`, dates: `${fmtDate(unpaidStartDate)} – ${fmtDate(unpaidEndDate)}`, protection: { text: 'Not protected', cls: 'unpaid' }, pay: { text: 'Unpaid', cls: 'unpaid' }, coveredBy: 'Employer discretion / ADA accommodation', paidBy: 'No paid benefit' } : null,
       },
       stdDates:   stdOn   ? `${fmtDate(start)} – ${fmtDate(stdEnd)}` : '',
       fmlaDates:  fmlaOn  ? `${fmtDate(start)} – ${fmtDate(fmlaEnd)}` : '',
@@ -341,7 +431,6 @@ export default function PlanAbsenceReactPage() {
 
   function goNext() {
     if (step === 2) {
-      // Sync step 2 inputs into sidebar state
       setSideWorkState(workState);
       setSideHireDate(hireDate);
       if (isBirth) {
@@ -351,12 +440,11 @@ export default function PlanAbsenceReactPage() {
         setSideDuration(snapDur(durWeeksHint));
         if (!isFamily) setStdDuration(snapDur(durWeeksHint));
       }
-      setSideLeaveType(leaveType);
     }
     if (step === 1 && isBirth && leaveStart === '2026-05-01') {
       setLeaveStart('2026-08-01');
     }
-    setStep((prev) => prev + 1);
+    setStep((prev) => Math.min(prev + 1, STEP_LABELS.length));
     window.scrollTo({ top: 0, behavior: 'smooth' });
   }
 
@@ -377,19 +465,19 @@ export default function PlanAbsenceReactPage() {
 
       {/* Welcome screen */}
       {!started && (
-        <div className="rlv2-page" style={{ maxWidth: 720 }}>
+        <div className="rlv2-page">
           <div className="sim-card pa-welcome">
-            <div className="pa-kicker">Plan &amp; Request Absence</div>
-            <h2>Taking time off<br />shouldn&rsquo;t be stressful</h2>
+            <div className="pa-kicker">Plan leave</div>
+            <h2 style={{ fontSize: 28, fontWeight: 700, letterSpacing: '-0.03em', lineHeight: 1.25 }}>Taking time off<br />shouldn&rsquo;t be stressful</h2>
             <p style={{ fontSize: 15, color: '#5d5d5d', lineHeight: 1.7, maxWidth: 440, margin: '0 auto 32px' }}>
-              We&rsquo;ll walk you through your coverage, benefits, and estimated pay &mdash; so you can plan with confidence before submitting anything.
+              Tell us your reason and a few details &mdash; we&rsquo;ll show you your estimated benefits, timeline, and pay so you can plan with confidence.
             </p>
             <div className="pa-steps-icons">
               {[
-                { label: 'Plan',    icon: <svg width="15" height="15" viewBox="0 0 24 24" fill="none"><rect x="3" y="4" width="18" height="17" rx="2" stroke="#105fa8" strokeWidth="1.5"/><path d="M3 9h18M8 2v4M16 2v4" stroke="#105fa8" strokeWidth="1.5" strokeLinecap="round"/></svg> },
-                { label: 'Request', icon: <svg width="15" height="15" viewBox="0 0 24 24" fill="none"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z" stroke="#105fa8" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/><path d="M14 2v6h6M16 13H8M16 17H8M10 9H8" stroke="#105fa8" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/></svg> },
-                { label: 'Pay',     icon: <svg width="15" height="15" viewBox="0 0 24 24" fill="none"><path d="M12 1v22M17 5H9.5a3.5 3.5 0 100 7h5a3.5 3.5 0 010 7H6" stroke="#105fa8" strokeWidth="1.5" strokeLinecap="round"/></svg> },
-                { label: 'Support', icon: <svg width="15" height="15" viewBox="0 0 24 24" fill="none"><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78L12 21.23l8.84-8.84a5.5 5.5 0 000-7.78z" stroke="#105fa8" strokeWidth="1.5" strokeLinecap="round"/></svg> },
+                { label: 'Reason',   icon: <svg width="20" height="20" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="9" stroke="#525252" strokeWidth="1.5"/><path d="M9 9a3 3 0 015.12 1.5c0 1.5-2.12 2-2.12 3.5" stroke="#525252" strokeWidth="1.5" strokeLinecap="round"/><circle cx="12" cy="17" r="0.75" fill="#525252"/></svg> },
+                { label: 'Details',  icon: <svg width="20" height="20" viewBox="0 0 24 24" fill="none"><rect x="3" y="4" width="18" height="17" rx="2" stroke="#525252" strokeWidth="1.5"/><path d="M3 9h18M8 2v4M16 2v4" stroke="#525252" strokeWidth="1.5" strokeLinecap="round"/></svg> },
+                { label: 'Plan',     icon: <svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M12 1v22M17 5H9.5a3.5 3.5 0 100 7h5a3.5 3.5 0 010 7H6" stroke="#525252" strokeWidth="1.5" strokeLinecap="round"/></svg> },
+                { label: 'Review',   icon: <svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M9 11l3 3L22 4" stroke="#525252" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/><path d="M21 12v7a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h11" stroke="#525252" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/></svg> },
               ].map((item, i, arr) => (
                 <span key={item.label} style={{ display: 'contents' }}>
                   <div className="pa-step-icon-item">
@@ -403,11 +491,10 @@ export default function PlanAbsenceReactPage() {
             <button className="sim-btn-primary" type="button" onClick={handleStart} style={{ padding: '14px 48px', fontSize: 16, borderRadius: 8, marginTop: 16 }}>
               Get Started
             </button>
-            <div className="pa-sub">You&rsquo;ll be able to review everything before submitting.</div>
             <div style={{ marginTop: 28, paddingTop: 24, borderTop: '1px solid #f0f0f2' }}>
               <Link to="/request-leave-react" style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 8, fontSize: 14, color: '#525252', textDecoration: 'none' }}>
                 <span>Already know what you need?</span>
-                <span style={{ fontWeight: 600, color: '#0f0f14' }}>Request absence directly &rarr;</span>
+                <span style={{ fontWeight: 600, color: '#0f0f14' }}>Request leave directly &rarr;</span>
               </Link>
             </div>
           </div>
@@ -417,22 +504,24 @@ export default function PlanAbsenceReactPage() {
       {/* Wizard steps */}
       {started && (
         <div className={`rlv2-page${step === 3 ? ' rlv2-page-wide' : ''}`}>
-          {/* Stepper */}
-          <div className="sim-stepper">
-            <div className="stepper">
-              <div className="stepper-counter">Step <strong>{step}</strong> of <strong>{STEP_LABELS.length}</strong></div>
-              <div className="stepper-title">{STEP_LABELS[step - 1]}</div>
+          {/* Stepper — only for plan steps 1-3 */}
+          {step <= 3 && (
+            <div className="sim-stepper">
+              <div className="stepper">
+                <div className="stepper-counter">Step <strong>{step}</strong> of <strong>3</strong></div>
+                <div className="stepper-title">{STEP_LABELS[step - 1]}</div>
+              </div>
             </div>
-          </div>
+          )}
 
           {/* ─── Step 1: Reason ─── */}
           {step === 1 && (
             <div className="sim-card">
-              <h2>
-                Select Reason For Absence{' '}
+              <h2 style={{ marginBottom: 20 }}>
+                Select Reason For Leave{' '}
                 <span className="wiz-tooltip-wrap">
                   <svg className="wiz-tooltip-icon" width="16" height="16" viewBox="0 0 16 16" fill="none"><circle cx="8" cy="8" r="7" stroke="#737373" strokeWidth="1.3"/><path d="M8 7.5V11" stroke="#737373" strokeWidth="1.3" strokeLinecap="round"/><circle cx="8" cy="5.5" r="0.75" fill="#737373"/></svg>
-                  <span className="wiz-tooltip-text">Select the primary reason for your absence. Don&rsquo;t worry if you&rsquo;re not sure about the details yet &mdash; we&rsquo;ll walk through everything together.</span>
+                  <span className="wiz-tooltip-text">Select the primary reason for your leave. Don&rsquo;t worry if you&rsquo;re not sure about the details yet &mdash; we&rsquo;ll walk through everything together.</span>
                 </span>
               </h2>
               <div className="option-cards">
@@ -462,8 +551,10 @@ export default function PlanAbsenceReactPage() {
           {/* ─── Step 2: Employment & Details ─── */}
           {step === 2 && (
             <div className="sim-card">
-              <h2>Your employment &amp; absence details</h2>
+              <h2>Your employment &amp; leave details</h2>
               <p className="sim-desc">We use this to determine your eligibility for FMLA, Short-Term Disability, and state-specific benefits.</p>
+
+              {/* Employment details */}
               <div className="pa-grid">
                 <div className="sim-field">
                   <label>Work State <span style={{ color: '#dc2626' }}>*</span></label>
@@ -482,93 +573,62 @@ export default function PlanAbsenceReactPage() {
                   <input type="date" value={hireDate} onChange={(e) => setHireDate(e.target.value)} />
                 </div>
                 <div className="sim-field">
-                  <label>{isBirth ? 'Expected Due Date' : 'Anticipated Start Date'} <span style={{ color: '#dc2626' }}>*</span></label>
-                  <input type="date" value={leaveStart} onChange={(e) => setLeaveStart(e.target.value)} />
+                  <label>Average hours worked per week <span style={{ color: '#dc2626' }}>*</span></label>
+                  <select value={avgHours} onChange={(e) => setAvgHours(e.target.value)}>
+                    <option value="40">40 hours (full-time)</option>
+                    <option value="35">35 hours</option>
+                    <option value="30">30 hours</option>
+                    <option value="24">24 hours</option>
+                    <option value="20">20 hours</option>
+                  </select>
                 </div>
-                {!isBirth && (
+                {isBirth && (
                   <div className="sim-field">
-                    <label>{leaveType === 'continuous' ? 'Expected Return Date' : 'End of Period'} <span style={{ color: '#dc2626' }}>*</span></label>
-                    <input type="date" value={leaveReturn} onChange={(e) => setLeaveReturn(e.target.value)} />
-                    <div className="pa-hint">~{durWeeksHint} week{durWeeksHint !== 1 ? 's' : ''}</div>
-                  </div>
-                )}
-                {!isBirth && (
-                  <div className="sim-field pa-span-2">
-                    <label>How will you take your absence? <span style={{ color: '#dc2626' }}>*</span></label>
-                    <select value={leaveType} onChange={(e) => setLeaveType(e.target.value)}>
-                      <option value="continuous">Continuous</option>
-                      <option value="intermittent">Intermittent</option>
-                      <option value="reduced">Reduced schedule</option>
-                    </select>
-                  </div>
-                )}
-                {!isBirth && leaveType === 'intermittent' && (
-                  <div className="pa-span-2">
-                    <div className="pa-conditional-section">
-                      <p className="pa-conditional-title">Intermittent Details</p>
-                      <div className="pa-grid">
-                        <div className="sim-field" style={{ marginBottom: 0 }}>
-                          <label>How often do you expect to need time off? <span style={{ color: '#dc2626' }}>*</span></label>
-                          <select value={intermittentFreq} onChange={(e) => setIntermittentFreq(e.target.value)}>
-                            <option value="" disabled>Select frequency</option>
-                            <option value="1-2x/month">1–2 times per month</option>
-                            <option value="1x/week">About once a week</option>
-                            <option value="2-3x/week">2–3 times per week</option>
-                            <option value="unpredictable">Unpredictable / as needed</option>
-                          </select>
-                        </div>
-                        <div className="sim-field" style={{ marginBottom: 0 }}>
-                          <label>How long is each episode? <span style={{ color: '#dc2626' }}>*</span></label>
-                          <select value={intermittentDur} onChange={(e) => setIntermittentDur(e.target.value)}>
-                            <option value="" disabled>Select duration</option>
-                            <option value="few-hours">A few hours</option>
-                            <option value="half-day">Half a day</option>
-                            <option value="full-day">Full day</option>
-                            <option value="1-2-days">1–2 days</option>
-                            <option value="3+-days">3 or more days</option>
-                          </select>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                )}
-                {!isBirth && leaveType === 'reduced' && (
-                  <div className="pa-span-2">
-                    <div className="pa-conditional-section">
-                      <p className="pa-conditional-title">Reduced Schedule Details</p>
-                      <div className="pa-grid">
-                        <div className="sim-field" style={{ marginBottom: 0 }}>
-                          <label>Current hours per week <span style={{ color: '#dc2626' }}>*</span></label>
-                          <select value={reducedCurrentHrs} onChange={(e) => setReducedCurrentHrs(e.target.value)}>
-                            <option value="40">40 hours</option>
-                            <option value="35">35 hours</option>
-                            <option value="30">30 hours</option>
-                          </select>
-                        </div>
-                        <div className="sim-field" style={{ marginBottom: 0 }}>
-                          <label>Proposed reduced hours per week <span style={{ color: '#dc2626' }}>*</span></label>
-                          <select value={reducedProposedHrs} onChange={(e) => setReducedProposedHrs(e.target.value)}>
-                            <option value="" disabled>Select hours</option>
-                            <option value="32">32 hours</option>
-                            <option value="24">24 hours</option>
-                            <option value="20">20 hours</option>
-                            <option value="16">16 hours</option>
-                          </select>
-                        </div>
-                      </div>
-                    </div>
+                    <label>Expected Due Date <span style={{ color: '#dc2626' }}>*</span></label>
+                    <input type="date" value={leaveStart} onChange={(e) => setLeaveStart(e.target.value)} />
                   </div>
                 )}
               </div>
-              <div className="pa-why-ask">
-                <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginBottom: 6 }}>
-                  <svg width="14" height="14" viewBox="0 0 16 16" fill="none"><circle cx="8" cy="8" r="7" stroke="#737373" strokeWidth="1.2"/><path d="M8 7v4" stroke="#737373" strokeWidth="1.2" strokeLinecap="round"/><circle cx="8" cy="4.5" r="0.75" fill="#737373"/></svg>
-                  <span style={{ fontSize: 13, fontWeight: 600, color: '#525252' }}>Why we ask</span>
+
+              {/* How will you take your leave — non-birth only */}
+              {!isBirth && (
+                <div style={{ borderTop: '1px solid #e8e8ec', paddingTop: 20 }}>
+                  <label style={{ display: 'block', fontSize: 14, fontWeight: 600, color: '#0f0f14', marginBottom: 10 }}>How will you take your leave? <span style={{ color: '#dc2626' }}>*</span></label>
+                  <div className="lt-picker">
+                    {['continuous', 'intermittent', 'reduced'].map((type) => (
+                      <button key={type} type="button" className={`lt-btn ${leaveType === type ? 'selected' : ''}`} onClick={() => setLeaveType(type)}>
+                        <span className="lt-btn-icon">
+                          {type === 'continuous' && <svg width="22" height="22" viewBox="0 0 24 24" fill="none"><rect x="3" y="6" width="18" height="13" rx="2" stroke="#3d3d47" strokeWidth="1.5"/><path d="M3 10h18" stroke="#3d3d47" strokeWidth="1.5"/><path d="M8 3v4M16 3v4" stroke="#3d3d47" strokeWidth="1.5" strokeLinecap="round"/></svg>}
+                          {type === 'intermittent' && <svg width="22" height="22" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="9" stroke="#3d3d47" strokeWidth="1.5"/><path d="M12 7v5l3.5 2" stroke="#3d3d47" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/></svg>}
+                          {type === 'reduced' && <svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M21 12a9 9 0 11-9-9" stroke="#3d3d47" strokeWidth="1.5" strokeLinecap="round"/><path d="M12 7v5h4" stroke="#3d3d47" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/></svg>}
+                        </span>
+                        <span className="lt-btn-label">{type === 'continuous' ? 'Continuous' : type === 'intermittent' ? 'Intermittent' : 'Reduced Schedule'}</span>
+                      </button>
+                    ))}
+                  </div>
+                  <div className="lt-context">
+                    <p className="lt-context-desc">{leaveType === 'continuous' ? "You'll be fully away from work for the duration of your leave." : leaveType === 'intermittent' ? "You'll take time off periodically — for flare-ups, treatments, or appointments." : "You'll continue working but with fewer hours per day or days per week."}</p>
+                    <div className="bordered-section">
+                      {leaveType === 'continuous' ? (
+                        <div className="form-row cols-2" style={{ marginBottom: 0 }}>
+                          <div className="form-group" style={{ marginBottom: 0 }}><label>Anticipated Start Date <span className="req">*</span></label><input type="date" value={leaveStart} onChange={(e) => setLeaveStart(e.target.value)} /></div>
+                          <div className="form-group" style={{ marginBottom: 0 }}><label>Expected End Date</label><input type="date" value={leaveReturn} onChange={(e) => setLeaveReturn(e.target.value)} /><div className="helper">Your best estimate of when you expect to return to work.</div></div>
+                        </div>
+                      ) : leaveType === 'intermittent' ? (
+                        <div className="form-row cols-2" style={{ marginBottom: 0 }}>
+                          <div className="form-group" style={{ marginBottom: 0 }}><label>Anticipated Start Date <span className="req">*</span></label><input type="date" value={leaveStart} onChange={(e) => setLeaveStart(e.target.value)} /></div>
+                          <div className="form-group" style={{ marginBottom: 0 }}><label>How often do you need time off?</label><input type="text" placeholder="e.g. 1-2 times per week" value={intermittentFreq} onChange={(e) => setIntermittentFreq(e.target.value)} /></div>
+                        </div>
+                      ) : (
+                        <div className="form-row cols-2" style={{ marginBottom: 0 }}>
+                          <div className="form-group" style={{ marginBottom: 0 }}><label>Anticipated Start Date <span className="req">*</span></label><input type="date" value={leaveStart} onChange={(e) => setLeaveStart(e.target.value)} /></div>
+                          <div className="form-group" style={{ marginBottom: 0 }}><label>Hours per week you plan to work</label><input type="number" value={reducedProposedHrs} onChange={(e) => setReducedProposedHrs(e.target.value)} /></div>
+                        </div>
+                      )}
+                    </div>
+                  </div>
                 </div>
-                <p style={{ fontSize: 12.5, color: '#737373', lineHeight: 1.6, margin: 0 }}>
-                  Your work state, tenure, and absence duration determine which federal and state protections apply — including FMLA eligibility (12+ months tenure), STD coverage, and state-specific paid absence programs.
-                </p>
-              </div>
+              )}
               <div className="sim-btn-row">
                 <button className="sim-btn-back" type="button" onClick={goBack}>&larr; Back</button>
                 <button className="sim-btn-primary" type="button" onClick={goNext}>See My Coverage &#8594;</button>
@@ -583,45 +643,10 @@ export default function PlanAbsenceReactPage() {
               <div className="sim-split-main">
                 <div className="sim-card" style={{ padding: '28px 32px' }}>
 
-                  {/* Alert */}
-                  <div className="dlp-alert">
-                    <svg width="16" height="16" viewBox="0 0 16 16" fill="none" style={{ flexShrink: 0, marginTop: 1 }}>
-                      <circle cx="8" cy="8" r="7" stroke="#a3860a" strokeWidth="1.2"/>
-                      <path d="M8 7v4" stroke="#a3860a" strokeWidth="1.2" strokeLinecap="round"/>
-                      <circle cx="8" cy="4.5" r="0.75" fill="#a3860a"/>
-                    </svg>
-                    <span>This is an estimate based on the information you&rsquo;ve provided. Final eligibility is confirmed upon formal review.</span>
-                  </div>
-
-                  {/* Eligibility badges */}
-                  <div style={{ display: 'flex', gap: 10, flexWrap: 'wrap', marginBottom: 24 }}>
-                    <div className={`rlv2-elig-badge${fmlaEligible ? '' : ' rlv2-elig-na'}`}>
-                      <svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" stroke="currentColor" strokeWidth="1.5"/></svg>
-                      <span>{fmlaEligible ? 'FMLA Eligible' : 'FMLA Not Eligible'}</span>
-                    </div>
-                    {!isFamily && (
-                      <div className="rlv2-elig-badge">
-                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M12 1v22M17 5H9.5a3.5 3.5 0 100 7h5a3.5 3.5 0 010 7H6" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"/></svg>
-                        <span>STD Enrolled</span>
-                      </div>
-                    )}
-                    {stateBenefit ? (
-                      <div className="rlv2-elig-badge">
-                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none"><rect x="3" y="3" width="18" height="18" rx="3" stroke="currentColor" strokeWidth="1.5"/><path d="M9 12l2 2 4-4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/></svg>
-                        <span>{stateBenefit.name}</span>
-                      </div>
-                    ) : (
-                      <div className="rlv2-elig-badge rlv2-elig-na">
-                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none"><rect x="3" y="3" width="18" height="18" rx="3" stroke="currentColor" strokeWidth="1.5"/><path d="M9 12h6" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"/></svg>
-                        <span>No State Paid Leave</span>
-                      </div>
-                    )}
-                  </div>
-
                   {/* Timeline section */}
                   <div style={{ background: '#fff', border: '1px solid #e8e8ec', borderRadius: 12, padding: 24, marginBottom: 28 }}>
                     <div className="dlp-section-head" style={{ marginBottom: 6 }}>
-                      <h3 style={{ margin: 0, fontSize: 16, fontWeight: 700 }}>Absence Timeline</h3>
+                      <h3 style={{ margin: 0, fontSize: 16, fontWeight: 700 }}>Estimated Leave Timeline</h3>
                       <div className="dlp-view-tabs">
                         {['pay', 'coverage'].map((v) => (
                           <button
@@ -635,9 +660,9 @@ export default function PlanAbsenceReactPage() {
                         ))}
                       </div>
                     </div>
-                    <p className="dlp-section-sub">Click a row to see details. Pay figures are estimates based on standard STD (60% salary).</p>
+                    <p className="dlp-section-sub">Hover over a row to see details. Pay figures are estimates based on standard STD (60% salary).</p>
 
-                    <div className="dlp-timeline">
+                    <div className="dlp-timeline" ref={timelineRef}>
                       <div style={{ position: 'relative' }}>
                         <div className="dlp-tl-rows">
                           {tlData.rows.map((row) => (
@@ -645,20 +670,34 @@ export default function PlanAbsenceReactPage() {
                               key={row.id}
                               className={`dlp-tl-row${openDetail === row.id ? ' active' : ''}`}
                               onClick={() => setOpenDetail(openDetail === row.id ? null : row.id)}
+                              onMouseMove={(e) => handleRowMouseMove(e, row.id)}
+                              onMouseLeave={handleRowMouseLeave}
                             >
                               <div className="dlp-tl-row-label">{row.label}</div>
                               <div className="dlp-tl-row-bar">
                                 <div
                                   className={`dlp-tl-seg ${row.segClass}`}
                                   style={{ left: `${row.left}%`, width: `${row.width}%` }}
-                                  data-tooltip={row.tooltip}
                                 />
                               </div>
                             </div>
                           ))}
+                          {hoveredRow && (() => {
+                            const row = tlData.rows.find(r => r.id === hoveredRow);
+                            const detail = tlData.details?.[hoveredRow];
+                            if (!row) return null;
+                            return (
+                              <div className="dlp-tl-hover-tooltip" style={{ left: tooltipPos.x, top: tooltipPos.y }}>
+                                <div className="dlp-tl-hover-title">{detail?.title || row.label}</div>
+                                <div className="dlp-tl-hover-body">{row.tooltip}</div>
+                                {detail?.dates && <div className="dlp-tl-hover-dates">{detail.dates}</div>}
+                                {detail?.duration && <div className="dlp-tl-hover-meta">{detail.duration}{detail?.pay ? ` · ${detail.pay.text}` : ''}</div>}
+                              </div>
+                            );
+                          })()}
                           {tlData.rows.length === 0 && (
                             <div style={{ padding: '12px 0 12px 120px', fontSize: 12, color: '#737373', textAlign: 'center' }}>
-                              Toggle coverage periods in the sidebar to see your timeline.
+                              No leave periods to display. Update your dates to see the timeline.
                             </div>
                           )}
                         </div>
@@ -739,7 +778,7 @@ export default function PlanAbsenceReactPage() {
                         <div className="dlp-pay-stat-value">{tlData.paidWeeks > 0 ? `${tlData.paidWeeks} weeks` : 'Unpaid'}</div>
                       </div>
                       <div className="dlp-pay-stat">
-                        <div className="dlp-pay-stat-label">Total absence</div>
+                        <div className="dlp-pay-stat-label">Total leave</div>
                         <div className="dlp-pay-stat-value">{tlData.absenceWeeks} weeks</div>
                       </div>
                       <div className="dlp-pay-stat">
@@ -754,9 +793,9 @@ export default function PlanAbsenceReactPage() {
                     <h3 style={{ fontSize: 15, fontWeight: 700, color: '#0f0f14', margin: '0 0 12px' }}>Your employer&rsquo;s policies</h3>
                     <div className="dlp-accordion">
                       {!isBirth && [
-                        { id: 'acc-fmla',     title: 'FMLA (Job Protection)',         body: 'FMLA provides up to 12 weeks of job-protected, unpaid absence per year for qualifying reasons (serious health condition, family care, or new child). You must have worked 12+ months and 1,250+ hours. Your position (or equivalent) is guaranteed upon return.' },
+                        { id: 'acc-fmla',     title: 'FMLA (Job Protection)',         body: 'FMLA provides up to 12 weeks of job-protected, unpaid leave per year for qualifying reasons (serious health condition, family care, or new child). You must have worked 12+ months and 1,250+ hours. Your position (or equivalent) is guaranteed upon return.' },
                         ...(!isFamily ? [{ id: 'acc-std', title: 'Short-Term Disability (STD)', body: 'If enrolled, STD provides income replacement at 60% of your base salary for up to 26 weeks after a 7-day waiting period. Coverage applies to your own medical condition only — not family care. Medical certification from your provider is required.' }] : []),
-                        { id: 'acc-ext',      title: 'Extended absence (beyond FMLA)', body: 'If you need additional time beyond your FMLA entitlement, your employer may grant extended leave as a reasonable accommodation under the ADA. This leave is unpaid and not automatically job-protected.' },
+                        { id: 'acc-ext',      title: 'Extended leave (beyond FMLA)', body: 'If you need additional time beyond your FMLA entitlement, your employer may grant extended leave as a reasonable accommodation under the ADA. This leave is unpaid and not automatically job-protected.' },
                       ].map((item) => (
                         <div key={item.id} className={`dlp-accordion-item${openAccordion === item.id ? ' open' : ''}`}>
                           <button className="dlp-accordion-btn" type="button" onClick={() => setOpenAccordion(openAccordion === item.id ? null : item.id)}>
@@ -796,7 +835,7 @@ export default function PlanAbsenceReactPage() {
                     <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
                       <div>
                         <div className="dlp-next-title">Your coverage summary is ready.</div>
-                        <div className="dlp-next-desc">Save it to review later, or continue to start your absence request.</div>
+                        <div className="dlp-next-desc">Save it to review later, or continue to start your leave request.</div>
                       </div>
                       <button type="button" style={{ display: 'inline-flex', alignItems: 'center', gap: 5, padding: '6px 12px', background: 'none', border: '1px solid #d0d0d5', borderRadius: 6, fontSize: 12, fontWeight: 600, color: '#525252', cursor: 'pointer', fontFamily: 'inherit', whiteSpace: 'nowrap', flexShrink: 0 }}>
                         <svg width="13" height="13" viewBox="0 0 16 16" fill="none"><path d="M2 3h12v10H2V3z" stroke="currentColor" strokeWidth="1.3" strokeLinecap="round" strokeLinejoin="round"/><path d="M2 3l6 5 6-5" stroke="currentColor" strokeWidth="1.3" strokeLinecap="round" strokeLinejoin="round"/></svg>
@@ -810,7 +849,7 @@ export default function PlanAbsenceReactPage() {
                     <button className="btn btn-back" type="button" onClick={goBack}>&larr; Back</button>
                     <div style={{ display: 'flex', gap: 8 }}>
                       <button className="btn btn-save" type="button">Save &amp; Come Back Later</button>
-                      <Link to="/request-leave-react" className="btn btn-next">Let&rsquo;s Start My Absence Request &rarr;</Link>
+                      <button className="btn btn-next" type="button" onClick={goNext}>Let&rsquo;s Start My Leave Request &rarr;</button>
                     </div>
                   </div>
                 </div>
@@ -822,6 +861,22 @@ export default function PlanAbsenceReactPage() {
 
                   {isBirth ? (
                     <>
+                      {/* EMPLOYMENT — birth (top of sidebar per Figma) */}
+                      <div className="dlp-sidebar">
+                        <div className="dlp-sidebar-group-label">EMPLOYMENT</div>
+                        <div className="dlp-sidebar-group-body">
+                          <div className="dlp-side-field">
+                            <label>Work State</label>
+                            <select value={sideWorkState} onChange={(e) => setSideWorkState(e.target.value)}>
+                              {['MO','CA','NY','NJ','WA','TX','FL'].map((s) => <option key={s} value={s}>{s}</option>)}
+                            </select>
+                          </div>
+                          <div className="dlp-side-field" style={{ marginBottom: 0 }}>
+                            <label>Start Date</label>
+                            <input type="date" value={sideHireDate} onChange={(e) => setSideHireDate(e.target.value)} />
+                          </div>
+                        </div>
+                      </div>
                       {/* KEY DATE — birth */}
                       <div className="dlp-sidebar">
                         <div className="dlp-sidebar-group-label">KEY DATE</div>
@@ -832,194 +887,92 @@ export default function PlanAbsenceReactPage() {
                           </div>
                         </div>
                       </div>
-                      {/* ABSENCE PERIODS — birth */}
+                      {/* LEAVE PERIODS — birth */}
                       <div className="dlp-sidebar">
-                        <div className="dlp-sidebar-group-label">ABSENCE PERIODS</div>
-                        <div className="dlp-sidebar-group-body" style={{ padding: '0 20px 16px' }}>
-                          {/* Pre-birth */}
-                          <div className="dlp-side-toggle" style={{ padding: '10px 0' }}>
-                            <div>
-                              <div className="dlp-side-toggle-label">Pre-birth disability</div>
-                              <div className="dlp-side-toggle-sub">{tlData.preSub || '4 work weeks'}</div>
-                            </div>
-                            <Toggle on={preBirthOn} onClick={() => setPreBirthOn(!preBirthOn)} />
+                        <div className="dlp-sidebar-group-label">LEAVE PERIODS</div>
+                        <div className="dlp-sidebar-group-body" style={{ padding: '12px 20px 16px' }}>
+                          <div className="dlp-side-period">
+                            <div className="dlp-side-period-label">Pre-birth disability</div>
+                            <div className="dlp-side-period-dates">{tlData.preDates || '—'}</div>
+                            <div className="dlp-side-period-detail">{tlData.preSub || '4 work weeks'} &middot; 60% via STD</div>
                           </div>
-                          {preBirthOn && (
-                            <div className="dlp-side-toggle-body">
-                              <div className="dlp-side-field">
-                                <label>Dates</label>
-                                <div className="dlp-side-daterange">{tlData.preDates || '—'}</div>
-                              </div>
-                            </div>
-                          )}
-                          {/* Post-birth */}
-                          <div className="dlp-side-toggle" style={{ padding: '10px 0', borderTop: '1px solid #f0f0f2' }}>
-                            <div>
-                              <div className="dlp-side-toggle-label">Post-birth disability</div>
-                              <div className="dlp-side-toggle-sub">{tlData.postSub || '6 work weeks'}</div>
-                            </div>
-                            <Toggle on={postBirthOn} onClick={() => setPostBirthOn(!postBirthOn)} />
+                          <div className="dlp-side-period" style={{ borderTop: '1px solid #f0f0f2' }}>
+                            <div className="dlp-side-period-label">Post-birth disability</div>
+                            <div className="dlp-side-period-dates">{tlData.postDates || '—'}</div>
+                            <div className="dlp-side-period-detail">{tlData.postSub || '6 work weeks'} &middot; 60% via STD</div>
                           </div>
-                          {postBirthOn && (
-                            <div className="dlp-side-toggle-body">
-                              <div className="dlp-side-field">
-                                <label>Dates</label>
-                                <div className="dlp-side-daterange">{tlData.postDates || '—'}</div>
-                              </div>
-                            </div>
-                          )}
-                          {/* Bonding */}
-                          <div className="dlp-side-toggle" style={{ padding: '10px 0', borderTop: '1px solid #f0f0f2' }}>
-                            <div>
-                              <div className="dlp-side-toggle-label">Bonding time</div>
-                              <div className="dlp-side-toggle-sub">{tlData.bondSub || '12 work weeks'}</div>
-                            </div>
-                            <Toggle on={bondingOn} onClick={() => setBondingOn(!bondingOn)} />
+                          <div className="dlp-side-period" style={{ borderTop: '1px solid #f0f0f2' }}>
+                            <div className="dlp-side-period-label">Bonding time</div>
+                            <div className="dlp-side-period-dates">{tlData.bondDates || '—'}</div>
+                            <div className="dlp-side-period-detail">{tlData.bondSub || '12 work weeks'} &middot; FMLA protected</div>
                           </div>
-                          {bondingOn && (
-                            <div className="dlp-side-toggle-body">
-                              <div className="dlp-side-field">
-                                <label>Dates</label>
-                                <div className="dlp-side-daterange">{tlData.bondDates || '—'}</div>
-                              </div>
-                            </div>
-                          )}
                         </div>
                       </div>
                     </>
                   ) : (
                     <>
+                      {/* EMPLOYMENT — non-birth (top of sidebar per Figma) */}
+                      <div className="dlp-sidebar">
+                        <div className="dlp-sidebar-group-label">EMPLOYMENT</div>
+                        <div className="dlp-sidebar-group-body">
+                          <div className="dlp-side-field">
+                            <label>Work State</label>
+                            <select value={sideWorkState} onChange={(e) => setSideWorkState(e.target.value)}>
+                              {['MO','CA','NY','NJ','WA','TX','FL'].map((s) => <option key={s} value={s}>{s}</option>)}
+                            </select>
+                          </div>
+                          <div className="dlp-side-field" style={{ marginBottom: 0 }}>
+                            <label>Start Date</label>
+                            <input type="date" value={sideHireDate} onChange={(e) => setSideHireDate(e.target.value)} />
+                          </div>
+                        </div>
+                      </div>
+
                       {/* KEY DATE — non-birth */}
                       <div className="dlp-sidebar">
                         <div className="dlp-sidebar-group-label">KEY DATE</div>
                         <div className="dlp-sidebar-group-body">
                           <div className="dlp-side-field" style={{ marginBottom: 0 }}>
-                            <label>Start Date</label>
+                            <label>Anticipated Start Date</label>
                             <input type="date" value={sideStart} onChange={(e) => setSideStart(e.target.value)} />
                           </div>
                         </div>
                       </div>
 
-                      {/* ABSENCE PERIODS — illness */}
+                      {/* LEAVE PERIODS — illness */}
                       {!isFamily && (
                         <div className="dlp-sidebar">
-                          <div className="dlp-sidebar-group-label">ABSENCE PERIODS</div>
-                          <div className="dlp-sidebar-group-body" style={{ padding: '0 20px 16px' }}>
-                            {/* STD */}
-                            <div className="dlp-side-toggle" style={{ padding: '10px 0' }}>
-                              <div>
-                                <div className="dlp-side-toggle-label">Short-term disability</div>
-                                <div className="dlp-side-toggle-sub">{tlData.stdSub || 'Up to 26 weeks'}</div>
-                              </div>
-                              <Toggle on={stdOn} onClick={() => setStdOn(!stdOn)} />
+                          <div className="dlp-sidebar-group-label">LEAVE PERIODS</div>
+                          <div className="dlp-sidebar-group-body" style={{ padding: '12px 20px 16px' }}>
+                            <div className="dlp-side-period">
+                              <div className="dlp-side-period-label">Short-term disability</div>
+                              <div className="dlp-side-period-dates">{tlData.stdDates || '—'}</div>
+                              <div className="dlp-side-period-detail">{tlData.stdSub || 'Up to 26 weeks'} &middot; 60% via STD</div>
                             </div>
-                            {stdOn && (
-                              <div className="dlp-side-toggle-body">
-                                <div className="dlp-side-field" style={{ marginBottom: 8 }}>
-                                  <label>Duration</label>
-                                  <select value={stdDuration} onChange={(e) => setStdDuration(Number(e.target.value))}>
-                                    {STD_WEEKS_OPTIONS.map((n) => <option key={n} value={n}>{n === 26 ? '26 weeks (max)' : `${n} weeks`}</option>)}
-                                  </select>
-                                </div>
-                                <div className="dlp-side-field">
-                                  <label>Dates</label>
-                                  <div className="dlp-side-daterange">{tlData.stdDates || '—'}</div>
-                                </div>
-                              </div>
-                            )}
-                            {/* FMLA */}
-                            <div className="dlp-side-toggle" style={{ padding: '10px 0', borderTop: '1px solid #f0f0f2' }}>
-                              <div>
-                                <div className="dlp-side-toggle-label">FMLA job protection</div>
-                                <div className="dlp-side-toggle-sub">{tlData.fmlaSub || 'Up to 12 weeks'}</div>
-                              </div>
-                              <Toggle on={fmlaOn} onClick={() => setFmlaOn(!fmlaOn)} />
+                            <div className="dlp-side-period" style={{ borderTop: '1px solid #f0f0f2' }}>
+                              <div className="dlp-side-period-label">FMLA job protection</div>
+                              <div className="dlp-side-period-dates">{tlData.fmlaDates || '—'}</div>
+                              <div className="dlp-side-period-detail">{tlData.fmlaSub || 'Up to 12 weeks'}</div>
                             </div>
-                            {fmlaOn && (
-                              <div className="dlp-side-toggle-body">
-                                <div className="dlp-side-field">
-                                  <label>Dates</label>
-                                  <div className="dlp-side-daterange">{tlData.fmlaDates || '—'}</div>
-                                </div>
-                              </div>
-                            )}
-                            {/* Unpaid */}
-                            <div className="dlp-side-toggle" style={{ padding: '10px 0', borderTop: '1px solid #f0f0f2' }}>
-                              <div>
-                                <div className="dlp-side-toggle-label">Extended leave (unpaid)</div>
-                                <div className="dlp-side-toggle-sub">{tlData.unpaidSub || 'Beyond protections'}</div>
-                              </div>
-                              <Toggle on={unpaidOn} onClick={() => setUnpaidOn(!unpaidOn)} />
-                            </div>
-                            {unpaidOn && (
-                              <div className="dlp-side-toggle-body">
-                                <div className="dlp-side-field" style={{ marginBottom: 8 }}>
-                                  <label>Additional weeks</label>
-                                  <select value={unpaidDuration} onChange={(e) => setUnpaidDuration(Number(e.target.value))}>
-                                    {UNPAID_WEEKS_OPTIONS.map((n) => <option key={n} value={n}>{n} weeks</option>)}
-                                  </select>
-                                </div>
-                                <div className="dlp-side-field">
-                                  <label>Dates</label>
-                                  <div className="dlp-side-daterange">{tlData.unpaidDates || '—'}</div>
-                                </div>
-                              </div>
-                            )}
                           </div>
                         </div>
                       )}
 
-                      {/* ABSENCE DETAILS — family */}
+                      {/* LEAVE PERIODS — family */}
                       {isFamily && (
                         <div className="dlp-sidebar">
-                          <div className="dlp-sidebar-group-label">ABSENCE DETAILS</div>
-                          <div className="dlp-sidebar-group-body">
-                            <div className="dlp-side-field" style={{ marginBottom: 0 }}>
-                              <label>Duration</label>
-                              <select value={sideDuration} onChange={(e) => setSideDuration(Number(e.target.value))}>
-                                {DUR_WEEKS_OPTIONS.map((n) => <option key={n} value={n}>{n === 26 ? '26 weeks' : `${n} weeks`}</option>)}
-                              </select>
+                          <div className="dlp-sidebar-group-label">LEAVE PERIODS</div>
+                          <div className="dlp-sidebar-group-body" style={{ padding: '12px 20px 16px' }}>
+                            <div className="dlp-side-period">
+                              <div className="dlp-side-period-label">FMLA family care leave</div>
+                              <div className="dlp-side-period-dates">{tlData.fmlaDates || '—'}</div>
+                              <div className="dlp-side-period-detail">Up to 12 weeks &middot; Job protected</div>
                             </div>
                           </div>
                         </div>
                       )}
-
-                      {/* TIME OFF TYPE */}
-                      <div className="dlp-sidebar">
-                        <div className="dlp-sidebar-group-label">TIME OFF TYPE</div>
-                        <div className="dlp-sidebar-group-body">
-                          <div className="dlp-side-field" style={{ marginBottom: 0 }}>
-                            <label>How will you take your absence?</label>
-                            <select value={sideLeaveType} onChange={(e) => setSideLeaveType(e.target.value)}>
-                              <option value="continuous">Continuous</option>
-                              <option value="intermittent">Intermittent</option>
-                              <option value="reduced">Reduced schedule</option>
-                            </select>
-                          </div>
-                          <div style={{ fontSize: 12, color: '#737380', marginTop: 8, lineHeight: 1.4 }}>
-                            {LEAVE_TYPE_HINTS[sideLeaveType]}
-                          </div>
-                        </div>
-                      </div>
                     </>
                   )}
-
-                  {/* EMPLOYMENT — shared */}
-                  <div className="dlp-sidebar">
-                    <div className="dlp-sidebar-group-label">EMPLOYMENT</div>
-                    <div className="dlp-sidebar-group-body">
-                      <div className="dlp-side-field">
-                        <label>Work State</label>
-                        <select value={sideWorkState} onChange={(e) => setSideWorkState(e.target.value)}>
-                          {['MO','CA','NY','NJ','WA','TX','FL'].map((s) => <option key={s} value={s}>{s}</option>)}
-                        </select>
-                      </div>
-                      <div className="dlp-side-field" style={{ marginBottom: 0 }}>
-                        <label>Employment Start Date</label>
-                        <input type="date" value={sideHireDate} onChange={(e) => setSideHireDate(e.target.value)} />
-                      </div>
-                    </div>
-                  </div>
 
                   {/* Footer note */}
                   <div style={{ display: 'flex', alignItems: 'flex-start', gap: 4, fontSize: 12, color: '#a3a3a3', padding: '0 4px' }}>
@@ -1030,8 +983,466 @@ export default function PlanAbsenceReactPage() {
               </div>
             </div>
           )}
+
+          {/* ─── Step 4: Plan Review ─── */}
+          {step === 4 && (
+            <div className="sim-card" style={{ margin: '0 auto' }}>
+              <div className="pr-kicker">Review Your Plan</div>
+              <div className="pr-title">Here&rsquo;s what you&rsquo;ve told us so far</div>
+              <div className="pr-desc">Review the information below before continuing to your formal leave request.</div>
+
+              <div className="pr-section">
+                <div className="pr-section-header">
+                  <div className="pr-section-title">Leave Reason</div>
+                  <button className="pr-edit-link" type="button" onClick={() => setStep(1)}>Edit</button>
+                </div>
+                <div className="pr-row">
+                  <span className="pr-row-label">Reason</span>
+                  <span className="pr-row-value">{REASON_OPTIONS.find((o) => o.value === reason)?.title}</span>
+                </div>
+              </div>
+
+              <div className="pr-section">
+                <div className="pr-section-header">
+                  <div className="pr-section-title">Dates &amp; Duration</div>
+                  <button className="pr-edit-link" type="button" onClick={() => setStep(2)}>Edit</button>
+                </div>
+                <div className="pr-row">
+                  <span className="pr-row-label">Type</span>
+                  <span className="pr-row-value" style={{ textTransform: 'capitalize' }}>{leaveType}</span>
+                </div>
+                <div className="pr-row">
+                  <span className="pr-row-label">{isBirth ? 'Due Date' : 'Start Date'}</span>
+                  <span className="pr-row-value">{isBirth ? sideDueDate : sideStart}</span>
+                </div>
+                {!isBirth && (
+                  <div className="pr-row">
+                    <span className="pr-row-label">Duration</span>
+                    <span className="pr-row-value">{sideDuration} weeks</span>
+                  </div>
+                )}
+              </div>
+
+              <div className="pr-section">
+                <div className="pr-section-header">
+                  <div className="pr-section-title">Employment</div>
+                  <button className="pr-edit-link" type="button" onClick={() => setStep(2)}>Edit</button>
+                </div>
+                <div className="pr-row">
+                  <span className="pr-row-label">Work State</span>
+                  <span className="pr-row-value">{sideWorkState}</span>
+                </div>
+                <div className="pr-row">
+                  <span className="pr-row-label">Hire Date</span>
+                  <span className="pr-row-value">{sideHireDate}</span>
+                </div>
+              </div>
+
+              <div className="pr-section">
+                <div className="pr-section-header">
+                  <div className="pr-section-title">Estimated Eligibility</div>
+                  <button className="pr-edit-link" type="button" onClick={() => setStep(3)}>Edit</button>
+                </div>
+                <div className="pr-badges">
+                  <span className="pr-badge">{fmlaEligible ? 'FMLA Eligible' : 'FMLA Not Eligible'}</span>
+                  {!isFamily && <span className="pr-badge">STD Enrolled</span>}
+                  {stateBenefit && <span className="pr-badge">{stateBenefit.name}</span>}
+                </div>
+              </div>
+
+              <div className="pr-collect-card">
+                <div className="pr-collect-title">What we&rsquo;ll collect next</div>
+                <ol className="pr-collect-list">
+                  {['Diagnosis & Treatment Details', 'Healthcare Provider', 'Work Schedule', 'Verify Your Record', 'Contact Preferences', 'Review & Submit'].map((item, i) => (
+                    <li key={i}><span className="pr-collect-num">{i + 1}</span>{item}</li>
+                  ))}
+                </ol>
+              </div>
+
+              <div className="wizard-footer">
+                <button className="btn btn-back" type="button" onClick={goBack}>&larr; Back to Plan</button>
+                <button className="btn btn-next" type="button" onClick={goNext}>Continue to Request &rarr;</button>
+              </div>
+            </div>
+          )}
+
+          {/* ─── Request Steps 5-10: context bar ─── */}
+          {step >= 5 && step <= 10 && (
+            <>
+              <div className="rq-plan-bar">
+                <span className="rq-plan-bar-left">From Your Plan</span>
+                <span className="rq-plan-bar-center">
+                  {REASON_OPTIONS.find((o) => o.value === reason)?.title?.replace("Employee's ", '')} &middot;{' '}
+                  <span style={{ textTransform: 'capitalize' }}>{leaveType}</span> &middot;{' '}
+                  {isBirth ? sideDueDate : `${sideStart} – ${leaveReturn}`}
+                </span>
+                <button className="rq-plan-bar-right" type="button" onClick={() => setStep(4)}>Review Plan</button>
+              </div>
+
+              <div className="rq-step-label">Step {step - 4} of 6 &mdash; {STEP_LABELS[step - 1]}</div>
+            </>
+          )}
+
+          {/* ─── Step 5: Details (Diagnosis & Treatment) ─── */}
+          {step === 5 && (
+            <div className="sim-card">
+              <h2>Diagnosis &amp; Treatment Details</h2>
+              <p className="sim-desc">Tell us about the medical condition related to your leave.</p>
+              <div className="rq-grid" style={{ marginBottom: 20 }}>
+                <div className="rq-field rq-span-2">
+                  <label>Diagnosis or Condition <span style={{ color: '#dc2626' }}>*</span></label>
+                  <input type="text" placeholder="e.g. Lumbar disc herniation" value={diagnosis} onChange={(e) => setDiagnosis(e.target.value)} />
+                  <div className="rq-hint">We&rsquo;ll keep this confidential. Only your claims examiner will see it.</div>
+                </div>
+                <div className="rq-field">
+                  <label>First Date of Treatment <span style={{ color: '#dc2626' }}>*</span></label>
+                  <input type="date" value={firstTreatment} onChange={(e) => setFirstTreatment(e.target.value)} />
+                </div>
+                <div className="rq-field">
+                  <label>Next Scheduled Appointment</label>
+                  <input type="date" value={nextAppt} onChange={(e) => setNextAppt(e.target.value)} />
+                </div>
+                <div className="rq-field">
+                  <label>Will you be hospitalized? <span style={{ color: '#dc2626' }}>*</span></label>
+                  <div className="rq-yn-group">
+                    <button className={`rq-yn-btn${hospitalized === true ? ' active' : ''}`} type="button" onClick={() => setHospitalized(true)}>Yes</button>
+                    <button className={`rq-yn-btn${hospitalized === false ? ' active' : ''}`} type="button" onClick={() => setHospitalized(false)}>No</button>
+                  </div>
+                </div>
+                <div className="rq-field">
+                  <label>Is this related to your job? <span style={{ color: '#dc2626' }}>*</span></label>
+                  <div className="rq-yn-group">
+                    <button className={`rq-yn-btn${jobRelated === true ? ' active' : ''}`} type="button" onClick={() => setJobRelated(true)}>Yes</button>
+                    <button className={`rq-yn-btn${jobRelated === false ? ' active' : ''}`} type="button" onClick={() => setJobRelated(false)}>No</button>
+                  </div>
+                  <div className="rq-hint">If yes, you may also need to file a workers&rsquo; compensation claim.</div>
+                </div>
+              </div>
+              <div className="wizard-footer">
+                <button className="btn btn-back" type="button" onClick={goBack}>&larr; Back</button>
+                <button className="btn btn-next" type="button" onClick={goNext}>Continue &rarr;</button>
+              </div>
+            </div>
+          )}
+
+          {/* ─── Step 6: Provider ─── */}
+          {step === 6 && (
+            <div className="sim-card">
+              <h2>Healthcare Provider</h2>
+              <p className="sim-desc">Enter your treating provider&rsquo;s information. We&rsquo;ll use this to verify your medical certification.</p>
+              <div className="rq-grid" style={{ marginBottom: 20 }}>
+                <div className="rq-field rq-span-2">
+                  <label>Facility / Practice Name <span style={{ color: '#dc2626' }}>*</span></label>
+                  <input type="text" placeholder="e.g. Midwest Orthopedic Center" value={facilityName} onChange={(e) => setFacilityName(e.target.value)} />
+                </div>
+                <div className="rq-field">
+                  <label>Provider Name <span style={{ color: '#dc2626' }}>*</span></label>
+                  <input type="text" placeholder="Dr. First Last" value={providerName} onChange={(e) => setProviderName(e.target.value)} />
+                </div>
+                <div className="rq-field">
+                  <label>Suffix</label>
+                  <select value={providerSuffix} onChange={(e) => setProviderSuffix(e.target.value)}>
+                    <option value="">Select</option>
+                    <option value="MD">MD</option>
+                    <option value="DO">DO</option>
+                    <option value="NP">NP</option>
+                    <option value="PA">PA</option>
+                  </select>
+                </div>
+                <div className="rq-field">
+                  <label>Phone <span style={{ color: '#dc2626' }}>*</span></label>
+                  <input type="tel" placeholder="(555) 000-0000" value={providerPhone} onChange={(e) => setProviderPhone(e.target.value)} />
+                </div>
+                <div className="rq-field">
+                  <label>Fax</label>
+                  <input type="tel" placeholder="(555) 000-0000" value={providerFax} onChange={(e) => setProviderFax(e.target.value)} />
+                </div>
+                <div className="rq-field rq-span-2">
+                  <label>Email</label>
+                  <input type="email" placeholder="provider@facility.com" value={providerEmail} onChange={(e) => setProviderEmail(e.target.value)} />
+                </div>
+                <div className="rq-field rq-span-2">
+                  <label>Street Address <span style={{ color: '#dc2626' }}>*</span></label>
+                  <input type="text" placeholder="123 Medical Dr" value={providerStreet} onChange={(e) => setProviderStreet(e.target.value)} />
+                </div>
+                <div className="rq-field">
+                  <label>City <span style={{ color: '#dc2626' }}>*</span></label>
+                  <input type="text" value={providerCity} onChange={(e) => setProviderCity(e.target.value)} />
+                </div>
+                <div className="rq-field" style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 12 }}>
+                  <div>
+                    <label>State <span style={{ color: '#dc2626' }}>*</span></label>
+                    <select value={providerState} onChange={(e) => setProviderState(e.target.value)} style={{ width: '100%' }}>
+                      <option value="">—</option>
+                      {US_STATES.map((s) => <option key={s} value={s}>{s}</option>)}
+                    </select>
+                  </div>
+                  <div>
+                    <label>ZIP <span style={{ color: '#dc2626' }}>*</span></label>
+                    <input type="text" maxLength={5} value={providerZip} onChange={(e) => setProviderZip(e.target.value)} style={{ width: '100%' }} />
+                  </div>
+                </div>
+              </div>
+              <div className="rq-auth-card">
+                <div className="rq-checkbox" onClick={() => setProviderAuth(!providerAuth)}>
+                  {providerAuth && <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M2.5 6l2.5 2.5 4.5-5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/></svg>}
+                </div>
+                <div>
+                  <div className="rq-auth-text">I authorize my healthcare provider to share medical information with Mutual of Omaha for the purpose of processing my leave claim.</div>
+                  <div className="rq-auth-sub">Required under HIPAA to process your request.</div>
+                </div>
+              </div>
+              <div className="wizard-footer">
+                <button className="btn btn-back" type="button" onClick={goBack}>&larr; Back</button>
+                <button className="btn btn-next" type="button" onClick={goNext}>Continue &rarr;</button>
+              </div>
+            </div>
+          )}
+
+          {/* ─── Step 7: Schedule ─── */}
+          {step === 7 && (
+            <div className="sim-card">
+              <h2>Work Schedule</h2>
+              <p className="sim-desc">Enter the hours you normally work each day. This helps us calculate your benefit amount.</p>
+              {schedWeeks.map((week, wi) => {
+                const total = Object.values(week).reduce((s, v) => s + (Number(v) || 0), 0);
+                return (
+                  <div className="rq-week-card" key={wi}>
+                    <div className="rq-week-header">
+                      <div className="rq-week-title">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><rect x="3" y="4" width="18" height="17" rx="2" stroke="#525252" strokeWidth="1.5"/><path d="M3 9h18M8 2v4M16 2v4" stroke="#525252" strokeWidth="1.5" strokeLinecap="round"/></svg>
+                        Week {wi + 1}
+                      </div>
+                      <span className="rq-week-total">{total} hrs/week</span>
+                    </div>
+                    {wi === 0 && <div className="rq-week-hint">Enter 0 for days you don&rsquo;t work.</div>}
+                    <div className="rq-days-grid">
+                      {['sun','mon','tue','wed','thu','fri','sat'].map((day) => (
+                        <div className="rq-day-cell" key={day}>
+                          <div className="rq-day-label">{day.toUpperCase()}</div>
+                          <input
+                            className="rq-day-input"
+                            type="number"
+                            min="0"
+                            max="24"
+                            value={week[day]}
+                            onChange={(e) => {
+                              const val = Math.max(0, Math.min(24, Number(e.target.value) || 0));
+                              setSchedWeeks((prev) => prev.map((w, i) => i === wi ? { ...w, [day]: val } : w));
+                            }}
+                          />
+                          <div className="rq-day-unit">hrs</div>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                );
+              })}
+              <button className="rq-add-week" type="button" onClick={() => setSchedWeeks((prev) => [...prev, { sun: 0, mon: 8, tue: 8, wed: 8, thu: 8, fri: 8, sat: 0 }])}>
+                <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M7 1v12M1 7h12" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"/></svg>
+                Add another week
+              </button>
+              <div className="wizard-footer">
+                <button className="btn btn-back" type="button" onClick={goBack}>&larr; Back</button>
+                <button className="btn btn-next" type="button" onClick={goNext}>Continue &rarr;</button>
+              </div>
+            </div>
+          )}
+
+          {/* ─── Step 8: Verify ─── */}
+          {step === 8 && (
+            <div className="sim-card">
+              <h2>Verify Your Information</h2>
+              <p className="sim-desc">Please confirm the information your employer has on file for you.</p>
+              <div className="rq-verify-card">
+                <div className="rq-verify-title">Employee Record</div>
+                <div className="rq-verify-provided">Provided by your employer</div>
+                <div className="rq-verify-grid">
+                  <div><div className="rq-verify-label">Full Name</div><div className="rq-verify-value">Sarah Johnson</div></div>
+                  <div><div className="rq-verify-label">Employee ID</div><div className="rq-verify-value">EMP-004821</div></div>
+                  <div><div className="rq-verify-label">Occupation</div><div className="rq-verify-value">Senior Analyst</div></div>
+                  <div><div className="rq-verify-label">Hire Date</div><div className="rq-verify-value">{sideHireDate}</div></div>
+                  <div><div className="rq-verify-label">Work Location</div><div className="rq-verify-value">Omaha, NE</div></div>
+                  <div><div className="rq-verify-label">Employer</div><div className="rq-verify-value">Mutual of Omaha</div></div>
+                  <div><div className="rq-verify-label">Employment Type</div><div className="rq-verify-value">Full-time</div></div>
+                  <div><div className="rq-verify-label">Address</div><div className="rq-verify-value">3300 Mutual of Omaha Plaza, Omaha, NE 68175</div></div>
+                </div>
+                <div className="rq-verify-note">
+                  <svg width="14" height="14" viewBox="0 0 16 16" fill="none"><circle cx="8" cy="8" r="7" stroke="#737373" strokeWidth="1.2"/><path d="M8 7v4" stroke="#737373" strokeWidth="1.2" strokeLinecap="round"/><circle cx="8" cy="4.5" r="0.75" fill="#737373"/></svg>
+                  This information is provided by your employer. If anything looks incorrect, contact HR before submitting.
+                </div>
+              </div>
+              <div className="wizard-footer">
+                <button className="btn btn-back" type="button" onClick={goBack}>&larr; Back</button>
+                <button className="btn btn-next" type="button" onClick={goNext}>Continue &rarr;</button>
+              </div>
+            </div>
+          )}
+
+          {/* ─── Step 9: Contact ─── */}
+          {step === 9 && (
+            <div className="sim-card">
+              <h2>Contact Preferences</h2>
+              <p className="sim-desc">How should we reach you during your leave?</p>
+              <div className="rq-grid" style={{ marginBottom: 20 }}>
+                <div className="rq-field">
+                  <label>Email Address <span style={{ color: '#dc2626' }}>*</span></label>
+                  <input type="email" value={contactEmail} onChange={(e) => setContactEmail(e.target.value)} />
+                </div>
+                <div className="rq-field">
+                  <label>Phone Number <span style={{ color: '#dc2626' }}>*</span></label>
+                  <input type="tel" value={contactPhone} onChange={(e) => setContactPhone(e.target.value)} />
+                </div>
+              </div>
+              <div style={{ marginBottom: 20 }}>
+                <label style={{ display: 'block', fontSize: 13, fontWeight: 700, color: '#1e1e28', marginBottom: 10 }}>Preferred Communication Method</label>
+                <div className="rq-pref-group">
+                  {[
+                    { key: 'email', label: 'Email', on: prefEmail, set: setPrefEmail },
+                    { key: 'phone', label: 'Phone', on: prefPhone, set: setPrefPhone },
+                    { key: 'sms', label: 'SMS / Text', on: prefSMS, set: setPrefSMS },
+                  ].map((item) => (
+                    <div className="rq-pref-item" key={item.key} onClick={() => item.set(!item.on)}>
+                      <div className="rq-pref-check" style={item.on ? {} : { background: '#fff', borderColor: '#d0d0d5' }}>
+                        {item.on && <svg width="11" height="11" viewBox="0 0 12 12" fill="none"><path d="M2.5 6l2.5 2.5 4.5-5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/></svg>}
+                      </div>
+                      {item.label}
+                    </div>
+                  ))}
+                </div>
+              </div>
+              <div style={{ borderTop: '1px solid #e8e8ec', paddingTop: 16 }}>
+                <div className="rq-toggle-row">
+                  <div>
+                    <div className="rq-toggle-label">
+                      <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z" stroke="#525252" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/></svg>
+                      Temporary Address
+                    </div>
+                    <div className="rq-toggle-sub">I&rsquo;ll be at a different address during my leave</div>
+                  </div>
+                  <Toggle on={tempAddr} onClick={() => setTempAddr(!tempAddr)} />
+                </div>
+                {tempAddr && (
+                  <div className="rq-grid" style={{ marginTop: 12 }}>
+                    <div className="rq-field rq-span-2">
+                      <label>Street Address</label>
+                      <input type="text" value={tempStreet} onChange={(e) => setTempStreet(e.target.value)} />
+                    </div>
+                    <div className="rq-field">
+                      <label>City</label>
+                      <input type="text" value={tempCity} onChange={(e) => setTempCity(e.target.value)} />
+                    </div>
+                    <div className="rq-field" style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 12 }}>
+                      <div>
+                        <label>State</label>
+                        <select value={tempState} onChange={(e) => setTempState(e.target.value)} style={{ width: '100%' }}>
+                          <option value="">—</option>
+                          {US_STATES.map((s) => <option key={s} value={s}>{s}</option>)}
+                        </select>
+                      </div>
+                      <div>
+                        <label>ZIP</label>
+                        <input type="text" maxLength={5} value={tempZip} onChange={(e) => setTempZip(e.target.value)} style={{ width: '100%' }} />
+                      </div>
+                    </div>
+                    <div className="rq-field">
+                      <label>From</label>
+                      <input type="date" value={tempFrom} onChange={(e) => setTempFrom(e.target.value)} />
+                    </div>
+                    <div className="rq-field">
+                      <label>To</label>
+                      <input type="date" value={tempTo} onChange={(e) => setTempTo(e.target.value)} />
+                    </div>
+                  </div>
+                )}
+              </div>
+              <div className="wizard-footer">
+                <button className="btn btn-back" type="button" onClick={goBack}>&larr; Back</button>
+                <button className="btn btn-next" type="button" onClick={goNext}>Continue &rarr;</button>
+              </div>
+            </div>
+          )}
+
+          {/* ─── Step 10: Review & Submit ─── */}
+          {step === 10 && (() => {
+            const schedTotal = schedWeeks[0] ? Object.values(schedWeeks[0]).reduce((s, v) => s + (Number(v) || 0), 0) : 40;
+            return (
+              <div className="sim-card">
+                <h2>Confirm Your Information</h2>
+                <p className="sim-desc">Review everything below, then submit your leave request.</p>
+
+                <div className="rq-review-section">
+                  <div className="rq-review-header">
+                    <div className="rq-review-title">Employee Information</div>
+                    <button className="pr-edit-link" type="button" onClick={() => setStep(8)}>Edit</button>
+                  </div>
+                  <div className="rq-review-grid">
+                    <div><div className="rq-review-label">Full Name</div><div className="rq-review-value">Sarah Johnson</div></div>
+                    <div><div className="rq-review-label">Employee ID</div><div className="rq-review-value">EMP-004821</div></div>
+                    <div><div className="rq-review-label">Occupation</div><div className="rq-review-value">Senior Analyst</div></div>
+                    <div><div className="rq-review-label">Hire Date</div><div className="rq-review-value">{sideHireDate}</div></div>
+                  </div>
+                </div>
+
+                <div className="rq-review-section">
+                  <div className="rq-review-header">
+                    <div className="rq-review-title">Contact Information</div>
+                    <button className="pr-edit-link" type="button" onClick={() => setStep(9)}>Edit</button>
+                  </div>
+                  <div className="rq-review-grid">
+                    <div><div className="rq-review-label">Email</div><div className="rq-review-value">{contactEmail}</div></div>
+                    <div><div className="rq-review-label">Phone</div><div className="rq-review-value">{contactPhone}</div></div>
+                    <div><div className="rq-review-label">Communication</div><div className="rq-review-value">{[prefEmail && 'Email', prefPhone && 'Phone', prefSMS && 'SMS'].filter(Boolean).join(', ') || '—'}</div></div>
+                    {tempAddr && <div><div className="rq-review-label">Temp Address</div><div className="rq-review-value">{[tempStreet, tempCity, tempState, tempZip].filter(Boolean).join(', ')}</div></div>}
+                  </div>
+                </div>
+
+                <div className="rq-review-section">
+                  <div className="rq-review-header">
+                    <div className="rq-review-title">
+                      Leave Details
+                      <span className="rq-review-badge">From your plan</span>
+                    </div>
+                    <button className="pr-edit-link" type="button" onClick={() => setStep(4)}>Edit</button>
+                  </div>
+                  <div className="rq-review-grid">
+                    <div><div className="rq-review-label">Reason</div><div className="rq-review-value">{REASON_OPTIONS.find((o) => o.value === reason)?.title}</div></div>
+                    <div><div className="rq-review-label">Type</div><div className="rq-review-value" style={{ textTransform: 'capitalize' }}>{leaveType}</div></div>
+                    <div><div className="rq-review-label">{isBirth ? 'Due Date' : 'Start Date'}</div><div className="rq-review-value">{isBirth ? sideDueDate : sideStart}</div></div>
+                    {!isBirth && <div><div className="rq-review-label">Duration</div><div className="rq-review-value">{sideDuration} weeks</div></div>}
+                    <div><div className="rq-review-label">Diagnosis</div><div className="rq-review-value">{diagnosis || '—'}</div></div>
+                    <div><div className="rq-review-label">Provider</div><div className="rq-review-value">{providerName || '—'}{providerSuffix ? `, ${providerSuffix}` : ''}</div></div>
+                  </div>
+                </div>
+
+                <div className="rq-review-section">
+                  <div className="rq-review-header">
+                    <div className="rq-review-title">Work Schedule</div>
+                    <button className="pr-edit-link" type="button" onClick={() => setStep(7)}>Edit</button>
+                  </div>
+                  <div className="rq-review-grid">
+                    <div><div className="rq-review-label">Hours Per Week</div><div className="rq-review-value">{schedTotal} hrs</div></div>
+                    <div><div className="rq-review-label">Weeks Reported</div><div className="rq-review-value">{schedWeeks.length}</div></div>
+                  </div>
+                </div>
+
+                <div className="rq-disclaimer">
+                  <svg width="16" height="16" viewBox="0 0 16 16" fill="none" style={{ flexShrink: 0, marginTop: 1 }}><circle cx="8" cy="8" r="7" stroke="#525252" strokeWidth="1.2"/><path d="M8 7v4" stroke="#525252" strokeWidth="1.2" strokeLinecap="round"/><circle cx="8" cy="4.5" r="0.75" fill="#525252"/></svg>
+                  <div>
+                    By submitting this request, I certify that the information provided is accurate and complete to the best of my knowledge. I understand that submitting false information may result in denial of benefits and/or disciplinary action.
+                  </div>
+                </div>
+
+                <div className="wizard-footer">
+                  <button className="btn btn-back" type="button" onClick={goBack}>&larr; Back</button>
+                  <button className="btn btn-next" type="button" style={{ background: '#105fa8' }}>Submit Request</button>
+                </div>
+              </div>
+            );
+          })()}
         </div>
       )}
+      <SiteFooter />
     </div>
   );
 }
