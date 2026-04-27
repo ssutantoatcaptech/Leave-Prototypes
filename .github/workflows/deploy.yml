@@ -23,7 +23,20 @@ jobs:
           node-version: 20
           cache: npm
       - run: npm ci
+      - name: Detect base path
+        id: base
+        run: |
+          PAGES_URL=$(gh api repos/${{ github.repository }}/pages --jq '.html_url' 2>/dev/null || echo "")
+          if echo "$PAGES_URL" | grep -q "github.io/${{ github.event.repository.name }}"; then
+            echo "path=/${{ github.event.repository.name }}/" >> $GITHUB_OUTPUT
+          else
+            echo "path=/" >> $GITHUB_OUTPUT
+          fi
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       - run: npm run build
+        env:
+          VITE_BASE: ${{ steps.base.outputs.path }}
       - uses: actions/upload-pages-artifact@v3
         with:
           path: dist

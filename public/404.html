@@ -4,8 +4,9 @@
     <meta charset="utf-8">
     <script>
       // Redirect all paths to index.html for SPA client-side routing
-      var path = window.location.pathname + window.location.search + window.location.hash;
-      window.location.replace('/' + '?p=' + encodeURIComponent(path));
+      var basePath = window.location.pathname.split('/').slice(0, 2).join('/');
+      var fullPath = window.location.pathname + window.location.search + window.location.hash;
+      window.location.replace(basePath + '/?p=' + encodeURIComponent(fullPath));
     </script>
   </head>
   <body></body>
