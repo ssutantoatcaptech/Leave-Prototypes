@@ -6,6 +6,15 @@
     <title>Leave Intake Wizard React</title>
     <link href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <script src="https://mcp.figma.com/mcp/html-to-design/capture.js" async></script>
+    <script>
+      // Handle SPA redirect from 404.html
+      (function() {
+        var redirect = new URLSearchParams(window.location.search).get('p');
+        if (redirect) {
+          window.history.replaceState(null, '', redirect);
+        }
+      })();
+    </script>
     <script type="module" src="/src/main.jsx"></script>
   </head>
   <body>
