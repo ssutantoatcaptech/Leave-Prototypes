@@ -2,6 +2,7 @@ import { useMemo, useState } from 'react';
 import { Link, useNavigate, useSearchParams } from 'react-router-dom';
 import '../overview/overview-react.css';
 import './request-leave-react.css';
+import '../plan-absence/plan-absence-react.css';
 
 const DRAFT_KEY = 'requestLeaveReactDraft';
 
@@ -30,8 +31,10 @@ const initialState = {
   tempStart: '2026-05-01',
   tempEnd: '2026-08-15',
   leaveType: 'continuous',
+  lastDayWorked: '2026-05-26',
+  hoursLastDay: '08:00',
   alreadyMissedTime: false,
-  missedDateEntries: [{ date: '2026-04-28', hours: '8' }],
+  missedDateEntries: [{ date: '2026-04-02', hours: '08:00', reason: 'Episode' }, { date: '2026-04-03', hours: '08:00', reason: 'Treatment' }, { date: '2026-04-04', hours: '08:00', reason: 'Treatment' }],
   reducedHoursPerWeek: '20',
   leaveStartDate: '2026-06-01',
   expectedReturnDate: '2026-09-15',
@@ -99,6 +102,20 @@ const optionIcons = {
   later: <svg width="22" height="22" viewBox="0 0 24 24" fill="none"><rect x="3" y="6" width="18" height="13" rx="2" stroke="#3d3d47" strokeWidth="1.5"/><path d="M14 15l2 2 3-3" stroke="#3d3d47" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/></svg>,
   unsure: <svg width="22" height="22" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="9" stroke="#3d3d47" strokeWidth="1.5"/><path d="M9 9a3 3 0 015.12 1.5c0 1.5-2.12 2-2.12 3.5" stroke="#3d3d47" strokeWidth="1.5" strokeLinecap="round"/><circle cx="12" cy="17" r="0.75" fill="#3d3d47"/></svg>,
 };
+
+let _cachedPlanTransfer = null;
+function getPlanTransfer() {
+  if (_cachedPlanTransfer) return _cachedPlanTransfer;
+  try {
+    const raw = sessionStorage.getItem('planTransfer');
+    if (raw) {
+      _cachedPlanTransfer = JSON.parse(raw);
+      sessionStorage.removeItem('planTransfer');
+      return _cachedPlanTransfer;
+    }
+  } catch { /* ignore */ }
+  return null;
+}
 
 function formatDate(isoDate) {
   if (!isoDate) return '—';
@@ -193,52 +210,136 @@ function ReviewField({ label, value }) {
 export default function RequestLeaveReactPage() {
   const navigate = useNavigate();
   const [searchParams, setSearchParams] = useSearchParams();
-  const [formState, setFormState] = useState(initialState);
-  const [started, setStarted] = useState(false);
-  const [currentStepIndex, setCurrentStepIndex] = useState(0);
+  const [fromPlan] = useState(() => {
+    const data = getPlanTransfer();
+    console.log('[wizard] planTransfer data:', data);
+    return data;
+  });
+  const [formState, setFormState] = useState(() => {
+    if (fromPlan) {
+      return {
+        ...initialState,
+        leaveScenario: fromPlan.leaveScenario || '',
+        leaveType: fromPlan.leaveType || 'continuous',
+        leaveStartDate: fromPlan.leaveStartDate || initialState.leaveStartDate,
+        expectedReturnDate: fromPlan.expectedReturnDate || initialState.expectedReturnDate,
+        diagnosis: fromPlan.diagnosis || '',
+        firstTreatment: fromPlan.firstTreatment || '',
+        nextAppointment: fromPlan.nextAppointment || '',
+        providerName: fromPlan.providerName || initialState.providerName,
+        providerFacility: fromPlan.providerFacility || initialState.providerFacility,
+        providerPhone: fromPlan.providerPhone || initialState.providerPhone,
+        providerCity: fromPlan.providerCity || initialState.providerCity,
+        providerState: fromPlan.providerState || initialState.providerState,
+        providerZip: fromPlan.providerZip || initialState.providerZip,
+        authorizeMedCert: fromPlan.providerAuth !== undefined ? fromPlan.providerAuth : initialState.authorizeMedCert,
+        email: fromPlan.contactEmail || initialState.email,
+        phone: fromPlan.contactPhone || initialState.phone,
+        commEmail: fromPlan.prefEmail !== undefined ? fromPlan.prefEmail : initialState.commEmail,
+        commPhone: fromPlan.prefPhone !== undefined ? fromPlan.prefPhone : initialState.commPhone,
+        commSMS: fromPlan.prefSMS !== undefined ? fromPlan.prefSMS : initialState.commSMS,
+        tempAddress: fromPlan.tempAddr !== undefined ? fromPlan.tempAddr : initialState.tempAddress,
+        tempStreet: fromPlan.tempStreet || initialState.tempStreet,
+        tempCity: fromPlan.tempCity || initialState.tempCity,
+        tempState: fromPlan.tempState || initialState.tempState,
+        tempZip: fromPlan.tempZip || initialState.tempZip,
+        tempStart: fromPlan.tempFrom || initialState.tempStart,
+        tempEnd: fromPlan.tempTo || initialState.tempEnd,
+      };
+    }
+    return initialState;
+  });
+  const [started, setStarted] = useState(() => {
+    console.log('[wizard] started init, fromPlan:', !!fromPlan);
+    return !!fromPlan;
+  });
   const [submittedCase, setSubmittedCase] = useState(null);
+  const [hidePlanBar, setHidePlanBar] = useState(false);
+  const [showCancelModal, setShowCancelModal] = useState(false);
 
   const isChildScenario = formState.leaveScenario === 'child' || formState.leaveScenario === 'child_nonbirth';
   const isBirthingParent = formState.leaveScenario === 'child';
   const isMedicalScenario = formState.leaveScenario === 'medical_self' || formState.leaveScenario === 'medical_family';
   const isMedicalSelf = formState.leaveScenario === 'medical_self';
   const isFamilyCare = formState.leaveScenario === 'medical_family';
+  const isMilitary = formState.leaveScenario === 'military';
+  const isOther = formState.leaveScenario === 'other';
 
-  const steps = useMemo(() => {
-    const visibleSteps = [{ id: 'leaveReason', label: 'Reason', title: 'Why are you taking leave?' }];
-    if (isMedicalSelf) {
-      visibleSteps.push({ id: 'leaveStructure', label: 'Structure', title: 'How would you like to structure your leave?' });
-      visibleSteps.push({ id: 'leaveDetails', label: 'Schedule', title: 'Tell us about your typical work schedule' });
-      visibleSteps.push({ id: 'medical', label: 'Condition', title: 'Tell us about your condition' });
-      visibleSteps.push({ id: 'medicalCert', label: 'Certification', title: 'Medical Certifications' });
-    } else if (isBirthingParent) {
-      visibleSteps.push({ id: 'childScenario', label: 'Child', title: 'How are you welcoming your child?' });
-      visibleSteps.push({ id: 'leaveStructure', label: 'Structure', title: 'How will you take your leave?' });
-      visibleSteps.push({ id: 'leaveDetails', label: 'Schedule', title: 'What does your typical work week look like?' });
-      visibleSteps.push({ id: 'medicalCert', label: 'Certification', title: 'Medical Certifications' });
-      visibleSteps.push({ id: 'planAware', label: 'Benefits', title: 'A couple more questions' });
-      visibleSteps.push({ id: 'bondingIntent', label: 'Bonding', title: 'When would you like to bond with your child?' });
-    } else if (isFamilyCare) {
-      visibleSteps.push({ id: 'leaveStructure', label: 'Structure', title: 'How will you take your leave?' });
-      visibleSteps.push({ id: 'familyMember', label: 'Family', title: 'Tell us about the person you\u2019re caring for' });
-      visibleSteps.push({ id: 'familyCondition', label: 'Condition', title: 'About the condition' });
-      visibleSteps.push({ id: 'leaveDetails', label: 'Schedule', title: 'What does your typical work week look like?' });
-      visibleSteps.push({ id: 'medicalCert', label: 'Certification', title: 'Medical Certifications' });
+  function buildSteps(scenario, childScen, birthing, medSelf, famCare) {
+    const mil = scenario === 'military';
+    const oth = scenario === 'other';
+    const nonbirth = scenario === 'child_nonbirth';
+    const s = [{ id: 'leaveReason', label: 'Reason', title: 'Why are you taking leave?' }];
+    if (medSelf) {
+      s.push({ id: 'leaveStructure', label: 'Structure', title: 'How would you like to structure your leave?' });
+      s.push({ id: 'missedTime', label: 'Missed Time', title: 'Did you miss any work time before starting this leave?' });
+      s.push({ id: 'leaveDetails', label: 'Schedule', title: 'Tell us about your typical work schedule' });
+      s.push({ id: 'medical', label: 'Condition', title: 'Tell us about your condition' });
+      s.push({ id: 'providerDetails', label: 'Provider', title: 'Provider Details' });
+    } else if (birthing) {
+      s.push({ id: 'childScenario', label: 'Child', title: 'Has the birth already occurred?' });
+      s.push({ id: 'leaveStructure', label: 'Structure', title: 'How will you take your absence?' });
+      s.push({ id: 'missedTime', label: 'Missed Time', title: 'Did you miss any work time before starting this leave?' });
+      s.push({ id: 'leaveDetails', label: 'Schedule', title: 'What does your typical work week look like?' });
+      s.push({ id: 'planAware', label: 'Benefits', title: 'A couple more questions' });
+      s.push({ id: 'bondingIntent', label: 'Bonding', title: 'When would you like to bond with your child?' });
+      s.push({ id: 'providerDetails', label: 'Provider', title: 'Provider Details' });
+      s.push({ id: 'medicalCertConsent', label: 'Consent', title: 'Medical Certification Consent' });
+    } else if (famCare) {
+      s.push({ id: 'leaveStructure', label: 'Structure', title: 'How would you like to structure your leave?' });
+      s.push({ id: 'missedTime', label: 'Missed Time', title: 'Did you miss any work time before starting this leave?' });
+      s.push({ id: 'leaveDetails', label: 'Schedule', title: 'Tell us about your typical work schedule' });
+      s.push({ id: 'familyMember', label: 'Family', title: 'Tell us about the person you\u2019re caring for' });
+      s.push({ id: 'familyCondition', label: 'Condition', title: 'About the patient\u2019s condition' });
+      s.push({ id: 'providerDetails', label: 'Provider', title: 'The Patient\u2019s Provider Details' });
+      s.push({ id: 'medicalCertConsent', label: 'Consent', title: 'Medical Certification Consent' });
+    } else if (nonbirth) {
+      s.push({ id: 'childScenario', label: 'Child', title: 'How are you welcoming your child?' });
+      s.push({ id: 'leaveStructure', label: 'Structure', title: 'How will you take your absence?' });
+      s.push({ id: 'missedTime', label: 'Missed Time', title: 'Did you miss any work time before starting this leave?' });
+      s.push({ id: 'leaveDetails', label: 'Schedule', title: 'What does your typical work week look like?' });
+      s.push({ id: 'planAware', label: 'Benefits', title: 'A couple more questions' });
+      s.push({ id: 'bondingIntent', label: 'Bonding', title: 'When would you like to bond with your child?' });
+      s.push({ id: 'medicalCert', label: 'Certification', title: 'Medical Certifications' });
+      s.push({ id: 'medicalCertConsent', label: 'Consent', title: 'Medical Certification Consent' });
+    } else if (mil) {
+      s.push({ id: 'leaveStructure', label: 'Structure', title: 'How will you take your absence?' });
+      s.push({ id: 'missedTime', label: 'Missed Time', title: 'Did you miss any work time before starting this leave?' });
+      s.push({ id: 'leaveDetails', label: 'Schedule', title: 'Tell us about your typical work schedule' });
+    } else if (oth) {
+      s.push({ id: 'leaveStructure', label: 'Structure', title: 'How would you like to structure your leave?' });
+      s.push({ id: 'missedTime', label: 'Missed Time', title: 'Did you miss any work time before starting this leave?' });
+      s.push({ id: 'leaveDetails', label: 'Schedule', title: 'Tell us about your typical work schedule' });
     } else {
-      visibleSteps.push({ id: 'leaveDates', label: 'Dates', title: 'When does your leave start?' });
-      visibleSteps.push({ id: 'leaveType', label: 'Type', title: 'How will you take your leave?' });
-      visibleSteps.push({ id: 'leaveDetails', label: 'Schedule', title: 'Your work schedule' });
-      if (isChildScenario) {
-        visibleSteps.push({ id: 'childScenario', label: 'Child', title: 'How are you welcoming your child?' });
-        visibleSteps.push({ id: 'planAware', label: 'Benefits', title: 'Your leave benefits' });
-        visibleSteps.push({ id: 'bondingIntent', label: 'Bonding', title: 'Planning your bonding time' });
-      }
+      s.push({ id: 'leaveStructure', label: 'Structure', title: 'How would you like to structure your leave?' });
+      s.push({ id: 'missedTime', label: 'Missed Time', title: 'Did you miss any work time before starting this leave?' });
+      s.push({ id: 'leaveDetails', label: 'Schedule', title: 'Tell us about your typical work schedule' });
     }
-    visibleSteps.push({ id: 'demographics', label: 'Verify', title: 'Let\u2019s confirm your confirmation' });
-    visibleSteps.push({ id: 'contact', label: 'Contact', title: 'How should we reach you?' });
-    visibleSteps.push({ id: 'review', label: 'Review', title: 'Review and submit' });
-    return visibleSteps;
-  }, [formState.leaveScenario, isChildScenario, isBirthingParent, isMedicalScenario, isMedicalSelf, isFamilyCare]);
+    s.push({ id: 'contact', label: 'Contact', title: 'How should we reach you?' });
+    s.push({ id: 'benefits', label: 'Benefits', title: 'Your estimated leave benefits' });
+    s.push({ id: 'review', label: 'Review', title: 'Review and submit' });
+    return s;
+  }
+
+  const steps = useMemo(
+    () => buildSteps(formState.leaveScenario, isChildScenario, isBirthingParent, isMedicalSelf, isFamilyCare),
+    [formState.leaveScenario, isChildScenario, isBirthingParent, isMedicalSelf, isFamilyCare],
+  );
+
+  const [currentStepIndex, setCurrentStepIndex] = useState(() => {
+    if (!fromPlan) return 0;
+    const skipMap = {
+      medical_self: 2,
+      medical_family: 2,
+      child_nonbirth: 3,
+      child: 3,
+      military: 2,
+      other: 2,
+    };
+    const idx = skipMap[fromPlan.leaveScenario] || 0;
+    console.log('[wizard] currentStepIndex init, scenario:', fromPlan.leaveScenario, 'skip to:', idx);
+    return idx;
+  });
 
   const currentStep = steps[currentStepIndex] || steps[0];
 
@@ -273,7 +374,7 @@ export default function RequestLeaveReactPage() {
   }
 
   function addMissedDateEntry() {
-    setFormState((previous) => ({ ...previous, missedDateEntries: [...previous.missedDateEntries, { date: '', hours: '' }] }));
+    setFormState((previous) => ({ ...previous, missedDateEntries: [...previous.missedDateEntries, { date: '', hours: '', reason: '' }] }));
   }
 
   function updateMissedDateEntry(index, key, value) {
@@ -321,15 +422,15 @@ export default function RequestLeaveReactPage() {
         familyRelationship: '',
       },
       medical_self: {
-        diagnosis: 'Lumbar disc herniation — scheduled surgery',
-        firstTreatment: '2026-02-20',
-        nextAppointment: '2026-04-18',
-        providerName: 'Dr. Patel',
-        providerSuffix: 'Orthopedic Surgeon',
-        providerFacility: 'NYU Langone Orthopedics',
-        providerPhone: '(212) 598-6000',
-        providerFax: '(212) 598-6001',
-        providerEmail: 'r.patel@nyulangone.org',
+        diagnosis: 'Back Surgery',
+        firstTreatment: '2026-04-13',
+        nextAppointment: '2026-05-01',
+        providerName: 'Dr. Dempsey',
+        providerSuffix: 'MD',
+        providerFacility: "St. Luke's Medical Center",
+        providerPhone: '(816) 457-2934',
+        providerFax: '(816) 457-2935',
+        providerEmail: 'dempsey.herbett@stlukes.com',
         familyFirstName: '',
         familyLastName: '',
         familyRelationship: '',
@@ -349,6 +450,8 @@ export default function RequestLeaveReactPage() {
         familyRelationship: 'parent',
         familyDob: '1958-07-14',
       },
+      military: {},
+      other: {},
     };
     setFormState((previous) => ({ ...previous, leaveScenario: scenario, ...prefills[scenario] }));
     // Update URL with selected reason
@@ -465,7 +568,7 @@ export default function RequestLeaveReactPage() {
               <div key={bar.label} className="timeline-bar-row">
                 <div className="timeline-bar-label">{bar.label}</div>
                 <div className="timeline-bar-track">
-                  <div className={`timeline-bar-fill ${bar.css}`} style={{ width: `${Math.min((bar.weeks / 28) * 100, 100)}%` }}>{bar.label} · {bar.weeks}wk</div>
+                  <div className={`timeline-bar-fill ${bar.css}`} style={{ width: `${Math.min((bar.weeks / 28) * 100, 100)}%` }}>{bar.label} {bar.weeks}wk</div>
                 </div>
               </div>
             ))}
@@ -496,13 +599,33 @@ export default function RequestLeaveReactPage() {
     }
   }
 
-  function saveAndExit() {
+  function saveDraft() {
+    const draft = {
+      id: `draft-rl-${Date.now()}`,
+      type: 'request-leave',
+      title: formState.leaveScenario
+        ? { medical_self: "Medical Leave (Own Illness)", medical_family: "Family Care Leave", child: "Birthing Parent Leave", child_nonbirth: "Non-Birthing Parent Leave", military: "Military Leave", other: "Other Leave" }[formState.leaveScenario] || 'Leave Request'
+        : 'Leave Request',
+      reason: formState.leaveScenario || '',
+      stepIndex: currentStepIndex,
+      totalSteps: steps.length,
+      startDate: formState.leaveStartDate,
+      savedAt: new Date().toISOString(),
+      route: '/request-leave-react',
+    };
+    const existing = JSON.parse(localStorage.getItem('leaveDrafts') || '[]').filter(d => d.type !== 'request-leave');
+    existing.push(draft);
+    localStorage.setItem('leaveDrafts', JSON.stringify(existing));
     localStorage.setItem(DRAFT_KEY, JSON.stringify({ formState, stepIndex: currentStepIndex }));
+  }
+
+  function saveAndExit() {
+    saveDraft();
     navigate('/overview-react');
   }
 
   function submitRequest() {
-    const reference = `LV-2026-${String(Date.now()).slice(-4)}`;
+    const reference = `NTN-${String(Date.now()).slice(-4)}`;
     const startDate = new Date(`${formState.leaveStartDate}T00:00:00`);
     const endDate = new Date(`${formState.expectedReturnDate}T00:00:00`);
     const durationDays = Math.max(0, Math.round((endDate - startDate) / (1000 * 60 * 60 * 24)));
@@ -516,22 +639,36 @@ export default function RequestLeaveReactPage() {
   }
 
   function renderMissedEntries() {
+    const showReason = formState.leaveType === 'intermittent' || formState.leaveType === 'reduced';
+    const totalHours = formState.missedDateEntries.reduce((sum, e) => {
+      const parsed = parseFloat(e.hours) || 0;
+      return sum + parsed;
+    }, 0);
     return (
       <>
         {formState.missedDateEntries.map((entry, index) => (
           <div key={`${index}-${entry.date}`} style={{ display: 'flex', alignItems: 'flex-end', gap: '10px', marginBottom: '10px' }}>
             <div className="form-group" style={{ flex: 1, marginBottom: 0 }}>
-              <label>{index === 0 ? 'Date missed' : 'Date'}</label>
+              <label>{index === 0 ? 'Date' : ' '}</label>
               <input type="date" value={entry.date} onChange={(event) => updateMissedDateEntry(index, 'date', event.target.value)}/>
             </div>
             <div className="form-group" style={{ width: '100px', marginBottom: 0 }}>
-              <label>{index === 0 ? 'Hours' : 'Hours'}</label>
-              <input type="number" value={entry.hours} onChange={(event) => updateMissedDateEntry(index, 'hours', event.target.value)}/>
+              <label>{index === 0 ? 'Hrs | Min' : ' '}</label>
+              <input type="text" value={entry.hours} onChange={(event) => updateMissedDateEntry(index, 'hours', event.target.value)}/>
             </div>
-            {formState.missedDateEntries.length > 1 ? <button type="button" className="btn btn-back" style={{ padding: '8px 12px' }} onClick={() => removeMissedDateEntry(index)}>Remove</button> : null}
+            {showReason ? (
+              <div className="form-group" style={{ width: '120px', marginBottom: 0 }}>
+                <label>{index === 0 ? 'Reason' : ' '}</label>
+                <input type="text" placeholder="e.g., Episode" value={entry.reason || ''} onChange={(event) => updateMissedDateEntry(index, 'reason', event.target.value)}/>
+              </div>
+            ) : null}
+            {formState.missedDateEntries.length > 1 ? <button type="button" style={{ width: 32, height: 38, display: 'flex', alignItems: 'center', justifyContent: 'center', border: '1px solid #d4d4d8', borderRadius: 6, background: '#fff', cursor: 'pointer', fontSize: 18, color: '#737373', flexShrink: 0 }} onClick={() => removeMissedDateEntry(index)}>—</button> : null}
           </div>
         ))}
         <button type="button" className="rotation-add" onClick={addMissedDateEntry}>Add another date</button>
+        {showReason && totalHours > 0 ? (
+          <div style={{ textAlign: 'right', fontSize: 13, fontWeight: 600, color: '#0f0f14', marginTop: 8 }}>{totalHours} total hours missed</div>
+        ) : null}
       </>
     );
   }
@@ -545,7 +682,7 @@ export default function RequestLeaveReactPage() {
           child_nonbirth: 'You\u2019re welcoming a child through adoption, foster care, or as a non-birthing parent.',
           child: 'You\u2019re having a baby or need time for pregnancy and bonding.',
           military: 'You need time off for qualifying military exigency or to care for a service member.',
-          other: 'Your reason doesn\u2019t fit the categories above.',
+          other: "Your reason doesn't fit the categories above.",
         };
         return (
           <>
@@ -569,7 +706,7 @@ export default function RequestLeaveReactPage() {
       case 'leaveStructure':
         return (
           <>
-            <h2>How would you like to structure your leave?</h2>
+            <h2>{isChildScenario || isMilitary ? 'How will you take your absence?' : 'How would you like to structure your leave?'}</h2>
             <p className="subtitle">This helps us figure out which benefits and protections apply.</p>
             <div className="lt-picker">
               {['continuous', 'intermittent', 'reduced'].map((type) => (
@@ -580,28 +717,66 @@ export default function RequestLeaveReactPage() {
               ))}
             </div>
             <div className="lt-context">
-              <p className="lt-context-desc">{formState.leaveType === 'continuous' ? "You\u2019ll be fully away from work for the duration of your leave." : formState.leaveType === 'intermittent' ? "You\u2019ll take time off periodically — for flare-ups, treatments, or appointments." : "You\u2019ll continue working but with fewer hours per day or days per week."}</p>
+              <p className="lt-context-desc">{formState.leaveType === 'continuous' ? "You\u2019ll be fully away from work for the duration of your absence." : formState.leaveType === 'intermittent' ? "Your schedule will vary, as you need time off for flare-ups, treatment, or appointments." : "Reduced Schedule is typically a set or consistent schedule adjustment per day, per week."}</p>
               <div className="bordered-section">
                 {formState.leaveType === 'continuous' ? (
-                  <div className="form-row cols-2" style={{ marginBottom: 0 }}>
-                    <div className="form-group" style={{ marginBottom: 0 }}><label>Anticipated Start Date <span className="req">*</span></label><input type="date" value={formState.leaveStartDate} onChange={(event) => updateField('leaveStartDate', event.target.value)}/></div>
-                    <div className="form-group" style={{ marginBottom: 0 }}><label>Expected End Date</label><input type="date" value={formState.expectedReturnDate} onChange={(event) => updateField('expectedReturnDate', event.target.value)}/><div className="helper">Your best estimate of when you expect to return to work.</div></div>
-                  </div>
+                  <>
+                    <div className="form-row cols-2">
+                      <div className="form-group"><label>Anticipated Start Date <span className="req">*</span></label><input type="date" value={formState.leaveStartDate} onChange={(event) => updateField('leaveStartDate', event.target.value)}/></div>
+                      <div className="form-group"><label>Expected End Date</label><input type="date" value={formState.expectedReturnDate} onChange={(event) => updateField('expectedReturnDate', event.target.value)}/><div className="helper">Your best estimate of when you expect to return to work.</div></div>
+                    </div>
+                    <div className="form-row cols-2" style={{ marginBottom: 0 }}>
+                      <div className="form-group" style={{ marginBottom: 0 }}><label>What was your last day worked?</label><input type="date" value={formState.lastDayWorked} onChange={(event) => updateField('lastDayWorked', event.target.value)}/></div>
+                      <div className="form-group" style={{ marginBottom: 0 }}><label>Hours worked on last day<span className="req">*</span></label><input type="text" value={formState.hoursLastDay} onChange={(event) => updateField('hoursLastDay', event.target.value)}/></div>
+                    </div>
+                  </>
                 ) : formState.leaveType === 'intermittent' ? (
-                  <div className="form-row cols-2" style={{ marginBottom: 0 }}>
-                    <div className="form-group" style={{ marginBottom: 0 }}><label>Anticipated Start Date <span className="req">*</span></label><input type="date" value={formState.leaveStartDate} onChange={(event) => updateField('leaveStartDate', event.target.value)}/></div>
-                    <div className="form-group" style={{ marginBottom: 0 }}><label>How often do you need time off?</label><input type="text" value={formState.episodeFrequency} onChange={(event) => updateField('episodeFrequency', event.target.value)}/></div>
-                  </div>
+                  <>
+                    <div className="form-group"><label>Anticipated Start Date <span className="req">*</span></label><input type="date" value={formState.leaveStartDate} onChange={(event) => updateField('leaveStartDate', event.target.value)}/></div>
+                    <div className="form-row cols-2" style={{ marginBottom: 0 }}>
+                      <div className="form-group" style={{ marginBottom: 0 }}><label>What was your last day worked?</label><input type="date" value={formState.lastDayWorked} onChange={(event) => updateField('lastDayWorked', event.target.value)}/></div>
+                      <div className="form-group" style={{ marginBottom: 0 }}><label>Hours worked on last day<span className="req">*</span></label><input type="text" value={formState.hoursLastDay} onChange={(event) => updateField('hoursLastDay', event.target.value)}/></div>
+                    </div>
+                  </>
                 ) : (
-                  <div className="form-row cols-2" style={{ marginBottom: 0 }}>
-                    <div className="form-group" style={{ marginBottom: 0 }}><label>Anticipated Start Date <span className="req">*</span></label><input type="date" value={formState.leaveStartDate} onChange={(event) => updateField('leaveStartDate', event.target.value)}/></div>
-                    <div className="form-group" style={{ marginBottom: 0 }}><label>Hours per week you plan to work</label><input type="number" value={formState.reducedHoursPerWeek} onChange={(event) => updateField('reducedHoursPerWeek', event.target.value)}/></div>
-                  </div>
+                  <>
+                    <div className="form-row cols-2">
+                      <div className="form-group"><label>Anticipated Start Date <span className="req">*</span></label><input type="date" value={formState.leaveStartDate} onChange={(event) => updateField('leaveStartDate', event.target.value)}/></div>
+                      <div className="form-group"><label>Hours per week you plan to work</label><input type="number" value={formState.reducedHoursPerWeek} onChange={(event) => updateField('reducedHoursPerWeek', event.target.value)}/></div>
+                    </div>
+                    <div className="form-row cols-2" style={{ marginBottom: 0 }}>
+                      <div className="form-group" style={{ marginBottom: 0 }}><label>What was your last day worked?</label><input type="date" value={formState.lastDayWorked} onChange={(event) => updateField('lastDayWorked', event.target.value)}/></div>
+                      <div className="form-group" style={{ marginBottom: 0 }}><label>Hours worked on last day<span className="req">*</span></label><input type="text" value={formState.hoursLastDay} onChange={(event) => updateField('hoursLastDay', event.target.value)}/></div>
+                    </div>
+                  </>
                 )}
               </div>
             </div>
           </>
         );
+      case 'missedTime': {
+        const isIntermittentOrReduced = formState.leaveType === 'intermittent' || formState.leaveType === 'reduced';
+        return (
+          <>
+            <h2>Did you miss any work time before starting this leave?</h2>
+            <p className="subtitle">Log any work days you've already missed for this condition.</p>
+            <div className="yesno" style={{ marginBottom: 16 }}>
+              <button type="button" className={`yesno-btn ${formState.alreadyMissedTime === true ? 'selected' : ''}`} onClick={() => updateField('alreadyMissedTime', true)}>Yes</button>
+              <button type="button" className={`yesno-btn ${formState.alreadyMissedTime === false ? 'selected' : ''}`} onClick={() => updateField('alreadyMissedTime', false)}>No</button>
+            </div>
+            {formState.alreadyMissedTime ? (
+              <div className="bordered-section">
+                {renderMissedEntries()}
+              </div>
+            ) : formState.alreadyMissedTime === false && !isIntermittentOrReduced ? (
+              <div style={{ display: 'flex', alignItems: 'center', gap: 8, padding: '12px 16px', background: '#f9f9fb', border: '1px solid #e8e8ec', borderRadius: 8, fontSize: 13, color: '#525252' }}>
+                <svg width="16" height="16" viewBox="0 0 16 16" fill="none" style={{ flexShrink: 0 }}><circle cx="8" cy="8" r="7" stroke="#a3a3a3" strokeWidth="1.2"/><path d="M8 5v3" stroke="#a3a3a3" strokeWidth="1.2" strokeLinecap="round"/><circle cx="8" cy="11" r="0.5" fill="#a3a3a3"/></svg>
+                Time missed before your leave start date counts toward your eligibility and total
+              </div>
+            ) : null}
+          </>
+        );
+      }
       case 'medical':
         if (formState.leaveScenario === 'medical_family') {
           return (
@@ -632,22 +807,24 @@ export default function RequestLeaveReactPage() {
           <>
             <h2>Tell us about your condition</h2>
             <p className="subtitle">Your provider will handle the clinical certification. This helps us start the right process.</p>
-            <div className="form-group"><label>Medical Condition <span className="req">*</span></label><input type="text" value={formState.diagnosis} onChange={(event) => updateField('diagnosis', event.target.value)}/></div>
+            <div className="form-group"><label>Medical Condition <span className="req">*</span></label><input type="text" placeholder="e.g., back surgery, chronic condition" value={formState.diagnosis} onChange={(event) => updateField('diagnosis', event.target.value)}/></div>
             <div className="form-row cols-2">
               <div className="form-group"><label>First Date of Treatment</label><input type="date" value={formState.firstTreatment} onChange={(event) => updateField('firstTreatment', event.target.value)}/></div>
               <div className="form-group"><label>Next Scheduled Appointment</label><input type="date" value={formState.nextAppointment} onChange={(event) => updateField('nextAppointment', event.target.value)}/></div>
             </div>
-            <div className="divider"/>
-            <label>Will you be hospitalized or need ongoing treatment? <span className="req">*</span></label>
-            <div className="yesno">
+            <div className="bordered-section">
+            <label>Will the person being cared for (you or a family member) be hospitalized or need ongoing treatment?</label>
+            <div className="yesno" style={{ marginBottom: 0 }}>
               <button type="button" className={`yesno-btn ${formState.seriousHealthCondition ? 'selected' : ''}`} onClick={() => updateField('seriousHealthCondition', true)}>Yes</button>
               <button type="button" className={`yesno-btn ${formState.seriousHealthCondition === false ? 'selected' : ''}`} onClick={() => updateField('seriousHealthCondition', false)}>No</button>
             </div>
-            <div className="divider"/>
-            <label>Is your injury/illness related to your job or workplace? <span className="req">*</span></label>
+            </div>
+            <div className="bordered-section">
+            <label>Is your injury/illness related to your job or workplace?<span className="req">*</span></label>
             <div className="yesno" style={{ marginBottom: 0 }}>
               <button type="button" className={`yesno-btn ${formState.workersComp === 'yes' ? 'selected' : ''}`} onClick={() => updateField('workersComp', 'yes')}>Yes</button>
               <button type="button" className={`yesno-btn ${formState.workersComp === 'no' ? 'selected' : ''}`} onClick={() => updateField('workersComp', 'no')}>No</button>
+            </div>
             </div>
           </>
         );
@@ -688,10 +865,10 @@ export default function RequestLeaveReactPage() {
       case 'familyMember':
         return (
           <>
-            <h2>Tell us about the person you’re caring for</h2>
-            <p className="subtitle">We need a few details about your family member to determine your coverage.</p>
+            <h2>Tell us about the person you&rsquo;re caring for</h2>
+            <p className="subtitle">We need a few details about your family member to determine your coverage. Their medical information will be kept confidential.</p>
             <div className="bordered-section">
-              <div className="section-title">Family Member Information</div>
+              <div className="section-title" style={{ display: 'flex', alignItems: 'center', gap: 8 }}><svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2" stroke="#525252" strokeWidth="1.5" strokeLinecap="round"/><circle cx="12" cy="7" r="4" stroke="#525252" strokeWidth="1.5"/></svg>Family Member Information</div>
               <div className="form-row cols-2">
                 <div className="form-group"><label>First Name <span className="req">*</span></label><input type="text" value={formState.familyFirstName} onChange={(event) => updateField('familyFirstName', event.target.value)}/></div>
                 <div className="form-group"><label>Last Name <span className="req">*</span></label><input type="text" value={formState.familyLastName} onChange={(event) => updateField('familyLastName', event.target.value)}/></div>
@@ -706,26 +883,61 @@ export default function RequestLeaveReactPage() {
       case 'familyCondition':
         return (
           <>
-            <h2>About the condition</h2>
+            <h2>About the patient&rsquo;s condition</h2>
             <p className="subtitle">Your provider will handle the clinical certification. This helps us start the right process.</p>
             <div className="bordered-section">
-              <div className="form-group"><label>Medical Condition <span className="req">*</span></label><input type="text" value={formState.diagnosis} onChange={(event) => updateField('diagnosis', event.target.value)}/></div>
+              <div className="form-group"><label>Medical Condition <span className="req">*</span></label><input type="text" placeholder="e.g., back surgery, chronic condition" value={formState.diagnosis} onChange={(event) => updateField('diagnosis', event.target.value)}/></div>
               <div className="form-row cols-2" style={{ marginBottom: 0 }}>
                 <div className="form-group" style={{ marginBottom: 0 }}><label>First Date of Treatment</label><input type="date" value={formState.firstTreatment} onChange={(event) => updateField('firstTreatment', event.target.value)}/></div>
                 <div className="form-group" style={{ marginBottom: 0 }}><label>Next Scheduled Appointment</label><input type="date" value={formState.nextAppointment} onChange={(event) => updateField('nextAppointment', event.target.value)}/></div>
               </div>
             </div>
-            <div className="divider"/>
-            <label>Will your family member be hospitalized or need ongoing treatment? <span className="req">*</span></label>
-            <div className="yesno">
-              <button type="button" className={`yesno-btn ${formState.seriousHealthCondition ? 'selected' : ''}`} onClick={() => updateField('seriousHealthCondition', true)}>Yes</button>
-              <button type="button" className={`yesno-btn ${formState.seriousHealthCondition === false ? 'selected' : ''}`} onClick={() => updateField('seriousHealthCondition', false)}>No</button>
+            <div className="bordered-section">
+              <label>Will the person being cared for (you or a family member) be hospitalized or need ongoing treatment? <span className="req">*</span></label>
+              <div className="yesno" style={{ marginTop: 8, marginBottom: 0 }}>
+                <button type="button" className={`yesno-btn ${formState.seriousHealthCondition ? 'selected' : ''}`} onClick={() => updateField('seriousHealthCondition', true)}>Yes</button>
+                <button type="button" className={`yesno-btn ${formState.seriousHealthCondition === false ? 'selected' : ''}`} onClick={() => updateField('seriousHealthCondition', false)}>No</button>
+              </div>
             </div>
-            <div className="divider"/>
-            <label>Is this condition related to a workplace injury? <span className="req">*</span></label>
-            <div className="yesno" style={{ marginBottom: 0 }}>
-              <button type="button" className={`yesno-btn ${formState.workersComp === 'yes' ? 'selected' : ''}`} onClick={() => updateField('workersComp', 'yes')}>Yes</button>
-              <button type="button" className={`yesno-btn ${formState.workersComp === 'no' ? 'selected' : ''}`} onClick={() => updateField('workersComp', 'no')}>No</button>
+          </>
+        );
+      case 'providerDetails':
+        return (
+          <>
+            <h2>{isFamilyCare ? "The Patient's Provider Details" : "Provider Details"}</h2>
+            <p className="subtitle">{isFamilyCare ? "Tell us more about the patient's medical provider." : "Tell us more about your medical provider."}</p>
+            <div className="bordered-section">
+              <div className="form-group"><label>Facility / Practice Name</label><input type="text" value={formState.providerFacility} onChange={(event) => updateField('providerFacility', event.target.value)}/></div>
+              <div style={{ display: 'grid', gridTemplateColumns: '1fr auto', gap: '16px', marginBottom: '20px' }}>
+                <div className="form-group" style={{ marginBottom: 0 }}><label>Provider Name</label><input type="text" value={formState.providerName} onChange={(event) => updateField('providerName', event.target.value)}/></div>
+                <div className="form-group" style={{ marginBottom: 0, minWidth: '100px' }}><label>Suffix</label><input type="text" value={formState.providerSuffix} onChange={(event) => updateField('providerSuffix', event.target.value)}/></div>
+              </div>
+              <div className="form-row cols-2">
+                <div className="form-group"><label>Phone</label><input type="tel" value={formState.providerPhone} onChange={(event) => updateField('providerPhone', event.target.value)}/></div>
+                <div className="form-group"><label>Fax</label><input type="tel" value={formState.providerFax} onChange={(event) => updateField('providerFax', event.target.value)}/></div>
+              </div>
+              <div className="form-group"><label>Email</label><input type="email" value={formState.providerEmail} onChange={(event) => updateField('providerEmail', event.target.value)}/></div>
+              <div className="form-group"><label>Street Address</label><input type="text" value={formState.providerStreet} onChange={(event) => updateField('providerStreet', event.target.value)}/></div>
+              <div className="form-row cols-3" style={{ marginBottom: 0 }}>
+                <div className="form-group" style={{ marginBottom: 0 }}><label>City</label><input type="text" value={formState.providerCity} onChange={(event) => updateField('providerCity', event.target.value)}/></div>
+                <div className="form-group" style={{ marginBottom: 0 }}><label>State</label><select value={formState.providerState} onChange={(event) => updateField('providerState', event.target.value)}><option value="">Select...</option>{stateOptions.map((option) => <option key={option} value={option}>{option}</option>)}</select></div>
+                <div className="form-group" style={{ marginBottom: 0 }}><label>ZIP</label><input type="text" value={formState.providerZip} onChange={(event) => updateField('providerZip', event.target.value)}/></div>
+              </div>
+            </div>
+            <button type="button" className="rotation-add"><svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M8 3v10M3 8h10" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"/></svg>Add another provider</button>
+          </>
+        );
+      case 'medicalCertConsent':
+        return (
+          <>
+            <h2>Medical Certification Consent</h2>
+            <p className="subtitle" style={{ lineHeight: 1.7 }}>You are responsible for ensuring the healthcare provider receives and completes the certification and for providing the form to Mutual of Omaha on time. Please check with the healthcare provider's office about any fees that may charge to complete a form to make revisions.</p>
+            <div className="bordered-section">
+              <label style={{ fontWeight: 600 }}>Would you like to authorize to send any required certifications directly to the healthcare provider for completion or clarification?</label>
+              <div className="yesno" style={{ marginTop: 12, marginBottom: 0 }}>
+                <button type="button" className={`yesno-btn ${formState.authorizeMedCert ? 'selected' : ''}`} onClick={() => updateField('authorizeMedCert', true)}>Yes</button>
+                <button type="button" className={`yesno-btn ${formState.authorizeMedCert === false ? 'selected' : ''}`} onClick={() => updateField('authorizeMedCert', false)}>No</button>
+              </div>
             </div>
           </>
         );
@@ -774,59 +986,20 @@ export default function RequestLeaveReactPage() {
             ) : null}
           </>
         );
-      case 'leaveDates':
-        return (
-          <>
-            <h2>When does your leave start?</h2>
-            <p className="subtitle">If you\u2019re not sure of the exact date yet, give us your best estimate.</p>
-            <div className="bordered-section">
-              <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '16px' }}>
-                <div className="form-group" style={{ marginBottom: 0 }}><label>Anticipated Start Date <span className="req">*</span></label><input type="date" value={formState.leaveStartDate} onChange={(event) => updateField('leaveStartDate', event.target.value)}/></div>
-                <div className="form-group" style={{ marginBottom: 0 }}><label>Expected Return Date</label><input type="date" value={formState.expectedReturnDate} onChange={(event) => updateField('expectedReturnDate', event.target.value)}/><div className="helper">Your best estimate of when you expect to return to work.</div></div>
-              </div>
-            </div>
-          </>
-        );
-      case 'leaveType':
-        return (
-          <>
-            <h2>How will you take your leave?</h2>
-            <p className="subtitle">This helps us figure out which benefits and protections apply.</p>
-            <div className="lt-picker">
-              {['continuous', 'intermittent', 'reduced'].map((type) => (
-                <button key={type} type="button" className={`lt-btn ${formState.leaveType === type ? 'selected' : ''}`} onClick={() => updateField('leaveType', type)}>
-                  <span className="lt-btn-icon">{optionIcons[type]}</span>
-                  <span className="lt-btn-label">{type === 'continuous' ? 'Continuous' : type === 'intermittent' ? 'Intermittent' : 'Reduced Schedule'}</span>
-                </button>
-              ))}
-            </div>
-            <div className="lt-context">
-              <p className="lt-context-desc">{formState.leaveType === 'continuous' ? 'You\u2019ll be fully away from work for the duration of your leave.' : formState.leaveType === 'intermittent' ? 'You\u2019ll take time off periodically for flare-ups, treatments, or appointments.' : 'You\u2019ll continue working but with fewer hours or days per week.'}</p>
-              <div className="lt-detail-fields">
-                {formState.leaveType === 'intermittent' ? (
-                  <div className="form-row cols-2">
-                    <div className="form-group"><label>How often do you need time off?</label><select value={formState.episodeFrequency} onChange={(event) => updateField('episodeFrequency', event.target.value)}><option>2-3 times per month</option><option>About once a week</option><option>About once a month</option><option>It\u2019s unpredictable</option></select></div>
-                    <div className="form-group"><label>How long does each episode last?</label><select value={formState.episodeDuration} onChange={(event) => updateField('episodeDuration', event.target.value)}><option>1-2 days per episode</option><option>A few hours</option><option>About 1 day</option><option>More than 3 days</option></select></div>
-                  </div>
-                ) : null}
-                {formState.leaveType === 'reduced' ? <div className="form-group"><label>Hours per week you plan to work</label><input type="number" value={formState.reducedHoursPerWeek} onChange={(event) => updateField('reducedHoursPerWeek', event.target.value)}/></div> : null}
-                <div className="lt-detail-req-label">Have you already missed work time because of this condition?</div>
-                <div className="yesno" style={{ marginBottom: 0 }}>
-                  <button type="button" className={`yesno-btn ${formState.alreadyMissedTime ? 'selected' : ''}`} onClick={() => updateField('alreadyMissedTime', true)}>Yes</button>
-                  <button type="button" className={`yesno-btn ${formState.alreadyMissedTime === false ? 'selected' : ''}`} onClick={() => updateField('alreadyMissedTime', false)}>No</button>
-                </div>
-                {formState.alreadyMissedTime ? <div style={{ marginTop: '12px' }}>{renderMissedEntries()}</div> : null}
-              </div>
-            </div>
-          </>
-        );
       case 'leaveDetails':
         return (
           <>
             <h2>Tell us about your typical work schedule</h2>
-            <p className="subtitle">This should reflect your usual work schedule before your leave.</p>
+            <p className="subtitle">This should reflect your usual work schedule before your absence.</p>
             <div className="bordered-section">
-              <div className="section-title">Week 1</div>
+              <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 4 }}>
+                <div className="section-title" style={{ display: 'flex', alignItems: 'center', gap: 8, marginBottom: 0 }}>
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><rect x="3" y="6" width="18" height="13" rx="2" stroke="#525252" strokeWidth="1.5"/><path d="M3 10h18" stroke="#525252" strokeWidth="1.5"/><path d="M8 3v4M16 3v4" stroke="#525252" strokeWidth="1.5" strokeLinecap="round"/></svg>
+                  Week 1
+                </div>
+                <div style={{ fontSize: 13, color: '#737373' }}>{Object.values(formState.scheduleHours).reduce((sum, h) => sum + Number(h || 0), 0)} hrs / week</div>
+              </div>
+              <div className="helper" style={{ marginBottom: 12 }}>Click each day to enter hours. Default is 8 hours/day for weekdays.</div>
               <div className="schedule-grid">
                 {['sun', 'mon', 'tue', 'wed', 'thu', 'fri', 'sat'].map((day, index) => (
                   <div key={day} className="schedule-day">
@@ -866,6 +1039,18 @@ export default function RequestLeaveReactPage() {
           </>
         );
       case 'childScenario':
+        if (isBirthingParent) {
+          return (
+            <>
+              <h2>Has the birth already occurred?</h2>
+              <div className="yesno" style={{ marginBottom: 16 }}>
+                <button type="button" className={`yesno-btn ${formState.childAlreadyExists ? 'selected' : ''}`} onClick={() => updateField('childAlreadyExists', true)}>Yes</button>
+                <button type="button" className={`yesno-btn ${formState.childAlreadyExists === false ? 'selected' : ''}`} onClick={() => updateField('childAlreadyExists', false)}>No</button>
+              </div>
+              <div className="form-group" style={{ marginBottom: 0 }}><label>{formState.childAlreadyExists ? 'Date of Birth' : 'Expected Due Date'} <span className="req">*</span></label><input type="date" value={formState.childAlreadyExists ? formState.childDate : formState.expectedDate} onChange={(event) => formState.childAlreadyExists ? updateField('childDate', event.target.value) : updateField('expectedDate', event.target.value)}/></div>
+            </>
+          );
+        }
         return (
           <>
             <h2>How are you welcoming your child?</h2>
@@ -879,9 +1064,8 @@ export default function RequestLeaveReactPage() {
               ))}
             </div>
             <div className="lt-context">
-              <p className="lt-context-desc">{formState.childScenario === 'birth' ? (isBirthingParent ? 'Includes medical recovery time plus bonding leave. Birth parents may also qualify for Short-Term Disability.' : 'Includes medical recovery time plus bonding leave.') : 'Includes bonding leave from the date of placement.'}</p>
+              <p className="lt-context-desc">{formState.childScenario === 'birth' ? 'Includes medical recovery time plus bonding leave.' : 'Includes bonding leave from the date of placement.'}</p>
               <div className="lt-detail-fields">
-                {isBirthingParent ? <div style={{ fontSize: 10, fontWeight: 700, color: '#737373', textTransform: 'uppercase', letterSpacing: 1, marginBottom: 8 }}>Delivery Details</div> : null}
                 {formState.childScenario === 'foster' ? (
                   <div className="form-group" style={{ marginBottom: 0 }}><label>Placement Date <span className="req">*</span></label><input type="date" value={formState.childDate} onChange={(event) => updateField('childDate', event.target.value)}/></div>
                 ) : (
@@ -906,9 +1090,9 @@ export default function RequestLeaveReactPage() {
             <h2>A couple more questions</h2>
             <p className="subtitle">These help us determine the right combination of benefits for your situation.</p>
             <div className="bordered-section">
-              <div className="section-title">Spousal Sharing</div>
+              <div className="section-title" style={{ display: 'flex', alignItems: 'center', gap: 8 }}><svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M17 21v-2a4 4 0 00-4-4H7a4 4 0 00-4 4v2" stroke="#525252" strokeWidth="1.5" strokeLinecap="round"/><circle cx="10" cy="7" r="4" stroke="#525252" strokeWidth="1.5"/><path d="M23 21v-2a4 4 0 00-3-3.87" stroke="#525252" strokeWidth="1.5" strokeLinecap="round"/><path d="M16 3.13a4 4 0 010 7.75" stroke="#525252" strokeWidth="1.5" strokeLinecap="round"/></svg>Spousal Sharing</div>
               <p className="helper">Does your spouse or domestic partner work for the same company?</p>
-              {isBirthingParent ? <p style={{ fontSize: 13, color: '#62626e', lineHeight: 1.6, margin: '0 0 12px' }}>This matters because if you both work here, some bonding time is shared between you (a combined 12 weeks). If not, you each get your own.</p> : null}
+              <p style={{ fontSize: 13, color: '#62626e', lineHeight: 1.6, margin: '0 0 12px' }}>This matters because if you both work here, some bonding time is shared between you (a combined 12 weeks). If not, you each get your own.</p>
               <div className="yesno" style={{ marginBottom: 0 }}>
                 <button type="button" className={`yesno-btn ${formState.spouseSameEmployer ? 'selected' : ''}`} onClick={() => updateField('spouseSameEmployer', true)}>Yes</button>
                 <button type="button" className={`yesno-btn ${formState.spouseSameEmployer === false ? 'selected' : ''}`} onClick={() => updateField('spouseSameEmployer', false)}>No</button>
@@ -916,9 +1100,9 @@ export default function RequestLeaveReactPage() {
               {formState.spouseSameEmployer ? <div className="form-group" style={{ marginTop: '12px', marginBottom: 0 }}><label>Spouse / Partner Name <span className="req">*</span></label><input type="text" value={formState.spouseName} onChange={(event) => updateField('spouseName', event.target.value)}/></div> : null}
             </div>
             <div className="bordered-section">
-              <div className="section-title">Primary Caregiver</div>
+              <div className="section-title" style={{ display: 'flex', alignItems: 'center', gap: 8 }}><svg width="18" height="18" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="9" stroke="#525252" strokeWidth="1.5"/></svg>Primary Caregiver</div>
               <p className="helper">Will you be the primary caregiver for this child?</p>
-              {isBirthingParent ? <p style={{ fontSize: 13, color: '#62626e', lineHeight: 1.6, margin: '0 0 12px' }}>The primary caregiver is the parent who provides most of the day-to-day care. This can affect the length and type of leave you receive.</p> : null}
+              <p style={{ fontSize: 13, color: '#62626e', lineHeight: 1.6, margin: '0 0 12px' }}>The primary caregiver is the parent who provides most of the day-to-day care. This can affect the length and type of absence you receive.</p>
               <div className="yesno" style={{ marginBottom: 0 }}>
                 <button type="button" className={`yesno-btn ${formState.primaryCaregiver === true ? 'selected' : ''}`} onClick={() => updateField('primaryCaregiver', true)}>Yes</button>
                 <button type="button" className={`yesno-btn ${formState.primaryCaregiver === false ? 'selected' : ''}`} onClick={() => updateField('primaryCaregiver', false)}>No</button>
@@ -933,7 +1117,7 @@ export default function RequestLeaveReactPage() {
         return (
           <>
             <h2>When would you like to bond with your child?</h2>
-            <p className="subtitle">Bonding time is time set aside for you to be with your new child.</p>
+            <p className="subtitle">Bonding time is time set aside for you to be with your new child. You don't have to decide everything now.</p>
             <div className="info-box"><svg width="16" height="16" viewBox="0 0 16 16" fill="none"><circle cx="8" cy="8" r="7" stroke="#3b82f6" strokeWidth="1.2"/><path d="M8 7.5V11" stroke="#3b82f6" strokeWidth="1.2" strokeLinecap="round"/><circle cx="8" cy="5.5" r="0.75" fill="#3b82f6"/></svg><p><strong>What is bonding time?</strong> It\u2019s dedicated time to be with your new child — separate from any medical recovery.</p></div>
             <div className="option-cards">
               {renderOptionCard('bondingIntent', 'immediate', 'Right away', 'I want to go straight from recovery into bonding time.')}
@@ -942,32 +1126,11 @@ export default function RequestLeaveReactPage() {
             </div>
           </>
         );
-      case 'demographics':
-        return (
-          <>
-            <h2>Let\u2019s confirm your confirmation</h2>
-            <p className="subtitle">Everything looks ready. Just confirm and continue.</p>
-            <div className="readonly-card">
-              <div className="card-title">Current Employee Record</div>
-              <div className="readonly-grid">
-                <ReadonlyField label="Full Name" value={`${formState.employee.firstName} ${formState.employee.lastName}`}/>
-                <ReadonlyField label="Employee ID" value={formState.employee.employeeId}/>
-                <ReadonlyField label="Occupation" value={formState.employee.occupation}/>
-                <ReadonlyField label="Hire Date" value={formatDate(formState.employee.hireDate)}/>
-                <ReadonlyField label="Work Location" value={formState.employee.workLocation}/>
-                <ReadonlyField label="Employer" value={formState.employee.employer}/>
-                <ReadonlyField label="Employment Type" value={formState.employee.employmentType}/>
-                <ReadonlyField label="Address" value={formState.employee.address}/>
-              </div>
-              <div className="readonly-note">This information is provided by your employer. Contact your employer to make changes.</div>
-            </div>
-          </>
-        );
       case 'contact':
         return (
           <>
             <h2>How should we reach you?</h2>
-            <p className="subtitle">We\u2019ll use this to send updates about your leave request. You can always change these later.</p>
+            <p className="subtitle">Please review and update anything that\u2019s changed, including an email address you\u2019ll have access to during the leave (such as a personal email).</p>
             <div className="bordered-section">
               <div className="form-row cols-2">
                 <div className="form-group"><label>Email Address <span className="req">*</span></label><input type="email" value={formState.email} onChange={(event) => updateField('email', event.target.value)}/></div>
@@ -1007,11 +1170,95 @@ export default function RequestLeaveReactPage() {
             </div>
           </>
         );
+      case 'benefits': {
+        const grayPalette = ['#2d2d2d', '#6b6b6b', '#999999', '#bfbfbf'];
+        const benefitBars = [
+          eligibility.fmla.eligible ? { label: 'FMLA', color: grayPalette[0], weeks: eligibility.fmla.weeks, pay: 'Job-protected, unpaid', dates: `${shortDate(formState.leaveStartDate)} \u2013 ${shortDate(formState.expectedReturnDate)}` } : null,
+          eligibility.std.eligible ? { label: 'Short-Term Disability', color: grayPalette[1], weeks: eligibility.std.weeks, pay: `${planConfig.std.percentPay}% of salary`, dates: `After ${planConfig.std.waitingDays}-day waiting period` } : null,
+          eligibility.statePFL.eligible ? { label: `${planConfig.statePFL.state} Paid Family Leave`, color: grayPalette[2], weeks: eligibility.statePFL.weeks, pay: `${planConfig.statePFL.percentPay}% of avg weekly wage`, dates: 'Concurrent with FMLA' } : null,
+          eligibility.companyBonding.eligible ? { label: 'Company Bonding', color: grayPalette[3], weeks: eligibility.companyBonding.weeks, pay: `${planConfig.companyBonding.percentPay}% of salary`, dates: 'After medical recovery' } : null,
+        ].filter(Boolean);
+        const totalWeeks = Math.max(...benefitBars.map((b) => b.weeks), 0);
+        const maxSpan = Math.max(totalWeeks, 28);
+        const paidBars = benefitBars.filter((b) => b.css !== 'fmla');
+        const estPaidWeeks = paidBars.length > 0 ? Math.max(...paidBars.map((b) => b.weeks)) : 0;
+        const months = ['Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec', 'Jan'];
+        return (
+          <>
+            <h2>Your estimated leave benefits</h2>
+            <p className="subtitle">Based on the information you've provided, here's an estimate of the benefits you may be eligible for. This is not a guarantee - final determination is made after review.</p>
+
+            {/* Timeline */}
+            <div style={{ background: '#fff', border: '1px solid #e8e8ec', borderRadius: 12, padding: 24, marginTop: 8 }}>
+              <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 6 }}>
+                <h3 style={{ margin: 0, fontSize: 16, fontWeight: 700, color: '#0f0f14' }}>Leave Timeline <span style={{ fontSize: 12, fontWeight: 600, color: '#525252', background: '#f0f0f2', padding: '2px 8px', borderRadius: 4, marginLeft: 8, verticalAlign: 'middle' }}>ESTIMATE</span></h3>
+              </div>
+              <p style={{ fontSize: 13, color: '#737373', margin: '0 0 16px', lineHeight: 1.5 }}>Hover over a benefit to see details. <strong>All dates, durations, and pay figures shown are <em>estimates only</em></strong>.</p>
+
+              <div className="timeline-body" style={{ padding: 0 }}>
+                <div className="timeline-axis">{months.map((m) => <span key={m}>{m}</span>)}</div>
+                <div className="timeline-bars">
+                  {benefitBars.map((bar) => (
+                    <div key={bar.label} className="timeline-bar-row" title={`${bar.label}: ${bar.weeks} weeks - ${bar.pay}`}>
+                      <div className="timeline-bar-label">{bar.label}</div>
+                      <div className="timeline-bar-track" style={{ borderRadius: 999 }}>
+                        <div className="timeline-bar-fill" style={{ width: `${Math.min((bar.weeks / maxSpan) * 100, 100)}%`, borderRadius: 999, background: bar.color }}>{bar.label} {bar.weeks}wk</div>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+                <div className="timeline-legend">
+                  {benefitBars.map((bar) => <div key={bar.label} className="timeline-legend-item"><span className="timeline-legend-dot" style={{ background: bar.color }}/>{bar.label}</div>)}
+                </div>
+              </div>
+
+              <div style={{ fontSize: 11, color: '#525252', background: '#f5f5f7', borderRadius: 6, padding: '8px 12px', marginTop: 16, lineHeight: 1.5, display: 'flex', alignItems: 'flex-start', gap: 6 }}>
+                <svg width="14" height="14" viewBox="0 0 16 16" fill="none" style={{ flexShrink: 0, marginTop: 1 }}><circle cx="8" cy="8" r="7" stroke="#737373" strokeWidth="1.2"/><path d="M8 5v3" stroke="#737373" strokeWidth="1.2" strokeLinecap="round"/><circle cx="8" cy="11" r="0.5" fill="#737373"/></svg>
+                <span><strong>This is an estimate.</strong> Actual eligibility, coverage dates, and payment amounts will be determined after you submit your request and documentation is reviewed.</span>
+              </div>
+            </div>
+
+            {/* Coverage summary */}
+            <div style={{ marginTop: 20, background: '#fff', border: '1px solid #e5e5e5', borderRadius: 10, overflow: 'hidden' }}>
+              <div style={{ padding: '20px 20px 0' }}>
+                <h3 style={{ fontSize: 16, fontWeight: 700, color: '#0f0f14', margin: '0 0 6px' }}>Estimated coverage breakdown</h3>
+                <p style={{ fontSize: 13, color: '#737373', margin: '0 0 16px', lineHeight: 1.5 }}>Final details will be confirmed after your request is submitted and reviewed.</p>
+              </div>
+
+              {benefitBars.map((bar) => (
+                <div key={bar.label} style={{ padding: '16px 20px', borderTop: '1px solid #f0f0f2' }}>
+                  <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 4 }}>
+                    <div style={{ fontSize: 14, fontWeight: 600, color: '#0f0f14' }}>{bar.label}</div>
+                    <div style={{ fontSize: 13, fontWeight: 600, color: '#0f0f14' }}>{bar.pay}</div>
+                  </div>
+                  <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: 12, color: '#737373' }}>
+                    <span>{bar.dates}</span>
+                    <span>{bar.weeks} weeks</span>
+                  </div>
+                </div>
+              ))}
+
+              {benefitBars.length > 0 && (
+                <div style={{ padding: '14px 20px', borderTop: '1px solid #e5e5e5', background: '#f9fafb', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                  <div>
+                    <div style={{ fontSize: 13, fontWeight: 600, color: '#0f0f14' }}>Est. total leave</div>
+                    <div style={{ fontSize: 12, color: '#737373' }}>~{totalWeeks} weeks {estPaidWeeks > 0 ? `~${estPaidWeeks} paid` : 'Unpaid'}</div>
+                  </div>
+                  <div style={{ textAlign: 'right' }}>
+                    <div style={{ fontSize: 13, fontWeight: 600, color: '#0f0f14' }}>Benefits available</div>
+                    <div style={{ fontSize: 12, color: '#737373' }}>{benefitBars.length} program{benefitBars.length !== 1 ? 's' : ''}</div>
+                  </div>
+                </div>
+              )}
+            </div>
+          </>
+        );
+      }
       case 'review':
         return (
           <>
             <h2>Review and submit</h2>
-            <p className="subtitle">Please review everything below before submitting. You can go back and edit any section if something doesn\u2019t look right.</p>
+            <p className="subtitle">Please review everything below before submitting. You can go back and edit any section if something doesn't look right.</p>
             <div className="br-section">
               <div className="br-section-header"><h3>Employee Information</h3><span style={{ fontSize: 12, color: '#a3a3a3' }}>Provided by employer</span></div>
               <div className="br-grid">
@@ -1024,6 +1271,10 @@ export default function RequestLeaveReactPage() {
                 <ReviewField label="Employment Type" value={formState.employee.employmentType}/>
                 <ReviewField label="Address" value={formState.employee.address}/>
               </div>
+              <div style={{ fontSize: 12, color: '#a3a3a3', display: 'flex', alignItems: 'center', gap: 6, marginTop: 12, paddingTop: 10, borderTop: '1px solid #f0f0f2' }}>
+                <svg width="14" height="14" viewBox="0 0 16 16" fill="none"><circle cx="8" cy="8" r="7" stroke="#a3a3a3" strokeWidth="1.2"/><path d="M8 5v3" stroke="#a3a3a3" strokeWidth="1.2" strokeLinecap="round"/><circle cx="8" cy="11" r="0.5" fill="#a3a3a3"/></svg>
+                This information is provided by your employer. Contact your employer to make changes.
+              </div>
             </div>
             <div className="br-section">
               <div className="br-section-header"><h3>Contact Information</h3><button className="br-section-edit" type="button" onClick={() => jumpToStep('contact')}>Edit</button></div>
@@ -1035,48 +1286,54 @@ export default function RequestLeaveReactPage() {
               </div>
             </div>
             <div className="br-section">
-              <div className="br-section-header"><h3>Leave Details</h3><button className="br-section-edit" type="button" onClick={() => jumpToStep((isMedicalSelf || isBirthingParent || isFamilyCare) ? 'leaveStructure' : 'leaveDates')}>Edit</button></div>
+              <div className="br-section-header"><h3>Absence Details</h3><button className="br-section-edit" type="button" onClick={() => jumpToStep('leaveStructure')}>Edit</button></div>
               <div className="br-grid">
-                <ReviewField label="Reason" value={isMedicalSelf ? 'Own health condition' : isBirthingParent ? 'Welcoming a child' : isFamilyCare ? 'Family care' : (formState.leaveScenario || '—')}/>
-                <ReviewField label="Leave Type" value={formState.leaveType === 'continuous' ? 'Continuous' : formState.leaveType === 'intermittent' ? 'Intermittent' : formState.leaveType === 'reduced' ? 'Reduced Schedule' : formState.leaveType}/>
+                <ReviewField label="Reason" value={isMedicalSelf ? 'Own health condition' : isBirthingParent ? 'Welcoming a child' : isFamilyCare ? 'Family care' : isChildScenario ? 'Bonding' : isMilitary ? 'Military Leave' : isOther ? 'Other' : (formState.leaveScenario || '—')}/>
+                <ReviewField label="Absence Type" value={formState.leaveType === 'continuous' ? 'Continuous' : formState.leaveType === 'intermittent' ? 'Intermittent' : formState.leaveType === 'reduced' ? 'Reduced Schedule' : formState.leaveType}/>
                 <ReviewField label="Start Date" value={formatDate(formState.leaveStartDate)}/>
                 <ReviewField label="Expected Return Date" value={formatDate(formState.expectedReturnDate)}/>
               </div>
             </div>
-            {(isMedicalSelf || isBirthingParent || isFamilyCare) ? (
-              <div className="br-section">
-                <div className="br-section-header"><h3>Work Schedule</h3><button className="br-section-edit" type="button" onClick={() => jumpToStep('leaveDetails')}>Edit</button></div>
-                <div className="br-grid">
-                  <ReviewField label="Weekly Schedule" value={['Mon', 'Tue', 'Wed', 'Thu', 'Fri'].map((day) => `${day} ${formState.scheduleHours[day.toLowerCase().slice(0, 3)]}h`).join(', ')}/>
-                </div>
+            <div className="br-section">
+              <div className="br-section-header"><h3>Work Schedule</h3><button className="br-section-edit" type="button" onClick={() => jumpToStep('leaveDetails')}>Edit</button></div>
+              <div className="br-grid">
+                <ReviewField label="Week 1 Schedule" value={['Mon', 'Tue', 'Wed', 'Thu', 'Fri'].map((day) => `${day} ${formState.scheduleHours[day.toLowerCase().slice(0, 3)]}h`).join(', ')}/>
               </div>
-            ) : null}
+            </div>
             {isChildScenario ? (
               <div className="br-section">
                 <div className="br-section-header"><h3>Child &amp; Bonding</h3><button className="br-section-edit" type="button" onClick={() => jumpToStep('childScenario')}>Edit</button></div>
                 <div className="br-grid">
-                  <ReviewField label="Scenario" value={formState.childScenario}/>
+                  <ReviewField label="Scenario" value={formState.childScenario === 'birth' ? 'Birth' : formState.childScenario === 'adoption' ? 'Adoption' : 'Foster Care'}/>
                   <ReviewField label="Expected Date" value={formatDate(formState.childDate || formState.expectedDate)}/>
                   <ReviewField label="Primary Caregiver" value={formState.primaryCaregiver === true ? 'Yes' : formState.primaryCaregiver === false ? 'No' : 'Not sure yet'}/>
-                  <ReviewField label="Bonding Plan" value={formState.bondingIntent}/>
+                  <ReviewField label="Bonding Plan" value={formState.bondingIntent === 'immediate' ? 'Immediately after recovery' : formState.bondingIntent === 'later' ? 'Return to work first' : 'Not decided yet'}/>
                 </div>
               </div>
             ) : null}
-            {(isMedicalScenario || isBirthingParent) && formState.sendCertToPhysician ? (
-              <div className="br-section">
-                <div className="br-section-header"><h3>Healthcare Provider</h3><button className="br-section-edit" type="button" onClick={() => jumpToStep('medicalCert')}>Edit</button></div>
-                <div className="br-grid">
-                  <ReviewField label="Provider" value={`${formState.providerName}${formState.providerSuffix ? `, ${formState.providerSuffix}` : ''}`}/>
-                  <ReviewField label="Facility" value={formState.providerFacility}/>
-                  <ReviewField label="Phone" value={formState.providerPhone}/>
-                  <ReviewField label="Address" value={`${formState.providerStreet}, ${formState.providerCity}, ${formState.providerState} ${formState.providerZip}`}/>
+            {(isMedicalScenario || isChildScenario) ? (
+              <>
+                <div className="br-section">
+                  <div className="br-section-header"><h3>Medical Certification Consent</h3><button className="br-section-edit" type="button" onClick={() => jumpToStep(isMedicalSelf ? 'providerDetails' : isFamilyCare ? 'medicalCertConsent' : 'medicalCertConsent')}>Edit</button></div>
+                  <div className="br-grid">
+                    <ReviewField label="Authorize The Release Of Any Required Certification Requests To My Healthcare Provider For Completion Or Clarification" value={formState.authorizeMedCert ? 'Yes' : 'No'}/>
+                  </div>
                 </div>
-              </div>
+                <div className="br-section">
+                  <div className="br-section-header"><h3>Healthcare Provider</h3><button className="br-section-edit" type="button" onClick={() => jumpToStep(isMedicalSelf || isFamilyCare || isBirthingParent ? 'providerDetails' : 'medicalCert')}>Edit</button></div>
+                  <div className="br-grid">
+                    <ReviewField label="Provider" value={`${formState.providerName}${formState.providerSuffix ? `, ${formState.providerSuffix}` : ''}`}/>
+                    <ReviewField label="Facility" value={formState.providerFacility}/>
+                    <ReviewField label="Phone" value={formState.providerPhone}/>
+                    <ReviewField label="Address" value={`${formState.providerStreet}, ${formState.providerCity}, ${formState.providerState} ${formState.providerZip}`}/>
+                  </div>
+                </div>
+              </>
             ) : null}
             <div className="bordered-section" style={{ background: '#eff6ff', borderColor: '#bfdbfe', marginTop: 16 }}>
               <div style={{ display: 'flex', gap: 10, alignItems: 'flex-start' }}>
                 <svg width="18" height="18" viewBox="0 0 18 18" fill="none" style={{ flexShrink: 0, marginTop: 1 }}><circle cx="9" cy="9" r="8" stroke="#3b82f6" strokeWidth="1.2"/><path d="M9 8v4" stroke="#3b82f6" strokeWidth="1.2" strokeLinecap="round"/><circle cx="9" cy="5.5" r="0.75" fill="#3b82f6"/></svg>
-                <p style={{ fontSize: 13, color: '#1e40af', lineHeight: 1.6, margin: 0 }}>By continuing, you confirm that the information above is accurate to the best of your knowledge. Your case manager may follow up if additional details are needed.</p>
+                <p style={{ fontSize: 13, color: '#1e40af', lineHeight: 1.6, margin: 0 }}>By continuing, you confirm that the information above is accurate to the best of your knowledge. Your case manager may follow up if additional details are needed, and your manager may be notified as part of this process.</p>
               </div>
             </div>
           </>
@@ -1094,7 +1351,10 @@ export default function RequestLeaveReactPage() {
             <button type="button" className="btn btn-back" onClick={goBack}>← Back</button>
             <button type="button" className="btn btn-save" onClick={saveAndExit}>Save & Exit</button>
           </div>
-          <button type="button" className="btn btn-submit" onClick={submitRequest}>Submit Leave Request</button>
+          <div className="footer-right">
+            <button type="button" className="btn btn-cancel-leave" onClick={() => setShowCancelModal(true)}>Cancel</button>
+            <button type="button" className="btn btn-submit" onClick={submitRequest}>Submit</button>
+          </div>
         </div>
       );
     }
@@ -1104,14 +1364,18 @@ export default function RequestLeaveReactPage() {
           {currentStepIndex > 0 ? <button type="button" className="btn btn-back" onClick={goBack}>← Back</button> : <div/>}
           <button type="button" className="btn btn-save" onClick={saveAndExit}>Save & Exit</button>
         </div>
-        <button type="button" className="btn btn-next" onClick={goNext}>Continue →</button>
+        <div className="footer-right">
+          <button type="button" className="btn btn-cancel-leave" onClick={() => setShowCancelModal(true)}>Cancel</button>
+          <button type="button" className="btn btn-next" onClick={goNext}>Continue →</button>
+        </div>
       </div>
     );
   }
 
   if (submittedCase) {
     if (isMedicalSelf) {
-      const durationText = submittedCase.durationDays >= 7 ? `${Math.floor(submittedCase.durationDays / 7)} weeks${submittedCase.durationDays % 7 > 0 ? `, ${submittedCase.durationDays % 7} days` : ''}` : `${submittedCase.durationDays} days`;
+      const returnWorkDate = new Date(new Date(`${submittedCase.endDate}T00:00:00`).getTime() + 3 * 24 * 60 * 60 * 1000);
+      const returnWorkStr = returnWorkDate.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
       return (
         <div className="request-leave-shell">
           <SiteNav />
@@ -1121,48 +1385,53 @@ export default function RequestLeaveReactPage() {
                 <div style={{ textAlign: 'center', marginBottom: 28 }}>
                   <div className="success-icon"><svg width="32" height="32" viewBox="0 0 32 32" fill="none"><path d="M9 16L14 21L23 11" stroke="#16a34a" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round"/></svg></div>
                   <h2 style={{ marginBottom: 4 }}>Leave request submitted</h2>
-                  <p style={{ color: '#62626e', fontSize: 14, margin: 0 }}>Case #{submittedCase.id}</p>
+                  <p style={{ color: '#62626e', fontSize: 14, margin: '4px 0 0' }}>{submittedCase.id}</p>
+                  <p style={{ color: '#62626e', fontSize: 14, margin: '2px 0 0', fontStyle: 'italic' }}>Your Case In Review</p>
                 </div>
-                <div className="bordered-section" style={{ marginBottom: 20 }}>
-                  <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 16 }}>
-                    <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
-                      <div style={{ width: 36, height: 36, borderRadius: 8, background: '#f3f4f6', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>{optionIcons.medical_self}</div>
-                      <div>
-                        <div style={{ fontSize: 14, fontWeight: 600, color: '#0f0f14' }}>Medical Leave (Own Illness)</div>
-                        <div style={{ fontSize: 12, color: '#737373' }}>Submitted {submittedCase.submittedOn}</div>
-                      </div>
-                    </div>
-                    <span style={{ display: 'inline-block', fontSize: 11, fontWeight: 700, background: '#1a1a2e', color: '#fff', padding: '4px 12px', borderRadius: 4, textTransform: 'uppercase', letterSpacing: 0.5 }}>Pending</span>
+                <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', gap: 12, marginBottom: 24 }}>
+                  <div style={{ background: '#fff', border: '1px solid #e8e8ec', borderRadius: 8, padding: '12px 14px' }}>
+                    <div style={{ fontSize: 10, fontWeight: 600, color: '#737373', textTransform: 'uppercase', marginBottom: 4 }}>Start Date</div>
+                    <div style={{ fontSize: 14, fontWeight: 600, color: '#0f0f14' }}>{shortDate(submittedCase.startDate)}</div>
                   </div>
-                  <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', gap: 12 }}>
-                    <div style={{ background: '#f9f9fb', border: '1px solid #e8e8ec', borderRadius: 8, padding: '12px 14px' }}>
-                      <div style={{ fontSize: 10, fontWeight: 600, color: '#737373', textTransform: 'uppercase', marginBottom: 4 }}>Start Date</div>
-                      <div style={{ fontSize: 14, fontWeight: 600, color: '#0f0f14' }}>{shortDate(submittedCase.startDate)}</div>
-                    </div>
-                    <div style={{ background: '#f9f9fb', border: '1px solid #e8e8ec', borderRadius: 8, padding: '12px 14px' }}>
-                      <div style={{ fontSize: 10, fontWeight: 600, color: '#737373', textTransform: 'uppercase', marginBottom: 4 }}>Expected Return</div>
-                      <div style={{ fontSize: 14, fontWeight: 600, color: '#0f0f14' }}>{shortDate(submittedCase.endDate)}</div>
-                    </div>
-                    <div style={{ background: '#f9f9fb', border: '1px solid #e8e8ec', borderRadius: 8, padding: '12px 14px' }}>
-                      <div style={{ fontSize: 10, fontWeight: 600, color: '#737373', textTransform: 'uppercase', marginBottom: 4 }}>Duration</div>
-                      <div style={{ fontSize: 14, fontWeight: 600, color: '#0f0f14' }}>{durationText}</div>
-                    </div>
+                  <div style={{ background: '#fff', border: '1px solid #e8e8ec', borderRadius: 8, padding: '12px 14px' }}>
+                    <div style={{ fontSize: 10, fontWeight: 600, color: '#737373', textTransform: 'uppercase', marginBottom: 4 }}>End Date</div>
+                    <div style={{ fontSize: 14, fontWeight: 600, color: '#0f0f14' }}>{shortDate(submittedCase.endDate)}</div>
+                  </div>
+                  <div style={{ background: '#fff', border: '1px solid #e8e8ec', borderRadius: 8, padding: '12px 14px' }}>
+                    <div style={{ fontSize: 10, fontWeight: 600, color: '#737373', textTransform: 'uppercase', marginBottom: 4 }}>Return to Work Date</div>
+                    <div style={{ fontSize: 14, fontWeight: 600, color: '#0f0f14' }}>{returnWorkStr}</div>
                   </div>
                 </div>
-                <div style={{ marginBottom: 20 }}>
-                  <div style={{ fontSize: 10, fontWeight: 700, color: '#737373', textTransform: 'uppercase', letterSpacing: 1, marginBottom: 8 }}>Benefits Being Reviewed</div>
-                  <div style={{ display: 'flex', gap: 8 }}>
-                    {eligibility.fmla.eligible ? <span style={{ fontSize: 12, fontWeight: 600, background: '#f3f4f6', color: '#0f0f14', padding: '4px 14px', borderRadius: 20, display: 'flex', alignItems: 'center', gap: 6 }}><span style={{ width: 6, height: 6, borderRadius: '50%', background: '#0f0f14' }}/> FMLA</span> : null}
-                    {eligibility.std.eligible ? <span style={{ fontSize: 12, fontWeight: 600, background: '#f3f4f6', color: '#0f0f14', padding: '4px 14px', borderRadius: 20, display: 'flex', alignItems: 'center', gap: 6 }}><span style={{ width: 6, height: 6, borderRadius: '50%', background: '#6366f1' }}/> STD</span> : null}
+                <div style={{ display: 'flex', flexDirection: 'column', gap: 12, marginBottom: 24 }}>
+                  <div style={{ background: '#fff', border: '1px solid #e8e8ec', borderRadius: 10, padding: '16px 20px' }}>
+                    <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 8 }}>
+                      <div style={{ fontSize: 10, fontWeight: 600, color: '#737373', textTransform: 'uppercase', letterSpacing: 0.5 }}>Absence Case - {submittedCase.id}-ABC-01</div>
+                      <span style={{ display: 'inline-flex', alignItems: 'center', gap: 5, fontSize: 12, fontWeight: 600, color: '#525252', background: '#f3f4f6', padding: '4px 10px', borderRadius: 10 }}><span style={{ width: 6, height: 6, borderRadius: '50%', background: '#525252' }}/> Pending</span>
+                    </div>
+                    <div style={{ fontSize: 16, fontWeight: 600, color: '#0f0f14' }}>Medical Absence  (Own Illness)</div>
+                  </div>
+                  <div style={{ background: '#fff', border: '1px solid #e8e8ec', borderRadius: 10, padding: '16px 20px' }}>
+                    <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 8 }}>
+                      <div style={{ fontSize: 10, fontWeight: 600, color: '#737373', textTransform: 'uppercase', letterSpacing: 0.5 }}>Claim Case - {submittedCase.id.replace('NTN', 'NTN')}-GDC-02</div>
+                      <span style={{ display: 'inline-flex', alignItems: 'center', gap: 5, fontSize: 12, fontWeight: 600, color: '#525252', background: '#f3f4f6', padding: '4px 10px', borderRadius: 10 }}><span style={{ width: 6, height: 6, borderRadius: '50%', background: '#525252' }}/> Pending</span>
+                    </div>
+                    <div style={{ fontSize: 16, fontWeight: 600, color: '#0f0f14' }}>Short-Term Disability</div>
+                  </div>
+                  <div style={{ background: '#fff', border: '1px solid #e8e8ec', borderRadius: 10, padding: '16px 20px' }}>
+                    <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 8 }}>
+                      <div style={{ fontSize: 10, fontWeight: 600, color: '#737373', textTransform: 'uppercase', letterSpacing: 0.5 }}>Supplemental Health - {submittedCase.id}-ABC-03</div>
+                      <span style={{ display: 'inline-flex', alignItems: 'center', gap: 5, fontSize: 12, fontWeight: 600, color: '#525252', background: '#f3f4f6', padding: '4px 10px', borderRadius: 10 }}><span style={{ width: 6, height: 6, borderRadius: '50%', background: '#525252' }}/> Pending</span>
+                    </div>
+                    <div style={{ fontSize: 16, fontWeight: 600, color: '#0f0f14' }}>Hospital Indemnity</div>
                   </div>
                 </div>
-                <div className="bordered-section" style={{ marginBottom: 20 }}>
+                <div style={{ background: '#f9fafb', border: '1px solid #e8e8ec', borderRadius: 10, padding: '20px', marginBottom: 20 }}>
                   <h3 style={{ fontSize: 16, fontWeight: 700, color: '#0f0f14', marginBottom: 16 }}>What happens next</h3>
                   {[
-                    { icon: <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M9 12l2 2 4-4" stroke="#16a34a" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/><circle cx="12" cy="12" r="10" stroke="#16a34a" strokeWidth="1.5"/></svg>, text: 'Your manager has been notified of your upcoming leave' },
-                    { icon: <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="10" stroke="#6366f1" strokeWidth="1.5"/><path d="M12 7v5l3 2" stroke="#6366f1" strokeWidth="1.5" strokeLinecap="round"/></svg>, text: "We\u2019re reviewing your eligibility — we\u2019ll update you within 1–2 business days" },
+                    { icon: <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M9 12l2 2 4-4" stroke="#16a34a" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/><circle cx="12" cy="12" r="10" stroke="#16a34a" strokeWidth="1.5"/></svg>, text: 'Your manager will be notified of your upcoming absence' },
+                    { icon: <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="10" stroke="#6366f1" strokeWidth="1.5"/><path d="M12 7v5l3 2" stroke="#6366f1" strokeWidth="1.5" strokeLinecap="round"/></svg>, text: "We\u2019re reviewing your eligibility \u2014 we\u2019ll update you within 1\u20132 business days" },
                     { icon: <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z" stroke="#f59e0b" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/><path d="M14 2v6h6" stroke="#f59e0b" strokeWidth="1.5"/></svg>, text: 'You may be asked to upload supporting documents (medical certification, etc.)' },
-                    { icon: <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><rect x="3" y="4" width="18" height="17" rx="2" stroke="#3b82f6" strokeWidth="1.5"/><path d="M3 9h18" stroke="#3b82f6" strokeWidth="1.5"/></svg>, text: 'Track your leave status anytime from the overview' },
+                    { icon: <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><rect x="3" y="4" width="18" height="17" rx="2" stroke="#3b82f6" strokeWidth="1.5"/><path d="M3 9h18" stroke="#3b82f6" strokeWidth="1.5"/></svg>, text: 'Track your absence status anytime from the overview' },
                   ].map((item) => (
                     <div key={item.text} style={{ display: 'flex', alignItems: 'flex-start', gap: 12, padding: '10px 0' }}>
                       <div style={{ flexShrink: 0, marginTop: 1 }}>{item.icon}</div>
@@ -1171,9 +1440,8 @@ export default function RequestLeaveReactPage() {
                   ))}
                 </div>
                 <div style={{ display: 'flex', gap: 12, justifyContent: 'center', paddingTop: 8, borderTop: '1px solid #e8e8ec' }}>
-                  <button type="button" className="btn btn-back" onClick={() => navigate('/absence-history')}>View Leave Details</button>
-                  <button type="button" className="btn btn-back">Email Manager / HR</button>
-                  <button type="button" className="btn btn-next" onClick={() => navigate('/overview-react')}>Back to Overview</button>
+                  <button type="button" className="btn btn-back" onClick={() => navigate('/absence-history')}>View Absence Details</button>
+                  <button type="button" className="btn btn-back" onClick={() => navigate('/overview-react')}>Back to Leave</button>
                 </div>
               </div>
             </div>
@@ -1183,7 +1451,8 @@ export default function RequestLeaveReactPage() {
       );
     }
     if (isBirthingParent) {
-      const durationText = submittedCase.durationDays >= 7 ? `${Math.floor(submittedCase.durationDays / 7)} weeks${submittedCase.durationDays % 7 > 0 ? `, ${submittedCase.durationDays % 7} days` : ''}` : `${submittedCase.durationDays} days`;
+      const returnWorkDate = new Date(new Date(`${submittedCase.endDate}T00:00:00`).getTime() + 1 * 24 * 60 * 60 * 1000);
+      const returnWorkStr = returnWorkDate.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
       return (
         <div className="request-leave-shell">
           <SiteNav />
@@ -1193,49 +1462,53 @@ export default function RequestLeaveReactPage() {
                 <div style={{ textAlign: 'center', marginBottom: 28 }}>
                   <div className="success-icon"><svg width="32" height="32" viewBox="0 0 32 32" fill="none"><path d="M9 16L14 21L23 11" stroke="#16a34a" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round"/></svg></div>
                   <h2 style={{ marginBottom: 4 }}>Leave request submitted</h2>
-                  <p style={{ color: '#62626e', fontSize: 14, margin: 0 }}>Case #{submittedCase.id}</p>
+                  <p style={{ color: '#62626e', fontSize: 14, margin: '4px 0 0' }}>{submittedCase.id}</p>
+                  <p style={{ color: '#62626e', fontSize: 14, margin: '2px 0 0', fontStyle: 'italic' }}>Your Case In Review</p>
                 </div>
-                <div className="bordered-section" style={{ marginBottom: 20 }}>
-                  <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 16 }}>
-                    <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
-                      <div style={{ width: 36, height: 36, borderRadius: 8, background: '#f3f4f6', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>{optionIcons.child}</div>
-                      <div>
-                        <div style={{ fontSize: 14, fontWeight: 600, color: '#0f0f14' }}>Parental Leave (Birthing)</div>
-                        <div style={{ fontSize: 12, color: '#737373' }}>Submitted {submittedCase.submittedOn}</div>
-                      </div>
-                    </div>
-                    <span style={{ display: 'inline-block', fontSize: 11, fontWeight: 700, background: '#1a1a2e', color: '#fff', padding: '4px 12px', borderRadius: 4, textTransform: 'uppercase', letterSpacing: 0.5 }}>Pending</span>
+                <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', gap: 12, marginBottom: 24 }}>
+                  <div style={{ background: '#fff', border: '1px solid #e8e8ec', borderRadius: 8, padding: '12px 14px' }}>
+                    <div style={{ fontSize: 10, fontWeight: 600, color: '#737373', textTransform: 'uppercase', marginBottom: 4 }}>Start Date</div>
+                    <div style={{ fontSize: 14, fontWeight: 600, color: '#0f0f14' }}>{shortDate(submittedCase.startDate)}</div>
                   </div>
-                  <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', gap: 12 }}>
-                    <div style={{ background: '#f9f9fb', border: '1px solid #e8e8ec', borderRadius: 8, padding: '12px 14px' }}>
-                      <div style={{ fontSize: 10, fontWeight: 600, color: '#737373', textTransform: 'uppercase', marginBottom: 4 }}>Start Date</div>
-                      <div style={{ fontSize: 14, fontWeight: 600, color: '#0f0f14' }}>{shortDate(submittedCase.startDate)}</div>
-                    </div>
-                    <div style={{ background: '#f9f9fb', border: '1px solid #e8e8ec', borderRadius: 8, padding: '12px 14px' }}>
-                      <div style={{ fontSize: 10, fontWeight: 600, color: '#737373', textTransform: 'uppercase', marginBottom: 4 }}>Expected Return</div>
-                      <div style={{ fontSize: 14, fontWeight: 600, color: '#0f0f14' }}>{shortDate(submittedCase.endDate)}</div>
-                    </div>
-                    <div style={{ background: '#f9f9fb', border: '1px solid #e8e8ec', borderRadius: 8, padding: '12px 14px' }}>
-                      <div style={{ fontSize: 10, fontWeight: 600, color: '#737373', textTransform: 'uppercase', marginBottom: 4 }}>Duration</div>
-                      <div style={{ fontSize: 14, fontWeight: 600, color: '#0f0f14' }}>{durationText}</div>
-                    </div>
+                  <div style={{ background: '#fff', border: '1px solid #e8e8ec', borderRadius: 8, padding: '12px 14px' }}>
+                    <div style={{ fontSize: 10, fontWeight: 600, color: '#737373', textTransform: 'uppercase', marginBottom: 4 }}>Expected End Date</div>
+                    <div style={{ fontSize: 14, fontWeight: 600, color: '#0f0f14' }}>{shortDate(submittedCase.endDate)}</div>
+                  </div>
+                  <div style={{ background: '#fff', border: '1px solid #e8e8ec', borderRadius: 8, padding: '12px 14px' }}>
+                    <div style={{ fontSize: 10, fontWeight: 600, color: '#737373', textTransform: 'uppercase', marginBottom: 4 }}>Return to Work Date</div>
+                    <div style={{ fontSize: 14, fontWeight: 600, color: '#0f0f14' }}>{returnWorkStr}</div>
                   </div>
                 </div>
-                <div style={{ marginBottom: 20 }}>
-                  <div style={{ fontSize: 10, fontWeight: 700, color: '#737373', textTransform: 'uppercase', letterSpacing: 1, marginBottom: 8 }}>Benefits Being Reviewed</div>
-                  <div style={{ display: 'flex', gap: 8 }}>
-                    {eligibility.fmla.eligible ? <span style={{ fontSize: 12, fontWeight: 600, background: '#f3f4f6', color: '#0f0f14', padding: '4px 14px', borderRadius: 20, display: 'flex', alignItems: 'center', gap: 6 }}><span style={{ width: 6, height: 6, borderRadius: '50%', background: '#0f0f14' }}/> FMLA</span> : null}
-                    {eligibility.statePFL.eligible ? <span style={{ fontSize: 12, fontWeight: 600, background: '#f3f4f6', color: '#0f0f14', padding: '4px 14px', borderRadius: 20, display: 'flex', alignItems: 'center', gap: 6 }}><span style={{ width: 6, height: 6, borderRadius: '50%', background: '#7c3aed' }}/> PFL</span> : null}
-                    {eligibility.companyBonding.eligible ? <span style={{ fontSize: 12, fontWeight: 600, background: '#f3f4f6', color: '#0f0f14', padding: '4px 14px', borderRadius: 20, display: 'flex', alignItems: 'center', gap: 6 }}><span style={{ width: 6, height: 6, borderRadius: '50%', background: '#0891b2' }}/> Company Bonding</span> : null}
+                <div style={{ display: 'flex', flexDirection: 'column', gap: 12, marginBottom: 24 }}>
+                  <div style={{ background: '#fff', border: '1px solid #e8e8ec', borderRadius: 10, padding: '16px 20px' }}>
+                    <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 8 }}>
+                      <div style={{ fontSize: 10, fontWeight: 600, color: '#737373', textTransform: 'uppercase', letterSpacing: 0.5 }}>Absence Case - {submittedCase.id}-ABC-01</div>
+                      <span style={{ display: 'inline-flex', alignItems: 'center', gap: 5, fontSize: 12, fontWeight: 600, color: '#525252', background: '#f3f4f6', padding: '4px 10px', borderRadius: 10 }}><span style={{ width: 6, height: 6, borderRadius: '50%', background: '#525252' }}/> Pending</span>
+                    </div>
+                    <div style={{ fontSize: 16, fontWeight: 600, color: '#0f0f14' }}>Parental Leave (Birthing)</div>
+                  </div>
+                  <div style={{ background: '#fff', border: '1px solid #e8e8ec', borderRadius: 10, padding: '16px 20px' }}>
+                    <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 8 }}>
+                      <div style={{ fontSize: 10, fontWeight: 600, color: '#737373', textTransform: 'uppercase', letterSpacing: 0.5 }}>Claim Case - {submittedCase.id.replace('NTN', 'NTN')}-GDC-02</div>
+                      <span style={{ display: 'inline-flex', alignItems: 'center', gap: 5, fontSize: 12, fontWeight: 600, color: '#525252', background: '#f3f4f6', padding: '4px 10px', borderRadius: 10 }}><span style={{ width: 6, height: 6, borderRadius: '50%', background: '#525252' }}/> Pending</span>
+                    </div>
+                    <div style={{ fontSize: 16, fontWeight: 600, color: '#0f0f14' }}>Short Term Disability, NY Paid Family Leave & FMLA</div>
+                  </div>
+                  <div style={{ background: '#fff', border: '1px solid #e8e8ec', borderRadius: 10, padding: '16px 20px' }}>
+                    <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 8 }}>
+                      <div style={{ fontSize: 10, fontWeight: 600, color: '#737373', textTransform: 'uppercase', letterSpacing: 0.5 }}>Supplemental Health - {submittedCase.id}-ABC-03</div>
+                      <span style={{ display: 'inline-flex', alignItems: 'center', gap: 5, fontSize: 12, fontWeight: 600, color: '#525252', background: '#f3f4f6', padding: '4px 10px', borderRadius: 10 }}><span style={{ width: 6, height: 6, borderRadius: '50%', background: '#525252' }}/> Pending</span>
+                    </div>
+                    <div style={{ fontSize: 16, fontWeight: 600, color: '#0f0f14' }}>Hospital Indemnity</div>
                   </div>
                 </div>
-                <div className="bordered-section" style={{ marginBottom: 20 }}>
+                <div style={{ background: '#f9fafb', border: '1px solid #e8e8ec', borderRadius: 10, padding: '20px', marginBottom: 20 }}>
                   <h3 style={{ fontSize: 16, fontWeight: 700, color: '#0f0f14', marginBottom: 16 }}>What happens next</h3>
                   {[
-                    { icon: <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M9 12l2 2 4-4" stroke="#16a34a" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/><circle cx="12" cy="12" r="10" stroke="#16a34a" strokeWidth="1.5"/></svg>, text: 'Your manager has been notified of your upcoming leave' },
-                    { icon: <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="10" stroke="#6366f1" strokeWidth="1.5"/><path d="M12 7v5l3 2" stroke="#6366f1" strokeWidth="1.5" strokeLinecap="round"/></svg>, text: "We’re reviewing your eligibility — we’ll update you within 1–2 business days" },
-                    { icon: <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z" stroke="#f59e0b" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/><path d="M14 2v6h6" stroke="#f59e0b" strokeWidth="1.5"/></svg>, text: 'A medical certification form will be sent to your provider' },
-                    { icon: <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><rect x="3" y="4" width="18" height="17" rx="2" stroke="#3b82f6" strokeWidth="1.5"/><path d="M3 9h18" stroke="#3b82f6" strokeWidth="1.5"/></svg>, text: 'Track your leave status anytime from the overview' },
+                    { icon: <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M9 12l2 2 4-4" stroke="#16a34a" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/><circle cx="12" cy="12" r="10" stroke="#16a34a" strokeWidth="1.5"/></svg>, text: 'Your manager will be notified of your upcoming absence' },
+                    { icon: <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="10" stroke="#6366f1" strokeWidth="1.5"/><path d="M12 7v5l3 2" stroke="#6366f1" strokeWidth="1.5" strokeLinecap="round"/></svg>, text: "We're reviewing your eligibility — we'll update you within 1–2 business days" },
+                    { icon: <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z" stroke="#f59e0b" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/><path d="M14 2v6h6" stroke="#f59e0b" strokeWidth="1.5"/></svg>, text: 'You may be asked to upload supporting documents (medical certification, etc.)' },
+                    { icon: <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><rect x="3" y="4" width="18" height="17" rx="2" stroke="#3b82f6" strokeWidth="1.5"/><path d="M3 9h18" stroke="#3b82f6" strokeWidth="1.5"/></svg>, text: 'Track your absence status anytime from the overview' },
                   ].map((item) => (
                     <div key={item.text} style={{ display: 'flex', alignItems: 'flex-start', gap: 12, padding: '10px 0' }}>
                       <div style={{ flexShrink: 0, marginTop: 1 }}>{item.icon}</div>
@@ -1244,9 +1517,8 @@ export default function RequestLeaveReactPage() {
                   ))}
                 </div>
                 <div style={{ display: 'flex', gap: 12, justifyContent: 'center', paddingTop: 8, borderTop: '1px solid #e8e8ec' }}>
-                  <button type="button" className="btn btn-back" onClick={() => navigate('/absence-history')}>View Leave Details</button>
-                  <button type="button" className="btn btn-back">Email Manager / HR</button>
-                  <button type="button" className="btn btn-next" onClick={() => navigate('/overview-react')}>Back to Overview</button>
+                  <button type="button" className="btn btn-back" onClick={() => navigate('/absence-history')}>View Absence Details</button>
+                  <button type="button" className="btn btn-back" onClick={() => navigate('/overview-react')}>Back to Leave</button>
                 </div>
               </div>
             </div>
@@ -1256,7 +1528,8 @@ export default function RequestLeaveReactPage() {
       );
     }
     if (isFamilyCare) {
-      const durationText = submittedCase.durationDays >= 7 ? `${Math.floor(submittedCase.durationDays / 7)} weeks${submittedCase.durationDays % 7 > 0 ? `, ${submittedCase.durationDays % 7} days` : ''}` : `${submittedCase.durationDays} days`;
+      const returnWorkDate = new Date(new Date(`${submittedCase.endDate}T00:00:00`).getTime() + 1 * 24 * 60 * 60 * 1000);
+      const returnWorkStr = returnWorkDate.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
       return (
         <div className="request-leave-shell">
           <SiteNav />
@@ -1266,47 +1539,53 @@ export default function RequestLeaveReactPage() {
                 <div style={{ textAlign: 'center', marginBottom: 28 }}>
                   <div className="success-icon"><svg width="32" height="32" viewBox="0 0 32 32" fill="none"><path d="M9 16L14 21L23 11" stroke="#16a34a" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round"/></svg></div>
                   <h2 style={{ marginBottom: 4 }}>Leave request submitted</h2>
-                  <p style={{ color: '#62626e', fontSize: 14, margin: 0 }}>Case #{submittedCase.id}</p>
+                  <p style={{ color: '#62626e', fontSize: 14, margin: '4px 0 0' }}>{submittedCase.id}</p>
+                  <p style={{ color: '#62626e', fontSize: 14, margin: '2px 0 0', fontStyle: 'italic' }}>Your Case In Review</p>
                 </div>
-                <div className="bordered-section" style={{ marginBottom: 20 }}>
-                  <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 16 }}>
-                    <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
-                      <div style={{ width: 36, height: 36, borderRadius: 8, background: '#f3f4f6', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>{optionIcons.medical_family}</div>
-                      <div>
-                        <div style={{ fontSize: 14, fontWeight: 600, color: '#0f0f14' }}>Family Care Leave</div>
-                        <div style={{ fontSize: 12, color: '#737373' }}>Submitted {submittedCase.submittedOn}</div>
-                      </div>
-                    </div>
-                    <span style={{ display: 'inline-block', fontSize: 11, fontWeight: 700, background: '#1a1a2e', color: '#fff', padding: '4px 12px', borderRadius: 4, textTransform: 'uppercase', letterSpacing: 0.5 }}>Pending</span>
+                <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', gap: 12, marginBottom: 24 }}>
+                  <div style={{ background: '#fff', border: '1px solid #e8e8ec', borderRadius: 8, padding: '12px 14px' }}>
+                    <div style={{ fontSize: 10, fontWeight: 600, color: '#737373', textTransform: 'uppercase', marginBottom: 4 }}>Start Date</div>
+                    <div style={{ fontSize: 14, fontWeight: 600, color: '#0f0f14' }}>{shortDate(submittedCase.startDate)}</div>
                   </div>
-                  <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', gap: 12 }}>
-                    <div style={{ background: '#f9f9fb', border: '1px solid #e8e8ec', borderRadius: 8, padding: '12px 14px' }}>
-                      <div style={{ fontSize: 10, fontWeight: 600, color: '#737373', textTransform: 'uppercase', marginBottom: 4 }}>Start Date</div>
-                      <div style={{ fontSize: 14, fontWeight: 600, color: '#0f0f14' }}>{shortDate(submittedCase.startDate)}</div>
-                    </div>
-                    <div style={{ background: '#f9f9fb', border: '1px solid #e8e8ec', borderRadius: 8, padding: '12px 14px' }}>
-                      <div style={{ fontSize: 10, fontWeight: 600, color: '#737373', textTransform: 'uppercase', marginBottom: 4 }}>Expected Return</div>
-                      <div style={{ fontSize: 14, fontWeight: 600, color: '#0f0f14' }}>{shortDate(submittedCase.endDate)}</div>
-                    </div>
-                    <div style={{ background: '#f9f9fb', border: '1px solid #e8e8ec', borderRadius: 8, padding: '12px 14px' }}>
-                      <div style={{ fontSize: 10, fontWeight: 600, color: '#737373', textTransform: 'uppercase', marginBottom: 4 }}>Duration</div>
-                      <div style={{ fontSize: 14, fontWeight: 600, color: '#0f0f14' }}>{durationText}</div>
-                    </div>
+                  <div style={{ background: '#fff', border: '1px solid #e8e8ec', borderRadius: 8, padding: '12px 14px' }}>
+                    <div style={{ fontSize: 10, fontWeight: 600, color: '#737373', textTransform: 'uppercase', marginBottom: 4 }}>End Date</div>
+                    <div style={{ fontSize: 14, fontWeight: 600, color: '#0f0f14' }}>{shortDate(submittedCase.endDate)}</div>
+                  </div>
+                  <div style={{ background: '#fff', border: '1px solid #e8e8ec', borderRadius: 8, padding: '12px 14px' }}>
+                    <div style={{ fontSize: 10, fontWeight: 600, color: '#737373', textTransform: 'uppercase', marginBottom: 4 }}>Return to Work Date</div>
+                    <div style={{ fontSize: 14, fontWeight: 600, color: '#0f0f14' }}>{returnWorkStr}</div>
                   </div>
                 </div>
-                <div style={{ marginBottom: 20 }}>
-                  <div style={{ fontSize: 10, fontWeight: 700, color: '#737373', textTransform: 'uppercase', letterSpacing: 1, marginBottom: 8 }}>Benefits Being Reviewed</div>
-                  <div style={{ display: 'flex', gap: 8 }}>
-                    {eligibility.fmla.eligible ? <span style={{ fontSize: 12, fontWeight: 600, background: '#f3f4f6', color: '#0f0f14', padding: '4px 14px', borderRadius: 20, display: 'flex', alignItems: 'center', gap: 6 }}><span style={{ width: 6, height: 6, borderRadius: '50%', background: '#0f0f14' }}/> FMLA</span> : null}
+                <div style={{ display: 'flex', flexDirection: 'column', gap: 12, marginBottom: 24 }}>
+                  <div style={{ background: '#fff', border: '1px solid #e8e8ec', borderRadius: 10, padding: '16px 20px' }}>
+                    <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 8 }}>
+                      <div style={{ fontSize: 10, fontWeight: 600, color: '#737373', textTransform: 'uppercase', letterSpacing: 0.5 }}>Absence Case - {submittedCase.id}-ABC-01</div>
+                      <span style={{ display: 'inline-flex', alignItems: 'center', gap: 5, fontSize: 12, fontWeight: 600, color: '#525252', background: '#f3f4f6', padding: '4px 10px', borderRadius: 10 }}><span style={{ width: 6, height: 6, borderRadius: '50%', background: '#525252' }}/> Pending</span>
+                    </div>
+                    <div style={{ fontSize: 16, fontWeight: 600, color: '#0f0f14' }}>Care for Sick Family Member with Health Condition</div>
+                  </div>
+                  <div style={{ background: '#fff', border: '1px solid #e8e8ec', borderRadius: 10, padding: '16px 20px' }}>
+                    <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 8 }}>
+                      <div style={{ fontSize: 10, fontWeight: 600, color: '#737373', textTransform: 'uppercase', letterSpacing: 0.5 }}>Claim Case - {submittedCase.id.replace('NTN', 'NTN')}-GDC-02</div>
+                      <span style={{ display: 'inline-flex', alignItems: 'center', gap: 5, fontSize: 12, fontWeight: 600, color: '#525252', background: '#f3f4f6', padding: '4px 10px', borderRadius: 10 }}><span style={{ width: 6, height: 6, borderRadius: '50%', background: '#525252' }}/> Pending</span>
+                    </div>
+                    <div style={{ fontSize: 16, fontWeight: 600, color: '#0f0f14' }}>NY Paid Family Leave & FMLA</div>
+                  </div>
+                  <div style={{ background: '#fff', border: '1px solid #e8e8ec', borderRadius: 10, padding: '16px 20px' }}>
+                    <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 8 }}>
+                      <div style={{ fontSize: 10, fontWeight: 600, color: '#737373', textTransform: 'uppercase', letterSpacing: 0.5 }}>Supplemental Health - {submittedCase.id}-ABC-03</div>
+                      <span style={{ display: 'inline-flex', alignItems: 'center', gap: 5, fontSize: 12, fontWeight: 600, color: '#525252', background: '#f3f4f6', padding: '4px 10px', borderRadius: 10 }}><span style={{ width: 6, height: 6, borderRadius: '50%', background: '#525252' }}/> Pending</span>
+                    </div>
+                    <div style={{ fontSize: 16, fontWeight: 600, color: '#0f0f14' }}>Hospital Indemnity</div>
                   </div>
                 </div>
-                <div className="bordered-section" style={{ marginBottom: 20 }}>
+                <div style={{ background: '#f9fafb', border: '1px solid #e8e8ec', borderRadius: 10, padding: '20px', marginBottom: 20 }}>
                   <h3 style={{ fontSize: 16, fontWeight: 700, color: '#0f0f14', marginBottom: 16 }}>What happens next</h3>
                   {[
-                    { icon: <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M9 12l2 2 4-4" stroke="#16a34a" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/><circle cx="12" cy="12" r="10" stroke="#16a34a" strokeWidth="1.5"/></svg>, text: 'Your manager has been notified of your upcoming leave' },
+                    { icon: <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M9 12l2 2 4-4" stroke="#16a34a" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/><circle cx="12" cy="12" r="10" stroke="#16a34a" strokeWidth="1.5"/></svg>, text: 'Your manager will be notified of your upcoming absence' },
                     { icon: <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="10" stroke="#6366f1" strokeWidth="1.5"/><path d="M12 7v5l3 2" stroke="#6366f1" strokeWidth="1.5" strokeLinecap="round"/></svg>, text: "We’re reviewing your eligibility — we’ll update you within 1–2 business days" },
                     { icon: <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z" stroke="#f59e0b" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/><path d="M14 2v6h6" stroke="#f59e0b" strokeWidth="1.5"/></svg>, text: 'You may be asked to upload supporting documents (medical certification, etc.)' },
-                    { icon: <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><rect x="3" y="4" width="18" height="17" rx="2" stroke="#3b82f6" strokeWidth="1.5"/><path d="M3 9h18" stroke="#3b82f6" strokeWidth="1.5"/></svg>, text: 'Track your leave status anytime from the overview' },
+                    { icon: <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><rect x="3" y="4" width="18" height="17" rx="2" stroke="#3b82f6" strokeWidth="1.5"/><path d="M3 9h18" stroke="#3b82f6" strokeWidth="1.5"/></svg>, text: 'Track your absence status anytime from the overview' },
                   ].map((item) => (
                     <div key={item.text} style={{ display: 'flex', alignItems: 'flex-start', gap: 12, padding: '10px 0' }}>
                       <div style={{ flexShrink: 0, marginTop: 1 }}>{item.icon}</div>
@@ -1315,9 +1594,8 @@ export default function RequestLeaveReactPage() {
                   ))}
                 </div>
                 <div style={{ display: 'flex', gap: 12, justifyContent: 'center', paddingTop: 8, borderTop: '1px solid #e8e8ec' }}>
-                  <button type="button" className="btn btn-back" onClick={() => navigate('/absence-history')}>View Leave Details</button>
-                  <button type="button" className="btn btn-back">Email Manager / HR</button>
-                  <button type="button" className="btn btn-next" onClick={() => navigate('/overview-react')}>Back to Overview</button>
+                  <button type="button" className="btn btn-back" onClick={() => navigate('/absence-history')}>View Absence Details</button>
+                  <button type="button" className="btn btn-back" onClick={() => navigate('/overview-react')}>Back to Leave</button>
                 </div>
               </div>
             </div>
@@ -1326,6 +1604,224 @@ export default function RequestLeaveReactPage() {
         </div>
       );
     }
+    if (isChildScenario && !isBirthingParent) {
+      const returnWorkDate = new Date(new Date(`${submittedCase.endDate}T00:00:00`).getTime() + 1 * 24 * 60 * 60 * 1000);
+      const returnWorkStr = returnWorkDate.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
+      return (
+        <div className="request-leave-shell">
+          <SiteNav />
+          <div className="wizard-wrap">
+            <div className="wizard-card" style={{ marginTop: 32 }}>
+              <div className="success-state">
+                <div style={{ textAlign: 'center', marginBottom: 28 }}>
+                  <div className="success-icon"><svg width="32" height="32" viewBox="0 0 32 32" fill="none"><path d="M9 16L14 21L23 11" stroke="#16a34a" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round"/></svg></div>
+                  <h2 style={{ marginBottom: 4 }}>Leave request submitted</h2>
+                  <p style={{ color: '#62626e', fontSize: 14, margin: '4px 0 0' }}>{submittedCase.id}</p>
+                  <p style={{ color: '#62626e', fontSize: 14, margin: '2px 0 0', fontStyle: 'italic' }}>Your Case In Review</p>
+                </div>
+                <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', gap: 12, marginBottom: 24 }}>
+                  <div style={{ background: '#fff', border: '1px solid #e8e8ec', borderRadius: 8, padding: '12px 14px' }}>
+                    <div style={{ fontSize: 10, fontWeight: 600, color: '#737373', textTransform: 'uppercase', marginBottom: 4 }}>Start Date</div>
+                    <div style={{ fontSize: 14, fontWeight: 600, color: '#0f0f14' }}>{shortDate(submittedCase.startDate)}</div>
+                  </div>
+                  <div style={{ background: '#fff', border: '1px solid #e8e8ec', borderRadius: 8, padding: '12px 14px' }}>
+                    <div style={{ fontSize: 10, fontWeight: 600, color: '#737373', textTransform: 'uppercase', marginBottom: 4 }}>Expected End Date</div>
+                    <div style={{ fontSize: 14, fontWeight: 600, color: '#0f0f14' }}>{shortDate(submittedCase.endDate)}</div>
+                  </div>
+                  <div style={{ background: '#fff', border: '1px solid #e8e8ec', borderRadius: 8, padding: '12px 14px' }}>
+                    <div style={{ fontSize: 10, fontWeight: 600, color: '#737373', textTransform: 'uppercase', marginBottom: 4 }}>Return to Work Date</div>
+                    <div style={{ fontSize: 14, fontWeight: 600, color: '#0f0f14' }}>{returnWorkStr}</div>
+                  </div>
+                </div>
+                <div style={{ display: 'flex', flexDirection: 'column', gap: 12, marginBottom: 24 }}>
+                  <div style={{ background: '#fff', border: '1px solid #e8e8ec', borderRadius: 10, padding: '16px 20px' }}>
+                    <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 8 }}>
+                      <div style={{ fontSize: 10, fontWeight: 600, color: '#737373', textTransform: 'uppercase', letterSpacing: 0.5 }}>Absence Case - {submittedCase.id}-ABC-01</div>
+                      <span style={{ display: 'inline-flex', alignItems: 'center', gap: 5, fontSize: 12, fontWeight: 600, color: '#525252', background: '#f3f4f6', padding: '4px 10px', borderRadius: 10 }}><span style={{ width: 6, height: 6, borderRadius: '50%', background: '#525252' }}/> Pending</span>
+                    </div>
+                    <div style={{ fontSize: 16, fontWeight: 600, color: '#0f0f14' }}>Non-Birthing Parent, Adoption, or Foster Care Placement (Bonding)</div>
+                  </div>
+                  <div style={{ background: '#fff', border: '1px solid #e8e8ec', borderRadius: 10, padding: '16px 20px' }}>
+                    <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 8 }}>
+                      <div style={{ fontSize: 10, fontWeight: 600, color: '#737373', textTransform: 'uppercase', letterSpacing: 0.5 }}>Claim Case - {submittedCase.id.replace('NTN', 'NTN')}-GDC-02</div>
+                      <span style={{ display: 'inline-flex', alignItems: 'center', gap: 5, fontSize: 12, fontWeight: 600, color: '#525252', background: '#f3f4f6', padding: '4px 10px', borderRadius: 10 }}><span style={{ width: 6, height: 6, borderRadius: '50%', background: '#525252' }}/> Pending</span>
+                    </div>
+                    <div style={{ fontSize: 16, fontWeight: 600, color: '#0f0f14' }}>Short Term Disability & NY Paid Family Leave</div>
+                  </div>
+                  <div style={{ background: '#fff', border: '1px solid #e8e8ec', borderRadius: 10, padding: '16px 20px' }}>
+                    <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 8 }}>
+                      <div style={{ fontSize: 10, fontWeight: 600, color: '#737373', textTransform: 'uppercase', letterSpacing: 0.5 }}>Supplemental Health - {submittedCase.id}-ABC-03</div>
+                      <span style={{ display: 'inline-flex', alignItems: 'center', gap: 5, fontSize: 12, fontWeight: 600, color: '#525252', background: '#f3f4f6', padding: '4px 10px', borderRadius: 10 }}><span style={{ width: 6, height: 6, borderRadius: '50%', background: '#525252' }}/> Pending</span>
+                    </div>
+                    <div style={{ fontSize: 16, fontWeight: 600, color: '#0f0f14' }}>Hospital Indemnity</div>
+                  </div>
+                </div>
+                <div style={{ background: '#f9fafb', border: '1px solid #e8e8ec', borderRadius: 10, padding: '20px', marginBottom: 20 }}>
+                  <h3 style={{ fontSize: 16, fontWeight: 700, color: '#0f0f14', marginBottom: 16 }}>What happens next</h3>
+                  {[
+                    { icon: <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M9 12l2 2 4-4" stroke="#16a34a" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/><circle cx="12" cy="12" r="10" stroke="#16a34a" strokeWidth="1.5"/></svg>, text: 'Your manager will be notified of your upcoming absence' },
+                    { icon: <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="10" stroke="#6366f1" strokeWidth="1.5"/><path d="M12 7v5l3 2" stroke="#6366f1" strokeWidth="1.5" strokeLinecap="round"/></svg>, text: "We're reviewing your eligibility — we'll update you within 1–2 business days" },
+                    { icon: <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z" stroke="#f59e0b" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/><path d="M14 2v6h6" stroke="#f59e0b" strokeWidth="1.5"/></svg>, text: 'You may be asked to upload supporting documents (medical certification, etc.)' },
+                    { icon: <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><rect x="3" y="4" width="18" height="17" rx="2" stroke="#3b82f6" strokeWidth="1.5"/><path d="M3 9h18" stroke="#3b82f6" strokeWidth="1.5"/></svg>, text: 'Track your absence status anytime from the overview' },
+                  ].map((item) => (
+                    <div key={item.text} style={{ display: 'flex', alignItems: 'flex-start', gap: 12, padding: '10px 0' }}>
+                      <div style={{ flexShrink: 0, marginTop: 1 }}>{item.icon}</div>
+                      <span style={{ fontSize: 14, color: '#3d3d47', lineHeight: 1.5 }}>{item.text}</span>
+                    </div>
+                  ))}
+                </div>
+                <div style={{ display: 'flex', gap: 12, justifyContent: 'center', paddingTop: 8, borderTop: '1px solid #e8e8ec' }}>
+                  <button type="button" className="btn btn-back" onClick={() => navigate('/absence-history')}>View Absence Details</button>
+                  <button type="button" className="btn btn-back" onClick={() => navigate('/overview-react')}>Back to Leave</button>
+                </div>
+              </div>
+            </div>
+          </div>
+          <SiteFooter />
+        </div>
+      );
+    }
+    if (isMilitary) {
+      const returnWorkDate = new Date(new Date(`${submittedCase.endDate}T00:00:00`).getTime() + 1 * 24 * 60 * 60 * 1000);
+      const returnWorkStr = returnWorkDate.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
+      return (
+        <div className="request-leave-shell">
+          <SiteNav />
+          <div className="wizard-wrap">
+            <div className="wizard-card" style={{ marginTop: 32 }}>
+              <div className="success-state">
+                <div style={{ textAlign: 'center', marginBottom: 28 }}>
+                  <div className="success-icon"><svg width="32" height="32" viewBox="0 0 32 32" fill="none"><path d="M9 16L14 21L23 11" stroke="#16a34a" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round"/></svg></div>
+                  <h2 style={{ marginBottom: 4 }}>Leave request submitted</h2>
+                  <p style={{ color: '#62626e', fontSize: 14, margin: '4px 0 0' }}>{submittedCase.id}</p>
+                  <p style={{ color: '#62626e', fontSize: 14, margin: '2px 0 0', fontStyle: 'italic' }}>Your Case In Review</p>
+                </div>
+                <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', gap: 12, marginBottom: 24 }}>
+                  <div style={{ background: '#fff', border: '1px solid #e8e8ec', borderRadius: 8, padding: '12px 14px' }}>
+                    <div style={{ fontSize: 10, fontWeight: 600, color: '#737373', textTransform: 'uppercase', marginBottom: 4 }}>Start Date</div>
+                    <div style={{ fontSize: 14, fontWeight: 600, color: '#0f0f14' }}>{shortDate(submittedCase.startDate)}</div>
+                  </div>
+                  <div style={{ background: '#fff', border: '1px solid #e8e8ec', borderRadius: 8, padding: '12px 14px' }}>
+                    <div style={{ fontSize: 10, fontWeight: 600, color: '#737373', textTransform: 'uppercase', marginBottom: 4 }}>Expected End Date</div>
+                    <div style={{ fontSize: 14, fontWeight: 600, color: '#0f0f14' }}>{shortDate(submittedCase.endDate)}</div>
+                  </div>
+                  <div style={{ background: '#fff', border: '1px solid #e8e8ec', borderRadius: 8, padding: '12px 14px' }}>
+                    <div style={{ fontSize: 10, fontWeight: 600, color: '#737373', textTransform: 'uppercase', marginBottom: 4 }}>Return to Work Date</div>
+                    <div style={{ fontSize: 14, fontWeight: 600, color: '#0f0f14' }}>{returnWorkStr}</div>
+                  </div>
+                </div>
+                <div style={{ display: 'flex', flexDirection: 'column', gap: 12, marginBottom: 24 }}>
+                  <div style={{ background: '#fff', border: '1px solid #e8e8ec', borderRadius: 10, padding: '16px 20px' }}>
+                    <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 8 }}>
+                      <div style={{ fontSize: 10, fontWeight: 600, color: '#737373', textTransform: 'uppercase', letterSpacing: 0.5 }}>Absence Case - {submittedCase.id}-ABC-01</div>
+                      <span style={{ display: 'inline-flex', alignItems: 'center', gap: 5, fontSize: 12, fontWeight: 600, color: '#525252', background: '#f3f4f6', padding: '4px 10px', borderRadius: 10 }}><span style={{ width: 6, height: 6, borderRadius: '50%', background: '#525252' }}/> Pending</span>
+                    </div>
+                    <div style={{ fontSize: 16, fontWeight: 600, color: '#0f0f14' }}>Military Leave</div>
+                  </div>
+                  <div style={{ background: '#fff', border: '1px solid #e8e8ec', borderRadius: 10, padding: '16px 20px' }}>
+                    <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 8 }}>
+                      <div style={{ fontSize: 10, fontWeight: 600, color: '#737373', textTransform: 'uppercase', letterSpacing: 0.5 }}>Claim Case - {submittedCase.id.replace('NTN', 'NTN')}-GDC-02</div>
+                      <span style={{ display: 'inline-flex', alignItems: 'center', gap: 5, fontSize: 12, fontWeight: 600, color: '#525252', background: '#f3f4f6', padding: '4px 10px', borderRadius: 10 }}><span style={{ width: 6, height: 6, borderRadius: '50%', background: '#525252' }}/> Pending</span>
+                    </div>
+                    <div style={{ fontSize: 16, fontWeight: 600, color: '#0f0f14' }}>FMLA</div>
+                  </div>
+                </div>
+                <div style={{ background: '#f9fafb', border: '1px solid #e8e8ec', borderRadius: 10, padding: '20px', marginBottom: 20 }}>
+                  <h3 style={{ fontSize: 16, fontWeight: 700, color: '#0f0f14', marginBottom: 16 }}>What happens next</h3>
+                  {[
+                    { icon: <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M9 12l2 2 4-4" stroke="#16a34a" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/><circle cx="12" cy="12" r="10" stroke="#16a34a" strokeWidth="1.5"/></svg>, text: 'Your manager will be notified of your upcoming absence' },
+                    { icon: <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="10" stroke="#6366f1" strokeWidth="1.5"/><path d="M12 7v5l3 2" stroke="#6366f1" strokeWidth="1.5" strokeLinecap="round"/></svg>, text: "We're reviewing your eligibility — we'll update you within 1–2 business days" },
+                    { icon: <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z" stroke="#f59e0b" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/><path d="M14 2v6h6" stroke="#f59e0b" strokeWidth="1.5"/></svg>, text: 'You may be asked to upload supporting documents (medical certification, etc.)' },
+                    { icon: <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><rect x="3" y="4" width="18" height="17" rx="2" stroke="#3b82f6" strokeWidth="1.5"/><path d="M3 9h18" stroke="#3b82f6" strokeWidth="1.5"/></svg>, text: 'Track your absence status anytime from the overview' },
+                  ].map((item) => (
+                    <div key={item.text} style={{ display: 'flex', alignItems: 'flex-start', gap: 12, padding: '10px 0' }}>
+                      <div style={{ flexShrink: 0, marginTop: 1 }}>{item.icon}</div>
+                      <span style={{ fontSize: 14, color: '#3d3d47', lineHeight: 1.5 }}>{item.text}</span>
+                    </div>
+                  ))}
+                </div>
+                <div style={{ display: 'flex', gap: 12, justifyContent: 'center', paddingTop: 8, borderTop: '1px solid #e8e8ec' }}>
+                  <button type="button" className="btn btn-back" onClick={() => navigate('/absence-history')}>View Absence Details</button>
+                  <button type="button" className="btn btn-back" onClick={() => navigate('/overview-react')}>Back to Leave</button>
+                </div>
+              </div>
+            </div>
+          </div>
+          <SiteFooter />
+        </div>
+      );
+    }
+    if (isOther) {
+      const returnWorkDate = new Date(new Date(`${submittedCase.endDate}T00:00:00`).getTime() + 1 * 24 * 60 * 60 * 1000);
+      const returnWorkStr = returnWorkDate.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
+      return (
+        <div className="request-leave-shell">
+          <SiteNav />
+          <div className="wizard-wrap">
+            <div className="wizard-card" style={{ marginTop: 32 }}>
+              <div className="success-state">
+                <div style={{ textAlign: 'center', marginBottom: 28 }}>
+                  <div className="success-icon"><svg width="32" height="32" viewBox="0 0 32 32" fill="none"><path d="M9 16L14 21L23 11" stroke="#16a34a" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round"/></svg></div>
+                  <h2 style={{ marginBottom: 4 }}>Leave request submitted</h2>
+                  <p style={{ color: '#62626e', fontSize: 14, margin: '4px 0 0' }}>{submittedCase.id}</p>
+                  <p style={{ color: '#62626e', fontSize: 14, margin: '2px 0 0', fontStyle: 'italic' }}>Your Case In Review</p>
+                </div>
+                <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', gap: 12, marginBottom: 24 }}>
+                  <div style={{ background: '#fff', border: '1px solid #e8e8ec', borderRadius: 8, padding: '12px 14px' }}>
+                    <div style={{ fontSize: 10, fontWeight: 600, color: '#737373', textTransform: 'uppercase', marginBottom: 4 }}>Start Date</div>
+                    <div style={{ fontSize: 14, fontWeight: 600, color: '#0f0f14' }}>{shortDate(submittedCase.startDate)}</div>
+                  </div>
+                  <div style={{ background: '#fff', border: '1px solid #e8e8ec', borderRadius: 8, padding: '12px 14px' }}>
+                    <div style={{ fontSize: 10, fontWeight: 600, color: '#737373', textTransform: 'uppercase', marginBottom: 4 }}>Expected End Date</div>
+                    <div style={{ fontSize: 14, fontWeight: 600, color: '#0f0f14' }}>{shortDate(submittedCase.endDate)}</div>
+                  </div>
+                  <div style={{ background: '#fff', border: '1px solid #e8e8ec', borderRadius: 8, padding: '12px 14px' }}>
+                    <div style={{ fontSize: 10, fontWeight: 600, color: '#737373', textTransform: 'uppercase', marginBottom: 4 }}>Return to Work Date</div>
+                    <div style={{ fontSize: 14, fontWeight: 600, color: '#0f0f14' }}>{returnWorkStr}</div>
+                  </div>
+                </div>
+                <div style={{ display: 'flex', flexDirection: 'column', gap: 12, marginBottom: 24 }}>
+                  <div style={{ background: '#fff', border: '1px solid #e8e8ec', borderRadius: 10, padding: '16px 20px' }}>
+                    <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 8 }}>
+                      <div style={{ fontSize: 10, fontWeight: 600, color: '#737373', textTransform: 'uppercase', letterSpacing: 0.5 }}>Absence Case - {submittedCase.id}-ABC-01</div>
+                      <span style={{ display: 'inline-flex', alignItems: 'center', gap: 5, fontSize: 12, fontWeight: 600, color: '#525252', background: '#f3f4f6', padding: '4px 10px', borderRadius: 10 }}><span style={{ width: 6, height: 6, borderRadius: '50%', background: '#525252' }}/> Pending</span>
+                    </div>
+                    <div style={{ fontSize: 16, fontWeight: 600, color: '#0f0f14' }}>Other</div>
+                  </div>
+                  <div style={{ background: '#fff', border: '1px solid #e8e8ec', borderRadius: 10, padding: '16px 20px' }}>
+                    <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 8 }}>
+                      <div style={{ fontSize: 10, fontWeight: 600, color: '#737373', textTransform: 'uppercase', letterSpacing: 0.5 }}>Claim Case - {submittedCase.id.replace('NTN', 'NTN')}-GDC-02</div>
+                      <span style={{ display: 'inline-flex', alignItems: 'center', gap: 5, fontSize: 12, fontWeight: 600, color: '#525252', background: '#f3f4f6', padding: '4px 10px', borderRadius: 10 }}><span style={{ width: 6, height: 6, borderRadius: '50%', background: '#525252' }}/> Pending</span>
+                    </div>
+                    <div style={{ fontSize: 16, fontWeight: 600, color: '#0f0f14' }}>FMLA</div>
+                  </div>
+                </div>
+                <div style={{ background: '#f9fafb', border: '1px solid #e8e8ec', borderRadius: 10, padding: '20px', marginBottom: 20 }}>
+                  <h3 style={{ fontSize: 16, fontWeight: 700, color: '#0f0f14', marginBottom: 16 }}>What happens next</h3>
+                  {[
+                    { icon: <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M9 12l2 2 4-4" stroke="#16a34a" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/><circle cx="12" cy="12" r="10" stroke="#16a34a" strokeWidth="1.5"/></svg>, text: 'Your manager will be notified of your upcoming absence' },
+                    { icon: <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="10" stroke="#6366f1" strokeWidth="1.5"/><path d="M12 7v5l3 2" stroke="#6366f1" strokeWidth="1.5" strokeLinecap="round"/></svg>, text: "We're reviewing your eligibility — we'll update you within 1–2 business days" },
+                    { icon: <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z" stroke="#f59e0b" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/><path d="M14 2v6h6" stroke="#f59e0b" strokeWidth="1.5"/></svg>, text: 'You may be asked to upload supporting documents (medical certification, etc.)' },
+                    { icon: <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><rect x="3" y="4" width="18" height="17" rx="2" stroke="#3b82f6" strokeWidth="1.5"/><path d="M3 9h18" stroke="#3b82f6" strokeWidth="1.5"/></svg>, text: 'Track your absence status anytime from the overview' },
+                  ].map((item) => (
+                    <div key={item.text} style={{ display: 'flex', alignItems: 'flex-start', gap: 12, padding: '10px 0' }}>
+                      <div style={{ flexShrink: 0, marginTop: 1 }}>{item.icon}</div>
+                      <span style={{ fontSize: 14, color: '#3d3d47', lineHeight: 1.5 }}>{item.text}</span>
+                    </div>
+                  ))}
+                </div>
+                <div style={{ display: 'flex', gap: 12, justifyContent: 'center', paddingTop: 8, borderTop: '1px solid #e8e8ec' }}>
+                  <button type="button" className="btn btn-back" onClick={() => navigate('/absence-history')}>View Absence Details</button>
+                  <button type="button" className="btn btn-back" onClick={() => navigate('/overview-react')}>Back to Leave</button>
+                </div>
+              </div>
+            </div>
+          </div>
+          <SiteFooter />
+        </div>
+      );
+    }
+    const durationText = submittedCase.durationDays >= 7 ? `${Math.floor(submittedCase.durationDays / 7)} weeks${submittedCase.durationDays % 7 > 0 ? `, ${submittedCase.durationDays % 7} days` : ''}` : `${submittedCase.durationDays} days`;
     return (
       <div className="request-leave-shell">
         <SiteNav />
@@ -1334,22 +1830,58 @@ export default function RequestLeaveReactPage() {
             <div className="success-state">
               <div style={{ textAlign: 'center', marginBottom: 28 }}>
                 <div className="success-icon"><svg width="32" height="32" viewBox="0 0 32 32" fill="none"><path d="M9 16L14 21L23 11" stroke="#16a34a" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round"/></svg></div>
-                <h2 style={{ marginBottom: 4 }}>Leave Request Submitted</h2>
-                <p style={{ color: '#62626e', fontSize: 14, margin: 0 }}>Your leave request has been submitted for review.</p>
+                <h2 style={{ marginBottom: 4 }}>Leave request submitted</h2>
+                <p style={{ color: '#62626e', fontSize: 14, margin: 0 }}>{submittedCase.id}</p>
               </div>
-              <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '12px 24px', background: '#f9f9fb', border: '1px solid #e8e8ec', borderRadius: 10, padding: '16px 20px', marginBottom: 24 }}>
-                <div><div style={{ fontSize: 11, fontWeight: 600, color: '#737373', textTransform: 'uppercase' }}>Reference</div><div style={{ fontSize: 14, fontWeight: 600, color: '#0f0f14', marginTop: 2 }}>{submittedCase.id}</div></div>
-                <div><div style={{ fontSize: 11, fontWeight: 600, color: '#737373', textTransform: 'uppercase' }}>Submitted</div><div style={{ fontSize: 14, color: '#0f0f14', marginTop: 2 }}>{submittedCase.submittedOn}</div></div>
-                <div><div style={{ fontSize: 11, fontWeight: 600, color: '#737373', textTransform: 'uppercase' }}>Leave dates</div><div style={{ fontSize: 14, color: '#0f0f14', marginTop: 2 }}>{formatDate(submittedCase.startDate)} – {formatDate(submittedCase.endDate)}</div></div>
-                <div><div style={{ fontSize: 11, fontWeight: 600, color: '#737373', textTransform: 'uppercase' }}>Status</div><div style={{ marginTop: 4 }}><span style={{ display: 'inline-block', fontSize: 11, fontWeight: 600, background: '#FEF3C7', color: '#92400E', padding: '2px 10px', borderRadius: 4 }}>PENDING REVIEW</span></div></div>
+              <div style={{ background: '#fff', border: '1px solid #e8e8ec', borderRadius: 10, padding: '16px 20px', marginBottom: 20 }}>
+                <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 16 }}>
+                  <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
+                    <div style={{ width: 36, height: 36, borderRadius: 8, background: '#f3f4f6', display: 'flex', alignItems: 'center', justifyContent: 'center' }}><svg width="18" height="18" viewBox="0 0 24 24" fill="none"><rect x="3" y="4" width="18" height="17" rx="2" stroke="#525252" strokeWidth="1.5"/><path d="M3 9h18M8 2v4M16 2v4" stroke="#525252" strokeWidth="1.5" strokeLinecap="round"/></svg></div>
+                    <div>
+                      <div style={{ fontSize: 14, fontWeight: 600, color: '#0f0f14' }}>Leave Request</div>
+                      <div style={{ fontSize: 12, color: '#737373' }}>Submitted {submittedCase.submittedOn}</div>
+                    </div>
+                  </div>
+                  <span style={{ display: 'inline-block', fontSize: 11, fontWeight: 700, background: '#1a1a2e', color: '#fff', padding: '4px 12px', borderRadius: 4, textTransform: 'uppercase', letterSpacing: 0.5 }}>Pending</span>
+                </div>
+                <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', gap: 12 }}>
+                  <div style={{ background: '#fff', border: '1px solid #e8e8ec', borderRadius: 8, padding: '12px 14px' }}>
+                    <div style={{ fontSize: 10, fontWeight: 600, color: '#737373', textTransform: 'uppercase', marginBottom: 4 }}>Start Date</div>
+                    <div style={{ fontSize: 14, fontWeight: 600, color: '#0f0f14' }}>{shortDate(submittedCase.startDate)}</div>
+                  </div>
+                  <div style={{ background: '#fff', border: '1px solid #e8e8ec', borderRadius: 8, padding: '12px 14px' }}>
+                    <div style={{ fontSize: 10, fontWeight: 600, color: '#737373', textTransform: 'uppercase', marginBottom: 4 }}>Expected Return</div>
+                    <div style={{ fontSize: 14, fontWeight: 600, color: '#0f0f14' }}>{shortDate(submittedCase.endDate)}</div>
+                  </div>
+                  <div style={{ background: '#fff', border: '1px solid #e8e8ec', borderRadius: 8, padding: '12px 14px' }}>
+                    <div style={{ fontSize: 10, fontWeight: 600, color: '#737373', textTransform: 'uppercase', marginBottom: 4 }}>Duration</div>
+                    <div style={{ fontSize: 14, fontWeight: 600, color: '#0f0f14' }}>{durationText}</div>
+                  </div>
+                </div>
+              </div>
+              <div style={{ background: '#f9fafb', border: '1px solid #e8e8ec', borderRadius: 10, padding: '20px', marginBottom: 20 }}>
+                <h3 style={{ fontSize: 16, fontWeight: 700, color: '#0f0f14', marginBottom: 16 }}>What happens next</h3>
+                {[
+                  { icon: <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M9 12l2 2 4-4" stroke="#16a34a" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/><circle cx="12" cy="12" r="10" stroke="#16a34a" strokeWidth="1.5"/></svg>, text: 'Your manager has been notified of your upcoming leave' },
+                  { icon: <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="10" stroke="#6366f1" strokeWidth="1.5"/><path d="M12 7v5l3 2" stroke="#6366f1" strokeWidth="1.5" strokeLinecap="round"/></svg>, text: "We're reviewing your eligibility — we'll update you within 1–2 business days" },
+                  { icon: <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z" stroke="#f59e0b" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/><path d="M14 2v6h6" stroke="#f59e0b" strokeWidth="1.5"/></svg>, text: 'You may be asked to upload supporting documents' },
+                  { icon: <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><rect x="3" y="4" width="18" height="17" rx="2" stroke="#3b82f6" strokeWidth="1.5"/><path d="M3 9h18" stroke="#3b82f6" strokeWidth="1.5"/></svg>, text: 'Track your leave status anytime from the overview' },
+                ].map((item) => (
+                  <div key={item.text} style={{ display: 'flex', alignItems: 'flex-start', gap: 12, padding: '10px 0' }}>
+                    <div style={{ flexShrink: 0, marginTop: 1 }}>{item.icon}</div>
+                    <span style={{ fontSize: 14, color: '#3d3d47', lineHeight: 1.5 }}>{item.text}</span>
+                  </div>
+                ))}
               </div>
               <div style={{ display: 'flex', gap: 12, justifyContent: 'center', paddingTop: 8, borderTop: '1px solid #e8e8ec' }}>
+                <button type="button" className="btn btn-back" onClick={() => navigate('/absence-history')}>View Leave Details</button>
+                <button type="button" className="btn btn-back">Email Manager / HR</button>
                 <button type="button" className="btn btn-next" onClick={() => navigate('/overview-react')}>Back to Overview</button>
-                <button type="button" className="btn btn-back" onClick={() => { setSubmittedCase(null); setStarted(false); setCurrentStepIndex(0); setFormState(initialState); }}>Start another request</button>
               </div>
             </div>
           </div>
         </div>
+        <SiteFooter />
       </div>
     );
   }
@@ -1361,8 +1893,8 @@ export default function RequestLeaveReactPage() {
         <div className="wizard-wrap">
           <div className="req-welcome-card">
             <div style={{ fontSize: 11, fontWeight: 700, color: '#737373', textTransform: 'uppercase', letterSpacing: 1.5, marginBottom: 16 }}>Request Leave</div>
-            <h2 style={{ fontSize: 28, fontWeight: 700, color: '#0f0f14', letterSpacing: '-0.03em', lineHeight: 1.25, margin: '0 0 12px' }}>We'll walk you through<br/>your leave request</h2>
-            <p style={{ fontSize: 15, color: '#737373', lineHeight: 1.7, maxWidth: 420, margin: '0 auto 36px' }}>Tell us your reason, leave details, and work schedule — then verify your info and submit. You can review everything before it goes through.</p>
+            <h2 style={{ fontSize: 28, fontWeight: 700, color: '#0f0f14', letterSpacing: '-0.03em', lineHeight: 1.25, margin: '0 0 12px' }}>Start your leave request</h2>
+            <p style={{ fontSize: 15, color: '#737373', lineHeight: 1.7, maxWidth: 420, margin: '0 auto 36px' }}>Enter your reason for leave, details, and work schedule. You'll be able to review and verify everything before you submit.</p>
             <div className="req-welcome-journey">
               {[
                 { label: 'Reason', icon: <svg width="20" height="20" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="9" stroke="#525252" strokeWidth="1.5"/><path d="M9 9a3 3 0 015.12 1.5c0 1.5-2.12 2-2.12 3.5" stroke="#525252" strokeWidth="1.5" strokeLinecap="round"/><circle cx="12" cy="17" r="0.75" fill="#525252"/></svg> },
@@ -1380,16 +1912,40 @@ export default function RequestLeaveReactPage() {
               ))}
             </div>
             <button type="button" className="btn btn-next" style={{ padding: '14px 48px', fontSize: 16, borderRadius: 8 }} onClick={() => setStarted(true)}>Get Started</button>
-            <div style={{ fontSize: 12, color: '#a0a0a8', marginTop: 14 }}>You\u2019ll be able to review everything before submitting.</div>
             <div style={{ marginTop: 20, fontSize: 13, color: '#a0a0a8' }}>Not sure where to start? <Link to="/plan-absence" style={{ color: '#525252', fontWeight: 600, textDecoration: 'none' }}>Plan your leave first →</Link></div>
           </div>
         </div>
       ) : (
         <div className="wizard-wrap">
+          {fromPlan && !hidePlanBar && (
+            <div className="rq-from-plan-bar">
+              <svg className="rq-from-plan-icon" width="18" height="18" viewBox="0 0 18 18" fill="none"><circle cx="9" cy="9" r="8" stroke="currentColor" strokeWidth="1.2"/><path d="M9 5.5v4" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round"/><circle cx="9" cy="12.5" r="0.75" fill="currentColor"/></svg>
+              <span>Pre-filled from your leave plan. Review and adjust as needed.</span>
+              <button type="button" className="rq-from-plan-close" onClick={() => setHidePlanBar(true)} aria-label="Dismiss">
+                <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M3 3l8 8M11 3l-8 8" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"/></svg>
+              </button>
+            </div>
+          )}
           <div className="stepper"><div className="stepper-progress-label">Overall progress</div><div className="stepper-counter">Step <strong>{currentStepIndex + 1}</strong> of <strong>{steps.length}</strong></div></div>
           <div className="progress-bar"><div className="progress-fill" style={{ width: `${((currentStepIndex + 1) / steps.length) * 100}%` }}/></div>
           <div className="wizard-card">
             <div className="step-content">{renderStepContent()}{renderFooter()}</div>
+          </div>
+        </div>
+      )}
+      {showCancelModal && (
+        <div className="pr-modal-backdrop" onClick={() => setShowCancelModal(false)}>
+          <div className="cancel-confirm-modal" onClick={(e) => e.stopPropagation()}>
+            <div className="cancel-confirm-icon">
+              <svg width="28" height="28" viewBox="0 0 24 24" fill="none"><path d="M12 9v4" stroke="#dc2626" strokeWidth="2" strokeLinecap="round"/><circle cx="12" cy="16" r="1" fill="#dc2626"/><path d="M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z" stroke="#dc2626" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/></svg>
+            </div>
+            <h3 className="cancel-confirm-title">Cancel leave request?</h3>
+            <p className="cancel-confirm-desc">You can save your progress as a draft and come back later, or discard it entirely.</p>
+            <div className="cancel-confirm-actions-stack">
+              <button type="button" className="btn-cancel-confirm-continue" onClick={() => setShowCancelModal(false)}>Continue Process</button>
+              <button type="button" className="btn-cancel-confirm-save" onClick={() => { saveDraft(); navigate('/overview-react'); }}>Save as Draft</button>
+              <button type="button" className="btn-cancel-confirm-discard" onClick={() => { localStorage.removeItem(DRAFT_KEY); const drafts = JSON.parse(localStorage.getItem('leaveDrafts') || '[]').filter(d => d.type !== 'request-leave'); localStorage.setItem('leaveDrafts', JSON.stringify(drafts)); navigate('/overview-react'); }}>Discard</button>
+            </div>
           </div>
         </div>
       )}

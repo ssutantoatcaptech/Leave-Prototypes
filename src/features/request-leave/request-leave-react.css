@@ -10,7 +10,40 @@
   width: 696px;
   max-width: calc(100% - 64px);
   margin: 0 auto;
+  padding: 40px 0 48px;
 }
+
+.rq-from-plan-bar {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 14px 18px;
+  background: #eff6ff;
+  border: 1px solid #93c5fd;
+  border-radius: 10px;
+  margin-bottom: 20px;
+  font-size: 14px;
+  font-weight: 500;
+  color: #1e3a5f;
+  line-height: 1.5;
+}
+.rq-from-plan-icon { flex-shrink: 0; color: #3b82f6; }
+.rq-from-plan-close {
+  margin-left: auto;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  border: none;
+  border-radius: 6px;
+  background: transparent;
+  color: #64748b;
+  cursor: pointer;
+  transition: 0.15s;
+}
+.rq-from-plan-close:hover { background: #dbeafe; color: #1e40af; }
 
 .stepper {
   padding: 0;
@@ -773,6 +806,11 @@
   display: flex;
   gap: 12px;
 }
+.footer-right {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+}
 
 .btn {
   padding: 10px 24px;
@@ -1070,6 +1108,11 @@
   overflow: hidden;
 }
 
+@keyframes timeline-grow {
+  from { max-width: 0; opacity: 0; }
+  to   { max-width: 100%; opacity: 1; }
+}
+
 .timeline-bar-fill {
   position: absolute;
   top: 0;
@@ -1082,7 +1125,28 @@
   font-weight: 600;
   color: #fff;
   white-space: nowrap;
+  animation: timeline-grow 0.8s cubic-bezier(0.25, 0.1, 0.25, 1) both;
 }
+
+.timeline-bar-row:nth-child(1) .timeline-bar-fill { animation-delay: 0s; }
+.timeline-bar-row:nth-child(2) .timeline-bar-fill { animation-delay: 0.12s; }
+.timeline-bar-row:nth-child(3) .timeline-bar-fill { animation-delay: 0.24s; }
+.timeline-bar-row:nth-child(4) .timeline-bar-fill { animation-delay: 0.36s; }
+
+.timeline-bar-row {
+  opacity: 0;
+  animation: timeline-row-fade 0.5s ease-out both;
+}
+
+@keyframes timeline-row-fade {
+  from { opacity: 0; transform: translateY(6px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.timeline-bar-row:nth-child(1) { animation-delay: 0s; }
+.timeline-bar-row:nth-child(2) { animation-delay: 0.1s; }
+.timeline-bar-row:nth-child(3) { animation-delay: 0.2s; }
+.timeline-bar-row:nth-child(4) { animation-delay: 0.3s; }
 
 .timeline-bar-fill.fmla {
   background: #dc2626;
@@ -1114,6 +1178,9 @@
   gap: 6px;
   font-size: 12px;
   color: #3d3d47;
+  opacity: 0;
+  animation: timeline-row-fade 0.4s ease-out both;
+  animation-delay: 0.5s;
 }
 
 .timeline-legend-dot {
@@ -1167,7 +1234,7 @@
   border: 1px solid #e8e8ec;
   text-align: center;
   max-width: 696px;
-  margin: 40px auto 60px;
+  margin: 0 auto 100px;
   background: #fff;
 }
 
