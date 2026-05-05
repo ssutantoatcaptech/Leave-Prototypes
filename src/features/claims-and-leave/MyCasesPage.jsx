@@ -1,4 +1,8 @@
+import { useNavigate } from 'react-router-dom';
+
 export default function MyCasesPage() {
+  const navigate = useNavigate();
+
   const casesData = [
     {
       type: 'Illness or Injury',
@@ -8,6 +12,7 @@ export default function MyCasesPage() {
       statusColor: 'amber',
       required: null,
       actions: ['View Details'],
+      link: '/leave-detail-v2e',
     },
     {
       type: 'Birthing parent pregnancy',
@@ -17,6 +22,7 @@ export default function MyCasesPage() {
       statusColor: 'blue',
       required: 'Requires Medical Form',
       actions: ['View Details'],
+      link: null,
     },
     {
       type: 'Illness or Injury',
@@ -26,6 +32,7 @@ export default function MyCasesPage() {
       statusColor: 'green',
       required: null,
       actions: ['View Details'],
+      link: '/leave-detail-v2e',
     },
     {
       type: 'Caring for family member',
@@ -35,6 +42,7 @@ export default function MyCasesPage() {
       statusColor: 'amber',
       required: null,
       actions: ['Resume', 'Delete'],
+      link: null,
     },
     {
       type: 'Military-related',
@@ -44,6 +52,7 @@ export default function MyCasesPage() {
       statusColor: 'gray',
       required: null,
       actions: ['View Details'],
+      link: null,
     },
   ];
 
@@ -114,7 +123,16 @@ export default function MyCasesPage() {
                   <div className="cl-action-links">
                     {row.actions.map((action, j) => (
                       <span key={j}>
-                        <button className="cl-link-btn">{action}</button>
+                        <button
+                          className="cl-link-btn"
+                          onClick={() => {
+                            if (action === 'View Details' && row.link) {
+                              navigate(row.link);
+                            }
+                          }}
+                        >
+                          {action}
+                        </button>
                         {j < row.actions.length - 1 && <span className="cl-action-sep">|</span>}
                       </span>
                     ))}
