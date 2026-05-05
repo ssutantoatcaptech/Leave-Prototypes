@@ -24,31 +24,24 @@ function Home() {
   return (
     <main className="app-shell app-home">
       <section className="home-panel">
-        <p className="app-eyebrow">React Views</p>
+        <p className="app-eyebrow">Leave Management</p>
         <h1>Experience Prototype</h1>
         <p className="app-description">
-          The original HTML experiences are now available as dedicated React routes. Choose a view below.
+          Select an experience below to explore.
         </p>
 
         <div className="route-grid">
           <NavLink className="route-card" to="/overview-react">
-            <span className="route-card-label">Overview</span>
-            <strong className="route-card-title">React Decomposed</strong>
-            <span className="route-card-meta">Structured React files with content preserved from the original overview</span>
+            <span className="route-card-label">Prototype</span>
+            <strong className="route-card-title">Working Prototype</strong>
+            <span className="route-card-meta">Interactive leave management experience with full navigation</span>
           </NavLink>
 
-          <NavLink className="route-card" to="/plan-absence">
-            <span className="route-card-label">Plan Absence</span>
-            <strong className="route-card-title">React Flow</strong>
-            <span className="route-card-meta">React version of the original plan-absence wizard and welcome state</span>
-          </NavLink>
-
-          <NavLink className="route-card" to="/wizard">
-            <span className="route-card-label">Leave Intake</span>
-            <strong className="route-card-title">React Wizard</strong>
-            <span className="route-card-meta">Fully React leave-intake flow with no embedded HTML iframe</span>
-          </NavLink>
-
+          <div className="route-card route-card--disabled">
+            <span className="route-card-label">Testing</span>
+            <strong className="route-card-title">User Testing</strong>
+            <span className="route-card-meta">Coming soon — link will be provided</span>
+          </div>
         </div>
       </section>
     </main>
