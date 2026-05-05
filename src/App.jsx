@@ -7,6 +7,18 @@ import AbsenceHistoryReactPage from './features/absence-history/AbsenceHistoryRe
 import ReturnToWorkPage from './features/return-to-work/ReturnToWorkPage';
 import MyLeavesPage from './features/my-leaves/MyLeavesPage';
 import LeaveDocumentsPage from './features/leave-documents/LeaveDocumentsPage';
+import LeaveDetailPage from './features/leave-detail/LeaveDetailPage';
+import LeaveDetailV2Page from './features/leave-detail/LeaveDetailV2Page';
+import LeaveDetailV2bPage from './features/leave-detail/LeaveDetailV2bPage';
+import LeaveDetailV2cPage from './features/leave-detail/LeaveDetailV2cPage';
+import LeaveDetailV2dPage from './features/leave-detail/LeaveDetailV2dPage';
+import LeaveDetailV2ePage from './features/leave-detail/LeaveDetailV2ePage';
+import LeaveDetailV2fPage from './features/leave-detail/LeaveDetailV2fPage';
+import LeaveDetailV3Page from './features/leave-detail/LeaveDetailV3Page';
+import LeaveDetailV3bPage from './features/leave-detail/LeaveDetailV3bPage';
+import LeaveDetailV3cPage from './features/leave-detail/LeaveDetailV3cPage';
+import LeaveDetailSupplementalPage from './features/leave-detail/LeaveDetailSupplementalPage';
+import LeavePaymentsPage from './features/leave-detail/LeavePaymentsPage';
 
 function FrameView({ eyebrow, title, description, src, standaloneLabel }) {
   return (
@@ -109,7 +121,10 @@ export default function App() {
     location.pathname === '/my-leaves' ||
     location.pathname === '/leave-documents' ||
     location.pathname.startsWith('/absence-details/') ||
-    location.pathname.includes('/return-to-work');
+    location.pathname.includes('/return-to-work') ||
+    location.pathname.startsWith('/leave-detail') ||
+    location.pathname === '/supplemental-health' ||
+    location.pathname === '/leave-payments';
   return (
     <>
       {!hideAppNav && <AppNav />}
@@ -137,6 +152,18 @@ export default function App() {
         <Route path="/my-leaves" element={<MyLeavesPage />} />
         <Route path="/leave-documents" element={<LeaveDocumentsPage />} />
         <Route path="/absence-details/:caseId/return-to-work" element={<ReturnToWorkPage />} />
+        <Route path="/leave-detail" element={<LeaveDetailPage />} />
+        <Route path="/leave-detail-v2" element={<LeaveDetailV2Page />} />
+        <Route path="/leave-detail-v2b" element={<LeaveDetailV2bPage />} />
+        <Route path="/leave-detail-v2c" element={<LeaveDetailV2cPage />} />
+        <Route path="/leave-detail-v2d" element={<LeaveDetailV2dPage />} />
+        <Route path="/leave-detail-v2e" element={<LeaveDetailV2ePage />} />
+        <Route path="/leave-detail-v2f" element={<LeaveDetailV2fPage />} />
+        <Route path="/leave-detail-v3" element={<LeaveDetailV3Page />} />
+        <Route path="/leave-detail-v3b" element={<LeaveDetailV3bPage />} />
+        <Route path="/leave-detail-v3c" element={<LeaveDetailV3cPage />} />
+        <Route path="/supplemental-health" element={<LeaveDetailSupplementalPage />} />
+        <Route path="/leave-payments" element={<LeavePaymentsPage />} />
         <Route path="*" element={<Navigate to="/" replace />} />
       </Routes>
     </>
