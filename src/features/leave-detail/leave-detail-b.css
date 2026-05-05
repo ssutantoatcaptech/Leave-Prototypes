@@ -2232,3 +2232,30 @@
 .ldb-side-link-btn:hover {
   background: #ebebed;
 }
+
+/* Week ticks below timeline */
+.dlp-tl-weeks {
+  display: flex;
+  margin-top: 12px;
+  margin-bottom: 4px;
+  padding-left: 120px;
+  gap: 0;
+}
+.dlp-tl-week-tick {
+  flex: 1;
+  border-left: 1px solid #d4d4d8;
+  height: 18px;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  padding-bottom: 2px;
+}
+.dlp-tl-week-tick:last-child {
+  border-right: 1px solid #d4d4d8;
+}
+.dlp-tl-week-num {
+  font-size: 10px;
+  color: #6b7280;
+  font-weight: 600;
+  line-height: 1;
+}
