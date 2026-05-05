@@ -20,27 +20,6 @@ import LeaveDetailV3cPage from './features/leave-detail/LeaveDetailV3cPage';
 import LeaveDetailSupplementalPage from './features/leave-detail/LeaveDetailSupplementalPage';
 import LeavePaymentsPage from './features/leave-detail/LeavePaymentsPage';
 
-function FrameView({ eyebrow, title, description, src, standaloneLabel }) {
-  return (
-    <main className="app-shell">
-      <header className="app-header">
-        <div className="app-header-copy">
-          <p className="app-eyebrow">{eyebrow}</p>
-          <h1>{title}</h1>
-          <p className="app-description">{description}</p>
-        </div>
-        <a className="app-link" href={src} target="_blank" rel="noreferrer">
-          {standaloneLabel}
-        </a>
-      </header>
-
-      <section className="iframe-panel" aria-label={`${title} preview`}>
-        <iframe className="wizard-frame" title={title} src={src} />
-      </section>
-    </main>
-  );
-}
-
 function Home() {
   return (
     <main className="app-shell app-home">
@@ -70,11 +49,6 @@ function Home() {
             <span className="route-card-meta">Fully React leave-intake flow with no embedded HTML iframe</span>
           </NavLink>
 
-          <NavLink className="route-card" to="/coverage">
-            <span className="route-card-label">Coverage</span>
-            <strong className="route-card-title">Coverage Wireframe</strong>
-            <span className="route-card-meta">Standalone coverage page view</span>
-          </NavLink>
         </div>
       </section>
     </main>
@@ -100,9 +74,6 @@ function AppNav() {
           </NavLink>
           <NavLink className="app-nav-link" to="/plan-absence">
             Plan for Absence
-          </NavLink>
-          <NavLink className="app-nav-link" to="/coverage">
-            Coverage
           </NavLink>
         </div>
       </div>
@@ -137,18 +108,6 @@ export default function App() {
         <Route path="/plan-absence" element={<PlanAbsenceReactPage />} />
         <Route path="/request-leave-react" element={<RequestLeaveReactPage />} />
         <Route path="/wizard" element={<RequestLeaveReactPage />} />
-        <Route
-          path="/coverage"
-          element={
-            <FrameView
-              eyebrow="React Route"
-              title="Coverage Wireframe"
-              description="This route serves the low-fidelity coverage experience as its own dedicated React view."
-              src="/coverage-wireframe.html"
-              standaloneLabel="Open standalone coverage page"
-            />
-          }
-        />
         <Route path="/my-leaves" element={<MyLeavesPage />} />
         <Route path="/leave-documents" element={<LeaveDocumentsPage />} />
         <Route path="/absence-details/:caseId/return-to-work" element={<ReturnToWorkPage />} />
