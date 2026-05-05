@@ -1186,3 +1186,36 @@
     flex-direction: column;
   }
 }
+
+/* My Cases extras */
+.cl-cell-muted {
+  color: #6b7280;
+  font-family: 'Inter', sans-serif;
+  font-size: 14px;
+}
+
+.cl-required-action {
+  color: #ef4444;
+  font-family: 'Inter', sans-serif;
+  font-size: 14px;
+  font-style: italic;
+  font-weight: 500;
+}
+
+.cl-action-sep {
+  color: #9ca3af;
+  margin: 0 4px;
+  font-weight: 400;
+}
+
+.cl-th-right {
+  text-align: right;
+}
+
+.cl-td-right {
+  text-align: right;
+}
+
+.cl-td-right .cl-action-links {
+  justify-content: flex-end;
+}

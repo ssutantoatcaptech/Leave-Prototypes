@@ -12,7 +12,7 @@ const navLinks = [
 const subNavTabs = [
   { label: 'Claim Center', to: '/claims-and-leave' },
   { label: 'File a Claim or Leave', to: '/claims-and-leave/file-claim' },
-  { label: 'My Leaves / Cases (TBD)', to: '/claims-and-leave/my-leaves' },
+  { label: 'My Cases', to: '/claims-and-leave/my-cases' },
   { label: 'Leave Planning Tool', to: '/claims-and-leave/leave-planning' },
   { label: 'Enter My Time', to: '/claims-and-leave/enter-time' },
   { label: 'Payments', to: '/claims-and-leave/payments' },

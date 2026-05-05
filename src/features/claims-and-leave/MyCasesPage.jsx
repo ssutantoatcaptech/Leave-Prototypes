@@ -1,49 +1,49 @@
 export default function MyCasesPage() {
   const casesData = [
     {
-      type: 'FMLA - Pregnancy',
-      id: 'CASE-2024-00312',
-      lastUpdate: 'Oct 15, 2024',
-      status: 'Open',
-      statusColor: 'green',
-      required: 'Certification due Oct 25',
-      actions: ['View', 'Upload'],
-    },
-    {
-      type: 'Short-Term Disability',
-      id: 'CASE-2024-00287',
-      lastUpdate: 'Oct 10, 2024',
-      status: 'In Progress',
-      statusColor: 'blue',
-      required: 'None',
-      actions: ['View'],
-    },
-    {
-      type: 'State Leave - NY PFL',
-      id: 'CASE-2024-00275',
-      lastUpdate: 'Sep 28, 2024',
-      status: 'Pending Info',
+      type: 'Illness or Injury',
+      id: 'CLM #12345',
+      lastUpdate: 'XX / XX / XXXX',
+      status: 'Saved',
       statusColor: 'amber',
-      required: 'Provider form needed',
-      actions: ['View', 'Upload'],
+      required: null,
+      actions: ['View Details'],
     },
     {
-      type: 'FMLA - Family Care',
-      id: 'CASE-2024-00250',
-      lastUpdate: 'Sep 15, 2024',
-      status: 'Approved',
+      type: 'Birthing parent pregnancy',
+      id: 'NTN #12345',
+      lastUpdate: 'XX / XX / XXXX',
+      status: 'Under Review',
+      statusColor: 'blue',
+      required: 'Requires Medical Form',
+      actions: ['View Details'],
+    },
+    {
+      type: 'Illness or Injury',
+      id: 'NTN #12554',
+      lastUpdate: 'XX / XX / XXXX',
+      status: 'Decisioned',
       statusColor: 'green',
-      required: 'None',
-      actions: ['View'],
+      required: null,
+      actions: ['View Details'],
     },
     {
-      type: 'Military Leave',
-      id: 'CASE-2024-00198',
-      lastUpdate: 'Jun 14, 2024',
+      type: 'Caring for family member',
+      id: 'NTN #12554',
+      lastUpdate: 'XX / XX / XXXX',
+      status: 'Saved',
+      statusColor: 'amber',
+      required: null,
+      actions: ['Resume', 'Delete'],
+    },
+    {
+      type: 'Military-related',
+      id: 'NTN #09881',
+      lastUpdate: 'XX / XX / XXXX',
       status: 'Closed',
       statusColor: 'gray',
-      required: '—',
-      actions: ['View'],
+      required: null,
+      actions: ['View Details'],
     },
   ];
 
@@ -58,8 +58,26 @@ export default function MyCasesPage() {
       <div className="cl-page-header">
         <div>
           <h1 className="cl-page-title">My Cases</h1>
-          <p className="cl-page-desc">View and manage your leave and disability cases.</p>
+          <p className="cl-page-desc">Manage your active, saved, and historical leave and claim cases.</p>
         </div>
+        <div className="cl-page-actions">
+          <button className="cl-btn cl-btn--dark">+ Request New Leave/Claim</button>
+        </div>
+      </div>
+
+      {/* Filters */}
+      <div className="cl-filter-bar">
+        <div className="cl-filters-left">
+          <div className="cl-filter-dropdown">
+            <span>Status: All Leaves</span>
+            <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M3 5l3 3 3-3" stroke="#6b7280" strokeWidth="1.5"/></svg>
+          </div>
+          <div className="cl-filter-dropdown">
+            <span>Leave Type</span>
+            <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M3 5l3 3 3-3" stroke="#6b7280" strokeWidth="1.5"/></svg>
+          </div>
+        </div>
+        <span className="cl-filter-count">Showing 4 leaves</span>
       </div>
 
       {/* Table */}
@@ -71,7 +89,7 @@ export default function MyCasesPage() {
               <th>Last Update</th>
               <th>Status</th>
               <th>Required Actions</th>
-              <th>Actions</th>
+              <th className="cl-th-right">Actions</th>
             </tr>
           </thead>
           <tbody>
@@ -83,15 +101,22 @@ export default function MyCasesPage() {
                     <span className="cl-cell-secondary">{row.id}</span>
                   </div>
                 </td>
-                <td>{row.lastUpdate}</td>
+                <td className="cl-cell-muted">{row.lastUpdate}</td>
                 <td>
                   <span className={`cl-badge cl-badge--${row.statusColor}`}>{row.status}</span>
                 </td>
-                <td>{row.required}</td>
                 <td>
+                  {row.required && (
+                    <span className="cl-required-action">{row.required}</span>
+                  )}
+                </td>
+                <td className="cl-td-right">
                   <div className="cl-action-links">
                     {row.actions.map((action, j) => (
-                      <button key={j} className="cl-link-btn">{action}</button>
+                      <span key={j}>
+                        <button className="cl-link-btn">{action}</button>
+                        {j < row.actions.length - 1 && <span className="cl-action-sep">|</span>}
+                      </span>
                     ))}
                   </div>
                 </td>
