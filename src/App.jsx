@@ -42,6 +42,12 @@ function Home() {
             <strong className="route-card-title">User Testing</strong>
             <span className="route-card-meta">Coming soon — link will be provided</span>
           </div>
+
+          <div className="route-card route-card--disabled">
+            <span className="route-card-label">New</span>
+            <strong className="route-card-title">Claims and Leave</strong>
+            <span className="route-card-meta">Coming soon</span>
+          </div>
         </div>
       </section>
     </main>
