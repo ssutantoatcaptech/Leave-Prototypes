@@ -20,6 +20,16 @@ import LeaveDetailV3cPage from './features/leave-detail/LeaveDetailV3cPage';
 import LeaveDetailSupplementalPage from './features/leave-detail/LeaveDetailSupplementalPage';
 import LeavePaymentsPage from './features/leave-detail/LeavePaymentsPage';
 
+import ClaimsAndLeaveLayout from './features/claims-and-leave/ClaimsAndLeaveLayout';
+import ClaimCenterPage from './features/claims-and-leave/ClaimCenterPage';
+import FileClaimPage from './features/claims-and-leave/FileClaimPage';
+import DentalClaimsPage from './features/claims-and-leave/DentalClaimsPage';
+import ClaimsMyLeavesPage from './features/claims-and-leave/MyLeavesPage';
+import MyCasesPage from './features/claims-and-leave/MyCasesPage';
+import LeavePlanningPage from './features/claims-and-leave/LeavePlanningPage';
+import EnterMyTimePage from './features/claims-and-leave/EnterMyTimePage';
+import PaymentsPage from './features/claims-and-leave/PaymentsPage';
+
 function Home() {
   return (
     <main className="app-shell app-home">
@@ -43,11 +53,11 @@ function Home() {
             <span className="route-card-meta">Coming soon — link will be provided</span>
           </div>
 
-          <div className="route-card route-card--disabled">
+          <NavLink className="route-card" to="/claims-and-leave">
             <span className="route-card-label">New</span>
             <strong className="route-card-title">Claims and Leave</strong>
-            <span className="route-card-meta">Coming soon</span>
-          </div>
+            <span className="route-card-meta">Benefits hub with claims tracking, leave management, and payments</span>
+          </NavLink>
         </div>
       </section>
     </main>
@@ -82,6 +92,19 @@ export default function App() {
         <Route path="/leave-detail-v3c" element={<LeaveDetailV3cPage />} />
         <Route path="/supplemental-health" element={<LeaveDetailSupplementalPage />} />
         <Route path="/leave-payments" element={<LeavePaymentsPage />} />
+
+        {/* Claims & Leave section */}
+        <Route path="/claims-and-leave" element={<ClaimsAndLeaveLayout />}>
+          <Route index element={<ClaimCenterPage />} />
+          <Route path="file-claim" element={<FileClaimPage />} />
+          <Route path="dental" element={<DentalClaimsPage />} />
+          <Route path="my-leaves" element={<ClaimsMyLeavesPage />} />
+          <Route path="my-cases" element={<MyCasesPage />} />
+          <Route path="leave-planning" element={<LeavePlanningPage />} />
+          <Route path="enter-time" element={<EnterMyTimePage />} />
+          <Route path="payments" element={<PaymentsPage />} />
+        </Route>
+
         <Route path="*" element={<Navigate to="/" replace />} />
       </Routes>
     </>
