@@ -1,4 +1,4 @@
-import { NavLink, Navigate, Route, Routes, useLocation } from 'react-router-dom';
+import { NavLink, Navigate, Route, Routes } from 'react-router-dom';
 import OverviewReactPage from './features/overview/OverviewReactPage';
 import PlanAbsenceReactPage from './features/plan-absence/PlanAbsenceReactPage';
 import RequestLeaveReactPage from './features/request-leave/RequestLeaveReactPage';
@@ -54,50 +54,10 @@ function Home() {
   );
 }
 
-function AppNav() {
-  return (
-    <nav className="app-nav" aria-label="Prototype routes">
-      <div className="app-nav-inner">
-        <NavLink className="app-nav-brand" to="/">
-          MOO Experience React
-        </NavLink>
-        <div className="app-nav-links">
-          <NavLink className="app-nav-link" to="/">
-            Home
-          </NavLink>
-          <NavLink className="app-nav-link" to="/wizard">
-            Leave Wizard
-          </NavLink>
-          <NavLink className="app-nav-link" to="/overview-react">
-            Overview React
-          </NavLink>
-          <NavLink className="app-nav-link" to="/plan-absence">
-            Plan for Absence
-          </NavLink>
-        </div>
-      </div>
-    </nav>
-  );
-}
 
 export default function App() {
-  const location = useLocation();
-  const hideAppNav =
-    location.pathname === '/overview-react' ||
-    location.pathname === '/absence-history' ||
-    location.pathname === '/request-leave-react' ||
-    location.pathname === '/wizard' ||
-    location.pathname === '/plan-absence' ||
-    location.pathname === '/my-leaves' ||
-    location.pathname === '/leave-documents' ||
-    location.pathname.startsWith('/absence-details/') ||
-    location.pathname.includes('/return-to-work') ||
-    location.pathname.startsWith('/leave-detail') ||
-    location.pathname === '/supplemental-health' ||
-    location.pathname === '/leave-payments';
   return (
     <>
-      {!hideAppNav && <AppNav />}
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/overview" element={<Navigate to="/overview-react" replace />} />
