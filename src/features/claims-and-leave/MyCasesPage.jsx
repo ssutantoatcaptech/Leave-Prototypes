@@ -12,7 +12,7 @@ export default function MyCasesPage() {
       statusColor: 'amber',
       required: null,
       actions: ['View Details'],
-      link: '/leave-detail-v2e',
+      link: '/claims-and-leave/case-detail',
     },
     {
       type: 'Birthing parent pregnancy',
@@ -32,7 +32,7 @@ export default function MyCasesPage() {
       statusColor: 'green',
       required: null,
       actions: ['View Details'],
-      link: '/leave-detail-v2e',
+      link: '/claims-and-leave/case-detail',
     },
     {
       type: 'Caring for family member',

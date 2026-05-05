@@ -103,6 +103,7 @@ export default function App() {
           <Route path="leave-planning" element={<LeavePlanningPage />} />
           <Route path="enter-time" element={<EnterMyTimePage />} />
           <Route path="payments" element={<PaymentsPage />} />
+          <Route path="case-detail" element={<LeaveDetailV2ePage />} />
         </Route>
 
         <Route path="*" element={<Navigate to="/" replace />} />
