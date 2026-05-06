@@ -347,10 +347,9 @@
 .cl-filter-bar {
   display: flex;
   align-items: center;
-  justify-content: space-between;
   gap: 12px;
   margin-bottom: 20px;
-  flex-wrap: wrap;
+  flex-wrap: nowrap;
   background: #ffffff;
   border: 1px solid #e5e7eb;
   border-radius: 12px;
@@ -394,7 +393,8 @@
   background: #ffffff url("data:image/svg+xml,%3Csvg width='10' height='6' viewBox='0 0 10 6' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M1 1l4 4 4-4' stroke='%236b7280' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") no-repeat right 12px center;
   appearance: none;
   cursor: pointer;
-  min-width: 140px;
+  white-space: nowrap;
+  flex-shrink: 0;
 }
 
 .cl-select--full {
@@ -412,7 +412,8 @@
 }
 
 .cl-input--search {
-  width: 200px;
+  flex: 1;
+  min-width: 180px;
   background: #ffffff url("data:image/svg+xml,%3Csvg width='14' height='14' viewBox='0 0 14 14' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Ccircle cx='6' cy='6' r='4.5' stroke='%239ca3af' stroke-width='1.2'/%3E%3Cpath d='M9.5 9.5L13 13' stroke='%239ca3af' stroke-width='1.2' stroke-linecap='round'/%3E%3C/svg%3E") no-repeat 12px center;
   padding-left: 32px;
 }
