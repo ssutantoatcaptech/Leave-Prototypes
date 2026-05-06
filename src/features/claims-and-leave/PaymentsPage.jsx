@@ -190,7 +190,6 @@ export default function PaymentsPage() {
         <table className="cl-table">
           <thead>
             <tr>
-              <th></th>
               <th>Payment Date</th>
               <th>Claim Details</th>
               <th>Net Amount</th>
@@ -201,20 +200,11 @@ export default function PaymentsPage() {
           </thead>
           <tbody>
             {filtered.length === 0 && (
-              <tr><td colSpan="7" style={{ textAlign: 'center', padding: '32px 16px', color: '#6b7280' }}>No payments match your filters.</td></tr>
+              <tr><td colSpan="6" style={{ textAlign: 'center', padding: '32px 16px', color: '#6b7280' }}>No payments match your filters.</td></tr>
             )}
             {filtered.map((row, i) => (
               <>
                 <tr key={i} className={expandedRow === i ? 'cl-table-row--expanded' : ''}>
-                  <td>
-                    <button
-                      className="cl-expand-btn"
-                      onClick={() => setExpandedRow(expandedRow === i ? -1 : i)}
-                      aria-label="Expand row"
-                    >
-                      {expandedRow === i ? '−' : '+'}
-                    </button>
-                  </td>
                   <td>{row.date}</td>
                   <td>
                     <div className="cl-cell-stacked">
@@ -225,11 +215,11 @@ export default function PaymentsPage() {
                   <td className="cl-cell-amount">{row.net}</td>
                   <td>{row.method}</td>
                   <td><button className="cl-link-btn">{row.statement}</button></td>
-                  <td><button className="cl-link-btn">Details</button></td>
+                  <td><button className="cl-link-btn" onClick={() => setExpandedRow(expandedRow === i ? -1 : i)}>{expandedRow === i ? 'Hide' : 'Details'}</button></td>
                 </tr>
                 {expandedRow === i && (
                   <tr key={`${i}-detail`} className="cl-detail-row">
-                    <td colSpan="7">
+                    <td colSpan="6">
                       <div className="cl-payment-detail">
                         <h4 className="cl-detail-title">Payment Breakdown</h4>
                         <div className="cl-payment-breakdown">
