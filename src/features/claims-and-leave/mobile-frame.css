@@ -134,9 +134,24 @@
   grid-template-columns: 1fr;
 }
 
-/* Dashboard grid stacks */
+/* Dashboard — mobile frame overrides (counteract @media 769px desktop rules) */
+.mobile-frame-screen .cldb-hero {
+  padding: 32px 16px;
+}
+
+.mobile-frame-screen .cldb-hero-title {
+  font-size: 22px;
+  padding: 0;
+}
+
+.mobile-frame-screen .cldb-main {
+  padding: 20px 16px;
+}
+
 .mobile-frame-screen .cldb-content-grid {
+  display: flex;
   flex-direction: column;
+  gap: 16px;
 }
 
 .mobile-frame-screen .cldb-grid-status { order: 1; }
@@ -144,21 +159,91 @@
 .mobile-frame-screen .cldb-grid-activity { order: 3; }
 .mobile-frame-screen .cldb-grid-benefits { order: 4; }
 
-.mobile-frame-screen .cldb-hero {
-  padding: 32px 16px;
-}
-
-.mobile-frame-screen .cldb-hero-title {
-  font-size: 24px;
-  padding: 0;
-}
-
-.mobile-frame-screen .cldb-main {
-  padding: 24px 16px;
+.mobile-frame-screen .cldb-content-grid > * {
+  max-width: 100%;
+  min-width: 0;
 }
 
 .mobile-frame-screen .cldb-hide-mobile {
   display: none;
+}
+
+/* Status banner: compact */
+.mobile-frame-screen .cldb-status-banner {
+  padding: 14px 16px;
+  gap: 12px;
+}
+
+.mobile-frame-screen .cldb-status-icon svg {
+  width: 20px;
+  height: 20px;
+}
+
+.mobile-frame-screen .cldb-status-title {
+  font-size: 14px;
+}
+
+.mobile-frame-screen .cldb-status-desc {
+  font-size: 13px;
+}
+
+/* Cards: tighter padding */
+.mobile-frame-screen .cldb-card {
+  border-radius: 10px;
+}
+
+.mobile-frame-screen .cldb-card-body {
+  padding: 16px;
+}
+
+.mobile-frame-screen .cldb-card-header {
+  padding: 14px 16px;
+}
+
+/* Quick actions */
+.mobile-frame-screen .cldb-action-row {
+  min-height: 44px;
+  padding: 10px 12px;
+}
+
+/* Activity rows */
+.mobile-frame-screen .cldb-activity-row {
+  padding: 12px 14px;
+}
+
+.mobile-frame-screen .cldb-activity-title {
+  font-size: 13px;
+}
+
+.mobile-frame-screen .cldb-activity-desc {
+  font-size: 12px;
+}
+
+.mobile-frame-screen .cldb-activity-date {
+  font-size: 11px;
+}
+
+/* Benefits */
+.mobile-frame-screen .cldb-benefit-item {
+  padding: 14px 0;
+}
+
+.mobile-frame-screen .cldb-benefit-item-name {
+  font-size: 13px;
+}
+
+.mobile-frame-screen .cldb-benefit-item-plan {
+  font-size: 12px;
+}
+
+/* Sidebar card title */
+.mobile-frame-screen .cldb-sidebar-title {
+  font-size: 15px;
+}
+
+/* View All button */
+.mobile-frame-screen .cldb-view-all-btn {
+  font-size: 12px;
 }
 
 /* Enter My Time grid stacks */
