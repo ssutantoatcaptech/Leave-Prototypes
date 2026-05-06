@@ -677,6 +677,7 @@
 
 .mobile-frame-screen .ldb-title-left {
   gap: 12px;
+  align-items: flex-start;
 }
 
 .mobile-frame-screen .ldb-title-icon {
