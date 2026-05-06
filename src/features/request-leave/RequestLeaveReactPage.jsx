@@ -277,6 +277,7 @@ export default function RequestLeaveReactPage() {
       s.push({ id: 'leaveDetails', label: 'Schedule', title: 'Tell us about your typical work schedule' });
       s.push({ id: 'medical', label: 'Condition', title: 'Tell us about your condition' });
       s.push({ id: 'providerDetails', label: 'Provider', title: 'Provider Details' });
+      s.push({ id: 'medicalCertConsent', label: 'Consent', title: 'Medical Certification Consent' });
     } else if (birthing) {
       s.push({ id: 'childScenario', label: 'Child', title: 'Has the birth already occurred?' });
       s.push({ id: 'leaveStructure', label: 'Structure', title: 'How will you take your absence?' });
