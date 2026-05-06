@@ -46,6 +46,12 @@
   position: static;
 }
 
+.mobile-frame-screen .cl-header {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+
 .mobile-frame-screen .cl-main-nav {
   display: none;
 }
