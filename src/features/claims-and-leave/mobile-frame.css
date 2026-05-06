@@ -603,6 +603,49 @@
   row-gap: 12px;
 }
 
+/* Leave Timeline (benefits estimate) — match case detail style */
+.mobile-frame-screen .timeline-body {
+  padding: 0;
+}
+
+.mobile-frame-screen .timeline-axis {
+  margin-bottom: 6px;
+}
+
+.mobile-frame-screen .timeline-axis span {
+  font-size: 10px;
+}
+
+.mobile-frame-screen .timeline-bar-row {
+  gap: 8px;
+  min-height: 36px;
+}
+
+.mobile-frame-screen .timeline-bar-label {
+  width: 48px;
+  min-width: 48px;
+  font-size: 10px;
+  text-align: left;
+}
+
+.mobile-frame-screen .timeline-bar-track {
+  height: 22px;
+}
+
+.mobile-frame-screen .timeline-bar-fill {
+  font-size: 0;
+  padding-left: 0;
+}
+
+.mobile-frame-screen .timeline-legend {
+  gap: 10px;
+  padding-top: 10px;
+}
+
+.mobile-frame-screen .timeline-legend-item {
+  font-size: 11px;
+}
+
 /* Active leave card fields */
 .mobile-frame-screen .ov-active-card-fields {
   grid-template-columns: 1fr;
