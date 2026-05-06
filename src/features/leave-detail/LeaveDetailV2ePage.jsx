@@ -137,7 +137,7 @@ export default function LeaveDetailV2ePage() {
         <div className="ldb-title-card">
           <div className="ldb-title-left">
             <div className="ldb-title-icon">
-              <svg width="28" height="28" viewBox="0 0 24 24" fill="none"><path d="M9 12h6M12 9v6" stroke="#fff" strokeWidth="2" strokeLinecap="round"/></svg>
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2v10z" stroke="#fff" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"/><path d="M8 10h8M8 13h5" stroke="#fff" strokeWidth="1.8" strokeLinecap="round"/></svg>
             </div>
             <div>
               <h1 className="ldb-title">Illness or Injury <span className="ldb-status-badge pending-status" style={{ fontSize: 12, marginLeft: 12, verticalAlign: 'middle' }}>Pending</span></h1>
@@ -251,7 +251,6 @@ export default function LeaveDetailV2ePage() {
                     ] : [
                       { id: 'fmla', label: 'FMLA Protection', accent: '#0033a0' },
                       { id: 'std', label: 'STD Income', accent: '#3b82f6' },
-                      { id: 'supp', label: 'Hospital Indemnity', accent: '#7c3aed' },
                       { id: 'unpaid', label: 'Unpaid', accent: '#e5e7eb' },
                     ]).map(function (item) {
                       return (
