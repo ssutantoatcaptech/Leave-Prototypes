@@ -885,6 +885,10 @@
 }
 
 /* Payments grid: single column */
+.mobile-frame-screen .ldb-card-collapse-header {
+  margin-bottom: 14px;
+}
+
 .mobile-frame-screen .ldb-payments-grid {
   grid-template-columns: 1fr 1fr;
   gap: 10px;
