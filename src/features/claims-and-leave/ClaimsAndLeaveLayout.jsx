@@ -31,16 +31,40 @@ export default function ClaimsAndLeaveLayout() {
             <NavLink to="/" className="cl-brand">Benefits Hub</NavLink>
             <nav className="cl-main-nav">
               {navLinks.map((link) => (
-                <NavLink
-                  key={link.label}
-                  to={link.to}
-                  className={({ isActive }) =>
-                    `cl-main-nav-link${link.to === base && location.pathname.startsWith(base) ? ' cl-main-nav-link--active' : isActive && link.to !== '#' ? ' cl-main-nav-link--active' : ''}`
-                  }
-                  end={link.to === '/'}
-                >
-                  {link.label}
-                </NavLink>
+                link.label === 'Claims & Leave' ? (
+                  <div key={link.label} className="cl-nav-dropdown">
+                    <NavLink
+                      to={link.to}
+                      className={`cl-main-nav-link${location.pathname.startsWith(base) ? ' cl-main-nav-link--active' : ''}`}
+                    >
+                      {link.label}
+                      <svg className="cl-nav-chevron" width="10" height="10" viewBox="0 0 10 10" fill="none"><path d="M2.5 4l2.5 2.5L7.5 4" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round" strokeLinejoin="round"/></svg>
+                    </NavLink>
+                    <div className="cl-nav-dropdown-menu">
+                      {subNavTabs.map((tab) => (
+                        <NavLink
+                          key={tab.label}
+                          to={tab.to}
+                          className="cl-nav-dropdown-item"
+                          end={tab.to === base}
+                        >
+                          {tab.label}
+                        </NavLink>
+                      ))}
+                    </div>
+                  </div>
+                ) : (
+                  <NavLink
+                    key={link.label}
+                    to={link.to}
+                    className={({ isActive }) =>
+                      `cl-main-nav-link${isActive && link.to !== '#' ? ' cl-main-nav-link--active' : ''}`
+                    }
+                    end={link.to === '/'}
+                  >
+                    {link.label}
+                  </NavLink>
+                )
               ))}
             </nav>
           </div>
