@@ -1536,6 +1536,65 @@
   color: #6b7280;
 }
 
+.cl-ma-cal-logged {
+  margin-top: 12px;
+  padding-top: 12px;
+  border-top: 1px solid #f3f4f6;
+}
+
+.cl-ma-cal-logged-title {
+  font-size: 12px;
+  font-weight: 600;
+  color: #374151;
+  margin-bottom: 8px;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+}
+
+.cl-ma-cal-logged-list {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.cl-ma-cal-logged-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 8px;
+  background: #f9fafb;
+  border-radius: 6px;
+  font-size: 13px;
+}
+
+.cl-ma-cal-logged-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+.cl-ma-cal-logged-dot--amber {
+  background: #f59e0b;
+}
+
+.cl-ma-cal-logged-dot--blue {
+  background: #3b82f6;
+}
+
+.cl-ma-cal-logged-date {
+  font-weight: 600;
+  color: #111827;
+  min-width: 90px;
+}
+
+.cl-ma-cal-logged-hours {
+  color: #6b7280;
+  font-weight: 500;
+  margin-left: auto;
+  margin-right: 8px;
+}
+
 .cl-ma-case-select {
   display: flex;
   align-items: center;

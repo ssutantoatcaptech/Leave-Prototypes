@@ -261,6 +261,32 @@ export default function EnterMyTimePage() {
                       <span className="cl-ma-cal-legend-item"><span className="cl-ma-cal-legend-dot cl-ma-cal-legend-dot--episode" />Episode</span>
                       <span className="cl-ma-cal-legend-item"><span className="cl-ma-cal-legend-dot cl-ma-cal-legend-dot--treatment" />Treatment</span>
                     </div>
+
+                    {/* Logged absences for current month */}
+                    {(function () {
+                      var monthAbsences = filteredAbsences.filter(function (a) {
+                        var prefix = calYear + '-' + String(calMonth + 1).padStart(2, '0');
+                        return a.dateKey && a.dateKey.startsWith(prefix);
+                      });
+                      if (monthAbsences.length === 0) return null;
+                      return (
+                        <div className="cl-ma-cal-logged">
+                          <div className="cl-ma-cal-logged-title">Logged this month ({monthAbsences.length})</div>
+                          <div className="cl-ma-cal-logged-list">
+                            {monthAbsences.map(function (a, idx) {
+                              return (
+                                <div key={idx} className="cl-ma-cal-logged-row">
+                                  <span className={'cl-ma-cal-logged-dot cl-ma-cal-logged-dot--' + a.reasonColor} />
+                                  <span className="cl-ma-cal-logged-date">{a.date}</span>
+                                  <span className="cl-ma-cal-logged-hours">{a.hours}h</span>
+                                  <span className={'cl-ma-reason-badge cl-ma-reason-badge--' + a.reasonColor}>{a.reason}</span>
+                                </div>
+                              );
+                            })}
+                          </div>
+                        </div>
+                      );
+                    })()}
                   </div>
                 </div>
               </div>
