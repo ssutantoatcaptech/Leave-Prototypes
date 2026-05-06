@@ -18,7 +18,7 @@ export default function ClaimsAndLeaveLayout() {
     { label: 'File a Claim or Leave', to: `${base}/file-claim` },
     { label: 'My Cases', to: `${base}/my-cases` },
     { label: 'Leave Planning Tool', to: `${base}/leave-planning` },
-    { label: 'Manage My Absences', to: `${base}/enter-time` },
+    { label: 'Enter My Time', to: `${base}/enter-time` },
     { label: 'Payments', to: `${base}/payments` },
   ];
 

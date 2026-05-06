@@ -14,7 +14,7 @@ const subNavTabs = [
   { label: 'File a Claim or Leave', to: '/claims-and-leave/file-claim' },
   { label: 'My Cases', to: '/claims-and-leave/my-cases' },
   { label: 'Leave Planning Tool', to: '/claims-and-leave/leave-planning' },
-  { label: 'Manage My Absences', to: '/claims-and-leave/enter-time' },
+  { label: 'Enter My Time', to: '/claims-and-leave/enter-time' },
   { label: 'Payments', to: '/claims-and-leave/payments' },
 ];
 
