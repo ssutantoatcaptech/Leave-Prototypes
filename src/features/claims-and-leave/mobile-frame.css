@@ -551,39 +551,16 @@
   color: #0f0f14;
 }
 
-/* Week ticks: inline "Week" label aligned with row labels */
+/* Hide week ticks on mobile — show months only */
 .mobile-frame-screen .dlp-tl-weeks-row {
-  display: flex;
-  align-items: flex-end;
-  margin-top: 8px;
-}
-
-.mobile-frame-screen .dlp-tl-week-label {
-  display: block;
-  width: 48px;
-  min-width: 48px;
-  font-size: 10px;
-  font-weight: 600;
-  color: #94a3b8;
-  text-transform: uppercase;
-  padding-bottom: 2px;
-}
-
-.mobile-frame-screen .dlp-tl-weeks {
-  flex: 1;
-  padding-left: 0;
-  overflow-x: auto;
-  -webkit-overflow-scrolling: touch;
-}
-
-.mobile-frame-screen .dlp-tl-week-num {
-  font-size: 9px;
+  display: none;
 }
 
 /* Months row: offset to align with timeline bars */
 .mobile-frame-screen .dlp-tl-months {
   padding-left: 48px;
-  font-size: 10px;
+  margin-top: 10px;
+  font-size: 11px;
 }
 
 /* Hide desktop helper, show mobile helper */
