@@ -246,17 +246,49 @@
   font-size: 12px;
 }
 
-/* Enter My Time grid stacks */
+/* Enter My Time — mobile frame overrides */
 .mobile-frame-screen .cl-ma-layout {
   grid-template-columns: 1fr;
+  gap: 16px;
 }
 
 .mobile-frame-screen .cl-ma-form-grid {
   grid-template-columns: 1fr;
+  gap: 16px;
 }
 
-/* Enter My Time: 16px padding for cards */
 .mobile-frame-screen .cl-ma-form-card {
+  padding: 16px;
+  border-radius: 10px;
+}
+
+.mobile-frame-screen .cl-ma-form-footer {
+  flex-direction: column;
+  gap: 12px;
+  align-items: stretch;
+}
+
+.mobile-frame-screen .cl-ma-form-actions {
+  flex-direction: column;
+  gap: 10px;
+}
+
+.mobile-frame-screen .cl-ma-form-actions button {
+  width: 100%;
+}
+
+.mobile-frame-screen .cl-ma-sidebar {
+  flex-direction: column;
+}
+
+.mobile-frame-screen .cl-ma-sidebar > * {
+  min-width: 0;
+}
+
+.mobile-frame-screen .cl-ma-guidance-card,
+.mobile-frame-screen .cl-ma-help-card,
+.mobile-frame-screen .cl-ma-forms-card {
+  padding: 16px;
   border-radius: 10px;
 }
 
@@ -274,6 +306,11 @@
 
 .mobile-frame-screen .cl-ma-recent-count {
   font-size: 11px;
+}
+
+/* Balance badge: stack below title */
+.mobile-frame-screen .cl-balance-badge {
+  text-align: left;
 }
 
 /* Recent entries: show mobile cards, hide table */
