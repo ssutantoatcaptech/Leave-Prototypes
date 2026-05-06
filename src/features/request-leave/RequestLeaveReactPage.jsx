@@ -1397,64 +1397,64 @@ export default function RequestLeaveReactPage() {
           <div className="wizard-wrap">
             <div className="wizard-card" style={{ marginTop: 32 }}>
               <div className="success-state">
-                <div style={{ textAlign: 'center', marginBottom: 28 }}>
+                <div className="success-header">
                   <div className="success-icon"><svg width="32" height="32" viewBox="0 0 32 32" fill="none"><path d="M9 16L14 21L23 11" stroke="#16a34a" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round"/></svg></div>
-                  <h2 style={{ marginBottom: 4 }}>Leave request submitted</h2>
-                  <p style={{ color: '#62626e', fontSize: 14, margin: '4px 0 0' }}>{submittedCase.id}</p>
-                  <p style={{ color: '#62626e', fontSize: 14, margin: '2px 0 0', fontStyle: 'italic' }}>Your Case In Review</p>
+                  <h2>Leave request submitted</h2>
+                  <p>{submittedCase.id}</p>
+                  <p className="success-case-review">Your Case In Review</p>
                 </div>
-                <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', gap: 12, marginBottom: 24 }}>
-                  <div style={{ background: '#fff', border: '1px solid #e8e8ec', borderRadius: 8, padding: '12px 14px' }}>
-                    <div style={{ fontSize: 10, fontWeight: 600, color: '#737373', textTransform: 'uppercase', marginBottom: 4 }}>Start Date</div>
-                    <div style={{ fontSize: 14, fontWeight: 600, color: '#0f0f14' }}>{shortDate(submittedCase.startDate)}</div>
+                <div className="success-dates-grid">
+                  <div className="success-date-box">
+                    <div className="success-date-label">Start Date</div>
+                    <div className="success-date-value">{shortDate(submittedCase.startDate)}</div>
                   </div>
-                  <div style={{ background: '#fff', border: '1px solid #e8e8ec', borderRadius: 8, padding: '12px 14px' }}>
-                    <div style={{ fontSize: 10, fontWeight: 600, color: '#737373', textTransform: 'uppercase', marginBottom: 4 }}>End Date</div>
-                    <div style={{ fontSize: 14, fontWeight: 600, color: '#0f0f14' }}>{shortDate(submittedCase.endDate)}</div>
+                  <div className="success-date-box">
+                    <div className="success-date-label">End Date</div>
+                    <div className="success-date-value">{shortDate(submittedCase.endDate)}</div>
                   </div>
-                  <div style={{ background: '#fff', border: '1px solid #e8e8ec', borderRadius: 8, padding: '12px 14px' }}>
-                    <div style={{ fontSize: 10, fontWeight: 600, color: '#737373', textTransform: 'uppercase', marginBottom: 4 }}>Return to Work Date</div>
-                    <div style={{ fontSize: 14, fontWeight: 600, color: '#0f0f14' }}>{returnWorkStr}</div>
-                  </div>
-                </div>
-                <div style={{ display: 'flex', flexDirection: 'column', gap: 12, marginBottom: 24 }}>
-                  <div style={{ background: '#fff', border: '1px solid #e8e8ec', borderRadius: 10, padding: '16px 20px' }}>
-                    <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 8 }}>
-                      <div style={{ fontSize: 10, fontWeight: 600, color: '#737373', textTransform: 'uppercase', letterSpacing: 0.5 }}>Absence Case - {submittedCase.id}-ABC-01</div>
-                      <span style={{ display: 'inline-flex', alignItems: 'center', gap: 5, fontSize: 12, fontWeight: 600, color: '#525252', background: '#f3f4f6', padding: '4px 10px', borderRadius: 10 }}><span style={{ width: 6, height: 6, borderRadius: '50%', background: '#525252' }}/> Pending</span>
-                    </div>
-                    <div style={{ fontSize: 16, fontWeight: 600, color: '#0f0f14' }}>Medical Absence  (Own Illness)</div>
-                  </div>
-                  <div style={{ background: '#fff', border: '1px solid #e8e8ec', borderRadius: 10, padding: '16px 20px' }}>
-                    <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 8 }}>
-                      <div style={{ fontSize: 10, fontWeight: 600, color: '#737373', textTransform: 'uppercase', letterSpacing: 0.5 }}>Claim Case - {submittedCase.id.replace('NTN', 'NTN')}-GDC-02</div>
-                      <span style={{ display: 'inline-flex', alignItems: 'center', gap: 5, fontSize: 12, fontWeight: 600, color: '#525252', background: '#f3f4f6', padding: '4px 10px', borderRadius: 10 }}><span style={{ width: 6, height: 6, borderRadius: '50%', background: '#525252' }}/> Pending</span>
-                    </div>
-                    <div style={{ fontSize: 16, fontWeight: 600, color: '#0f0f14' }}>Short-Term Disability</div>
-                  </div>
-                  <div style={{ background: '#fff', border: '1px solid #e8e8ec', borderRadius: 10, padding: '16px 20px' }}>
-                    <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 8 }}>
-                      <div style={{ fontSize: 10, fontWeight: 600, color: '#737373', textTransform: 'uppercase', letterSpacing: 0.5 }}>Supplemental Health - {submittedCase.id}-ABC-03</div>
-                      <span style={{ display: 'inline-flex', alignItems: 'center', gap: 5, fontSize: 12, fontWeight: 600, color: '#525252', background: '#f3f4f6', padding: '4px 10px', borderRadius: 10 }}><span style={{ width: 6, height: 6, borderRadius: '50%', background: '#525252' }}/> Pending</span>
-                    </div>
-                    <div style={{ fontSize: 16, fontWeight: 600, color: '#0f0f14' }}>Hospital Indemnity</div>
+                  <div className="success-date-box">
+                    <div className="success-date-label">Return to Work Date</div>
+                    <div className="success-date-value">{returnWorkStr}</div>
                   </div>
                 </div>
-                <div style={{ background: '#f9fafb', border: '1px solid #e8e8ec', borderRadius: 10, padding: '20px', marginBottom: 20 }}>
-                  <h3 style={{ fontSize: 16, fontWeight: 700, color: '#0f0f14', marginBottom: 16 }}>What happens next</h3>
+                <div className="success-cases">
+                  <div className="success-case-card">
+                    <div className="success-case-header">
+                      <div className="success-case-id">Absence Case - {submittedCase.id}-ABC-01</div>
+                      <span className="success-case-badge"><span className="success-case-badge-dot"/> Pending</span>
+                    </div>
+                    <div className="success-case-title">Medical Absence  (Own Illness)</div>
+                  </div>
+                  <div className="success-case-card">
+                    <div className="success-case-header">
+                      <div className="success-case-id">Claim Case - {submittedCase.id.replace('NTN', 'NTN')}-GDC-02</div>
+                      <span className="success-case-badge"><span className="success-case-badge-dot"/> Pending</span>
+                    </div>
+                    <div className="success-case-title">Short-Term Disability</div>
+                  </div>
+                  <div className="success-case-card">
+                    <div className="success-case-header">
+                      <div className="success-case-id">Supplemental Health - {submittedCase.id}-ABC-03</div>
+                      <span className="success-case-badge"><span className="success-case-badge-dot"/> Pending</span>
+                    </div>
+                    <div className="success-case-title">Hospital Indemnity</div>
+                  </div>
+                </div>
+                <div className="success-next-steps">
+                  <h3>What happens next</h3>
                   {[
                     { icon: <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M9 12l2 2 4-4" stroke="#16a34a" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/><circle cx="12" cy="12" r="10" stroke="#16a34a" strokeWidth="1.5"/></svg>, text: 'Your manager will be notified of your upcoming absence' },
                     { icon: <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="10" stroke="#6366f1" strokeWidth="1.5"/><path d="M12 7v5l3 2" stroke="#6366f1" strokeWidth="1.5" strokeLinecap="round"/></svg>, text: "We\u2019re reviewing your eligibility \u2014 we\u2019ll update you within 1\u20132 business days" },
                     { icon: <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z" stroke="#f59e0b" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/><path d="M14 2v6h6" stroke="#f59e0b" strokeWidth="1.5"/></svg>, text: 'You may be asked to upload supporting documents (medical certification, etc.)' },
                     { icon: <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><rect x="3" y="4" width="18" height="17" rx="2" stroke="#3b82f6" strokeWidth="1.5"/><path d="M3 9h18" stroke="#3b82f6" strokeWidth="1.5"/></svg>, text: 'Track your absence status anytime from the overview' },
                   ].map((item) => (
-                    <div key={item.text} style={{ display: 'flex', alignItems: 'flex-start', gap: 12, padding: '10px 0' }}>
-                      <div style={{ flexShrink: 0, marginTop: 1 }}>{item.icon}</div>
-                      <span style={{ fontSize: 14, color: '#3d3d47', lineHeight: 1.5 }}>{item.text}</span>
+                    <div key={item.text} className="success-next-item">
+                      <div className="success-next-icon">{item.icon}</div>
+                      <span className="success-next-text">{item.text}</span>
                     </div>
                   ))}
                 </div>
-                <div style={{ display: 'flex', gap: 12, justifyContent: 'center', paddingTop: 8, borderTop: '1px solid #e8e8ec' }}>
+                <div className="success-footer">
                   <button type="button" className="btn btn-back" onClick={() => navigate('/absence-history')}>View Absence Details</button>
                   <button type="button" className="btn btn-back" onClick={() => navigate('/overview-react')}>Back to Leave</button>
                 </div>
@@ -1474,64 +1474,64 @@ export default function RequestLeaveReactPage() {
           <div className="wizard-wrap">
             <div className="wizard-card" style={{ marginTop: 32 }}>
               <div className="success-state">
-                <div style={{ textAlign: 'center', marginBottom: 28 }}>
+                <div className="success-header">
                   <div className="success-icon"><svg width="32" height="32" viewBox="0 0 32 32" fill="none"><path d="M9 16L14 21L23 11" stroke="#16a34a" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round"/></svg></div>
-                  <h2 style={{ marginBottom: 4 }}>Leave request submitted</h2>
-                  <p style={{ color: '#62626e', fontSize: 14, margin: '4px 0 0' }}>{submittedCase.id}</p>
-                  <p style={{ color: '#62626e', fontSize: 14, margin: '2px 0 0', fontStyle: 'italic' }}>Your Case In Review</p>
+                  <h2>Leave request submitted</h2>
+                  <p>{submittedCase.id}</p>
+                  <p className="success-case-review">Your Case In Review</p>
                 </div>
-                <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', gap: 12, marginBottom: 24 }}>
-                  <div style={{ background: '#fff', border: '1px solid #e8e8ec', borderRadius: 8, padding: '12px 14px' }}>
-                    <div style={{ fontSize: 10, fontWeight: 600, color: '#737373', textTransform: 'uppercase', marginBottom: 4 }}>Start Date</div>
-                    <div style={{ fontSize: 14, fontWeight: 600, color: '#0f0f14' }}>{shortDate(submittedCase.startDate)}</div>
+                <div className="success-dates-grid">
+                  <div className="success-date-box">
+                    <div className="success-date-label">Start Date</div>
+                    <div className="success-date-value">{shortDate(submittedCase.startDate)}</div>
                   </div>
-                  <div style={{ background: '#fff', border: '1px solid #e8e8ec', borderRadius: 8, padding: '12px 14px' }}>
-                    <div style={{ fontSize: 10, fontWeight: 600, color: '#737373', textTransform: 'uppercase', marginBottom: 4 }}>Expected End Date</div>
-                    <div style={{ fontSize: 14, fontWeight: 600, color: '#0f0f14' }}>{shortDate(submittedCase.endDate)}</div>
+                  <div className="success-date-box">
+                    <div className="success-date-label">Expected End Date</div>
+                    <div className="success-date-value">{shortDate(submittedCase.endDate)}</div>
                   </div>
-                  <div style={{ background: '#fff', border: '1px solid #e8e8ec', borderRadius: 8, padding: '12px 14px' }}>
-                    <div style={{ fontSize: 10, fontWeight: 600, color: '#737373', textTransform: 'uppercase', marginBottom: 4 }}>Return to Work Date</div>
-                    <div style={{ fontSize: 14, fontWeight: 600, color: '#0f0f14' }}>{returnWorkStr}</div>
-                  </div>
-                </div>
-                <div style={{ display: 'flex', flexDirection: 'column', gap: 12, marginBottom: 24 }}>
-                  <div style={{ background: '#fff', border: '1px solid #e8e8ec', borderRadius: 10, padding: '16px 20px' }}>
-                    <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 8 }}>
-                      <div style={{ fontSize: 10, fontWeight: 600, color: '#737373', textTransform: 'uppercase', letterSpacing: 0.5 }}>Absence Case - {submittedCase.id}-ABC-01</div>
-                      <span style={{ display: 'inline-flex', alignItems: 'center', gap: 5, fontSize: 12, fontWeight: 600, color: '#525252', background: '#f3f4f6', padding: '4px 10px', borderRadius: 10 }}><span style={{ width: 6, height: 6, borderRadius: '50%', background: '#525252' }}/> Pending</span>
-                    </div>
-                    <div style={{ fontSize: 16, fontWeight: 600, color: '#0f0f14' }}>Parental Leave (Birthing)</div>
-                  </div>
-                  <div style={{ background: '#fff', border: '1px solid #e8e8ec', borderRadius: 10, padding: '16px 20px' }}>
-                    <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 8 }}>
-                      <div style={{ fontSize: 10, fontWeight: 600, color: '#737373', textTransform: 'uppercase', letterSpacing: 0.5 }}>Claim Case - {submittedCase.id.replace('NTN', 'NTN')}-GDC-02</div>
-                      <span style={{ display: 'inline-flex', alignItems: 'center', gap: 5, fontSize: 12, fontWeight: 600, color: '#525252', background: '#f3f4f6', padding: '4px 10px', borderRadius: 10 }}><span style={{ width: 6, height: 6, borderRadius: '50%', background: '#525252' }}/> Pending</span>
-                    </div>
-                    <div style={{ fontSize: 16, fontWeight: 600, color: '#0f0f14' }}>Short Term Disability, NY Paid Family Leave & FMLA</div>
-                  </div>
-                  <div style={{ background: '#fff', border: '1px solid #e8e8ec', borderRadius: 10, padding: '16px 20px' }}>
-                    <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 8 }}>
-                      <div style={{ fontSize: 10, fontWeight: 600, color: '#737373', textTransform: 'uppercase', letterSpacing: 0.5 }}>Supplemental Health - {submittedCase.id}-ABC-03</div>
-                      <span style={{ display: 'inline-flex', alignItems: 'center', gap: 5, fontSize: 12, fontWeight: 600, color: '#525252', background: '#f3f4f6', padding: '4px 10px', borderRadius: 10 }}><span style={{ width: 6, height: 6, borderRadius: '50%', background: '#525252' }}/> Pending</span>
-                    </div>
-                    <div style={{ fontSize: 16, fontWeight: 600, color: '#0f0f14' }}>Hospital Indemnity</div>
+                  <div className="success-date-box">
+                    <div className="success-date-label">Return to Work Date</div>
+                    <div className="success-date-value">{returnWorkStr}</div>
                   </div>
                 </div>
-                <div style={{ background: '#f9fafb', border: '1px solid #e8e8ec', borderRadius: 10, padding: '20px', marginBottom: 20 }}>
-                  <h3 style={{ fontSize: 16, fontWeight: 700, color: '#0f0f14', marginBottom: 16 }}>What happens next</h3>
+                <div className="success-cases">
+                  <div className="success-case-card">
+                    <div className="success-case-header">
+                      <div className="success-case-id">Absence Case - {submittedCase.id}-ABC-01</div>
+                      <span className="success-case-badge"><span className="success-case-badge-dot"/> Pending</span>
+                    </div>
+                    <div className="success-case-title">Parental Leave (Birthing)</div>
+                  </div>
+                  <div className="success-case-card">
+                    <div className="success-case-header">
+                      <div className="success-case-id">Claim Case - {submittedCase.id.replace('NTN', 'NTN')}-GDC-02</div>
+                      <span className="success-case-badge"><span className="success-case-badge-dot"/> Pending</span>
+                    </div>
+                    <div className="success-case-title">Short Term Disability, NY Paid Family Leave & FMLA</div>
+                  </div>
+                  <div className="success-case-card">
+                    <div className="success-case-header">
+                      <div className="success-case-id">Supplemental Health - {submittedCase.id}-ABC-03</div>
+                      <span className="success-case-badge"><span className="success-case-badge-dot"/> Pending</span>
+                    </div>
+                    <div className="success-case-title">Hospital Indemnity</div>
+                  </div>
+                </div>
+                <div className="success-next-steps">
+                  <h3>What happens next</h3>
                   {[
                     { icon: <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M9 12l2 2 4-4" stroke="#16a34a" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/><circle cx="12" cy="12" r="10" stroke="#16a34a" strokeWidth="1.5"/></svg>, text: 'Your manager will be notified of your upcoming absence' },
                     { icon: <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="10" stroke="#6366f1" strokeWidth="1.5"/><path d="M12 7v5l3 2" stroke="#6366f1" strokeWidth="1.5" strokeLinecap="round"/></svg>, text: "We're reviewing your eligibility — we'll update you within 1–2 business days" },
                     { icon: <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z" stroke="#f59e0b" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/><path d="M14 2v6h6" stroke="#f59e0b" strokeWidth="1.5"/></svg>, text: 'You may be asked to upload supporting documents (medical certification, etc.)' },
                     { icon: <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><rect x="3" y="4" width="18" height="17" rx="2" stroke="#3b82f6" strokeWidth="1.5"/><path d="M3 9h18" stroke="#3b82f6" strokeWidth="1.5"/></svg>, text: 'Track your absence status anytime from the overview' },
                   ].map((item) => (
-                    <div key={item.text} style={{ display: 'flex', alignItems: 'flex-start', gap: 12, padding: '10px 0' }}>
-                      <div style={{ flexShrink: 0, marginTop: 1 }}>{item.icon}</div>
-                      <span style={{ fontSize: 14, color: '#3d3d47', lineHeight: 1.5 }}>{item.text}</span>
+                    <div key={item.text} className="success-next-item">
+                      <div className="success-next-icon">{item.icon}</div>
+                      <span className="success-next-text">{item.text}</span>
                     </div>
                   ))}
                 </div>
-                <div style={{ display: 'flex', gap: 12, justifyContent: 'center', paddingTop: 8, borderTop: '1px solid #e8e8ec' }}>
+                <div className="success-footer">
                   <button type="button" className="btn btn-back" onClick={() => navigate('/absence-history')}>View Absence Details</button>
                   <button type="button" className="btn btn-back" onClick={() => navigate('/overview-react')}>Back to Leave</button>
                 </div>
@@ -1551,64 +1551,64 @@ export default function RequestLeaveReactPage() {
           <div className="wizard-wrap">
             <div className="wizard-card" style={{ marginTop: 32 }}>
               <div className="success-state">
-                <div style={{ textAlign: 'center', marginBottom: 28 }}>
+                <div className="success-header">
                   <div className="success-icon"><svg width="32" height="32" viewBox="0 0 32 32" fill="none"><path d="M9 16L14 21L23 11" stroke="#16a34a" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round"/></svg></div>
-                  <h2 style={{ marginBottom: 4 }}>Leave request submitted</h2>
-                  <p style={{ color: '#62626e', fontSize: 14, margin: '4px 0 0' }}>{submittedCase.id}</p>
-                  <p style={{ color: '#62626e', fontSize: 14, margin: '2px 0 0', fontStyle: 'italic' }}>Your Case In Review</p>
+                  <h2>Leave request submitted</h2>
+                  <p>{submittedCase.id}</p>
+                  <p className="success-case-review">Your Case In Review</p>
                 </div>
-                <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', gap: 12, marginBottom: 24 }}>
-                  <div style={{ background: '#fff', border: '1px solid #e8e8ec', borderRadius: 8, padding: '12px 14px' }}>
-                    <div style={{ fontSize: 10, fontWeight: 600, color: '#737373', textTransform: 'uppercase', marginBottom: 4 }}>Start Date</div>
-                    <div style={{ fontSize: 14, fontWeight: 600, color: '#0f0f14' }}>{shortDate(submittedCase.startDate)}</div>
+                <div className="success-dates-grid">
+                  <div className="success-date-box">
+                    <div className="success-date-label">Start Date</div>
+                    <div className="success-date-value">{shortDate(submittedCase.startDate)}</div>
                   </div>
-                  <div style={{ background: '#fff', border: '1px solid #e8e8ec', borderRadius: 8, padding: '12px 14px' }}>
-                    <div style={{ fontSize: 10, fontWeight: 600, color: '#737373', textTransform: 'uppercase', marginBottom: 4 }}>End Date</div>
-                    <div style={{ fontSize: 14, fontWeight: 600, color: '#0f0f14' }}>{shortDate(submittedCase.endDate)}</div>
+                  <div className="success-date-box">
+                    <div className="success-date-label">End Date</div>
+                    <div className="success-date-value">{shortDate(submittedCase.endDate)}</div>
                   </div>
-                  <div style={{ background: '#fff', border: '1px solid #e8e8ec', borderRadius: 8, padding: '12px 14px' }}>
-                    <div style={{ fontSize: 10, fontWeight: 600, color: '#737373', textTransform: 'uppercase', marginBottom: 4 }}>Return to Work Date</div>
-                    <div style={{ fontSize: 14, fontWeight: 600, color: '#0f0f14' }}>{returnWorkStr}</div>
-                  </div>
-                </div>
-                <div style={{ display: 'flex', flexDirection: 'column', gap: 12, marginBottom: 24 }}>
-                  <div style={{ background: '#fff', border: '1px solid #e8e8ec', borderRadius: 10, padding: '16px 20px' }}>
-                    <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 8 }}>
-                      <div style={{ fontSize: 10, fontWeight: 600, color: '#737373', textTransform: 'uppercase', letterSpacing: 0.5 }}>Absence Case - {submittedCase.id}-ABC-01</div>
-                      <span style={{ display: 'inline-flex', alignItems: 'center', gap: 5, fontSize: 12, fontWeight: 600, color: '#525252', background: '#f3f4f6', padding: '4px 10px', borderRadius: 10 }}><span style={{ width: 6, height: 6, borderRadius: '50%', background: '#525252' }}/> Pending</span>
-                    </div>
-                    <div style={{ fontSize: 16, fontWeight: 600, color: '#0f0f14' }}>Care for Sick Family Member with Health Condition</div>
-                  </div>
-                  <div style={{ background: '#fff', border: '1px solid #e8e8ec', borderRadius: 10, padding: '16px 20px' }}>
-                    <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 8 }}>
-                      <div style={{ fontSize: 10, fontWeight: 600, color: '#737373', textTransform: 'uppercase', letterSpacing: 0.5 }}>Claim Case - {submittedCase.id.replace('NTN', 'NTN')}-GDC-02</div>
-                      <span style={{ display: 'inline-flex', alignItems: 'center', gap: 5, fontSize: 12, fontWeight: 600, color: '#525252', background: '#f3f4f6', padding: '4px 10px', borderRadius: 10 }}><span style={{ width: 6, height: 6, borderRadius: '50%', background: '#525252' }}/> Pending</span>
-                    </div>
-                    <div style={{ fontSize: 16, fontWeight: 600, color: '#0f0f14' }}>NY Paid Family Leave & FMLA</div>
-                  </div>
-                  <div style={{ background: '#fff', border: '1px solid #e8e8ec', borderRadius: 10, padding: '16px 20px' }}>
-                    <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 8 }}>
-                      <div style={{ fontSize: 10, fontWeight: 600, color: '#737373', textTransform: 'uppercase', letterSpacing: 0.5 }}>Supplemental Health - {submittedCase.id}-ABC-03</div>
-                      <span style={{ display: 'inline-flex', alignItems: 'center', gap: 5, fontSize: 12, fontWeight: 600, color: '#525252', background: '#f3f4f6', padding: '4px 10px', borderRadius: 10 }}><span style={{ width: 6, height: 6, borderRadius: '50%', background: '#525252' }}/> Pending</span>
-                    </div>
-                    <div style={{ fontSize: 16, fontWeight: 600, color: '#0f0f14' }}>Hospital Indemnity</div>
+                  <div className="success-date-box">
+                    <div className="success-date-label">Return to Work Date</div>
+                    <div className="success-date-value">{returnWorkStr}</div>
                   </div>
                 </div>
-                <div style={{ background: '#f9fafb', border: '1px solid #e8e8ec', borderRadius: 10, padding: '20px', marginBottom: 20 }}>
-                  <h3 style={{ fontSize: 16, fontWeight: 700, color: '#0f0f14', marginBottom: 16 }}>What happens next</h3>
+                <div className="success-cases">
+                  <div className="success-case-card">
+                    <div className="success-case-header">
+                      <div className="success-case-id">Absence Case - {submittedCase.id}-ABC-01</div>
+                      <span className="success-case-badge"><span className="success-case-badge-dot"/> Pending</span>
+                    </div>
+                    <div className="success-case-title">Care for Sick Family Member with Health Condition</div>
+                  </div>
+                  <div className="success-case-card">
+                    <div className="success-case-header">
+                      <div className="success-case-id">Claim Case - {submittedCase.id.replace('NTN', 'NTN')}-GDC-02</div>
+                      <span className="success-case-badge"><span className="success-case-badge-dot"/> Pending</span>
+                    </div>
+                    <div className="success-case-title">NY Paid Family Leave & FMLA</div>
+                  </div>
+                  <div className="success-case-card">
+                    <div className="success-case-header">
+                      <div className="success-case-id">Supplemental Health - {submittedCase.id}-ABC-03</div>
+                      <span className="success-case-badge"><span className="success-case-badge-dot"/> Pending</span>
+                    </div>
+                    <div className="success-case-title">Hospital Indemnity</div>
+                  </div>
+                </div>
+                <div className="success-next-steps">
+                  <h3>What happens next</h3>
                   {[
                     { icon: <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M9 12l2 2 4-4" stroke="#16a34a" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/><circle cx="12" cy="12" r="10" stroke="#16a34a" strokeWidth="1.5"/></svg>, text: 'Your manager will be notified of your upcoming absence' },
-                    { icon: <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="10" stroke="#6366f1" strokeWidth="1.5"/><path d="M12 7v5l3 2" stroke="#6366f1" strokeWidth="1.5" strokeLinecap="round"/></svg>, text: "We’re reviewing your eligibility — we’ll update you within 1–2 business days" },
+                    { icon: <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="10" stroke="#6366f1" strokeWidth="1.5"/><path d="M12 7v5l3 2" stroke="#6366f1" strokeWidth="1.5" strokeLinecap="round"/></svg>, text: "We're reviewing your eligibility — we'll update you within 1–2 business days" },
                     { icon: <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z" stroke="#f59e0b" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/><path d="M14 2v6h6" stroke="#f59e0b" strokeWidth="1.5"/></svg>, text: 'You may be asked to upload supporting documents (medical certification, etc.)' },
                     { icon: <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><rect x="3" y="4" width="18" height="17" rx="2" stroke="#3b82f6" strokeWidth="1.5"/><path d="M3 9h18" stroke="#3b82f6" strokeWidth="1.5"/></svg>, text: 'Track your absence status anytime from the overview' },
                   ].map((item) => (
-                    <div key={item.text} style={{ display: 'flex', alignItems: 'flex-start', gap: 12, padding: '10px 0' }}>
-                      <div style={{ flexShrink: 0, marginTop: 1 }}>{item.icon}</div>
-                      <span style={{ fontSize: 14, color: '#3d3d47', lineHeight: 1.5 }}>{item.text}</span>
+                    <div key={item.text} className="success-next-item">
+                      <div className="success-next-icon">{item.icon}</div>
+                      <span className="success-next-text">{item.text}</span>
                     </div>
                   ))}
                 </div>
-                <div style={{ display: 'flex', gap: 12, justifyContent: 'center', paddingTop: 8, borderTop: '1px solid #e8e8ec' }}>
+                <div className="success-footer">
                   <button type="button" className="btn btn-back" onClick={() => navigate('/absence-history')}>View Absence Details</button>
                   <button type="button" className="btn btn-back" onClick={() => navigate('/overview-react')}>Back to Leave</button>
                 </div>
@@ -1628,64 +1628,64 @@ export default function RequestLeaveReactPage() {
           <div className="wizard-wrap">
             <div className="wizard-card" style={{ marginTop: 32 }}>
               <div className="success-state">
-                <div style={{ textAlign: 'center', marginBottom: 28 }}>
+                <div className="success-header">
                   <div className="success-icon"><svg width="32" height="32" viewBox="0 0 32 32" fill="none"><path d="M9 16L14 21L23 11" stroke="#16a34a" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round"/></svg></div>
-                  <h2 style={{ marginBottom: 4 }}>Leave request submitted</h2>
-                  <p style={{ color: '#62626e', fontSize: 14, margin: '4px 0 0' }}>{submittedCase.id}</p>
-                  <p style={{ color: '#62626e', fontSize: 14, margin: '2px 0 0', fontStyle: 'italic' }}>Your Case In Review</p>
+                  <h2>Leave request submitted</h2>
+                  <p>{submittedCase.id}</p>
+                  <p className="success-case-review">Your Case In Review</p>
                 </div>
-                <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', gap: 12, marginBottom: 24 }}>
-                  <div style={{ background: '#fff', border: '1px solid #e8e8ec', borderRadius: 8, padding: '12px 14px' }}>
-                    <div style={{ fontSize: 10, fontWeight: 600, color: '#737373', textTransform: 'uppercase', marginBottom: 4 }}>Start Date</div>
-                    <div style={{ fontSize: 14, fontWeight: 600, color: '#0f0f14' }}>{shortDate(submittedCase.startDate)}</div>
+                <div className="success-dates-grid">
+                  <div className="success-date-box">
+                    <div className="success-date-label">Start Date</div>
+                    <div className="success-date-value">{shortDate(submittedCase.startDate)}</div>
                   </div>
-                  <div style={{ background: '#fff', border: '1px solid #e8e8ec', borderRadius: 8, padding: '12px 14px' }}>
-                    <div style={{ fontSize: 10, fontWeight: 600, color: '#737373', textTransform: 'uppercase', marginBottom: 4 }}>Expected End Date</div>
-                    <div style={{ fontSize: 14, fontWeight: 600, color: '#0f0f14' }}>{shortDate(submittedCase.endDate)}</div>
+                  <div className="success-date-box">
+                    <div className="success-date-label">Expected End Date</div>
+                    <div className="success-date-value">{shortDate(submittedCase.endDate)}</div>
                   </div>
-                  <div style={{ background: '#fff', border: '1px solid #e8e8ec', borderRadius: 8, padding: '12px 14px' }}>
-                    <div style={{ fontSize: 10, fontWeight: 600, color: '#737373', textTransform: 'uppercase', marginBottom: 4 }}>Return to Work Date</div>
-                    <div style={{ fontSize: 14, fontWeight: 600, color: '#0f0f14' }}>{returnWorkStr}</div>
-                  </div>
-                </div>
-                <div style={{ display: 'flex', flexDirection: 'column', gap: 12, marginBottom: 24 }}>
-                  <div style={{ background: '#fff', border: '1px solid #e8e8ec', borderRadius: 10, padding: '16px 20px' }}>
-                    <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 8 }}>
-                      <div style={{ fontSize: 10, fontWeight: 600, color: '#737373', textTransform: 'uppercase', letterSpacing: 0.5 }}>Absence Case - {submittedCase.id}-ABC-01</div>
-                      <span style={{ display: 'inline-flex', alignItems: 'center', gap: 5, fontSize: 12, fontWeight: 600, color: '#525252', background: '#f3f4f6', padding: '4px 10px', borderRadius: 10 }}><span style={{ width: 6, height: 6, borderRadius: '50%', background: '#525252' }}/> Pending</span>
-                    </div>
-                    <div style={{ fontSize: 16, fontWeight: 600, color: '#0f0f14' }}>Non-Birthing Parent, Adoption, or Foster Care Placement (Bonding)</div>
-                  </div>
-                  <div style={{ background: '#fff', border: '1px solid #e8e8ec', borderRadius: 10, padding: '16px 20px' }}>
-                    <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 8 }}>
-                      <div style={{ fontSize: 10, fontWeight: 600, color: '#737373', textTransform: 'uppercase', letterSpacing: 0.5 }}>Claim Case - {submittedCase.id.replace('NTN', 'NTN')}-GDC-02</div>
-                      <span style={{ display: 'inline-flex', alignItems: 'center', gap: 5, fontSize: 12, fontWeight: 600, color: '#525252', background: '#f3f4f6', padding: '4px 10px', borderRadius: 10 }}><span style={{ width: 6, height: 6, borderRadius: '50%', background: '#525252' }}/> Pending</span>
-                    </div>
-                    <div style={{ fontSize: 16, fontWeight: 600, color: '#0f0f14' }}>Short Term Disability & NY Paid Family Leave</div>
-                  </div>
-                  <div style={{ background: '#fff', border: '1px solid #e8e8ec', borderRadius: 10, padding: '16px 20px' }}>
-                    <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 8 }}>
-                      <div style={{ fontSize: 10, fontWeight: 600, color: '#737373', textTransform: 'uppercase', letterSpacing: 0.5 }}>Supplemental Health - {submittedCase.id}-ABC-03</div>
-                      <span style={{ display: 'inline-flex', alignItems: 'center', gap: 5, fontSize: 12, fontWeight: 600, color: '#525252', background: '#f3f4f6', padding: '4px 10px', borderRadius: 10 }}><span style={{ width: 6, height: 6, borderRadius: '50%', background: '#525252' }}/> Pending</span>
-                    </div>
-                    <div style={{ fontSize: 16, fontWeight: 600, color: '#0f0f14' }}>Hospital Indemnity</div>
+                  <div className="success-date-box">
+                    <div className="success-date-label">Return to Work Date</div>
+                    <div className="success-date-value">{returnWorkStr}</div>
                   </div>
                 </div>
-                <div style={{ background: '#f9fafb', border: '1px solid #e8e8ec', borderRadius: 10, padding: '20px', marginBottom: 20 }}>
-                  <h3 style={{ fontSize: 16, fontWeight: 700, color: '#0f0f14', marginBottom: 16 }}>What happens next</h3>
+                <div className="success-cases">
+                  <div className="success-case-card">
+                    <div className="success-case-header">
+                      <div className="success-case-id">Absence Case - {submittedCase.id}-ABC-01</div>
+                      <span className="success-case-badge"><span className="success-case-badge-dot"/> Pending</span>
+                    </div>
+                    <div className="success-case-title">Non-Birthing Parent, Adoption, or Foster Care Placement (Bonding)</div>
+                  </div>
+                  <div className="success-case-card">
+                    <div className="success-case-header">
+                      <div className="success-case-id">Claim Case - {submittedCase.id.replace('NTN', 'NTN')}-GDC-02</div>
+                      <span className="success-case-badge"><span className="success-case-badge-dot"/> Pending</span>
+                    </div>
+                    <div className="success-case-title">Short Term Disability & NY Paid Family Leave</div>
+                  </div>
+                  <div className="success-case-card">
+                    <div className="success-case-header">
+                      <div className="success-case-id">Supplemental Health - {submittedCase.id}-ABC-03</div>
+                      <span className="success-case-badge"><span className="success-case-badge-dot"/> Pending</span>
+                    </div>
+                    <div className="success-case-title">Hospital Indemnity</div>
+                  </div>
+                </div>
+                <div className="success-next-steps">
+                  <h3>What happens next</h3>
                   {[
                     { icon: <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M9 12l2 2 4-4" stroke="#16a34a" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/><circle cx="12" cy="12" r="10" stroke="#16a34a" strokeWidth="1.5"/></svg>, text: 'Your manager will be notified of your upcoming absence' },
                     { icon: <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="10" stroke="#6366f1" strokeWidth="1.5"/><path d="M12 7v5l3 2" stroke="#6366f1" strokeWidth="1.5" strokeLinecap="round"/></svg>, text: "We're reviewing your eligibility — we'll update you within 1–2 business days" },
                     { icon: <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z" stroke="#f59e0b" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/><path d="M14 2v6h6" stroke="#f59e0b" strokeWidth="1.5"/></svg>, text: 'You may be asked to upload supporting documents (medical certification, etc.)' },
                     { icon: <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><rect x="3" y="4" width="18" height="17" rx="2" stroke="#3b82f6" strokeWidth="1.5"/><path d="M3 9h18" stroke="#3b82f6" strokeWidth="1.5"/></svg>, text: 'Track your absence status anytime from the overview' },
                   ].map((item) => (
-                    <div key={item.text} style={{ display: 'flex', alignItems: 'flex-start', gap: 12, padding: '10px 0' }}>
-                      <div style={{ flexShrink: 0, marginTop: 1 }}>{item.icon}</div>
-                      <span style={{ fontSize: 14, color: '#3d3d47', lineHeight: 1.5 }}>{item.text}</span>
+                    <div key={item.text} className="success-next-item">
+                      <div className="success-next-icon">{item.icon}</div>
+                      <span className="success-next-text">{item.text}</span>
                     </div>
                   ))}
                 </div>
-                <div style={{ display: 'flex', gap: 12, justifyContent: 'center', paddingTop: 8, borderTop: '1px solid #e8e8ec' }}>
+                <div className="success-footer">
                   <button type="button" className="btn btn-back" onClick={() => navigate('/absence-history')}>View Absence Details</button>
                   <button type="button" className="btn btn-back" onClick={() => navigate('/overview-react')}>Back to Leave</button>
                 </div>
@@ -1705,57 +1705,57 @@ export default function RequestLeaveReactPage() {
           <div className="wizard-wrap">
             <div className="wizard-card" style={{ marginTop: 32 }}>
               <div className="success-state">
-                <div style={{ textAlign: 'center', marginBottom: 28 }}>
+                <div className="success-header">
                   <div className="success-icon"><svg width="32" height="32" viewBox="0 0 32 32" fill="none"><path d="M9 16L14 21L23 11" stroke="#16a34a" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round"/></svg></div>
-                  <h2 style={{ marginBottom: 4 }}>Leave request submitted</h2>
-                  <p style={{ color: '#62626e', fontSize: 14, margin: '4px 0 0' }}>{submittedCase.id}</p>
-                  <p style={{ color: '#62626e', fontSize: 14, margin: '2px 0 0', fontStyle: 'italic' }}>Your Case In Review</p>
+                  <h2>Leave request submitted</h2>
+                  <p>{submittedCase.id}</p>
+                  <p className="success-case-review">Your Case In Review</p>
                 </div>
-                <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', gap: 12, marginBottom: 24 }}>
-                  <div style={{ background: '#fff', border: '1px solid #e8e8ec', borderRadius: 8, padding: '12px 14px' }}>
-                    <div style={{ fontSize: 10, fontWeight: 600, color: '#737373', textTransform: 'uppercase', marginBottom: 4 }}>Start Date</div>
-                    <div style={{ fontSize: 14, fontWeight: 600, color: '#0f0f14' }}>{shortDate(submittedCase.startDate)}</div>
+                <div className="success-dates-grid">
+                  <div className="success-date-box">
+                    <div className="success-date-label">Start Date</div>
+                    <div className="success-date-value">{shortDate(submittedCase.startDate)}</div>
                   </div>
-                  <div style={{ background: '#fff', border: '1px solid #e8e8ec', borderRadius: 8, padding: '12px 14px' }}>
-                    <div style={{ fontSize: 10, fontWeight: 600, color: '#737373', textTransform: 'uppercase', marginBottom: 4 }}>Expected End Date</div>
-                    <div style={{ fontSize: 14, fontWeight: 600, color: '#0f0f14' }}>{shortDate(submittedCase.endDate)}</div>
+                  <div className="success-date-box">
+                    <div className="success-date-label">Expected End Date</div>
+                    <div className="success-date-value">{shortDate(submittedCase.endDate)}</div>
                   </div>
-                  <div style={{ background: '#fff', border: '1px solid #e8e8ec', borderRadius: 8, padding: '12px 14px' }}>
-                    <div style={{ fontSize: 10, fontWeight: 600, color: '#737373', textTransform: 'uppercase', marginBottom: 4 }}>Return to Work Date</div>
-                    <div style={{ fontSize: 14, fontWeight: 600, color: '#0f0f14' }}>{returnWorkStr}</div>
+                  <div className="success-date-box">
+                    <div className="success-date-label">Return to Work Date</div>
+                    <div className="success-date-value">{returnWorkStr}</div>
                   </div>
                 </div>
-                <div style={{ display: 'flex', flexDirection: 'column', gap: 12, marginBottom: 24 }}>
-                  <div style={{ background: '#fff', border: '1px solid #e8e8ec', borderRadius: 10, padding: '16px 20px' }}>
-                    <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 8 }}>
-                      <div style={{ fontSize: 10, fontWeight: 600, color: '#737373', textTransform: 'uppercase', letterSpacing: 0.5 }}>Absence Case - {submittedCase.id}-ABC-01</div>
-                      <span style={{ display: 'inline-flex', alignItems: 'center', gap: 5, fontSize: 12, fontWeight: 600, color: '#525252', background: '#f3f4f6', padding: '4px 10px', borderRadius: 10 }}><span style={{ width: 6, height: 6, borderRadius: '50%', background: '#525252' }}/> Pending</span>
+                <div className="success-cases">
+                  <div className="success-case-card">
+                    <div className="success-case-header">
+                      <div className="success-case-id">Absence Case - {submittedCase.id}-ABC-01</div>
+                      <span className="success-case-badge"><span className="success-case-badge-dot"/> Pending</span>
                     </div>
-                    <div style={{ fontSize: 16, fontWeight: 600, color: '#0f0f14' }}>Military Leave</div>
+                    <div className="success-case-title">Military Leave</div>
                   </div>
-                  <div style={{ background: '#fff', border: '1px solid #e8e8ec', borderRadius: 10, padding: '16px 20px' }}>
-                    <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 8 }}>
-                      <div style={{ fontSize: 10, fontWeight: 600, color: '#737373', textTransform: 'uppercase', letterSpacing: 0.5 }}>Claim Case - {submittedCase.id.replace('NTN', 'NTN')}-GDC-02</div>
-                      <span style={{ display: 'inline-flex', alignItems: 'center', gap: 5, fontSize: 12, fontWeight: 600, color: '#525252', background: '#f3f4f6', padding: '4px 10px', borderRadius: 10 }}><span style={{ width: 6, height: 6, borderRadius: '50%', background: '#525252' }}/> Pending</span>
+                  <div className="success-case-card">
+                    <div className="success-case-header">
+                      <div className="success-case-id">Claim Case - {submittedCase.id.replace('NTN', 'NTN')}-GDC-02</div>
+                      <span className="success-case-badge"><span className="success-case-badge-dot"/> Pending</span>
                     </div>
-                    <div style={{ fontSize: 16, fontWeight: 600, color: '#0f0f14' }}>FMLA</div>
+                    <div className="success-case-title">FMLA</div>
                   </div>
                 </div>
-                <div style={{ background: '#f9fafb', border: '1px solid #e8e8ec', borderRadius: 10, padding: '20px', marginBottom: 20 }}>
-                  <h3 style={{ fontSize: 16, fontWeight: 700, color: '#0f0f14', marginBottom: 16 }}>What happens next</h3>
+                <div className="success-next-steps">
+                  <h3>What happens next</h3>
                   {[
                     { icon: <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M9 12l2 2 4-4" stroke="#16a34a" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/><circle cx="12" cy="12" r="10" stroke="#16a34a" strokeWidth="1.5"/></svg>, text: 'Your manager will be notified of your upcoming absence' },
                     { icon: <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="10" stroke="#6366f1" strokeWidth="1.5"/><path d="M12 7v5l3 2" stroke="#6366f1" strokeWidth="1.5" strokeLinecap="round"/></svg>, text: "We're reviewing your eligibility — we'll update you within 1–2 business days" },
                     { icon: <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z" stroke="#f59e0b" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/><path d="M14 2v6h6" stroke="#f59e0b" strokeWidth="1.5"/></svg>, text: 'You may be asked to upload supporting documents (medical certification, etc.)' },
                     { icon: <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><rect x="3" y="4" width="18" height="17" rx="2" stroke="#3b82f6" strokeWidth="1.5"/><path d="M3 9h18" stroke="#3b82f6" strokeWidth="1.5"/></svg>, text: 'Track your absence status anytime from the overview' },
                   ].map((item) => (
-                    <div key={item.text} style={{ display: 'flex', alignItems: 'flex-start', gap: 12, padding: '10px 0' }}>
-                      <div style={{ flexShrink: 0, marginTop: 1 }}>{item.icon}</div>
-                      <span style={{ fontSize: 14, color: '#3d3d47', lineHeight: 1.5 }}>{item.text}</span>
+                    <div key={item.text} className="success-next-item">
+                      <div className="success-next-icon">{item.icon}</div>
+                      <span className="success-next-text">{item.text}</span>
                     </div>
                   ))}
                 </div>
-                <div style={{ display: 'flex', gap: 12, justifyContent: 'center', paddingTop: 8, borderTop: '1px solid #e8e8ec' }}>
+                <div className="success-footer">
                   <button type="button" className="btn btn-back" onClick={() => navigate('/absence-history')}>View Absence Details</button>
                   <button type="button" className="btn btn-back" onClick={() => navigate('/overview-react')}>Back to Leave</button>
                 </div>
@@ -1775,57 +1775,57 @@ export default function RequestLeaveReactPage() {
           <div className="wizard-wrap">
             <div className="wizard-card" style={{ marginTop: 32 }}>
               <div className="success-state">
-                <div style={{ textAlign: 'center', marginBottom: 28 }}>
+                <div className="success-header">
                   <div className="success-icon"><svg width="32" height="32" viewBox="0 0 32 32" fill="none"><path d="M9 16L14 21L23 11" stroke="#16a34a" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round"/></svg></div>
-                  <h2 style={{ marginBottom: 4 }}>Leave request submitted</h2>
-                  <p style={{ color: '#62626e', fontSize: 14, margin: '4px 0 0' }}>{submittedCase.id}</p>
-                  <p style={{ color: '#62626e', fontSize: 14, margin: '2px 0 0', fontStyle: 'italic' }}>Your Case In Review</p>
+                  <h2>Leave request submitted</h2>
+                  <p>{submittedCase.id}</p>
+                  <p className="success-case-review">Your Case In Review</p>
                 </div>
-                <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', gap: 12, marginBottom: 24 }}>
-                  <div style={{ background: '#fff', border: '1px solid #e8e8ec', borderRadius: 8, padding: '12px 14px' }}>
-                    <div style={{ fontSize: 10, fontWeight: 600, color: '#737373', textTransform: 'uppercase', marginBottom: 4 }}>Start Date</div>
-                    <div style={{ fontSize: 14, fontWeight: 600, color: '#0f0f14' }}>{shortDate(submittedCase.startDate)}</div>
+                <div className="success-dates-grid">
+                  <div className="success-date-box">
+                    <div className="success-date-label">Start Date</div>
+                    <div className="success-date-value">{shortDate(submittedCase.startDate)}</div>
                   </div>
-                  <div style={{ background: '#fff', border: '1px solid #e8e8ec', borderRadius: 8, padding: '12px 14px' }}>
-                    <div style={{ fontSize: 10, fontWeight: 600, color: '#737373', textTransform: 'uppercase', marginBottom: 4 }}>Expected End Date</div>
-                    <div style={{ fontSize: 14, fontWeight: 600, color: '#0f0f14' }}>{shortDate(submittedCase.endDate)}</div>
+                  <div className="success-date-box">
+                    <div className="success-date-label">Expected End Date</div>
+                    <div className="success-date-value">{shortDate(submittedCase.endDate)}</div>
                   </div>
-                  <div style={{ background: '#fff', border: '1px solid #e8e8ec', borderRadius: 8, padding: '12px 14px' }}>
-                    <div style={{ fontSize: 10, fontWeight: 600, color: '#737373', textTransform: 'uppercase', marginBottom: 4 }}>Return to Work Date</div>
-                    <div style={{ fontSize: 14, fontWeight: 600, color: '#0f0f14' }}>{returnWorkStr}</div>
+                  <div className="success-date-box">
+                    <div className="success-date-label">Return to Work Date</div>
+                    <div className="success-date-value">{returnWorkStr}</div>
                   </div>
                 </div>
-                <div style={{ display: 'flex', flexDirection: 'column', gap: 12, marginBottom: 24 }}>
-                  <div style={{ background: '#fff', border: '1px solid #e8e8ec', borderRadius: 10, padding: '16px 20px' }}>
-                    <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 8 }}>
-                      <div style={{ fontSize: 10, fontWeight: 600, color: '#737373', textTransform: 'uppercase', letterSpacing: 0.5 }}>Absence Case - {submittedCase.id}-ABC-01</div>
-                      <span style={{ display: 'inline-flex', alignItems: 'center', gap: 5, fontSize: 12, fontWeight: 600, color: '#525252', background: '#f3f4f6', padding: '4px 10px', borderRadius: 10 }}><span style={{ width: 6, height: 6, borderRadius: '50%', background: '#525252' }}/> Pending</span>
+                <div className="success-cases">
+                  <div className="success-case-card">
+                    <div className="success-case-header">
+                      <div className="success-case-id">Absence Case - {submittedCase.id}-ABC-01</div>
+                      <span className="success-case-badge"><span className="success-case-badge-dot"/> Pending</span>
                     </div>
-                    <div style={{ fontSize: 16, fontWeight: 600, color: '#0f0f14' }}>Other</div>
+                    <div className="success-case-title">Other</div>
                   </div>
-                  <div style={{ background: '#fff', border: '1px solid #e8e8ec', borderRadius: 10, padding: '16px 20px' }}>
-                    <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 8 }}>
-                      <div style={{ fontSize: 10, fontWeight: 600, color: '#737373', textTransform: 'uppercase', letterSpacing: 0.5 }}>Claim Case - {submittedCase.id.replace('NTN', 'NTN')}-GDC-02</div>
-                      <span style={{ display: 'inline-flex', alignItems: 'center', gap: 5, fontSize: 12, fontWeight: 600, color: '#525252', background: '#f3f4f6', padding: '4px 10px', borderRadius: 10 }}><span style={{ width: 6, height: 6, borderRadius: '50%', background: '#525252' }}/> Pending</span>
+                  <div className="success-case-card">
+                    <div className="success-case-header">
+                      <div className="success-case-id">Claim Case - {submittedCase.id.replace('NTN', 'NTN')}-GDC-02</div>
+                      <span className="success-case-badge"><span className="success-case-badge-dot"/> Pending</span>
                     </div>
-                    <div style={{ fontSize: 16, fontWeight: 600, color: '#0f0f14' }}>FMLA</div>
+                    <div className="success-case-title">FMLA</div>
                   </div>
                 </div>
-                <div style={{ background: '#f9fafb', border: '1px solid #e8e8ec', borderRadius: 10, padding: '20px', marginBottom: 20 }}>
-                  <h3 style={{ fontSize: 16, fontWeight: 700, color: '#0f0f14', marginBottom: 16 }}>What happens next</h3>
+                <div className="success-next-steps">
+                  <h3>What happens next</h3>
                   {[
                     { icon: <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M9 12l2 2 4-4" stroke="#16a34a" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/><circle cx="12" cy="12" r="10" stroke="#16a34a" strokeWidth="1.5"/></svg>, text: 'Your manager will be notified of your upcoming absence' },
                     { icon: <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="10" stroke="#6366f1" strokeWidth="1.5"/><path d="M12 7v5l3 2" stroke="#6366f1" strokeWidth="1.5" strokeLinecap="round"/></svg>, text: "We're reviewing your eligibility — we'll update you within 1–2 business days" },
                     { icon: <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z" stroke="#f59e0b" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/><path d="M14 2v6h6" stroke="#f59e0b" strokeWidth="1.5"/></svg>, text: 'You may be asked to upload supporting documents (medical certification, etc.)' },
                     { icon: <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><rect x="3" y="4" width="18" height="17" rx="2" stroke="#3b82f6" strokeWidth="1.5"/><path d="M3 9h18" stroke="#3b82f6" strokeWidth="1.5"/></svg>, text: 'Track your absence status anytime from the overview' },
                   ].map((item) => (
-                    <div key={item.text} style={{ display: 'flex', alignItems: 'flex-start', gap: 12, padding: '10px 0' }}>
-                      <div style={{ flexShrink: 0, marginTop: 1 }}>{item.icon}</div>
-                      <span style={{ fontSize: 14, color: '#3d3d47', lineHeight: 1.5 }}>{item.text}</span>
+                    <div key={item.text} className="success-next-item">
+                      <div className="success-next-icon">{item.icon}</div>
+                      <span className="success-next-text">{item.text}</span>
                     </div>
                   ))}
                 </div>
-                <div style={{ display: 'flex', gap: 12, justifyContent: 'center', paddingTop: 8, borderTop: '1px solid #e8e8ec' }}>
+                <div className="success-footer">
                   <button type="button" className="btn btn-back" onClick={() => navigate('/absence-history')}>View Absence Details</button>
                   <button type="button" className="btn btn-back" onClick={() => navigate('/overview-react')}>Back to Leave</button>
                 </div>
@@ -1843,13 +1843,13 @@ export default function RequestLeaveReactPage() {
         <div className="wizard-wrap">
           <div className="wizard-card" style={{ marginTop: 32 }}>
             <div className="success-state">
-              <div style={{ textAlign: 'center', marginBottom: 28 }}>
+              <div className="success-header">
                 <div className="success-icon"><svg width="32" height="32" viewBox="0 0 32 32" fill="none"><path d="M9 16L14 21L23 11" stroke="#16a34a" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round"/></svg></div>
-                <h2 style={{ marginBottom: 4 }}>Leave request submitted</h2>
-                <p style={{ color: '#62626e', fontSize: 14, margin: 0 }}>{submittedCase.id}</p>
+                <h2>Leave request submitted</h2>
+                <p>{submittedCase.id}</p>
               </div>
-              <div style={{ background: '#fff', border: '1px solid #e8e8ec', borderRadius: 10, padding: '16px 20px', marginBottom: 20 }}>
-                <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 16 }}>
+              <div className="success-case-card" style={{ marginBottom: 20 }}>
+                <div className="success-case-header" style={{ marginBottom: 16 }}>
                   <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
                     <div style={{ width: 36, height: 36, borderRadius: 8, background: '#f3f4f6', display: 'flex', alignItems: 'center', justifyContent: 'center' }}><svg width="18" height="18" viewBox="0 0 24 24" fill="none"><rect x="3" y="4" width="18" height="17" rx="2" stroke="#525252" strokeWidth="1.5"/><path d="M3 9h18M8 2v4M16 2v4" stroke="#525252" strokeWidth="1.5" strokeLinecap="round"/></svg></div>
                     <div>
@@ -1859,36 +1859,36 @@ export default function RequestLeaveReactPage() {
                   </div>
                   <span style={{ display: 'inline-block', fontSize: 11, fontWeight: 700, background: '#1a1a2e', color: '#fff', padding: '4px 12px', borderRadius: 4, textTransform: 'uppercase', letterSpacing: 0.5 }}>Pending</span>
                 </div>
-                <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', gap: 12 }}>
-                  <div style={{ background: '#fff', border: '1px solid #e8e8ec', borderRadius: 8, padding: '12px 14px' }}>
-                    <div style={{ fontSize: 10, fontWeight: 600, color: '#737373', textTransform: 'uppercase', marginBottom: 4 }}>Start Date</div>
-                    <div style={{ fontSize: 14, fontWeight: 600, color: '#0f0f14' }}>{shortDate(submittedCase.startDate)}</div>
+                <div className="success-dates-grid">
+                  <div className="success-date-box">
+                    <div className="success-date-label">Start Date</div>
+                    <div className="success-date-value">{shortDate(submittedCase.startDate)}</div>
                   </div>
-                  <div style={{ background: '#fff', border: '1px solid #e8e8ec', borderRadius: 8, padding: '12px 14px' }}>
-                    <div style={{ fontSize: 10, fontWeight: 600, color: '#737373', textTransform: 'uppercase', marginBottom: 4 }}>Expected Return</div>
-                    <div style={{ fontSize: 14, fontWeight: 600, color: '#0f0f14' }}>{shortDate(submittedCase.endDate)}</div>
+                  <div className="success-date-box">
+                    <div className="success-date-label">Expected Return</div>
+                    <div className="success-date-value">{shortDate(submittedCase.endDate)}</div>
                   </div>
-                  <div style={{ background: '#fff', border: '1px solid #e8e8ec', borderRadius: 8, padding: '12px 14px' }}>
-                    <div style={{ fontSize: 10, fontWeight: 600, color: '#737373', textTransform: 'uppercase', marginBottom: 4 }}>Duration</div>
-                    <div style={{ fontSize: 14, fontWeight: 600, color: '#0f0f14' }}>{durationText}</div>
+                  <div className="success-date-box">
+                    <div className="success-date-label">Duration</div>
+                    <div className="success-date-value">{durationText}</div>
                   </div>
                 </div>
               </div>
-              <div style={{ background: '#f9fafb', border: '1px solid #e8e8ec', borderRadius: 10, padding: '20px', marginBottom: 20 }}>
-                <h3 style={{ fontSize: 16, fontWeight: 700, color: '#0f0f14', marginBottom: 16 }}>What happens next</h3>
+              <div className="success-next-steps">
+                <h3>What happens next</h3>
                 {[
                   { icon: <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M9 12l2 2 4-4" stroke="#16a34a" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/><circle cx="12" cy="12" r="10" stroke="#16a34a" strokeWidth="1.5"/></svg>, text: 'Your manager has been notified of your upcoming leave' },
                   { icon: <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="10" stroke="#6366f1" strokeWidth="1.5"/><path d="M12 7v5l3 2" stroke="#6366f1" strokeWidth="1.5" strokeLinecap="round"/></svg>, text: "We're reviewing your eligibility — we'll update you within 1–2 business days" },
                   { icon: <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z" stroke="#f59e0b" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/><path d="M14 2v6h6" stroke="#f59e0b" strokeWidth="1.5"/></svg>, text: 'You may be asked to upload supporting documents' },
                   { icon: <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><rect x="3" y="4" width="18" height="17" rx="2" stroke="#3b82f6" strokeWidth="1.5"/><path d="M3 9h18" stroke="#3b82f6" strokeWidth="1.5"/></svg>, text: 'Track your leave status anytime from the overview' },
                 ].map((item) => (
-                  <div key={item.text} style={{ display: 'flex', alignItems: 'flex-start', gap: 12, padding: '10px 0' }}>
-                    <div style={{ flexShrink: 0, marginTop: 1 }}>{item.icon}</div>
-                    <span style={{ fontSize: 14, color: '#3d3d47', lineHeight: 1.5 }}>{item.text}</span>
+                  <div key={item.text} className="success-next-item">
+                    <div className="success-next-icon">{item.icon}</div>
+                    <span className="success-next-text">{item.text}</span>
                   </div>
                 ))}
               </div>
-              <div style={{ display: 'flex', gap: 12, justifyContent: 'center', paddingTop: 8, borderTop: '1px solid #e8e8ec' }}>
+              <div className="success-footer">
                 <button type="button" className="btn btn-back" onClick={() => navigate('/absence-history')}>View Leave Details</button>
                 <button type="button" className="btn btn-back">Email Manager / HR</button>
                 <button type="button" className="btn btn-next" onClick={() => navigate('/overview-react')}>Back to Overview</button>

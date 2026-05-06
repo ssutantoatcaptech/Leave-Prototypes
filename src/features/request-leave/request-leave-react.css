@@ -1290,6 +1290,149 @@
   margin: 0 auto 24px;
 }
 
+.success-header {
+  text-align: center;
+  margin-bottom: 28px;
+}
+
+.success-header h2 {
+  margin-bottom: 4px;
+}
+
+.success-header p {
+  color: #62626e;
+  font-size: 14px;
+  margin: 4px 0 0;
+}
+
+.success-header .success-case-review {
+  font-style: italic;
+  margin: 2px 0 0;
+}
+
+.success-dates-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 12px;
+  margin-bottom: 24px;
+}
+
+.success-date-box {
+  background: #fff;
+  border: 1px solid #e8e8ec;
+  border-radius: 8px;
+  padding: 12px 14px;
+}
+
+.success-date-label {
+  font-size: 10px;
+  font-weight: 600;
+  color: #737373;
+  text-transform: uppercase;
+  margin-bottom: 4px;
+}
+
+.success-date-value {
+  font-size: 14px;
+  font-weight: 600;
+  color: #0f0f14;
+}
+
+.success-cases {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-bottom: 24px;
+}
+
+.success-case-card {
+  background: #fff;
+  border: 1px solid #e8e8ec;
+  border-radius: 10px;
+  padding: 16px 20px;
+}
+
+.success-case-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 8px;
+}
+
+.success-case-id {
+  font-size: 10px;
+  font-weight: 600;
+  color: #737373;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.success-case-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 12px;
+  font-weight: 600;
+  color: #525252;
+  background: #f3f4f6;
+  padding: 4px 10px;
+  border-radius: 10px;
+}
+
+.success-case-badge-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #525252;
+}
+
+.success-case-title {
+  font-size: 16px;
+  font-weight: 600;
+  color: #0f0f14;
+}
+
+.success-next-steps {
+  background: #f9fafb;
+  border: 1px solid #e8e8ec;
+  border-radius: 10px;
+  padding: 20px;
+  margin-bottom: 20px;
+}
+
+.success-next-steps h3 {
+  font-size: 16px;
+  font-weight: 700;
+  color: #0f0f14;
+  margin-bottom: 16px;
+}
+
+.success-next-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  padding: 10px 0;
+}
+
+.success-next-icon {
+  flex-shrink: 0;
+  margin-top: 1px;
+}
+
+.success-next-text {
+  font-size: 14px;
+  color: #3d3d47;
+  line-height: 1.5;
+}
+
+.success-footer {
+  display: flex;
+  gap: 12px;
+  justify-content: center;
+  padding-top: 8px;
+  border-top: 1px solid #e8e8ec;
+}
+
 .step-content {
   animation: fadeIn 0.3s ease-in-out;
 }

@@ -2,7 +2,7 @@
   min-height: 100vh;
   background: #1a1a2e;
   display: flex;
-  align-items: flex-start;
+  align-items: center;
   justify-content: center;
   padding: 32px 16px;
 }
@@ -378,5 +378,234 @@
 
 /* Active leave card fields */
 .mobile-frame-screen .ov-active-card-fields {
+  grid-template-columns: 1fr;
+}
+
+/* ===========================
+   Confirmation / Submitted Page — Mobile Frame Overrides
+   =========================== */
+
+.mobile-frame-screen .success-dates-grid {
+  grid-template-columns: 1fr;
+  gap: 8px;
+}
+
+.mobile-frame-screen .success-case-header {
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 6px;
+}
+
+.mobile-frame-screen .success-case-card {
+  padding: 14px 16px;
+}
+
+.mobile-frame-screen .success-case-title {
+  font-size: 14px;
+}
+
+.mobile-frame-screen .success-next-steps {
+  padding: 16px;
+}
+
+.mobile-frame-screen .success-footer {
+  flex-direction: column;
+  gap: 10px;
+}
+
+.mobile-frame-screen .success-footer .btn {
+  width: 100%;
+  justify-content: center;
+}
+
+/* ===========================
+   Case Detail (Leave Detail V2e) — Mobile Frame Overrides
+   =========================== */
+
+/* Reset page shell */
+.mobile-frame-screen .ldb-page {
+  min-height: auto;
+}
+
+/* Hide the page's own nav and footer — layout already provides these */
+.mobile-frame-screen .ldb-top-nav {
+  display: none;
+}
+
+.mobile-frame-screen .ldb-site-footer {
+  display: none;
+}
+
+/* Content area: remove side padding since cl-main already provides 16px */
+.mobile-frame-screen .ldb-content {
+  padding: 0 0 24px;
+}
+
+/* Stack main + sidebar to single column */
+.mobile-frame-screen .ldb-v2-layout {
+  grid-template-columns: 1fr;
+  gap: 16px;
+}
+
+/* Card padding: tighter for mobile */
+.mobile-frame-screen .ldb-card {
+  padding: 16px;
+  border-radius: 10px;
+}
+
+/* Title card: stack vertically */
+.mobile-frame-screen .ldb-title-card {
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 12px;
+}
+
+.mobile-frame-screen .ldb-title-left {
+  gap: 12px;
+}
+
+.mobile-frame-screen .ldb-title-icon {
+  width: 40px;
+  height: 40px;
+  border-radius: 10px;
+}
+
+.mobile-frame-screen .ldb-title {
+  font-size: 20px;
+}
+
+.mobile-frame-screen .ldb-title-meta {
+  font-size: 12px;
+}
+
+.mobile-frame-screen .ldb-title .ldb-status-badge {
+  display: block;
+  margin-left: 0;
+  margin-top: 6px;
+}
+
+/* Breadcrumb: wrap */
+.mobile-frame-screen .ldb-breadcrumb {
+  flex-wrap: wrap;
+  font-size: 13px;
+}
+
+/* Timeline: horizontal scroll for week ticks */
+.mobile-frame-screen .dlp-tl-weeks {
+  padding-left: 60px;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+.mobile-frame-screen .dlp-tl-row-label {
+  width: 48px;
+  min-width: 48px;
+  font-size: 11px;
+}
+
+.mobile-frame-screen .dlp-tl-row-bar {
+  min-width: 0;
+}
+
+/* Timeline tooltip: constrain width */
+.mobile-frame-screen .ldb-tl-rows-wrap .ad-coverage-tooltip {
+  width: 280px;
+}
+
+.mobile-frame-screen .ad-coverage-tooltip-grid {
+  grid-template-columns: 1fr 1fr;
+}
+
+/* Claim accordion: stack header on mobile */
+.mobile-frame-screen .ldb-claim-accordion-header {
+  padding: 12px 14px;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.mobile-frame-screen .ldb-claim-accordion-left {
+  gap: 8px;
+  min-width: 0;
+}
+
+.mobile-frame-screen .ldb-claim-accordion-title {
+  font-size: 14px;
+}
+
+.mobile-frame-screen .ldb-claim-accordion-sub {
+  font-size: 12px;
+  word-break: break-word;
+}
+
+.mobile-frame-screen .ldb-claim-accordion-body {
+  padding: 14px 16px;
+}
+
+/* Info grids: single column */
+.mobile-frame-screen .dt-info-grid {
+  grid-template-columns: 1fr;
+  gap: 12px;
+}
+
+/* Payments grid: single column */
+.mobile-frame-screen .ldb-payments-grid {
+  grid-template-columns: 1fr;
+  gap: 12px;
+}
+
+/* Payment rows: stack for narrow width */
+.mobile-frame-screen .ldb-v2e-pmt-row {
+  grid-template-columns: 1fr auto;
+  gap: 4px;
+}
+
+.mobile-frame-screen .ldb-v2e-pmt-desc {
+  grid-column: 1 / -1;
+}
+
+/* Leave Snapshot: single column */
+.mobile-frame-screen .ldb-snapshot-dates-row {
+  grid-template-columns: 1fr;
+  gap: 8px;
+}
+
+/* Sidebar cards: tighter padding */
+.mobile-frame-screen .ldb-side-card {
+  padding: 16px;
+}
+
+/* Action items: wrap upload button below */
+.mobile-frame-screen .ldb-action-item {
+  flex-wrap: wrap;
+}
+
+.mobile-frame-screen .ldb-btn-upload-inline {
+  margin-left: 20px;
+  margin-top: 6px;
+}
+
+/* Quick actions list */
+.mobile-frame-screen .ldb-quick-action-item {
+  font-size: 13px;
+  padding: 10px 12px;
+}
+
+/* Section header toggle (Protection/Payment) */
+.mobile-frame-screen .ad-section-header {
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 10px;
+}
+
+.mobile-frame-screen .dt-tl-toggle {
+  width: 100%;
+}
+
+.mobile-frame-screen .dt-tl-toggle button {
+  flex: 1;
+}
+
+/* Footer grid inside page (if visible) */
+.mobile-frame-screen .ldb-site-footer-grid {
   grid-template-columns: 1fr;
 }
