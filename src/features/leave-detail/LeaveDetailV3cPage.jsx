@@ -90,7 +90,7 @@ export default function LeaveDetailV3cPage() {
   var [paymentsOpen, setPaymentsOpen] = useState(true);
 
   return (
-    <div className="ldb-page ldb-grayscale">
+    <div className="ldb-page">
       <SiteNav user="Marcus Thompson" initials="MT" />
 
       <div className="ldb-content">

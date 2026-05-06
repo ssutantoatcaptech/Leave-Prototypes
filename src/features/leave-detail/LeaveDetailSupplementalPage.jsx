@@ -91,7 +91,7 @@ export default function LeaveDetailSupplementalPage() {
   var [aboutClaimOpen, setAboutClaimOpen] = useState(true);
 
   return (
-    <div className="ldb-page ldb-grayscale">
+    <div className="ldb-page">
       <SiteNav user="Marcus Thompson" initials="MT" />
 
       <div className="ldb-content">

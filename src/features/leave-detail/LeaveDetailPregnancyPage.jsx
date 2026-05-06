@@ -42,7 +42,7 @@ export default function LeaveDetailPregnancyPage() {
   }
 
   return (
-    <div className="ldb-page ldb-grayscale">
+    <div className="ldb-page">
 
       <div className="ldb-content">
         {/* Breadcrumb */}

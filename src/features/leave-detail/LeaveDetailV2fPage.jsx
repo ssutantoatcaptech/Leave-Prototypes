@@ -121,7 +121,7 @@ export default function LeaveDetailV2fPage() {
   }
 
   return (
-    <div className="ldb-page ldb-grayscale">
+    <div className="ldb-page">
       <SiteNav user="Jessica Nguyen" initials="JN" />
 
       <div className="ldb-content">

@@ -125,7 +125,7 @@ export default function LeaveDetailV2ePage() {
   }
 
   return (
-    <div className="ldb-page ldb-grayscale">
+    <div className="ldb-page">
 
       <div className="ldb-content">
         {/* Breadcrumb */}
