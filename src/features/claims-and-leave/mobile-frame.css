@@ -190,6 +190,10 @@
   display: flex;
 }
 
+.mobile-frame-screen .cl-mobile-nav-utility {
+  display: none;
+}
+
 .mobile-frame-screen .cl-mobile-nav-overlay {
   position: absolute;
   top: 0;
