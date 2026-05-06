@@ -33,7 +33,7 @@
 .ldb-nav-avatar-circle { width: 40px; height: 40px; border-radius: 50%; background: rgba(255,255,255,0.15); border: 2px solid rgba(255,255,255,0.2); display: flex; align-items: center; justify-content: center; color: #fff; font-size: 14px; font-weight: 600; text-transform: uppercase; }
 .ldb-nav-avatar-name { font-size: 14px; font-weight: 600; color: #fff; }
 .ldb-nav-secondary { display: flex; gap: 8px; padding: 0 24px; background: #fff; border-bottom: 1px solid #e2e8f0; }
-.ldb-nav-tab { padding: 12px 12px 15px; font-size: 14px; font-weight: 600; color: #64748b; border: none; background: none; cursor: pointer; border-bottom: 3px solid transparent; font-family: inherit; transition: 0.15s; text-decoration: none; }
+.ldb-nav-tab { padding: 12px 12px 15px; font-size: 14px; font-weight: 400; color: #64748b; border: none; background: none; cursor: pointer; border-bottom: 3px solid transparent; font-family: inherit; transition: 0.15s; text-decoration: none; }
 .ldb-nav-tab:hover { background: #f8fafc; color: #1e293b; }
 .ldb-nav-tab.active { border-bottom-color: #0033a0; color: #1e293b; }
 
