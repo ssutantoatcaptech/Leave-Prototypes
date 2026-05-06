@@ -5,11 +5,20 @@
   color: #0f0f14;
 }
 
+.rtw-page.rtw-embedded {
+  background: transparent;
+  min-height: auto;
+}
+
 .rtw-content {
   width: 696px;
   max-width: calc(100% - 64px);
   margin: 0 auto;
   padding: 40px 0 80px;
+}
+
+.rtw-embedded .rtw-content {
+  padding: 24px 0 24px;
 }
 
 .rtw-back {
