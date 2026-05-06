@@ -133,28 +133,19 @@ export default function LeaveDetailV2ePage() {
           <span>CLM #12345</span>
         </div>
 
-        {/* Title Card — Case framing */}
+        {/* Title Card — Redesigned */}
         <div className="ldb-title-card">
           <div className="ldb-title-left">
             <div className="ldb-title-icon">
-              <svg width="28" height="28" viewBox="0 0 24 24" fill="none"><path d="M9 12h6M12 9v6" stroke="#0f0f14" strokeWidth="1.5" strokeLinecap="round"/><rect x="3" y="3" width="18" height="18" rx="4" stroke="#0f0f14" strokeWidth="1.5"/></svg>
+              <svg width="28" height="28" viewBox="0 0 24 24" fill="none"><path d="M9 12h6M12 9v6" stroke="#fff" strokeWidth="2" strokeLinecap="round"/></svg>
             </div>
             <div>
-              <h1 className="ldb-title">NTN-9312 — Medical Leave <span className="ldb-status-badge pending-status" style={{ fontSize: 12, marginLeft: 12, verticalAlign: 'middle' }}>Pending</span></h1>
+              <h1 className="ldb-title">Illness or Injury <span className="ldb-status-badge pending-status" style={{ fontSize: 12, marginLeft: 12, verticalAlign: 'middle' }}>Pending</span></h1>
               <div className="ldb-title-meta">
-                <span style={{ fontSize: 14, color: '#525252' }}>Treatment required for a medical condition</span>
+                <span style={{ fontSize: 14, color: '#525252', fontWeight: 600 }}>NTN - 2334</span>
                 <span style={{ fontSize: 13, color: '#737373', marginLeft: 12 }}>Apr 15 – May 15, 2025 · Intermittent</span>
               </div>
             </div>
-          </div>
-          <div className="ldb-title-actions">
-            <button type="button" className="ldb-btn-secondary">
-              <svg width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M2 4l6 4 6-4" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round" strokeLinejoin="round"/><rect x="2" y="3" width="12" height="10" rx="1.5" stroke="currentColor" strokeWidth="1.2"/></svg>
-              Message Case Manager
-            </button>
-            <button type="button" className="ldb-btn-primary">
-              Return to Work
-            </button>
           </div>
         </div>
 
@@ -657,23 +648,25 @@ export default function LeaveDetailV2ePage() {
             </div>
           </div>
 
-          {/* Right Sidebar */}
+          {/* Right Sidebar — Redesigned */}
           <div className="ldb-sidebar">
+
+            {/* 1. Items Requiring Action */}
             <div className="ldb-side-card">
               <div className="ldb-tasks-header">
                 <h3 className="ldb-side-title">
                   <svg width="14" height="14" viewBox="0 0 16 16" fill="none"><rect x="2" y="2" width="12" height="12" rx="2" stroke="currentColor" strokeWidth="1.2"/><path d="M5 8l2 2 4-4" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round" strokeLinejoin="round"/></svg>
                   Items Requiring Action
                 </h3>
-                <span className="ldb-tasks-count">2 needed</span>
+                <span className="ldb-tasks-count">3 needed</span>
               </div>
 
               <div className="ldb-action-list">
                 <div className="ldb-action-item">
                   <div className="ldb-action-dot" />
                   <div className="ldb-action-content">
-                    <div className="ldb-action-title">Upload Itemized Hospital Bill</div>
-                    <div className="ldb-action-meta">Blocks Supplemental Health Claim (SC-82)</div>
+                    <div className="ldb-action-title">Medical Certification Form</div>
+                    <div className="ldb-action-meta">Due Jul 22 · <a href="#" style={{ color: '#525252', textDecoration: 'underline' }}>Download the form here</a></div>
                   </div>
                   <button type="button" className="ldb-btn-upload-inline">
                     <svg width="12" height="12" viewBox="0 0 16 16" fill="none"><path d="M8 12V4" stroke="currentColor" strokeWidth="1.3" strokeLinecap="round"/><path d="M4.5 6.5L8 3l3.5 3.5" stroke="currentColor" strokeWidth="1.3" strokeLinecap="round" strokeLinejoin="round"/><path d="M3 13h10" stroke="currentColor" strokeWidth="1.3" strokeLinecap="round"/></svg>
@@ -683,19 +676,19 @@ export default function LeaveDetailV2ePage() {
                 <div className="ldb-action-item">
                   <div className="ldb-action-dot" />
                   <div className="ldb-action-content">
-                    <div className="ldb-action-title">Submit Return to Work Date</div>
-                    <div className="ldb-action-meta">Required for Leave Case (ABS-81) closure</div>
+                    <div className="ldb-action-title">Attending Physician Statement</div>
+                    <div className="ldb-action-meta">Due Jul 22</div>
                   </div>
                   <button type="button" className="ldb-btn-upload-inline">
-                    <svg width="12" height="12" viewBox="0 0 16 16" fill="none"><path d="M4 2h6l4 4v8a1 1 0 01-1 1H4a1 1 0 01-1-1V3a1 1 0 011-1z" stroke="currentColor" strokeWidth="1.2"/><path d="M10 2v4h4" stroke="currentColor" strokeWidth="1.2"/></svg>
-                    File
+                    <svg width="12" height="12" viewBox="0 0 16 16" fill="none"><path d="M8 12V4" stroke="currentColor" strokeWidth="1.3" strokeLinecap="round"/><path d="M4.5 6.5L8 3l3.5 3.5" stroke="currentColor" strokeWidth="1.3" strokeLinecap="round" strokeLinejoin="round"/><path d="M3 13h10" stroke="currentColor" strokeWidth="1.3" strokeLinecap="round"/></svg>
+                    Upload
                   </button>
                 </div>
               </div>
 
               {!showAllTasks && (
                 <button type="button" className="ldb-tasks-expand" onClick={function () { setShowAllTasks(true); }}>
-                  +3 completed
+                  +4 more tasks
                   <svg width="10" height="6" viewBox="0 0 10 6" fill="none"><path d="M1 1l4 4 4-4" stroke="currentColor" strokeWidth="1.3" strokeLinecap="round" strokeLinejoin="round"/></svg>
                 </button>
               )}
@@ -736,89 +729,93 @@ export default function LeaveDetailV2ePage() {
               )}
             </div>
 
-            {/* Leave Snapshot */}
-            <div className="ldb-side-card">
-              <h3 className="ldb-side-title">
-                <svg width="14" height="14" viewBox="0 0 16 16" fill="none"><circle cx="8" cy="8" r="6" stroke="currentColor" strokeWidth="1.2"/><path d="M8 5v3l2 1.5" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round" strokeLinejoin="round"/></svg>
-                Leave Snapshot
-              </h3>
-              <div className="ldb-v2-snapshot-section">
-                <div className="ldb-v2-snapshot-bar-header">
-                  <span className="ldb-v2-snapshot-bar-label">4.3 of 12 weeks used</span>
-                  <span className="ldb-v2-snapshot-bar-sub">FMLA Protection</span>
-                </div>
-                <div className="ldb-v2-snapshot-bar">
-                  <div className="ldb-v2-snapshot-bar-fill" style={{ width: '36%' }} />
-                </div>
-                <div className="ldb-v2-snapshot-stats">
-                  <div className="ldb-v2-snapshot-stat">
-                    <span className="ldb-v2-snapshot-stat-value">54</span>
-                    <span className="ldb-v2-snapshot-stat-label">Days Left</span>
-                  </div>
-                  <div className="ldb-v2-snapshot-stat">
-                    <span className="ldb-v2-snapshot-stat-value">Jul 08</span>
-                    <span className="ldb-v2-snapshot-stat-label">FMLA Expires</span>
-                  </div>
-                </div>
+            {/* 2. Quick Actions */}
+            <div className="ldb-side-card ldb-side-card--shadow">
+              <div className="ldb-quick-actions-label">QUICK ACTIONS</div>
+              <div className="ldb-quick-actions-list">
+                <button type="button" className="ldb-quick-action-item">
+                  <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><circle cx="8" cy="8" r="6" stroke="currentColor" strokeWidth="1.2"/><path d="M8 5v3l2 1.5" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round" strokeLinejoin="round"/></svg>
+                  <span>Enter Time</span>
+                  <svg width="10" height="10" viewBox="0 0 16 16" fill="none" className="ldb-quick-action-chevron"><path d="M6 4l4 4-4 4" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round"/></svg>
+                </button>
+                <button type="button" className="ldb-quick-action-item">
+                  <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M2 4a2 2 0 012-2h8a2 2 0 012 2v8a2 2 0 01-2 2H4a2 2 0 01-2-2V4z" stroke="currentColor" strokeWidth="1.2"/><path d="M5 8h6" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round"/></svg>
+                  <span>Request ADA Accommodation</span>
+                  <svg width="10" height="10" viewBox="0 0 16 16" fill="none" className="ldb-quick-action-chevron"><path d="M6 4l4 4-4 4" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round"/></svg>
+                </button>
+                <button type="button" className="ldb-quick-action-item">
+                  <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 13l3-3M13 3l-3 3M10 3H13v3M6 13H3v-3" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round" strokeLinejoin="round"/></svg>
+                  <span>Manage Return to Work</span>
+                  <svg width="10" height="10" viewBox="0 0 16 16" fill="none" className="ldb-quick-action-chevron"><path d="M6 4l4 4-4 4" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round"/></svg>
+                </button>
+                <button type="button" className="ldb-quick-action-item">
+                  <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><rect x="2" y="3" width="12" height="10" rx="1.5" stroke="currentColor" strokeWidth="1.2"/><path d="M5 7h6M5 9.5h4" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round"/></svg>
+                  <span>Manage Direct Deposit</span>
+                  <svg width="10" height="10" viewBox="0 0 16 16" fill="none" className="ldb-quick-action-chevron"><path d="M6 4l4 4-4 4" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round"/></svg>
+                </button>
+                <button type="button" className="ldb-quick-action-item">
+                  <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M2 4l6 4 6-4" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round" strokeLinejoin="round"/><rect x="2" y="3" width="12" height="10" rx="1.5" stroke="currentColor" strokeWidth="1.2"/></svg>
+                  <span>Message claims specialist</span>
+                  <svg width="10" height="10" viewBox="0 0 16 16" fill="none" className="ldb-quick-action-chevron"><path d="M6 4l4 4-4 4" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round"/></svg>
+                </button>
               </div>
             </div>
 
-            {/* Documents */}
+            {/* 3. Leave Snapshot */}
+            <div className="ldb-side-card">
+              <h3 className="ldb-side-title">
+                <svg width="14" height="14" viewBox="0 0 16 16" fill="none"><rect x="2" y="3" width="12" height="11" rx="1.5" stroke="currentColor" strokeWidth="1.2"/><path d="M2 6h12" stroke="currentColor" strokeWidth="1.2"/><path d="M5 2v2M11 2v2" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round"/></svg>
+                Leave Snapshot
+              </h3>
+              <div className="ldb-snapshot-dates-row">
+                <div className="ldb-snapshot-date-card">
+                  <div className="ldb-snapshot-date-label">Start Date</div>
+                  <div className="ldb-snapshot-date-value">March 1, 2025</div>
+                </div>
+                <div className="ldb-snapshot-date-card">
+                  <div className="ldb-snapshot-date-label">End Date</div>
+                  <div className="ldb-snapshot-date-value">April 25, 2025</div>
+                </div>
+              </div>
+              <div className="ldb-snapshot-date-card ldb-snapshot-date-card--full">
+                <div className="ldb-snapshot-date-label">Return Work Date</div>
+                <div className="ldb-snapshot-date-value">April 26, 2025</div>
+              </div>
+            </div>
+
+            {/* 4. Uploaded Documents */}
             <div className="ldb-side-card">
               <div className="ldb-docs-header">
                 <h3 className="ldb-side-title">
                   <svg width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M4 2h6l4 4v8a1 1 0 01-1 1H4a1 1 0 01-1-1V3a1 1 0 011-1z" stroke="currentColor" strokeWidth="1.2"/><path d="M10 2v4h4" stroke="currentColor" strokeWidth="1.2"/></svg>
                   Uploaded Documents
                 </h3>
-                <span className="ldb-docs-count">2 / 3 uploaded</span>
+              </div>
+              <div className="ldb-docs-progress-bar">
+                <div className="ldb-docs-progress-fill" style={{ width: '66%' }} />
               </div>
               <div className="ldb-doc-list">
                 <div className="ldb-doc-item">
-                  <div className="ldb-doc-status-icon">
-                    <svg width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M5 8l2 2 4-4" stroke="#16a34a" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/></svg>
-                  </div>
                   <div className="ldb-doc-info">
                     <div className="ldb-doc-name">Medical_Certification.pdf</div>
-                    <div className="ldb-doc-meta">Uploaded Apr 18 · Group Disability Claim</div>
+                    <div className="ldb-doc-meta">Uploaded on Jul 29, 2024</div>
                   </div>
+                  <button type="button" className="ldb-doc-download-btn" aria-label="Download">
+                    <svg width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M8 4v8" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round"/><path d="M4.5 9.5L8 13l3.5-3.5" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round" strokeLinejoin="round"/><path d="M3 14h10" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round"/></svg>
+                  </button>
                 </div>
                 <div className="ldb-doc-item">
-                  <div className="ldb-doc-status-icon">
-                    <svg width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M5 8l2 2 4-4" stroke="#16a34a" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/></svg>
-                  </div>
                   <div className="ldb-doc-info">
-                    <div className="ldb-doc-name">FMLA_Designation_Notice.pdf</div>
-                    <div className="ldb-doc-meta">Uploaded Apr 16 · Leave Case</div>
+                    <div className="ldb-doc-name">Attending_Physician_Statement.pdf</div>
+                    <div className="ldb-doc-meta">Uploaded on Jul 29, 2024</div>
                   </div>
-                </div>
-                <div className="ldb-doc-item">
-                  <div className="ldb-doc-status-icon">
-                    <svg width="14" height="14" viewBox="0 0 16 16" fill="none"><circle cx="8" cy="8" r="3" stroke="#f59e0b" strokeWidth="1.5"/></svg>
-                  </div>
-                  <div className="ldb-doc-info">
-                    <div className="ldb-doc-name">Itemized_Hospital_Bill.pdf</div>
-                    <div className="ldb-doc-meta">Needed · Supplemental Health Claim</div>
-                  </div>
-                  <button type="button" className="ldb-doc-download-btn" aria-label="Upload">
-                    <svg width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M8 12V4" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round"/><path d="M4.5 6.5L8 3l3.5 3.5" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round" strokeLinejoin="round"/><path d="M3 14h10" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round"/></svg>
+                  <button type="button" className="ldb-doc-download-btn" aria-label="Download">
+                    <svg width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M8 4v8" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round"/><path d="M4.5 9.5L8 13l3.5-3.5" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round" strokeLinejoin="round"/><path d="M3 14h10" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round"/></svg>
                   </button>
                 </div>
               </div>
             </div>
 
-            {/* Manage Absences Link */}
-            <div className="ldb-side-card">
-              <h3 className="ldb-side-title">
-                <svg width="14" height="14" viewBox="0 0 16 16" fill="none"><rect x="2" y="2" width="12" height="12" rx="2" stroke="currentColor" strokeWidth="1.2"/><path d="M5 5h6M5 8h6M5 11h4" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round"/></svg>
-                Manage Your Absences
-              </h3>
-              <p style={{ fontSize: 13, color: '#525252', margin: '8px 0 12px' }}>View all of your leave, manage time off, and log intermittent hours.</p>
-              <Link to="/manage-absences" className="ldb-side-link-btn">
-                <svg width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M2 3h12v10H2z" stroke="currentColor" strokeWidth="1.2"/><path d="M2 6h12" stroke="currentColor" strokeWidth="1.2"/><path d="M5 2v2M11 2v2" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round"/></svg>
-                Manage Absences &amp; Log Time
-                <svg width="12" height="12" viewBox="0 0 16 16" fill="none" style={{ marginLeft: 'auto' }}><path d="M6 4l4 4-4 4" stroke="currentColor" strokeWidth="1.3" strokeLinecap="round" strokeLinejoin="round"/></svg>
-              </Link>
-            </div>
           </div>
         </div>
 
