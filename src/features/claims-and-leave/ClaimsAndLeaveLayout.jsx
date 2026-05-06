@@ -33,13 +33,13 @@ export default function ClaimsAndLeaveLayout() {
               {navLinks.map((link) => (
                 link.label === 'Claims & Leave' ? (
                   <div key={link.label} className="cl-nav-dropdown">
-                    <NavLink
-                      to={link.to}
-                      className={`cl-main-nav-link${location.pathname.startsWith(base) ? ' cl-main-nav-link--active' : ''}`}
+                    <button
+                      type="button"
+                      className={`cl-main-nav-link cl-main-nav-link--btn${location.pathname.startsWith(base) ? ' cl-main-nav-link--active' : ''}`}
                     >
                       {link.label}
                       <svg className="cl-nav-chevron" width="10" height="10" viewBox="0 0 10 10" fill="none"><path d="M2.5 4l2.5 2.5L7.5 4" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round" strokeLinejoin="round"/></svg>
-                    </NavLink>
+                    </button>
                     <div className="cl-nav-dropdown-menu">
                       {subNavTabs.map((tab) => (
                         <NavLink

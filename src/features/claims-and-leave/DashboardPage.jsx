@@ -4,9 +4,18 @@ import './claims-and-leave.css';
 const navLinks = [
   { label: 'Dashboard', to: '/claims-and-leave/dashboard' },
   { label: 'Benefits', to: '#' },
-  { label: 'Claims & Leave', to: '/claims-and-leave' },
+  { label: 'Claims & Leave', dropdown: true },
   { label: 'Documents', to: '#' },
   { label: 'Support', to: '#' },
+];
+
+const subNavTabs = [
+  { label: 'Claim Center', to: '/claims-and-leave' },
+  { label: 'File a Claim or Leave', to: '/claims-and-leave/file-claim' },
+  { label: 'My Cases', to: '/claims-and-leave/my-cases' },
+  { label: 'Leave Planning Tool', to: '/claims-and-leave/leave-planning' },
+  { label: 'Manage My Absences', to: '/claims-and-leave/enter-time' },
+  { label: 'Payments', to: '/claims-and-leave/payments' },
 ];
 
 export default function DashboardPage() {
@@ -21,16 +30,39 @@ export default function DashboardPage() {
             <NavLink to="/" className="cl-brand">Benefits Hub</NavLink>
             <nav className="cl-main-nav">
               {navLinks.map((link) => (
-                <NavLink
-                  key={link.label}
-                  to={link.to}
-                  className={() =>
-                    `cl-main-nav-link${link.to === '/claims-and-leave/dashboard' && location.pathname === '/claims-and-leave/dashboard' ? ' cl-main-nav-link--active' : ''}`
-                  }
-                  end
-                >
-                  {link.label}
-                </NavLink>
+                link.dropdown ? (
+                  <div key={link.label} className="cl-nav-dropdown">
+                    <button
+                      type="button"
+                      className="cl-main-nav-link cl-main-nav-link--btn"
+                    >
+                      {link.label}
+                      <svg className="cl-nav-chevron" width="10" height="10" viewBox="0 0 10 10" fill="none"><path d="M2.5 4l2.5 2.5L7.5 4" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round" strokeLinejoin="round"/></svg>
+                    </button>
+                    <div className="cl-nav-dropdown-menu">
+                      {subNavTabs.map((tab) => (
+                        <NavLink
+                          key={tab.label}
+                          to={tab.to}
+                          className="cl-nav-dropdown-item"
+                        >
+                          {tab.label}
+                        </NavLink>
+                      ))}
+                    </div>
+                  </div>
+                ) : (
+                  <NavLink
+                    key={link.label}
+                    to={link.to}
+                    className={() =>
+                      `cl-main-nav-link${link.to === '/claims-and-leave/dashboard' && location.pathname === '/claims-and-leave/dashboard' ? ' cl-main-nav-link--active' : ''}`
+                    }
+                    end
+                  >
+                    {link.label}
+                  </NavLink>
+                )
               ))}
             </nav>
           </div>
