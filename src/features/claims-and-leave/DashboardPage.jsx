@@ -3,9 +3,9 @@ import './claims-and-leave.css';
 
 const navLinks = [
   { label: 'Dashboard', to: '/claims-and-leave/dashboard' },
-  { label: 'Coverage', to: '#' },
-  { label: 'Claims', to: '/claims-and-leave' },
-  { label: 'Absence', to: '#' },
+  { label: 'Benefits', to: '#' },
+  { label: 'Claims & Leave', to: '/claims-and-leave' },
+  { label: 'Documents', to: '#' },
   { label: 'Support', to: '#' },
 ];
 
