@@ -520,7 +520,6 @@ export default function LeaveDetailPregnancyPage() {
               </button>
               {paymentsOpen && (
                 <>
-                  <p className="ldb-card-context">Payments from STD (recovery) and NJ FLI (bonding). Both paid via direct deposit.</p>
                   <div className="ldb-payments-grid">
                     <div className="ldb-payment-item">
                       <span className="ldb-payment-label">Total Paid to Date</span>
@@ -539,6 +538,7 @@ export default function LeaveDetailPregnancyPage() {
                       <span className="ldb-payment-value">Direct Deposit ****7291</span>
                     </div>
                   </div>
+                  <p className="ldb-card-context">Payments from STD (recovery) and NJ FLI (bonding). Both paid via direct deposit.</p>
                   <div style={{ marginTop: 16, padding: '12px 16px', background: '#fffbeb', borderRadius: 8, border: '1px solid #fef3c7', fontSize: 13, color: '#92400e' }}>
                     <strong>Upcoming:</strong> Payments begin after your leave start date (Jun 16). STD payments will arrive weekly during the 8-week recovery period, then transition to NJ FLI bonding payments.
                   </div>

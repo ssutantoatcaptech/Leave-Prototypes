@@ -382,7 +382,6 @@ export default function LeaveDetailCaregiverPage() {
               </button>
               {paymentsOpen && (
                 <>
-                  <p className="ldb-card-context">Payments from NJ Family Leave Insurance (FLI). Paid for days absent to provide care.</p>
                   <div className="ldb-payments-grid">
                     <div className="ldb-payment-item">
                       <span className="ldb-payment-label">Total Paid to Date</span>
@@ -401,6 +400,7 @@ export default function LeaveDetailCaregiverPage() {
                       <span className="ldb-payment-value">Direct Deposit ****3156</span>
                     </div>
                   </div>
+                  <p className="ldb-card-context">Payments from NJ Family Leave Insurance (FLI). Paid for days absent to provide care.</p>
                   <div style={{ marginTop: 16, padding: '12px 16px', background: '#fffbeb', borderRadius: 8, border: '1px solid #fef3c7', fontSize: 13, color: '#92400e' }}>
                     <strong>Note:</strong> For intermittent leave, payments are calculated based on actual days taken. A full week of leave pays $1,048. Partial weeks are prorated based on your normal schedule.
                   </div>

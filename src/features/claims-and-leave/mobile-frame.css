@@ -821,8 +821,17 @@
 
 /* Payments grid: single column */
 .mobile-frame-screen .ldb-payments-grid {
-  grid-template-columns: 1fr;
-  gap: 12px;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+  margin-bottom: 16px;
+}
+
+.mobile-frame-screen .ldb-payment-label {
+  font-size: 11px;
+}
+
+.mobile-frame-screen .ldb-payment-value {
+  font-size: 13px;
 }
 
 /* Payment rows: stack for narrow width */

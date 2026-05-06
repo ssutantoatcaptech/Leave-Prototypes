@@ -567,7 +567,6 @@ export default function LeaveDetailV2ePage() {
               </button>
               {paymentsOpen && (
                 <>
-                  <p className="ldb-card-context">Payments from your Group Disability Claim (STD). Paid weekly via direct deposit.</p>
                   <div className="ldb-payments-grid">
                     <div className="ldb-payment-item">
                       <span className="ldb-payment-label">Total Paid to Date</span>
@@ -586,6 +585,7 @@ export default function LeaveDetailV2ePage() {
                       <span className="ldb-payment-value">Direct Deposit ****4872</span>
                     </div>
                   </div>
+                  <p className="ldb-card-context">Payments from your Group Disability Claim (STD). Paid weekly via direct deposit.</p>
                   <div className="ldb-v2e-pmt-list">
                     <div className="ldb-v2e-pmt-row">
                       <div className="ldb-v2e-pmt-date">May 12, 2025</div>
