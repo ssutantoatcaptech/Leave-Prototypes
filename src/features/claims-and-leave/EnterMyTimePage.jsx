@@ -44,10 +44,10 @@ function buildCalendarDays(year, month) {
   var prevMonthDays = new Date(year, month, 0).getDate();
   var days = [];
   for (var i = firstDay - 1; i >= 0; i--) {
-    days.push({ day: prevMonthDays - i, disabled: true });
+    days.push({ day: prevMonthDays - i, overflow: true });
   }
   for (var d = 1; d <= daysInMonth; d++) {
-    days.push({ day: d, disabled: false });
+    days.push({ day: d, overflow: false });
   }
   return days;
 }
@@ -225,10 +225,10 @@ export default function EnterMyTimePage() {
                       <span className="cl-ma-cal-dow">Fr</span>
                       <span className="cl-ma-cal-dow">Sa</span>
                       {calendarDays.map(function (d, i) {
-                        var isSelected = d.day === selectedDay && !d.disabled;
-                        var dayKey = !d.disabled ? formatDateKey(calYear, calMonth, d.day) : '';
+                        var isSelected = d.day === selectedDay && !d.overflow;
+                        var dayKey = !d.overflow ? formatDateKey(calYear, calMonth, d.day) : '';
                         var isToday = dayKey === todayKey;
-                        var isLogged = !d.disabled && loggedDateKeys[dayKey];
+                        var isLogged = !d.overflow && loggedDateKeys[dayKey];
                         var loggedReason = isLogged ? loggedDateKeys[dayKey] : null;
                         return (
                           <button
@@ -236,15 +236,20 @@ export default function EnterMyTimePage() {
                             type="button"
                             className={
                               'cl-ma-cal-day'
-                              + (d.disabled ? ' cl-ma-cal-day--disabled' : '')
+                              + (d.overflow ? ' cl-ma-cal-day--overflow' : '')
                               + (isSelected ? ' cl-ma-cal-day--selected' : '')
                               + (isToday && !isSelected ? ' cl-ma-cal-day--today' : '')
                               + (isLogged ? ' cl-ma-cal-day--logged' : '')
                               + (loggedReason === 'Episode' ? ' cl-ma-cal-day--episode' : '')
                               + (loggedReason === 'Treatment' ? ' cl-ma-cal-day--treatment' : '')
                             }
-                            onClick={function () { if (!d.disabled) setSelectedDay(d.day); }}
-                            disabled={d.disabled}
+                            onClick={function () {
+                              if (d.overflow) {
+                                handlePrevMonth();
+                              } else {
+                                setSelectedDay(d.day);
+                              }
+                            }}
                           >
                             {d.day}
                           </button>

@@ -1434,19 +1434,24 @@
   font-weight: 500;
   color: #4b5563;
   cursor: pointer;
+  position: relative;
+  border: 2px solid transparent;
+  background: none;
+  font-family: inherit;
+  padding: 0;
 }
 
 .cl-ma-cal-day:hover {
   background: #f3f4f6;
 }
 
-.cl-ma-cal-day--disabled {
+.cl-ma-cal-day--overflow {
   color: #d1d5db;
-  cursor: default;
 }
 
-.cl-ma-cal-day--disabled:hover {
-  background: none;
+.cl-ma-cal-day--overflow:hover {
+  background: #f9fafb;
+  color: #9ca3af;
 }
 
 .cl-ma-cal-day--selected {
@@ -1464,18 +1469,14 @@
   font-weight: 600;
 }
 
-.cl-ma-cal-day--logged {
-  position: relative;
-}
-
 .cl-ma-cal-day--logged::after {
   content: '';
   position: absolute;
-  bottom: 3px;
+  bottom: 2px;
   left: 50%;
   transform: translateX(-50%);
-  width: 5px;
-  height: 5px;
+  width: 6px;
+  height: 6px;
   border-radius: 50%;
 }
 
@@ -1650,12 +1651,6 @@
   box-shadow: 0 0 0 3px rgba(0, 51, 160, 0.1);
 }
 
-.cl-ma-cal-day {
-  cursor: pointer;
-  border: none;
-  background: none;
-  font-family: inherit;
-}
 
 .cl-ma-dropdown {
   display: flex;
