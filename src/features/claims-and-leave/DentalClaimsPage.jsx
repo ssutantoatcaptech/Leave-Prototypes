@@ -142,38 +142,40 @@ export default function DentalClaimsPage() {
                 {expandedRow === i && (
                   <tr key={`${i}-detail`} className="cl-detail-row">
                     <td colSpan="9">
-                      <div className="cl-detail-content">
+                      <div className="cl-payment-detail">
                         <h4 className="cl-detail-title">Claim Line Items</h4>
-                        <table className="cl-detail-table">
-                          <thead>
-                            <tr>
-                              <th>Code</th>
-                              <th>Service</th>
-                              <th>Billed</th>
-                              <th>Plan Pays</th>
-                              <th>You Pay</th>
-                            </tr>
-                          </thead>
-                          <tbody>
-                            {row.details.map((d, j) => (
-                              <tr key={j}>
-                                <td className="cl-cell-mono">{d.code}</td>
-                                <td>{d.service}</td>
-                                <td>{d.billed}</td>
-                                <td>{d.planPays}</td>
-                                <td>{d.youPay}</td>
+                        <div className="cl-payment-breakdown">
+                          <table className="cl-detail-table">
+                            <thead>
+                              <tr>
+                                <th>Code</th>
+                                <th>Service</th>
+                                <th>Billed</th>
+                                <th>Plan Pays</th>
+                                <th>You Pay</th>
                               </tr>
-                            ))}
-                            <tr className="cl-detail-totals">
-                              <td></td>
-                              <td><strong>Total</strong></td>
-                              <td><strong>{row.billed}</strong></td>
-                              <td><strong>${(row.details.reduce((acc, d) => acc + parseFloat(d.planPays.replace(/[$,]/g, '')), 0)).toLocaleString('en-US', { minimumFractionDigits: 2 })}</strong></td>
-                              <td><strong>{row.memberPays}</strong></td>
-                            </tr>
-                          </tbody>
-                        </table>
-                        <a href="#" className="cl-eob-link">View Explanation of Benefits (PDF)</a>
+                            </thead>
+                            <tbody>
+                              {row.details.map((d, j) => (
+                                <tr key={j}>
+                                  <td className="cl-cell-mono">{d.code}</td>
+                                  <td>{d.service}</td>
+                                  <td>{d.billed}</td>
+                                  <td>{d.planPays}</td>
+                                  <td>{d.youPay}</td>
+                                </tr>
+                              ))}
+                              <tr className="cl-detail-totals">
+                                <td></td>
+                                <td><strong>Total</strong></td>
+                                <td><strong>{row.billed}</strong></td>
+                                <td><strong>${(row.details.reduce((acc, d) => acc + parseFloat(d.planPays.replace(/[$,]/g, '')), 0)).toLocaleString('en-US', { minimumFractionDigits: 2 })}</strong></td>
+                                <td><strong>{row.memberPays}</strong></td>
+                              </tr>
+                            </tbody>
+                          </table>
+                          <a href="#" className="cl-eob-link">View Explanation of Benefits (PDF)</a>
+                        </div>
                       </div>
                     </td>
                   </tr>
