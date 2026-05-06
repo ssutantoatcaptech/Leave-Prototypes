@@ -1961,6 +1961,11 @@
   color: #111827;
 }
 
+/* Mobile card view for recent time entries — hidden on desktop */
+.cl-ma-recent-cards-mobile {
+  display: none;
+}
+
 .cl-ma-reason-badge {
   display: inline-flex;
   align-items: center;

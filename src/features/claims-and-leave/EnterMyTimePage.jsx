@@ -430,6 +430,32 @@ export default function EnterMyTimePage() {
                 </tbody>
               </table>
             </div>
+            {/* Mobile card view */}
+            <div className="cl-ma-recent-cards-mobile">
+              {filteredAbsences.length === 0 && (
+                <div className="cl-ma-recent-card-empty">No absences logged for this case yet.</div>
+              )}
+              {filteredAbsences.map(function (row, i) {
+                return (
+                  <div key={i} className="cl-ma-entry-card">
+                    <div className="cl-ma-entry-card-top">
+                      <span className="cl-ma-entry-card-date">{row.date}</span>
+                      <span className={'cl-ma-reason-badge cl-ma-reason-badge--' + row.reasonColor}>{row.reason}</span>
+                    </div>
+                    <div className="cl-ma-entry-card-details">
+                      <div className="cl-ma-entry-card-field">
+                        <span className="cl-ma-entry-card-label">Time</span>
+                        <span className="cl-ma-entry-card-value">{row.startTime} – {row.endTime}</span>
+                      </div>
+                      <div className="cl-ma-entry-card-field">
+                        <span className="cl-ma-entry-card-label">Hours</span>
+                        <span className="cl-ma-entry-card-value cl-ma-entry-card-value--bold">{row.hours}h</span>
+                      </div>
+                    </div>
+                  </div>
+                );
+              })}
+            </div>
           </div>
         </div>
 

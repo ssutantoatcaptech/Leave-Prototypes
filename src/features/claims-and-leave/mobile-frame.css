@@ -255,6 +255,90 @@
   grid-template-columns: 1fr;
 }
 
+/* Enter My Time: 16px padding for cards */
+.mobile-frame-screen .cl-ma-form-card {
+  border-radius: 10px;
+}
+
+.mobile-frame-screen .cl-ma-recent-card {
+  border-radius: 10px;
+}
+
+.mobile-frame-screen .cl-ma-recent-header {
+  padding: 16px;
+}
+
+.mobile-frame-screen .cl-ma-recent-title {
+  font-size: 15px;
+}
+
+.mobile-frame-screen .cl-ma-recent-count {
+  font-size: 11px;
+}
+
+/* Recent entries: show mobile cards, hide table */
+.mobile-frame-screen .cl-ma-recent-cards-mobile {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 0 16px 16px;
+}
+
+.mobile-frame-screen .cl-ma-recent-card-empty {
+  text-align: center;
+  padding: 24px 16px;
+  color: #9ca3af;
+  font-size: 13px;
+}
+
+.mobile-frame-screen .cl-ma-entry-card {
+  background: #f9fafb;
+  border: 1px solid #e5e7eb;
+  border-radius: 10px;
+  padding: 14px 16px;
+}
+
+.mobile-frame-screen .cl-ma-entry-card-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.mobile-frame-screen .cl-ma-entry-card-date {
+  font-size: 14px;
+  font-weight: 700;
+  color: #111827;
+}
+
+.mobile-frame-screen .cl-ma-entry-card-details {
+  display: flex;
+  gap: 24px;
+}
+
+.mobile-frame-screen .cl-ma-entry-card-field {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.mobile-frame-screen .cl-ma-entry-card-label {
+  font-size: 10px;
+  font-weight: 600;
+  color: #6b7280;
+  text-transform: uppercase;
+}
+
+.mobile-frame-screen .cl-ma-entry-card-value {
+  font-size: 13px;
+  color: #374151;
+}
+
+.mobile-frame-screen .cl-ma-entry-card-value--bold {
+  font-weight: 700;
+  color: #111827;
+}
+
 /* Payment badges stack */
 .mobile-frame-screen .cl-payment-badges {
   flex-direction: row;
