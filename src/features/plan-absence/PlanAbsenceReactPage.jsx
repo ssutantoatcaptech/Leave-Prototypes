@@ -150,7 +150,7 @@ function SiteNav() {
     <div className="top-nav">
       <div className="nav-main">
         <div className="nav-main-left">
-          <div className="nav-brand">my<span>Mutual</span></div>
+          <div className="nav-brand">my<span>Benefits</span></div>
           <nav className="nav-links">
             <button className="nav-link" type="button">Dashboard</button>
             <button className="nav-link" type="button">My Coverages <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M3 4.5L6 7.5L9 4.5" stroke="currentColor" strokeWidth="1.3" strokeLinecap="round" strokeLinejoin="round"/></svg></button>
@@ -1223,7 +1223,7 @@ export default function PlanAbsenceReactPage() {
           {illnessIntakeStep === 6 && (
             <div className="sim-card">
               <h2>Medical Certification Consent</h2>
-              <p className="sim-desc" style={{ lineHeight: 1.7 }}>You are responsible for ensuring the healthcare provider receives and completes the certification and for providing the form to Mutual of Omaha on time. Please check with the healthcare provider&rsquo;s office about any fees that may charge to complete a form to make revisions.</p>
+              <p className="sim-desc" style={{ lineHeight: 1.7 }}>You are responsible for ensuring the healthcare provider receives and completes the certification and for providing the form to Benefits Hub on time. Please check with the healthcare provider&rsquo;s office about any fees that may charge to complete a form to make revisions.</p>
               <div className="bordered-section" style={{ marginBottom: 20 }}>
                 <label style={{ display: 'block', fontSize: 14, fontWeight: 600, marginBottom: 14, lineHeight: 1.5 }}>Would you like to authorize to send any required certifications directly to the healthcare provider for completion or clarification?</label>
                 <div className="rq-yn-group">
@@ -2120,7 +2120,7 @@ export default function PlanAbsenceReactPage() {
                   {providerAuth && <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M2.5 6l2.5 2.5 4.5-5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/></svg>}
                 </div>
                 <div>
-                  <div className="rq-auth-text">I authorize my healthcare provider to share medical information with Mutual of Omaha for the purpose of processing my leave claim.</div>
+                  <div className="rq-auth-text">I authorize my healthcare provider to share medical information with Benefits Hub for the purpose of processing my leave claim.</div>
                   <div className="rq-auth-sub">Required under HIPAA to process your request.</div>
                 </div>
               </div>
@@ -2201,9 +2201,9 @@ export default function PlanAbsenceReactPage() {
                   <div><div className="rq-verify-label">Occupation</div><div className="rq-verify-value">Senior Analyst</div></div>
                   <div><div className="rq-verify-label">Hire Date</div><div className="rq-verify-value">{sideHireDate}</div></div>
                   <div><div className="rq-verify-label">Work Location</div><div className="rq-verify-value">Omaha, NE</div></div>
-                  <div><div className="rq-verify-label">Employer</div><div className="rq-verify-value">Mutual of Omaha</div></div>
+                  <div><div className="rq-verify-label">Employer</div><div className="rq-verify-value">Benefits Hub</div></div>
                   <div><div className="rq-verify-label">Employment Type</div><div className="rq-verify-value">Full-time</div></div>
-                  <div><div className="rq-verify-label">Address</div><div className="rq-verify-value">3300 Mutual of Omaha Plaza, Omaha, NE 68175</div></div>
+                  <div><div className="rq-verify-label">Address</div><div className="rq-verify-value">3300 Corporate Plaza, Omaha, NE 68175</div></div>
                 </div>
                 <div className="rq-verify-note">
                   <svg width="14" height="14" viewBox="0 0 16 16" fill="none"><circle cx="8" cy="8" r="7" stroke="#737373" strokeWidth="1.2"/><path d="M8 7v4" stroke="#737373" strokeWidth="1.2" strokeLinecap="round"/><circle cx="8" cy="4.5" r="0.75" fill="#737373"/></svg>

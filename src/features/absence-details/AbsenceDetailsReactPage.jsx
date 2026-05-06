@@ -162,7 +162,7 @@ function SiteNav() {
 
       <div className="nav-main">
         <div className="nav-main-left">
-          <div className="nav-brand">my<span>Mutual</span></div>
+          <div className="nav-brand">my<span>Benefits</span></div>
           <nav className="nav-links">
             <button className="nav-link" type="button">Dashboard</button>
             <button className="nav-link" type="button">My Coverages <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M3 4.5L6 7.5L9 4.5" stroke="currentColor" strokeWidth="1.3" strokeLinecap="round" strokeLinejoin="round"/></svg></button>
@@ -2026,7 +2026,7 @@ function PaymentPanel({ caseData, onTabChange }) {
     const recipientLabels = {
       STD: 'Paid to you · Direct deposit ****4829',
       PFML: 'Paid by state agency · Direct deposit ****4829',
-      Company: 'Paid by employer · Mutual of Omaha',
+      Company: 'Paid by employer · Benefits Hub',
     };
     const benefitLabel = benefitLabels[row.benefit] || row.benefit;
     const amount = parseCurrencyAmount(row.amount);
@@ -2039,7 +2039,7 @@ function PaymentPanel({ caseData, onTabChange }) {
       amountValue: amount,
       grossValue: gross,
       taxesValue: taxes,
-      recipient: recipientLabels[row.benefit] || 'Paid by employer · Mutual of Omaha',
+      recipient: recipientLabels[row.benefit] || 'Paid by employer · Benefits Hub',
     };
   }), [paymentRows]);
 
@@ -2156,7 +2156,7 @@ function PaymentPanel({ caseData, onTabChange }) {
               </div>
               <div className="pmt-recipient-callout pmt-header-callout">
                 <svg width="18" height="18" viewBox="0 0 18 18" fill="none" aria-hidden="true"><circle cx="9" cy="9" r="8" stroke="#067ac1" strokeWidth="1.3"/><path d="M9 8v5" stroke="#067ac1" strokeWidth="1.3" strokeLinecap="round"/><circle cx="9" cy="5.5" r="0.85" fill="#067ac1"/></svg>
-                <div><strong>Your payments may come from multiple sources.</strong> Depending on your benefits, some payments may be issued by Mutual of Omaha, your employer, or your state. Amounts shown here may reflect adjustments.</div>
+                <div><strong>Your payments may come from multiple sources.</strong> Depending on your benefits, some payments may be issued by Benefits Hub, your employer, or your state. Amounts shown here may reflect adjustments.</div>
               </div>
             </div>
 

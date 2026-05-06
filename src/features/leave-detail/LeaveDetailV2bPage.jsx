@@ -7,7 +7,7 @@ function SiteNav({ user, initials }) {
     <div className="ldb-top-nav">
       <div className="ldb-nav-main">
         <div className="ldb-nav-main-left">
-          <span className="ldb-nav-brand">my<span>Mutual</span></span>
+          <span className="ldb-nav-brand">my<span>Benefits</span></span>
           <div className="ldb-nav-links">
             <a href="#" className="ldb-nav-link">Dashboard</a>
             <a href="#" className="ldb-nav-link">My Coverages</a>
@@ -194,7 +194,7 @@ export default function LeaveDetailV2bPage() {
                 </div>
                 <div className="ldb-detail-row">
                   <span className="ldb-detail-label">Case Manager</span>
-                  <span className="ldb-detail-value">Mutual of Omaha — Team 4</span>
+                  <span className="ldb-detail-value">Benefits Hub — Team 4</span>
                 </div>
               </div>
             </div>
@@ -344,7 +344,7 @@ export default function LeaveDetailV2bPage() {
                             <div className="ldb-pmt-expand-item"><span className="ldb-pmt-expand-label">Adjustments</span><span className="ldb-pmt-expand-value">$0.00</span></div>
                             <div className="ldb-pmt-expand-item"><span className="ldb-pmt-expand-label">Tax &amp; Deductions</span><span className="ldb-pmt-expand-value">-$373.17</span></div>
                             <div className="ldb-pmt-expand-item"><span className="ldb-pmt-expand-label">Net Amount</span><span className="ldb-pmt-expand-value ldb-pmt-net">$1,700.00</span></div>
-                            <div className="ldb-pmt-expand-item"><span className="ldb-pmt-expand-label">Paid By</span><span className="ldb-pmt-expand-value">Mutual of Omaha</span></div>
+                            <div className="ldb-pmt-expand-item"><span className="ldb-pmt-expand-label">Paid By</span><span className="ldb-pmt-expand-value">Benefits Hub</span></div>
                           </div>
                         </td></tr>
                       )}
@@ -362,7 +362,7 @@ export default function LeaveDetailV2bPage() {
                             <div className="ldb-pmt-expand-item"><span className="ldb-pmt-expand-label">Adjustments</span><span className="ldb-pmt-expand-value">$0.00</span></div>
                             <div className="ldb-pmt-expand-item"><span className="ldb-pmt-expand-label">Tax &amp; Deductions</span><span className="ldb-pmt-expand-value">-$373.17</span></div>
                             <div className="ldb-pmt-expand-item"><span className="ldb-pmt-expand-label">Net Amount</span><span className="ldb-pmt-expand-value ldb-pmt-net">$1,700.00</span></div>
-                            <div className="ldb-pmt-expand-item"><span className="ldb-pmt-expand-label">Paid By</span><span className="ldb-pmt-expand-value">Mutual of Omaha</span></div>
+                            <div className="ldb-pmt-expand-item"><span className="ldb-pmt-expand-label">Paid By</span><span className="ldb-pmt-expand-value">Benefits Hub</span></div>
                           </div>
                         </td></tr>
                       )}
@@ -380,7 +380,7 @@ export default function LeaveDetailV2bPage() {
                             <div className="ldb-pmt-expand-item"><span className="ldb-pmt-expand-label">Adjustments</span><span className="ldb-pmt-expand-value">$0.00</span></div>
                             <div className="ldb-pmt-expand-item"><span className="ldb-pmt-expand-label">Tax &amp; Deductions</span><span className="ldb-pmt-expand-value">-$373.17</span></div>
                             <div className="ldb-pmt-expand-item"><span className="ldb-pmt-expand-label">Net Amount</span><span className="ldb-pmt-expand-value ldb-pmt-net">$1,700.00</span></div>
-                            <div className="ldb-pmt-expand-item"><span className="ldb-pmt-expand-label">Paid By</span><span className="ldb-pmt-expand-value">Mutual of Omaha</span></div>
+                            <div className="ldb-pmt-expand-item"><span className="ldb-pmt-expand-label">Paid By</span><span className="ldb-pmt-expand-value">Benefits Hub</span></div>
                           </div>
                         </td></tr>
                       )}

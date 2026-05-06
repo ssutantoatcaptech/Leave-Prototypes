@@ -1,7 +1,10 @@
+import { useState, useMemo } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 export default function MyCasesPage() {
   const navigate = useNavigate();
+  const [statusFilter, setStatusFilter] = useState('All');
+  const [typeFilter, setTypeFilter] = useState('All');
 
   const casesData = [
     {
@@ -56,6 +59,14 @@ export default function MyCasesPage() {
     },
   ];
 
+  const filtered = useMemo(() => {
+    return casesData.filter((row) => {
+      if (statusFilter !== 'All' && row.status !== statusFilter) return false;
+      if (typeFilter !== 'All' && row.type !== typeFilter) return false;
+      return true;
+    });
+  }, [statusFilter, typeFilter]);
+
   return (
     <div className="cl-page">
       <div className="cl-breadcrumb">
@@ -77,16 +88,22 @@ export default function MyCasesPage() {
       {/* Filters */}
       <div className="cl-filter-bar">
         <div className="cl-filters-left">
-          <div className="cl-filter-dropdown">
-            <span>Status: All Leaves</span>
-            <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M3 5l3 3 3-3" stroke="#6b7280" strokeWidth="1.5"/></svg>
-          </div>
-          <div className="cl-filter-dropdown">
-            <span>Leave Type</span>
-            <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M3 5l3 3 3-3" stroke="#6b7280" strokeWidth="1.5"/></svg>
-          </div>
+          <select className="cl-select" value={statusFilter} onChange={(e) => setStatusFilter(e.target.value)}>
+            <option value="All">Status: All Leaves</option>
+            <option value="Saved">Saved</option>
+            <option value="Approved">Approved</option>
+            <option value="Decisioned">Decisioned</option>
+            <option value="Closed">Closed</option>
+          </select>
+          <select className="cl-select" value={typeFilter} onChange={(e) => setTypeFilter(e.target.value)}>
+            <option value="All">Leave Type</option>
+            <option value="Illness or Injury">Illness or Injury</option>
+            <option value="Birthing parent pregnancy">Birthing Parent Pregnancy</option>
+            <option value="Caring for family member">Caring for Family Member</option>
+            <option value="Military-related">Military-related</option>
+          </select>
         </div>
-        <span className="cl-filter-count">Showing 4 leaves</span>
+        <span className="cl-filter-count">Showing {filtered.length} leaves</span>
       </div>
 
       {/* Table */}
@@ -102,7 +119,10 @@ export default function MyCasesPage() {
             </tr>
           </thead>
           <tbody>
-            {casesData.map((row, i) => (
+            {filtered.length === 0 && (
+              <tr><td colSpan="5" style={{ textAlign: 'center', padding: '32px 16px', color: '#6b7280' }}>No cases match your filters.</td></tr>
+            )}
+            {filtered.map((row, i) => (
               <tr key={i}>
                 <td>
                   <div className="cl-cell-stacked">

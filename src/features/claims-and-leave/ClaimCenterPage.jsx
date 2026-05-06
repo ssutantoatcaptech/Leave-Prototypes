@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useMemo } from 'react';
 import { NavLink } from 'react-router-dom';
 
 const claimsData = [
@@ -88,6 +88,28 @@ const categoryTabs = ['Dental', 'Vision', 'Supplemental', 'Leave and Disability'
 
 export default function ClaimCenterPage() {
   const [expandedRow, setExpandedRow] = useState(-1);
+  const [statusFilter, setStatusFilter] = useState('All');
+  const [typeFilter, setTypeFilter] = useState('All');
+  const [dateFilter, setDateFilter] = useState('All');
+
+  const filtered = useMemo(() => {
+    return claimsData.filter((row) => {
+      if (statusFilter !== 'All' && row.status !== statusFilter) return false;
+      if (typeFilter !== 'All') {
+        if (typeFilter === 'AD&D' && row.type !== 'Accidental Death & Dismemberment') return false;
+        if (typeFilter !== 'AD&D' && row.type !== typeFilter) return false;
+      }
+      if (dateFilter !== 'All') {
+        const d = new Date(row.date);
+        const now = new Date('2024-10-20');
+        const diff = (now - d) / (1000 * 60 * 60 * 24);
+        if (dateFilter === 'Last 30 Days' && diff > 30) return false;
+        if (dateFilter === 'Last 90 Days' && diff > 90) return false;
+        if (dateFilter === 'Last Year' && diff > 365) return false;
+      }
+      return true;
+    });
+  }, [statusFilter, typeFilter, dateFilter]);
 
   return (
     <div className="cl-page">
@@ -120,27 +142,29 @@ export default function ClaimCenterPage() {
 
       {/* Filter bar */}
       <div className="cl-filter-bar">
-        <select className="cl-select">
-          <option>All Statuses</option>
-          <option>Pending</option>
-          <option>Approved</option>
-          <option>Info Required</option>
-          <option>Closed</option>
+        <select className="cl-select" value={statusFilter} onChange={(e) => { setStatusFilter(e.target.value); setExpandedRow(-1); }}>
+          <option value="All">All Statuses</option>
+          <option value="Pending">Pending</option>
+          <option value="Approved">Approved</option>
+          <option value="Info Required">Info Required</option>
+          <option value="Closed">Closed</option>
         </select>
-        <select className="cl-select">
-          <option>All Types</option>
-          <option>Short-Term Disability</option>
-          <option>Long-Term Disability</option>
-          <option>AD&D</option>
+        <select className="cl-select" value={typeFilter} onChange={(e) => { setTypeFilter(e.target.value); setExpandedRow(-1); }}>
+          <option value="All">All Types</option>
+          <option value="Short-Term Disability">Short-Term Disability</option>
+          <option value="Long-Term Disability">Long-Term Disability</option>
+          <option value="AD&D">AD&D</option>
         </select>
-        <select className="cl-select">
-          <option>Date Range</option>
-          <option>Last 30 Days</option>
-          <option>Last 90 Days</option>
-          <option>Last Year</option>
+        <select className="cl-select" value={dateFilter} onChange={(e) => { setDateFilter(e.target.value); setExpandedRow(-1); }}>
+          <option value="All">Date Range</option>
+          <option value="Last 30 Days">Last 30 Days</option>
+          <option value="Last 90 Days">Last 90 Days</option>
+          <option value="Last Year">Last Year</option>
         </select>
         <button className="cl-btn cl-btn--outline">Export History (CSV)</button>
       </div>
+
+      <div className="cl-pagination-info">Showing {filtered.length} of {claimsData.length} claims</div>
 
       {/* Claims table */}
       <div className="cl-table-wrap">
@@ -157,7 +181,10 @@ export default function ClaimCenterPage() {
             </tr>
           </thead>
           <tbody>
-            {claimsData.map((row, i) => (
+            {filtered.length === 0 && (
+              <tr><td colSpan="7" style={{ textAlign: 'center', padding: '32px 16px', color: '#6b7280' }}>No claims match your filters.</td></tr>
+            )}
+            {filtered.map((row, i) => (
               <>
                 <tr key={i} className={expandedRow === i ? 'cl-table-row--expanded' : ''}>
                   <td>

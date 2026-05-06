@@ -169,7 +169,7 @@ function SiteNav() {
     <div className="top-nav">
       <div className="nav-main">
         <div className="nav-main-left">
-          <div className="nav-brand">my<span>Mutual</span></div>
+          <div className="nav-brand">my<span>Benefits</span></div>
           <nav className="nav-links">
             <button className="nav-link" type="button">Dashboard</button>
             <button className="nav-link" type="button">My Coverages <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M3 4.5L6 7.5L9 4.5" stroke="currentColor" strokeWidth="1.3" strokeLinecap="round" strokeLinejoin="round"/></svg></button>
@@ -932,7 +932,7 @@ export default function RequestLeaveReactPage() {
         return (
           <>
             <h2>Medical Certification Consent</h2>
-            <p className="subtitle" style={{ lineHeight: 1.7 }}>You are responsible for ensuring the healthcare provider receives and completes the certification and for providing the form to Mutual of Omaha on time. Please check with the healthcare provider's office about any fees that may charge to complete a form to make revisions.</p>
+            <p className="subtitle" style={{ lineHeight: 1.7 }}>You are responsible for ensuring the healthcare provider receives and completes the certification and for providing the form to Benefits Hub on time. Please check with the healthcare provider's office about any fees that may charge to complete a form to make revisions.</p>
             <div className="bordered-section">
               <label style={{ fontWeight: 600 }}>Would you like to authorize to send any required certifications directly to the healthcare provider for completion or clarification?</label>
               <div className="yesno" style={{ marginTop: 12, marginBottom: 0 }}>

@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useMemo } from 'react';
 
 const paymentsData = [
   {
@@ -94,6 +94,29 @@ const paymentsData = [
 
 export default function PaymentsPage() {
   const [expandedRow, setExpandedRow] = useState(0);
+  const [search, setSearch] = useState('');
+  const [typeFilter, setTypeFilter] = useState('All');
+  const [dateFilter, setDateFilter] = useState('All');
+
+  const filtered = useMemo(() => {
+    return paymentsData.filter((row) => {
+      if (search) {
+        const q = search.toLowerCase();
+        const matchFields = [row.date, row.claim, row.type, row.net, row.method].join(' ').toLowerCase();
+        if (!matchFields.includes(q)) return false;
+      }
+      if (typeFilter !== 'All' && row.type !== typeFilter) return false;
+      if (dateFilter !== 'All') {
+        const d = new Date(row.date);
+        const now = new Date('2024-10-20');
+        const diff = (now - d) / (1000 * 60 * 60 * 24);
+        if (dateFilter === 'Last 30 Days' && diff > 30) return false;
+        if (dateFilter === 'Last 90 Days' && diff > 90) return false;
+        if (dateFilter === 'Year to Date' && diff > 365) return false;
+      }
+      return true;
+    });
+  }, [search, typeFilter, dateFilter]);
 
   return (
     <div className="cl-page">
@@ -122,23 +145,29 @@ export default function PaymentsPage() {
 
       {/* Filter bar */}
       <div className="cl-filter-bar">
-        <input type="text" className="cl-input cl-input--search" placeholder="Search payments..." />
-        <select className="cl-select">
-          <option>Claim Type</option>
-          <option>Short-Term Disability</option>
-          <option>Long-Term Disability</option>
-          <option>AD&D</option>
+        <input
+          type="text"
+          className="cl-input cl-input--search"
+          placeholder="Search payments..."
+          value={search}
+          onChange={(e) => { setSearch(e.target.value); setExpandedRow(-1); }}
+        />
+        <select className="cl-select" value={typeFilter} onChange={(e) => { setTypeFilter(e.target.value); setExpandedRow(-1); }}>
+          <option value="All">Claim Type</option>
+          <option value="Short-Term Disability">Short-Term Disability</option>
+          <option value="Long-Term Disability">Long-Term Disability</option>
+          <option value="AD&D Benefit">AD&D</option>
         </select>
-        <select className="cl-select">
-          <option>Date Range</option>
-          <option>Last 30 Days</option>
-          <option>Last 90 Days</option>
-          <option>Year to Date</option>
+        <select className="cl-select" value={dateFilter} onChange={(e) => { setDateFilter(e.target.value); setExpandedRow(-1); }}>
+          <option value="All">Date Range</option>
+          <option value="Last 30 Days">Last 30 Days</option>
+          <option value="Last 90 Days">Last 90 Days</option>
+          <option value="Year to Date">Year to Date</option>
         </select>
         <button className="cl-btn cl-btn--outline">Export CSV</button>
       </div>
 
-      <div className="cl-pagination-info">Showing 1–5 of 42 payments</div>
+      <div className="cl-pagination-info">Showing {filtered.length} of {paymentsData.length} payments</div>
 
       {/* Payments table */}
       <div className="cl-table-wrap">
@@ -155,7 +184,10 @@ export default function PaymentsPage() {
             </tr>
           </thead>
           <tbody>
-            {paymentsData.map((row, i) => (
+            {filtered.length === 0 && (
+              <tr><td colSpan="7" style={{ textAlign: 'center', padding: '32px 16px', color: '#6b7280' }}>No payments match your filters.</td></tr>
+            )}
+            {filtered.map((row, i) => (
               <>
                 <tr key={i} className={expandedRow === i ? 'cl-table-row--expanded' : ''}>
                   <td>

@@ -227,7 +227,7 @@ export default function LeaveDetailV3Page() {
                             <div className="ld-pmt-expand-item"><span className="ld-pmt-expand-label">Adjustments</span><span className="ld-pmt-expand-value">$0.00</span></div>
                             <div className="ld-pmt-expand-item"><span className="ld-pmt-expand-label">Tax &amp; Deductions</span><span className="ld-pmt-expand-value">-$260.40</span></div>
                             <div className="ld-pmt-expand-item"><span className="ld-pmt-expand-label">Net Amount</span><span className="ld-pmt-expand-value ld-pmt-net">$1,036.59</span></div>
-                            <div className="ld-pmt-expand-item"><span className="ld-pmt-expand-label">Paid By</span><span className="ld-pmt-expand-value">Mutual of Omaha</span></div>
+                            <div className="ld-pmt-expand-item"><span className="ld-pmt-expand-label">Paid By</span><span className="ld-pmt-expand-value">Benefits Hub</span></div>
                           </div>
                         </td></tr>
                       )}
@@ -245,7 +245,7 @@ export default function LeaveDetailV3Page() {
                             <div className="ld-pmt-expand-item"><span className="ld-pmt-expand-label">Adjustments</span><span className="ld-pmt-expand-value">$0.00</span></div>
                             <div className="ld-pmt-expand-item"><span className="ld-pmt-expand-label">Tax &amp; Deductions</span><span className="ld-pmt-expand-value">-$260.40</span></div>
                             <div className="ld-pmt-expand-item"><span className="ld-pmt-expand-label">Net Amount</span><span className="ld-pmt-expand-value ld-pmt-net">$1,036.59</span></div>
-                            <div className="ld-pmt-expand-item"><span className="ld-pmt-expand-label">Paid By</span><span className="ld-pmt-expand-value">Mutual of Omaha</span></div>
+                            <div className="ld-pmt-expand-item"><span className="ld-pmt-expand-label">Paid By</span><span className="ld-pmt-expand-value">Benefits Hub</span></div>
                           </div>
                         </td></tr>
                       )}
@@ -263,7 +263,7 @@ export default function LeaveDetailV3Page() {
                             <div className="ld-pmt-expand-item"><span className="ld-pmt-expand-label">Adjustments</span><span className="ld-pmt-expand-value">$0.00</span></div>
                             <div className="ld-pmt-expand-item"><span className="ld-pmt-expand-label">Tax &amp; Deductions</span><span className="ld-pmt-expand-value">-$260.40</span></div>
                             <div className="ld-pmt-expand-item"><span className="ld-pmt-expand-label">Net Amount</span><span className="ld-pmt-expand-value ld-pmt-net">$1,036.59</span></div>
-                            <div className="ld-pmt-expand-item"><span className="ld-pmt-expand-label">Paid By</span><span className="ld-pmt-expand-value">Mutual of Omaha</span></div>
+                            <div className="ld-pmt-expand-item"><span className="ld-pmt-expand-label">Paid By</span><span className="ld-pmt-expand-value">Benefits Hub</span></div>
                           </div>
                         </td></tr>
                       )}
@@ -281,7 +281,7 @@ export default function LeaveDetailV3Page() {
                             <div className="ld-pmt-expand-item"><span className="ld-pmt-expand-label">Adjustments</span><span className="ld-pmt-expand-value">$0.00</span></div>
                             <div className="ld-pmt-expand-item"><span className="ld-pmt-expand-label">Tax &amp; Deductions</span><span className="ld-pmt-expand-value">-$260.40</span></div>
                             <div className="ld-pmt-expand-item"><span className="ld-pmt-expand-label">Net Amount</span><span className="ld-pmt-expand-value ld-pmt-net">$1,036.59</span></div>
-                            <div className="ld-pmt-expand-item"><span className="ld-pmt-expand-label">Paid By</span><span className="ld-pmt-expand-value">Mutual of Omaha</span></div>
+                            <div className="ld-pmt-expand-item"><span className="ld-pmt-expand-label">Paid By</span><span className="ld-pmt-expand-value">Benefits Hub</span></div>
                           </div>
                         </td></tr>
                       )}
@@ -299,7 +299,7 @@ export default function LeaveDetailV3Page() {
                             <div className="ld-pmt-expand-item"><span className="ld-pmt-expand-label">Adjustments</span><span className="ld-pmt-expand-value">$0.00</span></div>
                             <div className="ld-pmt-expand-item"><span className="ld-pmt-expand-label">Tax &amp; Deductions</span><span className="ld-pmt-expand-value">-$130.19</span></div>
                             <div className="ld-pmt-expand-item"><span className="ld-pmt-expand-label">Net Amount</span><span className="ld-pmt-expand-value ld-pmt-net">$518.30</span></div>
-                            <div className="ld-pmt-expand-item"><span className="ld-pmt-expand-label">Paid By</span><span className="ld-pmt-expand-value">Mutual of Omaha</span></div>
+                            <div className="ld-pmt-expand-item"><span className="ld-pmt-expand-label">Paid By</span><span className="ld-pmt-expand-value">Benefits Hub</span></div>
                           </div>
                         </td></tr>
                       )}

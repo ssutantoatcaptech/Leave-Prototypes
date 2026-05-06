@@ -7,7 +7,7 @@ function SiteNav() {
       <div className="ld-nav-inner">
         <div className="ld-nav-left">
           <svg width="24" height="24" viewBox="0 0 24 24" fill="none"><rect x="2" y="2" width="20" height="20" rx="4" fill="#fff"/><path d="M7 12l3 3 7-7" stroke="#0052cc" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/></svg>
-          <span className="ld-nav-brand">Mutual of Omaha Member Portal</span>
+          <span className="ld-nav-brand">Benefits Hub Member Portal</span>
         </div>
         <div className="ld-nav-right">
           <button type="button" className="ld-nav-bell" aria-label="Notifications">
@@ -328,7 +328,7 @@ export default function LeaveDetailPage() {
                 </div>
                 <div className="ld-detail-row">
                   <div className="ld-detail-label">CASE MANAGER</div>
-                  <div className="ld-detail-value">Mutual of Omaha - Team 4</div>
+                  <div className="ld-detail-value">Benefits Hub - Team 4</div>
                 </div>
               </div>
             </div>
@@ -338,7 +338,7 @@ export default function LeaveDetailPage() {
         {/* Footer */}
         <footer className="ld-footer">
           <div className="ld-footer-left">
-            &copy; 2024 Mutual of Omaha Insurance Company
+            &copy; 2024 Benefits Hub
           </div>
           <div className="ld-footer-links">
             <a href="#">Privacy Policy</a>

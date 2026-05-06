@@ -7,7 +7,7 @@ function SiteNav({ user, initials }) {
     <div className="ldb-top-nav">
       <div className="ldb-nav-main">
         <div className="ldb-nav-main-left">
-          <span className="ldb-nav-brand">my<span>Mutual</span></span>
+          <span className="ldb-nav-brand">my<span>Benefits</span></span>
           <div className="ldb-nav-links">
             <a href="#" className="ldb-nav-link">Dashboard</a>
             <a href="#" className="ldb-nav-link">My Coverages</a>
