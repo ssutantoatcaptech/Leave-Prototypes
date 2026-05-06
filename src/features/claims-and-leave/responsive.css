@@ -561,8 +561,7 @@
 /* ----- 8. Dashboard Responsive ----- */
 
 .cldb-hero {
-  padding: 36px 16px;
-  background: #d4d4d4;
+  padding: 32px 16px;
 }
 
 .cldb-hero-title {
@@ -572,7 +571,6 @@
 
 .cldb-main {
   padding: 24px 16px;
-  background: #fafafa;
 }
 
 .cldb-content-grid {
@@ -596,22 +594,6 @@
   gap: 12px;
 }
 
-.cldb-status-icon {
-  width: 40px;
-  height: 40px;
-  background: #fff;
-  border: 1px solid #e5e5e5;
-}
-
-.cldb-status-title {
-  font-size: 16px;
-}
-
-.cldb-status-desc {
-  font-size: 12px;
-  line-height: 1.35;
-}
-
 /* Action rows full width */
 .cldb-action-row {
   min-height: 44px;
@@ -630,7 +612,6 @@
 @media (min-width: 769px) {
   .cldb-hero {
     padding: 64px 0;
-    background: none;
   }
 
   .cldb-hero-title {
@@ -640,7 +621,6 @@
 
   .cldb-main {
     padding: 36px 60px;
-    background: none;
   }
 
   .cldb-content-grid {
@@ -681,22 +661,6 @@
     flex-direction: row;
     align-items: flex-start;
     text-align: left;
-  }
-
-  .cldb-status-icon {
-    width: 48px;
-    height: 48px;
-    background: #f0f4ff;
-    border: 1px solid #bfdbfe;
-  }
-
-  .cldb-status-title {
-    font-size: 18px;
-  }
-
-  .cldb-status-desc {
-    font-size: 14px;
-    line-height: 1.5;
   }
 
   .cldb-status-header {

@@ -200,8 +200,8 @@ export default function DashboardPage() {
           <div className="cldb-status-banner cldb-grid-status">
             <div className="cldb-status-icon">
               <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
-                <circle cx="12" cy="12" r="10" stroke="#171717" strokeWidth="1.5"/>
-                <path d="M8 12l3 3 5-5" stroke="#171717" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+                <circle cx="12" cy="12" r="10" stroke="#0033a0" strokeWidth="1.5"/>
+                <path d="M8 12l3 3 5-5" stroke="#0033a0" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
               </svg>
             </div>
             <div className="cldb-status-content">
@@ -267,15 +267,55 @@ export default function DashboardPage() {
               <h3 className="cldb-card-title">Recent Activity</h3>
               <button className="cldb-view-all-btn">View All <svg width="6" height="10" viewBox="0 0 6 10" fill="none"><path d="M1 1l4 4-4 4" stroke="#737373" strokeWidth="1.2" strokeLinecap="round" strokeLinejoin="round"/></svg></button>
             </div>
-            <div className="cldb-activity-empty">
-              <div className="cldb-activity-empty-icon">
-                <svg width="22" height="20" viewBox="0 0 22 20" fill="none">
-                  <path d="M1 3h14v12H5l-4 3V3z" stroke="#a3a3a3" strokeWidth="1.5" strokeLinejoin="round"/>
-                  <path d="M17 5h4v12l-4-3H9" stroke="#a3a3a3" strokeWidth="1.5" strokeLinejoin="round"/>
+            <div className="cldb-activity-list">
+              <div className="cldb-activity-row">
+                <div className="cldb-activity-icon cldb-activity-icon--doc">
+                  <svg width="12" height="16" viewBox="0 0 12 16" fill="none">
+                    <path d="M1 1h7l3 3v11H1V1z" stroke="#404040" strokeWidth="1.2"/>
+                    <path d="M8 1v3h3" stroke="#404040" strokeWidth="1.2"/>
+                  </svg>
+                </div>
+                <div className="cldb-activity-content">
+                  <span className="cldb-activity-title">Dental EOB Available</span>
+                  <span className="cldb-activity-desc">Your dental Explanation of Benefits from Dec 10, 2024 is now available.</span>
+                  <span className="cldb-activity-date">Jan 20, 2025</span>
+                </div>
+                <svg className="cldb-activity-chevron" width="10" height="16" viewBox="0 0 10 16" fill="none">
+                  <path d="M2 2l6 6-6 6" stroke="#a3a3a3" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
                 </svg>
               </div>
-              <h4 className="cldb-activity-empty-title">No Recent Activity</h4>
-              <p className="cldb-activity-empty-desc">You have no recent updates right now. New account activity will appear here.</p>
+              <div className="cldb-activity-row">
+                <div className="cldb-activity-icon cldb-activity-icon--check">
+                  <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                    <circle cx="8" cy="8" r="7" fill="#404040"/>
+                    <path d="M5 8l2 2 4-4" stroke="#fff" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+                  </svg>
+                </div>
+                <div className="cldb-activity-content">
+                  <span className="cldb-activity-title">Claim Processed</span>
+                  <span className="cldb-activity-desc">Dental claim #VC-2025-4412</span>
+                  <span className="cldb-activity-date">Jan 18, 2025</span>
+                </div>
+                <svg className="cldb-activity-chevron" width="10" height="16" viewBox="0 0 10 16" fill="none">
+                  <path d="M2 2l6 6-6 6" stroke="#a3a3a3" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+                </svg>
+              </div>
+              <div className="cldb-activity-row">
+                <div className="cldb-activity-icon cldb-activity-icon--check">
+                  <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                    <circle cx="8" cy="8" r="7" fill="#404040"/>
+                    <path d="M5 8l2 2 4-4" stroke="#fff" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+                  </svg>
+                </div>
+                <div className="cldb-activity-content">
+                  <span className="cldb-activity-title">Leave Request Approved</span>
+                  <span className="cldb-activity-desc">Leave from 2/2/25 through 2-10-25</span>
+                  <span className="cldb-activity-date">Jan 18, 2025</span>
+                </div>
+                <svg className="cldb-activity-chevron" width="10" height="16" viewBox="0 0 10 16" fill="none">
+                  <path d="M2 2l6 6-6 6" stroke="#a3a3a3" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+                </svg>
+              </div>
             </div>
           </div>
 
