@@ -101,6 +101,7 @@ export default function App() {
           <Route path="my-leaves" element={<ClaimsMyLeavesPage />} />
           <Route path="my-cases" element={<MyCasesPage />} />
           <Route path="leave-planning" element={<LeavePlanningPage />} />
+          <Route path="leave-planning/wizard" element={<PlanAbsenceReactPage />} />
           <Route path="enter-time" element={<EnterMyTimePage />} />
           <Route path="payments" element={<PaymentsPage />} />
           <Route path="case-detail" element={<LeaveDetailV2ePage />} />

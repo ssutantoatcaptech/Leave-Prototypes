@@ -1,6 +1,8 @@
-import { NavLink } from 'react-router-dom';
+import { NavLink, useNavigate } from 'react-router-dom';
 
 export default function LeavePlanningPage() {
+  const navigate = useNavigate();
+
   return (
     <div className="cl-page cl-page--centered">
       <div className="cl-planning-card">
@@ -28,7 +30,7 @@ export default function LeavePlanningPage() {
           </svg>
         </div>
 
-        <button className="cl-btn cl-btn--dark cl-btn--lg">Get Started</button>
+        <button className="cl-btn cl-btn--dark cl-btn--lg" onClick={() => navigate('/claims-and-leave/leave-planning/wizard')}>Get Started</button>
 
         <p className="cl-planning-footer">
           Already know what you need?{' '}
