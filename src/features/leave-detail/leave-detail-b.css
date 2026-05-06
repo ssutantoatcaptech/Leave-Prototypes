@@ -102,7 +102,7 @@
   width: 52px;
   height: 52px;
   border-radius: 14px;
-  background: #111118;
+  background: #0033a0;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -156,11 +156,11 @@
   letter-spacing: 0.3px;
 }
 .ldb-status-badge.approved {
-  background: #2d2d2d;
+  background: #0033a0;
   color: #fff;
 }
 .ldb-status-badge.pending-status {
-  background: #737373;
+  background: #5b7fa6;
   color: #fff;
 }
 
@@ -170,7 +170,7 @@
   align-items: center;
   gap: 6px;
   padding: 10px 20px;
-  background: #0f0f14;
+  background: #0033a0;
   color: #fff;
   border: none;
   border-radius: 6px;
@@ -180,7 +180,7 @@
   font-family: inherit;
   transition: background 0.15s;
 }
-.ldb-btn-primary:hover { background: #2d2d2d; }
+.ldb-btn-primary:hover { background: #002580; }
 
 .ldb-btn-secondary {
   display: inline-flex;
@@ -301,9 +301,10 @@
   width: 32px;
   height: 32px;
   padding: 7px;
-  background: #f3f4f6;
+  background: #e8f0fe;
   border-radius: 8px;
   flex-shrink: 0;
+  color: #0033a0;
 }
 .ldb-card-collapse-header {
   display: flex;
@@ -352,9 +353,10 @@
   width: 30px;
   height: 30px;
   padding: 7px;
-  background: #f3f4f6;
+  background: #e8f0fe;
   border-radius: 8px;
   flex-shrink: 0;
+  color: #0033a0;
 }
 
 /* ── COVERAGE BARS (V2) ── */
@@ -392,9 +394,9 @@
   height: 100%;
   border-radius: 5px;
 }
-.ldb-v2-bar.fmla { background: #2d2d2d; }
-.ldb-v2-bar.std { background: #525252; }
-.ldb-v2-bar.pfml { background: #737373; }
+.ldb-v2-bar.fmla { background: #0033a0; }
+.ldb-v2-bar.std { background: #3b82f6; }
+.ldb-v2-bar.pfml { background: #60a5fa; }
 .ldb-v2-bar-tooltip {
   display: none;
   position: absolute;
@@ -442,9 +444,9 @@
   height: 10px;
   border-radius: 3px;
 }
-.ldb-legend-dot.fmla { background: #2d2d2d; }
-.ldb-legend-dot.std { background: #525252; }
-.ldb-legend-dot.pfml { background: #737373; }
+.ldb-legend-dot.fmla { background: #0033a0; }
+.ldb-legend-dot.std { background: #3b82f6; }
+.ldb-legend-dot.pfml { background: #60a5fa; }
 .ldb-legend-dot.unpaid { background: #e5e5e7; }
 
 /* ── TABS ── */
@@ -557,10 +559,10 @@
   font-weight: 600;
   letter-spacing: 0.3px;
 }
-.ldb-claim-status.approved { background: #2d2d2d; color: #fff; }
+.ldb-claim-status.approved { background: #0033a0; color: #fff; }
 .ldb-claim-status.not-eligible { background: #e5e5e7; color: #525252; }
-.ldb-claim-status.processed { background: #2d2d2d; color: #fff; }
-.ldb-claim-status.pending-status { background: #e5e5e7; color: #525252; }
+.ldb-claim-status.processed { background: #0033a0; color: #fff; }
+.ldb-claim-status.pending-status { background: #e8f0fe; color: #0033a0; }
 
 /* ── ASSOCIATED PAYMENTS ── */
 .ldb-payments-grid {
@@ -607,8 +609,8 @@
   transition: all 0.15s ease;
 }
 .ldb-payments-view-btn:hover {
-  border-color: #525252;
-  color: #0f0f14;
+  border-color: #0033a0;
+  color: #0033a0;
 }
 
 /* ── LINKS ── */
@@ -857,9 +859,9 @@
   height: 10px;
   border-radius: 3px;
 }
-.ldb-task-group-dot.fmla { background: #2d2d2d; }
-.ldb-task-group-dot.std { background: #525252; }
-.ldb-task-group-dot.pfml { background: #737373; }
+.ldb-task-group-dot.fmla { background: #0033a0; }
+.ldb-task-group-dot.std { background: #3b82f6; }
+.ldb-task-group-dot.pfml { background: #60a5fa; }
 .ldb-task-group-label {
   font-size: 14px;
   font-weight: 600;
@@ -904,10 +906,10 @@
   flex-shrink: 0;
   margin-top: 3px;
 }
-.ldb-task-tl-dot.done { background: #2d2d2d; }
-.ldb-task-tl-dot.urgent { background: #525252; border: 2px solid #2d2d2d; }
+.ldb-task-tl-dot.done { background: #0033a0; }
+.ldb-task-tl-dot.urgent { background: #3b82f6; border: 2px solid #0033a0; }
 .ldb-task-tl-dot.pending { background: #e5e5e7; }
-.ldb-task-tl-dot.in-progress { background: #737373; box-shadow: 0 0 0 3px rgba(115,115,115,0.2); }
+.ldb-task-tl-dot.in-progress { background: #3b82f6; box-shadow: 0 0 0 3px rgba(59,130,246,0.2); }
 .ldb-task-tl-content { flex: 1; min-width: 0; }
 .ldb-task-tl-title { font-size: 13px; font-weight: 600; color: #0f0f14; }
 .ldb-task-tl-meta { font-size: 12px; color: #737373; margin-top: 2px; }
@@ -925,10 +927,10 @@
   border-radius: 999px;
   flex-shrink: 0;
 }
-.ldb-task-tl-badge.done { background: #2d2d2d; color: #fff; }
-.ldb-task-tl-badge.urgent { background: #525252; color: #fff; }
-.ldb-task-tl-badge.pending { background: #e5e5e7; color: #525252; }
-.ldb-task-tl-badge.in-progress { background: #737373; color: #fff; }
+.ldb-task-tl-badge.done { background: #0033a0; color: #fff; }
+.ldb-task-tl-badge.urgent { background: #1e40af; color: #fff; }
+.ldb-task-tl-badge.pending { background: #e8f0fe; color: #0033a0; }
+.ldb-task-tl-badge.in-progress { background: #3b82f6; color: #fff; }
 
 /* ── ACTION LIST (Simplified Tasks) ── */
 .ldb-tasks-header {
@@ -963,7 +965,7 @@
   width: 8px;
   height: 8px;
   border-radius: 50%;
-  background: #525252;
+  background: #0033a0;
   flex-shrink: 0;
 }
 .ldb-action-dot.done { background: #d4d4d4; }
@@ -1028,14 +1030,14 @@
   font-size: 12px;
   font-weight: 600;
   color: #fff;
-  background: #2d2d2d;
+  background: #0033a0;
   border: none;
   border-radius: 6px;
   cursor: pointer;
   font-family: 'Source Sans Pro', system-ui, sans-serif;
   transition: background 0.15s;
 }
-.ldb-btn-upload-inline:hover { background: #0f0f14; }
+.ldb-btn-upload-inline:hover { background: #002580; }
 
 /* ── UPLOAD DROPZONE ── */
 .ldb-upload-zone {
@@ -1054,7 +1056,7 @@
 
 
 /* ── PENDING BAR ── */
-.ldb-bar-pending { opacity: 0.4; background: repeating-linear-gradient(45deg, #525252, #525252 4px, #737373 4px, #737373 8px) !important; }
+.ldb-bar-pending { opacity: 0.4; background: repeating-linear-gradient(45deg, #0033a0, #0033a0 4px, #3b82f6 4px, #3b82f6 8px) !important; }
 
 /* ── LEAVE SNAPSHOT (Sidebar) ── */
 .ldb-v2-snapshot-section { margin-top: 4px; }
@@ -1074,7 +1076,7 @@
 }
 .ldb-v2-snapshot-bar-fill {
   height: 100%;
-  background: #2d2d2d;
+  background: #0033a0;
   border-radius: 4px;
 }
 .ldb-v2-snapshot-stats {
@@ -1221,7 +1223,7 @@
 }
 .ldb-v3-duration-fill {
   height: 100%;
-  background: #2d2d2d;
+  background: #0033a0;
   border-radius: 5px;
 }
 .ldb-v3-duration-dates {
@@ -1281,7 +1283,7 @@
   width: 1px;
   background: #e5e5e7;
 }
-.ldb-v3-step.done:not(:last-child)::before { background: #2d2d2d; }
+.ldb-v3-step.done:not(:last-child)::before { background: #0033a0; }
 .ldb-v3-step-dot {
   width: 11px;
   height: 11px;
@@ -1289,8 +1291,8 @@
   flex-shrink: 0;
   margin-top: 4px;
 }
-.ldb-v3-step.done .ldb-v3-step-dot { background: #2d2d2d; }
-.ldb-v3-step.current .ldb-v3-step-dot { background: #525252; box-shadow: 0 0 0 3px rgba(82,82,82,0.2); }
+.ldb-v3-step.done .ldb-v3-step-dot { background: #0033a0; }
+.ldb-v3-step.current .ldb-v3-step-dot { background: #3b82f6; box-shadow: 0 0 0 3px rgba(59,130,246,0.2); }
 .ldb-v3-step.upcoming .ldb-v3-step-dot { background: #e5e5e7; }
 .ldb-v3-step-content { flex: 1; }
 .ldb-v3-step-title { font-size: 13px; font-weight: 600; color: #0f0f14; }

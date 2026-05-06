@@ -1838,9 +1838,10 @@
    Footer
    =========================== */
 .cl-footer {
-  background: #1a1a2e;
-  color: #ffffff;
+  background: #ffffff;
+  color: #0f0f14;
   margin-top: 64px;
+  border-top: 1px solid #e5e7eb;
 }
 
 .cl-footer-inner {
@@ -1867,27 +1868,27 @@
   font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 0.5px;
-  color: #ffffff;
+  color: #0f0f14;
   margin: 0 0 8px;
 }
 
 .cl-footer-link {
   font-size: 14px;
-  color: #cbd5e1;
+  color: #525252;
   text-decoration: none;
   line-height: 1.6;
 }
 
 .cl-footer-link:hover {
-  color: #ffffff;
+  color: #0033a0;
   text-decoration: underline;
 }
 
 .cl-footer-bottom {
-  border-top: 1px solid rgba(255, 255, 255, 0.15);
+  border-top: 1px solid #e5e7eb;
   padding-top: 24px;
   font-size: 13px;
-  color: #94a3b8;
+  color: #737373;
 }
 
 @media (max-width: 768px) {

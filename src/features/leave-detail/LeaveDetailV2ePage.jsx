@@ -173,10 +173,10 @@ export default function LeaveDetailV2ePage() {
                   <div className="ldb-tl-rows-wrap">
                   <div className="dlp-tl-rows">
                     {(timelineView === 'payment' ? [
-                      { id: 'std', label: 'STD', width: 50, accent: '#4b4b4b', name: 'Group Disability Claim (STD)', weeks: '4 weeks', range: 'Apr 15 – May 15, 2025', pay: '60% salary after 7-day wait', status: 'Pending', paymentValue: '~$2,308/wk' },
+                      { id: 'std', label: 'STD', width: 50, accent: '#3b82f6', name: 'Group Disability Claim (STD)', weeks: '4 weeks', range: 'Apr 15 – May 15, 2025', pay: '60% salary after 7-day wait', status: 'Pending', paymentValue: '~$2,308/wk' },
                     ] : [
-                      { id: 'fmla', label: 'FMLA', width: 100, accent: '#1f1f1f', name: 'Leave Case — FMLA Protection', weeks: '12 weeks', range: 'Apr 15 – Jul 08, 2025', pay: 'Job protection (unpaid)', status: 'Pending' },
-                      { id: 'std', label: 'STD', width: 35, accent: '#4b4b4b', name: 'Group Disability Claim (STD)', weeks: '4 weeks', range: 'Apr 15 – May 15, 2025', pay: '60% salary after 7-day wait', status: 'Pending' },
+                      { id: 'fmla', label: 'FMLA', width: 100, accent: '#0033a0', name: 'Leave Case — FMLA Protection', weeks: '12 weeks', range: 'Apr 15 – Jul 08, 2025', pay: 'Job protection (unpaid)', status: 'Pending' },
+                      { id: 'std', label: 'STD', width: 35, accent: '#3b82f6', name: 'Group Disability Claim (STD)', weeks: '4 weeks', range: 'Apr 15 – May 15, 2025', pay: '60% salary after 7-day wait', status: 'Pending' },
                     ]).map(function (item) {
                       return (
                         <button
@@ -246,11 +246,11 @@ export default function LeaveDetailV2ePage() {
 
                   <div className="dlp-legend">
                     {(timelineView === 'payment' ? [
-                      { id: 'partial-pay', label: 'STD (60%)', accent: '#4b4b4b' },
+                      { id: 'partial-pay', label: 'STD (60%)', accent: '#3b82f6' },
                       { id: 'unpaid', label: 'Unpaid', accent: '#e5e7eb' },
                     ] : [
-                      { id: 'fmla', label: 'FMLA Protection', accent: '#1f1f1f' },
-                      { id: 'std', label: 'STD Income', accent: '#4b4b4b' },
+                      { id: 'fmla', label: 'FMLA Protection', accent: '#0033a0' },
+                      { id: 'std', label: 'STD Income', accent: '#3b82f6' },
                       { id: 'supp', label: 'Hospital Indemnity', accent: '#7c3aed' },
                       { id: 'unpaid', label: 'Unpaid', accent: '#e5e7eb' },
                     ]).map(function (item) {
@@ -293,7 +293,7 @@ export default function LeaveDetailV2ePage() {
                       <div className="ldb-claim-accordion-sub">NTN-9312-ABS-81 · Adjudication — FMLA designation, RTW tracking</div>
                     </div>
                   </div>
-                  <span className="ldb-claim-status" style={{ background: '#e5e5e7', color: '#0f0f14' }}>Pending</span>
+                  <span className="ldb-claim-status" style={{ background: '#e8f0fe', color: '#0033a0' }}>Pending</span>
                 </button>
                 {expandedClaims.absence && (
                   <div className="ldb-claim-accordion-body">
@@ -340,7 +340,7 @@ export default function LeaveDetailV2ePage() {
                       <div className="ldb-claim-accordion-sub">NTN-9312-GDC-81 · STD Benefit — income replacement at 60% of earnings</div>
                     </div>
                   </div>
-                  <span className="ldb-claim-status" style={{ background: '#e5e5e7', color: '#0f0f14' }}>Pending</span>
+                  <span className="ldb-claim-status" style={{ background: '#e8f0fe', color: '#0033a0' }}>Pending</span>
                 </button>
                 {expandedClaims.disability && (
                   <div className="ldb-claim-accordion-body">
@@ -400,7 +400,7 @@ export default function LeaveDetailV2ePage() {
                       <div className="ldb-claim-accordion-sub">NTN-9312-SC-82 · Hospital Indemnity — flat cash benefit for inpatient stays</div>
                     </div>
                   </div>
-                  <span className="ldb-claim-status" style={{ background: '#fffbeb', color: '#92400e' }}>Under Review</span>
+                  <span className="ldb-claim-status" style={{ background: '#fef3c7', color: '#92400e' }}>Under Review</span>
                 </button>
                 {expandedClaims.supplemental && (
                   <div className="ldb-claim-accordion-body">
