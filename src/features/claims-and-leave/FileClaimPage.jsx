@@ -14,6 +14,23 @@ export default function FileClaimPage() {
         </p>
 
         <div className="cl-card-row">
+          {/* Request a Leave card */}
+          <div className="cl-intro-card">
+            <div className="cl-intro-card-icon">
+              <svg width="32" height="32" viewBox="0 0 32 32" fill="none">
+                <circle cx="16" cy="16" r="16" fill="#0033a0" opacity="0.12"/>
+                <rect x="9" y="10" width="14" height="14" rx="2" stroke="#0033a0" strokeWidth="1.5" fill="none"/>
+                <path d="M12 8v4M20 8v4M9 15h14" stroke="#0033a0" strokeWidth="1.5" strokeLinecap="round"/>
+              </svg>
+            </div>
+            <h2 className="cl-intro-card-title">Request a Leave</h2>
+            <p className="cl-intro-card-desc">
+              Request parental leave, own illness/injury, care for a sick family member, military leave, or other job-protected time away from work.
+            </p>
+            <button className="cl-btn cl-btn--primary" onClick={() => navigate(`${base}/file-claim/request-leave?step=1`)}>Request Leave</button>
+            <span className="cl-intro-card-meta">Takes about 5-8 minutes</span>
+          </div>
+
           {/* File a Claim card */}
           <div className="cl-intro-card">
             <div className="cl-intro-card-icon">
@@ -30,23 +47,6 @@ export default function FileClaimPage() {
             </p>
             <button className="cl-btn cl-btn--primary">Start a Claim</button>
             <span className="cl-intro-card-meta">Takes about 10-15 minutes</span>
-          </div>
-
-          {/* Request a Leave card */}
-          <div className="cl-intro-card">
-            <div className="cl-intro-card-icon">
-              <svg width="32" height="32" viewBox="0 0 32 32" fill="none">
-                <circle cx="16" cy="16" r="16" fill="#0033a0" opacity="0.12"/>
-                <rect x="9" y="10" width="14" height="14" rx="2" stroke="#0033a0" strokeWidth="1.5" fill="none"/>
-                <path d="M12 8v4M20 8v4M9 15h14" stroke="#0033a0" strokeWidth="1.5" strokeLinecap="round"/>
-              </svg>
-            </div>
-            <h2 className="cl-intro-card-title">Request a Leave</h2>
-            <p className="cl-intro-card-desc">
-              Request parental leave, own illness/injury, care for a sick family member, military leave, or other job-protected time away from work.
-            </p>
-            <button className="cl-btn cl-btn--primary" onClick={() => navigate(`${base}/file-claim/request-leave?step=1`)}>Request Leave</button>
-            <span className="cl-intro-card-meta">Takes about 5-8 minutes</span>
           </div>
         </div>
       </div>
