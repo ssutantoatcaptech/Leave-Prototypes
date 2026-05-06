@@ -35,7 +35,6 @@ import LeavePlanningPage from './features/claims-and-leave/LeavePlanningPage';
 import EnterMyTimePage from './features/claims-and-leave/EnterMyTimePage';
 import PaymentsPage from './features/claims-and-leave/PaymentsPage';
 import DashboardPage from './features/claims-and-leave/DashboardPage';
-import ClaimsAndLeaveMobilePage from './features/claims-and-leave-mobile/ClaimsAndLeaveMobilePage';
 
 function Home() {
   return (
@@ -106,8 +105,26 @@ export default function App() {
         <Route path="/supplemental-health" element={<LeaveDetailSupplementalPage />} />
         <Route path="/leave-payments" element={<LeavePaymentsPage />} />
 
-        {/* Claims & Leave Mobile */}
-        <Route path="/claims-and-leave-mobile" element={<ClaimsAndLeaveMobilePage />} />
+        {/* Claims & Leave Mobile — mirrors desktop, same components */}
+        <Route path="/claims-and-leave-mobile/dashboard" element={<DashboardPage />} />
+        <Route path="/claims-and-leave-mobile" element={<ClaimsAndLeaveLayout />}>
+          <Route index element={<ClaimCenterPage />} />
+          <Route path="file-claim" element={<FileClaimPage />} />
+          <Route path="file-claim/request-leave" element={<RequestLeaveReactPage />} />
+          <Route path="dental" element={<DentalClaimsPage />} />
+          <Route path="my-leaves" element={<ClaimsMyLeavesPage />} />
+          <Route path="my-cases" element={<MyCasesPage />} />
+          <Route path="leave-planning" element={<LeavePlanningPage />} />
+          <Route path="leave-planning/wizard" element={<PlanAbsenceReactPage />} />
+          <Route path="enter-time" element={<EnterMyTimePage />} />
+          <Route path="payments" element={<PaymentsPage />} />
+          <Route path="case-detail" element={<LeaveDetailV2ePage />} />
+          <Route path="case-detail/return-to-work" element={<ReturnToWorkEmbeddedPage />} />
+          <Route path="case-detail-pregnancy" element={<LeaveDetailPregnancyPage />} />
+          <Route path="case-detail-pregnancy/return-to-work" element={<ReturnToWorkPregnancyEmbeddedPage />} />
+          <Route path="case-detail-caregiver" element={<LeaveDetailCaregiverPage />} />
+          <Route path="case-detail-caregiver/return-to-work" element={<ReturnToWorkCaregiverEmbeddedPage />} />
+        </Route>
 
         {/* Claims & Leave Dashboard (standalone, no subnav) */}
         <Route path="/claims-and-leave/dashboard" element={<DashboardPage />} />
