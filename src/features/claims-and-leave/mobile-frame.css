@@ -474,6 +474,11 @@
   font-size: 20px;
 }
 
+.mobile-frame-screen .ldb-title-badge {
+  display: inline-flex;
+  order: -1;
+}
+
 .mobile-frame-screen .ldb-title-meta {
   font-size: 12px;
 }
@@ -490,11 +495,13 @@
   font-size: 13px;
 }
 
-/* Timeline: horizontal scroll for week ticks */
-.mobile-frame-screen .dlp-tl-weeks {
-  padding-left: 60px;
-  overflow-x: auto;
-  -webkit-overflow-scrolling: touch;
+/* Timeline: taller bars on mobile */
+.mobile-frame-screen .dlp-tl-row {
+  min-height: 44px;
+}
+
+.mobile-frame-screen .ldb-card.dt-timeline-wrap .dlp-tl-row-bar {
+  height: 22px;
 }
 
 .mobile-frame-screen .dlp-tl-row-label {
@@ -503,17 +510,75 @@
   font-size: 11px;
 }
 
-.mobile-frame-screen .dlp-tl-row-bar {
-  min-width: 0;
+/* Hide desktop tooltip, show mobile accordion */
+.mobile-frame-screen .ad-coverage-tooltip {
+  display: none !important;
 }
 
-/* Timeline tooltip: constrain width */
-.mobile-frame-screen .ldb-tl-rows-wrap .ad-coverage-tooltip {
-  width: 280px;
+.mobile-frame-screen .dlp-tl-mobile-detail {
+  display: block;
+  background: #f8fafc;
+  border: 1px solid #e2e8f0;
+  border-radius: 8px;
+  padding: 14px 16px;
+  margin-top: 12px;
 }
 
-.mobile-frame-screen .ad-coverage-tooltip-grid {
+.mobile-frame-screen .dlp-tl-mobile-detail-title {
+  font-size: 14px;
+  font-weight: 700;
+  color: #0f0f14;
+  margin-bottom: 10px;
+}
+
+.mobile-frame-screen .dlp-tl-mobile-detail-grid {
+  display: grid;
   grid-template-columns: 1fr 1fr;
+  gap: 10px;
+}
+
+.mobile-frame-screen .dlp-tl-mobile-detail-label {
+  font-size: 10px;
+  font-weight: 600;
+  color: #737373;
+  text-transform: uppercase;
+  margin-bottom: 2px;
+}
+
+.mobile-frame-screen .dlp-tl-mobile-detail-value {
+  font-size: 13px;
+  font-weight: 600;
+  color: #0f0f14;
+}
+
+/* Week ticks: show "Week" label to the left, just numbers in ticks */
+.mobile-frame-screen .dlp-tl-week-label {
+  display: block;
+  font-size: 11px;
+  font-weight: 600;
+  color: #94a3b8;
+  text-transform: uppercase;
+  margin-top: 12px;
+  margin-bottom: 4px;
+}
+
+.mobile-frame-screen .dlp-tl-weeks {
+  padding-left: 0;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+.mobile-frame-screen .dlp-tl-week-num {
+  font-size: 9px;
+}
+
+/* Hide desktop helper, show mobile helper */
+.mobile-frame-screen .ad-section-helper--desktop {
+  display: none;
+}
+
+.mobile-frame-screen .ad-section-helper--mobile {
+  display: block;
 }
 
 /* Claim accordion: stack header on mobile */

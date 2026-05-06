@@ -145,8 +145,9 @@ export default function LeaveDetailV2ePage() {
             <div className="ldb-title-icon">
               <svg width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2v10z" stroke="#fff" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"/><path d="M8 10h8M8 13h5" stroke="#fff" strokeWidth="1.8" strokeLinecap="round"/></svg>
             </div>
-            <div>
-              <h1 className="ldb-title">Illness or Injury <span className="ldb-status-badge pending-status" style={{ fontSize: 12, marginLeft: 12, verticalAlign: 'middle' }}>Pending</span></h1>
+            <div className="ldb-title-text">
+              <span className="ldb-status-badge pending-status ldb-title-badge">Pending</span>
+              <h1 className="ldb-title">Illness or Injury</h1>
               <div className="ldb-title-meta">
                 <span style={{ fontSize: 14, color: '#525252', fontWeight: 600 }}>NTN - 2334</span>
                 <span style={{ fontSize: 13, color: '#737373', marginLeft: 12 }}>Apr 15 – May 15, 2025 · Intermittent</span>
@@ -173,7 +174,8 @@ export default function LeaveDetailV2ePage() {
                   </div>
                 </div>
 
-                <p className="ad-section-helper">Hover over a row to see details</p>
+                <p className="ad-section-helper ad-section-helper--desktop">Hover over a row to see details</p>
+                <p className="ad-section-helper ad-section-helper--mobile">Tap a row to see details</p>
 
                 <div className="dlp-timeline">
                   <div className="ldb-tl-rows-wrap">
@@ -193,6 +195,7 @@ export default function LeaveDetailV2ePage() {
                           type="button"
                           onMouseEnter={function () { setHoveredRow(item.id); }}
                           onMouseLeave={function () { setHoveredRow(null); }}
+                          onClick={function () { setHoveredRow(hoveredRow === item.id ? null : item.id); }}
                         >
                           <div className="dlp-tl-row-label">{item.label}</div>
                           <div className="dlp-tl-row-bar">
@@ -203,6 +206,7 @@ export default function LeaveDetailV2ePage() {
                     })}
                   </div>
 
+                  {/* Desktop: tooltip on hover */}
                   {hoveredRow && (function () {
                     var allRows = timelineView === 'payment' ? [
                       { id: 'std', name: 'Group Disability Claim (STD)', weeks: '4 weeks', range: 'Apr 15 – May 15, 2025', pay: '60% salary after 7-day wait', status: 'Pending', paymentValue: '~$2,308/wk' },
@@ -242,9 +246,47 @@ export default function LeaveDetailV2ePage() {
                   })()}
                   </div>
 
+                  {/* Mobile: accordion below rows */}
+                  {hoveredRow && (function () {
+                    var allRows = timelineView === 'payment' ? [
+                      { id: 'std', name: 'Group Disability Claim (STD)', weeks: '4 weeks', range: 'Apr 15 – May 15, 2025', pay: '60% salary after 7-day wait', status: 'Pending', paymentValue: '~$2,308/wk' },
+                      { id: 'njtdi', name: 'NJ Temporary Disability Insurance', weeks: '12 weeks', range: 'Apr 15 – Jul 08, 2025', pay: '85% salary (state program)', status: 'Active', paymentValue: '~$1,048/wk' },
+                    ] : [
+                      { id: 'fmla', name: 'Leave Case — FMLA Protection', weeks: '12 weeks', range: 'Apr 15 – Jul 08, 2025', pay: 'Job protection (unpaid)', status: 'Approved' },
+                      { id: 'std', name: 'Group Disability Claim (STD)', weeks: '4 weeks', range: 'Apr 15 – May 15, 2025', pay: '60% salary after 7-day wait', status: 'Approved' },
+                      { id: 'njtdi', name: 'NJ Temporary Disability Insurance', weeks: '12 weeks', range: 'Apr 15 – Jul 08, 2025', pay: '85% salary (state program)', status: 'Active' },
+                    ];
+                    var selected = allRows.find(function (r) { return r.id === hoveredRow; });
+                    if (!selected) return null;
+                    return (
+                      <div className="dlp-tl-mobile-detail">
+                        <div className="dlp-tl-mobile-detail-title">{selected.name}</div>
+                        <div className="dlp-tl-mobile-detail-grid">
+                          <div>
+                            <div className="dlp-tl-mobile-detail-label">{timelineView === 'payment' ? 'Est. Weekly' : 'Status'}</div>
+                            <div className="dlp-tl-mobile-detail-value">{timelineView === 'payment' ? selected.paymentValue : selected.status}</div>
+                          </div>
+                          <div>
+                            <div className="dlp-tl-mobile-detail-label">Duration</div>
+                            <div className="dlp-tl-mobile-detail-value">{selected.weeks}</div>
+                          </div>
+                          <div>
+                            <div className="dlp-tl-mobile-detail-label">Dates</div>
+                            <div className="dlp-tl-mobile-detail-value">{selected.range}</div>
+                          </div>
+                          <div>
+                            <div className="dlp-tl-mobile-detail-label">Pay</div>
+                            <div className="dlp-tl-mobile-detail-value">{selected.pay}</div>
+                          </div>
+                        </div>
+                      </div>
+                    );
+                  })()}
+
+                  <div className="dlp-tl-week-label">Week</div>
                   <div className="dlp-tl-weeks">
                     {Array.from({ length: 13 }, function (_, i) {
-                      return <div key={i} className="dlp-tl-week-tick"><span className="dlp-tl-week-num">Wk {i + 1}</span></div>;
+                      return <div key={i} className="dlp-tl-week-tick"><span className="dlp-tl-week-num">{i + 1}</span></div>;
                     })}
                   </div>
                   <div className="dlp-tl-months">

@@ -164,6 +164,17 @@
   background: #e8f0fe;
   color: #0033a0;
 }
+.ldb-title-text {
+  display: flex;
+  flex-direction: column;
+}
+.ldb-title-badge {
+  order: 1;
+  display: none;
+  align-self: flex-start;
+  margin-bottom: 6px;
+  font-size: 11px;
+}
 
 /* ── BUTTONS ── */
 .ldb-btn-primary {
@@ -2349,6 +2360,21 @@
   color: #94a3b8;
   font-weight: 700;
   line-height: 1;
+}
+
+/* Week label (shown on mobile, hidden on desktop) */
+.dlp-tl-week-label {
+  display: none;
+}
+
+/* Mobile detail accordion (hidden on desktop) */
+.dlp-tl-mobile-detail {
+  display: none;
+}
+
+/* Helper text variants */
+.ad-section-helper--mobile {
+  display: none;
 }
 
 .ldb-card.dt-timeline-wrap .dlp-tl-months span {
