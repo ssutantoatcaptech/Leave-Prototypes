@@ -1330,8 +1330,8 @@ export default function RequestLeaveReactPage() {
             {(isMedicalScenario || isChildScenario) ? (
               <>
                 <div className="br-section">
-                  <div className="br-section-header"><h3>Medical Certification Consent</h3><button className="br-section-edit" type="button" onClick={() => jumpToStep(isMedicalSelf ? 'providerDetails' : isFamilyCare ? 'medicalCertConsent' : 'medicalCertConsent')}>Edit</button></div>
-                  <div className="br-grid">
+                  <div className="br-section-header"><h3>Medical Certification Consent</h3><button className="br-section-edit" type="button" onClick={() => jumpToStep(isMedicalSelf ? 'medicalCertConsent' : isFamilyCare ? 'medicalCertConsent' : 'medicalCertConsent')}>Edit</button></div>
+                  <div className="br-grid" style={{ gridTemplateColumns: '1fr' }}>
                     <ReviewField label="Authorize The Release Of Any Required Certification Requests To My Healthcare Provider For Completion Or Clarification" value={formState.authorizeMedCert ? 'Yes' : 'No'}/>
                   </div>
                 </div>
