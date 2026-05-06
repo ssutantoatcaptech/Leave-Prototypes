@@ -1246,3 +1246,585 @@
 .cl-td-right .cl-action-links {
   justify-content: flex-end;
 }
+
+/* ===========================
+   Manage Absences Page (cl-ma-)
+   =========================== */
+
+.cl-ma-layout {
+  display: grid;
+  grid-template-columns: 1fr 340px;
+  gap: 24px;
+}
+
+.cl-ma-main {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.cl-ma-form-card {
+  background: #ffffff;
+  border: 1px solid #e5e7eb;
+  border-radius: 16px;
+  padding: 32px;
+  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.05);
+}
+
+.cl-ma-form-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 32px;
+}
+
+.cl-ma-form-left,
+.cl-ma-form-right {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.cl-ma-field {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.cl-ma-field--half {
+  flex: 1;
+}
+
+.cl-ma-label {
+  font-size: 14px;
+  font-weight: 700;
+  color: #374151;
+}
+
+.cl-ma-label--upper {
+  font-size: 12px;
+  font-weight: 700;
+  color: #9ca3af;
+  text-transform: uppercase;
+  letter-spacing: 1.2px;
+}
+
+.cl-ma-case-select {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16px;
+  background: #f8faf9;
+  border: 1px solid #e5e7eb;
+  border-radius: 12px;
+  font-size: 16px;
+  color: #111827;
+  cursor: pointer;
+}
+
+.cl-ma-calendar {
+  background: #ffffff;
+  border: 1px solid #e5e7eb;
+  border-radius: 12px;
+  padding: 16px;
+}
+
+.cl-ma-cal-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 12px;
+}
+
+.cl-ma-cal-nav {
+  width: 28px;
+  height: 28px;
+  border: none;
+  background: none;
+  cursor: pointer;
+  font-size: 18px;
+  color: #4b5563;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.cl-ma-cal-month {
+  font-size: 16px;
+  font-weight: 700;
+  color: #111827;
+}
+
+.cl-ma-cal-grid {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 4px;
+  text-align: center;
+}
+
+.cl-ma-cal-dow {
+  font-size: 12px;
+  font-weight: 700;
+  color: #9ca3af;
+  text-transform: uppercase;
+  padding: 8px 0;
+}
+
+.cl-ma-cal-day {
+  width: 36px;
+  height: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto;
+  border-radius: 8px;
+  font-size: 16px;
+  font-weight: 500;
+  color: #4b5563;
+  cursor: pointer;
+}
+
+.cl-ma-cal-day:hover {
+  background: #f3f4f6;
+}
+
+.cl-ma-cal-day--disabled {
+  color: #d1d5db;
+  cursor: default;
+}
+
+.cl-ma-cal-day--disabled:hover {
+  background: none;
+}
+
+.cl-ma-cal-day--selected {
+  background: #0033a0;
+  color: #ffffff;
+  font-weight: 700;
+}
+
+.cl-ma-cal-day--selected:hover {
+  background: #002580;
+}
+
+.cl-ma-hours-input {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16px;
+  background: #f8faf9;
+  border: 1px solid #e5e7eb;
+  border-radius: 12px;
+  height: 65px;
+}
+
+.cl-ma-hours-value {
+  font-size: 24px;
+  font-weight: 700;
+  color: #9ca3af;
+}
+
+.cl-ma-hours-unit {
+  font-size: 16px;
+  font-weight: 700;
+  color: #9ca3af;
+}
+
+.cl-ma-warning {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  padding: 16px;
+  background: #fffbeb;
+  border: 1px solid #fef3c7;
+  border-radius: 12px;
+  font-size: 12px;
+  line-height: 1.5;
+  color: #b45309;
+}
+
+.cl-ma-warning svg {
+  flex-shrink: 0;
+  margin-top: 1px;
+}
+
+.cl-ma-readonly-field {
+  padding: 12px 16px;
+  background: #f8faf9;
+  border: 1px solid #e5e7eb;
+  border-radius: 10px;
+  font-size: 15px;
+  font-weight: 600;
+  color: #111827;
+}
+
+.cl-ma-time-row {
+  display: flex;
+  gap: 12px;
+}
+
+.cl-ma-time-input {
+  padding: 12px 16px;
+  background: #ffffff;
+  border: 1px solid #e5e7eb;
+  border-radius: 10px;
+  font-size: 15px;
+  font-weight: 500;
+  color: #111827;
+}
+
+.cl-ma-dropdown {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 16px;
+  background: #ffffff;
+  border: 1px solid #e5e7eb;
+  border-radius: 10px;
+  font-size: 15px;
+  font-weight: 500;
+  color: #111827;
+  cursor: pointer;
+}
+
+.cl-ma-form-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-top: 1px solid #f3f4f6;
+  margin-top: 32px;
+  padding-top: 32px;
+}
+
+.cl-ma-disclaimer {
+  font-size: 14px;
+  color: #6b7280;
+  line-height: 1.4;
+  max-width: 360px;
+  margin: 0;
+}
+
+.cl-ma-form-actions {
+  display: flex;
+  align-items: center;
+  gap: 0;
+}
+
+.cl-ma-btn-cancel {
+  padding: 16px 32px;
+  background: none;
+  border: none;
+  font-size: 16px;
+  font-weight: 700;
+  color: #6b7280;
+  cursor: pointer;
+}
+
+.cl-ma-btn-submit {
+  padding: 16px 32px;
+  background: #0033a0;
+  color: #ffffff;
+  border: none;
+  border-radius: 12px;
+  font-size: 16px;
+  font-weight: 700;
+  cursor: pointer;
+  box-shadow: 0 10px 15px rgba(0, 0, 0, 0.1), 0 4px 6px rgba(0, 0, 0, 0.1);
+  transition: background 0.15s;
+}
+
+.cl-ma-btn-submit:hover {
+  background: #002580;
+}
+
+/* Recent Logged Absences card */
+.cl-ma-recent-card {
+  background: #ffffff;
+  border: 1px solid #e5e7eb;
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+}
+
+.cl-ma-recent-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 24px 32px;
+  border-bottom: 1px solid #f3f4f6;
+}
+
+.cl-ma-recent-title {
+  font-size: 18px;
+  font-weight: 700;
+  color: #002b7f;
+  margin: 0;
+}
+
+.cl-ma-cell-bold {
+  font-weight: 600;
+  color: #111827;
+}
+
+.cl-ma-reason-badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 4px 12px;
+  border-radius: 9999px;
+  font-size: 11px;
+  font-weight: 700;
+  white-space: nowrap;
+}
+
+.cl-ma-reason-badge--amber {
+  background: #fef3c7;
+  color: #92400e;
+}
+
+.cl-ma-reason-badge--blue {
+  background: #dbeafe;
+  color: #0033a0;
+}
+
+.cl-ma-edit-btn {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 4px;
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.cl-ma-edit-btn:hover {
+  background: #f3f4f6;
+}
+
+/* Sidebar */
+.cl-ma-sidebar {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+/* Reporting Guidance card */
+.cl-ma-guidance-card {
+  background: #e8f0fe;
+  border: 1px solid #dbeafe;
+  border-radius: 16px;
+  padding: 24px;
+}
+
+.cl-ma-guidance-header {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 16px;
+}
+
+.cl-ma-guidance-title {
+  font-size: 16px;
+  font-weight: 700;
+  color: #002b7f;
+  margin: 0;
+}
+
+.cl-ma-guidance-list {
+  list-style: none;
+  margin: 0 0 16px;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.cl-ma-guidance-list li {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  font-size: 12px;
+  line-height: 1.5;
+  color: #002b7f;
+}
+
+.cl-ma-guidance-dot {
+  width: 16px;
+  height: 20px;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.cl-ma-guidance-dot::after {
+  content: '';
+  width: 16px;
+  height: 16px;
+  border-radius: 9999px;
+  background: #bfdbfe;
+  display: block;
+}
+
+.cl-ma-guidance-btn {
+  width: 100%;
+  padding: 12px;
+  background: #ffffff;
+  border: 1px solid #bfdbfe;
+  border-radius: 12px;
+  font-size: 14px;
+  font-weight: 700;
+  color: #0033a0;
+  text-align: center;
+  cursor: pointer;
+  transition: background 0.15s;
+}
+
+.cl-ma-guidance-btn:hover {
+  background: #f0f4ff;
+}
+
+/* Need Help card */
+.cl-ma-help-card {
+  background: #ffffff;
+  border: 1px solid #e5e7eb;
+  border-radius: 16px;
+  padding: 24px;
+  box-shadow: 0 1px 0.5px rgba(0, 0, 0, 0.05);
+}
+
+.cl-ma-help-title {
+  font-size: 16px;
+  font-weight: 700;
+  color: #111827;
+  margin: 0 0 16px;
+}
+
+.cl-ma-help-contact {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 16px;
+}
+
+.cl-ma-help-icon {
+  width: 40px;
+  height: 40px;
+  background: #f1f3f5;
+  border-radius: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.cl-ma-help-info {
+  display: flex;
+  flex-direction: column;
+}
+
+.cl-ma-help-label {
+  font-size: 12px;
+  font-weight: 700;
+  color: #9ca3af;
+  text-transform: uppercase;
+}
+
+.cl-ma-help-phone {
+  font-size: 14px;
+  font-weight: 700;
+  color: #111827;
+}
+
+.cl-ma-message-btn {
+  width: 100%;
+  padding: 12px;
+  background: #f1f3f5;
+  border: none;
+  border-radius: 12px;
+  font-size: 14px;
+  font-weight: 700;
+  color: #1a1a1a;
+  text-align: center;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  transition: background 0.15s;
+}
+
+.cl-ma-message-btn:hover {
+  background: #e5e7eb;
+}
+
+/* Helpful Forms card */
+.cl-ma-forms-card {
+  background: #ffffff;
+  border: 1px solid #e5e7eb;
+  border-radius: 16px;
+  padding: 24px;
+  box-shadow: 0 1px 0.5px rgba(0, 0, 0, 0.05);
+}
+
+.cl-ma-forms-title {
+  font-size: 16px;
+  font-weight: 700;
+  color: #111827;
+  margin: 0 0 16px;
+}
+
+.cl-ma-forms-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.cl-ma-form-link {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px;
+  border-radius: 8px;
+  text-decoration: none;
+  font-size: 12px;
+  font-weight: 700;
+  color: #374151;
+  transition: background 0.15s;
+}
+
+.cl-ma-form-link:hover {
+  background: #f9fafb;
+}
+
+.cl-ma-form-link span {
+  flex: 1;
+}
+
+.cl-ma-download-icon {
+  flex-shrink: 0;
+}
+
+/* Responsive */
+@media (max-width: 1024px) {
+  .cl-ma-layout {
+    grid-template-columns: 1fr;
+  }
+  .cl-ma-sidebar {
+    flex-direction: row;
+    flex-wrap: wrap;
+  }
+  .cl-ma-sidebar > * {
+    flex: 1;
+    min-width: 280px;
+  }
+}
+
+@media (max-width: 768px) {
+  .cl-ma-form-grid {
+    grid-template-columns: 1fr;
+  }
+  .cl-ma-form-footer {
+    flex-direction: column;
+    gap: 16px;
+    align-items: flex-start;
+  }
+}
