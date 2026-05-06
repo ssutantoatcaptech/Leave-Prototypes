@@ -62,7 +62,7 @@ function Home() {
 
           <NavLink className="route-card" to="/claims-and-leave">
             <span className="route-card-label">New</span>
-            <strong className="route-card-title">Claims and Leave</strong>
+            <strong className="route-card-title">Claims and Leave (desktop)</strong>
             <span className="route-card-meta">Benefits hub with claims tracking, leave management, and payments</span>
           </NavLink>
 
