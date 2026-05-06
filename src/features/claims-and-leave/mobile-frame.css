@@ -390,11 +390,11 @@
   display: none;
 }
 
-/* Wizard wrap: reduce margins */
+/* Wizard wrap: full width, no horizontal padding (cl-main provides 16px) */
 .mobile-frame-screen .wizard-wrap {
   width: 100%;
   max-width: 100%;
-  padding: 16px 16px 32px;
+  padding: 16px 0 32px;
 }
 
 /* Wizard card: reduce padding */
