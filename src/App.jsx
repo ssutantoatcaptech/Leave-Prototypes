@@ -108,8 +108,7 @@ export default function App() {
         {/* Claims & Leave Mobile — mirrors desktop, same components */}
         <Route path="/claims-and-leave-mobile/dashboard" element={<DashboardPage />} />
         <Route path="/claims-and-leave-mobile" element={<ClaimsAndLeaveLayout />}>
-          <Route index element={<Navigate to="/claims-and-leave-mobile/dashboard" replace />} />
-          <Route path="claim-center" element={<ClaimCenterPage />} />
+          <Route index element={<ClaimCenterPage />} />
           <Route path="file-claim" element={<FileClaimPage />} />
           <Route path="file-claim/request-leave" element={<RequestLeaveReactPage />} />
           <Route path="dental" element={<DentalClaimsPage />} />
@@ -130,10 +129,9 @@ export default function App() {
         {/* Claims & Leave Dashboard (standalone, no subnav) */}
         <Route path="/claims-and-leave/dashboard" element={<DashboardPage />} />
 
-        {/* Claims & Leave — index redirects to dashboard */}
+        {/* Claims & Leave section */}
         <Route path="/claims-and-leave" element={<ClaimsAndLeaveLayout />}>
-          <Route index element={<Navigate to="/claims-and-leave/dashboard" replace />} />
-          <Route path="claim-center" element={<ClaimCenterPage />} />
+          <Route index element={<ClaimCenterPage />} />
           <Route path="file-claim" element={<FileClaimPage />} />
           <Route path="file-claim/request-leave" element={<RequestLeaveReactPage />} />
           <Route path="dental" element={<DentalClaimsPage />} />
