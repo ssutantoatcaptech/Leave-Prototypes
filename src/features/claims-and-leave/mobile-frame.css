@@ -944,14 +944,24 @@
   padding: 16px;
 }
 
-/* Action items: wrap upload button below */
+/* Action items */
 .mobile-frame-screen .ldb-action-item {
-  flex-wrap: wrap;
+  gap: 8px;
+  padding: 10px 0;
+}
+
+.mobile-frame-screen .ldb-action-name {
+  font-size: 12px;
+}
+
+.mobile-frame-screen .ldb-action-due {
+  font-size: 10px;
 }
 
 .mobile-frame-screen .ldb-btn-upload-inline {
-  margin-left: 20px;
-  margin-top: 6px;
+  font-size: 11px;
+  padding: 4px 10px;
+  white-space: nowrap;
 }
 
 /* Quick actions list */

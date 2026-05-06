@@ -1065,6 +1065,47 @@
   margin-bottom: 8px;
 }
 
+/* ── ACTION ITEM TEXT ── */
+.ldb-action-text {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+.ldb-action-name {
+  font-size: 13px;
+  font-weight: 600;
+  color: #0f0f14;
+}
+.ldb-action-due {
+  font-size: 11px;
+  color: #737373;
+}
+.ldb-action-item--done .ldb-action-name {
+  color: #737373;
+  text-decoration: line-through;
+}
+.ldb-show-more-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  width: 100%;
+  margin-top: 12px;
+  padding: 8px 0;
+  border: none;
+  background: none;
+  font-size: 13px;
+  font-weight: 600;
+  color: #0033a0;
+  cursor: pointer;
+  font-family: 'Source Sans Pro', system-ui, sans-serif;
+}
+.ldb-show-more-btn:hover {
+  text-decoration: underline;
+}
+
 /* ── TASK INLINE UPLOAD ── */
 .ldb-task-upload-action { margin-top: 6px; }
 .ldb-btn-upload-inline {
