@@ -717,6 +717,10 @@
   gap: 16px;
 }
 
+.mobile-frame-screen .ldb-v2-main {
+  gap: 16px;
+}
+
 /* Card padding: tighter for mobile */
 .mobile-frame-screen .ldb-card {
   padding: 16px;
