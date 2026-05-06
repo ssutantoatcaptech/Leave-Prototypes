@@ -206,11 +206,13 @@ export default function LeaveDetailPregnancyPage() {
                     );
                   })()}
 
-                  <div className="dlp-tl-week-label">Week</div>
-                  <div className="dlp-tl-weeks">
-                    {Array.from({ length: 22 }, function (_, i) {
-                      return <div key={i} className="dlp-tl-week-tick"><span className="dlp-tl-week-num">{i + 1}</span></div>;
-                    })}
+                  <div className="dlp-tl-weeks-row">
+                    <div className="dlp-tl-week-label">Week</div>
+                    <div className="dlp-tl-weeks">
+                      {Array.from({ length: 22 }, function (_, i) {
+                        return <div key={i} className="dlp-tl-week-tick"><span className="dlp-tl-week-num">{i + 1}</span></div>;
+                      })}
+                    </div>
                   </div>
                   <div className="dlp-tl-months">
                     <span>Jun</span>

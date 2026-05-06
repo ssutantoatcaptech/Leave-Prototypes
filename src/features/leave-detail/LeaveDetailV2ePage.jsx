@@ -283,11 +283,13 @@ export default function LeaveDetailV2ePage() {
                     );
                   })()}
 
-                  <div className="dlp-tl-week-label">Week</div>
-                  <div className="dlp-tl-weeks">
-                    {Array.from({ length: 13 }, function (_, i) {
-                      return <div key={i} className="dlp-tl-week-tick"><span className="dlp-tl-week-num">{i + 1}</span></div>;
-                    })}
+                  <div className="dlp-tl-weeks-row">
+                    <div className="dlp-tl-week-label">Week</div>
+                    <div className="dlp-tl-weeks">
+                      {Array.from({ length: 13 }, function (_, i) {
+                        return <div key={i} className="dlp-tl-week-tick"><span className="dlp-tl-week-num">{i + 1}</span></div>;
+                      })}
+                    </div>
                   </div>
                   <div className="dlp-tl-months">
                     <span>Apr</span>
