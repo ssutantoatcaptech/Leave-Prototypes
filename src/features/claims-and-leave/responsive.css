@@ -592,6 +592,13 @@
   flex-direction: row;
   align-items: flex-start;
   gap: 12px;
+  padding: 17px;
+}
+
+/* Ensure cards don't overflow container */
+.cldb-content-grid > * {
+  max-width: 100%;
+  min-width: 0;
 }
 
 /* Action rows full width */
