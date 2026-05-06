@@ -176,12 +176,12 @@ export default function LeaveDetailV2ePage() {
                   <div className="ldb-tl-rows-wrap">
                   <div className="dlp-tl-rows">
                     {(timelineView === 'payment' ? [
-                      { id: 'std', label: 'STD', width: 50, accent: '#3b82f6', name: 'Group Disability Claim (STD)', weeks: '4 weeks', range: 'Apr 15 – May 15, 2025', pay: '60% salary after 7-day wait', status: 'Pending', paymentValue: '~$2,308/wk' },
-                      { id: 'njtdi', label: 'NJ TDI', width: 100, accent: '#0d9488', name: 'NJ Temporary Disability Insurance', weeks: '12 weeks', range: 'Apr 15 – Jul 08, 2025', pay: '85% salary (state program)', status: 'Active', paymentValue: '~$1,048/wk' },
+                      { id: 'std', label: 'STD', width: 50, accent: '#2563eb', name: 'Group Disability Claim (STD)', weeks: '4 weeks', range: 'Apr 15 – May 15, 2025', pay: '60% salary after 7-day wait', status: 'Pending', paymentValue: '~$2,308/wk' },
+                      { id: 'njtdi', label: 'NJ TDI', width: 100, accent: '#818cf8', name: 'NJ Temporary Disability Insurance', weeks: '12 weeks', range: 'Apr 15 – Jul 08, 2025', pay: '85% salary (state program)', status: 'Active', paymentValue: '~$1,048/wk' },
                     ] : [
                       { id: 'fmla', label: 'FMLA', width: 100, accent: '#0033a0', name: 'Leave Case — FMLA Protection', weeks: '12 weeks', range: 'Apr 15 – Jul 08, 2025', pay: 'Job protection (unpaid)', status: 'Pending' },
-                      { id: 'std', label: 'STD', width: 35, accent: '#3b82f6', name: 'Group Disability Claim (STD)', weeks: '4 weeks', range: 'Apr 15 – May 15, 2025', pay: '60% salary after 7-day wait', status: 'Pending' },
-                      { id: 'njtdi', label: 'NJ TDI', width: 100, accent: '#0d9488', name: 'NJ Temporary Disability Insurance', weeks: '12 weeks', range: 'Apr 15 – Jul 08, 2025', pay: '85% salary (state program)', status: 'Active' },
+                      { id: 'std', label: 'STD', width: 35, accent: '#2563eb', name: 'Group Disability Claim (STD)', weeks: '4 weeks', range: 'Apr 15 – May 15, 2025', pay: '60% salary after 7-day wait', status: 'Pending' },
+                      { id: 'njtdi', label: 'NJ TDI', width: 100, accent: '#818cf8', name: 'NJ Temporary Disability Insurance', weeks: '12 weeks', range: 'Apr 15 – Jul 08, 2025', pay: '85% salary (state program)', status: 'Active' },
                     ]).map(function (item) {
                       return (
                         <button
@@ -205,8 +205,8 @@ export default function LeaveDetailV2ePage() {
                       { id: 'std', name: 'Group Disability Claim (STD)', weeks: '4 weeks', range: 'Apr 15 – May 15, 2025', pay: '60% salary after 7-day wait', status: 'Pending', paymentValue: '~$2,308/wk' },
                       { id: 'njtdi', name: 'NJ Temporary Disability Insurance', weeks: '12 weeks', range: 'Apr 15 – Jul 08, 2025', pay: '85% salary (state program)', status: 'Active', paymentValue: '~$1,048/wk' },
                     ] : [
-                      { id: 'fmla', name: 'Leave Case — FMLA Protection', weeks: '12 weeks', range: 'Apr 15 – Jul 08, 2025', pay: 'Job protection (unpaid)', status: 'Pending' },
-                      { id: 'std', name: 'Group Disability Claim (STD)', weeks: '4 weeks', range: 'Apr 15 – May 15, 2025', pay: '60% salary after 7-day wait', status: 'Pending' },
+                      { id: 'fmla', name: 'Leave Case — FMLA Protection', weeks: '12 weeks', range: 'Apr 15 – Jul 08, 2025', pay: 'Job protection (unpaid)', status: 'Approved' },
+                      { id: 'std', name: 'Group Disability Claim (STD)', weeks: '4 weeks', range: 'Apr 15 – May 15, 2025', pay: '60% salary after 7-day wait', status: 'Approved' },
                       { id: 'njtdi', name: 'NJ Temporary Disability Insurance', weeks: '12 weeks', range: 'Apr 15 – Jul 08, 2025', pay: '85% salary (state program)', status: 'Active' },
                     ];
                     var hovered = allRows.find(function (r) { return r.id === hoveredRow; });
@@ -253,14 +253,14 @@ export default function LeaveDetailV2ePage() {
 
                   <div className="dlp-legend">
                     {(timelineView === 'payment' ? [
-                      { id: 'partial-pay', label: 'STD (60%)', accent: '#3b82f6' },
-                      { id: 'state', label: 'NJ TDI (85%)', accent: '#0d9488' },
-                      { id: 'unpaid', label: 'Unpaid', accent: '#e5e7eb' },
+                      { id: 'partial-pay', label: 'STD (60%)', accent: '#2563eb' },
+                      { id: 'state', label: 'NJ TDI (85%)', accent: '#818cf8' },
+                      { id: 'unpaid', label: 'Unpaid', accent: '#e2e8f0' },
                     ] : [
                       { id: 'fmla', label: 'FMLA Protection', accent: '#0033a0' },
-                      { id: 'std', label: 'STD Income', accent: '#3b82f6' },
-                      { id: 'state', label: 'NJ State TDI', accent: '#0d9488' },
-                      { id: 'unpaid', label: 'Unpaid', accent: '#e5e7eb' },
+                      { id: 'std', label: 'STD Income', accent: '#2563eb' },
+                      { id: 'state', label: 'NJ State TDI', accent: '#818cf8' },
+                      { id: 'unpaid', label: 'Unpaid', accent: '#e2e8f0' },
                     ]).map(function (item) {
                       return (
                         <div key={item.id} className="dlp-legend-item">
@@ -455,7 +455,7 @@ export default function LeaveDetailV2ePage() {
                       <div className="ldb-claim-accordion-sub">NTN-9312-STL-83 · NJ Temporary Disability Insurance — state-funded income replacement</div>
                     </div>
                   </div>
-                  <span className="ldb-claim-status" style={{ background: '#ccfbf1', color: '#0d9488' }}>Active</span>
+                  <span className="ldb-claim-status" style={{ background: '#eef2ff', color: '#6366f1' }}>Active</span>
                 </button>
                 {expandedClaims.stateleave && (
                   <div className="ldb-claim-accordion-body">
@@ -501,7 +501,7 @@ export default function LeaveDetailV2ePage() {
                         <div className="dt-info-field-value">Direct Deposit ****4872</div>
                       </div>
                     </div>
-                    <div style={{ marginTop: 16, padding: '12px 16px', background: '#f0fdfa', borderRadius: 8, border: '1px solid #ccfbf1', fontSize: 13, color: '#115e59' }}>
+                    <div style={{ marginTop: 16, padding: '12px 16px', background: '#eef2ff', borderRadius: 8, border: '1px solid #e0e7ff', fontSize: 13, color: '#3730a3' }}>
                       <strong>Note:</strong> NJ TDI is paid separately from your employer STD benefit. Combined, you receive approximately 85% income replacement during your leave. This benefit is funded by NJ state payroll contributions.
                     </div>
                   </div>
