@@ -14,7 +14,7 @@ export default function ClaimsAndLeaveLayout() {
   ];
 
   const subNavTabs = [
-    { label: 'Claim Center', to: base },
+    { label: 'Claim Center', to: `${base}/claim-center` },
     { label: 'File a Claim or Leave', to: `${base}/file-claim` },
     { label: 'My Cases', to: `${base}/my-cases` },
     { label: 'Leave Planning Tool', to: `${base}/leave-planning` },
@@ -88,8 +88,8 @@ export default function ClaimsAndLeaveLayout() {
       <nav className="cl-subnav">
         <div className="cl-subnav-inner">
           {subNavTabs.map((tab) => {
-            const isActive = tab.to === base
-              ? location.pathname === base || location.pathname === `${base}/dental`
+            const isActive = tab.to === `${base}/claim-center`
+              ? location.pathname === `${base}/claim-center` || location.pathname === `${base}/dental`
               : tab.to === `${base}/my-cases`
               ? location.pathname === `${base}/my-cases` || location.pathname.startsWith(`${base}/case-detail`)
               : tab.to === `${base}/leave-planning`
