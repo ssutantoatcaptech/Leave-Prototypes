@@ -34,6 +34,7 @@ import MyCasesPage from './features/claims-and-leave/MyCasesPage';
 import LeavePlanningPage from './features/claims-and-leave/LeavePlanningPage';
 import EnterMyTimePage from './features/claims-and-leave/EnterMyTimePage';
 import PaymentsPage from './features/claims-and-leave/PaymentsPage';
+import ClaimsAndLeaveMobilePage from './features/claims-and-leave-mobile/ClaimsAndLeaveMobilePage';
 
 function Home() {
   return (
@@ -62,6 +63,12 @@ function Home() {
             <span className="route-card-label">New</span>
             <strong className="route-card-title">Claims and Leave</strong>
             <span className="route-card-meta">Benefits hub with claims tracking, leave management, and payments</span>
+          </NavLink>
+
+          <NavLink className="route-card" to="/claims-and-leave-mobile">
+            <span className="route-card-label">New</span>
+            <strong className="route-card-title">New Claims and Leave (mobile)</strong>
+            <span className="route-card-meta">Mobile-optimized claims and leave experience</span>
           </NavLink>
         </div>
       </section>
@@ -97,6 +104,9 @@ export default function App() {
         <Route path="/leave-detail-v3c" element={<LeaveDetailV3cPage />} />
         <Route path="/supplemental-health" element={<LeaveDetailSupplementalPage />} />
         <Route path="/leave-payments" element={<LeavePaymentsPage />} />
+
+        {/* Claims & Leave Mobile */}
+        <Route path="/claims-and-leave-mobile" element={<ClaimsAndLeaveMobilePage />} />
 
         {/* Claims & Leave section */}
         <Route path="/claims-and-leave" element={<ClaimsAndLeaveLayout />}>
