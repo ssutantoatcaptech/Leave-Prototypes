@@ -787,12 +787,32 @@
 }
 
 /* Timeline: taller bars on mobile */
+.mobile-frame-screen .dt-timeline-wrap {
+  overflow: visible;
+}
+
 .mobile-frame-screen .dlp-tl-row {
   min-height: 44px;
 }
 
+.mobile-frame-screen .dlp-tl-row-bar {
+  flex: 1;
+  min-width: 0;
+  height: 22px;
+  border-radius: 5px;
+  background: #f0f0f2;
+  position: relative;
+}
+
 .mobile-frame-screen .ldb-card.dt-timeline-wrap .dlp-tl-row-bar {
   height: 22px;
+}
+
+.mobile-frame-screen .dlp-tl-seg {
+  position: absolute;
+  top: 0;
+  height: 100%;
+  border-radius: 5px;
 }
 
 .mobile-frame-screen .dlp-tl-row-label {
