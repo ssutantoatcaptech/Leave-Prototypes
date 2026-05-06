@@ -276,6 +276,12 @@
 .ldb-card.dt-timeline-wrap .dlp-tl-row:hover {
   background: #f0f5ff;
 }
+.ldb-card.dt-timeline-wrap .dlp-tl-row-bar {
+  background: #e8f0fe;
+}
+.ldb-card.dt-timeline-wrap .dlp-tl-row-label {
+  color: #0033a0;
+}
 .ldb-tl-rows-wrap {
   position: relative;
 }
