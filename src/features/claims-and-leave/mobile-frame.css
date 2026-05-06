@@ -37,11 +37,13 @@
   overflow-y: auto;
   overflow-x: hidden;
   -webkit-overflow-scrolling: touch;
+  position: relative;
 }
 
 /* Inside the mobile frame, trigger mobile styles regardless of viewport */
 .mobile-frame-screen .cl-layout {
   min-height: auto;
+  position: static;
 }
 
 .mobile-frame-screen .cl-main-nav {
@@ -162,4 +164,12 @@
 /* Mobile nav inside frame */
 .mobile-frame-screen .cl-mobile-nav {
   display: flex;
+}
+
+.mobile-frame-screen .cl-mobile-nav-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
 }
