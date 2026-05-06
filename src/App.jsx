@@ -8,6 +8,8 @@ import ReturnToWorkPage from './features/return-to-work/ReturnToWorkPage';
 import ReturnToWorkEmbeddedPage from './features/return-to-work/ReturnToWorkEmbeddedPage';
 import ReturnToWorkPregnancyEmbeddedPage from './features/return-to-work/ReturnToWorkPregnancyEmbeddedPage';
 import LeaveDetailPregnancyPage from './features/leave-detail/LeaveDetailPregnancyPage';
+import LeaveDetailCaregiverPage from './features/leave-detail/LeaveDetailCaregiverPage';
+import ReturnToWorkCaregiverEmbeddedPage from './features/return-to-work/ReturnToWorkCaregiverEmbeddedPage';
 import MyLeavesPage from './features/my-leaves/MyLeavesPage';
 import LeaveDocumentsPage from './features/leave-documents/LeaveDocumentsPage';
 import LeaveDetailPage from './features/leave-detail/LeaveDetailPage';
@@ -112,6 +114,8 @@ export default function App() {
           <Route path="case-detail/return-to-work" element={<ReturnToWorkEmbeddedPage />} />
           <Route path="case-detail-pregnancy" element={<LeaveDetailPregnancyPage />} />
           <Route path="case-detail-pregnancy/return-to-work" element={<ReturnToWorkPregnancyEmbeddedPage />} />
+          <Route path="case-detail-caregiver" element={<LeaveDetailCaregiverPage />} />
+          <Route path="case-detail-caregiver/return-to-work" element={<ReturnToWorkCaregiverEmbeddedPage />} />
         </Route>
 
         <Route path="*" element={<Navigate to="/" replace />} />
