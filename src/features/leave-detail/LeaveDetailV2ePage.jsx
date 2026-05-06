@@ -89,7 +89,7 @@ function SiteFooter() {
 export default function LeaveDetailV2ePage() {
   var [timelineView, setTimelineView] = useState('protection');
   var [hoveredRow, setHoveredRow] = useState(null);
-  var [expandedClaims, setExpandedClaims] = useState({ absence: true });
+  var [expandedClaims, setExpandedClaims] = useState({ absence: true, stateleave: false });
   var [paymentsOpen, setPaymentsOpen] = useState(true);
   var [showAllTasks, setShowAllTasks] = useState(false);
   var [editingSection, setEditingSection] = useState(null);
@@ -97,13 +97,13 @@ export default function LeaveDetailV2ePage() {
     reason: 'Surgical procedure and post-operative recovery',
     duration: 'Up to 12 weeks (FMLA eligible)',
     provider: 'Dr. Patel (Orthopedic Surgery)',
-    facility: 'Nebraska Medical Center',
-    providerPhone: '(402) 555-8200',
-    providerFax: '(402) 555-8201',
-    providerAddress: '987 Medical Center Dr, Omaha, NE 68114',
+    facility: 'Hackensack University Medical Center',
+    providerPhone: '(201) 555-8200',
+    providerFax: '(201) 555-8201',
+    providerAddress: '30 Prospect Ave, Hackensack, NJ 07601',
     email: 'marcus.thompson@company.com',
-    phone: '(402) 555-0187',
-    address: '4521 Maple Drive, Omaha, NE 68102',
+    phone: '(201) 555-0187',
+    address: '142 Park Ave, Hoboken, NJ 07030',
   });
   var [aboutLeaveOpen, setAboutLeaveOpen] = useState(false);
 
@@ -177,9 +177,11 @@ export default function LeaveDetailV2ePage() {
                   <div className="dlp-tl-rows">
                     {(timelineView === 'payment' ? [
                       { id: 'std', label: 'STD', width: 50, accent: '#3b82f6', name: 'Group Disability Claim (STD)', weeks: '4 weeks', range: 'Apr 15 – May 15, 2025', pay: '60% salary after 7-day wait', status: 'Pending', paymentValue: '~$2,308/wk' },
+                      { id: 'njtdi', label: 'NJ TDI', width: 100, accent: '#0d9488', name: 'NJ Temporary Disability Insurance', weeks: '12 weeks', range: 'Apr 15 – Jul 08, 2025', pay: '85% salary (state program)', status: 'Active', paymentValue: '~$1,048/wk' },
                     ] : [
                       { id: 'fmla', label: 'FMLA', width: 100, accent: '#0033a0', name: 'Leave Case — FMLA Protection', weeks: '12 weeks', range: 'Apr 15 – Jul 08, 2025', pay: 'Job protection (unpaid)', status: 'Pending' },
                       { id: 'std', label: 'STD', width: 35, accent: '#3b82f6', name: 'Group Disability Claim (STD)', weeks: '4 weeks', range: 'Apr 15 – May 15, 2025', pay: '60% salary after 7-day wait', status: 'Pending' },
+                      { id: 'njtdi', label: 'NJ TDI', width: 100, accent: '#0d9488', name: 'NJ Temporary Disability Insurance', weeks: '12 weeks', range: 'Apr 15 – Jul 08, 2025', pay: '85% salary (state program)', status: 'Active' },
                     ]).map(function (item) {
                       return (
                         <button
@@ -201,9 +203,11 @@ export default function LeaveDetailV2ePage() {
                   {hoveredRow && (function () {
                     var allRows = timelineView === 'payment' ? [
                       { id: 'std', name: 'Group Disability Claim (STD)', weeks: '4 weeks', range: 'Apr 15 – May 15, 2025', pay: '60% salary after 7-day wait', status: 'Pending', paymentValue: '~$2,308/wk' },
+                      { id: 'njtdi', name: 'NJ Temporary Disability Insurance', weeks: '12 weeks', range: 'Apr 15 – Jul 08, 2025', pay: '85% salary (state program)', status: 'Active', paymentValue: '~$1,048/wk' },
                     ] : [
                       { id: 'fmla', name: 'Leave Case — FMLA Protection', weeks: '12 weeks', range: 'Apr 15 – Jul 08, 2025', pay: 'Job protection (unpaid)', status: 'Pending' },
                       { id: 'std', name: 'Group Disability Claim (STD)', weeks: '4 weeks', range: 'Apr 15 – May 15, 2025', pay: '60% salary after 7-day wait', status: 'Pending' },
+                      { id: 'njtdi', name: 'NJ Temporary Disability Insurance', weeks: '12 weeks', range: 'Apr 15 – Jul 08, 2025', pay: '85% salary (state program)', status: 'Active' },
                     ];
                     var hovered = allRows.find(function (r) { return r.id === hoveredRow; });
                     if (!hovered) return null;
@@ -250,10 +254,12 @@ export default function LeaveDetailV2ePage() {
                   <div className="dlp-legend">
                     {(timelineView === 'payment' ? [
                       { id: 'partial-pay', label: 'STD (60%)', accent: '#3b82f6' },
+                      { id: 'state', label: 'NJ TDI (85%)', accent: '#0d9488' },
                       { id: 'unpaid', label: 'Unpaid', accent: '#e5e7eb' },
                     ] : [
                       { id: 'fmla', label: 'FMLA Protection', accent: '#0033a0' },
                       { id: 'std', label: 'STD Income', accent: '#3b82f6' },
+                      { id: 'state', label: 'NJ State TDI', accent: '#0d9488' },
                       { id: 'unpaid', label: 'Unpaid', accent: '#e5e7eb' },
                     ]).map(function (item) {
                       return (
@@ -268,8 +274,8 @@ export default function LeaveDetailV2ePage() {
                   {timelineView === 'payment' && (
                     <div className="dt-payment-summary">
                       <div className="dt-payment-summary-title">Estimated total income during leave</div>
-                      <div className="dt-payment-summary-value">$9,232</div>
-                      <div className="dt-payment-summary-note">Based on current salary · Actual amounts may vary</div>
+                      <div className="dt-payment-summary-value">$21,808</div>
+                      <div className="dt-payment-summary-note">STD ($9,232) + NJ TDI ($12,576) · Based on current salary · Actual amounts may vary</div>
                     </div>
                   )}
                 </div>
@@ -434,6 +440,69 @@ export default function LeaveDetailV2ePage() {
                     </div>
                     <div style={{ marginTop: 16, padding: '12px 16px', background: '#f5f3ff', borderRadius: 8, border: '1px solid #ede9fe', fontSize: 13, color: '#5b21b6' }}>
                       <strong>Action needed:</strong> Upload itemized hospital bill to complete review. This claim pays in addition to your STD benefit.
+                    </div>
+                  </div>
+                )}
+              </div>
+
+              {/* State Paid Leave Claim */}
+              <div className="ldb-claim-accordion">
+                <button type="button" className={'ldb-claim-accordion-header' + (expandedClaims.stateleave ? ' expanded' : '')} onClick={function () { toggleClaim('stateleave'); }}>
+                  <div className="ldb-claim-accordion-left">
+                    <svg className="ldb-claim-accordion-chevron" width="10" height="6" viewBox="0 0 10 6" fill="none"><path d="M1 1l4 4 4-4" stroke="currentColor" strokeWidth="1.3" strokeLinecap="round" strokeLinejoin="round"/></svg>
+                    <div>
+                      <div className="ldb-claim-accordion-title">State Paid Leave — NJ TDI</div>
+                      <div className="ldb-claim-accordion-sub">NTN-9312-STL-83 · NJ Temporary Disability Insurance — state-funded income replacement</div>
+                    </div>
+                  </div>
+                  <span className="ldb-claim-status" style={{ background: '#ccfbf1', color: '#0d9488' }}>Active</span>
+                </button>
+                {expandedClaims.stateleave && (
+                  <div className="ldb-claim-accordion-body">
+                    <div className="dt-info-grid">
+                      <div>
+                        <div className="dt-info-field-label">Claim ID</div>
+                        <div className="dt-info-field-value">NTN-9312-STL-83</div>
+                      </div>
+                      <div>
+                        <div className="dt-info-field-label">Program</div>
+                        <div className="dt-info-field-value">NJ Temporary Disability Insurance (TDI)</div>
+                      </div>
+                      <div>
+                        <div className="dt-info-field-label">Benefit %</div>
+                        <div className="dt-info-field-value">85% of average weekly wage</div>
+                      </div>
+                      <div>
+                        <div className="dt-info-field-label">Weekly Benefit</div>
+                        <div className="dt-info-field-value" style={{ fontWeight: 700 }}>$1,048.00</div>
+                      </div>
+                      <div>
+                        <div className="dt-info-field-label">Max Duration</div>
+                        <div className="dt-info-field-value">26 weeks</div>
+                      </div>
+                      <div>
+                        <div className="dt-info-field-label">Work State</div>
+                        <div className="dt-info-field-value">New Jersey</div>
+                      </div>
+                      <div>
+                        <div className="dt-info-field-label">Benefits Start</div>
+                        <div className="dt-info-field-value">Apr 15, 2025</div>
+                      </div>
+                      <div>
+                        <div className="dt-info-field-label">Benefits End (Est.)</div>
+                        <div className="dt-info-field-value">Jul 08, 2025</div>
+                      </div>
+                      <div>
+                        <div className="dt-info-field-label">Total Paid</div>
+                        <div className="dt-info-field-value" style={{ fontWeight: 700 }}>$4,192.00</div>
+                      </div>
+                      <div>
+                        <div className="dt-info-field-label">Payment Method</div>
+                        <div className="dt-info-field-value">Direct Deposit ****4872</div>
+                      </div>
+                    </div>
+                    <div style={{ marginTop: 16, padding: '12px 16px', background: '#f0fdfa', borderRadius: 8, border: '1px solid #ccfbf1', fontSize: 13, color: '#115e59' }}>
+                      <strong>Note:</strong> NJ TDI is paid separately from your employer STD benefit. Combined, you receive approximately 85% income replacement during your leave. This benefit is funded by NJ state payroll contributions.
                     </div>
                   </div>
                 )}

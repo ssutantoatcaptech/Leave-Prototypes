@@ -797,7 +797,7 @@ export default function PlanAbsenceReactPage() {
                       <div className="dlp-legend" style={{ marginTop: 16 }}>
                         <div className="dlp-legend-item"><div className="dlp-legend-dot" style={{ background: '#0033a0' }} />FMLA</div>
                         <div className="dlp-legend-item"><div className="dlp-legend-dot" style={{ background: '#3b82f6' }} />Short-Term Disability</div>
-                        {stBenefit && <div className="dlp-legend-item"><div className="dlp-legend-dot" style={{ background: '#7c3aed' }} />State Paid Leave</div>}
+                        {stBenefit && <div className="dlp-legend-item"><div className="dlp-legend-dot" style={{ background: '#0d9488' }} />State Paid Leave</div>}
                       </div>
 
                       <div style={{ fontSize: 11, color: '#525252', background: '#f5f5f7', borderRadius: 6, padding: '8px 12px', marginTop: 16, lineHeight: 1.5, display: 'flex', alignItems: 'flex-start', gap: 6 }}>
@@ -837,7 +837,7 @@ export default function PlanAbsenceReactPage() {
                       {stBenefit && (
                         <div style={{ padding: '16px 20px', borderTop: '1px solid #f0f0f2' }}>
                           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 2 }}>
-                            <div style={{ fontSize: 14, fontWeight: 700, color: '#7c3aed' }}>{stBenefit.name}</div>
+                            <div style={{ fontSize: 14, fontWeight: 700, color: '#0d9488' }}>{stBenefit.name}</div>
                             <div style={{ fontSize: 13, fontWeight: 600, color: '#0f0f14' }}>{stBenefit.payPct}% of salary</div>
                           </div>
                           <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: 12, color: '#737373' }}>
@@ -922,7 +922,7 @@ export default function PlanAbsenceReactPage() {
                         </div>
                         {stBenefit && (
                           <div className="dlp-side-period" style={{ borderTop: '1px solid #f0f0f2' }}>
-                            <div className="dlp-side-period-label" style={{ color: '#7c3aed' }}>{stBenefit.name}</div>
+                            <div className="dlp-side-period-label" style={{ color: '#0d9488' }}>{stBenefit.name}</div>
                             <div className="dlp-side-period-dates">{fmtDate(estStart)} – {fmtDate(stateEndDate)}</div>
                             <div className="dlp-side-period-detail">{stateWks} weeks at {stBenefit.payPct}% pay</div>
                           </div>
@@ -931,12 +931,12 @@ export default function PlanAbsenceReactPage() {
                     </div>
 
                     {stBenefit ? (
-                      <div className="dlp-sidebar" style={{ borderLeft: '3px solid #7c3aed' }}>
-                        <div className="dlp-sidebar-group-label" style={{ color: '#7c3aed' }}>STATE BENEFITS</div>
+                      <div className="dlp-sidebar" style={{ borderLeft: '3px solid #0d9488' }}>
+                        <div className="dlp-sidebar-group-label" style={{ color: '#0d9488' }}>STATE BENEFITS</div>
                         <div className="dlp-sidebar-group-body" style={{ padding: '12px 20px 16px' }}>
                           <div style={{ fontSize: 13, fontWeight: 700, color: '#0f0f14', marginBottom: 4 }}>{stBenefit.name}</div>
                           <div style={{ fontSize: 12, color: '#525252', lineHeight: 1.5, marginBottom: 8 }}>{stBenefit.desc}</div>
-                          <div style={{ fontSize: 11, color: '#7c3aed', fontWeight: 600 }}>{stBenefit.card}</div>
+                          <div style={{ fontSize: 11, color: '#0d9488', fontWeight: 600 }}>{stBenefit.card}</div>
                         </div>
                       </div>
                     ) : (
@@ -1750,14 +1750,14 @@ export default function PlanAbsenceReactPage() {
                           <div className="dlp-legend">
                             <div className="dlp-legend-item"><div className="dlp-legend-dot" style={{ background: '#2d2d2d' }} />Job-protected (FMLA)</div>
                             <div className="dlp-legend-item"><div className="dlp-legend-dot" style={{ background: '#737373' }} />Paid (STD 60%)</div>
-                            {tlData.stateBenefit && <div className="dlp-legend-item"><div className="dlp-legend-dot" style={{ background: '#7c3aed' }} />State Paid Leave</div>}
+                            {tlData.stateBenefit && <div className="dlp-legend-item"><div className="dlp-legend-dot" style={{ background: '#0d9488' }} />State Paid Leave</div>}
                             <div className="dlp-legend-item"><div className="dlp-legend-dot" style={{ background: '#d4d4d4' }} />Unpaid</div>
                           </div>
                         ) : (
                           <div className="dlp-legend">
                             <div className="dlp-legend-item"><div className="dlp-legend-dot" style={{ background: '#2d2d2d' }} />FMLA (federal job protection)</div>
                             <div className="dlp-legend-item"><div className="dlp-legend-dot" style={{ background: '#a3a3a3' }} />Insurance (STD)</div>
-                            {tlData.stateBenefit && <div className="dlp-legend-item"><div className="dlp-legend-dot" style={{ background: '#7c3aed' }} />State Paid Leave</div>}
+                            {tlData.stateBenefit && <div className="dlp-legend-item"><div className="dlp-legend-dot" style={{ background: '#0d9488' }} />State Paid Leave</div>}
                             <div className="dlp-legend-item"><div className="dlp-legend-dot" style={{ background: '#d4d4d4' }} />No coverage</div>
                           </div>
                         )
@@ -1950,8 +1950,8 @@ export default function PlanAbsenceReactPage() {
 
                       {/* STATE BENEFITS — shown when state has paid leave */}
                       {stateBenefit && (
-                        <div className="dlp-sidebar" style={{ borderLeft: '3px solid #7c3aed' }}>
-                          <div className="dlp-sidebar-group-label" style={{ color: '#7c3aed' }}>STATE PAID LEAVE</div>
+                        <div className="dlp-sidebar" style={{ borderLeft: '3px solid #0d9488' }}>
+                          <div className="dlp-sidebar-group-label" style={{ color: '#0d9488' }}>STATE PAID LEAVE</div>
                           <div className="dlp-sidebar-group-body" style={{ padding: '12px 20px 16px' }}>
                             <div style={{ fontSize: 14, fontWeight: 700, color: '#0f0f14', marginBottom: 4 }}>{stateBenefit.name}</div>
                             <div style={{ fontSize: 12, color: '#525252', lineHeight: 1.5, marginBottom: 10 }}>{stateBenefit.desc}</div>
