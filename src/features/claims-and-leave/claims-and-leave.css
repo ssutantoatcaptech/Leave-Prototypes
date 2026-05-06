@@ -2782,57 +2782,102 @@
    Mobile Responsive Styles
    =========================== */
 
-/* Mobile navigation drawer */
-.cl-mobile-nav {
-  display: flex;
-  flex-direction: column;
+/* Mobile navigation overlay */
+.cl-mobile-nav-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
   background: #fff;
-  border-bottom: 1px solid #e5e7eb;
-  padding: 8px 16px 16px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
-}
-
-.cl-mobile-nav-section {
+  z-index: 200;
   display: flex;
   flex-direction: column;
+  overflow-y: auto;
 }
 
-.cl-mobile-nav-heading {
-  font-size: 11px;
-  font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: 0.5px;
-  color: #6b7280;
-  padding: 12px 16px 4px;
-}
-
-.cl-mobile-nav-link {
+.cl-mobile-nav-close {
   display: flex;
   align-items: center;
-  min-height: 44px;
-  padding: 10px 16px;
-  font-size: 15px;
-  color: #374151;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  border: none;
+  background: #fff;
+  cursor: pointer;
+  padding: 16px;
+  border-bottom: 1px solid #f0f0f0;
+  box-shadow: 0 4px 4px rgba(0, 0, 0, 0.08);
+  position: relative;
+  z-index: 1;
+}
+
+.cl-mobile-nav-brand {
+  display: flex;
+  align-items: center;
+  padding: 16px;
+  border-bottom: 1px solid #e4e4e4;
+}
+
+.cl-mobile-nav-brand-name {
+  font-size: 18px;
+  font-weight: 700;
+  color: #003a70;
+}
+
+.cl-mobile-nav-primary {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+
+.cl-mobile-nav-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 18px 16px;
+  font-size: 20px;
+  font-weight: 600;
+  color: #003a70;
   text-decoration: none;
-  border-radius: 8px;
-  transition: background 0.12s;
+  border-bottom: 1px solid #e4e4e4;
+  min-height: 60px;
 }
 
-.cl-mobile-nav-link:hover,
-.cl-mobile-nav-link:active {
-  background: #f3f4f6;
+.cl-mobile-nav-item:active {
+  background: #f5f7fa;
 }
 
-.cl-mobile-nav-link.active {
-  background: #f0f4ff;
-  color: #0033a0;
-  font-weight: 500;
+.cl-mobile-nav-utility {
+  background: #003a70;
+  display: flex;
+  flex-direction: column;
 }
 
-.cl-mobile-nav-divider {
-  height: 1px;
-  background: #e5e7eb;
-  margin: 8px 0;
+.cl-mobile-nav-utility-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 16px;
+  border: none;
+  background: none;
+  color: #fff;
+  font-size: 16px;
+  font-weight: 600;
+  font-family: inherit;
+  cursor: pointer;
+  min-height: 56px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.15);
+  text-align: left;
+  width: 100%;
+}
+
+.cl-mobile-nav-utility-item:last-child {
+  border-bottom: none;
+}
+
+.cl-mobile-nav-utility-item:active {
+  background: rgba(255, 255, 255, 0.1);
 }
 
 /* Mobile card list - hidden on desktop */

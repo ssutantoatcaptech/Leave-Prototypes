@@ -110,36 +110,61 @@ export default function DashboardPage() {
         </div>
       </header>
 
-      {/* Mobile nav drawer */}
+      {/* Mobile nav fullscreen overlay */}
       {mobileNavOpen && (
-        <nav className="cl-mobile-nav" aria-label="Mobile navigation">
-          <div className="cl-mobile-nav-section">
-            {navLinks.map((link) => (
-              <NavLink
-                key={link.label}
-                to={link.dropdown ? '/claims-and-leave' : link.to}
-                className="cl-mobile-nav-link"
-                onClick={() => setMobileNavOpen(false)}
-              >
-                {link.label}
-              </NavLink>
-            ))}
+        <div className="cl-mobile-nav-overlay" aria-label="Mobile navigation">
+          <button className="cl-mobile-nav-close" aria-label="Close menu" onClick={() => setMobileNavOpen(false)}>
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+              <path d="M2 2l12 12M14 2L2 14" stroke="#0f0f14" strokeWidth="2" strokeLinecap="round"/>
+            </svg>
+          </button>
+          <div className="cl-mobile-nav-brand">
+            <span className="cl-mobile-nav-brand-name">Benefits Hub</span>
           </div>
-          <div className="cl-mobile-nav-divider" />
-          <div className="cl-mobile-nav-section">
-            <span className="cl-mobile-nav-heading">Claims &amp; Leave</span>
-            {subNavTabs.map((tab) => (
-              <NavLink
-                key={tab.label}
-                to={tab.to}
-                className="cl-mobile-nav-link"
-                onClick={() => setMobileNavOpen(false)}
-              >
-                {tab.label}
-              </NavLink>
-            ))}
+          <div className="cl-mobile-nav-primary">
+            <NavLink to="/claims-and-leave/dashboard" className="cl-mobile-nav-item" onClick={() => setMobileNavOpen(false)}>
+              <span>Dashboard</span>
+            </NavLink>
+            <NavLink to="#" className="cl-mobile-nav-item" onClick={() => setMobileNavOpen(false)}>
+              <span>Benefits</span>
+              <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M4 6l4 4 4-4" stroke="#003a70" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/></svg>
+            </NavLink>
+            <NavLink to="/claims-and-leave" className="cl-mobile-nav-item" onClick={() => setMobileNavOpen(false)}>
+              <span>Claims and Leave</span>
+              <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M4 6l4 4 4-4" stroke="#003a70" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/></svg>
+            </NavLink>
+            <NavLink to="#" className="cl-mobile-nav-item" onClick={() => setMobileNavOpen(false)}>
+              <span>Documents</span>
+              <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M4 6l4 4 4-4" stroke="#003a70" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/></svg>
+            </NavLink>
+            <NavLink to="#" className="cl-mobile-nav-item" onClick={() => setMobileNavOpen(false)}>
+              <span>Support</span>
+              <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M4 6l4 4 4-4" stroke="#003a70" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/></svg>
+            </NavLink>
           </div>
-        </nav>
+          <div className="cl-mobile-nav-utility">
+            <button className="cl-mobile-nav-utility-item" onClick={() => setMobileNavOpen(false)}>
+              <svg width="24" height="24" viewBox="0 0 26 20" fill="none"><rect x="1" y="1" width="24" height="18" rx="2" stroke="white" strokeWidth="1.5"/><circle cx="10" cy="9" r="2.5" stroke="white" strokeWidth="1.2"/><path d="M5.5 16c0-2.5 2-4 4.5-4s4.5 1.5 4.5 4" stroke="white" strokeWidth="1.2" strokeLinecap="round"/><path d="M17 7h4M17 10h4M17 13h3" stroke="white" strokeWidth="1.2" strokeLinecap="round"/></svg>
+              <span>ID Card</span>
+            </button>
+            <button className="cl-mobile-nav-utility-item" onClick={() => setMobileNavOpen(false)}>
+              <svg width="24" height="24" viewBox="0 0 20 22" fill="none"><path d="M10 1c-1.5 0-2.8.6-3.8 1.5C5.2 3.6 4.5 5.2 4.5 7v4.5L3 13.5V15h14v-1.5l-1.5-2V7c0-1.8-.7-3.4-1.7-4.5C12.8 1.6 11.5 1 10 1z" stroke="white" strokeWidth="1.5" strokeLinejoin="round"/><path d="M7.5 15v.5a2.5 2.5 0 005 0V15" stroke="white" strokeWidth="1.5" strokeLinecap="round"/></svg>
+              <span>Notifications</span>
+            </button>
+            <button className="cl-mobile-nav-utility-item" onClick={() => setMobileNavOpen(false)}>
+              <svg width="24" height="24" viewBox="0 0 24 18" fill="none"><rect x="1" y="1" width="22" height="16" rx="2" stroke="white" strokeWidth="1.5"/><path d="M1 4l11 7 11-7" stroke="white" strokeWidth="1.5" strokeLinejoin="round"/></svg>
+              <span>Messages</span>
+            </button>
+            <button className="cl-mobile-nav-utility-item" onClick={() => setMobileNavOpen(false)}>
+              <svg width="24" height="24" viewBox="0 0 24 22" fill="none"><path d="M2 2h14v10H8l-4 4v-4H2V2z" stroke="white" strokeWidth="1.5" strokeLinejoin="round"/><path d="M18 6h4v10h-2v4l-4-4h-4v-4" stroke="white" strokeWidth="1.5" strokeLinejoin="round"/></svg>
+              <span>Chat</span>
+            </button>
+            <button className="cl-mobile-nav-utility-item" onClick={() => setMobileNavOpen(false)}>
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="8" r="4" stroke="white" strokeWidth="1.5"/><path d="M4 21c0-4 3.5-7 8-7s8 3 8 7" stroke="white" strokeWidth="1.5" strokeLinecap="round"/></svg>
+              <span>Profile</span>
+            </button>
+          </div>
+        </div>
       )}
 
       <section className="cldb-hero">
