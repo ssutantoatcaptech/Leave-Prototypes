@@ -54,10 +54,19 @@ const REASON_OPTIONS = [
 ];
 
 const STATE_BENEFITS = {
-  CA: { name: 'CA SDI / PFL', desc: 'California provides State Disability Insurance (SDI) at ~60-70% pay for own illness, and Paid Family Leave (PFL) at ~60-70% for family care and bonding, up to 8 weeks.', note: '60-70% pay via SDI/PFL', card: 'Up to 8 weeks paid' },
-  NY: { name: 'NY DBL / PFL', desc: 'New York provides Disability Benefits Law (DBL) at 50% pay (capped) for own illness, and Paid Family Leave (PFL) at 67% pay for up to 12 weeks for family care and bonding.', note: '50-67% pay via DBL/PFL', card: 'Up to 12 weeks paid' },
-  NJ: { name: 'NJ TDI / FLI', desc: 'New Jersey provides Temporary Disability Insurance (TDI) at ~85% pay for own illness, and Family Leave Insurance (FLI) at ~85% for up to 12 weeks for family care.', note: '~85% pay via TDI/FLI', card: 'Up to 12 weeks paid' },
-  WA: { name: 'WA PFML', desc: 'Washington provides Paid Family and Medical Leave (PFML) at up to 90% pay for up to 12 weeks for medical leave and 12 weeks for family leave (16 weeks combined max).', note: 'Up to 90% pay via PFML', card: 'Up to 12-16 weeks paid' },
+  CA: { name: 'CA SDI / PFL', desc: 'California provides State Disability Insurance (SDI) at ~60-70% pay for own illness, and Paid Family Leave (PFL) at ~60-70% for family care and bonding, up to 8 weeks.', note: '60-70% pay via SDI/PFL', card: 'Up to 8 weeks paid', payPct: 67, medicalWeeks: 52, familyWeeks: 8, parentalWeeks: 8 },
+  CO: { name: 'CO FAMLI', desc: 'Colorado Family and Medical Leave Insurance (FAMLI) provides up to 12 weeks of paid leave at ~90% of wages for medical, family, and parental leave. Additional 4 weeks for pregnancy complications.', note: 'Up to 90% pay via FAMLI', card: 'Up to 12 weeks paid', payPct: 90, medicalWeeks: 12, familyWeeks: 12, parentalWeeks: 16 },
+  CT: { name: 'CT Paid Leave', desc: 'Connecticut Paid Leave provides up to 12 weeks at ~95% pay for medical, family, and parental leave. Additional 2 weeks for pregnancy complications.', note: 'Up to 95% pay via CTPL', card: 'Up to 12 weeks paid', payPct: 95, medicalWeeks: 12, familyWeeks: 12, parentalWeeks: 14 },
+  DE: { name: 'DE Healthy Families', desc: 'Delaware Healthy Delaware Families Act provides up to 12 weeks for parental leave and 6 weeks for medical/caregiver leave with partial pay.', note: 'Partial pay via DE HDFA', card: 'Up to 12 weeks paid', payPct: 80, medicalWeeks: 6, familyWeeks: 6, parentalWeeks: 12 },
+  DC: { name: 'DC PFL', desc: 'District of Columbia Paid Family Leave provides up to 12 weeks of partial pay for parental, family, and medical leave. Separate DC FMLA provides 16 weeks job protection.', note: '~90% pay via DC PFL', card: 'Up to 12 weeks paid', payPct: 90, medicalWeeks: 12, familyWeeks: 12, parentalWeeks: 12 },
+  HI: { name: 'HI TDI', desc: 'Hawaii Temporary Disability Insurance (TDI) provides up to 26 weeks at ~58% pay for your own illness or disability.', note: '~58% pay via HI TDI', card: 'Up to 26 weeks medical', payPct: 58, medicalWeeks: 26, familyWeeks: 0, parentalWeeks: 4 },
+  MA: { name: 'MA PFML', desc: 'Massachusetts Paid Family and Medical Leave provides up to 20 weeks for medical leave and 12 weeks for family/parental at ~80% pay.', note: '~80% pay via MA PFML', card: 'Up to 20 weeks paid', payPct: 80, medicalWeeks: 20, familyWeeks: 12, parentalWeeks: 12 },
+  MN: { name: 'MN Paid Leave', desc: 'Minnesota Paid Family and Medical Leave provides up to 12 weeks at ~90% of wages for medical, family, and parental leave.', note: '~90% pay via MN PFL', card: 'Up to 12 weeks paid', payPct: 90, medicalWeeks: 12, familyWeeks: 12, parentalWeeks: 12 },
+  NJ: { name: 'NJ TDI / FLI', desc: 'New Jersey provides Temporary Disability Insurance (TDI) at ~85% pay for own illness, and Family Leave Insurance (FLI) at ~85% for up to 12 weeks for family care.', note: '~85% pay via TDI/FLI', card: 'Up to 12 weeks paid', payPct: 85, medicalWeeks: 26, familyWeeks: 12, parentalWeeks: 12 },
+  NY: { name: 'NY DBL / PFL', desc: 'New York provides Disability Benefits Law (DBL) at 50% pay (capped) for own illness, and Paid Family Leave (PFL) at 67% pay for up to 12 weeks for family care and bonding.', note: '50-67% pay via DBL/PFL', card: 'Up to 12 weeks paid', payPct: 67, medicalWeeks: 26, familyWeeks: 12, parentalWeeks: 12 },
+  OR: { name: 'OR Paid Leave', desc: 'Oregon Paid Family and Medical Leave provides up to 12 weeks at ~100% pay (capped) for medical, family, and parental leave. Additional 2 weeks for pregnancy.', note: 'Up to 100% pay via OR PFL', card: 'Up to 12 weeks paid', payPct: 100, medicalWeeks: 12, familyWeeks: 12, parentalWeeks: 14 },
+  RI: { name: 'RI TCI / TDI', desc: 'Rhode Island Temporary Caregiver Insurance (TCI) provides up to 6 weeks for family care at ~60% pay. TDI provides up to 30 weeks for own illness.', note: '~60% pay via RI TCI/TDI', card: 'Up to 30 weeks medical', payPct: 60, medicalWeeks: 30, familyWeeks: 6, parentalWeeks: 6 },
+  WA: { name: 'WA PFML', desc: 'Washington provides Paid Family and Medical Leave (PFML) at up to 90% pay for up to 12 weeks for medical leave and 12 weeks for family leave (16 weeks combined max).', note: 'Up to 90% pay via PFML', card: 'Up to 12-16 weeks paid', payPct: 90, medicalWeeks: 12, familyWeeks: 12, parentalWeeks: 16 },
 };
 
 const LEAVE_TYPE_HINTS = {
@@ -410,30 +419,36 @@ export default function PlanAbsenceReactPage() {
     const stdWks = stdOn ? stdDuration : 0;
     const fmlaWks = fmlaOn && fmlaEligible ? Math.min(Math.max(stdWks, 12), 12) : 0;
     const unpaidWks = unpaidOn ? unpaidDuration : 0;
+    const stBenefit = STATE_BENEFITS[sideWorkState] || null;
+    const stateWks = stBenefit ? stBenefit.medicalWeeks : 0;
     const protectedWks = Math.max(stdWks, fmlaWks);
     const totalAbsWks = protectedWks + unpaidWks;
-    const displayWks = Math.max(totalAbsWks, 12);
+    const displayWks = Math.max(totalAbsWks, stateWks, 12);
     const pct = (wks) => Math.max(0, Math.min(100, wks / displayWks * 100));
 
     const stdEnd   = addWeeksToDate(sideStart || new Date().toISOString().slice(0, 10), stdWks);
     const fmlaEnd  = addWeeksToDate(sideStart || new Date().toISOString().slice(0, 10), fmlaWks);
+    const stateEnd = stBenefit ? addWeeksToDate(sideStart || new Date().toISOString().slice(0, 10), stateWks) : null;
     const unpaidStartDate = addWeeksToDate(sideStart || new Date().toISOString().slice(0, 10), protectedWks);
     const unpaidEndDate   = addWeeksToDate(sideStart || new Date().toISOString().slice(0, 10), totalAbsWks);
 
     const rows = [];
     if (stdOn)   rows.push({ id: 'std',   label: 'STD',   left: 0,              width: pct(stdWks),   segClass: activeView === 'pay' ? 'partial' : 'insurance', tooltip: 'Short-Term Disability: 60% salary' });
     if (fmlaOn)  rows.push({ id: 'fmla',  label: 'FMLA',  left: 0,              width: pct(fmlaWks),  segClass: 'full',    tooltip: 'FMLA: Job-protected leave' });
+    if (stBenefit) rows.push({ id: 'state', label: stBenefit.name.split(' ')[0], left: 0, width: pct(stateWks), segClass: 'state', tooltip: `${stBenefit.name}: ${stBenefit.note}` });
     if (unpaidOn) rows.push({ id: 'unpaid', label: 'Unpaid', left: pct(protectedWks), width: pct(unpaidWks), segClass: 'none', tooltip: 'Extended unpaid leave' });
 
     return {
       rows,
-      months: buildMonths(start, unpaidEndDate),
-      paidWeeks: stdWks,
+      months: buildMonths(start, stateEnd && stateEnd > unpaidEndDate ? stateEnd : unpaidEndDate),
+      paidWeeks: stdWks + (stBenefit ? Math.max(0, stateWks - stdWks) : 0),
       absenceWeeks: totalAbsWks,
-      weeklyPay: stdWks > 0 ? 3462 : 0,
+      weeklyPay: stdWks > 0 ? 3462 : (stBenefit ? Math.round(5769 * stBenefit.payPct / 100) : 0),
+      stateBenefit: stBenefit,
       details: {
         std:   stdOn   ? { title: 'Short-Term Disability',              duration: `${stdWks} weeks`,   dates: `${fmtDate(start)} – ${fmtDate(stdEnd)}`,          protection: { text: fmlaEligible ? 'FMLA' : 'None', cls: fmlaEligible ? 'eligible' : 'unpaid' }, pay: { text: '60% via STD', cls: 'partial' }, coveredBy: 'Short-Term Disability insurance',         paidBy: 'STD insurance (60% of base salary, after 7-day waiting period)' } : null,
         fmla:  fmlaOn  ? { title: 'FMLA Job Protection',                duration: `${fmlaWks} weeks`,  dates: `${fmtDate(start)} – ${fmtDate(fmlaEnd)}`,         protection: { text: 'FMLA', cls: 'eligible' },                                                    pay: stdOn ? { text: '60% via STD (if enrolled)', cls: 'partial' } : { text: 'No income replacement', cls: 'unpaid' }, coveredBy: 'Family and Medical Leave Act (federal)', paidBy: stdOn ? 'STD runs concurrently with FMLA' : 'No paid benefit — job-protected only' } : null,
+        state: stBenefit ? { title: stBenefit.name, duration: `${stateWks} weeks`, dates: `${fmtDate(start)} – ${fmtDate(stateEnd)}`, protection: { text: 'State law', cls: 'eligible' }, pay: { text: `${stBenefit.payPct}% via ${stBenefit.name}`, cls: 'partial' }, coveredBy: stBenefit.name, paidBy: stBenefit.desc } : null,
         unpaid: unpaidOn ? { title: 'Extended Leave (beyond protections)', duration: `${unpaidWks} weeks`, dates: `${fmtDate(unpaidStartDate)} – ${fmtDate(unpaidEndDate)}`, protection: { text: 'Not protected', cls: 'unpaid' }, pay: { text: 'Unpaid', cls: 'unpaid' }, coveredBy: 'Employer discretion / ADA accommodation', paidBy: 'No paid benefit' } : null,
       },
       stdDates:   stdOn   ? `${fmtDate(start)} – ${fmtDate(stdEnd)}` : '',
@@ -446,7 +461,7 @@ export default function PlanAbsenceReactPage() {
   }, [
     isBirth, isFamily,
     sideStart, sideDueDate, sideDuration,
-    fmlaEligible,
+    fmlaEligible, sideWorkState,
     stdOn, fmlaOn, unpaidOn, stdDuration, unpaidDuration,
     preBirthOn, postBirthOn, bondingOn,
     activeView,
@@ -719,13 +734,17 @@ export default function PlanAbsenceReactPage() {
             const diffWeeks = Math.max(1, Math.round((estEnd - estStart) / (1000 * 60 * 60 * 24 * 7)));
             const fmlaWks = fmlaEligible ? Math.min(diffWeeks, 12) : 12;
             const stdWks = Math.min(diffWeeks, 26);
+            const stBenefit = STATE_BENEFITS[sideWorkState];
+            const stateWks = stBenefit ? Math.min(diffWeeks, stBenefit.medicalWeeks) : 0;
             const fmlaEndDate = addWeeksToDate(leaveStart || new Date().toISOString().slice(0, 10), fmlaWks);
             const stdEndDate = addWeeksToDate(leaveStart || new Date().toISOString().slice(0, 10), stdWks);
-            const estMonths = buildMonths(estStart, stdEndDate);
+            const stateEndDate = stBenefit ? addWeeksToDate(leaveStart || new Date().toISOString().slice(0, 10), stateWks) : null;
+            const estMonths = buildMonths(estStart, stateEndDate && stateEndDate > stdEndDate ? stateEndDate : stdEndDate);
 
-            const displayWks = Math.max(stdWks, fmlaWks, 12);
+            const displayWks = Math.max(stdWks, fmlaWks, stateWks, 12);
             const fmlaPct = (fmlaWks / displayWks) * 100;
             const stdPct = (stdWks / displayWks) * 100;
+            const statePct = (stateWks / displayWks) * 100;
 
             return (
               <div className="sim-split">
@@ -764,9 +783,21 @@ export default function PlanAbsenceReactPage() {
                         </div>
                       </div>
 
+                      {stBenefit && (
+                        <div className="dlp-tl-row" style={{ marginTop: 8 }}>
+                          <div className="dlp-tl-row-label" style={{ fontSize: 11, lineHeight: '14px' }}>State Paid<br/>Leave</div>
+                          <div className="dlp-tl-row-bar">
+                            <div className="dlp-tl-seg state" style={{ left: '0%', width: `${statePct}%`, display: 'flex', alignItems: 'center', paddingLeft: 8, fontSize: 11, fontWeight: 600, color: '#fff' }}>
+                              {stBenefit.name} {stateWks}wk
+                            </div>
+                          </div>
+                        </div>
+                      )}
+
                       <div className="dlp-legend" style={{ marginTop: 16 }}>
-                        <div className="dlp-legend-item"><div className="dlp-legend-dot" style={{ background: '#2d2d2d' }} />FMLA</div>
-                        <div className="dlp-legend-item"><div className="dlp-legend-dot" style={{ background: '#737373' }} />Short-Term Disability</div>
+                        <div className="dlp-legend-item"><div className="dlp-legend-dot" style={{ background: '#0033a0' }} />FMLA</div>
+                        <div className="dlp-legend-item"><div className="dlp-legend-dot" style={{ background: '#3b82f6' }} />Short-Term Disability</div>
+                        {stBenefit && <div className="dlp-legend-item"><div className="dlp-legend-dot" style={{ background: '#7c3aed' }} />State Paid Leave</div>}
                       </div>
 
                       <div style={{ fontSize: 11, color: '#525252', background: '#f5f5f7', borderRadius: 6, padding: '8px 12px', marginTop: 16, lineHeight: 1.5, display: 'flex', alignItems: 'flex-start', gap: 6 }}>
@@ -803,14 +834,27 @@ export default function PlanAbsenceReactPage() {
                         </div>
                       </div>
 
+                      {stBenefit && (
+                        <div style={{ padding: '16px 20px', borderTop: '1px solid #f0f0f2' }}>
+                          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 2 }}>
+                            <div style={{ fontSize: 14, fontWeight: 700, color: '#7c3aed' }}>{stBenefit.name}</div>
+                            <div style={{ fontSize: 13, fontWeight: 600, color: '#0f0f14' }}>{stBenefit.payPct}% of salary</div>
+                          </div>
+                          <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: 12, color: '#737373' }}>
+                            <span>{fmtDate(estStart)} – {fmtDate(stateEndDate)}</span>
+                            <span>{stateWks} weeks</span>
+                          </div>
+                        </div>
+                      )}
+
                       <div style={{ padding: '14px 20px', borderTop: '1px solid #e5e5e5', background: '#f9fafb', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
                         <div>
                           <div style={{ fontSize: 13, fontWeight: 700, color: '#0f0f14' }}>Est. total leave</div>
-                          <div style={{ fontSize: 12, color: '#737373' }}>~{Math.max(fmlaWks, stdWks)} weeks ~{stdWks} paid</div>
+                          <div style={{ fontSize: 12, color: '#737373' }}>~{Math.max(fmlaWks, stdWks, stateWks)} weeks ~{Math.max(stdWks, stateWks)} paid</div>
                         </div>
                         <div style={{ textAlign: 'right' }}>
                           <div style={{ fontSize: 13, fontWeight: 700, color: '#0f0f14' }}>Benefits available</div>
-                          <div style={{ fontSize: 12, color: '#737373' }}>2 programs</div>
+                          <div style={{ fontSize: 12, color: '#737373' }}>{stBenefit ? 3 : 2} programs</div>
                         </div>
                       </div>
                     </div>
@@ -876,8 +920,33 @@ export default function PlanAbsenceReactPage() {
                           <div className="dlp-side-period-dates">{fmtDate(estStart)} – {fmtDate(stdEndDate)}</div>
                           <div className="dlp-side-period-detail">{stdWks} weeks at 60% pay</div>
                         </div>
+                        {stBenefit && (
+                          <div className="dlp-side-period" style={{ borderTop: '1px solid #f0f0f2' }}>
+                            <div className="dlp-side-period-label" style={{ color: '#7c3aed' }}>{stBenefit.name}</div>
+                            <div className="dlp-side-period-dates">{fmtDate(estStart)} – {fmtDate(stateEndDate)}</div>
+                            <div className="dlp-side-period-detail">{stateWks} weeks at {stBenefit.payPct}% pay</div>
+                          </div>
+                        )}
                       </div>
                     </div>
+
+                    {stBenefit ? (
+                      <div className="dlp-sidebar" style={{ borderLeft: '3px solid #7c3aed' }}>
+                        <div className="dlp-sidebar-group-label" style={{ color: '#7c3aed' }}>STATE BENEFITS</div>
+                        <div className="dlp-sidebar-group-body" style={{ padding: '12px 20px 16px' }}>
+                          <div style={{ fontSize: 13, fontWeight: 700, color: '#0f0f14', marginBottom: 4 }}>{stBenefit.name}</div>
+                          <div style={{ fontSize: 12, color: '#525252', lineHeight: 1.5, marginBottom: 8 }}>{stBenefit.desc}</div>
+                          <div style={{ fontSize: 11, color: '#7c3aed', fontWeight: 600 }}>{stBenefit.card}</div>
+                        </div>
+                      </div>
+                    ) : (
+                      <div className="dlp-sidebar" style={{ borderLeft: '3px solid #e5e5e5' }}>
+                        <div className="dlp-sidebar-group-label">STATE BENEFITS</div>
+                        <div className="dlp-sidebar-group-body" style={{ padding: '12px 20px 16px' }}>
+                          <div style={{ fontSize: 12, color: '#737373', lineHeight: 1.5 }}>No state-level paid leave program found for {sideWorkState}. Only federal (FMLA) and employer programs apply.</div>
+                        </div>
+                      </div>
+                    )}
 
                     <div style={{ display: 'flex', alignItems: 'flex-start', gap: 4, fontSize: 11, color: '#a3a3a3', padding: '4px 4px 0' }}>
                       <svg width="12" height="12" viewBox="0 0 16 16" fill="none" style={{ flexShrink: 0, marginTop: 2 }}><circle cx="8" cy="8" r="7" stroke="#a3a3a3" strokeWidth="1.2"/><path d="M8 7v4" stroke="#a3a3a3" strokeWidth="1.2" strokeLinecap="round"/><circle cx="8" cy="4.5" r="0.75" fill="#a3a3a3"/></svg>
@@ -1681,12 +1750,14 @@ export default function PlanAbsenceReactPage() {
                           <div className="dlp-legend">
                             <div className="dlp-legend-item"><div className="dlp-legend-dot" style={{ background: '#2d2d2d' }} />Job-protected (FMLA)</div>
                             <div className="dlp-legend-item"><div className="dlp-legend-dot" style={{ background: '#737373' }} />Paid (STD 60%)</div>
+                            {tlData.stateBenefit && <div className="dlp-legend-item"><div className="dlp-legend-dot" style={{ background: '#7c3aed' }} />State Paid Leave</div>}
                             <div className="dlp-legend-item"><div className="dlp-legend-dot" style={{ background: '#d4d4d4' }} />Unpaid</div>
                           </div>
                         ) : (
                           <div className="dlp-legend">
                             <div className="dlp-legend-item"><div className="dlp-legend-dot" style={{ background: '#2d2d2d' }} />FMLA (federal job protection)</div>
                             <div className="dlp-legend-item"><div className="dlp-legend-dot" style={{ background: '#a3a3a3' }} />Insurance (STD)</div>
+                            {tlData.stateBenefit && <div className="dlp-legend-item"><div className="dlp-legend-dot" style={{ background: '#7c3aed' }} />State Paid Leave</div>}
                             <div className="dlp-legend-item"><div className="dlp-legend-dot" style={{ background: '#d4d4d4' }} />No coverage</div>
                           </div>
                         )
@@ -1773,7 +1844,7 @@ export default function PlanAbsenceReactPage() {
                           <div className="dlp-side-field">
                             <label>Work State</label>
                             <select value={sideWorkState} onChange={(e) => setSideWorkState(e.target.value)}>
-                              {['MO','CA','NY','NJ','WA','TX','FL'].map((s) => <option key={s} value={s}>{s}</option>)}
+                              {US_STATES.map((s) => <option key={s} value={s}>{s}</option>)}
                             </select>
                           </div>
                           <div className="dlp-side-field" style={{ marginBottom: 0 }}>
@@ -1823,7 +1894,7 @@ export default function PlanAbsenceReactPage() {
                           <div className="dlp-side-field">
                             <label>Work State</label>
                             <select value={sideWorkState} onChange={(e) => setSideWorkState(e.target.value)}>
-                              {['MO','CA','NY','NJ','WA','TX','FL'].map((s) => <option key={s} value={s}>{s}</option>)}
+                              {US_STATES.map((s) => <option key={s} value={s}>{s}</option>)}
                             </select>
                           </div>
                           <div className="dlp-side-field" style={{ marginBottom: 0 }}>
@@ -1872,6 +1943,39 @@ export default function PlanAbsenceReactPage() {
                               <div className="dlp-side-period-label">FMLA family care leave</div>
                               <div className="dlp-side-period-dates">{tlData.fmlaDates || '—'}</div>
                               <div className="dlp-side-period-detail">Up to 12 weeks &middot; Job protected</div>
+                            </div>
+                          </div>
+                        </div>
+                      )}
+
+                      {/* STATE BENEFITS — shown when state has paid leave */}
+                      {stateBenefit && (
+                        <div className="dlp-sidebar" style={{ borderLeft: '3px solid #7c3aed' }}>
+                          <div className="dlp-sidebar-group-label" style={{ color: '#7c3aed' }}>STATE PAID LEAVE</div>
+                          <div className="dlp-sidebar-group-body" style={{ padding: '12px 20px 16px' }}>
+                            <div style={{ fontSize: 14, fontWeight: 700, color: '#0f0f14', marginBottom: 4 }}>{stateBenefit.name}</div>
+                            <div style={{ fontSize: 12, color: '#525252', lineHeight: 1.5, marginBottom: 10 }}>{stateBenefit.desc}</div>
+                            <div style={{ display: 'flex', gap: 12, flexWrap: 'wrap' }}>
+                              <div style={{ background: '#f5f3ff', borderRadius: 6, padding: '6px 10px', fontSize: 11, fontWeight: 600, color: '#5b21b6' }}>
+                                {stateBenefit.payPct}% pay
+                              </div>
+                              <div style={{ background: '#f5f3ff', borderRadius: 6, padding: '6px 10px', fontSize: 11, fontWeight: 600, color: '#5b21b6' }}>
+                                {stateBenefit.medicalWeeks}wk medical
+                              </div>
+                              <div style={{ background: '#f5f3ff', borderRadius: 6, padding: '6px 10px', fontSize: 11, fontWeight: 600, color: '#5b21b6' }}>
+                                {stateBenefit.familyWeeks}wk family
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      )}
+
+                      {!stateBenefit && (
+                        <div className="dlp-sidebar" style={{ borderLeft: '3px solid #d4d4d8' }}>
+                          <div className="dlp-sidebar-group-label">STATE PAID LEAVE</div>
+                          <div className="dlp-sidebar-group-body" style={{ padding: '12px 20px 16px' }}>
+                            <div style={{ fontSize: 13, color: '#737373', lineHeight: 1.5 }}>
+                              Your state ({sideWorkState}) does not currently have a state-level paid leave program. Federal FMLA and employer-sponsored benefits still apply.
                             </div>
                           </div>
                         </div>
