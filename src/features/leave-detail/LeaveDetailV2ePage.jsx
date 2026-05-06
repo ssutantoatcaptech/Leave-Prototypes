@@ -126,11 +126,11 @@ export default function LeaveDetailV2ePage() {
       <div className="ldb-content">
         {/* Breadcrumb */}
         <div className="ldb-breadcrumb">
-          <Link to="/overview-react">Home</Link>
+          <Link to="/claims-and-leave">Claims &amp; Leave</Link>
           <span className="ldb-bc-sep">&gt;</span>
-          <Link to="/absence-history">Case History</Link>
+          <Link to="/claims-and-leave/my-cases">My Cases</Link>
           <span className="ldb-bc-sep">&gt;</span>
-          <span>NTN-9312</span>
+          <span>CLM #12345</span>
         </div>
 
         {/* Title Card — Case framing */}
