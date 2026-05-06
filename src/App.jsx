@@ -23,6 +23,7 @@ import LeaveDetailV3Page from './features/leave-detail/LeaveDetailV3Page';
 import LeaveDetailV3bPage from './features/leave-detail/LeaveDetailV3bPage';
 import LeaveDetailV3cPage from './features/leave-detail/LeaveDetailV3cPage';
 import LeaveDetailSupplementalPage from './features/leave-detail/LeaveDetailSupplementalPage';
+import LeaveDetailNewCasePage from './features/leave-detail/LeaveDetailNewCasePage';
 import LeavePaymentsPage from './features/leave-detail/LeavePaymentsPage';
 
 import ClaimsAndLeaveLayout from './features/claims-and-leave/ClaimsAndLeaveLayout';
@@ -121,6 +122,7 @@ export default function App() {
           <Route path="payments" element={<PaymentsPage />} />
           <Route path="case-detail" element={<LeaveDetailV2ePage />} />
           <Route path="case-detail/return-to-work" element={<ReturnToWorkEmbeddedPage />} />
+          <Route path="case-detail-new" element={<LeaveDetailNewCasePage />} />
           <Route path="case-detail-pregnancy" element={<LeaveDetailPregnancyPage />} />
           <Route path="case-detail-pregnancy/return-to-work" element={<ReturnToWorkPregnancyEmbeddedPage />} />
           <Route path="case-detail-caregiver" element={<LeaveDetailCaregiverPage />} />
@@ -144,6 +146,7 @@ export default function App() {
           <Route path="payments" element={<PaymentsPage />} />
           <Route path="case-detail" element={<LeaveDetailV2ePage />} />
           <Route path="case-detail/return-to-work" element={<ReturnToWorkEmbeddedPage />} />
+          <Route path="case-detail-new" element={<LeaveDetailNewCasePage />} />
           <Route path="case-detail-pregnancy" element={<LeaveDetailPregnancyPage />} />
           <Route path="case-detail-pregnancy/return-to-work" element={<ReturnToWorkPregnancyEmbeddedPage />} />
           <Route path="case-detail-caregiver" element={<LeaveDetailCaregiverPage />} />

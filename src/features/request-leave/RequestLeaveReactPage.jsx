@@ -1,5 +1,5 @@
 import { useMemo, useState } from 'react';
-import { Link, useNavigate, useSearchParams } from 'react-router-dom';
+import { Link, useNavigate, useLocation, useSearchParams } from 'react-router-dom';
 import '../overview/overview-react.css';
 import './request-leave-react.css';
 import '../plan-absence/plan-absence-react.css';
@@ -209,6 +209,9 @@ function ReviewField({ label, value }) {
 
 export default function RequestLeaveReactPage() {
   const navigate = useNavigate();
+  const rlLocation = useLocation();
+  const isMobileRequest = rlLocation.pathname.startsWith('/claims-and-leave-mobile');
+  const rlBase = isMobileRequest ? '/claims-and-leave-mobile' : '/claims-and-leave';
   const [searchParams, setSearchParams] = useSearchParams();
   const [fromPlan] = useState(() => {
     const data = getPlanTransfer();
@@ -636,6 +639,10 @@ export default function RequestLeaveReactPage() {
       startDate: formState.leaveStartDate,
       endDate: formState.expectedReturnDate,
       durationDays,
+      leaveType: formState.leaveType,
+      reason: ({ medical_self: 'Illness or Injury', medical_family: 'Care for Family Member', child: 'Pregnancy & Bonding', child_nonbirth: 'Bonding Leave', military: 'Military Related' })[formState.leaveScenario] || 'Leave of Absence',
+      provider: formState.providerName,
+      facility: formState.providerFacility,
       submittedOn: new Date().toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' }),
     });
   }
@@ -1460,8 +1467,8 @@ export default function RequestLeaveReactPage() {
                   ))}
                 </div>
                 <div className="success-footer">
-                  <button type="button" className="btn btn-back" onClick={() => navigate('/absence-history')}>View Absence Details</button>
-                  <button type="button" className="btn btn-back" onClick={() => navigate('/overview-react')}>Back to Leave</button>
+                  <button type="button" className="btn btn-next" onClick={() => navigate(`${rlBase}/case-detail-new`, { state: submittedCase })}>View Leave Details</button>
+                  {!isMobileRequest && <button type="button" className="btn btn-back" onClick={() => navigate('/overview-react')}>Back to Leave</button>}
                 </div>
               </div>
             </div>
@@ -1537,8 +1544,8 @@ export default function RequestLeaveReactPage() {
                   ))}
                 </div>
                 <div className="success-footer">
-                  <button type="button" className="btn btn-back" onClick={() => navigate('/absence-history')}>View Absence Details</button>
-                  <button type="button" className="btn btn-back" onClick={() => navigate('/overview-react')}>Back to Leave</button>
+                  <button type="button" className="btn btn-next" onClick={() => navigate(`${rlBase}/case-detail-new`, { state: submittedCase })}>View Leave Details</button>
+                  {!isMobileRequest && <button type="button" className="btn btn-back" onClick={() => navigate('/overview-react')}>Back to Leave</button>}
                 </div>
               </div>
             </div>
@@ -1614,8 +1621,8 @@ export default function RequestLeaveReactPage() {
                   ))}
                 </div>
                 <div className="success-footer">
-                  <button type="button" className="btn btn-back" onClick={() => navigate('/absence-history')}>View Absence Details</button>
-                  <button type="button" className="btn btn-back" onClick={() => navigate('/overview-react')}>Back to Leave</button>
+                  <button type="button" className="btn btn-next" onClick={() => navigate(`${rlBase}/case-detail-new`, { state: submittedCase })}>View Leave Details</button>
+                  {!isMobileRequest && <button type="button" className="btn btn-back" onClick={() => navigate('/overview-react')}>Back to Leave</button>}
                 </div>
               </div>
             </div>
@@ -1691,8 +1698,8 @@ export default function RequestLeaveReactPage() {
                   ))}
                 </div>
                 <div className="success-footer">
-                  <button type="button" className="btn btn-back" onClick={() => navigate('/absence-history')}>View Absence Details</button>
-                  <button type="button" className="btn btn-back" onClick={() => navigate('/overview-react')}>Back to Leave</button>
+                  <button type="button" className="btn btn-next" onClick={() => navigate(`${rlBase}/case-detail-new`, { state: submittedCase })}>View Leave Details</button>
+                  {!isMobileRequest && <button type="button" className="btn btn-back" onClick={() => navigate('/overview-react')}>Back to Leave</button>}
                 </div>
               </div>
             </div>
@@ -1761,8 +1768,8 @@ export default function RequestLeaveReactPage() {
                   ))}
                 </div>
                 <div className="success-footer">
-                  <button type="button" className="btn btn-back" onClick={() => navigate('/absence-history')}>View Absence Details</button>
-                  <button type="button" className="btn btn-back" onClick={() => navigate('/overview-react')}>Back to Leave</button>
+                  <button type="button" className="btn btn-next" onClick={() => navigate(`${rlBase}/case-detail-new`, { state: submittedCase })}>View Leave Details</button>
+                  {!isMobileRequest && <button type="button" className="btn btn-back" onClick={() => navigate('/overview-react')}>Back to Leave</button>}
                 </div>
               </div>
             </div>
@@ -1831,8 +1838,8 @@ export default function RequestLeaveReactPage() {
                   ))}
                 </div>
                 <div className="success-footer">
-                  <button type="button" className="btn btn-back" onClick={() => navigate('/absence-history')}>View Absence Details</button>
-                  <button type="button" className="btn btn-back" onClick={() => navigate('/overview-react')}>Back to Leave</button>
+                  <button type="button" className="btn btn-next" onClick={() => navigate(`${rlBase}/case-detail-new`, { state: submittedCase })}>View Leave Details</button>
+                  {!isMobileRequest && <button type="button" className="btn btn-back" onClick={() => navigate('/overview-react')}>Back to Leave</button>}
                 </div>
               </div>
             </div>
@@ -1894,9 +1901,9 @@ export default function RequestLeaveReactPage() {
                 ))}
               </div>
               <div className="success-footer">
-                <button type="button" className="btn btn-back" onClick={() => navigate('/absence-history')}>View Leave Details</button>
-                <button type="button" className="btn btn-back">Email Manager / HR</button>
-                <button type="button" className="btn btn-next" onClick={() => navigate('/overview-react')}>Back to Overview</button>
+                <button type="button" className="btn btn-next" onClick={() => navigate(`${rlBase}/case-detail-new`, { state: submittedCase })}>View Leave Details</button>
+                {!isMobileRequest && <button type="button" className="btn btn-back">Email Manager / HR</button>}
+                {!isMobileRequest && <button type="button" className="btn btn-back" onClick={() => navigate('/overview-react')}>Back to Overview</button>}
               </div>
             </div>
           </div>
