@@ -1,6 +1,15 @@
 import { useState } from 'react';
 
-const REASONS = ['Episode', 'Treatment', 'Flare-up', 'Appointment', 'Other'];
+var LEAVE_CASES = [
+  { id: 'CL-975542', label: 'CL-975542 — Paid Family & Medical Leave (Intermittent)', balance: 112 },
+  { id: 'CL-981204', label: 'CL-981204 — FMLA Caregiving (Intermittent)', balance: 84 },
+  { id: 'CL-990017', label: 'CL-990017 — NJ FLI Bonding Leave (Continuous)', balance: 480 },
+];
+
+var REASONS = [
+  { value: 'Episode', description: 'An unexpected flare-up or symptom occurrence related to your condition.' },
+  { value: 'Treatment', description: 'A scheduled medical appointment, therapy, or procedure.' },
+];
 
 function parseTime(str) {
   var match = str.match(/^(\d{1,2}):(\d{2})\s*(AM|PM)$/i);
@@ -25,6 +34,10 @@ function formatDateDisplay(year, month, day) {
   return d.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
 }
 
+function formatDateKey(year, month, day) {
+  return year + '-' + String(month + 1).padStart(2, '0') + '-' + String(day).padStart(2, '0');
+}
+
 function buildCalendarDays(year, month) {
   var firstDay = new Date(year, month, 1).getDay();
   var daysInMonth = new Date(year, month + 1, 0).getDate();
@@ -43,6 +56,10 @@ var MONTH_NAMES = ['January','February','March','April','May','June','July','Aug
 
 export default function EnterMyTimePage() {
   var today = new Date();
+  var todayKey = formatDateKey(today.getFullYear(), today.getMonth(), today.getDate());
+
+  var [selectedCase, setSelectedCase] = useState(LEAVE_CASES[0]);
+  var [caseOpen, setCaseOpen] = useState(false);
   var [calYear, setCalYear] = useState(today.getFullYear());
   var [calMonth, setCalMonth] = useState(today.getMonth());
   var [selectedDay, setSelectedDay] = useState(today.getDate());
@@ -51,20 +68,29 @@ export default function EnterMyTimePage() {
   var [reason, setReason] = useState('Episode');
   var [reasonOpen, setReasonOpen] = useState(false);
   var [absences, setAbsences] = useState([
-    { date: 'Oct 21, 2024', startTime: '8:00 AM', endTime: '12:00 PM', hours: '4.0', reason: 'Episode', reasonColor: 'amber', addedOn: 'Oct 21, 2024' },
-    { date: 'Oct 18, 2024', startTime: '8:00 AM', endTime: '4:00 PM', hours: '8.0', reason: 'Treatment', reasonColor: 'blue', addedOn: 'Oct 18, 2024' },
-    { date: 'Oct 15, 2024', startTime: '1:00 PM', endTime: '3:30 PM', hours: '2.5', reason: 'Episode', reasonColor: 'amber', addedOn: 'Oct 16, 2024' },
+    { date: 'May 2, 2025', dateKey: '2025-05-02', startTime: '8:00 AM', endTime: '12:00 PM', hours: '4.0', reason: 'Episode', reasonColor: 'amber', addedOn: 'May 2, 2025', caseId: 'CL-975542' },
+    { date: 'Apr 28, 2025', dateKey: '2025-04-28', startTime: '8:00 AM', endTime: '4:00 PM', hours: '8.0', reason: 'Treatment', reasonColor: 'blue', addedOn: 'Apr 28, 2025', caseId: 'CL-975542' },
+    { date: 'Apr 21, 2025', dateKey: '2025-04-21', startTime: '1:00 PM', endTime: '3:30 PM', hours: '2.5', reason: 'Episode', reasonColor: 'amber', addedOn: 'Apr 21, 2025', caseId: 'CL-975542' },
+    { date: 'Apr 14, 2025', dateKey: '2025-04-14', startTime: '9:00 AM', endTime: '11:00 AM', hours: '2.0', reason: 'Treatment', reasonColor: 'blue', addedOn: 'Apr 14, 2025', caseId: 'CL-981204' },
+    { date: 'Apr 7, 2025', dateKey: '2025-04-07', startTime: '8:00 AM', endTime: '12:00 PM', hours: '4.0', reason: 'Episode', reasonColor: 'amber', addedOn: 'Apr 7, 2025', caseId: 'CL-975542' },
   ]);
-  var [balance, setBalance] = useState(112);
+  var [balance, setBalance] = useState(selectedCase.balance);
   var [submitted, setSubmitted] = useState(false);
 
   var calendarDays = buildCalendarDays(calYear, calMonth);
   var hours = calcHours(startTime, endTime);
   var displayDate = formatDateDisplay(calYear, calMonth, selectedDay);
 
+  var loggedDateKeys = {};
+  absences.forEach(function (a) {
+    if (a.caseId === selectedCase.id) loggedDateKeys[a.dateKey] = a.reason;
+  });
+
+  var filteredAbsences = absences.filter(function (a) { return a.caseId === selectedCase.id; });
+
   function getReasonColor(r) {
-    if (r === 'Episode' || r === 'Flare-up') return 'amber';
-    if (r === 'Treatment' || r === 'Appointment') return 'blue';
+    if (r === 'Episode') return 'amber';
+    if (r === 'Treatment') return 'blue';
     return 'gray';
   }
 
@@ -80,18 +106,26 @@ export default function EnterMyTimePage() {
     setSelectedDay(1);
   }
 
+  function handleCaseSelect(c) {
+    setSelectedCase(c);
+    setBalance(c.balance);
+    setCaseOpen(false);
+  }
+
   function handleSubmit() {
     var h = parseFloat(hours);
     if (h <= 0) return;
     var todayStr = new Date().toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
     var newEntry = {
       date: displayDate,
+      dateKey: formatDateKey(calYear, calMonth, selectedDay),
       startTime: startTime,
       endTime: endTime,
       hours: hours,
       reason: reason,
       reasonColor: getReasonColor(reason),
       addedOn: todayStr,
+      caseId: selectedCase.id,
     };
     setAbsences([newEntry].concat(absences));
     setBalance(Math.max(0, balance - h));
@@ -107,6 +141,8 @@ export default function EnterMyTimePage() {
     setCalMonth(today.getMonth());
     setCalYear(today.getFullYear());
   }
+
+  var selectedReasonData = REASONS.find(function (r) { return r.value === reason; });
 
   return (
     <div className="cl-page">
@@ -143,12 +179,33 @@ export default function EnterMyTimePage() {
             <div className="cl-ma-form-grid">
               {/* Left: Case selector + Calendar */}
               <div className="cl-ma-form-left">
-                <div className="cl-ma-field">
+                <div className="cl-ma-field" style={{ position: 'relative' }}>
                   <label className="cl-ma-label">Select Approved Leave Case</label>
-                  <div className="cl-ma-case-select">
-                    <span>CL-975542 — Paid Family &amp; Medical Leave (Intermittent)</span>
+                  <button
+                    type="button"
+                    className="cl-ma-case-select"
+                    onClick={function () { setCaseOpen(!caseOpen); }}
+                  >
+                    <span>{selectedCase.label}</span>
                     <svg width="14" height="8" viewBox="0 0 14 8" fill="none"><path d="M1 1l6 6 6-6" stroke="#6b7280" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/></svg>
-                  </div>
+                  </button>
+                  {caseOpen && (
+                    <div className="cl-ma-dropdown-menu cl-ma-case-menu">
+                      {LEAVE_CASES.map(function (c) {
+                        return (
+                          <button
+                            key={c.id}
+                            type="button"
+                            className={'cl-ma-dropdown-item' + (c.id === selectedCase.id ? ' cl-ma-dropdown-item--active' : '')}
+                            onClick={function () { handleCaseSelect(c); }}
+                          >
+                            <span>{c.label}</span>
+                            <span className="cl-ma-case-balance">{c.balance}h remaining</span>
+                          </button>
+                        );
+                      })}
+                    </div>
+                  )}
                 </div>
 
                 <div className="cl-ma-field">
@@ -169,11 +226,23 @@ export default function EnterMyTimePage() {
                       <span className="cl-ma-cal-dow">Sa</span>
                       {calendarDays.map(function (d, i) {
                         var isSelected = d.day === selectedDay && !d.disabled;
+                        var dayKey = !d.disabled ? formatDateKey(calYear, calMonth, d.day) : '';
+                        var isToday = dayKey === todayKey;
+                        var isLogged = !d.disabled && loggedDateKeys[dayKey];
+                        var loggedReason = isLogged ? loggedDateKeys[dayKey] : null;
                         return (
                           <button
                             key={i}
                             type="button"
-                            className={'cl-ma-cal-day' + (d.disabled ? ' cl-ma-cal-day--disabled' : '') + (isSelected ? ' cl-ma-cal-day--selected' : '')}
+                            className={
+                              'cl-ma-cal-day'
+                              + (d.disabled ? ' cl-ma-cal-day--disabled' : '')
+                              + (isSelected ? ' cl-ma-cal-day--selected' : '')
+                              + (isToday && !isSelected ? ' cl-ma-cal-day--today' : '')
+                              + (isLogged ? ' cl-ma-cal-day--logged' : '')
+                              + (loggedReason === 'Episode' ? ' cl-ma-cal-day--episode' : '')
+                              + (loggedReason === 'Treatment' ? ' cl-ma-cal-day--treatment' : '')
+                            }
                             onClick={function () { if (!d.disabled) setSelectedDay(d.day); }}
                             disabled={d.disabled}
                           >
@@ -181,6 +250,11 @@ export default function EnterMyTimePage() {
                           </button>
                         );
                       })}
+                    </div>
+                    <div className="cl-ma-cal-legend">
+                      <span className="cl-ma-cal-legend-item"><span className="cl-ma-cal-legend-dot cl-ma-cal-legend-dot--today" />Today</span>
+                      <span className="cl-ma-cal-legend-item"><span className="cl-ma-cal-legend-dot cl-ma-cal-legend-dot--episode" />Episode</span>
+                      <span className="cl-ma-cal-legend-item"><span className="cl-ma-cal-legend-dot cl-ma-cal-legend-dot--treatment" />Treatment</span>
                     </div>
                   </div>
                 </div>
@@ -245,16 +319,19 @@ export default function EnterMyTimePage() {
                       {REASONS.map(function (r) {
                         return (
                           <button
-                            key={r}
+                            key={r.value}
                             type="button"
-                            className={'cl-ma-dropdown-item' + (r === reason ? ' cl-ma-dropdown-item--active' : '')}
-                            onClick={function () { setReason(r); setReasonOpen(false); }}
+                            className={'cl-ma-dropdown-item' + (r.value === reason ? ' cl-ma-dropdown-item--active' : '')}
+                            onClick={function () { setReason(r.value); setReasonOpen(false); }}
                           >
-                            {r}
+                            {r.value}
                           </button>
                         );
                       })}
                     </div>
+                  )}
+                  {selectedReasonData && (
+                    <p className="cl-ma-reason-helper">{selectedReasonData.description}</p>
                   )}
                 </div>
               </div>
@@ -274,7 +351,7 @@ export default function EnterMyTimePage() {
           <div className="cl-ma-recent-card">
             <div className="cl-ma-recent-header">
               <h2 className="cl-ma-recent-title">Recent Logged Absences</h2>
-              <button className="cl-link-btn">View All History</button>
+              <span className="cl-ma-recent-count">{filteredAbsences.length} entries for {selectedCase.id}</span>
             </div>
             <div className="cl-table-wrap" style={{ border: 'none', borderRadius: 0 }}>
               <table className="cl-table">
@@ -290,7 +367,10 @@ export default function EnterMyTimePage() {
                   </tr>
                 </thead>
                 <tbody>
-                  {absences.map(function (row, i) {
+                  {filteredAbsences.length === 0 && (
+                    <tr><td colSpan="7" style={{ textAlign: 'center', padding: 24, color: '#9ca3af' }}>No absences logged for this case yet.</td></tr>
+                  )}
+                  {filteredAbsences.map(function (row, i) {
                     return (
                       <tr key={i}>
                         <td className="cl-ma-cell-bold">{row.date}</td>
