@@ -989,3 +989,21 @@
 .mobile-frame-screen .ldb-site-footer-grid {
   grid-template-columns: 1fr;
 }
+
+/* ===========================
+   Return to Work — Mobile Frame Overrides
+   =========================== */
+.mobile-frame-screen .rtw-content {
+  width: 100%;
+  max-width: 100%;
+  padding: 16px 0 24px;
+}
+
+.mobile-frame-screen .rtw-welcome-card,
+.mobile-frame-screen .rtw-confirm-card {
+  border-radius: 10px;
+}
+
+.mobile-frame-screen .rtw-page.rtw-embedded {
+  min-height: auto;
+}
