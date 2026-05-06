@@ -122,7 +122,6 @@ export default function LeaveDetailV2ePage() {
 
   return (
     <div className="ldb-page ldb-grayscale">
-      <SiteNav user="Marcus Thompson" initials="MT" />
 
       <div className="ldb-content">
         {/* Breadcrumb */}
@@ -824,7 +823,6 @@ export default function LeaveDetailV2ePage() {
         </div>
 
       </div>
-      <SiteFooter />
     </div>
   );
 }

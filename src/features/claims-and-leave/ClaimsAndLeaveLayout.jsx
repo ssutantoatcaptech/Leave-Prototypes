@@ -65,6 +65,8 @@ export default function ClaimsAndLeaveLayout() {
           {subNavTabs.map((tab) => {
             const isActive = tab.to === '/claims-and-leave'
               ? location.pathname === '/claims-and-leave' || location.pathname === '/claims-and-leave/dental'
+              : tab.to === '/claims-and-leave/my-cases'
+              ? location.pathname === '/claims-and-leave/my-cases' || location.pathname === '/claims-and-leave/case-detail'
               : location.pathname === tab.to;
             return (
               <NavLink
