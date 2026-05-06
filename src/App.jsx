@@ -6,6 +6,8 @@ import AbsenceDetailsReactPage from './features/absence-details/AbsenceDetailsRe
 import AbsenceHistoryReactPage from './features/absence-history/AbsenceHistoryReactPage';
 import ReturnToWorkPage from './features/return-to-work/ReturnToWorkPage';
 import ReturnToWorkEmbeddedPage from './features/return-to-work/ReturnToWorkEmbeddedPage';
+import ReturnToWorkPregnancyEmbeddedPage from './features/return-to-work/ReturnToWorkPregnancyEmbeddedPage';
+import LeaveDetailPregnancyPage from './features/leave-detail/LeaveDetailPregnancyPage';
 import MyLeavesPage from './features/my-leaves/MyLeavesPage';
 import LeaveDocumentsPage from './features/leave-documents/LeaveDocumentsPage';
 import LeaveDetailPage from './features/leave-detail/LeaveDetailPage';
@@ -108,6 +110,8 @@ export default function App() {
           <Route path="payments" element={<PaymentsPage />} />
           <Route path="case-detail" element={<LeaveDetailV2ePage />} />
           <Route path="case-detail/return-to-work" element={<ReturnToWorkEmbeddedPage />} />
+          <Route path="case-detail-pregnancy" element={<LeaveDetailPregnancyPage />} />
+          <Route path="case-detail-pregnancy/return-to-work" element={<ReturnToWorkPregnancyEmbeddedPage />} />
         </Route>
 
         <Route path="*" element={<Navigate to="/" replace />} />
