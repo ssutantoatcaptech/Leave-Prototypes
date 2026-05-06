@@ -175,6 +175,7 @@ export default function MyCasesPage() {
         )}
         {filtered.map((row, i) => {
           var originalIndex = casesData.indexOf(row);
+          var canDelete = row.status !== 'Closed' && row.status !== 'Decisioned';
           return (
             <div key={i} className="cl-card-mobile">
               <div className="cl-card-mobile-header">
@@ -194,20 +195,20 @@ export default function MyCasesPage() {
                   </div>
                 )}
               </div>
-              <div className="cl-card-mobile-actions">
+              <button
+                className="cl-card-mobile-action"
+                onClick={() => { if (row.link) navigate(row.link); }}
+              >
+                View Details
+              </button>
+              {canDelete && (
                 <button
-                  className="cl-card-mobile-action"
-                  onClick={() => { if (row.link) navigate(row.link); }}
-                >
-                  View Details
-                </button>
-                <button
-                  className="cl-card-mobile-action cl-card-mobile-action--delete"
+                  className="cl-card-mobile-delete-text"
                   onClick={() => deleteCase(originalIndex)}
                 >
-                  Delete
+                  Delete Case
                 </button>
-              </div>
+              )}
             </div>
           );
         })}

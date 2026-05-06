@@ -3177,6 +3177,24 @@
   background: #fef2f2;
 }
 
+.cl-card-mobile-delete-text {
+  display: block;
+  width: 100%;
+  text-align: center;
+  background: none;
+  border: none;
+  padding: 10px 0 4px;
+  font-size: 13px;
+  font-weight: 500;
+  color: #dc2626;
+  cursor: pointer;
+  font-family: inherit;
+}
+
+.cl-card-mobile-delete-text:hover {
+  text-decoration: underline;
+}
+
 .cl-card-mobile-actions-row {
   display: flex;
   gap: 8px;
