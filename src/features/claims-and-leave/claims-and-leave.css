@@ -2216,7 +2216,7 @@
 
 .cldb-hero {
   background: #d4d4d4;
-  padding: 64px 60px;
+  padding: 64px 0;
 }
 
 .cldb-hero-title {
@@ -2225,6 +2225,10 @@
   color: #171717;
   margin: 0;
   max-width: 1440px;
+  margin-left: auto;
+  margin-right: auto;
+  padding: 0 60px;
+  box-sizing: border-box;
 }
 
 .cldb-main {
