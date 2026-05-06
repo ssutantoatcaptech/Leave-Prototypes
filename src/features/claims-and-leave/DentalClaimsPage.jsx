@@ -1,5 +1,5 @@
 import { useState, useMemo } from 'react';
-import { NavLink } from 'react-router-dom';
+import { NavLink, Link } from 'react-router-dom';
 
 const dentalData = [
   {
@@ -77,7 +77,7 @@ export default function DentalClaimsPage() {
   return (
     <div className="cl-page">
       <div className="cl-breadcrumb">
-        <span>Claims &amp; Leave</span>
+        <Link to="/claims-and-leave" className="cl-breadcrumb-link">Claims &amp; Leave</Link>
         <span className="cl-breadcrumb-sep">&gt;</span>
         <span>Dental Claims</span>
       </div>

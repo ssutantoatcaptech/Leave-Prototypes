@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { Link } from 'react-router-dom';
 
 var LEAVE_CASES = [
   { id: 'CL-975542', label: 'CL-975542 — Paid Family & Medical Leave (Intermittent)', balance: 112 },
@@ -147,7 +148,7 @@ export default function EnterMyTimePage() {
   return (
     <div className="cl-page">
       <div className="cl-breadcrumb">
-        <span>Claims &amp; Leave</span>
+        <Link to="/claims-and-leave" className="cl-breadcrumb-link">Claims &amp; Leave</Link>
         <span className="cl-breadcrumb-sep">&gt;</span>
         <span>Manage Absences</span>
       </div>

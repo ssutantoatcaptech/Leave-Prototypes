@@ -1,5 +1,5 @@
 import { useState, useMemo } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 
 export default function MyCasesPage() {
   const navigate = useNavigate();
@@ -70,7 +70,7 @@ export default function MyCasesPage() {
   return (
     <div className="cl-page">
       <div className="cl-breadcrumb">
-        <span>Claims &amp; Leave</span>
+        <Link to="/claims-and-leave" className="cl-breadcrumb-link">Claims &amp; Leave</Link>
         <span className="cl-breadcrumb-sep">&gt;</span>
         <span>My Cases</span>
       </div>

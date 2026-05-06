@@ -1,5 +1,5 @@
 import { useState, useMemo } from 'react';
-import { NavLink } from 'react-router-dom';
+import { NavLink, Link } from 'react-router-dom';
 
 const claimsData = [
   {
@@ -73,7 +73,7 @@ export default function ClaimCenterPage() {
   return (
     <div className="cl-page">
       <div className="cl-breadcrumb">
-        <span>Claims &amp; Leave</span>
+        <Link to="/claims-and-leave" className="cl-breadcrumb-link">Claims &amp; Leave</Link>
         <span className="cl-breadcrumb-sep">&gt;</span>
         <span>Claims Center</span>
       </div>

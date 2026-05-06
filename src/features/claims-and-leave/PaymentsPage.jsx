@@ -1,5 +1,5 @@
 import { useState, useMemo } from 'react';
-import { useSearchParams } from 'react-router-dom';
+import { useSearchParams, Link } from 'react-router-dom';
 
 const paymentsData = [
   {
@@ -129,7 +129,7 @@ export default function PaymentsPage() {
   return (
     <div className="cl-page">
       <div className="cl-breadcrumb">
-        <span>Claims &amp; Leave</span>
+        <Link to="/claims-and-leave" className="cl-breadcrumb-link">Claims &amp; Leave</Link>
         <span className="cl-breadcrumb-sep">&gt;</span>
         <span>Payments</span>
       </div>
