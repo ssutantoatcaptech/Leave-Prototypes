@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { NavLink, useLocation, useNavigate } from 'react-router-dom';
 import useBasePath from './useBasePath';
 import './claims-and-leave.css';
+import './responsive.css';
 
 export default function DashboardPage() {
   const location = useLocation();
