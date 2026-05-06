@@ -1,4 +1,8 @@
+import { useNavigate } from 'react-router-dom';
+
 export default function FileClaimPage() {
+  const navigate = useNavigate();
+
   return (
     <div className="cl-page cl-page--centered">
       <div className="cl-file-claim-wrap">
@@ -39,7 +43,7 @@ export default function FileClaimPage() {
             <p className="cl-intro-card-desc">
               Request FMLA, state leave, military leave, or other job-protected time away from work.
             </p>
-            <button className="cl-btn cl-btn--primary">Request Leave</button>
+            <button className="cl-btn cl-btn--primary" onClick={() => navigate('/claims-and-leave/file-claim/request-leave?step=1')}>Request Leave</button>
             <span className="cl-intro-card-meta">Takes about 5-8 minutes</span>
           </div>
         </div>

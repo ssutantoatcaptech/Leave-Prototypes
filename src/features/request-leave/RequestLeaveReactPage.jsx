@@ -250,8 +250,9 @@ export default function RequestLeaveReactPage() {
     return initialState;
   });
   const [started, setStarted] = useState(() => {
-    console.log('[wizard] started init, fromPlan:', !!fromPlan);
-    return !!fromPlan;
+    const urlStep = searchParams.get('step');
+    console.log('[wizard] started init, fromPlan:', !!fromPlan, 'urlStep:', urlStep);
+    return !!fromPlan || (urlStep && urlStep !== '0');
   });
   const [submittedCase, setSubmittedCase] = useState(null);
   const [hidePlanBar, setHidePlanBar] = useState(false);

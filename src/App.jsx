@@ -97,6 +97,7 @@ export default function App() {
         <Route path="/claims-and-leave" element={<ClaimsAndLeaveLayout />}>
           <Route index element={<ClaimCenterPage />} />
           <Route path="file-claim" element={<FileClaimPage />} />
+          <Route path="file-claim/request-leave" element={<RequestLeaveReactPage />} />
           <Route path="dental" element={<DentalClaimsPage />} />
           <Route path="my-leaves" element={<ClaimsMyLeavesPage />} />
           <Route path="my-cases" element={<MyCasesPage />} />
