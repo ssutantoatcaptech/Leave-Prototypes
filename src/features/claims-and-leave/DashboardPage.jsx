@@ -331,41 +331,6 @@ export default function DashboardPage() {
               </div>
             </div>
             <div className="cldb-card-body">
-              {/* Dental Insurance */}
-              <div className="cldb-benefit-item">
-                <div className="cldb-benefit-item-header">
-                  <div className="cldb-benefit-item-icon">
-                    <svg width="14" height="16" viewBox="0 0 14 16" fill="none"><path d="M7 1C4.5 1 3 3 3 5c0 3 4 10 4 10s4-7 4-10c0-2-1.5-4-4-4z" stroke="#404040" strokeWidth="1.2"/></svg>
-                  </div>
-                  <div className="cldb-benefit-item-info">
-                    <span className="cldb-benefit-item-name">Dental Insurance</span>
-                    <span className="cldb-benefit-item-plan">Premier PPO Dental Plan</span>
-                  </div>
-                </div>
-                <div className="cldb-benefit-progress">
-                  <div className="cldb-benefit-progress-labels">
-                    <span>Dental Max Used</span>
-                    <span>$340 / $2,000</span>
-                  </div>
-                  <div className="cldb-benefit-progress-bar">
-                    <div className="cldb-benefit-progress-fill" style={{ width: '17%' }}></div>
-                  </div>
-                </div>
-              </div>
-
-              {/* Short Term Disability */}
-              <div className="cldb-benefit-item cldb-benefit-item--simple">
-                <div className="cldb-benefit-item-header">
-                  <div className="cldb-benefit-item-icon">
-                    <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><rect x="1" y="1" width="14" height="14" rx="2" stroke="#404040" strokeWidth="1.2"/><path d="M5 8h6M8 5v6" stroke="#404040" strokeWidth="1.2" strokeLinecap="round"/></svg>
-                  </div>
-                  <div className="cldb-benefit-item-info">
-                    <span className="cldb-benefit-item-name">Short Term Disability</span>
-                    <span className="cldb-benefit-item-plan">Base Plan</span>
-                  </div>
-                </div>
-              </div>
-
               {/* Missing a Benefit */}
               <div className="cldb-missing-benefit">
                 <div className="cldb-missing-icon">
