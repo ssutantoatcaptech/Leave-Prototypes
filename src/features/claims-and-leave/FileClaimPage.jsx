@@ -1,7 +1,9 @@
 import { useNavigate } from 'react-router-dom';
+import useBasePath from './useBasePath';
 
 export default function FileClaimPage() {
   const navigate = useNavigate();
+  const base = useBasePath();
 
   return (
     <div className="cl-page cl-page--centered">
@@ -43,7 +45,7 @@ export default function FileClaimPage() {
             <p className="cl-intro-card-desc">
               Request parental leave, own illness/injury, care for a sick family member, military leave, or other job-protected time away from work.
             </p>
-            <button className="cl-btn cl-btn--primary" onClick={() => navigate('/claims-and-leave/file-claim/request-leave?step=1')}>Request Leave</button>
+            <button className="cl-btn cl-btn--primary" onClick={() => navigate(`${base}/file-claim/request-leave?step=1`)}>Request Leave</button>
             <span className="cl-intro-card-meta">Takes about 5-8 minutes</span>
           </div>
         </div>
