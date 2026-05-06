@@ -665,33 +665,34 @@
   }
 
   .cldb-content-grid {
-    flex-direction: row;
-    flex-wrap: wrap;
+    display: grid;
+    grid-template-columns: 1fr 420px;
+    grid-template-rows: auto auto;
+    gap: 24px;
   }
 
-  /* Desktop: status + activity span the left, actions + benefits in sidebar */
   .cldb-grid-status {
     order: unset;
-    flex: 1;
-    min-width: 0;
+    grid-column: 1;
+    grid-row: 1;
   }
 
   .cldb-grid-actions {
     order: unset;
-    width: 420px;
-    flex-shrink: 0;
+    grid-column: 2;
+    grid-row: 1 / 3;
   }
 
   .cldb-grid-activity {
     order: unset;
-    flex: 1;
-    min-width: 0;
+    grid-column: 1;
+    grid-row: 2;
   }
 
   .cldb-grid-benefits {
     order: unset;
-    width: 420px;
-    flex-shrink: 0;
+    grid-column: 2;
+    grid-row: 3;
   }
 
   .cldb-sidebar {
