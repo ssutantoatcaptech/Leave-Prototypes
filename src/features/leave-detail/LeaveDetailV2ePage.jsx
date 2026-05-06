@@ -791,9 +791,6 @@ export default function LeaveDetailV2ePage() {
                   Uploaded Documents
                 </h3>
               </div>
-              <div className="ldb-docs-progress-bar">
-                <div className="ldb-docs-progress-fill" style={{ width: '66%' }} />
-              </div>
               <div className="ldb-doc-list">
                 <div className="ldb-doc-item">
                   <div className="ldb-doc-info">
