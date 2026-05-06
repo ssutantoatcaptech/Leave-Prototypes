@@ -863,10 +863,30 @@
 .mobile-frame-screen .ldb-claim-accordion-left {
   gap: 8px;
   min-width: 0;
+  flex: 1;
 }
 
 .mobile-frame-screen .ldb-claim-accordion-title {
   font-size: 14px;
+  display: inline;
+}
+
+/* Status badge: show inline next to title, hide the end one on mobile */
+.mobile-frame-screen .ldb-claim-status--end {
+  display: none;
+}
+
+.mobile-frame-screen .ldb-claim-status--inline {
+  display: inline-flex;
+  font-size: 11px;
+  padding: 2px 8px;
+}
+
+.mobile-frame-screen .ldb-claim-accordion-title-wrap {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
 }
 
 .mobile-frame-screen .ldb-claim-accordion-sub {

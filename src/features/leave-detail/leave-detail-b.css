@@ -598,6 +598,9 @@
 .ldb-claim-status.not-eligible { background: #f8fafc; color: #64748b; border: 1px solid #e2e8f0; }
 .ldb-claim-status.processed { background: #dbeafe; color: #0033a0; }
 .ldb-claim-status.pending-status { background: #e8f0fe; color: #0033a0; }
+.ldb-claim-status--inline { display: none; }
+.ldb-claim-accordion-title-wrap { display: block; }
+.ldb-claim-accordion-title-wrap .ldb-claim-accordion-title { display: block; }
 
 /* ── ASSOCIATED PAYMENTS ── */
 .ldb-payments-grid {

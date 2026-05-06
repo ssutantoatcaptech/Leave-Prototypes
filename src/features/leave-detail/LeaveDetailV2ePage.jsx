@@ -88,11 +88,12 @@ function SiteFooter() {
 
 export default function LeaveDetailV2ePage() {
   var location = useLocation();
-  var base = location.pathname.startsWith('/claims-and-leave-mobile') ? '/claims-and-leave-mobile' : '/claims-and-leave';
+  var isMobile = location.pathname.startsWith('/claims-and-leave-mobile');
+  var base = isMobile ? '/claims-and-leave-mobile' : '/claims-and-leave';
   var navigate = useNavigate();
   var [timelineView, setTimelineView] = useState('protection');
   var [hoveredRow, setHoveredRow] = useState(null);
-  var [expandedClaims, setExpandedClaims] = useState({ absence: true, stateleave: false });
+  var [expandedClaims, setExpandedClaims] = useState({ absence: !isMobile, stateleave: false });
   var [paymentsOpen, setPaymentsOpen] = useState(true);
   var [showAllTasks, setShowAllTasks] = useState(false);
   var [editingSection, setEditingSection] = useState(null);
@@ -124,6 +125,81 @@ export default function LeaveDetailV2ePage() {
       next[key] = !next[key];
       return next;
     });
+  }
+
+  function renderItemsRequiringAction() {
+    return (
+      <div className="ldb-side-card ldb-side-card--shadow">
+        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 16 }}>
+          <h3 className="ldb-side-title" style={{ marginBottom: 0 }}>
+            <svg width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M8 1l1.8 5.4H15l-4.2 3.1 1.6 5-4.4-3.2L3.6 14.5l1.6-5L1 6.4h5.2L8 1z" stroke="currentColor" strokeWidth="1.2" strokeLinejoin="round"/></svg>
+            Items Requiring Action
+          </h3>
+          <span style={{ fontSize: 11, fontWeight: 700, color: '#dc2626', background: '#fef2f2', padding: '2px 8px', borderRadius: 10 }}>3 needed</span>
+        </div>
+        <div className="ldb-action-list">
+          <div className="ldb-action-item">
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><circle cx="8" cy="8" r="7" stroke="#dc2626" strokeWidth="1.4"/><path d="M8 5v3M8 10.5v.5" stroke="#dc2626" strokeWidth="1.4" strokeLinecap="round"/></svg>
+            <div className="ldb-action-text">
+              <span className="ldb-action-name">Medical Certification Form</span>
+              <span className="ldb-action-due">Due May 20, 2025</span>
+            </div>
+            <button type="button" className="ldb-btn-upload-inline">Upload</button>
+          </div>
+          <div className="ldb-action-item">
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><circle cx="8" cy="8" r="7" stroke="#dc2626" strokeWidth="1.4"/><path d="M8 5v3M8 10.5v.5" stroke="#dc2626" strokeWidth="1.4" strokeLinecap="round"/></svg>
+            <div className="ldb-action-text">
+              <span className="ldb-action-name">Attending Physician Statement</span>
+              <span className="ldb-action-due">Due May 22, 2025</span>
+            </div>
+            <button type="button" className="ldb-btn-upload-inline">Upload</button>
+          </div>
+          <div className="ldb-action-item">
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><circle cx="8" cy="8" r="7" stroke="#f59e0b" strokeWidth="1.4"/><path d="M8 5v3M8 10.5v.5" stroke="#f59e0b" strokeWidth="1.4" strokeLinecap="round"/></svg>
+            <div className="ldb-action-text">
+              <span className="ldb-action-name">Return to Work Certification</span>
+              <span className="ldb-action-due">Due before returning</span>
+            </div>
+            <button type="button" className="ldb-btn-upload-inline">Upload</button>
+          </div>
+        </div>
+        {!showAllTasks ? (
+          <button type="button" className="ldb-show-more-btn" onClick={function () { setShowAllTasks(true); }}>
+            <svg width="12" height="12" viewBox="0 0 16 16" fill="none"><path d="M8 4v8M4 8h8" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round"/></svg>
+            4 more tasks
+          </button>
+        ) : (
+          <>
+            <div className="ldb-action-list" style={{ marginTop: 8 }}>
+              <div className="ldb-action-item ldb-action-item--done">
+                <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><circle cx="8" cy="8" r="7" stroke="#16a34a" strokeWidth="1.4"/><path d="M5.5 8l2 2 3.5-3.5" stroke="#16a34a" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round"/></svg>
+                <div className="ldb-action-text">
+                  <span className="ldb-action-name">Initial Leave Request Form</span>
+                  <span className="ldb-action-due" style={{ color: '#16a34a' }}>Completed Apr 15</span>
+                </div>
+              </div>
+              <div className="ldb-action-item ldb-action-item--done">
+                <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><circle cx="8" cy="8" r="7" stroke="#16a34a" strokeWidth="1.4"/><path d="M5.5 8l2 2 3.5-3.5" stroke="#16a34a" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round"/></svg>
+                <div className="ldb-action-text">
+                  <span className="ldb-action-name">Direct Deposit Authorization</span>
+                  <span className="ldb-action-due" style={{ color: '#16a34a' }}>Completed Apr 16</span>
+                </div>
+              </div>
+              <div className="ldb-action-item ldb-action-item--done">
+                <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><circle cx="8" cy="8" r="7" stroke="#16a34a" strokeWidth="1.4"/><path d="M5.5 8l2 2 3.5-3.5" stroke="#16a34a" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round"/></svg>
+                <div className="ldb-action-text">
+                  <span className="ldb-action-name">NJ TDI Application</span>
+                  <span className="ldb-action-due" style={{ color: '#16a34a' }}>Completed Apr 17</span>
+                </div>
+              </div>
+            </div>
+            <button type="button" className="ldb-show-more-btn" onClick={function () { setShowAllTasks(false); }}>
+              Show less
+            </button>
+          </>
+        )}
+      </div>
+    );
   }
 
   return (
@@ -160,6 +236,7 @@ export default function LeaveDetailV2ePage() {
           {/* Left: Main content */}
           <div className="ldb-v2-main">
 
+            {isMobile && renderItemsRequiringAction()}
 
             {/* Leave Timeline */}
             <div className="ldb-card dt-timeline-wrap">
@@ -344,11 +421,14 @@ export default function LeaveDetailV2ePage() {
                   <div className="ldb-claim-accordion-left">
                     <svg className="ldb-claim-accordion-chevron" width="10" height="6" viewBox="0 0 10 6" fill="none"><path d="M1 1l4 4 4-4" stroke="currentColor" strokeWidth="1.3" strokeLinecap="round" strokeLinejoin="round"/></svg>
                     <div>
-                      <div className="ldb-claim-accordion-title">Leave Case</div>
+                      <div className="ldb-claim-accordion-title-wrap">
+                        <span className="ldb-claim-accordion-title">Leave Case</span>
+                        <span className="ldb-claim-status ldb-claim-status--inline" style={{ background: '#e8f0fe', color: '#0033a0' }}>Pending</span>
+                      </div>
                       <div className="ldb-claim-accordion-sub">NTN-9312-ABS-81 · Adjudication — FMLA designation, RTW tracking</div>
                     </div>
                   </div>
-                  <span className="ldb-claim-status" style={{ background: '#e8f0fe', color: '#0033a0' }}>Pending</span>
+                  <span className="ldb-claim-status ldb-claim-status--end" style={{ background: '#e8f0fe', color: '#0033a0' }}>Pending</span>
                 </button>
                 {expandedClaims.absence && (
                   <div className="ldb-claim-accordion-body">
@@ -391,11 +471,14 @@ export default function LeaveDetailV2ePage() {
                   <div className="ldb-claim-accordion-left">
                     <svg className="ldb-claim-accordion-chevron" width="10" height="6" viewBox="0 0 10 6" fill="none"><path d="M1 1l4 4 4-4" stroke="currentColor" strokeWidth="1.3" strokeLinecap="round" strokeLinejoin="round"/></svg>
                     <div>
-                      <div className="ldb-claim-accordion-title">Group Disability Claim</div>
+                      <div className="ldb-claim-accordion-title-wrap">
+                        <span className="ldb-claim-accordion-title">Group Disability Claim</span>
+                        <span className="ldb-claim-status ldb-claim-status--inline" style={{ background: '#e8f0fe', color: '#0033a0' }}>Pending</span>
+                      </div>
                       <div className="ldb-claim-accordion-sub">NTN-9312-GDC-81 · STD Benefit — income replacement at 60% of earnings</div>
                     </div>
                   </div>
-                  <span className="ldb-claim-status" style={{ background: '#e8f0fe', color: '#0033a0' }}>Pending</span>
+                  <span className="ldb-claim-status ldb-claim-status--end" style={{ background: '#e8f0fe', color: '#0033a0' }}>Pending</span>
                 </button>
                 {expandedClaims.disability && (
                   <div className="ldb-claim-accordion-body">
@@ -451,11 +534,14 @@ export default function LeaveDetailV2ePage() {
                   <div className="ldb-claim-accordion-left">
                     <svg className="ldb-claim-accordion-chevron" width="10" height="6" viewBox="0 0 10 6" fill="none"><path d="M1 1l4 4 4-4" stroke="currentColor" strokeWidth="1.3" strokeLinecap="round" strokeLinejoin="round"/></svg>
                     <div>
-                      <div className="ldb-claim-accordion-title">Supplemental Health Claim</div>
+                      <div className="ldb-claim-accordion-title-wrap">
+                        <span className="ldb-claim-accordion-title">Supplemental Health Claim</span>
+                        <span className="ldb-claim-status ldb-claim-status--inline" style={{ background: '#fef3c7', color: '#92400e' }}>Under Review</span>
+                      </div>
                       <div className="ldb-claim-accordion-sub">NTN-9312-SC-82 · Hospital Indemnity — flat cash benefit for inpatient stays</div>
                     </div>
                   </div>
-                  <span className="ldb-claim-status" style={{ background: '#fef3c7', color: '#92400e' }}>Under Review</span>
+                  <span className="ldb-claim-status ldb-claim-status--end" style={{ background: '#fef3c7', color: '#92400e' }}>Under Review</span>
                 </button>
                 {expandedClaims.supplemental && (
                   <div className="ldb-claim-accordion-body">
@@ -498,11 +584,14 @@ export default function LeaveDetailV2ePage() {
                   <div className="ldb-claim-accordion-left">
                     <svg className="ldb-claim-accordion-chevron" width="10" height="6" viewBox="0 0 10 6" fill="none"><path d="M1 1l4 4 4-4" stroke="currentColor" strokeWidth="1.3" strokeLinecap="round" strokeLinejoin="round"/></svg>
                     <div>
-                      <div className="ldb-claim-accordion-title">State Paid Leave — NJ TDI</div>
+                      <div className="ldb-claim-accordion-title-wrap">
+                        <span className="ldb-claim-accordion-title">State Paid Leave — NJ TDI</span>
+                        <span className="ldb-claim-status ldb-claim-status--inline" style={{ background: '#eef2ff', color: '#6366f1' }}>Active</span>
+                      </div>
                       <div className="ldb-claim-accordion-sub">NTN-9312-STL-83 · NJ Temporary Disability Insurance — state-funded income replacement</div>
                     </div>
                   </div>
-                  <span className="ldb-claim-status" style={{ background: '#eef2ff', color: '#6366f1' }}>Active</span>
+                  <span className="ldb-claim-status ldb-claim-status--end" style={{ background: '#eef2ff', color: '#6366f1' }}>Active</span>
                 </button>
                 {expandedClaims.stateleave && (
                   <div className="ldb-claim-accordion-body">
@@ -793,83 +882,8 @@ export default function LeaveDetailV2ePage() {
           {/* Right Sidebar — Redesigned */}
           <div className="ldb-sidebar">
 
-            {/* 1. Items Requiring Action */}
-            <div className="ldb-side-card">
-              <div className="ldb-tasks-header">
-                <h3 className="ldb-side-title">
-                  <svg width="14" height="14" viewBox="0 0 16 16" fill="none"><rect x="2" y="2" width="12" height="12" rx="2" stroke="currentColor" strokeWidth="1.2"/><path d="M5 8l2 2 4-4" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round" strokeLinejoin="round"/></svg>
-                  Items Requiring Action
-                </h3>
-                <span className="ldb-tasks-count">3 needed</span>
-              </div>
-
-              <div className="ldb-action-list">
-                <div className="ldb-action-item">
-                  <div className="ldb-action-dot" />
-                  <div className="ldb-action-content">
-                    <div className="ldb-action-title">Medical Certification Form</div>
-                    <div className="ldb-action-meta">Due Jul 22 · <a href="#" style={{ color: '#525252', textDecoration: 'underline' }}>Download the form here</a></div>
-                  </div>
-                  <button type="button" className="ldb-btn-upload-inline">
-                    <svg width="12" height="12" viewBox="0 0 16 16" fill="none"><path d="M8 12V4" stroke="currentColor" strokeWidth="1.3" strokeLinecap="round"/><path d="M4.5 6.5L8 3l3.5 3.5" stroke="currentColor" strokeWidth="1.3" strokeLinecap="round" strokeLinejoin="round"/><path d="M3 13h10" stroke="currentColor" strokeWidth="1.3" strokeLinecap="round"/></svg>
-                    Upload
-                  </button>
-                </div>
-                <div className="ldb-action-item">
-                  <div className="ldb-action-dot" />
-                  <div className="ldb-action-content">
-                    <div className="ldb-action-title">Attending Physician Statement</div>
-                    <div className="ldb-action-meta">Due Jul 22</div>
-                  </div>
-                  <button type="button" className="ldb-btn-upload-inline">
-                    <svg width="12" height="12" viewBox="0 0 16 16" fill="none"><path d="M8 12V4" stroke="currentColor" strokeWidth="1.3" strokeLinecap="round"/><path d="M4.5 6.5L8 3l3.5 3.5" stroke="currentColor" strokeWidth="1.3" strokeLinecap="round" strokeLinejoin="round"/><path d="M3 13h10" stroke="currentColor" strokeWidth="1.3" strokeLinecap="round"/></svg>
-                    Upload
-                  </button>
-                </div>
-              </div>
-
-              {!showAllTasks && (
-                <button type="button" className="ldb-tasks-expand" onClick={function () { setShowAllTasks(true); }}>
-                  +4 more tasks
-                  <svg width="10" height="6" viewBox="0 0 10 6" fill="none"><path d="M1 1l4 4 4-4" stroke="currentColor" strokeWidth="1.3" strokeLinecap="round" strokeLinejoin="round"/></svg>
-                </button>
-              )}
-
-              {showAllTasks && (
-                <>
-                <div className="ldb-tasks-done-section">
-                  <div className="ldb-tasks-done-label">Completed</div>
-                  <div className="ldb-action-list">
-                    <div className="ldb-action-item done">
-                      <div className="ldb-action-dot done" />
-                      <div className="ldb-action-content">
-                        <div className="ldb-action-title">FMLA Eligibility Confirmed</div>
-                        <div className="ldb-action-meta">Completed Apr 16 · Leave Case</div>
-                      </div>
-                    </div>
-                    <div className="ldb-action-item done">
-                      <div className="ldb-action-dot done" />
-                      <div className="ldb-action-content">
-                        <div className="ldb-action-title">Medical Certification Received</div>
-                        <div className="ldb-action-meta">Completed Apr 18 · Group Disability Claim</div>
-                      </div>
-                    </div>
-                    <div className="ldb-action-item done">
-                      <div className="ldb-action-dot done" />
-                      <div className="ldb-action-content">
-                        <div className="ldb-action-title">STD Claim Approved</div>
-                        <div className="ldb-action-meta">Completed Apr 22 · Group Disability Claim</div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <button type="button" className="ldb-tasks-expand" onClick={function () { setShowAllTasks(false); }}>
-                  Show less
-                  <svg width="10" height="6" viewBox="0 0 10 6" fill="none" style={{ transform: 'rotate(180deg)' }}><path d="M1 1l4 4 4-4" stroke="currentColor" strokeWidth="1.3" strokeLinecap="round" strokeLinejoin="round"/></svg>
-                </button>
-                </>
-              )}
-            </div>
+            {/* 1. Items Requiring Action (desktop only — on mobile rendered above timeline) */}
+            {!isMobile && renderItemsRequiringAction()}
 
             {/* 2. Quick Actions */}
             <div className="ldb-side-card ldb-side-card--shadow">
