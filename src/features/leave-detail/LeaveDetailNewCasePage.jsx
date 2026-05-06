@@ -138,7 +138,6 @@ export default function LeaveDetailNewCasePage() {
           {/* Main */}
           <div className="ldb-v2-main">
 
-            {isMobile && renderItemsRequiringAction()}
 
             {/* Coverage Timeline */}
             <div className="ldb-card dt-timeline-wrap">
@@ -406,7 +405,7 @@ export default function LeaveDetailNewCasePage() {
 
           {/* Sidebar */}
           <div className="ldb-sidebar">
-            {!isMobile && renderItemsRequiringAction()}
+            {renderItemsRequiringAction()}
 
             {/* Quick Actions */}
             <div className="ldb-side-card ldb-side-card--shadow">

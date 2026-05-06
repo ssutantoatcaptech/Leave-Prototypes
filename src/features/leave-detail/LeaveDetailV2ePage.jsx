@@ -236,8 +236,6 @@ export default function LeaveDetailV2ePage() {
           {/* Left: Main content */}
           <div className="ldb-v2-main">
 
-            {isMobile && renderItemsRequiringAction()}
-
             {/* Leave Timeline */}
             <div className="ldb-card dt-timeline-wrap">
                 <div className="ad-section-header">
@@ -882,8 +880,8 @@ export default function LeaveDetailV2ePage() {
           {/* Right Sidebar — Redesigned */}
           <div className="ldb-sidebar">
 
-            {/* 1. Items Requiring Action (desktop only — on mobile rendered above timeline) */}
-            {!isMobile && renderItemsRequiringAction()}
+            {/* 1. Items Requiring Action */}
+            {renderItemsRequiringAction()}
 
             {/* 2. Quick Actions */}
             <div className="ldb-side-card ldb-side-card--shadow">
