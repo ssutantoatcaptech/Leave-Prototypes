@@ -494,7 +494,7 @@ export default function LeaveDetailPregnancyPage() {
                   <div style={{ marginTop: 16, padding: '12px 16px', background: '#fffbeb', borderRadius: 8, border: '1px solid #fef3c7', fontSize: 13, color: '#92400e' }}>
                     <strong>Upcoming:</strong> Payments begin after your leave start date (Jun 16). STD payments will arrive weekly during the 8-week recovery period, then transition to NJ FLI bonding payments.
                   </div>
-                  <Link to="/payments?claim=NTN-4501-GDC-10&case=NTN-4501" className="ldb-payments-view-btn" style={{ textDecoration: 'none' }}>
+                  <Link to="/claims-and-leave/payments?claim=NTN-4501-GDC-10&case=NTN-4501" className="ldb-payments-view-btn" style={{ textDecoration: 'none' }}>
                     VIEW ALL PAYMENTS
                     <svg width="12" height="12" viewBox="0 0 16 16" fill="none"><path d="M6 4l4 4-4 4" stroke="currentColor" strokeWidth="1.3" strokeLinecap="round" strokeLinejoin="round"/></svg>
                   </Link>

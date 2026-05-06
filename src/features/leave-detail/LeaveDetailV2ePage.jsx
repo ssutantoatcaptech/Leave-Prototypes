@@ -557,7 +557,7 @@ export default function LeaveDetailV2ePage() {
                       <div className="ldb-v2e-pmt-amount">$2,308.00</div>
                     </div>
                   </div>
-                  <Link to="/payments?claim=NTN-9312-GDC-81&case=NTN-9312" className="ldb-payments-view-btn" style={{ textDecoration: 'none' }}>
+                  <Link to="/claims-and-leave/payments?claim=NTN-9312-GDC-81&case=NTN-9312" className="ldb-payments-view-btn" style={{ textDecoration: 'none' }}>
                     VIEW ALL PAYMENTS
                     <svg width="12" height="12" viewBox="0 0 16 16" fill="none"><path d="M6 4l4 4-4 4" stroke="currentColor" strokeWidth="1.3" strokeLinecap="round" strokeLinejoin="round"/></svg>
                   </Link>

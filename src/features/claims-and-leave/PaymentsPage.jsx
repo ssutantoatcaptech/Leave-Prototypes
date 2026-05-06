@@ -1,9 +1,11 @@
 import { useState, useMemo } from 'react';
+import { useSearchParams } from 'react-router-dom';
 
 const paymentsData = [
   {
     date: 'Oct 14, 2024',
     claim: 'CLM-2024-08832',
+    caseRef: 'NTN-9312-GDC-81',
     type: 'Short-Term Disability',
     net: '$2,450.00',
     method: 'Direct Deposit',
@@ -23,6 +25,7 @@ const paymentsData = [
   {
     date: 'Sep 30, 2024',
     claim: 'CLM-2024-08832',
+    caseRef: 'NTN-9312-GDC-81',
     type: 'Short-Term Disability',
     net: '$2,450.00',
     method: 'Direct Deposit',
@@ -42,6 +45,7 @@ const paymentsData = [
   {
     date: 'Sep 16, 2024',
     claim: 'CLM-2024-08832',
+    caseRef: 'NTN-9312-GDC-81',
     type: 'Short-Term Disability',
     net: '$2,450.00',
     method: 'Direct Deposit',
@@ -61,6 +65,7 @@ const paymentsData = [
   {
     date: 'Sep 2, 2024',
     claim: 'CLM-2024-08510',
+    caseRef: 'NTN-4501-GDC-10',
     type: 'Short-Term Disability',
     net: '$2,150.00',
     method: 'Direct Deposit',
@@ -80,6 +85,7 @@ const paymentsData = [
   {
     date: 'Aug 19, 2024',
     claim: 'CLM-2024-07994',
+    caseRef: 'NTN-5220-FLI-31',
     type: 'AD&D Benefit',
     net: '$15,000.00',
     method: 'Check',
@@ -93,8 +99,10 @@ const paymentsData = [
 ];
 
 export default function PaymentsPage() {
+  const [searchParams] = useSearchParams();
+  const claimParam = searchParams.get('claim') || '';
   const [expandedRow, setExpandedRow] = useState(0);
-  const [search, setSearch] = useState('');
+  const [search, setSearch] = useState(claimParam);
   const [typeFilter, setTypeFilter] = useState('All');
   const [dateFilter, setDateFilter] = useState('All');
 
@@ -102,7 +110,7 @@ export default function PaymentsPage() {
     return paymentsData.filter((row) => {
       if (search) {
         const q = search.toLowerCase();
-        const matchFields = [row.date, row.claim, row.type, row.net, row.method].join(' ').toLowerCase();
+        const matchFields = [row.date, row.claim, row.caseRef, row.type, row.net, row.method].join(' ').toLowerCase();
         if (!matchFields.includes(q)) return false;
       }
       if (typeFilter !== 'All' && row.type !== typeFilter) return false;
@@ -165,9 +173,15 @@ export default function PaymentsPage() {
           <option value="Year to Date">Year to Date</option>
         </select>
         <button className="cl-btn cl-btn--outline">Export CSV</button>
+        {(search || typeFilter !== 'All' || dateFilter !== 'All') && (
+          <button className="cl-link-btn" onClick={() => { setSearch(''); setTypeFilter('All'); setDateFilter('All'); setExpandedRow(-1); }}>Clear Filters</button>
+        )}
       </div>
 
-      <div className="cl-pagination-info">Showing {filtered.length} of {paymentsData.length} payments</div>
+      <div className="cl-pagination-info">
+        Showing {filtered.length} of {paymentsData.length} payments
+        {search && <span style={{ marginLeft: 8, color: '#0033a0', fontWeight: 600 }}>— filtered by "{search}"</span>}
+      </div>
 
       {/* Payments table */}
       <div className="cl-table-wrap">
