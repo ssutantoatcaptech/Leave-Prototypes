@@ -1833,3 +1833,65 @@
     align-items: flex-start;
   }
 }
+
+/* ===========================
+   Footer
+   =========================== */
+.cl-footer {
+  background: #1a1a2e;
+  color: #ffffff;
+  margin-top: 64px;
+}
+
+.cl-footer-inner {
+  max-width: 1440px;
+  margin: 0 auto;
+  padding: 48px 32px 32px;
+}
+
+.cl-footer-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 32px;
+  margin-bottom: 32px;
+}
+
+.cl-footer-col {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.cl-footer-heading {
+  font-size: 14px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  color: #ffffff;
+  margin: 0 0 8px;
+}
+
+.cl-footer-link {
+  font-size: 14px;
+  color: #cbd5e1;
+  text-decoration: none;
+  line-height: 1.6;
+}
+
+.cl-footer-link:hover {
+  color: #ffffff;
+  text-decoration: underline;
+}
+
+.cl-footer-bottom {
+  border-top: 1px solid rgba(255, 255, 255, 0.15);
+  padding-top: 24px;
+  font-size: 13px;
+  color: #94a3b8;
+}
+
+@media (max-width: 768px) {
+  .cl-footer-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
