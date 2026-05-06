@@ -172,7 +172,12 @@
 
 /* Payment badges stack */
 .mobile-frame-screen .cl-payment-badges {
-  flex-direction: column;
+  flex-direction: row;
+  gap: 10px;
+}
+
+.mobile-frame-screen .cl-payment-badge {
+  flex: 1;
 }
 
 /* Bottom info cards stack */
