@@ -591,9 +591,10 @@
 
 /* Stepper adjustments */
 .mobile-frame-screen .stepper {
-  flex-direction: column;
-  align-items: flex-start;
-  gap: 4px;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
 }
 
 /* Footer buttons: stack on mobile */
