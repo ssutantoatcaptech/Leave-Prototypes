@@ -64,8 +64,9 @@ export default function LeaveDetailCaregiverPage() {
             <div className="ldb-title-icon">
               <svg width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2" stroke="#fff" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"/><circle cx="9" cy="7" r="4" stroke="#fff" strokeWidth="1.8"/><path d="M23 21v-2a4 4 0 00-3-3.87M16 3.13a4 4 0 010 7.75" stroke="#fff" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"/></svg>
             </div>
-            <div>
-              <h1 className="ldb-title">Caring for Family Member <span className="ldb-status-badge" style={{ fontSize: 12, marginLeft: 12, verticalAlign: 'middle', background: '#f0fdf4', color: '#166534', border: '1px solid #bbf7d0' }}>Approved</span></h1>
+            <div className="ldb-title-text">
+              <span className="ldb-status-badge ldb-title-badge" style={{ background: '#f0fdf4', color: '#166534', border: '1px solid #bbf7d0' }}>Approved</span>
+              <h1 className="ldb-title">Caring for Family Member</h1>
               <div className="ldb-title-meta">
                 <span style={{ fontSize: 14, color: '#525252', fontWeight: 600 }}>NTN - 5220</span>
                 <span style={{ fontSize: 13, color: '#737373', marginLeft: 12 }}>May 5 – Jul 28, 2025 · Intermittent</span>
@@ -91,7 +92,8 @@ export default function LeaveDetailCaregiverPage() {
                   </div>
                 </div>
 
-                <p className="ad-section-helper">Hover over a row to see details</p>
+                <p className="ad-section-helper ad-section-helper--desktop">Hover over a row to see details</p>
+                <p className="ad-section-helper ad-section-helper--mobile">Tap a row to see details</p>
 
                 <div className="dlp-timeline">
                   <div className="ldb-tl-rows-wrap">
@@ -109,6 +111,7 @@ export default function LeaveDetailCaregiverPage() {
                           type="button"
                           onMouseEnter={function () { setHoveredRow(item.id); }}
                           onMouseLeave={function () { setHoveredRow(null); }}
+                          onClick={function () { setHoveredRow(hoveredRow === item.id ? null : item.id); }}
                         >
                           <div className="dlp-tl-row-label">{item.label}</div>
                           <div className="dlp-tl-row-bar">
@@ -154,12 +157,49 @@ export default function LeaveDetailCaregiverPage() {
                       </div>
                     );
                   })()}
+
+                  {hoveredRow && (function () {
+                    var allRows = timelineView === 'payment' ? [
+                      { id: 'njfli', name: 'NJ Family Leave Insurance (Caregiving)', weeks: '12 weeks', range: 'May 5 – Jul 28, 2025', pay: '85% AWW up to max', status: 'Approved', paymentValue: '~$1,048/wk' },
+                    ] : [
+                      { id: 'fmla', name: 'Leave Case — FMLA Protection', weeks: '12 weeks', range: 'May 5 – Jul 28, 2025', pay: 'Job protection (unpaid)', status: 'Approved' },
+                      { id: 'njfli', name: 'NJ Family Leave Insurance (Caregiving)', weeks: '12 weeks', range: 'May 5 – Jul 28, 2025', pay: '85% AWW up to max', status: 'Approved' },
+                    ];
+                    var selected = allRows.find(function (r) { return r.id === hoveredRow; });
+                    if (!selected) return null;
+                    return (
+                      <div className="dlp-tl-mobile-detail">
+                        <div className="dlp-tl-mobile-detail-title">{selected.name}</div>
+                        <div className="dlp-tl-mobile-detail-grid">
+                          <div>
+                            <div className="dlp-tl-mobile-detail-label">{timelineView === 'payment' ? 'Est. Weekly' : 'Status'}</div>
+                            <div className="dlp-tl-mobile-detail-value">{timelineView === 'payment' ? selected.paymentValue : selected.status}</div>
+                          </div>
+                          <div>
+                            <div className="dlp-tl-mobile-detail-label">Duration</div>
+                            <div className="dlp-tl-mobile-detail-value">{selected.weeks}</div>
+                          </div>
+                          <div>
+                            <div className="dlp-tl-mobile-detail-label">Dates</div>
+                            <div className="dlp-tl-mobile-detail-value">{selected.range}</div>
+                          </div>
+                          <div>
+                            <div className="dlp-tl-mobile-detail-label">Pay</div>
+                            <div className="dlp-tl-mobile-detail-value">{selected.pay}</div>
+                          </div>
+                        </div>
+                      </div>
+                    );
+                  })()}
                   </div>
 
-                  <div className="dlp-tl-weeks">
-                    {Array.from({ length: 12 }, function (_, i) {
-                      return <div key={i} className="dlp-tl-week-tick"><span className="dlp-tl-week-num">Wk {i + 1}</span></div>;
-                    })}
+                  <div className="dlp-tl-weeks-row">
+                    <div className="dlp-tl-week-label">Week</div>
+                    <div className="dlp-tl-weeks">
+                      {Array.from({ length: 12 }, function (_, i) {
+                        return <div key={i} className="dlp-tl-week-tick"><span className="dlp-tl-week-num">{i + 1}</span></div>;
+                      })}
+                    </div>
                   </div>
                   <div className="dlp-tl-months">
                     <span>May</span>
