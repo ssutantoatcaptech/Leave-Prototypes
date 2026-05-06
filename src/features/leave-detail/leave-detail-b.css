@@ -272,16 +272,17 @@
   box-shadow: none;
 }
 .ldb-card.dt-timeline-wrap .dlp-tl-row.active {
-  background: #e8f0fe;
+  background: #f1f5f9;
 }
 .ldb-card.dt-timeline-wrap .dlp-tl-row:hover {
-  background: #f0f5ff;
+  background: #f8fafc;
 }
 .ldb-card.dt-timeline-wrap .dlp-tl-row-bar {
   background: #f8fafc;
 }
 .ldb-card.dt-timeline-wrap .dlp-tl-row-label {
-  color: #0033a0;
+  color: #64748b;
+  font-weight: 600;
 }
 .ldb-tl-rows-wrap {
   position: relative;
@@ -2329,7 +2330,7 @@
 }
 .dlp-tl-week-tick {
   flex: 1;
-  border-left: 1px solid #d4d4d8;
+  border-left: 1px solid #e2e8f0;
   height: 18px;
   display: flex;
   align-items: flex-end;
@@ -2337,13 +2338,19 @@
   padding-bottom: 2px;
 }
 .dlp-tl-week-tick:last-child {
-  border-right: 1px solid #d4d4d8;
+  border-right: 1px solid #e2e8f0;
 }
 .dlp-tl-week-num {
   font-size: 10px;
-  color: #6b7280;
-  font-weight: 600;
+  color: #94a3b8;
+  font-weight: 700;
   line-height: 1;
+}
+
+.ldb-card.dt-timeline-wrap .dlp-tl-months span {
+  color: #94a3b8;
+  font-weight: 700;
+  font-size: 12px;
 }
 
 /* ── QUICK ACTIONS CARD (V2E Redesign) ── */
