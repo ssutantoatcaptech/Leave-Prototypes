@@ -64,17 +64,15 @@ export default function PaymentsPage() {
           <h1 className="cl-page-title">Payments</h1>
           <p className="cl-page-desc">View and manage your benefit payments and payment history.</p>
         </div>
-      </div>
-
-      {/* YTD and Next Payment badges */}
-      <div className="cl-payment-badges">
-        <div className="cl-payment-badge">
-          <span className="cl-payment-badge-label">YTD Received</span>
-          <span className="cl-payment-badge-value">$14,250.00</span>
-        </div>
-        <div className="cl-payment-badge">
-          <span className="cl-payment-badge-label">Next Payment</span>
-          <span className="cl-payment-badge-value">Oct 28, 2024</span>
+        <div className="cl-payment-badges">
+          <div className="cl-payment-badge">
+            <span className="cl-payment-badge-label">YTD Received</span>
+            <span className="cl-payment-badge-value">$14,250.00</span>
+          </div>
+          <div className="cl-payment-badge">
+            <span className="cl-payment-badge-label">Next Payment</span>
+            <span className="cl-payment-badge-value">Oct 28, 2024</span>
+          </div>
         </div>
       </div>
 

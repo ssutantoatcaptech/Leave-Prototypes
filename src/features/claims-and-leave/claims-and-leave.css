@@ -997,7 +997,6 @@
 .cl-payment-badges {
   display: flex;
   gap: 16px;
-  margin-bottom: 24px;
 }
 
 .cl-payment-badge {
