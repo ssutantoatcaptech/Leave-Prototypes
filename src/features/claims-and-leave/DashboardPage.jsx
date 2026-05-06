@@ -193,162 +193,154 @@ export default function DashboardPage() {
       </section>
 
       <main className="cldb-main">
-        <h2 className="cldb-section-title">Items Requiring Action</h2>
+        <h2 className="cldb-section-title cldb-hide-mobile">Items Requiring Action</h2>
 
         <div className="cldb-content-grid">
-          <div className="cldb-content-left">
-            {/* Status Banner */}
-            <div className="cldb-status-banner">
-              <div className="cldb-status-icon">
-                <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
-                  <circle cx="12" cy="12" r="10" stroke="#0033a0" strokeWidth="1.5"/>
-                  <path d="M8 12l3 3 5-5" stroke="#0033a0" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
-                </svg>
-              </div>
-              <div className="cldb-status-content">
-                <div className="cldb-status-header">
-                  <h3 className="cldb-status-title">You're All Caught Up</h3>
-                  <button className="cldb-status-dismiss" aria-label="Dismiss">
-                    <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
-                      <path d="M1 1l12 12M13 1L1 13" stroke="#737373" strokeWidth="1.5" strokeLinecap="round"/>
-                    </svg>
-                  </button>
-                </div>
-                <p className="cldb-status-desc">No pending actions required at this time. All claims and leave requests are up to date.</p>
-              </div>
+          {/* Status Banner — order 1 on mobile */}
+          <div className="cldb-status-banner cldb-grid-status">
+            <div className="cldb-status-icon">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+                <circle cx="12" cy="12" r="10" stroke="#171717" strokeWidth="1.5"/>
+                <path d="M8 12l3 3 5-5" stroke="#171717" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+              </svg>
             </div>
-
-            {/* Recent Activity */}
-            <div className="cldb-card">
-              <div className="cldb-card-header cldb-card-header--border">
-                <h3 className="cldb-card-title">Recent Activity</h3>
-                <button className="cldb-view-all-btn">View All</button>
+            <div className="cldb-status-content">
+              <div className="cldb-status-header">
+                <h3 className="cldb-status-title">You're All Caught Up</h3>
+                <button className="cldb-status-dismiss" aria-label="Dismiss">
+                  <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
+                    <path d="M1 1l12 12M13 1L1 13" stroke="#737373" strokeWidth="1.5" strokeLinecap="round"/>
+                  </svg>
+                </button>
               </div>
-              <div className="cldb-activity-list">
-                <div className="cldb-activity-row">
-                  <div className="cldb-activity-icon cldb-activity-icon--doc">
-                    <svg width="12" height="16" viewBox="0 0 12 16" fill="none">
-                      <path d="M1 1h7l3 3v11H1V1z" stroke="#404040" strokeWidth="1.2"/>
-                      <path d="M8 1v3h3" stroke="#404040" strokeWidth="1.2"/>
-                    </svg>
-                  </div>
-                  <div className="cldb-activity-content">
-                    <span className="cldb-activity-title">Dental EOB Available</span>
-                    <span className="cldb-activity-desc">Your dental Explanation of Benefits from Dec 10, 2024 is now available.</span>
-                    <span className="cldb-activity-date">Jan 20, 2025</span>
-                  </div>
-                  <svg className="cldb-activity-chevron" width="10" height="16" viewBox="0 0 10 16" fill="none">
-                    <path d="M2 2l6 6-6 6" stroke="#a3a3a3" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
-                  </svg>
-                </div>
-                <div className="cldb-activity-row">
-                  <div className="cldb-activity-icon cldb-activity-icon--check">
-                    <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
-                      <circle cx="8" cy="8" r="7" fill="#404040"/>
-                      <path d="M5 8l2 2 4-4" stroke="#fff" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
-                    </svg>
-                  </div>
-                  <div className="cldb-activity-content">
-                    <span className="cldb-activity-title">Claim Processed</span>
-                    <span className="cldb-activity-desc">Dental claim #VC-2025-4412</span>
-                    <span className="cldb-activity-date">Jan 18, 2025</span>
-                  </div>
-                  <svg className="cldb-activity-chevron" width="10" height="16" viewBox="0 0 10 16" fill="none">
-                    <path d="M2 2l6 6-6 6" stroke="#a3a3a3" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
-                  </svg>
-                </div>
-                <div className="cldb-activity-row">
-                  <div className="cldb-activity-icon cldb-activity-icon--check">
-                    <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
-                      <circle cx="8" cy="8" r="7" fill="#404040"/>
-                      <path d="M5 8l2 2 4-4" stroke="#fff" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
-                    </svg>
-                  </div>
-                  <div className="cldb-activity-content">
-                    <span className="cldb-activity-title">Leave Request Approved</span>
-                    <span className="cldb-activity-desc">Leave from 2/2/25 through 2-10-25</span>
-                    <span className="cldb-activity-date">Jan 18, 2025</span>
-                  </div>
-                  <svg className="cldb-activity-chevron" width="10" height="16" viewBox="0 0 10 16" fill="none">
-                    <path d="M2 2l6 6-6 6" stroke="#a3a3a3" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
-                  </svg>
-                </div>
+              <p className="cldb-status-desc">No pending actions required at this time. All claims and leave requests are up to date.</p>
+            </div>
+          </div>
+
+          {/* Quick Actions — order 2 on mobile, sidebar on desktop */}
+          <div className="cldb-card cldb-grid-actions">
+            <div className="cldb-card-body">
+              <h3 className="cldb-sidebar-title">Quick Actions</h3>
+              <div className="cldb-quick-actions">
+                <button className="cldb-action-row">
+                  <span className="cldb-action-icon">
+                    <svg width="16" height="14" viewBox="0 0 16 14" fill="none"><rect x="0.5" y="0.5" width="15" height="11" rx="1.5" stroke="#404040"/><rect x="0.5" y="11.5" width="15" height="2" rx="0.5" stroke="#404040"/></svg>
+                  </span>
+                  <span className="cldb-action-label">View ID Cards</span>
+                  <span className="cldb-action-chevron">&rsaquo;</span>
+                </button>
+                <button className="cldb-action-row">
+                  <span className="cldb-action-icon">
+                    <svg width="14" height="16" viewBox="0 0 14 16" fill="none"><rect x="0.5" y="0.5" width="13" height="15" rx="1.5" stroke="#404040"/><path d="M4 5h6M4 8h6M4 11h3" stroke="#404040" strokeLinecap="round"/></svg>
+                  </span>
+                  <span className="cldb-action-label">Submit New Claim</span>
+                  <span className="cldb-action-chevron">&rsaquo;</span>
+                </button>
+                <button className="cldb-action-row" onClick={() => navigate(`${base}/file-claim/request-leave?step=1`)}>
+                  <span className="cldb-action-icon">
+                    <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><rect x="0.5" y="2.5" width="13" height="11" rx="1.5" stroke="#404040"/><path d="M4 0.5v4M10 0.5v4" stroke="#404040" strokeLinecap="round"/></svg>
+                  </span>
+                  <span className="cldb-action-label">Request Leave</span>
+                  <span className="cldb-action-chevron">&rsaquo;</span>
+                </button>
+                <button className="cldb-action-row">
+                  <span className="cldb-action-icon">
+                    <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><circle cx="7" cy="5" r="3.5" stroke="#404040"/><path d="M1 13.5c0-3 2.5-5 6-5s6 2 6 5" stroke="#404040" strokeLinecap="round"/></svg>
+                  </span>
+                  <span className="cldb-action-label">Manage Preferences</span>
+                  <span className="cldb-action-chevron">&rsaquo;</span>
+                </button>
+                <button className="cldb-action-row">
+                  <span className="cldb-action-icon">
+                    <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><circle cx="7" cy="7" r="6.5" stroke="#404040"/><path d="M7 4v3l2 2" stroke="#404040" strokeLinecap="round" strokeLinejoin="round"/></svg>
+                  </span>
+                  <span className="cldb-action-label">Contact Support</span>
+                  <span className="cldb-action-chevron">&rsaquo;</span>
+                </button>
               </div>
             </div>
           </div>
 
-          <aside className="cldb-sidebar">
-            {/* Quick Actions */}
-            <div className="cldb-card">
-              <div className="cldb-card-body">
-                <h3 className="cldb-sidebar-title">Quick Actions</h3>
-                <div className="cldb-quick-actions">
-                  <button className="cldb-action-row">
-                    <span className="cldb-action-icon">
-                      <svg width="16" height="14" viewBox="0 0 16 14" fill="none"><rect x="0.5" y="0.5" width="15" height="11" rx="1.5" stroke="#404040"/><rect x="0.5" y="11.5" width="15" height="2" rx="0.5" stroke="#404040"/></svg>
-                    </span>
-                    <span className="cldb-action-label">View ID Cards</span>
-                    <span className="cldb-action-chevron">&rsaquo;</span>
-                  </button>
-                  <button className="cldb-action-row">
-                    <span className="cldb-action-icon">
-                      <svg width="14" height="16" viewBox="0 0 14 16" fill="none"><rect x="0.5" y="0.5" width="13" height="15" rx="1.5" stroke="#404040"/><path d="M4 5h6M4 8h6M4 11h3" stroke="#404040" strokeLinecap="round"/></svg>
-                    </span>
-                    <span className="cldb-action-label">Submit New Claim</span>
-                    <span className="cldb-action-chevron">&rsaquo;</span>
-                  </button>
-                  <button className="cldb-action-row" onClick={() => navigate(`${base}/file-claim/request-leave?step=1`)}>
-                    <span className="cldb-action-icon">
-                      <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><rect x="0.5" y="2.5" width="13" height="11" rx="1.5" stroke="#404040"/><path d="M4 0.5v4M10 0.5v4" stroke="#404040" strokeLinecap="round"/></svg>
-                    </span>
-                    <span className="cldb-action-label">Request Leave</span>
-                    <span className="cldb-action-chevron">&rsaquo;</span>
-                  </button>
-                  <button className="cldb-action-row">
-                    <span className="cldb-action-icon">
-                      <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><circle cx="7" cy="5" r="3.5" stroke="#404040"/><path d="M1 13.5c0-3 2.5-5 6-5s6 2 6 5" stroke="#404040" strokeLinecap="round"/></svg>
-                    </span>
-                    <span className="cldb-action-label">Manage Preferences</span>
-                    <span className="cldb-action-chevron">&rsaquo;</span>
-                  </button>
-                  <button className="cldb-action-row">
-                    <span className="cldb-action-icon">
-                      <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><circle cx="7" cy="7" r="6.5" stroke="#404040"/><path d="M7 4v3l2 2" stroke="#404040" strokeLinecap="round" strokeLinejoin="round"/></svg>
-                    </span>
-                    <span className="cldb-action-label">Contact Support</span>
-                    <span className="cldb-action-chevron">&rsaquo;</span>
-                  </button>
-                </div>
+          {/* Recent Activity — order 3 on mobile */}
+          <div className="cldb-card cldb-grid-activity">
+            <div className="cldb-card-header cldb-card-header--border">
+              <h3 className="cldb-card-title">Recent Activity</h3>
+              <button className="cldb-view-all-btn">View All <svg width="6" height="10" viewBox="0 0 6 10" fill="none"><path d="M1 1l4 4-4 4" stroke="#737373" strokeWidth="1.2" strokeLinecap="round" strokeLinejoin="round"/></svg></button>
+            </div>
+            <div className="cldb-activity-empty">
+              <div className="cldb-activity-empty-icon">
+                <svg width="22" height="20" viewBox="0 0 22 20" fill="none">
+                  <path d="M1 3h14v12H5l-4 3V3z" stroke="#a3a3a3" strokeWidth="1.5" strokeLinejoin="round"/>
+                  <path d="M17 5h4v12l-4-3H9" stroke="#a3a3a3" strokeWidth="1.5" strokeLinejoin="round"/>
+                </svg>
+              </div>
+              <h4 className="cldb-activity-empty-title">No Recent Activity</h4>
+              <p className="cldb-activity-empty-desc">You have no recent updates right now. New account activity will appear here.</p>
+            </div>
+          </div>
+
+          {/* Active Benefits — order 4 on mobile */}
+          <div className="cldb-card cldb-grid-benefits">
+            <div className="cldb-card-header cldb-card-header--border">
+              <div className="cldb-benefits-heading">
+                <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                  <path d="M8 1l2 3h4l-3 3 1 4-4-2-4 2 1-4-3-3h4l2-3z" stroke="#171717" strokeWidth="1.2" strokeLinejoin="round"/>
+                </svg>
+                <h3 className="cldb-card-title">Active Benefits</h3>
               </div>
             </div>
-
-            {/* Active Benefits */}
-            <div className="cldb-card">
-              <div className="cldb-card-header cldb-card-header--border">
-                <div className="cldb-benefits-heading">
-                  <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
-                    <path d="M8 1l2 3h4l-3 3 1 4-4-2-4 2 1-4-3-3h4l2-3z" stroke="#171717" strokeWidth="1.2" strokeLinejoin="round"/>
-                  </svg>
-                  <h3 className="cldb-card-title">Active Benefits</h3>
-                </div>
-              </div>
-              <div className="cldb-card-body">
-                <div className="cldb-missing-benefit">
-                  <div className="cldb-missing-icon">
-                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
-                      <path d="M12 2l3 5h6l-4.5 4.5 1.5 6L12 14l-6 3.5 1.5-6L3 7h6l3-5z" stroke="#a3a3a3" strokeWidth="1.2" strokeLinejoin="round"/>
-                    </svg>
+            <div className="cldb-card-body">
+              {/* Dental Insurance */}
+              <div className="cldb-benefit-item">
+                <div className="cldb-benefit-item-header">
+                  <div className="cldb-benefit-item-icon">
+                    <svg width="14" height="16" viewBox="0 0 14 16" fill="none"><path d="M7 1C4.5 1 3 3 3 5c0 3 4 10 4 10s4-7 4-10c0-2-1.5-4-4-4z" stroke="#404040" strokeWidth="1.2"/></svg>
                   </div>
-                  <h4 className="cldb-missing-title">Missing a Benefit?</h4>
-                  <p className="cldb-missing-desc">We're still setting up your benefits information with your employer. Some coverages may take a little longer to appear. Please check back soon.</p>
+                  <div className="cldb-benefit-item-info">
+                    <span className="cldb-benefit-item-name">Dental Insurance</span>
+                    <span className="cldb-benefit-item-plan">Premier PPO Dental Plan</span>
+                  </div>
                 </div>
-
-                <div className="cldb-benefit-footer">
-                  <button className="cldb-btn-outline">Get Support</button>
+                <div className="cldb-benefit-progress">
+                  <div className="cldb-benefit-progress-labels">
+                    <span>Dental Max Used</span>
+                    <span>$340 / $2,000</span>
+                  </div>
+                  <div className="cldb-benefit-progress-bar">
+                    <div className="cldb-benefit-progress-fill" style={{ width: '17%' }}></div>
+                  </div>
                 </div>
               </div>
+
+              {/* Short Term Disability */}
+              <div className="cldb-benefit-item cldb-benefit-item--simple">
+                <div className="cldb-benefit-item-header">
+                  <div className="cldb-benefit-item-icon">
+                    <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><rect x="1" y="1" width="14" height="14" rx="2" stroke="#404040" strokeWidth="1.2"/><path d="M5 8h6M8 5v6" stroke="#404040" strokeWidth="1.2" strokeLinecap="round"/></svg>
+                  </div>
+                  <div className="cldb-benefit-item-info">
+                    <span className="cldb-benefit-item-name">Short Term Disability</span>
+                    <span className="cldb-benefit-item-plan">Base Plan</span>
+                  </div>
+                </div>
+              </div>
+
+              {/* Missing a Benefit */}
+              <div className="cldb-missing-benefit">
+                <div className="cldb-missing-icon">
+                  <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+                    <path d="M12 2l3 5h6l-4.5 4.5 1.5 6L12 14l-6 3.5 1.5-6L3 7h6l3-5z" stroke="#a3a3a3" strokeWidth="1.2" strokeLinejoin="round"/>
+                  </svg>
+                </div>
+                <h4 className="cldb-missing-title">Missing a Benefit?</h4>
+                <p className="cldb-missing-desc">We're still setting up your benefits information with your employer. Some coverages may take a little longer to appear. Please check back soon.</p>
+              </div>
+
+              <div className="cldb-benefit-footer">
+                <button className="cldb-btn-outline">Get Support</button>
+              </div>
             </div>
-          </aside>
+          </div>
         </div>
       </main>
     </div>

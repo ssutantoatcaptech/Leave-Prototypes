@@ -2328,8 +2328,9 @@
 
 .cldb-content-grid {
   display: flex;
+  flex-direction: column;
   gap: 24px;
-  align-items: flex-start;
+  align-items: stretch;
 }
 
 .cldb-content-left {
@@ -2417,11 +2418,14 @@
 
 .cldb-card-header {
   padding: 16px 16px 17px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 }
 
 .cldb-card-header--border {
   border-bottom: 1px solid #f5f5f5;
-  padding: 20px;
+  padding: 12px 16px 13px;
 }
 
 .cldb-card-title {
@@ -2536,19 +2540,20 @@
 }
 
 .cldb-view-all-btn {
-  background: #fff;
-  border: 1px solid #e5e5e5;
-  border-radius: 4px;
-  padding: 9px 17px;
-  font-size: 14px;
-  color: #404040;
+  background: none;
+  border: none;
+  padding: 0;
+  font-size: 12px;
+  color: #737373;
   cursor: pointer;
   font-family: inherit;
-  transition: background 0.12s;
+  display: flex;
+  align-items: center;
+  gap: 4px;
 }
 
 .cldb-view-all-btn:hover {
-  background: #f5f5f5;
+  color: #404040;
 }
 
 /* Buttons */
@@ -2773,10 +2778,117 @@
   line-height: 1.5;
 }
 
+/* Benefit Item (new structure) */
+.cldb-benefit-item-header {
+  display: flex;
+  gap: 8px;
+  align-items: flex-start;
+}
+
+.cldb-benefit-item-icon {
+  width: 40px;
+  height: 40px;
+  background: #f5f5f5;
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.cldb-benefit-item-info {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.cldb-benefit-item-name {
+  font-size: 16px;
+  color: #171717;
+  line-height: 1.25;
+}
+
+.cldb-benefit-item-plan {
+  font-size: 14px;
+  color: #737373;
+  line-height: 1.4;
+}
+
+.cldb-benefit-progress {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.cldb-benefit-progress-labels {
+  display: flex;
+  justify-content: space-between;
+  font-size: 12px;
+  color: #525252;
+}
+
+.cldb-benefit-progress-labels span:last-child {
+  color: #171717;
+}
+
+.cldb-benefit-progress-bar {
+  width: 100%;
+  height: 8px;
+  background: #f5f5f5;
+  border-radius: 999px;
+  overflow: hidden;
+}
+
+.cldb-benefit-progress-fill {
+  height: 100%;
+  background: #262626;
+  border-radius: 999px;
+}
+
+/* Activity Empty State */
+.cldb-activity-empty {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 32px;
+  text-align: center;
+  gap: 12px;
+}
+
+.cldb-activity-empty-icon {
+  width: 56px;
+  height: 56px;
+  background: #f5f5f5;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.cldb-activity-empty-title {
+  font-size: 14px;
+  font-weight: 400;
+  color: #171717;
+  margin: 0;
+}
+
+.cldb-activity-empty-desc {
+  font-size: 14px;
+  color: #737373;
+  margin: 0;
+  line-height: 1.5;
+}
+
 /* Benefit Footer */
 .cldb-benefit-footer {
   display: flex;
-  justify-content: flex-start;
+  justify-content: center;
+}
+
+/* Hide on mobile utility */
+.cldb-hide-mobile {
+  display: block;
 }
 
 /* ===========================

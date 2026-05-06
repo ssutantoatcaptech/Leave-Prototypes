@@ -561,37 +561,55 @@
 /* ----- 8. Dashboard Responsive ----- */
 
 .cldb-hero {
-  padding: 32px 0;
+  padding: 36px 16px;
+  background: #d4d4d4;
 }
 
 .cldb-hero-title {
-  font-size: 28px;
-  padding: 0 16px;
+  font-size: 24px;
+  padding: 0;
 }
 
 .cldb-main {
   padding: 24px 16px;
+  background: #fafafa;
 }
 
 .cldb-content-grid {
   flex-direction: column;
 }
 
+/* Mobile order: status → quick actions → recent activity → active benefits */
+.cldb-grid-status { order: 1; }
+.cldb-grid-actions { order: 2; }
+.cldb-grid-activity { order: 3; }
+.cldb-grid-benefits { order: 4; }
+
 .cldb-sidebar {
   width: 100%;
 }
 
-/* Status banner stacks on mobile */
+/* Status banner on mobile */
 .cldb-status-banner {
-  flex-direction: column;
-  align-items: center;
-  text-align: center;
+  flex-direction: row;
+  align-items: flex-start;
   gap: 12px;
 }
 
-.cldb-status-header {
-  flex-direction: column;
-  gap: 8px;
+.cldb-status-icon {
+  width: 40px;
+  height: 40px;
+  background: #fff;
+  border: 1px solid #e5e5e5;
+}
+
+.cldb-status-title {
+  font-size: 16px;
+}
+
+.cldb-status-desc {
+  font-size: 12px;
+  line-height: 1.35;
 }
 
 /* Action rows full width */
@@ -604,9 +622,15 @@
   padding: 24px 16px;
 }
 
+/* Hide section title on mobile */
+.cldb-hide-mobile {
+  display: none;
+}
+
 @media (min-width: 769px) {
   .cldb-hero {
     padding: 64px 0;
+    background: none;
   }
 
   .cldb-hero-title {
@@ -616,10 +640,37 @@
 
   .cldb-main {
     padding: 36px 60px;
+    background: none;
   }
 
   .cldb-content-grid {
     flex-direction: row;
+    flex-wrap: wrap;
+  }
+
+  /* Desktop: status + activity span the left, actions + benefits in sidebar */
+  .cldb-grid-status {
+    order: unset;
+    flex: 1;
+    min-width: 0;
+  }
+
+  .cldb-grid-actions {
+    order: unset;
+    width: 420px;
+    flex-shrink: 0;
+  }
+
+  .cldb-grid-activity {
+    order: unset;
+    flex: 1;
+    min-width: 0;
+  }
+
+  .cldb-grid-benefits {
+    order: unset;
+    width: 420px;
+    flex-shrink: 0;
   }
 
   .cldb-sidebar {
@@ -632,6 +683,22 @@
     text-align: left;
   }
 
+  .cldb-status-icon {
+    width: 48px;
+    height: 48px;
+    background: #f0f4ff;
+    border: 1px solid #bfdbfe;
+  }
+
+  .cldb-status-title {
+    font-size: 18px;
+  }
+
+  .cldb-status-desc {
+    font-size: 14px;
+    line-height: 1.5;
+  }
+
   .cldb-status-header {
     flex-direction: row;
     gap: 0;
@@ -639,6 +706,10 @@
 
   .cldb-card-empty {
     padding: 24px 48px;
+  }
+
+  .cldb-hide-mobile {
+    display: block;
   }
 }
 

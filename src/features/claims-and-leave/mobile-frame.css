@@ -139,7 +139,46 @@
 
 /* Dashboard grid stacks */
 .mobile-frame-screen .cldb-content-grid {
-  grid-template-columns: 1fr;
+  flex-direction: column;
+}
+
+.mobile-frame-screen .cldb-grid-status { order: 1; }
+.mobile-frame-screen .cldb-grid-actions { order: 2; }
+.mobile-frame-screen .cldb-grid-activity { order: 3; }
+.mobile-frame-screen .cldb-grid-benefits { order: 4; }
+
+.mobile-frame-screen .cldb-hero {
+  padding: 36px 16px;
+  background: #d4d4d4;
+}
+
+.mobile-frame-screen .cldb-hero-title {
+  font-size: 24px;
+  padding: 0;
+}
+
+.mobile-frame-screen .cldb-main {
+  padding: 24px 16px;
+  background: #fafafa;
+}
+
+.mobile-frame-screen .cldb-hide-mobile {
+  display: none;
+}
+
+.mobile-frame-screen .cldb-status-icon {
+  width: 40px;
+  height: 40px;
+  background: #fff;
+  border: 1px solid #e5e5e5;
+}
+
+.mobile-frame-screen .cldb-status-title {
+  font-size: 16px;
+}
+
+.mobile-frame-screen .cldb-status-desc {
+  font-size: 12px;
 }
 
 /* Enter My Time grid stacks */
