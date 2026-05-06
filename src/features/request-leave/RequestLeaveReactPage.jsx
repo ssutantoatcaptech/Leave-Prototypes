@@ -1382,7 +1382,6 @@ export default function RequestLeaveReactPage() {
         <div className="wizard-footer">
           <div className="footer-left">
             <button type="button" className="btn btn-back" onClick={goBack}>← Back</button>
-            <button type="button" className="btn btn-save" onClick={saveAndExit}>Save & Exit</button>
           </div>
           <div className="footer-right">
             <button type="button" className="btn btn-cancel-leave" onClick={() => setShowCancelModal(true)}>Cancel</button>
@@ -1395,7 +1394,6 @@ export default function RequestLeaveReactPage() {
       <div className="wizard-footer">
         <div className="footer-left">
           {currentStepIndex > 0 ? <button type="button" className="btn btn-back" onClick={goBack}>← Back</button> : <div/>}
-          <button type="button" className="btn btn-save" onClick={saveAndExit}>Save & Exit</button>
         </div>
         <div className="footer-right">
           <button type="button" className="btn btn-cancel-leave" onClick={() => setShowCancelModal(true)}>Cancel</button>
