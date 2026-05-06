@@ -98,6 +98,9 @@ export default function LeaveDetailV2ePage() {
     duration: 'Up to 12 weeks (FMLA eligible)',
     provider: 'Dr. Patel (Orthopedic Surgery)',
     facility: 'Nebraska Medical Center',
+    providerPhone: '(402) 555-8200',
+    providerFax: '(402) 555-8201',
+    providerAddress: '987 Medical Center Dr, Omaha, NE 68114',
     email: 'marcus.thompson@company.com',
     phone: '(402) 555-0187',
     address: '4521 Maple Drive, Omaha, NE 68102',
@@ -571,6 +574,18 @@ export default function LeaveDetailV2ePage() {
                             <div className="dt-info-field-label">Facility</div>
                             <input type="text" className="ldb-detail-input" value={detailsForm.facility} onChange={function (e) { handleDetailsChange('facility', e.target.value); }} />
                           </div>
+                          <div>
+                            <div className="dt-info-field-label">Phone</div>
+                            <input type="tel" className="ldb-detail-input" value={detailsForm.providerPhone} onChange={function (e) { handleDetailsChange('providerPhone', e.target.value); }} />
+                          </div>
+                          <div>
+                            <div className="dt-info-field-label">Fax</div>
+                            <input type="tel" className="ldb-detail-input" value={detailsForm.providerFax} onChange={function (e) { handleDetailsChange('providerFax', e.target.value); }} />
+                          </div>
+                          <div>
+                            <div className="dt-info-field-label">Address</div>
+                            <input type="text" className="ldb-detail-input" value={detailsForm.providerAddress} onChange={function (e) { handleDetailsChange('providerAddress', e.target.value); }} />
+                          </div>
                         </div>
                         <div className="dt-edit-actions">
                           <button type="button" className="dt-edit-save" onClick={function () { setEditingSection(null); }}>Save Changes</button>
@@ -586,6 +601,18 @@ export default function LeaveDetailV2ePage() {
                         <div>
                           <div className="dt-info-field-label">Facility</div>
                           <div className="dt-info-field-value">{detailsForm.facility}</div>
+                        </div>
+                        <div>
+                          <div className="dt-info-field-label">Phone</div>
+                          <div className="dt-info-field-value">{detailsForm.providerPhone}</div>
+                        </div>
+                        <div>
+                          <div className="dt-info-field-label">Fax</div>
+                          <div className="dt-info-field-value">{detailsForm.providerFax}</div>
+                        </div>
+                        <div>
+                          <div className="dt-info-field-label">Address</div>
+                          <div className="dt-info-field-value">{detailsForm.providerAddress}</div>
                         </div>
                       </div>
                     )}
