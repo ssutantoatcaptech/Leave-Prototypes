@@ -152,7 +152,7 @@ export default function DashboardPage() {
                     <span className="cldb-action-label">Submit New Claim</span>
                     <span className="cldb-action-chevron">&rsaquo;</span>
                   </button>
-                  <button className="cldb-action-row" onClick={() => navigate('/claims-and-leave/file-claim/request-leave')}>
+                  <button className="cldb-action-row" onClick={() => navigate('/claims-and-leave/file-claim/request-leave?step=1')}>
                     <span className="cldb-action-icon">
                       <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><rect x="0.5" y="2.5" width="13" height="11" rx="1.5" stroke="#404040"/><path d="M4 0.5v4M10 0.5v4" stroke="#404040" strokeLinecap="round"/></svg>
                     </span>
