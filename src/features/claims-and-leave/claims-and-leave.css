@@ -183,6 +183,12 @@
   box-sizing: border-box;
 }
 
+.cl-main .plan-absence-shell,
+.cl-main .request-leave-shell {
+  background: transparent;
+  min-height: auto;
+}
+
 /* Page */
 .cl-page {
   animation: cl-fadeIn 0.2s ease-out;
