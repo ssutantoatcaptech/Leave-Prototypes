@@ -7,6 +7,15 @@
   padding: 32px 16px;
 }
 
+/* Native mobile: no frame, full viewport */
+.mobile-frame-native {
+  min-height: 100vh;
+  overflow-y: auto;
+  overflow-x: hidden;
+  -webkit-overflow-scrolling: touch;
+  background: #fff;
+}
+
 .mobile-frame-device {
   width: 390px;
   height: 844px;
