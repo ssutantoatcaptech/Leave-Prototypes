@@ -34,6 +34,7 @@ import MyCasesPage from './features/claims-and-leave/MyCasesPage';
 import LeavePlanningPage from './features/claims-and-leave/LeavePlanningPage';
 import EnterMyTimePage from './features/claims-and-leave/EnterMyTimePage';
 import PaymentsPage from './features/claims-and-leave/PaymentsPage';
+import DashboardPage from './features/claims-and-leave/DashboardPage';
 import ClaimsAndLeaveMobilePage from './features/claims-and-leave-mobile/ClaimsAndLeaveMobilePage';
 
 function Home() {
@@ -107,6 +108,9 @@ export default function App() {
 
         {/* Claims & Leave Mobile */}
         <Route path="/claims-and-leave-mobile" element={<ClaimsAndLeaveMobilePage />} />
+
+        {/* Claims & Leave Dashboard (standalone, no subnav) */}
+        <Route path="/claims-and-leave/dashboard" element={<DashboardPage />} />
 
         {/* Claims & Leave section */}
         <Route path="/claims-and-leave" element={<ClaimsAndLeaveLayout />}>

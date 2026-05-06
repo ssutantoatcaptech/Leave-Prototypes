@@ -2,7 +2,7 @@ import { NavLink, Outlet, useLocation } from 'react-router-dom';
 import './claims-and-leave.css';
 
 const navLinks = [
-  { label: 'Dashboard', to: '/' },
+  { label: 'Dashboard', to: '/claims-and-leave/dashboard' },
   { label: 'Benefits', to: '#' },
   { label: 'Claims & Leave', to: '/claims-and-leave' },
   { label: 'Documents', to: '#' },

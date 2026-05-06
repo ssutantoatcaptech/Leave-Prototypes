@@ -2209,3 +2209,407 @@
     grid-template-columns: repeat(2, 1fr);
   }
 }
+
+/* ===========================
+   Dashboard Page (cldb- prefix)
+   =========================== */
+
+.cldb-hero {
+  background: #d4d4d4;
+  padding: 64px 60px;
+}
+
+.cldb-hero-title {
+  font-size: 40px;
+  font-weight: 600;
+  color: #171717;
+  margin: 0;
+  max-width: 1440px;
+}
+
+.cldb-main {
+  padding: 36px 60px;
+  flex: 1;
+  max-width: 1440px;
+  margin: 0 auto;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.cldb-section-title {
+  font-size: 20px;
+  font-weight: 400;
+  color: #171717;
+  margin: 0 0 24px 0;
+}
+
+.cldb-content-grid {
+  display: flex;
+  gap: 24px;
+  align-items: flex-start;
+}
+
+.cldb-content-left {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.cldb-sidebar {
+  width: 420px;
+  flex-shrink: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+/* Status Banner */
+.cldb-status-banner {
+  background: #f5f5f5;
+  border: 1px solid #e5e5e5;
+  border-radius: 8px;
+  padding: 25px;
+  display: flex;
+  gap: 16px;
+  align-items: flex-start;
+  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.05);
+}
+
+.cldb-status-icon {
+  width: 48px;
+  height: 48px;
+  background: #fff;
+  border: 1px solid #e5e5e5;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.cldb-status-content {
+  flex: 1;
+  min-width: 0;
+}
+
+.cldb-status-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 4px;
+}
+
+.cldb-status-title {
+  font-size: 18px;
+  font-weight: 400;
+  color: #171717;
+  margin: 0;
+}
+
+.cldb-status-dismiss {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 4px;
+  color: #737373;
+}
+
+.cldb-status-desc {
+  font-size: 14px;
+  color: #525252;
+  margin: 0;
+  line-height: 1.5;
+}
+
+/* Card */
+.cldb-card {
+  background: #fff;
+  border: 1px solid #e5e5e5;
+  border-radius: 12px;
+  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.05);
+  overflow: hidden;
+}
+
+.cldb-card-header {
+  padding: 16px 16px 17px;
+}
+
+.cldb-card-header--border {
+  border-bottom: 1px solid #f5f5f5;
+  padding: 20px;
+}
+
+.cldb-card-title {
+  font-size: 16px;
+  font-weight: 400;
+  color: #171717;
+  margin: 0;
+}
+
+.cldb-card-body {
+  padding: 20px;
+}
+
+.cldb-card-empty {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 24px 48px;
+  text-align: center;
+}
+
+.cldb-empty-icon {
+  width: 64px;
+  height: 64px;
+  background: #f5f5f5;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 16px;
+}
+
+.cldb-empty-title {
+  font-size: 16px;
+  font-weight: 400;
+  color: #171717;
+  margin: 0 0 8px 0;
+}
+
+.cldb-empty-desc {
+  font-size: 14px;
+  color: #737373;
+  margin: 0 0 16px 0;
+  line-height: 1.5;
+}
+
+/* Buttons */
+.cldb-btn-dark {
+  background: #171717;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  padding: 10px 16px;
+  font-size: 14px;
+  font-weight: 400;
+  cursor: pointer;
+  font-family: inherit;
+}
+
+.cldb-btn-dark:hover {
+  background: #262626;
+}
+
+.cldb-btn-outline {
+  background: #fff;
+  color: #404040;
+  border: 1px solid #e5e5e5;
+  border-radius: 4px;
+  padding: 9px 17px;
+  font-size: 14px;
+  font-weight: 400;
+  cursor: pointer;
+  font-family: inherit;
+}
+
+.cldb-btn-outline:hover {
+  border-color: #a3a3a3;
+}
+
+/* Sidebar Title */
+.cldb-sidebar-title {
+  font-size: 20px;
+  font-weight: 400;
+  color: #171717;
+  margin: 0 0 12px 0;
+}
+
+/* Quick Actions */
+.cldb-quick-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.cldb-action-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 13px 17px;
+  border: 1px solid #f5f5f5;
+  border-radius: 8px;
+  background: none;
+  cursor: pointer;
+  width: 100%;
+  text-align: left;
+  font-family: inherit;
+  transition: border-color 0.15s;
+}
+
+.cldb-action-row:hover {
+  border-color: #d4d4d4;
+}
+
+.cldb-action-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 16px;
+  flex-shrink: 0;
+}
+
+.cldb-action-label {
+  flex: 1;
+  font-size: 16px;
+  color: #404040;
+}
+
+.cldb-action-chevron {
+  font-size: 20px;
+  color: #a3a3a3;
+  line-height: 1;
+}
+
+/* Benefits Heading */
+.cldb-benefits-heading {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.cldb-benefits-heading .cldb-card-title {
+  font-size: 20px;
+}
+
+/* Benefit Items */
+.cldb-benefit-item {
+  border: 1px solid #e5e5e5;
+  border-radius: 4px;
+  padding: 13px;
+  margin-bottom: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 9px;
+}
+
+.cldb-benefit-item--simple {
+  gap: 0;
+}
+
+.cldb-benefit-row {
+  display: flex;
+  gap: 8px;
+  align-items: flex-start;
+}
+
+.cldb-benefit-icon {
+  width: 40px;
+  height: 40px;
+  background: #f5f5f5;
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.cldb-benefit-info {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.cldb-benefit-name {
+  font-size: 16px;
+  color: #171717;
+  line-height: 1.25;
+}
+
+.cldb-benefit-plan {
+  font-size: 14px;
+  color: #737373;
+  line-height: 1.4;
+}
+
+/* Usage / Progress */
+.cldb-benefit-usage {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.cldb-benefit-usage-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.cldb-benefit-usage-label {
+  font-size: 12px;
+  color: #525252;
+}
+
+.cldb-benefit-usage-value {
+  font-size: 12px;
+  color: #171717;
+}
+
+.cldb-progress-track {
+  width: 100%;
+  height: 8px;
+  background: #f5f5f5;
+  border-radius: 999px;
+  overflow: hidden;
+}
+
+.cldb-progress-fill {
+  height: 100%;
+  background: #262626;
+  border-radius: 999px;
+}
+
+/* Missing Benefit */
+.cldb-missing-benefit {
+  background: #f5f5f5;
+  border-radius: 12px;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 16px;
+  margin-bottom: 24px;
+}
+
+.cldb-missing-icon {
+  width: 64px;
+  height: 64px;
+  background: #fff;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.cldb-missing-title {
+  font-size: 16px;
+  font-weight: 400;
+  color: #171717;
+  margin: 0;
+}
+
+.cldb-missing-desc {
+  font-size: 14px;
+  color: #737373;
+  margin: 0;
+  line-height: 1.5;
+}
+
+/* Benefit Footer */
+.cldb-benefit-footer {
+  display: flex;
+  justify-content: flex-start;
+}
