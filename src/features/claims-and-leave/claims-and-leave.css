@@ -1120,20 +1120,56 @@
   border: 1px solid #e5e7eb;
   border-radius: 12px;
   padding: 24px;
+  display: flex;
+  flex-direction: column;
+}
+
+.cl-info-card-icon {
+  width: 40px;
+  height: 40px;
+  border-radius: 10px;
+  background: #e8f0fe;
+  color: #0033a0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 16px;
 }
 
 .cl-info-card-title {
   font-size: 16px;
-  font-weight: 700;
+  font-weight: 600;
   color: #0f0f14;
-  margin: 0 0 12px;
+  margin: 0 0 8px;
 }
 
 .cl-info-card-text {
   font-size: 14px;
   color: #4b5563;
   line-height: 1.6;
-  margin: 0 0 12px;
+  margin: 0 0 16px;
+  flex: 1;
+}
+
+.cl-info-card-btn {
+  display: inline-flex;
+  align-items: center;
+  padding: 10px 16px;
+  font-size: 13px;
+  font-weight: 600;
+  color: #0033a0;
+  background: none;
+  border: 1px solid #0033a0;
+  border-radius: 6px;
+  cursor: pointer;
+  font-family: inherit;
+  transition: background 0.15s, color 0.15s;
+  align-self: flex-start;
+}
+
+.cl-info-card-btn:hover {
+  background: #0033a0;
+  color: #ffffff;
 }
 
 .cl-faq-list {

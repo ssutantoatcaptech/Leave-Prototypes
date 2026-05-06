@@ -212,19 +212,20 @@ export default function PaymentsPage() {
       {/* Bottom info cards */}
       <div className="cl-bottom-cards">
         <div className="cl-info-card">
-          <h3 className="cl-info-card-title">Understanding Your Payment</h3>
-          <ul className="cl-faq-list">
-            <li><strong>When will I receive my payment?</strong> Payments are processed bi-weekly on alternating Mondays.</li>
-            <li><strong>Why is my net different from gross?</strong> Taxes, insurance premiums, and other deductions are applied.</li>
-            <li><strong>Can I change my deposit method?</strong> Yes, update your payment preferences in Account Settings.</li>
-          </ul>
+          <div className="cl-info-card-icon">
+            <svg width="20" height="20" viewBox="0 0 20 20" fill="none"><circle cx="10" cy="10" r="8" stroke="currentColor" strokeWidth="1.4"/><path d="M10 6v4l2.5 1.5" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round"/></svg>
+          </div>
+          <h3 className="cl-info-card-title">Payment Schedule</h3>
+          <p className="cl-info-card-text">Payments are processed bi-weekly on alternating Mondays. Your next payment is estimated based on your current claim schedule.</p>
+          <button className="cl-info-card-btn">View Payment Calendar</button>
         </div>
         <div className="cl-info-card">
+          <div className="cl-info-card-icon">
+            <svg width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M4 3h8l4 4v9a2 2 0 01-2 2H4a2 2 0 01-2-2V5a2 2 0 012-2z" stroke="currentColor" strokeWidth="1.4" fill="none"/><path d="M12 3v4h4" stroke="currentColor" strokeWidth="1.4" fill="none"/><path d="M6 11h8M6 14h5" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round"/></svg>
+          </div>
           <h3 className="cl-info-card-title">Tax Documents</h3>
-          <p className="cl-info-card-text">
-            Your 1099 forms for disability payments will be available in January for the prior tax year.
-          </p>
-          <a href="#" className="cl-link-btn">View Tax Documents</a>
+          <p className="cl-info-card-text">Your 1099 forms for disability payments will be available in January for the prior tax year. Access current and past statements anytime.</p>
+          <button className="cl-info-card-btn">View Tax Documents</button>
         </div>
       </div>
     </div>
