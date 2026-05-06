@@ -8,6 +8,8 @@
   min-height: 100vh;
   background: #f8faf9;
   font-family: 'Source Sans Pro', 'Inter', system-ui, sans-serif;
+  display: flex;
+  flex-direction: column;
 }
 
 /* Header */
@@ -53,7 +55,7 @@
   padding: 8px 16px;
   border-radius: 6px;
   font-size: 14px;
-  font-weight: 500;
+  font-weight: 400;
   color: #4b5563;
   text-decoration: none;
   transition: background 0.15s, color 0.15s;
@@ -67,7 +69,7 @@
 .cl-main-nav-link--active {
   background: #f0f4ff;
   color: #0033a0;
-  font-weight: 600;
+  font-weight: 400;
 }
 
 .cl-header-right {
@@ -153,7 +155,7 @@
 .cl-subnav-tab {
   padding: 14px 20px;
   font-size: 14px;
-  font-weight: 500;
+  font-weight: 400;
   color: #6b7280;
   text-decoration: none;
   border-bottom: 2px solid transparent;
@@ -168,7 +170,7 @@
 .cl-subnav-tab--active {
   color: #0033a0;
   border-bottom-color: #0033a0;
-  font-weight: 600;
+  font-weight: 400;
 }
 
 /* Main content */
@@ -176,6 +178,9 @@
   max-width: 1440px;
   margin: 0 auto;
   padding: 32px;
+  flex: 1;
+  width: 100%;
+  box-sizing: border-box;
 }
 
 /* Page */
@@ -1840,7 +1845,7 @@
 .cl-footer {
   background: #ffffff;
   color: #0f0f14;
-  margin-top: 64px;
+  margin-top: auto;
   border-top: 1px solid #e5e7eb;
 }
 
