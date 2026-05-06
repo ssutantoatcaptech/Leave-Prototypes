@@ -649,23 +649,28 @@ export default function RequestLeaveReactPage() {
     return (
       <>
         {formState.missedDateEntries.map((entry, index) => (
-          <div key={`${index}-${entry.date}`} style={{ display: 'flex', alignItems: 'flex-end', gap: '10px', marginBottom: '10px' }}>
-            <div className="form-group" style={{ flex: 1, marginBottom: 0 }}>
-              <label>{index === 0 ? 'Date' : ' '}</label>
-              <input type="date" value={entry.date} onChange={(event) => updateMissedDateEntry(index, 'date', event.target.value)}/>
-            </div>
-            <div className="form-group" style={{ width: '100px', marginBottom: 0 }}>
-              <label>{index === 0 ? 'Hrs | Min' : ' '}</label>
-              <input type="text" value={entry.hours} onChange={(event) => updateMissedDateEntry(index, 'hours', event.target.value)}/>
+          <div key={`${index}-${entry.date}`} className="missed-entry">
+            <div className="missed-entry-row1">
+              <div className="form-group missed-entry-date">
+                <label>{index === 0 ? 'Date' : ' '}</label>
+                <input type="date" value={entry.date} onChange={(event) => updateMissedDateEntry(index, 'date', event.target.value)}/>
+              </div>
+              <div className="form-group missed-entry-hours">
+                <label>{index === 0 ? 'Hrs | Min' : ' '}</label>
+                <input type="text" value={entry.hours} onChange={(event) => updateMissedDateEntry(index, 'hours', event.target.value)}/>
+              </div>
+              {formState.missedDateEntries.length > 1 ? <button type="button" className="missed-entry-remove" onClick={() => removeMissedDateEntry(index)}>—</button> : null}
             </div>
             {showReason ? (
-              <div className="form-group" style={{ width: '120px', marginBottom: 0 }}>
-                <label>{index === 0 ? 'Reason' : ' '}</label>
-                <input type="text" placeholder="e.g., Episode" value={entry.reason || ''} onChange={(event) => updateMissedDateEntry(index, 'reason', event.target.value)}/>
+              <div className="missed-entry-row2">
+                <div className="form-group missed-entry-reason">
+                  <label>{index === 0 ? 'Reason' : ' '}</label>
+                  <input type="text" placeholder="e.g., Episode" value={entry.reason || ''} onChange={(event) => updateMissedDateEntry(index, 'reason', event.target.value)}/>
+                </div>
               </div>
             ) : null}
-            {formState.missedDateEntries.length > 1 ? <button type="button" style={{ width: 32, height: 38, display: 'flex', alignItems: 'center', justifyContent: 'center', border: '1px solid #d4d4d8', borderRadius: 6, background: '#fff', cursor: 'pointer', fontSize: 18, color: '#737373', flexShrink: 0 }} onClick={() => removeMissedDateEntry(index)}>—</button> : null}
           </div>
+        ))}
         ))}
         <button type="button" className="rotation-add" onClick={addMissedDateEntry}>Add another date</button>
         {showReason && totalHours > 0 ? (

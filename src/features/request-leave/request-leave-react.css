@@ -762,6 +762,50 @@
   margin-top: 4px;
 }
 
+/* Missed time entries */
+.missed-entry {
+  margin-bottom: 10px;
+}
+
+.missed-entry-row1 {
+  display: flex;
+  align-items: flex-end;
+  gap: 10px;
+}
+
+.missed-entry-date {
+  flex: 1;
+  margin-bottom: 0;
+}
+
+.missed-entry-hours {
+  width: 100px;
+  margin-bottom: 0;
+}
+
+.missed-entry-reason {
+  margin-bottom: 0;
+}
+
+.missed-entry-row2 {
+  margin-top: 8px;
+}
+
+.missed-entry-remove {
+  width: 32px;
+  height: 38px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid #d4d4d8;
+  border-radius: 6px;
+  background: #fff;
+  cursor: pointer;
+  font-size: 18px;
+  color: #737373;
+  flex-shrink: 0;
+}
+
 .rotation-add,
 .rotation-remove {
   font-family: inherit;
