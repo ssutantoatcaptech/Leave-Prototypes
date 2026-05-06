@@ -30,7 +30,7 @@ export default function LeavePlanningPage() {
           </svg>
         </div>
 
-        <button className="cl-btn cl-btn--dark cl-btn--lg" onClick={() => navigate('/claims-and-leave/leave-planning/wizard')}>Get Started</button>
+        <button className="cl-btn cl-btn--dark cl-btn--lg" onClick={() => navigate('/claims-and-leave/leave-planning/wizard?step=1')}>Get Started</button>
 
         <p className="cl-planning-footer">
           Already know what you need?{' '}

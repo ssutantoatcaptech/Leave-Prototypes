@@ -1246,6 +1246,12 @@
   justify-content: flex-end;
 }
 
+/* Hide nested nav/footer when inside Claims & Leave layout */
+.cl-main .top-nav,
+.cl-main .site-footer {
+  display: none;
+}
+
 /* ===========================
    Manage Absences Page (cl-ma-)
    =========================== */
