@@ -273,48 +273,48 @@ export default function RequestLeaveReactPage() {
     const s = [{ id: 'leaveReason', label: 'Reason', title: 'Why are you taking leave?' }];
     if (medSelf) {
       s.push({ id: 'leaveStructure', label: 'Structure', title: 'How would you like to structure your leave?' });
+      s.push({ id: 'missedTime', label: 'Missed Time', title: 'Did you miss any work time before starting this leave?' });
       s.push({ id: 'leaveDetails', label: 'Schedule', title: 'Tell us about your typical work schedule' });
       s.push({ id: 'medical', label: 'Condition', title: 'Tell us about your condition' });
       s.push({ id: 'providerDetails', label: 'Provider', title: 'Provider Details' });
-      s.push({ id: 'missedTime', label: 'Missed Time', title: 'Did you miss any work time before starting this leave?' });
     } else if (birthing) {
       s.push({ id: 'childScenario', label: 'Child', title: 'Has the birth already occurred?' });
       s.push({ id: 'leaveStructure', label: 'Structure', title: 'How will you take your absence?' });
+      s.push({ id: 'missedTime', label: 'Missed Time', title: 'Did you miss any work time before starting this leave?' });
       s.push({ id: 'leaveDetails', label: 'Schedule', title: 'What does your typical work week look like?' });
       s.push({ id: 'planAware', label: 'Benefits', title: 'A couple more questions' });
       s.push({ id: 'bondingIntent', label: 'Bonding', title: 'When would you like to bond with your child?' });
       s.push({ id: 'providerDetails', label: 'Provider', title: 'Provider Details' });
-      s.push({ id: 'missedTime', label: 'Missed Time', title: 'Did you miss any work time before starting this leave?' });
       s.push({ id: 'medicalCertConsent', label: 'Consent', title: 'Medical Certification Consent' });
     } else if (famCare) {
       s.push({ id: 'leaveStructure', label: 'Structure', title: 'How would you like to structure your leave?' });
+      s.push({ id: 'missedTime', label: 'Missed Time', title: 'Did you miss any work time before starting this leave?' });
       s.push({ id: 'leaveDetails', label: 'Schedule', title: 'Tell us about your typical work schedule' });
       s.push({ id: 'familyMember', label: 'Family', title: 'Tell us about the person you\u2019re caring for' });
       s.push({ id: 'familyCondition', label: 'Condition', title: 'About the patient\u2019s condition' });
       s.push({ id: 'providerDetails', label: 'Provider', title: 'The Patient\u2019s Provider Details' });
-      s.push({ id: 'missedTime', label: 'Missed Time', title: 'Did you miss any work time before starting this leave?' });
       s.push({ id: 'medicalCertConsent', label: 'Consent', title: 'Medical Certification Consent' });
     } else if (nonbirth) {
       s.push({ id: 'childScenario', label: 'Child', title: 'How are you welcoming your child?' });
       s.push({ id: 'leaveStructure', label: 'Structure', title: 'How will you take your absence?' });
+      s.push({ id: 'missedTime', label: 'Missed Time', title: 'Did you miss any work time before starting this leave?' });
       s.push({ id: 'leaveDetails', label: 'Schedule', title: 'What does your typical work week look like?' });
       s.push({ id: 'planAware', label: 'Benefits', title: 'A couple more questions' });
       s.push({ id: 'bondingIntent', label: 'Bonding', title: 'When would you like to bond with your child?' });
-      s.push({ id: 'missedTime', label: 'Missed Time', title: 'Did you miss any work time before starting this leave?' });
       s.push({ id: 'medicalCert', label: 'Certification', title: 'Medical Certifications' });
       s.push({ id: 'medicalCertConsent', label: 'Consent', title: 'Medical Certification Consent' });
     } else if (mil) {
       s.push({ id: 'leaveStructure', label: 'Structure', title: 'How will you take your absence?' });
-      s.push({ id: 'leaveDetails', label: 'Schedule', title: 'Tell us about your typical work schedule' });
       s.push({ id: 'missedTime', label: 'Missed Time', title: 'Did you miss any work time before starting this leave?' });
+      s.push({ id: 'leaveDetails', label: 'Schedule', title: 'Tell us about your typical work schedule' });
     } else if (oth) {
       s.push({ id: 'leaveStructure', label: 'Structure', title: 'How would you like to structure your leave?' });
-      s.push({ id: 'leaveDetails', label: 'Schedule', title: 'Tell us about your typical work schedule' });
       s.push({ id: 'missedTime', label: 'Missed Time', title: 'Did you miss any work time before starting this leave?' });
+      s.push({ id: 'leaveDetails', label: 'Schedule', title: 'Tell us about your typical work schedule' });
     } else {
       s.push({ id: 'leaveStructure', label: 'Structure', title: 'How would you like to structure your leave?' });
-      s.push({ id: 'leaveDetails', label: 'Schedule', title: 'Tell us about your typical work schedule' });
       s.push({ id: 'missedTime', label: 'Missed Time', title: 'Did you miss any work time before starting this leave?' });
+      s.push({ id: 'leaveDetails', label: 'Schedule', title: 'Tell us about your typical work schedule' });
     }
     s.push({ id: 'contact', label: 'Contact', title: 'How should we reach you?' });
     s.push({ id: 'benefits', label: 'Benefits', title: 'Your estimated leave benefits' });
