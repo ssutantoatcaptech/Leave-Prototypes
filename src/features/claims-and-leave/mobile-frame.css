@@ -308,9 +308,21 @@
   font-size: 11px;
 }
 
-/* Balance badge: stack below title */
+/* Balance badge: single row */
 .mobile-frame-screen .cl-balance-badge {
-  text-align: left;
+  flex-direction: row;
+  align-items: center;
+  gap: 8px;
+}
+
+.mobile-frame-screen .cl-balance-label {
+  font-size: 10px;
+  white-space: nowrap;
+}
+
+.mobile-frame-screen .cl-balance-value {
+  font-size: 14px;
+  white-space: nowrap;
 }
 
 /* Recent entries: show mobile cards, hide table */
