@@ -757,6 +757,7 @@ export default function RequestLeaveReactPage() {
         );
       case 'missedTime': {
         const isIntermittentOrReduced = formState.leaveType === 'intermittent' || formState.leaveType === 'reduced';
+        const isContinuous = formState.leaveType === 'continuous';
         return (
           <>
             <h2>Did you miss any work time before starting this leave?</h2>
@@ -765,7 +766,20 @@ export default function RequestLeaveReactPage() {
               <button type="button" className={`yesno-btn ${formState.alreadyMissedTime === true ? 'selected' : ''}`} onClick={() => updateField('alreadyMissedTime', true)}>Yes</button>
               <button type="button" className={`yesno-btn ${formState.alreadyMissedTime === false ? 'selected' : ''}`} onClick={() => updateField('alreadyMissedTime', false)}>No</button>
             </div>
-            {formState.alreadyMissedTime ? (
+            {formState.alreadyMissedTime && isContinuous ? (
+              <div className="bordered-section">
+                <div className="form-row cols-2">
+                  <div className="form-group">
+                    <label>What was the first day you missed work? <span className="req">*</span></label>
+                    <input type="date" value={formState.missedDateEntries[0]?.date || ''} onChange={(event) => updateMissedDateEntry(0, 'date', event.target.value)} />
+                  </div>
+                  <div className="form-group">
+                    <label>Hours scheduled to work <span className="req">*</span></label>
+                    <input type="text" placeholder="HH:MM" value={formState.missedDateEntries[0]?.hours || ''} onChange={(event) => updateMissedDateEntry(0, 'hours', event.target.value)} />
+                  </div>
+                </div>
+              </div>
+            ) : formState.alreadyMissedTime && !isContinuous ? (
               <div className="bordered-section">
                 {renderMissedEntries()}
               </div>
