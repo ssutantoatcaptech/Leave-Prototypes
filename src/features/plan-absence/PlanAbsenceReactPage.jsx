@@ -768,28 +768,22 @@ export default function PlanAbsenceReactPage() {
                       <div className="dlp-tl-row" style={{ marginBottom: 8 }}>
                         <div className="dlp-tl-row-label">FMLA</div>
                         <div className="dlp-tl-row-bar">
-                          <div className="dlp-tl-seg full" style={{ left: '0%', width: `${fmlaPct}%`, display: 'flex', alignItems: 'center', paddingLeft: 8, fontSize: 11, fontWeight: 600, color: '#fff' }}>
-                            FMLA {fmlaWks}wk
-                          </div>
+                          <div className="dlp-tl-seg full" style={{ left: '0%', width: `${fmlaPct}%` }} />
                         </div>
                       </div>
 
                       <div className="dlp-tl-row">
-                        <div className="dlp-tl-row-label" style={{ fontSize: 11, lineHeight: '14px' }}>Short-Term<br/>Disability</div>
+                        <div className="dlp-tl-row-label">STD</div>
                         <div className="dlp-tl-row-bar">
-                          <div className="dlp-tl-seg partial" style={{ left: '0%', width: `${stdPct}%`, display: 'flex', alignItems: 'center', paddingLeft: 8, fontSize: 11, fontWeight: 600, color: '#fff' }}>
-                            Short-Term Disability {stdWks}wk
-                          </div>
+                          <div className="dlp-tl-seg partial" style={{ left: '0%', width: `${stdPct}%` }} />
                         </div>
                       </div>
 
                       {stBenefit && (
                         <div className="dlp-tl-row" style={{ marginTop: 8 }}>
-                          <div className="dlp-tl-row-label" style={{ fontSize: 11, lineHeight: '14px' }}>State Paid<br/>Leave</div>
+                          <div className="dlp-tl-row-label">State</div>
                           <div className="dlp-tl-row-bar">
-                            <div className="dlp-tl-seg state" style={{ left: '0%', width: `${statePct}%`, display: 'flex', alignItems: 'center', paddingLeft: 8, fontSize: 11, fontWeight: 600, color: '#fff' }}>
-                              {stBenefit.name} {stateWks}wk
-                            </div>
+                            <div className="dlp-tl-seg state" style={{ left: '0%', width: `${statePct}%` }} />
                           </div>
                         </div>
                       )}
@@ -904,29 +898,6 @@ export default function PlanAbsenceReactPage() {
                           <label>Expected End Date</label>
                           <input type="date" value={leaveReturn} onChange={(e) => setLeaveReturn(e.target.value)} />
                         </div>
-                      </div>
-                    </div>
-
-                    <div className="dlp-sidebar">
-                      <div className="dlp-sidebar-group-label">LEAVE PERIODS</div>
-                      <div className="dlp-sidebar-group-body" style={{ padding: '12px 20px 16px' }}>
-                        <div className="dlp-side-period">
-                          <div className="dlp-side-period-label">FMLA job protection</div>
-                          <div className="dlp-side-period-dates">{fmtDate(estStart)} – {fmtDate(fmlaEndDate)}</div>
-                          <div className="dlp-side-period-detail">Up to {fmlaWks} weeks · Job protected</div>
-                        </div>
-                        <div className="dlp-side-period" style={{ borderTop: '1px solid #f0f0f2' }}>
-                          <div className="dlp-side-period-label">Short-term disability</div>
-                          <div className="dlp-side-period-dates">{fmtDate(estStart)} – {fmtDate(stdEndDate)}</div>
-                          <div className="dlp-side-period-detail">{stdWks} weeks at 60% pay</div>
-                        </div>
-                        {stBenefit && (
-                          <div className="dlp-side-period" style={{ borderTop: '1px solid #f0f0f2' }}>
-                            <div className="dlp-side-period-label" style={{ color: '#0d9488' }}>{stBenefit.name}</div>
-                            <div className="dlp-side-period-dates">{fmtDate(estStart)} – {fmtDate(stateEndDate)}</div>
-                            <div className="dlp-side-period-detail">{stateWks} weeks at {stBenefit.payPct}% pay</div>
-                          </div>
-                        )}
                       </div>
                     </div>
 
@@ -1863,27 +1834,6 @@ export default function PlanAbsenceReactPage() {
                           </div>
                         </div>
                       </div>
-                      {/* LEAVE PERIODS — birth */}
-                      <div className="dlp-sidebar">
-                        <div className="dlp-sidebar-group-label">LEAVE PERIODS</div>
-                        <div className="dlp-sidebar-group-body" style={{ padding: '12px 20px 16px' }}>
-                          <div className="dlp-side-period">
-                            <div className="dlp-side-period-label">Pre-birth disability</div>
-                            <div className="dlp-side-period-dates">{tlData.preDates || '—'}</div>
-                            <div className="dlp-side-period-detail">{tlData.preSub || '4 work weeks'} &middot; 60% via STD</div>
-                          </div>
-                          <div className="dlp-side-period" style={{ borderTop: '1px solid #f0f0f2' }}>
-                            <div className="dlp-side-period-label">Post-birth disability</div>
-                            <div className="dlp-side-period-dates">{tlData.postDates || '—'}</div>
-                            <div className="dlp-side-period-detail">{tlData.postSub || '6 work weeks'} &middot; 60% via STD</div>
-                          </div>
-                          <div className="dlp-side-period" style={{ borderTop: '1px solid #f0f0f2' }}>
-                            <div className="dlp-side-period-label">Bonding time</div>
-                            <div className="dlp-side-period-dates">{tlData.bondDates || '—'}</div>
-                            <div className="dlp-side-period-detail">{tlData.bondSub || '12 work weeks'} &middot; FMLA protected</div>
-                          </div>
-                        </div>
-                      </div>
                     </>
                   ) : (
                     <>
@@ -1915,38 +1865,6 @@ export default function PlanAbsenceReactPage() {
                         </div>
                       </div>
 
-                      {/* LEAVE PERIODS — illness */}
-                      {!isFamily && (
-                        <div className="dlp-sidebar">
-                          <div className="dlp-sidebar-group-label">LEAVE PERIODS</div>
-                          <div className="dlp-sidebar-group-body" style={{ padding: '12px 20px 16px' }}>
-                            <div className="dlp-side-period">
-                              <div className="dlp-side-period-label">Short-term disability</div>
-                              <div className="dlp-side-period-dates">{tlData.stdDates || '—'}</div>
-                              <div className="dlp-side-period-detail">{tlData.stdSub || 'Up to 26 weeks'} &middot; 60% via STD</div>
-                            </div>
-                            <div className="dlp-side-period" style={{ borderTop: '1px solid #f0f0f2' }}>
-                              <div className="dlp-side-period-label">FMLA job protection</div>
-                              <div className="dlp-side-period-dates">{tlData.fmlaDates || '—'}</div>
-                              <div className="dlp-side-period-detail">{tlData.fmlaSub || 'Up to 12 weeks'}</div>
-                            </div>
-                          </div>
-                        </div>
-                      )}
-
-                      {/* LEAVE PERIODS — family */}
-                      {isFamily && (
-                        <div className="dlp-sidebar">
-                          <div className="dlp-sidebar-group-label">LEAVE PERIODS</div>
-                          <div className="dlp-sidebar-group-body" style={{ padding: '12px 20px 16px' }}>
-                            <div className="dlp-side-period">
-                              <div className="dlp-side-period-label">FMLA family care leave</div>
-                              <div className="dlp-side-period-dates">{tlData.fmlaDates || '—'}</div>
-                              <div className="dlp-side-period-detail">Up to 12 weeks &middot; Job protected</div>
-                            </div>
-                          </div>
-                        </div>
-                      )}
 
                       {/* STATE BENEFITS — shown when state has paid leave */}
                       {stateBenefit && (

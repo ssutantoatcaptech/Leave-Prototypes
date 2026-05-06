@@ -669,7 +669,7 @@
   position: relative;
   height: 14px;
   border-radius: 999px;
-  background: #f0f0f2;
+  background: #f0f2f5;
 }
 
 /* Timeline segments */
@@ -686,16 +686,15 @@
 .plan-absence-shell .dlp-tl-seg {
   animation: none;
   max-width: none;
-  opacity: 1;
 }
 
-.dlp-tl-seg.full      { background: #2d2d2d; }
-.dlp-tl-seg.partial   { background: #737373; }
-.dlp-tl-seg.none      { background: #d4d4d4; }
-.dlp-tl-seg.employer  { background: #2d2d2d; }
+.dlp-tl-seg.full      { background: #0033a0; }
+.dlp-tl-seg.partial   { background: #2563eb; }
+.dlp-tl-seg.none      { background: #cbd5e1; }
+.dlp-tl-seg.employer  { background: #0033a0; }
 .dlp-tl-seg.state     { background: #0d9488; }
-.dlp-tl-seg.insurance { background: #a3a3a3; }
-.dlp-tl-seg.prebirth  { background: #525252; }
+.dlp-tl-seg.insurance { background: #2563eb; }
+.dlp-tl-seg.prebirth  { background: #64748b; }
 
 /* Hover tooltip for timeline rows */
 .dlp-tl-hover-tooltip {
