@@ -1426,24 +1426,82 @@
   border-color: #525252;
 }
 
+/* ── ABOUT THIS LEAVE — SECTION GAPS ── */
+.ldb-card > .dt-info-block,
+.ldb-card > * > .dt-info-block {
+  margin-top: 24px;
+  padding-top: 24px;
+  border-top: 1px solid #e5e7eb;
+}
+.ldb-card > .dt-info-block:first-child,
+.ldb-card > * > .dt-info-block:first-child {
+  margin-top: 20px;
+  padding-top: 0;
+  border-top: none;
+}
+
 /* ── INLINE EDIT ── */
 .ldb-detail-input {
   font-size: 14px;
-  font-weight: 600;
+  font-weight: 500;
   color: #0f0f14;
   font-family: inherit;
-  padding: 6px 10px;
+  padding: 10px 12px;
   border: 1px solid #d4d4d8;
-  border-radius: 6px;
+  border-radius: 8px;
   background: #fff;
   width: 100%;
   box-sizing: border-box;
+  transition: border-color 0.15s, box-shadow 0.15s;
 }
 .ldb-detail-input:focus {
   outline: none;
-  border-color: #525252;
-  box-shadow: 0 0 0 2px rgba(82, 82, 82, 0.1);
+  border-color: #0033a0;
+  box-shadow: 0 0 0 3px rgba(0, 51, 160, 0.1);
 }
+
+.dt-edit-actions {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: 16px;
+}
+.dt-edit-save {
+  display: inline-flex;
+  align-items: center;
+  padding: 9px 20px;
+  font-size: 13px;
+  font-weight: 600;
+  color: #fff;
+  background: #0033a0;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-family: inherit;
+  transition: background 0.15s;
+}
+.dt-edit-save:hover {
+  background: #002580;
+}
+.dt-edit-cancel {
+  display: inline-flex;
+  align-items: center;
+  padding: 9px 20px;
+  font-size: 13px;
+  font-weight: 600;
+  color: #525252;
+  background: #fff;
+  border: 1px solid #d4d4d8;
+  border-radius: 6px;
+  cursor: pointer;
+  font-family: inherit;
+  transition: background 0.15s, border-color 0.15s;
+}
+.dt-edit-cancel:hover {
+  background: #f5f5f7;
+  border-color: #a3a3a3;
+}
+
 .ldb-detail-actions {
   display: flex;
   gap: 8px;
