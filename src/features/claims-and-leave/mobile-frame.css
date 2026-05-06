@@ -43,7 +43,7 @@
 /* Inside the mobile frame, trigger mobile styles regardless of viewport */
 .mobile-frame-screen .cl-layout {
   min-height: auto;
-  position: static;
+  display: block;
 }
 
 .mobile-frame-screen .cl-header {
