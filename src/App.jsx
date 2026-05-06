@@ -5,6 +5,7 @@ import RequestLeaveReactPage from './features/request-leave/RequestLeaveReactPag
 import AbsenceDetailsReactPage from './features/absence-details/AbsenceDetailsReactPage';
 import AbsenceHistoryReactPage from './features/absence-history/AbsenceHistoryReactPage';
 import ReturnToWorkPage from './features/return-to-work/ReturnToWorkPage';
+import ReturnToWorkEmbeddedPage from './features/return-to-work/ReturnToWorkEmbeddedPage';
 import MyLeavesPage from './features/my-leaves/MyLeavesPage';
 import LeaveDocumentsPage from './features/leave-documents/LeaveDocumentsPage';
 import LeaveDetailPage from './features/leave-detail/LeaveDetailPage';
@@ -106,6 +107,7 @@ export default function App() {
           <Route path="enter-time" element={<EnterMyTimePage />} />
           <Route path="payments" element={<PaymentsPage />} />
           <Route path="case-detail" element={<LeaveDetailV2ePage />} />
+          <Route path="case-detail/return-to-work" element={<ReturnToWorkEmbeddedPage />} />
         </Route>
 
         <Route path="*" element={<Navigate to="/" replace />} />

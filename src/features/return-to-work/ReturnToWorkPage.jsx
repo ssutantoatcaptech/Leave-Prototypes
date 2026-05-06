@@ -545,9 +545,10 @@ const STATE_PRESETS = {
   12: { view: 'success', rtwState: { scheduleType: 'full' } },
 };
 
-export default function ReturnToWorkPage() {
+export default function ReturnToWorkPage({ hideChrome = false, overrideCaseId }) {
   const navigate = useNavigate();
-  const { caseId } = useParams();
+  const { caseId: paramCaseId } = useParams();
+  const caseId = overrideCaseId || paramCaseId;
   const [searchParams] = useSearchParams();
   const caseData = getAbsenceDetailCase(caseId);
 
@@ -578,8 +579,8 @@ export default function ReturnToWorkPage() {
   const initialOpenStep = preset?.openStep !== undefined ? preset.openStep : 'date';
 
   return (
-    <div className="ovx-page-shell rtw-page">
-      <SiteNav />
+    <div className={'ovx-page-shell rtw-page' + (hideChrome ? ' rtw-embedded' : '')}>
+      {!hideChrome && <SiteNav />}
       <div className="rtw-content">
         {view === 'welcome' && (
           <WelcomeView
@@ -606,7 +607,7 @@ export default function ReturnToWorkPage() {
         )}
         {view === 'success' && <SuccessView rtwState={rtwState} />}
       </div>
-      <SiteFooter />
+      {!hideChrome && <SiteFooter />}
     </div>
   );
 }
