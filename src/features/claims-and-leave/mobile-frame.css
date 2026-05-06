@@ -77,11 +77,7 @@
 }
 
 .mobile-frame-screen .cl-subnav {
-  display: none !important;
-}
-
-.mobile-frame-screen .cl-subnav-mobile {
-  display: block !important;
+  display: none;
 }
 
 .mobile-frame-screen .cl-main {
@@ -124,16 +120,13 @@
   gap: 12px;
 }
 
-/* Category tabs scroll */
+/* Category tabs: show dropdown, hide tabs in mobile frame */
 .mobile-frame-screen .cl-category-tabs {
-  overflow-x: auto;
-  -webkit-overflow-scrolling: touch;
+  display: none !important;
 }
 
-.mobile-frame-screen .cl-category-tab {
-  min-height: 44px;
-  padding: 10px 16px;
-  white-space: nowrap;
+.mobile-frame-screen .cl-category-dropdown-wrap {
+  display: block !important;
 }
 
 /* File a claim cards stack */

@@ -1,5 +1,5 @@
 import { useState, useMemo } from 'react';
-import { NavLink, Link } from 'react-router-dom';
+import { NavLink, Link, useNavigate } from 'react-router-dom';
 import useBasePath from './useBasePath';
 
 const claimsData = [
@@ -49,6 +49,8 @@ const categoryTabs = ['Dental', 'Vision', 'Supplemental', 'Leave and Disability'
 
 export default function ClaimCenterPage() {
   const base = useBasePath();
+  const navigate = useNavigate();
+  const [activeCategory, setActiveCategory] = useState('Leave and Disability');
   const [statusFilter, setStatusFilter] = useState('All');
   const [typeFilter, setTypeFilter] = useState('All');
   const [dateFilter, setDateFilter] = useState('All');
@@ -88,13 +90,30 @@ export default function ClaimCenterPage() {
         <button className="cl-btn cl-btn--dark">+ Start a New Claim</button>
       </div>
 
-      {/* Category tabs */}
+      {/* Category dropdown (mobile) */}
+      <div className="cl-category-dropdown-wrap">
+        <select
+          className="cl-category-dropdown"
+          value={activeCategory}
+          onChange={(e) => {
+            setActiveCategory(e.target.value);
+            if (e.target.value === 'Dental') navigate(`${base}/dental`);
+          }}
+        >
+          {categoryTabs.map((tab) => (
+            <option key={tab} value={tab}>{tab}</option>
+          ))}
+        </select>
+      </div>
+
+      {/* Category tabs (desktop) */}
       <div className="cl-category-tabs">
         {categoryTabs.map((tab) => (
           <NavLink
             key={tab}
             to={tab === 'Dental' ? `${base}/dental` : '#'}
-            className={`cl-category-tab${tab === 'Leave and Disability' ? ' cl-category-tab--active' : ''}`}
+            className={`cl-category-tab${tab === activeCategory ? ' cl-category-tab--active' : ''}`}
+            onClick={(e) => { if (tab !== 'Dental') e.preventDefault(); setActiveCategory(tab); }}
           >
             {tab}
           </NavLink>
