@@ -577,15 +577,17 @@ export default function ReturnToWorkPage() {
   const [snapshot, setSnapshot] = useState(preset?.editing ? { ...defaultRtwState, ...(preset?.rtwState || {}) } : null);
   const initialOpenStep = preset?.openStep !== undefined ? preset.openStep : 'date';
 
+  const embedded = searchParams.get('embedded') === '1';
+
   return (
     <div className="ovx-page-shell rtw-page">
-      <SiteNav />
+      {!embedded && <SiteNav />}
       <div className="rtw-content">
         {view === 'welcome' && (
           <WelcomeView
             caseData={caseData}
             onContinue={() => setView('confirm')}
-            onBack={() => navigate(`/absence-details/${caseId}`)}
+            onBack={() => embedded ? navigate(-1) : navigate(`/absence-details/${caseId}`)}
           />
         )}
         {view === 'confirm' && (
@@ -606,7 +608,7 @@ export default function ReturnToWorkPage() {
         )}
         {view === 'success' && <SuccessView rtwState={rtwState} />}
       </div>
-      <SiteFooter />
+      {!embedded && <SiteFooter />}
     </div>
   );
 }

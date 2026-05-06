@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import './leave-detail-b.css';
 import '../absence-details/absence-details-react.css';
 
@@ -87,6 +87,7 @@ function SiteFooter() {
 }
 
 export default function LeaveDetailV2ePage() {
+  var navigate = useNavigate();
   var [timelineView, setTimelineView] = useState('protection');
   var [hoveredRow, setHoveredRow] = useState(null);
   var [expandedClaims, setExpandedClaims] = useState({ absence: true, stateleave: false });
@@ -838,7 +839,7 @@ export default function LeaveDetailV2ePage() {
                   <span>Request ADA Accommodation</span>
                   <svg width="10" height="10" viewBox="0 0 16 16" fill="none" className="ldb-quick-action-chevron"><path d="M6 4l4 4-4 4" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round"/></svg>
                 </button>
-                <button type="button" className="ldb-quick-action-item">
+                <button type="button" className="ldb-quick-action-item" onClick={function () { navigate('/absence-details/LV-2026-4518/return-to-work?embedded=1'); }}>
                   <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 13l3-3M13 3l-3 3M10 3H13v3M6 13H3v-3" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round" strokeLinejoin="round"/></svg>
                   <span>Manage Return to Work</span>
                   <svg width="10" height="10" viewBox="0 0 16 16" fill="none" className="ldb-quick-action-chevron"><path d="M6 4l4 4-4 4" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round"/></svg>
