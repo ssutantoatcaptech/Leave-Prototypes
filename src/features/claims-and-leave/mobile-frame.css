@@ -589,6 +589,13 @@
   padding-left: 12px !important;
 }
 
+/* Cancel modal: contain within mobile frame */
+.mobile-frame-screen .pr-modal-backdrop {
+  position: absolute;
+  inset: 0;
+  z-index: 300;
+}
+
 /* Stepper adjustments */
 .mobile-frame-screen .stepper {
   flex-direction: row;
