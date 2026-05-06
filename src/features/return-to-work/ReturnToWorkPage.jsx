@@ -104,7 +104,7 @@ function WelcomeView({ caseData, onContinue, onBack }) {
     <>
       <button className="rtw-back" type="button" onClick={onBack}>
         <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M9 2L4 7l5 5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/></svg>
-        Back to Absence Details
+        Back to Case Details
       </button>
 
       <div className="rtw-welcome-card">
@@ -577,17 +577,15 @@ export default function ReturnToWorkPage() {
   const [snapshot, setSnapshot] = useState(preset?.editing ? { ...defaultRtwState, ...(preset?.rtwState || {}) } : null);
   const initialOpenStep = preset?.openStep !== undefined ? preset.openStep : 'date';
 
-  const embedded = searchParams.get('embedded') === '1';
-
   return (
     <div className="ovx-page-shell rtw-page">
-      {!embedded && <SiteNav />}
+      <SiteNav />
       <div className="rtw-content">
         {view === 'welcome' && (
           <WelcomeView
             caseData={caseData}
             onContinue={() => setView('confirm')}
-            onBack={() => embedded ? navigate(-1) : navigate(`/absence-details/${caseId}`)}
+            onBack={() => navigate(-1)}
           />
         )}
         {view === 'confirm' && (
@@ -608,7 +606,7 @@ export default function ReturnToWorkPage() {
         )}
         {view === 'success' && <SuccessView rtwState={rtwState} />}
       </div>
-      {!embedded && <SiteFooter />}
+      <SiteFooter />
     </div>
   );
 }
