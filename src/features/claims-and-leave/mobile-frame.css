@@ -80,6 +80,10 @@
   display: none;
 }
 
+.mobile-frame-screen .cl-subnav-mobile {
+  display: block;
+}
+
 .mobile-frame-screen .cl-main {
   padding: 16px;
 }

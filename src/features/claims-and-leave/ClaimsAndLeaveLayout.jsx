@@ -1,10 +1,11 @@
 import { useState } from 'react';
-import { NavLink, Outlet, useLocation } from 'react-router-dom';
+import { NavLink, Outlet, useLocation, useNavigate } from 'react-router-dom';
 import './claims-and-leave.css';
 import './responsive.css';
 
 export default function ClaimsAndLeaveLayout() {
   const location = useLocation();
+  const navigate = useNavigate();
   const [mobileNavOpen, setMobileNavOpen] = useState(false);
   const [claimsExpanded, setClaimsExpanded] = useState(false);
   const base = location.pathname.startsWith('/claims-and-leave-mobile') ? '/claims-and-leave-mobile' : '/claims-and-leave';
@@ -216,7 +217,28 @@ export default function ClaimsAndLeaveLayout() {
         </div>
       )}
 
-      {/* Sub-navigation tabs */}
+      {/* Mobile sub-navigation dropdown */}
+      <div className="cl-subnav-mobile">
+        <select
+          className="cl-subnav-select"
+          value={
+            subNavTabs.find((tab) => {
+              if (tab.to === base) return location.pathname === base || location.pathname === `${base}/dental`;
+              if (tab.to === `${base}/my-cases`) return location.pathname === `${base}/my-cases` || location.pathname.startsWith(`${base}/case-detail`);
+              if (tab.to === `${base}/leave-planning`) return location.pathname.startsWith(`${base}/leave-planning`);
+              if (tab.to === `${base}/file-claim`) return location.pathname.startsWith(`${base}/file-claim`);
+              return location.pathname === tab.to;
+            })?.to || base
+          }
+          onChange={(e) => navigate(e.target.value)}
+        >
+          {subNavTabs.map((tab) => (
+            <option key={tab.label} value={tab.to}>{tab.label}</option>
+          ))}
+        </select>
+      </div>
+
+      {/* Sub-navigation tabs (desktop) */}
       <nav className="cl-subnav">
         <div className="cl-subnav-inner">
           {subNavTabs.map((tab) => {
