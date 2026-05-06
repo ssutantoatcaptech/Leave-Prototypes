@@ -32,7 +32,7 @@ export default function LeavePlanningPage() {
           </svg>
         </div>
 
-        <button className="cl-btn cl-btn--dark cl-btn--lg" onClick={() => navigate(`${base}/leave-planning/wizard?step=1`)}>Get Started</button>
+        <button className="cl-btn cl-btn--dark cl-btn--lg" disabled style={{ opacity: 0.5, cursor: 'not-allowed' }}>Get Started</button>
 
         <p className="cl-planning-footer">
           Already know what you need?{' '}
