@@ -1971,11 +1971,10 @@ export default function RequestLeaveReactPage() {
               <svg width="28" height="28" viewBox="0 0 24 24" fill="none"><path d="M12 9v4" stroke="#dc2626" strokeWidth="2" strokeLinecap="round"/><circle cx="12" cy="16" r="1" fill="#dc2626"/><path d="M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z" stroke="#dc2626" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/></svg>
             </div>
             <h3 className="cancel-confirm-title">Cancel leave request?</h3>
-            <p className="cancel-confirm-desc">You can save your progress as a draft and come back later, or discard it entirely.</p>
+            <p className="cancel-confirm-desc">Your progress will be discarded.</p>
             <div className="cancel-confirm-actions-stack">
               <button type="button" className="btn-cancel-confirm-continue" onClick={() => setShowCancelModal(false)}>Continue Process</button>
-              <button type="button" className="btn-cancel-confirm-save" onClick={() => { saveDraft(); navigate('/overview-react'); }}>Save as Draft</button>
-              <button type="button" className="btn-cancel-confirm-discard" onClick={() => { localStorage.removeItem(DRAFT_KEY); const drafts = JSON.parse(localStorage.getItem('leaveDrafts') || '[]').filter(d => d.type !== 'request-leave'); localStorage.setItem('leaveDrafts', JSON.stringify(drafts)); navigate('/overview-react'); }}>Discard</button>
+              <button type="button" className="btn-cancel-confirm-discard" onClick={() => { localStorage.removeItem(DRAFT_KEY); const drafts = JSON.parse(localStorage.getItem('leaveDrafts') || '[]').filter(d => d.type !== 'request-leave'); localStorage.setItem('leaveDrafts', JSON.stringify(drafts)); navigate(`${rlBase}/file-claim`); }}>Discard</button>
             </div>
           </div>
         </div>
