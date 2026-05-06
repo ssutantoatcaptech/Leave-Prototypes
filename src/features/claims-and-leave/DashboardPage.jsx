@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import { NavLink, useLocation, useNavigate } from 'react-router-dom';
 import './claims-and-leave.css';
 
@@ -21,12 +22,29 @@ const subNavTabs = [
 export default function DashboardPage() {
   const location = useLocation();
   const navigate = useNavigate();
+  const [mobileNavOpen, setMobileNavOpen] = useState(false);
 
   return (
     <div className="cl-layout">
       <header className="cl-header">
         <div className="cl-header-inner">
           <div className="cl-header-left">
+            <button
+              className="cl-hamburger"
+              aria-label={mobileNavOpen ? 'Close menu' : 'Open menu'}
+              aria-expanded={mobileNavOpen}
+              onClick={() => setMobileNavOpen(!mobileNavOpen)}
+            >
+              {mobileNavOpen ? (
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+                  <path d="M6 6l12 12M18 6L6 18" stroke="currentColor" strokeWidth="2" strokeLinecap="round"/>
+                </svg>
+              ) : (
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+                  <path d="M3 6h18M3 12h18M3 18h18" stroke="currentColor" strokeWidth="2" strokeLinecap="round"/>
+                </svg>
+              )}
+            </button>
             <NavLink to="/" className="cl-brand">Benefits Hub</NavLink>
             <nav className="cl-main-nav">
               {navLinks.map((link) => (
@@ -69,10 +87,20 @@ export default function DashboardPage() {
           <div className="cl-header-right">
             <button className="cl-header-action">ID Cards</button>
             <button className="cl-header-action">Messages</button>
-            <button className="cl-header-icon-btn" aria-label="Notifications">
-              <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
-                <path d="M10 18a2 2 0 01-2-2h4a2 2 0 01-2 2zm6-4V9a6 6 0 10-12 0v5l-1.5 1.5V16h15v-.5L16 14z" fill="currentColor"/>
+            <button className="cl-header-icon-btn" aria-label="ID Cards">
+              <svg width="26" height="20" viewBox="0 0 26 20" fill="none">
+                <rect x="1" y="1" width="24" height="18" rx="2" stroke="currentColor" strokeWidth="1.5"/>
+                <circle cx="10" cy="9" r="2.5" stroke="currentColor" strokeWidth="1.2"/>
+                <path d="M5.5 16c0-2.5 2-4 4.5-4s4.5 1.5 4.5 4" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round"/>
+                <path d="M17 7h4M17 10h4M17 13h3" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round"/>
               </svg>
+            </button>
+            <button className="cl-header-icon-btn cl-header-bell" aria-label="Notifications">
+              <svg width="20" height="22" viewBox="0 0 20 22" fill="none">
+                <path d="M10 1c-1.5 0-2.8.6-3.8 1.5C5.2 3.6 4.5 5.2 4.5 7v4.5L3 13.5V15h14v-1.5l-1.5-2V7c0-1.8-.7-3.4-1.7-4.5C12.8 1.6 11.5 1 10 1z" stroke="currentColor" strokeWidth="1.5" strokeLinejoin="round"/>
+                <path d="M7.5 15v.5a2.5 2.5 0 005 0V15" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"/>
+              </svg>
+              <span className="cl-bell-dot" />
             </button>
             <div className="cl-avatar">
               <span className="cl-avatar-circle">SJ</span>
@@ -81,6 +109,38 @@ export default function DashboardPage() {
           </div>
         </div>
       </header>
+
+      {/* Mobile nav drawer */}
+      {mobileNavOpen && (
+        <nav className="cl-mobile-nav" aria-label="Mobile navigation">
+          <div className="cl-mobile-nav-section">
+            {navLinks.map((link) => (
+              <NavLink
+                key={link.label}
+                to={link.dropdown ? '/claims-and-leave' : link.to}
+                className="cl-mobile-nav-link"
+                onClick={() => setMobileNavOpen(false)}
+              >
+                {link.label}
+              </NavLink>
+            ))}
+          </div>
+          <div className="cl-mobile-nav-divider" />
+          <div className="cl-mobile-nav-section">
+            <span className="cl-mobile-nav-heading">Claims &amp; Leave</span>
+            {subNavTabs.map((tab) => (
+              <NavLink
+                key={tab.label}
+                to={tab.to}
+                className="cl-mobile-nav-link"
+                onClick={() => setMobileNavOpen(false)}
+              >
+                {tab.label}
+              </NavLink>
+            ))}
+          </div>
+        </nav>
+      )}
 
       <section className="cldb-hero">
         <h1 className="cldb-hero-title">Welcome Back, Sarah</h1>

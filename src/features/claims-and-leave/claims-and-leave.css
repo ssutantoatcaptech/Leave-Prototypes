@@ -15,10 +15,11 @@
 /* Header */
 .cl-header {
   background: #ffffff;
-  border-bottom: 1px solid #e5e7eb;
+  border-bottom: 1px solid #f0f0f0;
   position: sticky;
   top: 0;
   z-index: 100;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.08);
 }
 
 .cl-header-inner {
@@ -34,7 +35,7 @@
 .cl-header-left {
   display: flex;
   align-items: center;
-  gap: 32px;
+  gap: 12px;
 }
 
 .cl-brand {
@@ -138,7 +139,7 @@
 .cl-header-right {
   display: flex;
   align-items: center;
-  gap: 16px;
+  gap: 15px;
 }
 
 .cl-header-action {
@@ -165,14 +166,30 @@
   justify-content: center;
   border: none;
   background: none;
-  color: #4b5563;
+  color: #002547;
   cursor: pointer;
   border-radius: 6px;
   transition: background 0.15s;
+  position: relative;
 }
 
 .cl-header-icon-btn:hover {
   background: #f3f4f6;
+}
+
+.cl-header-bell {
+  position: relative;
+}
+
+.cl-bell-dot {
+  position: absolute;
+  top: 6px;
+  right: 6px;
+  width: 8px;
+  height: 8px;
+  background: #e53e3e;
+  border-radius: 50%;
+  border: 2px solid #fff;
 }
 
 .cl-avatar {
@@ -182,16 +199,18 @@
 }
 
 .cl-avatar-circle {
-  width: 32px;
-  height: 32px;
+  width: 40px;
+  height: 40px;
   border-radius: 50%;
-  background: #0033a0;
+  background: #002547;
+  border: 2px solid #dcebf9;
   color: #ffffff;
-  font-size: 12px;
-  font-weight: 700;
+  font-size: 14px;
+  font-weight: 600;
   display: flex;
   align-items: center;
   justify-content: center;
+  text-transform: uppercase;
 }
 
 .cl-avatar-name {
