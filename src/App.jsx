@@ -67,7 +67,7 @@ function Home() {
             <span className="route-card-meta">Benefits hub with claims tracking, leave management, and payments</span>
           </NavLink>
 
-          <NavLink className="route-card" to="/claims-and-leave-mobile">
+          <NavLink className="route-card" to="/claims-and-leave-mobile/dashboard">
             <span className="route-card-label">New</span>
             <strong className="route-card-title">New Claims and Leave (mobile)</strong>
             <span className="route-card-meta">Mobile-optimized claims and leave experience</span>
