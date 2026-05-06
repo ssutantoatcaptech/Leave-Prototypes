@@ -753,12 +753,38 @@
 }
 
 /* Month axis */
+.dlp-tl-weeks {
+  display: flex;
+  margin-top: 10px;
+  margin-bottom: 4px;
+  padding-left: 120px;
+  gap: 0;
+}
+.dlp-tl-week-tick {
+  flex: 1;
+  border-left: 1px solid #e2e8f0;
+  height: 16px;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  padding-bottom: 2px;
+}
+.dlp-tl-week-tick:last-child {
+  border-right: 1px solid #e2e8f0;
+}
+.dlp-tl-week-num {
+  font-size: 9px;
+  color: #94a3b8;
+  font-weight: 600;
+  line-height: 1;
+}
+
 .dlp-tl-months {
   display: flex;
   justify-content: space-between;
   font-size: 11px;
   color: #a3a3a3;
-  margin-top: 8px;
+  margin-top: 6px;
   margin-bottom: 6px;
   padding-left: 120px;
 }

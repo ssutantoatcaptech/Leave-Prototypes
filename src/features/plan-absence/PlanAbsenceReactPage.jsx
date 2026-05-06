@@ -1710,6 +1710,17 @@ export default function PlanAbsenceReactPage() {
                         );
                       })()}
 
+                      {/* Week ticks */}
+                      {tlData.absenceWeeks > 0 && (
+                        <div className="dlp-tl-weeks">
+                          {Array.from({ length: Math.min(tlData.absenceWeeks, 26) }, (_, i) => (
+                            <div key={i} className="dlp-tl-week-tick">
+                              <span className="dlp-tl-week-num">Wk {i + 1}</span>
+                            </div>
+                          ))}
+                        </div>
+                      )}
+
                       {/* Month axis */}
                       <div className="dlp-tl-months">
                         {tlData.months.map((m, i) => <span key={i}>{m}</span>)}
