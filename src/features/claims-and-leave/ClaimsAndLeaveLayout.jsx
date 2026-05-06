@@ -14,7 +14,7 @@ export default function ClaimsAndLeaveLayout() {
   ];
 
   const subNavTabs = [
-    { label: 'Claim Center', to: base },
+    { label: 'Claims Center', to: base },
     { label: 'File a Claim or Leave', to: `${base}/file-claim` },
     { label: 'My Cases', to: `${base}/my-cases` },
     { label: 'Leave Planning Tool', to: `${base}/leave-planning` },
