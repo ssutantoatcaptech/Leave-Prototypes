@@ -376,15 +376,15 @@ export default function EnterMyTimePage() {
               <p className="cl-ma-disclaimer">By submitting, you certify that this absence is related to your approved claim.</p>
               <div className="cl-ma-form-actions">
                 <button className="cl-ma-btn-cancel" type="button" onClick={handleCancel}>Cancel</button>
-                <button className="cl-ma-btn-submit" type="button" onClick={handleSubmit} disabled={parseFloat(hours) <= 0}>Submit Absence</button>
+                <button className="cl-ma-btn-submit" type="button" onClick={handleSubmit} disabled={parseFloat(hours) <= 0}>Submit Time Entry</button>
               </div>
             </div>
           </div>
 
-          {/* Recent Logged Absences */}
+          {/* Recent Time Entries */}
           <div className="cl-ma-recent-card">
             <div className="cl-ma-recent-header">
-              <h2 className="cl-ma-recent-title">Recent Logged Absences</h2>
+              <h2 className="cl-ma-recent-title">Recent Time Entries</h2>
               <span className="cl-ma-recent-count">{filteredAbsences.length} entries for {selectedCase.id}</span>
             </div>
             <div className="cl-table-wrap" style={{ border: 'none', borderRadius: 0 }}>
@@ -394,7 +394,7 @@ export default function EnterMyTimePage() {
                     <th>Date</th>
                     <th>Start Time</th>
                     <th>End Time</th>
-                    <th>Missed Hours</th>
+                    <th>Hours</th>
                     <th>Reason</th>
                     <th>Added On</th>
                     <th>Edit</th>
