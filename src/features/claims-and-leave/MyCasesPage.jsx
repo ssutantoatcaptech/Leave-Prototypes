@@ -8,11 +8,11 @@ export default function MyCasesPage() {
   const [statusFilter, setStatusFilter] = useState('All');
   const [typeFilter, setTypeFilter] = useState('All');
 
-  const casesData = [
+  const [casesData, setCasesData] = useState([
     {
       type: 'Illness or Injury',
       id: 'CLM #12345',
-      lastUpdate: 'XX / XX / XXXX',
+      lastUpdate: '04 / 15 / 2025',
       status: 'Saved',
       statusColor: 'amber',
       required: null,
@@ -32,7 +32,7 @@ export default function MyCasesPage() {
     {
       type: 'Illness or Injury',
       id: 'NTN #12554',
-      lastUpdate: 'XX / XX / XXXX',
+      lastUpdate: '03 / 22 / 2025',
       status: 'Decisioned',
       statusColor: 'green',
       required: null,
@@ -52,14 +52,18 @@ export default function MyCasesPage() {
     {
       type: 'Military-related',
       id: 'NTN #09881',
-      lastUpdate: 'XX / XX / XXXX',
+      lastUpdate: '01 / 10 / 2025',
       status: 'Closed',
       statusColor: 'gray',
       required: null,
       actions: ['View Details'],
       link: null,
     },
-  ];
+  ]);
+
+  function deleteCase(index) {
+    setCasesData(function (prev) { return prev.filter(function (_, i) { return i !== index; }); });
+  }
 
   const filtered = useMemo(() => {
     return casesData.filter((row) => {
@@ -89,22 +93,20 @@ export default function MyCasesPage() {
 
       {/* Filters */}
       <div className="cl-filter-bar">
-        <div className="cl-filters-left">
-          <select className="cl-select" value={statusFilter} onChange={(e) => setStatusFilter(e.target.value)}>
-            <option value="All">Status: All Leaves</option>
-            <option value="Saved">Saved</option>
-            <option value="Approved">Approved</option>
-            <option value="Decisioned">Decisioned</option>
-            <option value="Closed">Closed</option>
-          </select>
-          <select className="cl-select" value={typeFilter} onChange={(e) => setTypeFilter(e.target.value)}>
-            <option value="All">Leave Type</option>
-            <option value="Illness or Injury">Illness or Injury</option>
-            <option value="Birthing parent pregnancy">Birthing Parent Pregnancy</option>
-            <option value="Caring for family member">Caring for Family Member</option>
-            <option value="Military-related">Military-related</option>
-          </select>
-        </div>
+        <select className="cl-select" value={statusFilter} onChange={(e) => setStatusFilter(e.target.value)}>
+          <option value="All">Status: All Leaves</option>
+          <option value="Saved">Saved</option>
+          <option value="Approved">Approved</option>
+          <option value="Decisioned">Decisioned</option>
+          <option value="Closed">Closed</option>
+        </select>
+        <select className="cl-select" value={typeFilter} onChange={(e) => setTypeFilter(e.target.value)}>
+          <option value="All">Leave Type</option>
+          <option value="Illness or Injury">Illness or Injury</option>
+          <option value="Birthing parent pregnancy">Birthing Parent Pregnancy</option>
+          <option value="Caring for family member">Caring for Family Member</option>
+          <option value="Military-related">Military-related</option>
+        </select>
         <span className="cl-filter-count">Showing {filtered.length} leaves</span>
       </div>
 
@@ -171,33 +173,44 @@ export default function MyCasesPage() {
         {filtered.length === 0 && (
           <div className="cl-card-empty-mobile">No cases match your filters.</div>
         )}
-        {filtered.map((row, i) => (
-          <div key={i} className="cl-card-mobile">
-            <div className="cl-card-mobile-header">
-              <span className="cl-card-mobile-primary">{row.type}</span>
-              <span className={`cl-badge cl-badge--${row.statusColor}`}>{row.status}</span>
-            </div>
-            <span className="cl-card-mobile-type">{row.id}</span>
-            <div className="cl-card-mobile-details">
-              <div className="cl-card-mobile-field">
-                <span className="cl-card-mobile-label">Last Update</span>
-                <span className="cl-card-mobile-value">{row.lastUpdate}</span>
+        {filtered.map((row, i) => {
+          var originalIndex = casesData.indexOf(row);
+          return (
+            <div key={i} className="cl-card-mobile">
+              <div className="cl-card-mobile-header">
+                <span className="cl-card-mobile-primary">{row.type}</span>
+                <span className={`cl-badge cl-badge--${row.statusColor}`}>{row.status}</span>
               </div>
-              {row.required && (
+              <span className="cl-card-mobile-type">{row.id}</span>
+              <div className="cl-card-mobile-details">
                 <div className="cl-card-mobile-field">
-                  <span className="cl-card-mobile-label">Required</span>
-                  <span className="cl-card-mobile-value cl-required-action">{row.required}</span>
+                  <span className="cl-card-mobile-label">Last Update</span>
+                  <span className="cl-card-mobile-value">{row.lastUpdate}</span>
                 </div>
-              )}
+                {row.required && (
+                  <div className="cl-card-mobile-field">
+                    <span className="cl-card-mobile-label">Required</span>
+                    <span className="cl-card-mobile-value cl-required-action">{row.required}</span>
+                  </div>
+                )}
+              </div>
+              <div className="cl-card-mobile-actions">
+                <button
+                  className="cl-card-mobile-action"
+                  onClick={() => { if (row.link) navigate(row.link); }}
+                >
+                  View Details
+                </button>
+                <button
+                  className="cl-card-mobile-action cl-card-mobile-action--delete"
+                  onClick={() => deleteCase(originalIndex)}
+                >
+                  Delete
+                </button>
+              </div>
             </div>
-            <button
-              className="cl-card-mobile-action"
-              onClick={() => { if (row.link) navigate(row.link); }}
-            >
-              View Details
-            </button>
-          </div>
-        ))}
+          );
+        })}
       </div>
     </div>
   );

@@ -3156,6 +3156,27 @@
   background: #f0f4ff;
 }
 
+.cl-card-mobile-actions {
+  display: flex;
+  gap: 8px;
+  margin-top: 4px;
+}
+
+.cl-card-mobile-actions .cl-card-mobile-action {
+  flex: 1;
+  margin-top: 0;
+}
+
+.cl-card-mobile-action--delete {
+  background: #fff;
+  color: #dc2626;
+  border: 1px solid #dc2626;
+}
+
+.cl-card-mobile-action--delete:hover {
+  background: #fef2f2;
+}
+
 .cl-card-mobile-actions-row {
   display: flex;
   gap: 8px;
