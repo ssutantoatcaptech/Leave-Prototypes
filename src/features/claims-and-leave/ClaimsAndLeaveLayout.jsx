@@ -66,7 +66,7 @@ export default function ClaimsAndLeaveLayout() {
             const isActive = tab.to === '/claims-and-leave'
               ? location.pathname === '/claims-and-leave' || location.pathname === '/claims-and-leave/dental'
               : tab.to === '/claims-and-leave/my-cases'
-              ? location.pathname === '/claims-and-leave/my-cases' || location.pathname === '/claims-and-leave/case-detail'
+              ? location.pathname === '/claims-and-leave/my-cases' || location.pathname.startsWith('/claims-and-leave/case-detail')
               : tab.to === '/claims-and-leave/leave-planning'
               ? location.pathname.startsWith('/claims-and-leave/leave-planning')
               : tab.to === '/claims-and-leave/file-claim'
