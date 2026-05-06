@@ -306,16 +306,40 @@
   grid-template-columns: 1fr;
 }
 
-/* Schedule grid: smaller on mobile */
+/* Schedule grid: stack vertically on mobile */
 .mobile-frame-screen .schedule-grid {
-  gap: 6px;
+  grid-template-columns: 1fr;
+  gap: 8px;
+}
+
+.mobile-frame-screen .schedule-day {
+  flex-direction: row;
+  align-items: center;
+  gap: 12px;
+}
+
+.mobile-frame-screen .schedule-day-label {
+  width: 36px;
+  text-align: left;
 }
 
 .mobile-frame-screen .schedule-day-box {
-  width: 40px;
-  height: 40px;
+  width: 100%;
+  height: 44px;
   border-radius: 8px;
-  font-size: 11px;
+}
+
+.mobile-frame-screen .schedule-day-wrap {
+  flex: 1;
+  flex-direction: row;
+  align-items: center;
+  gap: 8px;
+}
+
+.mobile-frame-screen .schedule-day-input {
+  text-align: left;
+  font-size: 16px;
+  padding-left: 12px !important;
 }
 
 /* Stepper adjustments */
