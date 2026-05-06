@@ -192,3 +192,167 @@
   right: 0;
   bottom: 0;
 }
+
+/* ===========================
+   Request Leave Wizard — Mobile Frame Overrides
+   =========================== */
+
+/* Request leave shell: reset min-height */
+.mobile-frame-screen .request-leave-shell {
+  min-height: auto;
+}
+
+/* Hide desktop nav inside mobile frame */
+.mobile-frame-screen .top-nav {
+  display: none;
+}
+
+/* Hide site footer inside mobile frame */
+.mobile-frame-screen .site-footer {
+  display: none;
+}
+
+/* Wizard wrap: reduce margins */
+.mobile-frame-screen .wizard-wrap {
+  width: 100%;
+  max-width: 100%;
+  padding: 16px 16px 32px;
+}
+
+/* Wizard card: reduce padding */
+.mobile-frame-screen .wizard-card {
+  padding: 20px 16px;
+  border-radius: 8px;
+  margin-bottom: 24px;
+}
+
+/* Card headings smaller */
+.mobile-frame-screen .wizard-card h2 {
+  font-size: 18px;
+}
+
+/* Option cards: single column */
+.mobile-frame-screen .option-cards {
+  grid-template-columns: 1fr;
+  gap: 12px;
+}
+
+.mobile-frame-screen .option-cards.cols-2 {
+  grid-template-columns: 1fr;
+  max-width: 100%;
+}
+
+/* Option card: reduce size */
+.mobile-frame-screen .option-card {
+  padding: 16px 14px 14px;
+  min-height: unset;
+  flex-direction: row;
+  align-items: center;
+  text-align: left;
+  gap: 12px;
+}
+
+.mobile-frame-screen .option-card-icon {
+  width: 36px;
+  height: 36px;
+  border-radius: 8px;
+}
+
+.mobile-frame-screen .option-text {
+  align-items: flex-start;
+}
+
+.mobile-frame-screen .option-text h4 {
+  font-size: 14px;
+}
+
+.mobile-frame-screen .option-text p {
+  font-size: 12px;
+}
+
+.mobile-frame-screen .option-radio {
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+/* Leave type picker: stack */
+.mobile-frame-screen .lt-picker {
+  flex-direction: column;
+  gap: 8px;
+}
+
+/* Form rows: single column */
+.mobile-frame-screen .form-row.cols-2,
+.mobile-frame-screen .form-row.cols-3 {
+  grid-template-columns: 1fr;
+}
+
+/* Readonly grid: single column */
+.mobile-frame-screen .readonly-grid {
+  grid-template-columns: 1fr;
+}
+
+.mobile-frame-screen .readonly-card {
+  padding: 16px;
+}
+
+/* Review grid: single column */
+.mobile-frame-screen .review-grid {
+  grid-template-columns: 1fr;
+}
+
+/* Benefits review grid */
+.mobile-frame-screen .br-grid {
+  grid-template-columns: 1fr;
+}
+
+/* Schedule grid: smaller on mobile */
+.mobile-frame-screen .schedule-grid {
+  gap: 6px;
+}
+
+.mobile-frame-screen .schedule-day-box {
+  width: 40px;
+  height: 40px;
+  border-radius: 8px;
+  font-size: 11px;
+}
+
+/* Stepper adjustments */
+.mobile-frame-screen .stepper {
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 4px;
+}
+
+/* Footer buttons: stack on mobile */
+.mobile-frame-screen .wizard-footer {
+  flex-direction: column-reverse;
+  gap: 12px;
+  align-items: stretch;
+}
+
+.mobile-frame-screen .wizard-footer .footer-left,
+.mobile-frame-screen .wizard-footer .footer-right {
+  width: 100%;
+}
+
+.mobile-frame-screen .wizard-footer .btn {
+  width: 100%;
+  justify-content: center;
+}
+
+/* Welcome card */
+.mobile-frame-screen .req-welcome-card {
+  padding: 28px 16px 24px;
+}
+
+.mobile-frame-screen .req-welcome-journey {
+  flex-wrap: wrap;
+  row-gap: 12px;
+}
+
+/* Active leave card fields */
+.mobile-frame-screen .ov-active-card-fields {
+  grid-template-columns: 1fr;
+}
