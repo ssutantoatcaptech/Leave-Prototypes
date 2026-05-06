@@ -1,5 +1,6 @@
 import { useState, useMemo } from 'react';
 import { useSearchParams, Link } from 'react-router-dom';
+import useBasePath from './useBasePath';
 
 const paymentsData = [
   {
@@ -99,6 +100,7 @@ const paymentsData = [
 ];
 
 export default function PaymentsPage() {
+  const base = useBasePath();
   const [searchParams] = useSearchParams();
   const claimParam = searchParams.get('claim') || '';
   const [expandedRow, setExpandedRow] = useState(0);
@@ -129,7 +131,7 @@ export default function PaymentsPage() {
   return (
     <div className="cl-page">
       <div className="cl-breadcrumb">
-        <Link to="/claims-and-leave" className="cl-breadcrumb-link">Claims &amp; Leave</Link>
+        <Link to={base} className="cl-breadcrumb-link">Claims &amp; Leave</Link>
         <span className="cl-breadcrumb-sep">&gt;</span>
         <span>Payments</span>
       </div>

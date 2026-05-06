@@ -1,25 +1,26 @@
 import { NavLink, Outlet, useLocation } from 'react-router-dom';
 import './claims-and-leave.css';
 
-const navLinks = [
-  { label: 'Dashboard', to: '/claims-and-leave/dashboard' },
-  { label: 'Benefits', to: '#' },
-  { label: 'Claims & Leave', to: '/claims-and-leave' },
-  { label: 'Documents', to: '#' },
-  { label: 'Support', to: '#' },
-];
-
-const subNavTabs = [
-  { label: 'Claim Center', to: '/claims-and-leave' },
-  { label: 'File a Claim or Leave', to: '/claims-and-leave/file-claim' },
-  { label: 'My Cases', to: '/claims-and-leave/my-cases' },
-  { label: 'Leave Planning Tool', to: '/claims-and-leave/leave-planning' },
-  { label: 'Manage My Absences', to: '/claims-and-leave/enter-time' },
-  { label: 'Payments', to: '/claims-and-leave/payments' },
-];
-
 export default function ClaimsAndLeaveLayout() {
   const location = useLocation();
+  const base = location.pathname.startsWith('/claims-and-leave-mobile') ? '/claims-and-leave-mobile' : '/claims-and-leave';
+
+  const navLinks = [
+    { label: 'Dashboard', to: `${base}/dashboard` },
+    { label: 'Benefits', to: '#' },
+    { label: 'Claims & Leave', to: base },
+    { label: 'Documents', to: '#' },
+    { label: 'Support', to: '#' },
+  ];
+
+  const subNavTabs = [
+    { label: 'Claim Center', to: base },
+    { label: 'File a Claim or Leave', to: `${base}/file-claim` },
+    { label: 'My Cases', to: `${base}/my-cases` },
+    { label: 'Leave Planning Tool', to: `${base}/leave-planning` },
+    { label: 'Manage My Absences', to: `${base}/enter-time` },
+    { label: 'Payments', to: `${base}/payments` },
+  ];
 
   return (
     <div className="cl-layout">
@@ -34,7 +35,7 @@ export default function ClaimsAndLeaveLayout() {
                   key={link.label}
                   to={link.to}
                   className={({ isActive }) =>
-                    `cl-main-nav-link${link.to === '/claims-and-leave' && location.pathname.startsWith('/claims-and-leave') ? ' cl-main-nav-link--active' : isActive && link.to !== '#' ? ' cl-main-nav-link--active' : ''}`
+                    `cl-main-nav-link${link.to === base && location.pathname.startsWith(base) ? ' cl-main-nav-link--active' : isActive && link.to !== '#' ? ' cl-main-nav-link--active' : ''}`
                   }
                   end={link.to === '/'}
                 >
@@ -63,21 +64,21 @@ export default function ClaimsAndLeaveLayout() {
       <nav className="cl-subnav">
         <div className="cl-subnav-inner">
           {subNavTabs.map((tab) => {
-            const isActive = tab.to === '/claims-and-leave'
-              ? location.pathname === '/claims-and-leave' || location.pathname === '/claims-and-leave/dental'
-              : tab.to === '/claims-and-leave/my-cases'
-              ? location.pathname === '/claims-and-leave/my-cases' || location.pathname.startsWith('/claims-and-leave/case-detail')
-              : tab.to === '/claims-and-leave/leave-planning'
-              ? location.pathname.startsWith('/claims-and-leave/leave-planning')
-              : tab.to === '/claims-and-leave/file-claim'
-              ? location.pathname.startsWith('/claims-and-leave/file-claim')
+            const isActive = tab.to === base
+              ? location.pathname === base || location.pathname === `${base}/dental`
+              : tab.to === `${base}/my-cases`
+              ? location.pathname === `${base}/my-cases` || location.pathname.startsWith(`${base}/case-detail`)
+              : tab.to === `${base}/leave-planning`
+              ? location.pathname.startsWith(`${base}/leave-planning`)
+              : tab.to === `${base}/file-claim`
+              ? location.pathname.startsWith(`${base}/file-claim`)
               : location.pathname === tab.to;
             return (
               <NavLink
                 key={tab.label}
                 to={tab.to}
                 className={`cl-subnav-tab${isActive ? ' cl-subnav-tab--active' : ''}`}
-                end={tab.to === '/claims-and-leave'}
+                end={tab.to === base}
               >
                 {tab.label}
               </NavLink>
@@ -88,7 +89,7 @@ export default function ClaimsAndLeaveLayout() {
 
       {/* Page content */}
       <main className="cl-main">
-        <Outlet />
+        <Outlet context={{ base }} />
       </main>
 
       {/* Footer */}

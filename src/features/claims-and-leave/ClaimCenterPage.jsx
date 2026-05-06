@@ -1,5 +1,6 @@
 import { useState, useMemo } from 'react';
 import { NavLink, Link } from 'react-router-dom';
+import useBasePath from './useBasePath';
 
 const claimsData = [
   {
@@ -47,6 +48,7 @@ const claimsData = [
 const categoryTabs = ['Dental', 'Vision', 'Supplemental', 'Leave and Disability', 'Life'];
 
 export default function ClaimCenterPage() {
+  const base = useBasePath();
   const [statusFilter, setStatusFilter] = useState('All');
   const [typeFilter, setTypeFilter] = useState('All');
   const [dateFilter, setDateFilter] = useState('All');
@@ -73,7 +75,7 @@ export default function ClaimCenterPage() {
   return (
     <div className="cl-page">
       <div className="cl-breadcrumb">
-        <Link to="/claims-and-leave" className="cl-breadcrumb-link">Claims &amp; Leave</Link>
+        <Link to={base} className="cl-breadcrumb-link">Claims &amp; Leave</Link>
         <span className="cl-breadcrumb-sep">&gt;</span>
         <span>Claims Center</span>
       </div>
@@ -91,7 +93,7 @@ export default function ClaimCenterPage() {
         {categoryTabs.map((tab) => (
           <NavLink
             key={tab}
-            to={tab === 'Dental' ? '/claims-and-leave/dental' : '#'}
+            to={tab === 'Dental' ? `${base}/dental` : '#'}
             className={`cl-category-tab${tab === 'Leave and Disability' ? ' cl-category-tab--active' : ''}`}
           >
             {tab}

@@ -1,7 +1,9 @@
 import { useState, useMemo } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
+import useBasePath from './useBasePath';
 
 export default function MyCasesPage() {
+  const base = useBasePath();
   const navigate = useNavigate();
   const [statusFilter, setStatusFilter] = useState('All');
   const [typeFilter, setTypeFilter] = useState('All');
@@ -15,7 +17,7 @@ export default function MyCasesPage() {
       statusColor: 'amber',
       required: null,
       actions: ['View Details'],
-      link: '/claims-and-leave/case-detail',
+      link: `${base}/case-detail`,
     },
     {
       type: 'Birthing parent pregnancy',
@@ -25,7 +27,7 @@ export default function MyCasesPage() {
       statusColor: 'green',
       required: null,
       actions: ['View Details'],
-      link: '/claims-and-leave/case-detail-pregnancy',
+      link: `${base}/case-detail-pregnancy`,
     },
     {
       type: 'Illness or Injury',
@@ -35,7 +37,7 @@ export default function MyCasesPage() {
       statusColor: 'green',
       required: null,
       actions: ['View Details'],
-      link: '/claims-and-leave/case-detail',
+      link: `${base}/case-detail`,
     },
     {
       type: 'Caring for family member',
@@ -45,7 +47,7 @@ export default function MyCasesPage() {
       statusColor: 'green',
       required: null,
       actions: ['View Details'],
-      link: '/claims-and-leave/case-detail-caregiver',
+      link: `${base}/case-detail-caregiver`,
     },
     {
       type: 'Military-related',
@@ -70,7 +72,7 @@ export default function MyCasesPage() {
   return (
     <div className="cl-page">
       <div className="cl-breadcrumb">
-        <Link to="/claims-and-leave" className="cl-breadcrumb-link">Claims &amp; Leave</Link>
+        <Link to={base} className="cl-breadcrumb-link">Claims &amp; Leave</Link>
         <span className="cl-breadcrumb-sep">&gt;</span>
         <span>My Cases</span>
       </div>

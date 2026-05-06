@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
+import useBasePath from './useBasePath';
 
 var LEAVE_CASES = [
   { id: 'CL-975542', label: 'CL-975542 — Paid Family & Medical Leave (Intermittent)', balance: 112 },
@@ -56,6 +57,7 @@ function buildCalendarDays(year, month) {
 var MONTH_NAMES = ['January','February','March','April','May','June','July','August','September','October','November','December'];
 
 export default function EnterMyTimePage() {
+  const base = useBasePath();
   var today = new Date();
   var todayKey = formatDateKey(today.getFullYear(), today.getMonth(), today.getDate());
 
@@ -148,7 +150,7 @@ export default function EnterMyTimePage() {
   return (
     <div className="cl-page">
       <div className="cl-breadcrumb">
-        <Link to="/claims-and-leave" className="cl-breadcrumb-link">Claims &amp; Leave</Link>
+        <Link to={base} className="cl-breadcrumb-link">Claims &amp; Leave</Link>
         <span className="cl-breadcrumb-sep">&gt;</span>
         <span>Manage Absences</span>
       </div>

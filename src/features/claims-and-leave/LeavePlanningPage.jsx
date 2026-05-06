@@ -1,6 +1,8 @@
 import { NavLink, useNavigate } from 'react-router-dom';
+import useBasePath from './useBasePath';
 
 export default function LeavePlanningPage() {
+  const base = useBasePath();
   const navigate = useNavigate();
 
   return (
@@ -30,11 +32,11 @@ export default function LeavePlanningPage() {
           </svg>
         </div>
 
-        <button className="cl-btn cl-btn--dark cl-btn--lg" onClick={() => navigate('/claims-and-leave/leave-planning/wizard?step=1')}>Get Started</button>
+        <button className="cl-btn cl-btn--dark cl-btn--lg" onClick={() => navigate(`${base}/leave-planning/wizard?step=1`)}>Get Started</button>
 
         <p className="cl-planning-footer">
           Already know what you need?{' '}
-          <NavLink to="/claims-and-leave/file-claim" className="cl-text-link">
+          <NavLink to={`${base}/file-claim`} className="cl-text-link">
             Request leave directly &rarr;
           </NavLink>
         </p>

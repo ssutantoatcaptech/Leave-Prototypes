@@ -1,9 +1,11 @@
 import { useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useNavigate, useLocation } from 'react-router-dom';
 import './leave-detail-b.css';
 import '../absence-details/absence-details-react.css';
 
 export default function LeaveDetailPregnancyPage() {
+  var location = useLocation();
+  var base = location.pathname.startsWith('/claims-and-leave-mobile') ? '/claims-and-leave-mobile' : '/claims-and-leave';
   var navigate = useNavigate();
   var [timelineView, setTimelineView] = useState('protection');
   var [hoveredRow, setHoveredRow] = useState(null);
@@ -47,9 +49,9 @@ export default function LeaveDetailPregnancyPage() {
       <div className="ldb-content">
         {/* Breadcrumb */}
         <div className="ldb-breadcrumb">
-          <Link to="/claims-and-leave">Claims &amp; Leave</Link>
+          <Link to={base}>Claims &amp; Leave</Link>
           <svg className="ldb-bc-sep" width="12" height="12" viewBox="0 0 16 16" fill="none"><path d="M6 4l4 4-4 4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/></svg>
-          <Link to="/claims-and-leave/my-cases">My Cases</Link>
+          <Link to={`${base}/my-cases`}>My Cases</Link>
           <svg className="ldb-bc-sep" width="12" height="12" viewBox="0 0 16 16" fill="none"><path d="M6 4l4 4-4 4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/></svg>
           <span>CLM #12890</span>
         </div>
@@ -494,7 +496,7 @@ export default function LeaveDetailPregnancyPage() {
                   <div style={{ marginTop: 16, padding: '12px 16px', background: '#fffbeb', borderRadius: 8, border: '1px solid #fef3c7', fontSize: 13, color: '#92400e' }}>
                     <strong>Upcoming:</strong> Payments begin after your leave start date (Jun 16). STD payments will arrive weekly during the 8-week recovery period, then transition to NJ FLI bonding payments.
                   </div>
-                  <Link to="/claims-and-leave/payments?claim=NTN-4501-GDC-10&case=NTN-4501" className="ldb-payments-view-btn" style={{ textDecoration: 'none' }}>
+                  <Link to={`${base}/payments?claim=NTN-4501-GDC-10&case=NTN-4501`} className="ldb-payments-view-btn" style={{ textDecoration: 'none' }}>
                     VIEW ALL PAYMENTS
                     <svg width="12" height="12" viewBox="0 0 16 16" fill="none"><path d="M6 4l4 4-4 4" stroke="currentColor" strokeWidth="1.3" strokeLinecap="round" strokeLinejoin="round"/></svg>
                   </Link>
@@ -712,7 +714,7 @@ export default function LeaveDetailPregnancyPage() {
                     <div className="ldb-action-title">Confirm Return to Work Date</div>
                     <div className="ldb-action-meta">Due by Oct 20 · 2 weeks before RTW</div>
                   </div>
-                  <button type="button" className="ldb-btn-upload-inline" onClick={function () { navigate('/claims-and-leave/case-detail-pregnancy/return-to-work'); }}>
+                  <button type="button" className="ldb-btn-upload-inline" onClick={function () { navigate(`${base}/case-detail-pregnancy/return-to-work`); }}>
                     <svg width="12" height="12" viewBox="0 0 16 16" fill="none"><path d="M3 13l3-3M13 3l-3 3M10 3H13v3M6 13H3v-3" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round" strokeLinejoin="round"/></svg>
                     Schedule
                   </button>
@@ -773,7 +775,7 @@ export default function LeaveDetailPregnancyPage() {
             <div className="ldb-side-card ldb-side-card--shadow">
               <div className="ldb-quick-actions-label">QUICK ACTIONS</div>
               <div className="ldb-quick-actions-list">
-                <button type="button" className="ldb-quick-action-item" onClick={function () { navigate('/claims-and-leave/case-detail-pregnancy/return-to-work'); }}>
+                <button type="button" className="ldb-quick-action-item" onClick={function () { navigate(`${base}/case-detail-pregnancy/return-to-work`); }}>
                   <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 13l3-3M13 3l-3 3M10 3H13v3M6 13H3v-3" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round" strokeLinejoin="round"/></svg>
                   <span>Manage Return to Work</span>
                   <svg width="10" height="10" viewBox="0 0 16 16" fill="none" className="ldb-quick-action-chevron"><path d="M6 4l4 4-4 4" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round"/></svg>

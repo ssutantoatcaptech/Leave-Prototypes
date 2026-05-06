@@ -1,4 +1,5 @@
 import { NavLink, Link } from 'react-router-dom';
+import useBasePath from './useBasePath';
 
 const leavesData = [
   {
@@ -48,10 +49,11 @@ const leavesData = [
 ];
 
 export default function MyLeavesPage() {
+  const base = useBasePath();
   return (
     <div className="cl-page">
       <div className="cl-breadcrumb">
-        <Link to="/claims-and-leave" className="cl-breadcrumb-link">Claims &amp; Leave</Link>
+        <Link to={base} className="cl-breadcrumb-link">Claims &amp; Leave</Link>
         <span className="cl-breadcrumb-sep">&gt;</span>
         <span>My Leaves</span>
       </div>
@@ -62,7 +64,7 @@ export default function MyLeavesPage() {
           <p className="cl-page-desc">Manage your active, saved, and historical leave requests.</p>
         </div>
         <div className="cl-page-header-actions">
-          <NavLink to="/claims-and-leave/leave-planning" className="cl-btn cl-btn--outline">Leave Planning Tool</NavLink>
+          <NavLink to={`${base}/leave-planning`} className="cl-btn cl-btn--outline">Leave Planning Tool</NavLink>
           <button className="cl-btn cl-btn--dark">+ Request New Leave</button>
         </div>
       </div>

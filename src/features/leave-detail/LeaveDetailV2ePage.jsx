@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useNavigate, useLocation } from 'react-router-dom';
 import './leave-detail-b.css';
 import '../absence-details/absence-details-react.css';
 
@@ -87,6 +87,8 @@ function SiteFooter() {
 }
 
 export default function LeaveDetailV2ePage() {
+  var location = useLocation();
+  var base = location.pathname.startsWith('/claims-and-leave-mobile') ? '/claims-and-leave-mobile' : '/claims-and-leave';
   var navigate = useNavigate();
   var [timelineView, setTimelineView] = useState('protection');
   var [hoveredRow, setHoveredRow] = useState(null);
@@ -130,9 +132,9 @@ export default function LeaveDetailV2ePage() {
       <div className="ldb-content">
         {/* Breadcrumb */}
         <div className="ldb-breadcrumb">
-          <Link to="/claims-and-leave">Claims &amp; Leave</Link>
+          <Link to={base}>Claims &amp; Leave</Link>
           <svg className="ldb-bc-sep" width="12" height="12" viewBox="0 0 16 16" fill="none"><path d="M6 4l4 4-4 4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/></svg>
-          <Link to="/claims-and-leave/my-cases">My Cases</Link>
+          <Link to={`${base}/my-cases`}>My Cases</Link>
           <svg className="ldb-bc-sep" width="12" height="12" viewBox="0 0 16 16" fill="none"><path d="M6 4l4 4-4 4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/></svg>
           <span>CLM #12345</span>
         </div>
@@ -557,7 +559,7 @@ export default function LeaveDetailV2ePage() {
                       <div className="ldb-v2e-pmt-amount">$2,308.00</div>
                     </div>
                   </div>
-                  <Link to="/claims-and-leave/payments?claim=NTN-9312-GDC-81&case=NTN-9312" className="ldb-payments-view-btn" style={{ textDecoration: 'none' }}>
+                  <Link to={`${base}/payments?claim=NTN-9312-GDC-81&case=NTN-9312`} className="ldb-payments-view-btn" style={{ textDecoration: 'none' }}>
                     VIEW ALL PAYMENTS
                     <svg width="12" height="12" viewBox="0 0 16 16" fill="none"><path d="M6 4l4 4-4 4" stroke="currentColor" strokeWidth="1.3" strokeLinecap="round" strokeLinejoin="round"/></svg>
                   </Link>
@@ -839,7 +841,7 @@ export default function LeaveDetailV2ePage() {
                   <span>Request ADA Accommodation</span>
                   <svg width="10" height="10" viewBox="0 0 16 16" fill="none" className="ldb-quick-action-chevron"><path d="M6 4l4 4-4 4" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round"/></svg>
                 </button>
-                <button type="button" className="ldb-quick-action-item" onClick={function () { navigate('/claims-and-leave/case-detail/return-to-work'); }}>
+                <button type="button" className="ldb-quick-action-item" onClick={function () { navigate(`${base}/case-detail/return-to-work`); }}>
                   <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 13l3-3M13 3l-3 3M10 3H13v3M6 13H3v-3" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round" strokeLinejoin="round"/></svg>
                   <span>Manage Return to Work</span>
                   <svg width="10" height="10" viewBox="0 0 16 16" fill="none" className="ldb-quick-action-chevron"><path d="M6 4l4 4-4 4" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round"/></svg>
