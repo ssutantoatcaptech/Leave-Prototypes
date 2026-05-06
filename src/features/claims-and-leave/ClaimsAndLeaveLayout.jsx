@@ -58,7 +58,7 @@ export default function ClaimsAndLeaveLayout() {
                 </svg>
               )}
             </button>
-            <NavLink to="/" className="cl-brand">Benefits Hub</NavLink>
+            <NavLink to={`${base}/dashboard`} className="cl-brand">Benefits Hub</NavLink>
             {/* Desktop nav */}
             <nav className="cl-main-nav">
               {navLinks.map((link) => (
