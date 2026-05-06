@@ -1522,6 +1522,22 @@
   font-size: 15px;
   font-weight: 500;
   color: #111827;
+  width: 100%;
+  box-sizing: border-box;
+  outline: none;
+  font-family: inherit;
+}
+
+.cl-ma-time-input:focus {
+  border-color: #0033a0;
+  box-shadow: 0 0 0 3px rgba(0, 51, 160, 0.1);
+}
+
+.cl-ma-cal-day {
+  cursor: pointer;
+  border: none;
+  background: none;
+  font-family: inherit;
 }
 
 .cl-ma-dropdown {
@@ -1536,6 +1552,71 @@
   font-weight: 500;
   color: #111827;
   cursor: pointer;
+  width: 100%;
+}
+
+.cl-ma-dropdown-menu {
+  position: absolute;
+  top: calc(100% + 4px);
+  left: 0;
+  right: 0;
+  background: #fff;
+  border: 1px solid #e5e7eb;
+  border-radius: 10px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  z-index: 20;
+  overflow: hidden;
+}
+
+.cl-ma-dropdown-item {
+  display: block;
+  width: 100%;
+  padding: 10px 16px;
+  text-align: left;
+  background: none;
+  border: none;
+  font-size: 14px;
+  color: #374151;
+  cursor: pointer;
+}
+
+.cl-ma-dropdown-item:hover {
+  background: #f3f4f6;
+}
+
+.cl-ma-dropdown-item--active {
+  font-weight: 600;
+  color: #0033a0;
+  background: #e8f0fe;
+}
+
+.cl-ma-success-banner {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 12px 16px;
+  background: #f0fdf4;
+  border: 1px solid #bbf7d0;
+  border-radius: 10px;
+  font-size: 14px;
+  color: #166534;
+  font-weight: 500;
+  margin-bottom: 16px;
+  animation: cl-fadeIn 0.2s ease-out;
+}
+
+.cl-ma-btn-submit:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.cl-ma-hours-input--zero .cl-ma-hours-value {
+  color: #9ca3af;
+}
+
+.cl-ma-reason-badge--gray {
+  background: #f3f4f6;
+  color: #4b5563;
 }
 
 .cl-ma-form-footer {

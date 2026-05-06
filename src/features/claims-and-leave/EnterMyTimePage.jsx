@@ -1,22 +1,112 @@
 import { useState } from 'react';
 
-const recentAbsences = [
-  { date: 'Oct 21, 2024', startTime: '8:00 AM', endTime: '12:00 PM', hours: '4.0', reason: 'Episode', reasonColor: 'amber', addedOn: 'Oct 21, 2024' },
-  { date: 'Oct 18, 2024', startTime: '8:00 AM', endTime: '4:00 PM', hours: '8.0', reason: 'Treatment', reasonColor: 'blue', addedOn: 'Oct 18, 2024' },
-  { date: 'Oct 15, 2024', startTime: '1:00 PM', endTime: '3:30 PM', hours: '2.5', reason: 'Episode', reasonColor: 'amber', addedOn: 'Oct 16, 2024' },
-];
+const REASONS = ['Episode', 'Treatment', 'Flare-up', 'Appointment', 'Other'];
 
-const calendarDays = [
-  { day: 29, disabled: true }, { day: 30, disabled: true },
-  { day: 1 }, { day: 2 }, { day: 3 }, { day: 4 }, { day: 5 },
-  { day: 6 }, { day: 7 }, { day: 8 }, { day: 9 }, { day: 10 }, { day: 11 }, { day: 12 },
-  { day: 13 }, { day: 14 }, { day: 15 }, { day: 16 }, { day: 17 }, { day: 18 }, { day: 19 },
-  { day: 20 }, { day: 21 }, { day: 22 }, { day: 23 }, { day: 24, selected: true }, { day: 25 }, { day: 26 },
-  { day: 27 }, { day: 28 }, { day: 29 }, { day: 30 }, { day: 31 },
-];
+function parseTime(str) {
+  var match = str.match(/^(\d{1,2}):(\d{2})\s*(AM|PM)$/i);
+  if (!match) return null;
+  var h = parseInt(match[1], 10);
+  var m = parseInt(match[2], 10);
+  var period = match[3].toUpperCase();
+  if (period === 'PM' && h !== 12) h += 12;
+  if (period === 'AM' && h === 12) h = 0;
+  return h * 60 + m;
+}
+
+function calcHours(start, end) {
+  var s = parseTime(start);
+  var e = parseTime(end);
+  if (s === null || e === null || e <= s) return '0.0';
+  return ((e - s) / 60).toFixed(1);
+}
+
+function formatDateDisplay(year, month, day) {
+  var d = new Date(year, month, day);
+  return d.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
+}
+
+function buildCalendarDays(year, month) {
+  var firstDay = new Date(year, month, 1).getDay();
+  var daysInMonth = new Date(year, month + 1, 0).getDate();
+  var prevMonthDays = new Date(year, month, 0).getDate();
+  var days = [];
+  for (var i = firstDay - 1; i >= 0; i--) {
+    days.push({ day: prevMonthDays - i, disabled: true });
+  }
+  for (var d = 1; d <= daysInMonth; d++) {
+    days.push({ day: d, disabled: false });
+  }
+  return days;
+}
+
+var MONTH_NAMES = ['January','February','March','April','May','June','July','August','September','October','November','December'];
 
 export default function EnterMyTimePage() {
-  const [selectedDay] = useState(24);
+  var today = new Date();
+  var [calYear, setCalYear] = useState(today.getFullYear());
+  var [calMonth, setCalMonth] = useState(today.getMonth());
+  var [selectedDay, setSelectedDay] = useState(today.getDate());
+  var [startTime, setStartTime] = useState('08:00 AM');
+  var [endTime, setEndTime] = useState('12:00 PM');
+  var [reason, setReason] = useState('Episode');
+  var [reasonOpen, setReasonOpen] = useState(false);
+  var [absences, setAbsences] = useState([
+    { date: 'Oct 21, 2024', startTime: '8:00 AM', endTime: '12:00 PM', hours: '4.0', reason: 'Episode', reasonColor: 'amber', addedOn: 'Oct 21, 2024' },
+    { date: 'Oct 18, 2024', startTime: '8:00 AM', endTime: '4:00 PM', hours: '8.0', reason: 'Treatment', reasonColor: 'blue', addedOn: 'Oct 18, 2024' },
+    { date: 'Oct 15, 2024', startTime: '1:00 PM', endTime: '3:30 PM', hours: '2.5', reason: 'Episode', reasonColor: 'amber', addedOn: 'Oct 16, 2024' },
+  ]);
+  var [balance, setBalance] = useState(112);
+  var [submitted, setSubmitted] = useState(false);
+
+  var calendarDays = buildCalendarDays(calYear, calMonth);
+  var hours = calcHours(startTime, endTime);
+  var displayDate = formatDateDisplay(calYear, calMonth, selectedDay);
+
+  function getReasonColor(r) {
+    if (r === 'Episode' || r === 'Flare-up') return 'amber';
+    if (r === 'Treatment' || r === 'Appointment') return 'blue';
+    return 'gray';
+  }
+
+  function handlePrevMonth() {
+    if (calMonth === 0) { setCalMonth(11); setCalYear(calYear - 1); }
+    else { setCalMonth(calMonth - 1); }
+    setSelectedDay(1);
+  }
+
+  function handleNextMonth() {
+    if (calMonth === 11) { setCalMonth(0); setCalYear(calYear + 1); }
+    else { setCalMonth(calMonth + 1); }
+    setSelectedDay(1);
+  }
+
+  function handleSubmit() {
+    var h = parseFloat(hours);
+    if (h <= 0) return;
+    var todayStr = new Date().toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
+    var newEntry = {
+      date: displayDate,
+      startTime: startTime,
+      endTime: endTime,
+      hours: hours,
+      reason: reason,
+      reasonColor: getReasonColor(reason),
+      addedOn: todayStr,
+    };
+    setAbsences([newEntry].concat(absences));
+    setBalance(Math.max(0, balance - h));
+    setSubmitted(true);
+    setTimeout(function () { setSubmitted(false); }, 3000);
+  }
+
+  function handleCancel() {
+    setStartTime('08:00 AM');
+    setEndTime('12:00 PM');
+    setReason('Episode');
+    setSelectedDay(today.getDate());
+    setCalMonth(today.getMonth());
+    setCalYear(today.getFullYear());
+  }
 
   return (
     <div className="cl-page">
@@ -33,13 +123,21 @@ export default function EnterMyTimePage() {
         </div>
         <div className="cl-balance-badge">
           <span className="cl-balance-label">CURRENT BALANCE</span>
-          <span className="cl-balance-value">112 Hours Remaining</span>
+          <span className="cl-balance-value">{balance} Hours Remaining</span>
         </div>
       </div>
 
       <div className="cl-ma-layout">
         {/* Main content column */}
         <div className="cl-ma-main">
+          {/* Success banner */}
+          {submitted && (
+            <div className="cl-ma-success-banner">
+              <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><circle cx="8" cy="8" r="7" fill="#10b981"/><path d="M5 8l2 2 4-4" stroke="#fff" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/></svg>
+              <span>Absence submitted successfully — {hours} hours logged for {displayDate}.</span>
+            </div>
+          )}
+
           {/* Form card */}
           <div className="cl-ma-form-card">
             <div className="cl-ma-form-grid">
@@ -57,9 +155,9 @@ export default function EnterMyTimePage() {
                   <label className="cl-ma-label">Select Date</label>
                   <div className="cl-ma-calendar">
                     <div className="cl-ma-cal-header">
-                      <button className="cl-ma-cal-nav">&lsaquo;</button>
-                      <span className="cl-ma-cal-month">October 2024</span>
-                      <button className="cl-ma-cal-nav">&rsaquo;</button>
+                      <button className="cl-ma-cal-nav" type="button" onClick={handlePrevMonth}>&lsaquo;</button>
+                      <span className="cl-ma-cal-month">{MONTH_NAMES[calMonth]} {calYear}</span>
+                      <button className="cl-ma-cal-nav" type="button" onClick={handleNextMonth}>&rsaquo;</button>
                     </div>
                     <div className="cl-ma-cal-grid">
                       <span className="cl-ma-cal-dow">Su</span>
@@ -69,14 +167,20 @@ export default function EnterMyTimePage() {
                       <span className="cl-ma-cal-dow">Th</span>
                       <span className="cl-ma-cal-dow">Fr</span>
                       <span className="cl-ma-cal-dow">Sa</span>
-                      {calendarDays.map((d, i) => (
-                        <span
-                          key={i}
-                          className={`cl-ma-cal-day${d.disabled ? ' cl-ma-cal-day--disabled' : ''}${d.day === selectedDay && !d.disabled ? ' cl-ma-cal-day--selected' : ''}`}
-                        >
-                          {d.day}
-                        </span>
-                      ))}
+                      {calendarDays.map(function (d, i) {
+                        var isSelected = d.day === selectedDay && !d.disabled;
+                        return (
+                          <button
+                            key={i}
+                            type="button"
+                            className={'cl-ma-cal-day' + (d.disabled ? ' cl-ma-cal-day--disabled' : '') + (isSelected ? ' cl-ma-cal-day--selected' : '')}
+                            onClick={function () { if (!d.disabled) setSelectedDay(d.day); }}
+                            disabled={d.disabled}
+                          >
+                            {d.day}
+                          </button>
+                        );
+                      })}
                     </div>
                   </div>
                 </div>
@@ -86,8 +190,8 @@ export default function EnterMyTimePage() {
               <div className="cl-ma-form-right">
                 <div className="cl-ma-field">
                   <label className="cl-ma-label cl-ma-label--upper">Hours Logged</label>
-                  <div className="cl-ma-hours-input">
-                    <span className="cl-ma-hours-value">4.0</span>
+                  <div className={'cl-ma-hours-input' + (parseFloat(hours) > 0 ? '' : ' cl-ma-hours-input--zero')}>
+                    <span className="cl-ma-hours-value">{hours}</span>
                     <span className="cl-ma-hours-unit">Hours</span>
                   </div>
                 </div>
@@ -102,26 +206,56 @@ export default function EnterMyTimePage() {
 
                 <div className="cl-ma-field">
                   <label className="cl-ma-label">Date</label>
-                  <div className="cl-ma-readonly-field">Oct 24, 2024</div>
+                  <div className="cl-ma-readonly-field">{displayDate}</div>
                 </div>
 
                 <div className="cl-ma-time-row">
                   <div className="cl-ma-field cl-ma-field--half">
                     <label className="cl-ma-label">Start Time</label>
-                    <div className="cl-ma-time-input">08:00 AM</div>
+                    <input
+                      type="text"
+                      className="cl-ma-time-input"
+                      value={startTime}
+                      onChange={function (e) { setStartTime(e.target.value); }}
+                    />
                   </div>
                   <div className="cl-ma-field cl-ma-field--half">
                     <label className="cl-ma-label">End Time</label>
-                    <div className="cl-ma-time-input">12:00 PM</div>
+                    <input
+                      type="text"
+                      className="cl-ma-time-input"
+                      value={endTime}
+                      onChange={function (e) { setEndTime(e.target.value); }}
+                    />
                   </div>
                 </div>
 
-                <div className="cl-ma-field">
+                <div className="cl-ma-field" style={{ position: 'relative' }}>
                   <label className="cl-ma-label">Reason</label>
-                  <div className="cl-ma-dropdown">
-                    <span>Episode</span>
+                  <button
+                    type="button"
+                    className="cl-ma-dropdown"
+                    onClick={function () { setReasonOpen(!reasonOpen); }}
+                  >
+                    <span>{reason}</span>
                     <svg width="10" height="6" viewBox="0 0 10 6" fill="none"><path d="M1 1l4 4 4-4" stroke="#6b7280" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/></svg>
-                  </div>
+                  </button>
+                  {reasonOpen && (
+                    <div className="cl-ma-dropdown-menu">
+                      {REASONS.map(function (r) {
+                        return (
+                          <button
+                            key={r}
+                            type="button"
+                            className={'cl-ma-dropdown-item' + (r === reason ? ' cl-ma-dropdown-item--active' : '')}
+                            onClick={function () { setReason(r); setReasonOpen(false); }}
+                          >
+                            {r}
+                          </button>
+                        );
+                      })}
+                    </div>
+                  )}
                 </div>
               </div>
             </div>
@@ -130,8 +264,8 @@ export default function EnterMyTimePage() {
             <div className="cl-ma-form-footer">
               <p className="cl-ma-disclaimer">By submitting, you certify that this absence is related to your approved claim.</p>
               <div className="cl-ma-form-actions">
-                <button className="cl-ma-btn-cancel">Cancel</button>
-                <button className="cl-ma-btn-submit">Submit Absence</button>
+                <button className="cl-ma-btn-cancel" type="button" onClick={handleCancel}>Cancel</button>
+                <button className="cl-ma-btn-submit" type="button" onClick={handleSubmit} disabled={parseFloat(hours) <= 0}>Submit Absence</button>
               </div>
             </div>
           </div>
@@ -156,27 +290,29 @@ export default function EnterMyTimePage() {
                   </tr>
                 </thead>
                 <tbody>
-                  {recentAbsences.map((row, i) => (
-                    <tr key={i}>
-                      <td className="cl-ma-cell-bold">{row.date}</td>
-                      <td>{row.startTime}</td>
-                      <td>{row.endTime}</td>
-                      <td className="cl-ma-cell-bold">{row.hours}</td>
-                      <td>
-                        <span className={`cl-ma-reason-badge cl-ma-reason-badge--${row.reasonColor}`}>
-                          {row.reason}
-                        </span>
-                      </td>
-                      <td>{row.addedOn}</td>
-                      <td>
-                        <button className="cl-ma-edit-btn" aria-label="Edit">
-                          <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
-                            <path d="M10.5 1.5l2 2-8 8H2.5v-2l8-8z" stroke="#6b7280" strokeWidth="1.2" strokeLinecap="round" strokeLinejoin="round"/>
-                          </svg>
-                        </button>
-                      </td>
-                    </tr>
-                  ))}
+                  {absences.map(function (row, i) {
+                    return (
+                      <tr key={i}>
+                        <td className="cl-ma-cell-bold">{row.date}</td>
+                        <td>{row.startTime}</td>
+                        <td>{row.endTime}</td>
+                        <td className="cl-ma-cell-bold">{row.hours}</td>
+                        <td>
+                          <span className={'cl-ma-reason-badge cl-ma-reason-badge--' + row.reasonColor}>
+                            {row.reason}
+                          </span>
+                        </td>
+                        <td>{row.addedOn}</td>
+                        <td>
+                          <button className="cl-ma-edit-btn" aria-label="Edit">
+                            <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
+                              <path d="M10.5 1.5l2 2-8 8H2.5v-2l8-8z" stroke="#6b7280" strokeWidth="1.2" strokeLinecap="round" strokeLinejoin="round"/>
+                            </svg>
+                          </button>
+                        </td>
+                      </tr>
+                    );
+                  })}
                 </tbody>
               </table>
             </div>
