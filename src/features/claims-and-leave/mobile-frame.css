@@ -77,11 +77,11 @@
 }
 
 .mobile-frame-screen .cl-subnav {
-  display: none;
+  display: none !important;
 }
 
 .mobile-frame-screen .cl-subnav-mobile {
-  display: block;
+  display: block !important;
 }
 
 .mobile-frame-screen .cl-main {
