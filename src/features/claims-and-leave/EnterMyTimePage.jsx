@@ -152,12 +152,12 @@ export default function EnterMyTimePage() {
       <div className="cl-breadcrumb">
         <Link to={base} className="cl-breadcrumb-link">Claims &amp; Leave</Link>
         <span className="cl-breadcrumb-sep">&gt;</span>
-        <span>Manage Absences</span>
+        <span>Enter My Time</span>
       </div>
 
       <div className="cl-page-header">
         <div>
-          <h1 className="cl-page-title">Manage Absences</h1>
+          <h1 className="cl-page-title">Enter My Time</h1>
           <p className="cl-page-desc">Record your intermittent leave hours or days for existing claims.</p>
         </div>
         <div className="cl-balance-badge">
