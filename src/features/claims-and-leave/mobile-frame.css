@@ -7,9 +7,8 @@
   padding: 32px 16px;
 }
 
-/* Native mobile: no frame, full viewport */
+/* Native mobile: no frame, natural height */
 .mobile-frame-native {
-  min-height: 100vh;
   overflow-y: auto;
   overflow-x: hidden;
   -webkit-overflow-scrolling: touch;
@@ -100,13 +99,8 @@
   padding: 16px;
 }
 
-.mobile-frame-screen .cl-footer-inner {
-  padding: 24px 16px;
-}
-
-.mobile-frame-screen .cl-footer-grid {
-  grid-template-columns: 1fr;
-  gap: 16px;
+.mobile-frame-screen .cl-footer {
+  display: none;
 }
 
 /* Table to cards inside mobile frame */
