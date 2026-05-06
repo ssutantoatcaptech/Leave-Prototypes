@@ -1,0 +1,780 @@
+/* ===========================
+   Claims & Leave — Mobile-First Responsive Overrides
+
+   Strategy: Base styles = mobile (320px+).
+   Enhancements via min-width breakpoints for larger screens.
+   Imported AFTER claims-and-leave.css so these take priority.
+   =========================== */
+
+/* ----- 1. Base Mobile Resets ----- */
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+/* Prevent horizontal overflow at WCAG 320px reflow */
+.cl-layout {
+  overflow-x: hidden;
+  max-width: 100vw;
+}
+
+/* Touch-friendly minimum tap targets */
+.cl-btn,
+.cl-link-btn,
+.cl-subnav-tab,
+.cl-category-tab,
+.cl-filter-dropdown,
+.cl-select,
+.cl-expand-btn,
+.cl-header-action,
+.cl-header-icon-btn,
+.cl-main-nav-link,
+.cl-footer-link {
+  min-height: 44px;
+  min-width: 44px;
+}
+
+/* Smooth momentum scrolling for overflow containers */
+.cl-subnav-inner,
+.cl-category-tabs {
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none; /* Firefox */
+}
+
+.cl-subnav-inner::-webkit-scrollbar,
+.cl-category-tabs::-webkit-scrollbar {
+  display: none;
+}
+
+/* ----- 2. Header Responsive — Hamburger Menu ----- */
+
+/* Hamburger button: shown by default (mobile), hidden on desktop */
+.cl-hamburger {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  padding: 0;
+  border: none;
+  background: none;
+  cursor: pointer;
+  color: #0f0f14;
+  border-radius: 6px;
+  transition: background 0.15s;
+}
+
+.cl-hamburger:hover {
+  background: #f3f4f6;
+}
+
+.cl-hamburger svg {
+  width: 24px;
+  height: 24px;
+}
+
+/* Main nav hidden on mobile by default */
+.cl-main-nav {
+  display: none;
+}
+
+/* Mobile nav overlay — shown when .cl-nav--open is on .cl-layout */
+.cl-nav--open .cl-main-nav {
+  display: flex;
+  flex-direction: column;
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  background: #ffffff;
+  border-bottom: 1px solid #e5e7eb;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+  padding: 8px 16px 16px;
+  z-index: 150;
+  gap: 4px;
+}
+
+.cl-nav--open .cl-main-nav-link {
+  padding: 12px 16px;
+  font-size: 16px;
+  min-height: 44px;
+  display: flex;
+  align-items: center;
+}
+
+.cl-nav--open .cl-nav-dropdown-menu {
+  position: static;
+  display: flex;
+  flex-direction: column;
+  box-shadow: none;
+  border: none;
+  padding: 0 0 0 16px;
+  margin-top: 4px;
+}
+
+/* Header adjustments on mobile */
+.cl-header {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+
+.cl-header-inner {
+  padding: 0 16px;
+  height: 56px;
+  position: relative;
+}
+
+.cl-header-right .cl-header-action,
+.cl-header-right .cl-avatar-name {
+  display: none;
+}
+
+.cl-brand {
+  font-size: 16px;
+}
+
+/* Desktop enhancement: show full nav, hide hamburger */
+@media (min-width: 769px) {
+  .cl-hamburger {
+    display: none;
+  }
+
+  .cl-main-nav {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    position: static;
+    flex-direction: row;
+    background: none;
+    border-bottom: none;
+    box-shadow: none;
+    padding: 0;
+  }
+
+  .cl-main-nav-link {
+    padding: 8px 16px;
+    font-size: 14px;
+    min-height: unset;
+  }
+
+  .cl-header-inner {
+    padding: 0 32px;
+    height: 64px;
+  }
+
+  .cl-header-right .cl-header-action,
+  .cl-header-right .cl-avatar-name {
+    display: inline-flex;
+  }
+
+  .cl-brand {
+    font-size: 18px;
+  }
+
+  .cl-nav--open .cl-nav-dropdown-menu {
+    position: absolute;
+  }
+}
+
+/* ----- 3. Subnav Responsive ----- */
+
+.cl-subnav-inner {
+  padding: 0 16px;
+  overflow-x: auto;
+  gap: 0;
+}
+
+.cl-subnav-tab {
+  padding: 12px 16px;
+  font-size: 13px;
+  white-space: nowrap;
+  min-height: 44px;
+  display: inline-flex;
+  align-items: center;
+}
+
+@media (min-width: 769px) {
+  .cl-subnav-inner {
+    padding: 0 32px;
+  }
+
+  .cl-subnav-tab {
+    padding: 14px 20px;
+    font-size: 14px;
+    min-height: unset;
+  }
+}
+
+/* ----- 4. Page Content Responsive ----- */
+
+.cl-main {
+  padding: 16px;
+  width: 100%;
+}
+
+.cl-page-header {
+  flex-direction: column;
+  gap: 12px;
+}
+
+.cl-page-header-actions {
+  width: 100%;
+}
+
+.cl-page-header-actions .cl-btn {
+  flex: 1;
+}
+
+.cl-page-title {
+  font-size: 22px;
+}
+
+.cl-page-desc {
+  font-size: 14px;
+}
+
+/* Breadcrumb wrap */
+.cl-breadcrumb {
+  flex-wrap: wrap;
+}
+
+/* Full-width buttons on mobile */
+.cl-btn--lg {
+  width: 100%;
+  justify-content: center;
+}
+
+/* Card rows single column on mobile */
+.cl-card-row {
+  grid-template-columns: 1fr;
+  gap: 16px;
+}
+
+.cl-bottom-cards {
+  grid-template-columns: 1fr;
+  gap: 16px;
+}
+
+/* Intro cards adjusted padding for mobile */
+.cl-intro-card {
+  padding: 32px 24px;
+}
+
+.cl-intro-card-title {
+  font-size: 18px;
+}
+
+.cl-intro-card-desc {
+  font-size: 14px;
+}
+
+/* Planning card mobile */
+.cl-planning-card {
+  padding: 32px 20px;
+}
+
+.cl-planning-title {
+  font-size: 24px;
+}
+
+@media (min-width: 769px) {
+  .cl-main {
+    padding: 32px;
+  }
+
+  .cl-page-header {
+    flex-direction: row;
+    align-items: flex-start;
+    justify-content: space-between;
+  }
+
+  .cl-page-header-actions {
+    width: auto;
+  }
+
+  .cl-page-header-actions .cl-btn {
+    flex: unset;
+  }
+
+  .cl-page-title {
+    font-size: 28px;
+  }
+
+  .cl-page-desc {
+    font-size: 15px;
+  }
+
+  .cl-btn--lg {
+    width: auto;
+  }
+
+  .cl-card-row {
+    grid-template-columns: 1fr 1fr;
+    gap: 24px;
+  }
+
+  .cl-bottom-cards {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .cl-intro-card {
+    padding: 48px 40px;
+  }
+
+  .cl-intro-card-title {
+    font-size: 22px;
+  }
+
+  .cl-intro-card-desc {
+    font-size: 16px;
+  }
+
+  .cl-planning-card {
+    padding: 48px;
+  }
+
+  .cl-planning-title {
+    font-size: 32px;
+  }
+}
+
+/* ----- 5. Table-to-Card Transformation ----- */
+
+/*
+   React approach: .cl-cards-mobile renders card markup on mobile,
+   .cl-table-wrap is hidden. Card markup is added in React components.
+*/
+
+/* Mobile cards shown only on small screens */
+.cl-cards-mobile {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.cl-table-wrap {
+  display: none;
+}
+
+/* Individual mobile card */
+.cl-card-mobile {
+  background: #ffffff;
+  border: 1px solid #e5e7eb;
+  border-radius: 12px;
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.cl-card-mobile__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+}
+
+.cl-card-mobile__title {
+  font-size: 15px;
+  font-weight: 600;
+  color: #0f0f14;
+  margin: 0;
+}
+
+.cl-card-mobile__row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 8px;
+}
+
+.cl-card-mobile__label {
+  font-size: 12px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: #6b7280;
+}
+
+.cl-card-mobile__value {
+  font-size: 14px;
+  color: #0f0f14;
+  text-align: right;
+}
+
+.cl-card-mobile__actions {
+  display: flex;
+  gap: 12px;
+  padding-top: 8px;
+  border-top: 1px solid #f3f4f6;
+}
+
+.cl-card-mobile__actions .cl-link-btn {
+  min-height: 44px;
+  display: inline-flex;
+  align-items: center;
+}
+
+/* Desktop: show table, hide mobile cards */
+@media (min-width: 769px) {
+  .cl-cards-mobile {
+    display: none;
+  }
+
+  .cl-table-wrap {
+    display: block;
+  }
+}
+
+/* ----- 6. Filter Bar Responsive ----- */
+
+.cl-filter-bar {
+  flex-direction: column;
+  align-items: stretch;
+  gap: 12px;
+  padding: 12px;
+}
+
+.cl-filters-left {
+  flex-direction: column;
+  align-items: stretch;
+  gap: 8px;
+}
+
+.cl-filter-dropdown,
+.cl-select,
+.cl-input--search {
+  width: 100%;
+  min-width: unset;
+}
+
+.cl-input--search {
+  min-width: unset;
+}
+
+.cl-filter-count {
+  order: -1;
+}
+
+/* Category tabs horizontal scroll on mobile */
+.cl-category-tabs {
+  overflow-x: auto;
+  flex-wrap: nowrap;
+}
+
+.cl-category-tab {
+  white-space: nowrap;
+  padding: 12px 16px;
+  min-height: 44px;
+  display: inline-flex;
+  align-items: center;
+}
+
+@media (min-width: 769px) {
+  .cl-filter-bar {
+    flex-direction: row;
+    align-items: center;
+    flex-wrap: nowrap;
+    padding: 16px;
+  }
+
+  .cl-filters-left {
+    flex-direction: row;
+    align-items: center;
+    gap: 16px;
+  }
+
+  .cl-filter-dropdown,
+  .cl-select {
+    width: auto;
+  }
+
+  .cl-input--search {
+    min-width: 180px;
+    width: auto;
+  }
+
+  .cl-filter-count {
+    order: unset;
+  }
+
+  .cl-category-tabs {
+    overflow-x: visible;
+    flex-wrap: wrap;
+  }
+
+  .cl-category-tab {
+    padding: 12px 20px;
+    min-height: unset;
+  }
+}
+
+/* ----- 7. Footer Responsive ----- */
+
+.cl-footer-inner {
+  padding: 32px 16px 24px;
+}
+
+.cl-footer-grid {
+  grid-template-columns: 1fr;
+  gap: 24px;
+}
+
+.cl-footer-link {
+  min-height: 44px;
+  display: inline-flex;
+  align-items: center;
+}
+
+@media (min-width: 480px) {
+  .cl-footer-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (min-width: 769px) {
+  .cl-footer-inner {
+    padding: 48px 32px 32px;
+  }
+
+  .cl-footer-grid {
+    grid-template-columns: repeat(4, 1fr);
+    gap: 32px;
+  }
+
+  .cl-footer-link {
+    min-height: unset;
+  }
+}
+
+/* ----- 8. Dashboard Responsive ----- */
+
+.cldb-hero {
+  padding: 32px 0;
+}
+
+.cldb-hero-title {
+  font-size: 28px;
+  padding: 0 16px;
+}
+
+.cldb-main {
+  padding: 24px 16px;
+}
+
+.cldb-content-grid {
+  flex-direction: column;
+}
+
+.cldb-sidebar {
+  width: 100%;
+}
+
+/* Status banner stacks on mobile */
+.cldb-status-banner {
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 12px;
+}
+
+.cldb-status-header {
+  flex-direction: column;
+  gap: 8px;
+}
+
+/* Action rows full width */
+.cldb-action-row {
+  min-height: 44px;
+}
+
+/* Card empty state reduced padding */
+.cldb-card-empty {
+  padding: 24px 16px;
+}
+
+@media (min-width: 769px) {
+  .cldb-hero {
+    padding: 64px 0;
+  }
+
+  .cldb-hero-title {
+    font-size: 40px;
+    padding: 0 60px;
+  }
+
+  .cldb-main {
+    padding: 36px 60px;
+  }
+
+  .cldb-content-grid {
+    flex-direction: row;
+  }
+
+  .cldb-sidebar {
+    width: 420px;
+  }
+
+  .cldb-status-banner {
+    flex-direction: row;
+    align-items: flex-start;
+    text-align: left;
+  }
+
+  .cldb-status-header {
+    flex-direction: row;
+    gap: 0;
+  }
+
+  .cldb-card-empty {
+    padding: 24px 48px;
+  }
+}
+
+/* ----- 9. Enter My Time Responsive ----- */
+
+.cl-time-layout {
+  grid-template-columns: 1fr;
+  gap: 16px;
+}
+
+.cl-time-form {
+  padding: 20px;
+}
+
+.cl-time-sidebar {
+  flex-direction: column;
+}
+
+/* Form fields full width on mobile */
+.cl-ma-form-grid {
+  grid-template-columns: 1fr;
+}
+
+.cl-ma-form-footer {
+  flex-direction: column;
+  gap: 12px;
+  align-items: stretch;
+}
+
+.cl-ma-form-footer .cl-btn {
+  width: 100%;
+  justify-content: center;
+}
+
+/* Manage Absences layout */
+.cl-ma-layout {
+  grid-template-columns: 1fr;
+  gap: 16px;
+}
+
+.cl-ma-sidebar {
+  flex-direction: column;
+}
+
+@media (min-width: 769px) {
+  .cl-time-layout {
+    grid-template-columns: 1fr 320px;
+    gap: 32px;
+  }
+
+  .cl-time-form {
+    padding: 28px;
+  }
+
+  .cl-time-sidebar {
+    flex-direction: column;
+  }
+
+  .cl-ma-form-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .cl-ma-form-footer {
+    flex-direction: row;
+    gap: 16px;
+    align-items: center;
+  }
+
+  .cl-ma-form-footer .cl-btn {
+    width: auto;
+  }
+
+  .cl-ma-layout {
+    grid-template-columns: 1fr 340px;
+    gap: 24px;
+  }
+}
+
+@media (min-width: 1025px) {
+  .cl-ma-sidebar {
+    flex-direction: column;
+  }
+
+  .cl-time-sidebar {
+    flex-direction: column;
+  }
+}
+
+/* ----- 10. Safe Area Handling ----- */
+
+/* For devices with notches / home indicators */
+@supports (padding: env(safe-area-inset-top)) {
+  .cl-header {
+    padding-top: env(safe-area-inset-top);
+  }
+
+  .cl-footer {
+    padding-bottom: env(safe-area-inset-bottom);
+  }
+
+  .cl-main {
+    padding-left: max(16px, env(safe-area-inset-left));
+    padding-right: max(16px, env(safe-area-inset-right));
+  }
+}
+
+@supports (padding: env(safe-area-inset-top)) {
+  @media (min-width: 769px) {
+    .cl-main {
+      padding-left: max(32px, env(safe-area-inset-left));
+      padding-right: max(32px, env(safe-area-inset-right));
+    }
+  }
+}
+
+/* ----- Utility: Visually hide on mobile / desktop ----- */
+
+.cl-hide-mobile {
+  display: none;
+}
+
+.cl-hide-desktop {
+  display: block;
+}
+
+@media (min-width: 769px) {
+  .cl-hide-mobile {
+    display: block;
+  }
+
+  .cl-hide-desktop {
+    display: none;
+  }
+}
+
+/* ----- Payment badges stack on mobile ----- */
+
+.cl-payment-badges {
+  flex-direction: column;
+  gap: 8px;
+}
+
+@media (min-width: 769px) {
+  .cl-payment-badges {
+    flex-direction: row;
+  }
+}

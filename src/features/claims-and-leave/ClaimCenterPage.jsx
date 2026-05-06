@@ -166,6 +166,37 @@ export default function ClaimCenterPage() {
           </tbody>
         </table>
       </div>
+
+      {/* Mobile card view */}
+      <div className="cl-cards-mobile">
+        {filtered.length === 0 && (
+          <div className="cl-card-empty-mobile">No claims match your filters.</div>
+        )}
+        {filtered.map((row, i) => (
+          <div key={i} className="cl-card-mobile">
+            <div className="cl-card-mobile-header">
+              <span className="cl-card-mobile-primary">{row.claimNum}</span>
+              <span className={`cl-badge cl-badge--${row.statusColor}`}>{row.status}</span>
+            </div>
+            <span className="cl-card-mobile-type">{row.type}</span>
+            <div className="cl-card-mobile-details">
+              <div className="cl-card-mobile-field">
+                <span className="cl-card-mobile-label">Member</span>
+                <span className="cl-card-mobile-value">{row.member}</span>
+              </div>
+              <div className="cl-card-mobile-field">
+                <span className="cl-card-mobile-label">Date</span>
+                <span className="cl-card-mobile-value">{row.date}</span>
+              </div>
+              <div className="cl-card-mobile-field">
+                <span className="cl-card-mobile-label">Payment</span>
+                <span className="cl-card-mobile-value">{row.payment}</span>
+              </div>
+            </div>
+            <button className="cl-card-mobile-action">{row.actions}</button>
+          </div>
+        ))}
+      </div>
     </div>
   );
 }

@@ -165,6 +165,40 @@ export default function MyCasesPage() {
           </tbody>
         </table>
       </div>
+
+      {/* Mobile card view */}
+      <div className="cl-cards-mobile">
+        {filtered.length === 0 && (
+          <div className="cl-card-empty-mobile">No cases match your filters.</div>
+        )}
+        {filtered.map((row, i) => (
+          <div key={i} className="cl-card-mobile">
+            <div className="cl-card-mobile-header">
+              <span className="cl-card-mobile-primary">{row.type}</span>
+              <span className={`cl-badge cl-badge--${row.statusColor}`}>{row.status}</span>
+            </div>
+            <span className="cl-card-mobile-type">{row.id}</span>
+            <div className="cl-card-mobile-details">
+              <div className="cl-card-mobile-field">
+                <span className="cl-card-mobile-label">Last Update</span>
+                <span className="cl-card-mobile-value">{row.lastUpdate}</span>
+              </div>
+              {row.required && (
+                <div className="cl-card-mobile-field">
+                  <span className="cl-card-mobile-label">Required</span>
+                  <span className="cl-card-mobile-value cl-required-action">{row.required}</span>
+                </div>
+              )}
+            </div>
+            <button
+              className="cl-card-mobile-action"
+              onClick={() => { if (row.link) navigate(row.link); }}
+            >
+              View Details
+            </button>
+          </div>
+        ))}
+      </div>
     </div>
   );
 }

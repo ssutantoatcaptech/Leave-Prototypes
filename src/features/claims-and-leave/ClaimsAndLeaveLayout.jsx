@@ -1,8 +1,11 @@
+import { useState } from 'react';
 import { NavLink, Outlet, useLocation } from 'react-router-dom';
 import './claims-and-leave.css';
+import './responsive.css';
 
 export default function ClaimsAndLeaveLayout() {
   const location = useLocation();
+  const [mobileNavOpen, setMobileNavOpen] = useState(false);
   const base = location.pathname.startsWith('/claims-and-leave-mobile') ? '/claims-and-leave-mobile' : '/claims-and-leave';
 
   const navLinks = [
@@ -80,9 +83,57 @@ export default function ClaimsAndLeaveLayout() {
               <span className="cl-avatar-circle">SJ</span>
               <span className="cl-avatar-name">Sarah Johnson</span>
             </div>
+            <button
+              className="cl-hamburger"
+              aria-label={mobileNavOpen ? 'Close menu' : 'Open menu'}
+              aria-expanded={mobileNavOpen}
+              onClick={() => setMobileNavOpen(!mobileNavOpen)}
+            >
+              {mobileNavOpen ? (
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+                  <path d="M6 6l12 12M18 6L6 18" stroke="currentColor" strokeWidth="2" strokeLinecap="round"/>
+                </svg>
+              ) : (
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+                  <path d="M3 6h18M3 12h18M3 18h18" stroke="currentColor" strokeWidth="2" strokeLinecap="round"/>
+                </svg>
+              )}
+            </button>
           </div>
         </div>
       </header>
+
+      {/* Mobile nav drawer */}
+      {mobileNavOpen && (
+        <nav className="cl-mobile-nav" aria-label="Mobile navigation">
+          <div className="cl-mobile-nav-section">
+            {navLinks.map((link) => (
+              <NavLink
+                key={link.label}
+                to={link.to === base ? `${base}/dashboard` : link.to}
+                className="cl-mobile-nav-link"
+                onClick={() => setMobileNavOpen(false)}
+              >
+                {link.label}
+              </NavLink>
+            ))}
+          </div>
+          <div className="cl-mobile-nav-divider" />
+          <div className="cl-mobile-nav-section">
+            <span className="cl-mobile-nav-heading">Claims &amp; Leave</span>
+            {subNavTabs.map((tab) => (
+              <NavLink
+                key={tab.label}
+                to={tab.to}
+                className="cl-mobile-nav-link"
+                onClick={() => setMobileNavOpen(false)}
+              >
+                {tab.label}
+              </NavLink>
+            ))}
+          </div>
+        </nav>
+      )}
 
       {/* Sub-navigation tabs */}
       <nav className="cl-subnav">

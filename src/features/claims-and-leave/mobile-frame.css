@@ -17,6 +17,8 @@
   position: relative;
   display: flex;
   flex-direction: column;
+  container-type: inline-size;
+  container-name: mobile-frame;
 }
 
 .mobile-frame-notch {
@@ -36,8 +38,25 @@
   -webkit-overflow-scrolling: touch;
 }
 
+/* Inside the mobile frame, trigger mobile styles regardless of viewport */
 .mobile-frame-screen .cl-layout {
   min-height: auto;
+}
+
+.mobile-frame-screen .cl-main-nav {
+  display: none;
+}
+
+.mobile-frame-screen .cl-header-action {
+  display: none;
+}
+
+.mobile-frame-screen .cl-avatar-name {
+  display: none;
+}
+
+.mobile-frame-screen .cl-hamburger {
+  display: flex;
 }
 
 .mobile-frame-screen .cl-header-inner {
@@ -46,39 +65,15 @@
 }
 
 .mobile-frame-screen .cl-brand {
-  font-size: 14px;
-}
-
-.mobile-frame-screen .cl-main-nav {
-  gap: 0;
-}
-
-.mobile-frame-screen .cl-main-nav-link {
-  padding: 6px 8px;
-  font-size: 12px;
+  font-size: 15px;
 }
 
 .mobile-frame-screen .cl-header-right {
   gap: 8px;
 }
 
-.mobile-frame-screen .cl-header-action {
-  font-size: 11px;
-  padding: 4px 8px;
-}
-
-.mobile-frame-screen .cl-avatar-name {
+.mobile-frame-screen .cl-subnav {
   display: none;
-}
-
-.mobile-frame-screen .cl-subnav-inner {
-  padding: 0 12px;
-  gap: 0;
-}
-
-.mobile-frame-screen .cl-subnav-tab {
-  padding: 10px 12px;
-  font-size: 12px;
 }
 
 .mobile-frame-screen .cl-main {
@@ -90,6 +85,79 @@
 }
 
 .mobile-frame-screen .cl-footer-grid {
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: 1fr;
   gap: 16px;
+}
+
+/* Table to cards inside mobile frame */
+.mobile-frame-screen .cl-table-wrap {
+  display: none;
+}
+
+.mobile-frame-screen .cl-cards-mobile {
+  display: flex;
+}
+
+/* Filter bar stacks */
+.mobile-frame-screen .cl-filter-bar {
+  flex-direction: column;
+  gap: 8px;
+}
+
+.mobile-frame-screen .cl-filter-bar .cl-select,
+.mobile-frame-screen .cl-filter-bar .cl-input,
+.mobile-frame-screen .cl-filter-bar .cl-btn {
+  width: 100%;
+}
+
+/* Page header stacks */
+.mobile-frame-screen .cl-page-header {
+  flex-direction: column;
+  gap: 12px;
+}
+
+/* Category tabs scroll */
+.mobile-frame-screen .cl-category-tabs {
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+.mobile-frame-screen .cl-category-tab {
+  min-height: 44px;
+  padding: 10px 16px;
+  white-space: nowrap;
+}
+
+/* File a claim cards stack */
+.mobile-frame-screen .cl-card-row {
+  grid-template-columns: 1fr;
+}
+
+/* Dashboard grid stacks */
+.mobile-frame-screen .cldb-content-grid {
+  grid-template-columns: 1fr;
+}
+
+/* Enter My Time grid stacks */
+.mobile-frame-screen .cl-ma-layout {
+  grid-template-columns: 1fr;
+}
+
+.mobile-frame-screen .cl-ma-form-grid {
+  grid-template-columns: 1fr;
+}
+
+/* Payment badges stack */
+.mobile-frame-screen .cl-payment-badges {
+  flex-direction: column;
+}
+
+/* Bottom info cards stack */
+.mobile-frame-screen .cl-bottom-cards {
+  grid-template-columns: 1fr;
+}
+
+/* Mobile nav inside frame */
+.mobile-frame-screen .cl-mobile-nav {
+  display: flex;
 }

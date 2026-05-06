@@ -293,6 +293,56 @@ export default function PaymentsPage() {
         </table>
       </div>
 
+      {/* Mobile card view */}
+      <div className="cl-cards-mobile">
+        {filtered.length === 0 && (
+          <div className="cl-card-empty-mobile">No payments match your filters.</div>
+        )}
+        {filtered.map((row, i) => (
+          <div key={i} className="cl-card-mobile">
+            <div className="cl-card-mobile-header">
+              <span className="cl-card-mobile-primary">{row.net}</span>
+              <span className="cl-card-mobile-date">{row.date}</span>
+            </div>
+            <span className="cl-card-mobile-type">{row.claim} — {row.type}</span>
+            <div className="cl-card-mobile-details">
+              <div className="cl-card-mobile-field">
+                <span className="cl-card-mobile-label">Method</span>
+                <span className="cl-card-mobile-value">{row.method}</span>
+              </div>
+              <div className="cl-card-mobile-field">
+                <span className="cl-card-mobile-label">Gross</span>
+                <span className="cl-card-mobile-value">{row.gross}</span>
+              </div>
+            </div>
+            <div className="cl-card-mobile-actions-row">
+              <button className="cl-card-mobile-action">View Statement</button>
+              <button className="cl-card-mobile-action cl-card-mobile-action--outline" onClick={() => setExpandedRow(expandedRow === i ? -1 : i)}>
+                {expandedRow === i ? 'Hide Details' : 'Payment Details'}
+              </button>
+            </div>
+            {expandedRow === i && (
+              <div className="cl-card-mobile-expand">
+                <div className="cl-card-mobile-field">
+                  <span className="cl-card-mobile-label">Gross Pay</span>
+                  <span className="cl-card-mobile-value">{row.gross}</span>
+                </div>
+                {row.deductions.map((ded, j) => (
+                  <div key={j} className="cl-card-mobile-field">
+                    <span className="cl-card-mobile-label">{ded.label}</span>
+                    <span className="cl-card-mobile-value">{ded.amount}</span>
+                  </div>
+                ))}
+                <div className="cl-card-mobile-field cl-card-mobile-field--total">
+                  <span className="cl-card-mobile-label">Net Amount</span>
+                  <span className="cl-card-mobile-value">{row.net}</span>
+                </div>
+              </div>
+            )}
+          </div>
+        ))}
+      </div>
+
       {/* Bottom info cards */}
       <div className="cl-bottom-cards">
         <div className="cl-info-card">
