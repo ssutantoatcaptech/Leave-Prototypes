@@ -792,7 +792,19 @@
 }
 
 .mobile-frame-screen .dlp-tl-row {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 8px;
   min-height: 44px;
+  width: 100%;
+}
+
+.mobile-frame-screen .dlp-tl-row-label {
+  width: 48px;
+  min-width: 48px;
+  flex-shrink: 0;
+  font-size: 11px;
 }
 
 .mobile-frame-screen .dlp-tl-row-bar {
@@ -813,12 +825,6 @@
   top: 0;
   height: 100%;
   border-radius: 5px;
-}
-
-.mobile-frame-screen .dlp-tl-row-label {
-  width: 48px;
-  min-width: 48px;
-  font-size: 11px;
 }
 
 /* Hide desktop tooltip, show mobile accordion */
