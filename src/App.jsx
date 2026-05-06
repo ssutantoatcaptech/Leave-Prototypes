@@ -35,6 +35,7 @@ import LeavePlanningPage from './features/claims-and-leave/LeavePlanningPage';
 import EnterMyTimePage from './features/claims-and-leave/EnterMyTimePage';
 import PaymentsPage from './features/claims-and-leave/PaymentsPage';
 import DashboardPage from './features/claims-and-leave/DashboardPage';
+import MobileFrameWrapper from './features/claims-and-leave/MobileFrameWrapper';
 
 function Home() {
   return (
@@ -105,9 +106,9 @@ export default function App() {
         <Route path="/supplemental-health" element={<LeaveDetailSupplementalPage />} />
         <Route path="/leave-payments" element={<LeavePaymentsPage />} />
 
-        {/* Claims & Leave Mobile — mirrors desktop, same components */}
-        <Route path="/claims-and-leave-mobile/dashboard" element={<DashboardPage />} />
-        <Route path="/claims-and-leave-mobile" element={<ClaimsAndLeaveLayout />}>
+        {/* Claims & Leave Mobile — mirrors desktop, wrapped in mobile phone frame */}
+        <Route path="/claims-and-leave-mobile/dashboard" element={<MobileFrameWrapper><DashboardPage /></MobileFrameWrapper>} />
+        <Route path="/claims-and-leave-mobile" element={<MobileFrameWrapper><ClaimsAndLeaveLayout /></MobileFrameWrapper>}>
           <Route index element={<ClaimCenterPage />} />
           <Route path="file-claim" element={<FileClaimPage />} />
           <Route path="file-claim/request-leave" element={<RequestLeaveReactPage />} />
