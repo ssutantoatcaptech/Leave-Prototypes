@@ -48,9 +48,9 @@ export default function LeaveDetailPregnancyPage() {
         {/* Breadcrumb */}
         <div className="ldb-breadcrumb">
           <Link to="/claims-and-leave">Claims &amp; Leave</Link>
-          <span className="ldb-bc-sep">&gt;</span>
+          <svg className="ldb-bc-sep" width="12" height="12" viewBox="0 0 16 16" fill="none"><path d="M6 4l4 4-4 4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/></svg>
           <Link to="/claims-and-leave/my-cases">My Cases</Link>
-          <span className="ldb-bc-sep">&gt;</span>
+          <svg className="ldb-bc-sep" width="12" height="12" viewBox="0 0 16 16" fill="none"><path d="M6 4l4 4-4 4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/></svg>
           <span>CLM #12890</span>
         </div>
 
