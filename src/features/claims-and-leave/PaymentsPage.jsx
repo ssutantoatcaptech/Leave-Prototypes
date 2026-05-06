@@ -8,7 +8,17 @@ const paymentsData = [
     net: '$2,450.00',
     method: 'Direct Deposit',
     statement: 'View',
-    expandable: true,
+    gross: '$3,076.92',
+    adjustments: [{ label: 'Accrued PTO Payout', amount: '+$480.00' }],
+    adjustmentNote: 'Your employer is paying accrued PTO alongside your disability benefit this period. This does not reduce your benefit.',
+    deductions: [
+      { label: 'Federal Tax Withholding', amount: '-$461.54' },
+      { label: 'State Tax Withholding', amount: '-$184.62' },
+      { label: 'Social Security (FICA)', amount: '-$190.77' },
+      { label: 'Medicare', amount: '-$44.62' },
+      { label: 'Health Insurance Premium', amount: '-$225.37' },
+    ],
+    deposit: 'Direct Deposit — Chase ****4521',
   },
   {
     date: 'Sep 30, 2024',
@@ -17,7 +27,17 @@ const paymentsData = [
     net: '$2,450.00',
     method: 'Direct Deposit',
     statement: 'View',
-    expandable: false,
+    gross: '$3,076.92',
+    adjustments: [],
+    adjustmentNote: null,
+    deductions: [
+      { label: 'Federal Tax Withholding', amount: '-$461.54' },
+      { label: 'State Tax Withholding', amount: '-$184.62' },
+      { label: 'Social Security (FICA)', amount: '-$190.77' },
+      { label: 'Medicare', amount: '-$44.62' },
+      { label: 'Health Insurance Premium', amount: '-$225.37' },
+    ],
+    deposit: 'Direct Deposit — Chase ****4521',
   },
   {
     date: 'Sep 16, 2024',
@@ -26,7 +46,17 @@ const paymentsData = [
     net: '$2,450.00',
     method: 'Direct Deposit',
     statement: 'View',
-    expandable: false,
+    gross: '$3,076.92',
+    adjustments: [],
+    adjustmentNote: null,
+    deductions: [
+      { label: 'Federal Tax Withholding', amount: '-$461.54' },
+      { label: 'State Tax Withholding', amount: '-$184.62' },
+      { label: 'Social Security (FICA)', amount: '-$190.77' },
+      { label: 'Medicare', amount: '-$44.62' },
+      { label: 'Health Insurance Premium', amount: '-$225.37' },
+    ],
+    deposit: 'Direct Deposit — Chase ****4521',
   },
   {
     date: 'Sep 2, 2024',
@@ -35,7 +65,17 @@ const paymentsData = [
     net: '$2,150.00',
     method: 'Direct Deposit',
     statement: 'View',
-    expandable: false,
+    gross: '$2,692.31',
+    adjustments: [],
+    adjustmentNote: null,
+    deductions: [
+      { label: 'Federal Tax Withholding', amount: '-$403.85' },
+      { label: 'State Tax Withholding', amount: '-$161.54' },
+      { label: 'Social Security (FICA)', amount: '-$166.92' },
+      { label: 'Medicare', amount: '-$39.04' },
+      { label: 'Health Insurance Premium', amount: '-$225.37' },
+    ],
+    deposit: 'Direct Deposit — Chase ****4521',
   },
   {
     date: 'Aug 19, 2024',
@@ -44,7 +84,11 @@ const paymentsData = [
     net: '$15,000.00',
     method: 'Check',
     statement: 'View',
-    expandable: false,
+    gross: '$15,000.00',
+    adjustments: [],
+    adjustmentNote: null,
+    deductions: [],
+    deposit: 'Check mailed to address on file',
   },
 ];
 
@@ -115,15 +159,13 @@ export default function PaymentsPage() {
               <>
                 <tr key={i} className={expandedRow === i ? 'cl-table-row--expanded' : ''}>
                   <td>
-                    {row.expandable && (
-                      <button
-                        className="cl-expand-btn"
-                        onClick={() => setExpandedRow(expandedRow === i ? -1 : i)}
-                        aria-label="Expand row"
-                      >
-                        {expandedRow === i ? '−' : '+'}
-                      </button>
-                    )}
+                    <button
+                      className="cl-expand-btn"
+                      onClick={() => setExpandedRow(expandedRow === i ? -1 : i)}
+                      aria-label="Expand row"
+                    >
+                      {expandedRow === i ? '−' : '+'}
+                    </button>
                   </td>
                   <td>{row.date}</td>
                   <td>
@@ -137,7 +179,7 @@ export default function PaymentsPage() {
                   <td><button className="cl-link-btn">{row.statement}</button></td>
                   <td><button className="cl-link-btn">Details</button></td>
                 </tr>
-                {expandedRow === i && row.expandable && (
+                {expandedRow === i && (
                   <tr key={`${i}-detail`} className="cl-detail-row">
                     <td colSpan="7">
                       <div className="cl-payment-detail">
@@ -145,58 +187,52 @@ export default function PaymentsPage() {
                         <div className="cl-payment-breakdown">
                           <div className="cl-breakdown-row">
                             <span>Gross Pay (Bi-weekly Benefit)</span>
-                            <span>$3,076.92</span>
+                            <span>{row.gross}</span>
                           </div>
-                          <div className="cl-breakdown-section">
-                            <div className="cl-breakdown-row cl-breakdown-row--sub">
-                              <span>Adjustments</span>
-                              <span></span>
+                          {(row.adjustments.length > 0 || row.adjustmentNote) && (
+                            <div className="cl-breakdown-section">
+                              <div className="cl-breakdown-row cl-breakdown-row--sub">
+                                <span>Adjustments</span>
+                                <span></span>
+                              </div>
+                              {row.adjustmentNote && (
+                                <div className="cl-breakdown-info">
+                                  <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
+                                    <circle cx="7" cy="7" r="6" stroke="#0033a0" strokeWidth="1.2"/>
+                                    <path d="M7 6v4M7 4.5h.01" stroke="#0033a0" strokeWidth="1.2" strokeLinecap="round"/>
+                                  </svg>
+                                  <span>{row.adjustmentNote}</span>
+                                </div>
+                              )}
+                              {row.adjustments.map((adj, j) => (
+                                <div key={j} className="cl-breakdown-row cl-breakdown-row--indent">
+                                  <span>{adj.label}</span>
+                                  <span>{adj.amount}</span>
+                                </div>
+                              ))}
                             </div>
-                            <div className="cl-breakdown-info">
-                              <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
-                                <circle cx="7" cy="7" r="6" stroke="#0033a0" strokeWidth="1.2"/>
-                                <path d="M7 6v4M7 4.5h.01" stroke="#0033a0" strokeWidth="1.2" strokeLinecap="round"/>
-                              </svg>
-                              <span>Accrued PTO Payout: Your employer is paying accrued PTO alongside your disability benefit this period. This does not reduce your benefit.</span>
+                          )}
+                          {row.deductions.length > 0 && (
+                            <div className="cl-breakdown-section">
+                              <div className="cl-breakdown-row cl-breakdown-row--sub">
+                                <span>Taxes &amp; Deductions</span>
+                                <span></span>
+                              </div>
+                              {row.deductions.map((ded, j) => (
+                                <div key={j} className="cl-breakdown-row cl-breakdown-row--indent">
+                                  <span>{ded.label}</span>
+                                  <span>{ded.amount}</span>
+                                </div>
+                              ))}
                             </div>
-                            <div className="cl-breakdown-row cl-breakdown-row--indent">
-                              <span>Accrued PTO Payout</span>
-                              <span>+$480.00</span>
-                            </div>
-                          </div>
-                          <div className="cl-breakdown-section">
-                            <div className="cl-breakdown-row cl-breakdown-row--sub">
-                              <span>Taxes &amp; Deductions</span>
-                              <span></span>
-                            </div>
-                            <div className="cl-breakdown-row cl-breakdown-row--indent">
-                              <span>Federal Tax Withholding</span>
-                              <span>-$461.54</span>
-                            </div>
-                            <div className="cl-breakdown-row cl-breakdown-row--indent">
-                              <span>State Tax Withholding</span>
-                              <span>-$184.62</span>
-                            </div>
-                            <div className="cl-breakdown-row cl-breakdown-row--indent">
-                              <span>Social Security (FICA)</span>
-                              <span>-$190.77</span>
-                            </div>
-                            <div className="cl-breakdown-row cl-breakdown-row--indent">
-                              <span>Medicare</span>
-                              <span>-$44.62</span>
-                            </div>
-                            <div className="cl-breakdown-row cl-breakdown-row--indent">
-                              <span>Health Insurance Premium</span>
-                              <span>-$225.37</span>
-                            </div>
-                          </div>
+                          )}
                           <div className="cl-breakdown-row cl-breakdown-row--total">
                             <span>Net Amount</span>
-                            <span>$2,450.00</span>
+                            <span>{row.net}</span>
                           </div>
                           <div className="cl-breakdown-row cl-breakdown-row--method">
                             <span>Deposit Method</span>
-                            <span>Direct Deposit — Chase ****4521</span>
+                            <span>{row.deposit}</span>
                           </div>
                         </div>
                       </div>
