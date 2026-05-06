@@ -586,21 +586,27 @@ export default function RequestLeaveReactPage() {
     );
   }
 
+  function scrollToTop() {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+    var frame = document.querySelector('.mobile-frame-screen');
+    if (frame) frame.scrollTop = 0;
+  }
+
   function goNext() {
     setCurrentStepIndex((index) => Math.min(index + 1, steps.length - 1));
-    window.scrollTo({ top: 0, behavior: 'smooth' });
+    scrollToTop();
   }
 
   function goBack() {
     setCurrentStepIndex((index) => Math.max(index - 1, 0));
-    window.scrollTo({ top: 0, behavior: 'smooth' });
+    scrollToTop();
   }
 
   function jumpToStep(stepId) {
     const stepIndex = steps.findIndex((step) => step.id === stepId);
     if (stepIndex >= 0) {
       setCurrentStepIndex(stepIndex);
-      window.scrollTo({ top: 0, behavior: 'smooth' });
+      scrollToTop();
     }
   }
 
