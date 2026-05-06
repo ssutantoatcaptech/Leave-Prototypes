@@ -278,7 +278,11 @@
   background: #f8fafc;
 }
 .ldb-card.dt-timeline-wrap .dlp-tl-row-bar {
-  background: #f8fafc;
+  background: #f0f2f5;
+  height: 14px;
+}
+.ldb-card.dt-timeline-wrap .dlp-tl-seg {
+  opacity: 0.72;
 }
 .ldb-card.dt-timeline-wrap .dlp-tl-row-label {
   color: #64748b;

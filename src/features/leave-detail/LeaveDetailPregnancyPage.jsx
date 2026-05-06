@@ -180,7 +180,7 @@ export default function LeaveDetailPregnancyPage() {
                       { id: 'std-pay', label: 'STD (60%)', accent: '#2563eb' },
                       { id: 'state-tdi', label: 'NJ TDI (85%)', accent: '#818cf8' },
                       { id: 'state-fli', label: 'NJ FLI Bonding (85%)', accent: '#0d9488' },
-                      { id: 'unpaid', label: 'Unpaid', accent: '#e2e8f0' },
+                      { id: 'unpaid', label: 'Unpaid', accent: '#cbd5e1' },
                     ] : [
                       { id: 'fmla', label: 'FMLA Protection', accent: '#0033a0' },
                       { id: 'std', label: 'STD Recovery', accent: '#2563eb' },

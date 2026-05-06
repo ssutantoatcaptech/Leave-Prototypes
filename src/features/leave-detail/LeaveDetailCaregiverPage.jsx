@@ -168,7 +168,7 @@ export default function LeaveDetailCaregiverPage() {
                   <div className="dlp-legend">
                     {(timelineView === 'payment' ? [
                       { id: 'fli-pay', label: 'NJ FLI (85%)', accent: '#0d9488' },
-                      { id: 'unpaid', label: 'Unpaid Gap Days', accent: '#e2e8f0' },
+                      { id: 'unpaid', label: 'Unpaid Gap Days', accent: '#cbd5e1' },
                     ] : [
                       { id: 'fmla', label: 'FMLA Protection', accent: '#0033a0' },
                       { id: 'njfli', label: 'NJ FLI (Caregiving)', accent: '#0d9488' },

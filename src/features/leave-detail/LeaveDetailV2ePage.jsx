@@ -256,12 +256,12 @@ export default function LeaveDetailV2ePage() {
                     {(timelineView === 'payment' ? [
                       { id: 'partial-pay', label: 'STD (60%)', accent: '#2563eb' },
                       { id: 'state', label: 'NJ TDI (85%)', accent: '#818cf8' },
-                      { id: 'unpaid', label: 'Unpaid', accent: '#e2e8f0' },
+                      { id: 'unpaid', label: 'Unpaid', accent: '#cbd5e1' },
                     ] : [
                       { id: 'fmla', label: 'FMLA Protection', accent: '#0033a0' },
                       { id: 'std', label: 'STD Income', accent: '#2563eb' },
                       { id: 'state', label: 'NJ State TDI', accent: '#818cf8' },
-                      { id: 'unpaid', label: 'Unpaid', accent: '#e2e8f0' },
+                      { id: 'unpaid', label: 'Unpaid', accent: '#cbd5e1' },
                     ]).map(function (item) {
                       return (
                         <div key={item.id} className="dlp-legend-item">
