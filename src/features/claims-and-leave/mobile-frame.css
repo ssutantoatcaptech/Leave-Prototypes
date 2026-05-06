@@ -430,6 +430,16 @@
   bottom: 0;
 }
 
+/* Native mobile: lock nav to viewport so it doesn't scroll with page */
+.mobile-frame-native .cl-mobile-nav-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  overflow-y: auto;
+}
+
 /* ===========================
    Request Leave Wizard — Mobile Frame Overrides
    =========================== */

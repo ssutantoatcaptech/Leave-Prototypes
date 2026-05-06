@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { NavLink, Outlet, useLocation } from 'react-router-dom';
 import './claims-and-leave.css';
 import './responsive.css';
@@ -7,6 +7,15 @@ export default function ClaimsAndLeaveLayout() {
   const location = useLocation();
   const [mobileNavOpen, setMobileNavOpen] = useState(false);
   const [claimsExpanded, setClaimsExpanded] = useState(false);
+
+  useEffect(function () {
+    if (mobileNavOpen) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = '';
+    }
+    return function () { document.body.style.overflow = ''; };
+  }, [mobileNavOpen]);
   const base = location.pathname.startsWith('/claims-and-leave-mobile') ? '/claims-and-leave-mobile' : '/claims-and-leave';
 
   const navLinks = [
