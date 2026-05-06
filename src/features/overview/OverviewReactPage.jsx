@@ -165,7 +165,7 @@ function SiteNav() {
 
       <div className="nav-main">
         <div className="nav-main-left">
-          <div className="nav-brand">my<span>Benefits</span></div>
+          <a href="/" style={{ textDecoration: "none" }}><div className="nav-brand">my<span>Benefits</span></div></a>
           <nav className="nav-links">
             <button className="nav-link" type="button">Dashboard</button>
             <button className="nav-link" type="button">My Coverages <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M3 4.5L6 7.5L9 4.5" stroke="currentColor" strokeWidth="1.3" strokeLinecap="round" strokeLinejoin="round"/></svg></button>
