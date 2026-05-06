@@ -6,6 +6,7 @@ import './responsive.css';
 export default function ClaimsAndLeaveLayout() {
   const location = useLocation();
   const [mobileNavOpen, setMobileNavOpen] = useState(false);
+  const [claimsExpanded, setClaimsExpanded] = useState(false);
   const base = location.pathname.startsWith('/claims-and-leave-mobile') ? '/claims-and-leave-mobile' : '/claims-and-leave';
 
   const navLinks = [
@@ -136,22 +137,40 @@ export default function ClaimsAndLeaveLayout() {
             <NavLink to={`${base}/dashboard`} className="cl-mobile-nav-item" onClick={() => setMobileNavOpen(false)}>
               <span>Dashboard</span>
             </NavLink>
-            <NavLink to="#" className="cl-mobile-nav-item" onClick={() => setMobileNavOpen(false)}>
+            <div className="cl-mobile-nav-item cl-mobile-nav-item--disabled">
               <span>Benefits</span>
               <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M4 6l4 4 4-4" stroke="#003a70" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/></svg>
-            </NavLink>
-            <NavLink to={base} className="cl-mobile-nav-item" onClick={() => setMobileNavOpen(false)}>
+            </div>
+            <button
+              type="button"
+              className={`cl-mobile-nav-item cl-mobile-nav-item--expandable${claimsExpanded ? ' cl-mobile-nav-item--expanded' : ''}`}
+              onClick={() => setClaimsExpanded(!claimsExpanded)}
+            >
               <span>Claims and Leave</span>
-              <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M4 6l4 4 4-4" stroke="#003a70" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/></svg>
-            </NavLink>
-            <NavLink to="#" className="cl-mobile-nav-item" onClick={() => setMobileNavOpen(false)}>
+              <svg width="16" height="16" viewBox="0 0 16 16" fill="none" style={{ transform: claimsExpanded ? 'rotate(180deg)' : 'none', transition: 'transform 0.2s' }}><path d="M4 6l4 4 4-4" stroke="#003a70" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/></svg>
+            </button>
+            {claimsExpanded && (
+              <div className="cl-mobile-nav-submenu">
+                {subNavTabs.map((tab) => (
+                  <NavLink
+                    key={tab.label}
+                    to={tab.to}
+                    className="cl-mobile-nav-subitem"
+                    onClick={() => setMobileNavOpen(false)}
+                  >
+                    {tab.label}
+                  </NavLink>
+                ))}
+              </div>
+            )}
+            <div className="cl-mobile-nav-item cl-mobile-nav-item--disabled">
               <span>Documents</span>
               <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M4 6l4 4 4-4" stroke="#003a70" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/></svg>
-            </NavLink>
-            <NavLink to="#" className="cl-mobile-nav-item" onClick={() => setMobileNavOpen(false)}>
+            </div>
+            <div className="cl-mobile-nav-item cl-mobile-nav-item--disabled">
               <span>Support</span>
               <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M4 6l4 4 4-4" stroke="#003a70" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/></svg>
-            </NavLink>
+            </div>
           </div>
 
           {/* Utility navigation - dark navy section */}

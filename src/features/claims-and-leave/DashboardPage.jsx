@@ -1,28 +1,31 @@
 import { useState } from 'react';
 import { NavLink, useLocation, useNavigate } from 'react-router-dom';
+import useBasePath from './useBasePath';
 import './claims-and-leave.css';
-
-const navLinks = [
-  { label: 'Dashboard', to: '/claims-and-leave/dashboard' },
-  { label: 'Benefits', to: '#' },
-  { label: 'Claims & Leave', dropdown: true },
-  { label: 'Documents', to: '#' },
-  { label: 'Support', to: '#' },
-];
-
-const subNavTabs = [
-  { label: 'Claims Center', to: '/claims-and-leave' },
-  { label: 'File a Claim or Leave', to: '/claims-and-leave/file-claim' },
-  { label: 'My Cases', to: '/claims-and-leave/my-cases' },
-  { label: 'Leave Planning Tool', to: '/claims-and-leave/leave-planning' },
-  { label: 'Enter My Time', to: '/claims-and-leave/enter-time' },
-  { label: 'Payments', to: '/claims-and-leave/payments' },
-];
 
 export default function DashboardPage() {
   const location = useLocation();
   const navigate = useNavigate();
+  const base = useBasePath();
   const [mobileNavOpen, setMobileNavOpen] = useState(false);
+  const [claimsExpanded, setClaimsExpanded] = useState(false);
+
+  const navLinks = [
+    { label: 'Dashboard', to: `${base}/dashboard` },
+    { label: 'Benefits', to: '#' },
+    { label: 'Claims & Leave', dropdown: true },
+    { label: 'Documents', to: '#' },
+    { label: 'Support', to: '#' },
+  ];
+
+  const subNavTabs = [
+    { label: 'Claims Center', to: base },
+    { label: 'File a Claim or Leave', to: `${base}/file-claim` },
+    { label: 'My Cases', to: `${base}/my-cases` },
+    { label: 'Leave Planning Tool', to: `${base}/leave-planning` },
+    { label: 'Enter My Time', to: `${base}/enter-time` },
+    { label: 'Payments', to: `${base}/payments` },
+  ];
 
   return (
     <div className="cl-layout">
@@ -74,7 +77,7 @@ export default function DashboardPage() {
                     key={link.label}
                     to={link.to}
                     className={() =>
-                      `cl-main-nav-link${link.to === '/claims-and-leave/dashboard' && location.pathname === '/claims-and-leave/dashboard' ? ' cl-main-nav-link--active' : ''}`
+                      `cl-main-nav-link${link.to === `${base}/dashboard` && location.pathname === `${base}/dashboard` ? ' cl-main-nav-link--active' : ''}`
                     }
                     end
                   >
@@ -122,25 +125,43 @@ export default function DashboardPage() {
             <span className="cl-mobile-nav-brand-name">Benefits Hub</span>
           </div>
           <div className="cl-mobile-nav-primary">
-            <NavLink to="/claims-and-leave/dashboard" className="cl-mobile-nav-item" onClick={() => setMobileNavOpen(false)}>
+            <NavLink to={`${base}/dashboard`} className="cl-mobile-nav-item" onClick={() => setMobileNavOpen(false)}>
               <span>Dashboard</span>
             </NavLink>
-            <NavLink to="#" className="cl-mobile-nav-item" onClick={() => setMobileNavOpen(false)}>
+            <div className="cl-mobile-nav-item cl-mobile-nav-item--disabled">
               <span>Benefits</span>
               <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M4 6l4 4 4-4" stroke="#003a70" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/></svg>
-            </NavLink>
-            <NavLink to="/claims-and-leave" className="cl-mobile-nav-item" onClick={() => setMobileNavOpen(false)}>
+            </div>
+            <button
+              type="button"
+              className={`cl-mobile-nav-item cl-mobile-nav-item--expandable${claimsExpanded ? ' cl-mobile-nav-item--expanded' : ''}`}
+              onClick={() => setClaimsExpanded(!claimsExpanded)}
+            >
               <span>Claims and Leave</span>
-              <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M4 6l4 4 4-4" stroke="#003a70" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/></svg>
-            </NavLink>
-            <NavLink to="#" className="cl-mobile-nav-item" onClick={() => setMobileNavOpen(false)}>
+              <svg width="16" height="16" viewBox="0 0 16 16" fill="none" style={{ transform: claimsExpanded ? 'rotate(180deg)' : 'none', transition: 'transform 0.2s' }}><path d="M4 6l4 4 4-4" stroke="#003a70" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/></svg>
+            </button>
+            {claimsExpanded && (
+              <div className="cl-mobile-nav-submenu">
+                {subNavTabs.map((tab) => (
+                  <NavLink
+                    key={tab.label}
+                    to={tab.to}
+                    className="cl-mobile-nav-subitem"
+                    onClick={() => setMobileNavOpen(false)}
+                  >
+                    {tab.label}
+                  </NavLink>
+                ))}
+              </div>
+            )}
+            <div className="cl-mobile-nav-item cl-mobile-nav-item--disabled">
               <span>Documents</span>
               <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M4 6l4 4 4-4" stroke="#003a70" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/></svg>
-            </NavLink>
-            <NavLink to="#" className="cl-mobile-nav-item" onClick={() => setMobileNavOpen(false)}>
+            </div>
+            <div className="cl-mobile-nav-item cl-mobile-nav-item--disabled">
               <span>Support</span>
               <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M4 6l4 4 4-4" stroke="#003a70" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/></svg>
-            </NavLink>
+            </div>
           </div>
           <div className="cl-mobile-nav-utility">
             <button className="cl-mobile-nav-utility-item" onClick={() => setMobileNavOpen(false)}>
@@ -276,7 +297,7 @@ export default function DashboardPage() {
                     <span className="cldb-action-label">Submit New Claim</span>
                     <span className="cldb-action-chevron">&rsaquo;</span>
                   </button>
-                  <button className="cldb-action-row" onClick={() => navigate('/claims-and-leave/file-claim/request-leave?step=1')}>
+                  <button className="cldb-action-row" onClick={() => navigate(`${base}/file-claim/request-leave?step=1`)}>
                     <span className="cldb-action-icon">
                       <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><rect x="0.5" y="2.5" width="13" height="11" rx="1.5" stroke="#404040"/><path d="M4 0.5v4M10 0.5v4" stroke="#404040" strokeLinecap="round"/></svg>
                     </span>
