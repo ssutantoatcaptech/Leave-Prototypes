@@ -43,15 +43,15 @@ export default function DashboardPage() {
               </svg>
             </button>
             <div className="cl-avatar">
-              <span className="cl-avatar-circle">LC</span>
-              <span className="cl-avatar-name">Lynne Connor</span>
+              <span className="cl-avatar-circle">SJ</span>
+              <span className="cl-avatar-name">Sarah Johnson</span>
             </div>
           </div>
         </div>
       </header>
 
       <section className="cldb-hero">
-        <h1 className="cldb-hero-title">Welcome Back, Lynne</h1>
+        <h1 className="cldb-hero-title">Welcome Back, Sarah</h1>
       </section>
 
       <main className="cldb-main">
