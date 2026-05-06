@@ -41,7 +41,7 @@ export default function FileClaimPage() {
             </div>
             <h2 className="cl-intro-card-title">Request a Leave</h2>
             <p className="cl-intro-card-desc">
-              Request FMLA, state leave, military leave, or other job-protected time away from work.
+              Request parental leave, own illness/injury, care for a sick family member, military leave, or other job-protected time away from work.
             </p>
             <button className="cl-btn cl-btn--primary" onClick={() => navigate('/claims-and-leave/file-claim/request-leave?step=1')}>Request Leave</button>
             <span className="cl-intro-card-meta">Takes about 5-8 minutes</span>
