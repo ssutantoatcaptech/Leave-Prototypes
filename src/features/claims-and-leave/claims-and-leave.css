@@ -3152,9 +3152,9 @@
   justify-content: center;
   min-height: 44px;
   padding: 10px 16px;
-  background: #0033a0;
-  color: #fff;
-  border: none;
+  background: #ffffff;
+  color: #0033a0;
+  border: 1px solid #0033a0;
   border-radius: 8px;
   font-size: 14px;
   font-weight: 500;
@@ -3165,7 +3165,7 @@
 }
 
 .cl-card-mobile-action:hover {
-  background: #002880;
+  background: #f0f4ff;
 }
 
 .cl-card-mobile-action--outline {
