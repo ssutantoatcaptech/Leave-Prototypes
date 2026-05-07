@@ -876,9 +876,9 @@ export default function RequestLeaveReactPage() {
             <p className="subtitle">We\u2019ll need to send them a form to certify your leave.</p>
             <div className="bordered-section">
               <div className="form-group"><label>Facility / Practice Name</label><input type="text" value={formState.providerFacility} onChange={(event) => updateField('providerFacility', event.target.value)}/></div>
-              <div style={{ display: 'grid', gridTemplateColumns: '1fr auto', gap: '16px', marginBottom: '20px' }}>
+              <div className="provider-name-row">
                 <div className="form-group" style={{ marginBottom: 0 }}><label>Provider Name <span className="req">*</span></label><input type="text" value={formState.providerName} onChange={(event) => updateField('providerName', event.target.value)}/></div>
-                <div className="form-group" style={{ marginBottom: 0, minWidth: '120px' }}><label>Suffix</label><input type="text" value={formState.providerSuffix} onChange={(event) => updateField('providerSuffix', event.target.value)}/></div>
+                <div className="form-group" style={{ marginBottom: 0 }}><label>Suffix</label><input type="text" value={formState.providerSuffix} onChange={(event) => updateField('providerSuffix', event.target.value)}/></div>
               </div>
               <div className="form-row cols-2">
                 <div className="form-group"><label>Phone</label><input type="tel" value={formState.providerPhone} onChange={(event) => updateField('providerPhone', event.target.value)}/></div>
@@ -949,9 +949,9 @@ export default function RequestLeaveReactPage() {
             <p className="subtitle">{isFamilyCare ? "Tell us more about the patient's medical provider." : "Tell us more about your medical provider."}</p>
             <div className="bordered-section">
               <div className="form-group"><label>Facility / Practice Name</label><input type="text" value={formState.providerFacility} onChange={(event) => updateField('providerFacility', event.target.value)}/></div>
-              <div style={{ display: 'grid', gridTemplateColumns: '1fr auto', gap: '16px', marginBottom: '20px' }}>
+              <div className="provider-name-row">
                 <div className="form-group" style={{ marginBottom: 0 }}><label>Provider Name</label><input type="text" value={formState.providerName} onChange={(event) => updateField('providerName', event.target.value)}/></div>
-                <div className="form-group" style={{ marginBottom: 0, minWidth: '100px' }}><label>Suffix</label><input type="text" value={formState.providerSuffix} onChange={(event) => updateField('providerSuffix', event.target.value)}/></div>
+                <div className="form-group" style={{ marginBottom: 0 }}><label>Suffix</label><input type="text" value={formState.providerSuffix} onChange={(event) => updateField('providerSuffix', event.target.value)}/></div>
               </div>
               <div className="form-row cols-2">
                 <div className="form-group"><label>Phone</label><input type="tel" value={formState.providerPhone} onChange={(event) => updateField('providerPhone', event.target.value)}/></div>
@@ -998,9 +998,9 @@ export default function RequestLeaveReactPage() {
               <>
                 <div className="bordered-section">
                   <div className="form-group"><label>Facility / Practice Name</label><input type="text" value={formState.providerFacility} onChange={(event) => updateField('providerFacility', event.target.value)}/></div>
-                  <div style={{ display: 'grid', gridTemplateColumns: '1fr auto', gap: '16px', marginBottom: '20px' }}>
+                  <div className="provider-name-row">
                     <div className="form-group" style={{ marginBottom: 0 }}><label>Provider Name <span className="req">*</span></label><input type="text" value={formState.providerName} onChange={(event) => updateField('providerName', event.target.value)}/></div>
-                    <div className="form-group" style={{ marginBottom: 0, minWidth: '120px' }}><label>Suffix</label><input type="text" value={formState.providerSuffix} onChange={(event) => updateField('providerSuffix', event.target.value)}/></div>
+                    <div className="form-group" style={{ marginBottom: 0 }}><label>Suffix</label><input type="text" value={formState.providerSuffix} onChange={(event) => updateField('providerSuffix', event.target.value)}/></div>
                   </div>
                   <div className="form-row cols-2">
                     <div className="form-group"><label>Phone</label><input type="tel" value={formState.providerPhone} onChange={(event) => updateField('providerPhone', event.target.value)}/></div>

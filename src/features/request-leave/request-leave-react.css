@@ -139,6 +139,13 @@
   grid-template-columns: 1fr 1fr 1fr;
 }
 
+.provider-name-row {
+  display: grid;
+  grid-template-columns: 1fr 100px;
+  gap: 16px;
+  margin-bottom: 20px;
+}
+
 .request-leave-shell label {
   display: block;
   font-size: 14px;
@@ -1518,6 +1525,10 @@
   .form-row.cols-2,
   .form-row.cols-3 {
     grid-template-columns: 1fr;
+  }
+
+  .provider-name-row {
+    grid-template-columns: 1fr 80px;
   }
 }
 
