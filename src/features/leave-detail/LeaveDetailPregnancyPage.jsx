@@ -821,11 +821,6 @@ export default function LeaveDetailPregnancyPage() {
             <div className="ldb-side-card ldb-side-card--shadow">
               <div className="ldb-quick-actions-label">QUICK ACTIONS</div>
               <div className="ldb-quick-actions-list">
-                <button type="button" className="ldb-quick-action-item" onClick={function () { navigate(`${base}/enter-time`); }}>
-                  <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><circle cx="8" cy="8" r="6" stroke="currentColor" strokeWidth="1.2"/><path d="M8 5v3l2 1.5" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round" strokeLinejoin="round"/></svg>
-                  <span>Enter Time</span>
-                  <svg width="10" height="10" viewBox="0 0 16 16" fill="none" className="ldb-quick-action-chevron"><path d="M6 4l4 4-4 4" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round"/></svg>
-                </button>
                 <button type="button" className="ldb-quick-action-item" onClick={function () { navigate(`${base}/case-detail-pregnancy/return-to-work`); }}>
                   <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 13l3-3M13 3l-3 3M10 3H13v3M6 13H3v-3" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round" strokeLinejoin="round"/></svg>
                   <span>Manage Return to Work</span>
