@@ -2480,7 +2480,7 @@ export default function PlanAbsenceReactPage() {
             </div>
 
             <div className="pr-modal-footer">
-              <button className="pr-modal-cancel" type="button" onClick={() => setShowTransitionModal(false)}>Go Back</button>
+              <button className="pr-modal-cancel" type="button" onClick={() => setShowTransitionModal(false)}>Cancel</button>
               <button type="button" className="pr-modal-submit" onClick={() => {
                 setShowTransitionModal(false);
                 if (reason === 'illness') {
