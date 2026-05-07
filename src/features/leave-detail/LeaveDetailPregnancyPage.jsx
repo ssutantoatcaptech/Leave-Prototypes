@@ -11,7 +11,7 @@ export default function LeaveDetailPregnancyPage() {
   var [timelineView, setTimelineView] = useState('protection');
   var [hoveredRow, setHoveredRow] = useState(null);
   var [expandedClaims, setExpandedClaims] = useState({ absence: !isMobile, stateleave: false });
-  var [paymentsOpen, setPaymentsOpen] = useState(true);
+  var [paymentsOpen, setPaymentsOpen] = useState(!isMobile);
   var [showAllTasks, setShowAllTasks] = useState(false);
   var [editingSection, setEditingSection] = useState(null);
   var [detailsForm, setDetailsForm] = useState({

@@ -26,7 +26,7 @@ export default function LeaveDetailNewCasePage() {
   var [timelineView, setTimelineView] = useState('protection');
   var [hoveredRow, setHoveredRow] = useState(null);
   var [expandedClaims, setExpandedClaims] = useState({ absence: !isMobile, disability: false });
-  var [paymentsOpen, setPaymentsOpen] = useState(true);
+  var [paymentsOpen, setPaymentsOpen] = useState(!isMobile);
   var [showAllTasks, setShowAllTasks] = useState(false);
 
   function formatDate(d) {
