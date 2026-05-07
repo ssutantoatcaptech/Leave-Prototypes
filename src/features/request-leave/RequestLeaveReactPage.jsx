@@ -587,9 +587,11 @@ export default function RequestLeaveReactPage() {
   }
 
   function scrollToTop() {
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-    var frame = document.querySelector('.mobile-frame-screen');
-    if (frame) frame.scrollTop = 0;
+    setTimeout(function () {
+      window.scrollTo({ top: 0 });
+      var frames = document.querySelectorAll('.mobile-frame-screen');
+      frames.forEach(function (frame) { frame.scrollTop = 0; });
+    }, 0);
   }
 
   function goNext() {
