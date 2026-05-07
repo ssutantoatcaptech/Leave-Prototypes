@@ -86,21 +86,21 @@ const planConfig = {
 const stateOptions = ['AL', 'AK', 'AZ', 'AR', 'CA', 'CO', 'CT', 'DE', 'FL', 'GA', 'HI', 'ID', 'IL', 'IN', 'IA', 'KS', 'KY', 'LA', 'ME', 'MD', 'MA', 'MI', 'MN', 'MS', 'MO', 'MT', 'NE', 'NV', 'NH', 'NJ', 'NM', 'NY', 'NC', 'ND', 'OH', 'OK', 'OR', 'PA', 'RI', 'SC', 'SD', 'TN', 'TX', 'UT', 'VT', 'VA', 'WA', 'WV', 'WI', 'WY', 'DC'];
 
 const optionIcons = {
-  continuous: <svg width="22" height="22" viewBox="0 0 24 24" fill="none"><rect x="3" y="6" width="18" height="13" rx="2" stroke="#3d3d47" strokeWidth="1.5"/><path d="M3 10h18" stroke="#3d3d47" strokeWidth="1.5"/><path d="M8 3v4M16 3v4" stroke="#3d3d47" strokeWidth="1.5" strokeLinecap="round"/></svg>,
-  intermittent: <svg width="22" height="22" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="9" stroke="#3d3d47" strokeWidth="1.5"/><path d="M12 7v5l3.5 2" stroke="#3d3d47" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/></svg>,
-  reduced: <svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M21 12a9 9 0 11-9-9" stroke="#3d3d47" strokeWidth="1.5" strokeLinecap="round"/><path d="M12 7v5h4" stroke="#3d3d47" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/></svg>,
-  medical_self: <svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M12 4v16M4 12h16" stroke="#3d3d47" strokeWidth="1.5" strokeLinecap="round"/><rect x="3" y="3" width="18" height="18" rx="3" stroke="#3d3d47" strokeWidth="1.5"/></svg>,
-  medical_family: <svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z" stroke="#3d3d47" strokeWidth="1.5"/></svg>,
-  child_nonbirth: <svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M17 21v-2a4 4 0 00-4-4H7a4 4 0 00-4 4v2" stroke="#3d3d47" strokeWidth="1.5" strokeLinecap="round"/><circle cx="10" cy="7" r="4" stroke="#3d3d47" strokeWidth="1.5"/><path d="M20 8v6M17 11h6" stroke="#3d3d47" strokeWidth="1.5" strokeLinecap="round"/></svg>,
-  child: <svg width="22" height="22" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="8" r="3" stroke="#3d3d47" strokeWidth="1.5"/><path d="M8 16c0-2.21 1.79-4 4-4s4 1.79 4 4" stroke="#3d3d47" strokeWidth="1.5" strokeLinecap="round"/><path d="M12 17v3M10 22h4" stroke="#3d3d47" strokeWidth="1.5" strokeLinecap="round"/></svg>,
-  military: <svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M12 2L3 7v6c0 5.25 3.75 10.13 9 11.25 5.25-1.12 9-6 9-11.25V7l-9-5z" stroke="#3d3d47" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/><path d="M9 12l2 2 4-4" stroke="#3d3d47" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/></svg>,
-  other: <svg width="22" height="22" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="9" stroke="#3d3d47" strokeWidth="1.5"/><circle cx="8" cy="12" r="1" fill="#3d3d47"/><circle cx="12" cy="12" r="1" fill="#3d3d47"/><circle cx="16" cy="12" r="1" fill="#3d3d47"/></svg>,
-  birth: <svg width="22" height="22" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="8" r="3" stroke="#3d3d47" strokeWidth="1.5"/><path d="M8 16c0-2.21 1.79-4 4-4s4 1.79 4 4" stroke="#3d3d47" strokeWidth="1.5" strokeLinecap="round"/></svg>,
-  adoption: <svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M3 9l9-6 9 6" stroke="#3d3d47" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/><path d="M4 9v9a2 2 0 002 2h12a2 2 0 002-2V9" stroke="#3d3d47" strokeWidth="1.5"/></svg>,
-  foster: <svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M17 21v-2a4 4 0 00-4-4H7a4 4 0 00-4 4v2" stroke="#3d3d47" strokeWidth="1.5" strokeLinecap="round"/><circle cx="10" cy="7" r="4" stroke="#3d3d47" strokeWidth="1.5"/><path d="M20 8v6M17 11h6" stroke="#3d3d47" strokeWidth="1.5" strokeLinecap="round"/></svg>,
-  immediate: <svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z" stroke="#3d3d47" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/></svg>,
-  later: <svg width="22" height="22" viewBox="0 0 24 24" fill="none"><rect x="3" y="6" width="18" height="13" rx="2" stroke="#3d3d47" strokeWidth="1.5"/><path d="M14 15l2 2 3-3" stroke="#3d3d47" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/></svg>,
-  unsure: <svg width="22" height="22" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="9" stroke="#3d3d47" strokeWidth="1.5"/><path d="M9 9a3 3 0 015.12 1.5c0 1.5-2.12 2-2.12 3.5" stroke="#3d3d47" strokeWidth="1.5" strokeLinecap="round"/><circle cx="12" cy="17" r="0.75" fill="#3d3d47"/></svg>,
+  continuous: <svg width="22" height="22" viewBox="0 0 24 24" fill="none"><rect x="3" y="6" width="18" height="13" rx="2" stroke="#374151" strokeWidth="1.5"/><path d="M3 10h18" stroke="#374151" strokeWidth="1.5"/><path d="M8 3v4M16 3v4" stroke="#374151" strokeWidth="1.5" strokeLinecap="round"/></svg>,
+  intermittent: <svg width="22" height="22" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="9" stroke="#374151" strokeWidth="1.5"/><path d="M12 7v5l3.5 2" stroke="#374151" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/></svg>,
+  reduced: <svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M21 12a9 9 0 11-9-9" stroke="#374151" strokeWidth="1.5" strokeLinecap="round"/><path d="M12 7v5h4" stroke="#374151" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/></svg>,
+  medical_self: <svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M12 4v16M4 12h16" stroke="#374151" strokeWidth="1.5" strokeLinecap="round"/><rect x="3" y="3" width="18" height="18" rx="3" stroke="#374151" strokeWidth="1.5"/></svg>,
+  medical_family: <svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z" stroke="#374151" strokeWidth="1.5"/></svg>,
+  child_nonbirth: <svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M17 21v-2a4 4 0 00-4-4H7a4 4 0 00-4 4v2" stroke="#374151" strokeWidth="1.5" strokeLinecap="round"/><circle cx="10" cy="7" r="4" stroke="#374151" strokeWidth="1.5"/><path d="M20 8v6M17 11h6" stroke="#374151" strokeWidth="1.5" strokeLinecap="round"/></svg>,
+  child: <svg width="22" height="22" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="8" r="3" stroke="#374151" strokeWidth="1.5"/><path d="M8 16c0-2.21 1.79-4 4-4s4 1.79 4 4" stroke="#374151" strokeWidth="1.5" strokeLinecap="round"/><path d="M12 17v3M10 22h4" stroke="#374151" strokeWidth="1.5" strokeLinecap="round"/></svg>,
+  military: <svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M12 2L3 7v6c0 5.25 3.75 10.13 9 11.25 5.25-1.12 9-6 9-11.25V7l-9-5z" stroke="#374151" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/><path d="M9 12l2 2 4-4" stroke="#374151" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/></svg>,
+  other: <svg width="22" height="22" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="9" stroke="#374151" strokeWidth="1.5"/><circle cx="8" cy="12" r="1" fill="#374151"/><circle cx="12" cy="12" r="1" fill="#374151"/><circle cx="16" cy="12" r="1" fill="#374151"/></svg>,
+  birth: <svg width="22" height="22" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="8" r="3" stroke="#374151" strokeWidth="1.5"/><path d="M8 16c0-2.21 1.79-4 4-4s4 1.79 4 4" stroke="#374151" strokeWidth="1.5" strokeLinecap="round"/></svg>,
+  adoption: <svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M3 9l9-6 9 6" stroke="#374151" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/><path d="M4 9v9a2 2 0 002 2h12a2 2 0 002-2V9" stroke="#374151" strokeWidth="1.5"/></svg>,
+  foster: <svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M17 21v-2a4 4 0 00-4-4H7a4 4 0 00-4 4v2" stroke="#374151" strokeWidth="1.5" strokeLinecap="round"/><circle cx="10" cy="7" r="4" stroke="#374151" strokeWidth="1.5"/><path d="M20 8v6M17 11h6" stroke="#374151" strokeWidth="1.5" strokeLinecap="round"/></svg>,
+  immediate: <svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z" stroke="#374151" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/></svg>,
+  later: <svg width="22" height="22" viewBox="0 0 24 24" fill="none"><rect x="3" y="6" width="18" height="13" rx="2" stroke="#374151" strokeWidth="1.5"/><path d="M14 15l2 2 3-3" stroke="#374151" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/></svg>,
+  unsure: <svg width="22" height="22" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="9" stroke="#374151" strokeWidth="1.5"/><path d="M9 9a3 3 0 015.12 1.5c0 1.5-2.12 2-2.12 3.5" stroke="#374151" strokeWidth="1.5" strokeLinecap="round"/><circle cx="12" cy="17" r="0.75" fill="#374151"/></svg>,
 };
 
 let _cachedPlanTransfer = null;
@@ -526,7 +526,7 @@ export default function RequestLeaveReactPage() {
     return (
       <div className="elig-summary">
         <div className="elig-summary-header">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" stroke="#3d3d47" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/></svg>
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" stroke="#374151" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/></svg>
           <h3>Estimated Eligibility</h3>
         </div>
         <div className="elig-summary-body">
@@ -559,7 +559,7 @@ export default function RequestLeaveReactPage() {
       <div className="timeline-wrap">
         <div className="timeline-header">
           <div className="timeline-header-left">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><rect x="3" y="6" width="18" height="13" rx="2" stroke="#3d3d47" strokeWidth="1.5"/><path d="M3 10h18" stroke="#3d3d47" strokeWidth="1.5"/><path d="M8 3v4M16 3v4" stroke="#3d3d47" strokeWidth="1.5" strokeLinecap="round"/></svg>
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><rect x="3" y="6" width="18" height="13" rx="2" stroke="#374151" strokeWidth="1.5"/><path d="M3 10h18" stroke="#374151" strokeWidth="1.5"/><path d="M8 3v4M16 3v4" stroke="#374151" strokeWidth="1.5" strokeLinecap="round"/></svg>
             <div>
               <h3>Leave Timeline</h3>
               <div className="helper">Estimated coverage — subject to approval</div>
@@ -687,7 +687,7 @@ export default function RequestLeaveReactPage() {
         ))}
         <button type="button" className="rotation-add" onClick={addMissedDateEntry}>Add another date</button>
         {showReason && totalHours > 0 ? (
-          <div style={{ textAlign: 'right', fontSize: 13, fontWeight: 600, color: '#0f0f14', marginTop: 8 }}>{totalHours} total hours missed</div>
+          <div style={{ textAlign: 'right', fontSize: 13, fontWeight: 600, color: '#0f172a', marginTop: 8 }}>{totalHours} total hours missed</div>
         ) : null}
       </>
     );
@@ -803,8 +803,8 @@ export default function RequestLeaveReactPage() {
                 {renderMissedEntries()}
               </div>
             ) : formState.alreadyMissedTime === false && !isIntermittentOrReduced ? (
-              <div style={{ display: 'flex', alignItems: 'center', gap: 8, padding: '12px 16px', background: '#f9f9fb', border: '1px solid #e8e8ec', borderRadius: 8, fontSize: 13, color: '#525252' }}>
-                <svg width="16" height="16" viewBox="0 0 16 16" fill="none" style={{ flexShrink: 0 }}><circle cx="8" cy="8" r="7" stroke="#a3a3a3" strokeWidth="1.2"/><path d="M8 5v3" stroke="#a3a3a3" strokeWidth="1.2" strokeLinecap="round"/><circle cx="8" cy="11" r="0.5" fill="#a3a3a3"/></svg>
+              <div style={{ display: 'flex', alignItems: 'center', gap: 8, padding: '12px 16px', background: '#f8fafc', border: '1px solid #e2e8f0', borderRadius: 8, fontSize: 13, color: '#4b5563' }}>
+                <svg width="16" height="16" viewBox="0 0 16 16" fill="none" style={{ flexShrink: 0 }}><circle cx="8" cy="8" r="7" stroke="#9ca3af" strokeWidth="1.2"/><path d="M8 5v3" stroke="#9ca3af" strokeWidth="1.2" strokeLinecap="round"/><circle cx="8" cy="11" r="0.5" fill="#9ca3af"/></svg>
                 Time missed before your leave start date counts toward your eligibility and total
               </div>
             ) : null}
@@ -902,7 +902,7 @@ export default function RequestLeaveReactPage() {
             <h2>Tell us about the person you&rsquo;re caring for</h2>
             <p className="subtitle">We need a few details about your family member to determine your coverage. Their medical information will be kept confidential.</p>
             <div className="bordered-section">
-              <div className="section-title" style={{ display: 'flex', alignItems: 'center', gap: 8 }}><svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2" stroke="#525252" strokeWidth="1.5" strokeLinecap="round"/><circle cx="12" cy="7" r="4" stroke="#525252" strokeWidth="1.5"/></svg>Family Member Information</div>
+              <div className="section-title" style={{ display: 'flex', alignItems: 'center', gap: 8 }}><svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2" stroke="#4b5563" strokeWidth="1.5" strokeLinecap="round"/><circle cx="12" cy="7" r="4" stroke="#4b5563" strokeWidth="1.5"/></svg>Family Member Information</div>
               <div className="form-row cols-2">
                 <div className="form-group"><label>First Name <span className="req">*</span></label><input type="text" value={formState.familyFirstName} onChange={(event) => updateField('familyFirstName', event.target.value)}/></div>
                 <div className="form-group"><label>Last Name <span className="req">*</span></label><input type="text" value={formState.familyLastName} onChange={(event) => updateField('familyLastName', event.target.value)}/></div>
@@ -1028,10 +1028,10 @@ export default function RequestLeaveReactPage() {
             <div className="bordered-section">
               <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 4 }}>
                 <div className="section-title" style={{ display: 'flex', alignItems: 'center', gap: 8, marginBottom: 0 }}>
-                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><rect x="3" y="6" width="18" height="13" rx="2" stroke="#525252" strokeWidth="1.5"/><path d="M3 10h18" stroke="#525252" strokeWidth="1.5"/><path d="M8 3v4M16 3v4" stroke="#525252" strokeWidth="1.5" strokeLinecap="round"/></svg>
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><rect x="3" y="6" width="18" height="13" rx="2" stroke="#4b5563" strokeWidth="1.5"/><path d="M3 10h18" stroke="#4b5563" strokeWidth="1.5"/><path d="M8 3v4M16 3v4" stroke="#4b5563" strokeWidth="1.5" strokeLinecap="round"/></svg>
                   Week 1
                 </div>
-                <div style={{ fontSize: 13, color: '#737373' }}>{Object.values(formState.scheduleHours).reduce((sum, h) => sum + Number(h || 0), 0)} hrs / week</div>
+                <div style={{ fontSize: 13, color: '#64748b' }}>{Object.values(formState.scheduleHours).reduce((sum, h) => sum + Number(h || 0), 0)} hrs / week</div>
               </div>
               <div className="helper" style={{ marginBottom: 12 }}>Click each day to enter hours. Default is 8 hours/day for weekdays.</div>
               <div className="schedule-grid">
@@ -1124,9 +1124,9 @@ export default function RequestLeaveReactPage() {
             <h2>A couple more questions</h2>
             <p className="subtitle">These help us determine the right combination of benefits for your situation.</p>
             <div className="bordered-section">
-              <div className="section-title" style={{ display: 'flex', alignItems: 'center', gap: 8 }}><svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M17 21v-2a4 4 0 00-4-4H7a4 4 0 00-4 4v2" stroke="#525252" strokeWidth="1.5" strokeLinecap="round"/><circle cx="10" cy="7" r="4" stroke="#525252" strokeWidth="1.5"/><path d="M23 21v-2a4 4 0 00-3-3.87" stroke="#525252" strokeWidth="1.5" strokeLinecap="round"/><path d="M16 3.13a4 4 0 010 7.75" stroke="#525252" strokeWidth="1.5" strokeLinecap="round"/></svg>Spousal Sharing</div>
+              <div className="section-title" style={{ display: 'flex', alignItems: 'center', gap: 8 }}><svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M17 21v-2a4 4 0 00-4-4H7a4 4 0 00-4 4v2" stroke="#4b5563" strokeWidth="1.5" strokeLinecap="round"/><circle cx="10" cy="7" r="4" stroke="#4b5563" strokeWidth="1.5"/><path d="M23 21v-2a4 4 0 00-3-3.87" stroke="#4b5563" strokeWidth="1.5" strokeLinecap="round"/><path d="M16 3.13a4 4 0 010 7.75" stroke="#4b5563" strokeWidth="1.5" strokeLinecap="round"/></svg>Spousal Sharing</div>
               <p className="helper">Does your spouse or domestic partner work for the same company?</p>
-              <p style={{ fontSize: 13, color: '#62626e', lineHeight: 1.6, margin: '0 0 12px' }}>This matters because if you both work here, some bonding time is shared between you (a combined 12 weeks). If not, you each get your own.</p>
+              <p style={{ fontSize: 13, color: '#4b5563', lineHeight: 1.6, margin: '0 0 12px' }}>This matters because if you both work here, some bonding time is shared between you (a combined 12 weeks). If not, you each get your own.</p>
               <div className="yesno" style={{ marginBottom: 0 }}>
                 <button type="button" className={`yesno-btn ${formState.spouseSameEmployer ? 'selected' : ''}`} onClick={() => updateField('spouseSameEmployer', true)}>Yes</button>
                 <button type="button" className={`yesno-btn ${formState.spouseSameEmployer === false ? 'selected' : ''}`} onClick={() => updateField('spouseSameEmployer', false)}>No</button>
@@ -1134,9 +1134,9 @@ export default function RequestLeaveReactPage() {
               {formState.spouseSameEmployer ? <div className="form-group" style={{ marginTop: '12px', marginBottom: 0 }}><label>Spouse / Partner Name <span className="req">*</span></label><input type="text" value={formState.spouseName} onChange={(event) => updateField('spouseName', event.target.value)}/></div> : null}
             </div>
             <div className="bordered-section">
-              <div className="section-title" style={{ display: 'flex', alignItems: 'center', gap: 8 }}><svg width="18" height="18" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="9" stroke="#525252" strokeWidth="1.5"/></svg>Primary Caregiver</div>
+              <div className="section-title" style={{ display: 'flex', alignItems: 'center', gap: 8 }}><svg width="18" height="18" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="9" stroke="#4b5563" strokeWidth="1.5"/></svg>Primary Caregiver</div>
               <p className="helper">Will you be the primary caregiver for this child?</p>
-              <p style={{ fontSize: 13, color: '#62626e', lineHeight: 1.6, margin: '0 0 12px' }}>The primary caregiver is the parent who provides most of the day-to-day care. This can affect the length and type of absence you receive.</p>
+              <p style={{ fontSize: 13, color: '#4b5563', lineHeight: 1.6, margin: '0 0 12px' }}>The primary caregiver is the parent who provides most of the day-to-day care. This can affect the length and type of absence you receive.</p>
               <div className="yesno" style={{ marginBottom: 0 }}>
                 <button type="button" className={`yesno-btn ${formState.primaryCaregiver === true ? 'selected' : ''}`} onClick={() => updateField('primaryCaregiver', true)}>Yes</button>
                 <button type="button" className={`yesno-btn ${formState.primaryCaregiver === false ? 'selected' : ''}`} onClick={() => updateField('primaryCaregiver', false)}>No</button>
@@ -1170,7 +1170,7 @@ export default function RequestLeaveReactPage() {
                 <div className="form-group"><label>Phone (Call) <span className="req">*</span></label><input type="tel" value={formState.phone} onChange={(event) => updateField('phone', event.target.value)}/></div>
               </div>
               <div style={{ marginTop: '4px' }}>
-                <label style={{ fontSize: '13px', fontWeight: 600, color: '#3d3d47', display: 'block', marginBottom: '10px' }}>Preferred Communication Method</label>
+                <label style={{ fontSize: '13px', fontWeight: 600, color: '#374151', display: 'block', marginBottom: '10px' }}>Preferred Communication Method</label>
                 <div style={{ display: 'flex', gap: '16px', flexWrap: 'wrap' }}>
                   <label className="comm-check"><input type="checkbox" checked={formState.commEmail} onChange={(event) => updateField('commEmail', event.target.checked)}/> Email</label>
                   <label className="comm-check"><input type="checkbox" checked={formState.commPhone} onChange={(event) => updateField('commPhone', event.target.checked)}/> Phone (Call)</label>
@@ -1187,7 +1187,7 @@ export default function RequestLeaveReactPage() {
                 <div className={`toggle ${formState.tempAddress ? 'on' : ''}`} onClick={() => updateField('tempAddress', !formState.tempAddress)}><div className="toggle-knob"/></div>
               </div>
               {formState.tempAddress ? (
-                <div style={{ marginTop: '16px', paddingTop: '16px', borderTop: '1px solid #e8e8ec' }}>
+                <div style={{ marginTop: '16px', paddingTop: '16px', borderTop: '1px solid #e2e8f0' }}>
                   <div className="form-group"><label>Street Address</label><input type="text" value={formState.tempStreet} onChange={(event) => updateField('tempStreet', event.target.value)}/></div>
                   <div className="form-row cols-3">
                     <div className="form-group"><label>City</label><input type="text" value={formState.tempCity} onChange={(event) => updateField('tempCity', event.target.value)}/></div>
@@ -1204,7 +1204,7 @@ export default function RequestLeaveReactPage() {
           </>
         );
       case 'benefits': {
-        const grayPalette = ['#2d2d2d', '#6b6b6b', '#999999', '#bfbfbf'];
+        const grayPalette = ['#1e293b', '#475569', '#94a3b8', '#cbd5e1'];
         const benefitBars = [
           eligibility.fmla.eligible ? { label: 'FMLA', color: grayPalette[0], weeks: eligibility.fmla.weeks, pay: 'Job-protected, unpaid', dates: `${shortDate(formState.leaveStartDate)} \u2013 ${shortDate(formState.expectedReturnDate)}` } : null,
           eligibility.std.eligible ? { label: 'Short-Term Disability', color: grayPalette[1], weeks: eligibility.std.weeks, pay: `${planConfig.std.percentPay}% of salary`, dates: `After ${planConfig.std.waitingDays}-day waiting period` } : null,
@@ -1222,11 +1222,11 @@ export default function RequestLeaveReactPage() {
             <p className="subtitle">Based on the information you've provided, here's an estimate of the benefits you may be eligible for. This is not a guarantee - final determination is made after review.</p>
 
             {/* Timeline */}
-            <div style={{ background: '#fff', border: '1px solid #e8e8ec', borderRadius: 12, padding: 24, marginTop: 8 }}>
+            <div style={{ background: '#fff', border: '1px solid #e2e8f0', borderRadius: 12, padding: 24, marginTop: 8 }}>
               <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 6 }}>
-                <h3 style={{ margin: 0, fontSize: 16, fontWeight: 700, color: '#0f0f14' }}>Leave Timeline <span style={{ fontSize: 12, fontWeight: 600, color: '#525252', background: '#f0f0f2', padding: '2px 8px', borderRadius: 4, marginLeft: 8, verticalAlign: 'middle' }}>ESTIMATE</span></h3>
+                <h3 style={{ margin: 0, fontSize: 16, fontWeight: 700, color: '#0f172a' }}>Leave Timeline <span style={{ fontSize: 12, fontWeight: 600, color: '#4b5563', background: '#f1f5f9', padding: '2px 8px', borderRadius: 4, marginLeft: 8, verticalAlign: 'middle' }}>ESTIMATE</span></h3>
               </div>
-              <p style={{ fontSize: 13, color: '#737373', margin: '0 0 16px', lineHeight: 1.5 }}>Hover over a benefit to see details. <strong>All dates, durations, and pay figures shown are <em>estimates only</em></strong>.</p>
+              <p style={{ fontSize: 13, color: '#64748b', margin: '0 0 16px', lineHeight: 1.5 }}>Hover over a benefit to see details. <strong>All dates, durations, and pay figures shown are <em>estimates only</em></strong>.</p>
 
               <div className="timeline-body" style={{ padding: 0 }}>
                 <div className="timeline-axis">{months.map((m) => <span key={m}>{m}</span>)}</div>
@@ -1245,26 +1245,26 @@ export default function RequestLeaveReactPage() {
                 </div>
               </div>
 
-              <div style={{ fontSize: 11, color: '#525252', background: '#f5f5f7', borderRadius: 6, padding: '8px 12px', marginTop: 16, lineHeight: 1.5, display: 'flex', alignItems: 'flex-start', gap: 6 }}>
-                <svg width="14" height="14" viewBox="0 0 16 16" fill="none" style={{ flexShrink: 0, marginTop: 1 }}><circle cx="8" cy="8" r="7" stroke="#737373" strokeWidth="1.2"/><path d="M8 5v3" stroke="#737373" strokeWidth="1.2" strokeLinecap="round"/><circle cx="8" cy="11" r="0.5" fill="#737373"/></svg>
+              <div style={{ fontSize: 11, color: '#4b5563', background: '#f1f5f9', borderRadius: 6, padding: '8px 12px', marginTop: 16, lineHeight: 1.5, display: 'flex', alignItems: 'flex-start', gap: 6 }}>
+                <svg width="14" height="14" viewBox="0 0 16 16" fill="none" style={{ flexShrink: 0, marginTop: 1 }}><circle cx="8" cy="8" r="7" stroke="#64748b" strokeWidth="1.2"/><path d="M8 5v3" stroke="#64748b" strokeWidth="1.2" strokeLinecap="round"/><circle cx="8" cy="11" r="0.5" fill="#64748b"/></svg>
                 <span><strong>This is an estimate.</strong> Actual eligibility, coverage dates, and payment amounts will be determined after you submit your request and documentation is reviewed.</span>
               </div>
             </div>
 
             {/* Coverage summary */}
-            <div style={{ marginTop: 20, background: '#fff', border: '1px solid #e5e5e5', borderRadius: 10, overflow: 'hidden' }}>
+            <div style={{ marginTop: 20, background: '#fff', border: '1px solid #e2e8f0', borderRadius: 10, overflow: 'hidden' }}>
               <div style={{ padding: '20px 20px 0' }}>
-                <h3 style={{ fontSize: 16, fontWeight: 700, color: '#0f0f14', margin: '0 0 6px' }}>Estimated coverage breakdown</h3>
-                <p style={{ fontSize: 13, color: '#737373', margin: '0 0 16px', lineHeight: 1.5 }}>Final details will be confirmed after your request is submitted and reviewed.</p>
+                <h3 style={{ fontSize: 16, fontWeight: 700, color: '#0f172a', margin: '0 0 6px' }}>Estimated coverage breakdown</h3>
+                <p style={{ fontSize: 13, color: '#64748b', margin: '0 0 16px', lineHeight: 1.5 }}>Final details will be confirmed after your request is submitted and reviewed.</p>
               </div>
 
               {benefitBars.map((bar) => (
-                <div key={bar.label} style={{ padding: '16px 20px', borderTop: '1px solid #f0f0f2' }}>
+                <div key={bar.label} style={{ padding: '16px 20px', borderTop: '1px solid #f1f5f9' }}>
                   <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 4 }}>
-                    <div style={{ fontSize: 14, fontWeight: 600, color: '#0f0f14' }}>{bar.label}</div>
-                    <div style={{ fontSize: 13, fontWeight: 600, color: '#0f0f14' }}>{bar.pay}</div>
+                    <div style={{ fontSize: 14, fontWeight: 600, color: '#0f172a' }}>{bar.label}</div>
+                    <div style={{ fontSize: 13, fontWeight: 600, color: '#0f172a' }}>{bar.pay}</div>
                   </div>
-                  <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: 12, color: '#737373' }}>
+                  <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: 12, color: '#64748b' }}>
                     <span>{bar.dates}</span>
                     <span>{bar.weeks} weeks</span>
                   </div>
@@ -1272,14 +1272,14 @@ export default function RequestLeaveReactPage() {
               ))}
 
               {benefitBars.length > 0 && (
-                <div style={{ padding: '14px 20px', borderTop: '1px solid #e5e5e5', background: '#f9fafb', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                <div style={{ padding: '14px 20px', borderTop: '1px solid #e2e8f0', background: '#f9fafb', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
                   <div>
-                    <div style={{ fontSize: 13, fontWeight: 600, color: '#0f0f14' }}>Est. total leave</div>
-                    <div style={{ fontSize: 12, color: '#737373' }}>~{totalWeeks} weeks {estPaidWeeks > 0 ? `~${estPaidWeeks} paid` : 'Unpaid'}</div>
+                    <div style={{ fontSize: 13, fontWeight: 600, color: '#0f172a' }}>Est. total leave</div>
+                    <div style={{ fontSize: 12, color: '#64748b' }}>~{totalWeeks} weeks {estPaidWeeks > 0 ? `~${estPaidWeeks} paid` : 'Unpaid'}</div>
                   </div>
                   <div style={{ textAlign: 'right' }}>
-                    <div style={{ fontSize: 13, fontWeight: 600, color: '#0f0f14' }}>Benefits available</div>
-                    <div style={{ fontSize: 12, color: '#737373' }}>{benefitBars.length} program{benefitBars.length !== 1 ? 's' : ''}</div>
+                    <div style={{ fontSize: 13, fontWeight: 600, color: '#0f172a' }}>Benefits available</div>
+                    <div style={{ fontSize: 12, color: '#64748b' }}>{benefitBars.length} program{benefitBars.length !== 1 ? 's' : ''}</div>
                   </div>
                 </div>
               )}
@@ -1293,7 +1293,7 @@ export default function RequestLeaveReactPage() {
             <h2>Review and submit</h2>
             <p className="subtitle">Please review everything below before submitting. You can go back and edit any section if something doesn't look right.</p>
             <div className="br-section">
-              <div className="br-section-header"><h3>Employee Information</h3><span style={{ fontSize: 12, color: '#a3a3a3' }}>Provided by employer</span></div>
+              <div className="br-section-header"><h3>Employee Information</h3><span style={{ fontSize: 12, color: '#9ca3af' }}>Provided by employer</span></div>
               <div className="br-grid">
                 <ReviewField label="Name" value={`${formState.employee.firstName} ${formState.employee.lastName}`}/>
                 <ReviewField label="Employee ID" value={formState.employee.employeeId}/>
@@ -1304,8 +1304,8 @@ export default function RequestLeaveReactPage() {
                 <ReviewField label="Employment Type" value={formState.employee.employmentType}/>
                 <ReviewField label="Address" value={formState.employee.address}/>
               </div>
-              <div style={{ fontSize: 12, color: '#a3a3a3', display: 'flex', alignItems: 'center', gap: 6, marginTop: 12, paddingTop: 10, borderTop: '1px solid #f0f0f2' }}>
-                <svg width="14" height="14" viewBox="0 0 16 16" fill="none"><circle cx="8" cy="8" r="7" stroke="#a3a3a3" strokeWidth="1.2"/><path d="M8 5v3" stroke="#a3a3a3" strokeWidth="1.2" strokeLinecap="round"/><circle cx="8" cy="11" r="0.5" fill="#a3a3a3"/></svg>
+              <div style={{ fontSize: 12, color: '#9ca3af', display: 'flex', alignItems: 'center', gap: 6, marginTop: 12, paddingTop: 10, borderTop: '1px solid #f1f5f9' }}>
+                <svg width="14" height="14" viewBox="0 0 16 16" fill="none"><circle cx="8" cy="8" r="7" stroke="#9ca3af" strokeWidth="1.2"/><path d="M8 5v3" stroke="#9ca3af" strokeWidth="1.2" strokeLinecap="round"/><circle cx="8" cy="11" r="0.5" fill="#9ca3af"/></svg>
                 This information is provided by your employer. Contact your employer to make changes.
               </div>
             </div>
@@ -1867,13 +1867,13 @@ export default function RequestLeaveReactPage() {
               <div className="success-case-card" style={{ marginBottom: 20 }}>
                 <div className="success-case-header" style={{ marginBottom: 16 }}>
                   <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
-                    <div style={{ width: 36, height: 36, borderRadius: 8, background: '#f3f4f6', display: 'flex', alignItems: 'center', justifyContent: 'center' }}><svg width="18" height="18" viewBox="0 0 24 24" fill="none"><rect x="3" y="4" width="18" height="17" rx="2" stroke="#525252" strokeWidth="1.5"/><path d="M3 9h18M8 2v4M16 2v4" stroke="#525252" strokeWidth="1.5" strokeLinecap="round"/></svg></div>
+                    <div style={{ width: 36, height: 36, borderRadius: 8, background: '#f3f4f6', display: 'flex', alignItems: 'center', justifyContent: 'center' }}><svg width="18" height="18" viewBox="0 0 24 24" fill="none"><rect x="3" y="4" width="18" height="17" rx="2" stroke="#4b5563" strokeWidth="1.5"/><path d="M3 9h18M8 2v4M16 2v4" stroke="#4b5563" strokeWidth="1.5" strokeLinecap="round"/></svg></div>
                     <div>
-                      <div style={{ fontSize: 14, fontWeight: 600, color: '#0f0f14' }}>Leave Request</div>
-                      <div style={{ fontSize: 12, color: '#737373' }}>Submitted {submittedCase.submittedOn}</div>
+                      <div style={{ fontSize: 14, fontWeight: 600, color: '#0f172a' }}>Leave Request</div>
+                      <div style={{ fontSize: 12, color: '#64748b' }}>Submitted {submittedCase.submittedOn}</div>
                     </div>
                   </div>
-                  <span style={{ display: 'inline-block', fontSize: 11, fontWeight: 700, background: '#1a1a2e', color: '#fff', padding: '4px 12px', borderRadius: 4, textTransform: 'uppercase', letterSpacing: 0.5 }}>Pending</span>
+                  <span style={{ display: 'inline-block', fontSize: 11, fontWeight: 700, background: '#0033a0', color: '#fff', padding: '4px 12px', borderRadius: 4, textTransform: 'uppercase', letterSpacing: 0.5 }}>Pending</span>
                 </div>
                 <div className="success-dates-grid">
                   <div className="success-date-box">
@@ -1923,27 +1923,27 @@ export default function RequestLeaveReactPage() {
       {!started ? (
         <div className="wizard-wrap">
           <div className="req-welcome-card">
-            <div style={{ fontSize: 11, fontWeight: 700, color: '#737373', textTransform: 'uppercase', letterSpacing: 1.5, marginBottom: 16 }}>Request Leave</div>
-            <h2 style={{ fontSize: 28, fontWeight: 700, color: '#0f0f14', letterSpacing: '-0.03em', lineHeight: 1.25, margin: '0 0 12px' }}>Start your leave request</h2>
-            <p style={{ fontSize: 15, color: '#737373', lineHeight: 1.7, maxWidth: 420, margin: '0 auto 36px' }}>Enter your reason for leave, details, and work schedule. You'll be able to review and verify everything before you submit.</p>
+            <div style={{ fontSize: 11, fontWeight: 700, color: '#64748b', textTransform: 'uppercase', letterSpacing: 1.5, marginBottom: 16 }}>Request Leave</div>
+            <h2 style={{ fontSize: 28, fontWeight: 700, color: '#0f172a', letterSpacing: '-0.03em', lineHeight: 1.25, margin: '0 0 12px' }}>Start your leave request</h2>
+            <p style={{ fontSize: 15, color: '#64748b', lineHeight: 1.7, maxWidth: 420, margin: '0 auto 36px' }}>Enter your reason for leave, details, and work schedule. You'll be able to review and verify everything before you submit.</p>
             <div className="req-welcome-journey">
               {[
-                { label: 'Reason', icon: <svg width="20" height="20" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="9" stroke="#525252" strokeWidth="1.5"/><path d="M9 9a3 3 0 015.12 1.5c0 1.5-2.12 2-2.12 3.5" stroke="#525252" strokeWidth="1.5" strokeLinecap="round"/><circle cx="12" cy="17" r="0.75" fill="#525252"/></svg> },
-                { label: 'Details', icon: <svg width="20" height="20" viewBox="0 0 24 24" fill="none"><rect x="3" y="4" width="18" height="17" rx="2" stroke="#525252" strokeWidth="1.5"/><path d="M3 9h18M8 2v4M16 2v4" stroke="#525252" strokeWidth="1.5" strokeLinecap="round"/></svg> },
-                { label: 'Schedule', icon: <svg width="20" height="20" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="10" stroke="#525252" strokeWidth="1.5"/><path d="M12 6v6l4 2" stroke="#525252" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/></svg> },
-                { label: 'Review', icon: <svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M9 11l3 3L22 4" stroke="#525252" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/><path d="M21 12v7a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h11" stroke="#525252" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/></svg> },
+                { label: 'Reason', icon: <svg width="20" height="20" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="9" stroke="#4b5563" strokeWidth="1.5"/><path d="M9 9a3 3 0 015.12 1.5c0 1.5-2.12 2-2.12 3.5" stroke="#4b5563" strokeWidth="1.5" strokeLinecap="round"/><circle cx="12" cy="17" r="0.75" fill="#4b5563"/></svg> },
+                { label: 'Details', icon: <svg width="20" height="20" viewBox="0 0 24 24" fill="none"><rect x="3" y="4" width="18" height="17" rx="2" stroke="#4b5563" strokeWidth="1.5"/><path d="M3 9h18M8 2v4M16 2v4" stroke="#4b5563" strokeWidth="1.5" strokeLinecap="round"/></svg> },
+                { label: 'Schedule', icon: <svg width="20" height="20" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="10" stroke="#4b5563" strokeWidth="1.5"/><path d="M12 6v6l4 2" stroke="#4b5563" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/></svg> },
+                { label: 'Review', icon: <svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M9 11l3 3L22 4" stroke="#4b5563" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/><path d="M21 12v7a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h11" stroke="#4b5563" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/></svg> },
               ].map((phase, index) => (
                 <div key={phase.label} style={{ display: 'contents' }}>
                   {index > 0 ? <div className="req-welcome-arrow"><svg width="16" height="16" viewBox="0 0 20 20" fill="none"><path d="M7 4l6 6-6 6" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/></svg></div> : null}
                   <div className="req-welcome-step">
                     <div className="req-welcome-step-icon">{phase.icon}</div>
-                    <div style={{ fontSize: 12, fontWeight: 600, color: '#525252' }}>{phase.label}</div>
+                    <div style={{ fontSize: 12, fontWeight: 600, color: '#4b5563' }}>{phase.label}</div>
                   </div>
                 </div>
               ))}
             </div>
             <button type="button" className="btn btn-next" style={{ padding: '14px 48px', fontSize: 16, borderRadius: 8 }} onClick={() => setStarted(true)}>Get Started</button>
-            <div style={{ marginTop: 20, fontSize: 13, color: '#a0a0a8' }}>Not sure where to start? <Link to="/plan-absence" style={{ color: '#525252', fontWeight: 600, textDecoration: 'none' }}>Plan your leave first →</Link></div>
+            <div style={{ marginTop: 20, fontSize: 13, color: '#9ca3af' }}>Not sure where to start? <Link to="/plan-absence" style={{ color: '#4b5563', fontWeight: 600, textDecoration: 'none' }}>Plan your leave first →</Link></div>
           </div>
         </div>
       ) : (
