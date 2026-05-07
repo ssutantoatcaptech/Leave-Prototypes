@@ -79,6 +79,7 @@ export default function EnterMyTimePage() {
   ]);
   var [balance, setBalance] = useState(selectedCase.balance);
   var [submitted, setSubmitted] = useState(false);
+  var [newEntryKey, setNewEntryKey] = useState(null);
   var [editingIndex, setEditingIndex] = useState(null);
   var [editForm, setEditForm] = useState({ startTime: '', endTime: '', reason: '' });
 
@@ -121,6 +122,7 @@ export default function EnterMyTimePage() {
     var h = parseFloat(hours);
     if (h <= 0) return;
     var todayStr = new Date().toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
+    var entryKey = Date.now().toString();
     var newEntry = {
       date: displayDate,
       dateKey: formatDateKey(calYear, calMonth, selectedDay),
@@ -131,11 +133,14 @@ export default function EnterMyTimePage() {
       reasonColor: getReasonColor(reason),
       addedOn: todayStr,
       caseId: selectedCase.id,
+      entryKey: entryKey,
     };
     setAbsences([newEntry].concat(absences));
     setBalance(Math.max(0, balance - h));
     setSubmitted(true);
+    setNewEntryKey(entryKey);
     setTimeout(function () { setSubmitted(false); }, 3000);
+    setTimeout(function () { setNewEntryKey(null); }, 8000);
   }
 
   function handleCancel() {
@@ -422,7 +427,7 @@ export default function EnterMyTimePage() {
                     <th>Hours</th>
                     <th>Reason</th>
                     <th>Added On</th>
-                    <th>Edit</th>
+                    <th></th>
                   </tr>
                 </thead>
                 <tbody>
@@ -430,9 +435,35 @@ export default function EnterMyTimePage() {
                     <tr><td colSpan="7" style={{ textAlign: 'center', padding: 24, color: '#9ca3af' }}>No absences logged for this case yet.</td></tr>
                   )}
                   {filteredAbsences.map(function (row, i) {
+                    var isNew = row.entryKey && row.entryKey === newEntryKey;
+                    if (editingIndex === i) {
+                      return (
+                        <tr key={i} className="cl-ma-row--editing">
+                          <td className="cl-ma-cell-bold">{row.date}</td>
+                          <td><input type="text" className="cl-ma-inline-input" value={editForm.startTime} onChange={function (e) { setEditForm(Object.assign({}, editForm, { startTime: e.target.value })); }} /></td>
+                          <td><input type="text" className="cl-ma-inline-input" value={editForm.endTime} onChange={function (e) { setEditForm(Object.assign({}, editForm, { endTime: e.target.value })); }} /></td>
+                          <td className="cl-ma-cell-bold">{calcHours(editForm.startTime, editForm.endTime)}</td>
+                          <td>
+                            <select className="cl-ma-inline-select" value={editForm.reason} onChange={function (e) { setEditForm(Object.assign({}, editForm, { reason: e.target.value })); }}>
+                              {REASONS.map(function (r) { return <option key={r.value} value={r.value}>{r.value}</option>; })}
+                            </select>
+                          </td>
+                          <td>{row.addedOn}</td>
+                          <td>
+                            <div className="cl-ma-inline-actions">
+                              <button type="button" className="cl-ma-inline-save" onClick={function () { saveEdit(i); }}>Save</button>
+                              <button type="button" className="cl-ma-inline-cancel" onClick={cancelEdit}>Cancel</button>
+                            </div>
+                          </td>
+                        </tr>
+                      );
+                    }
                     return (
-                      <tr key={i}>
-                        <td className="cl-ma-cell-bold">{row.date}</td>
+                      <tr key={i} className={isNew ? 'cl-ma-row--new' : ''}>
+                        <td className="cl-ma-cell-bold">
+                          {row.date}
+                          {isNew && <span className="cl-ma-new-badge">New</span>}
+                        </td>
                         <td>{row.startTime}</td>
                         <td>{row.endTime}</td>
                         <td className="cl-ma-cell-bold">{row.hours}</td>
@@ -443,7 +474,7 @@ export default function EnterMyTimePage() {
                         </td>
                         <td>{row.addedOn}</td>
                         <td>
-                          <button className="cl-ma-edit-btn" aria-label="Edit">
+                          <button className="cl-ma-edit-btn" aria-label="Edit" onClick={function () { startEdit(i); }}>
                             <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
                               <path d="M10.5 1.5l2 2-8 8H2.5v-2l8-8z" stroke="#6b7280" strokeWidth="1.2" strokeLinecap="round" strokeLinejoin="round"/>
                             </svg>
