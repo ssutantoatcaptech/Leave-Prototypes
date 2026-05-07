@@ -43,6 +43,9 @@ export default function LeaveDetailNewCasePage() {
     });
   }
 
+  var isBondingLeave = reason === 'Bonding Leave' || reason === 'Pregnancy & Bonding';
+  var isNonBirthingBonding = reason === 'Bonding Leave';
+
   function renderItemsRequiringAction() {
     return (
       <div className="ldb-side-card ldb-side-card--shadow">
@@ -51,25 +54,38 @@ export default function LeaveDetailNewCasePage() {
             <svg width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M8 1l1.8 5.4H15l-4.2 3.1 1.6 5-4.4-3.2L3.6 14.5l1.6-5L1 6.4h5.2L8 1z" stroke="currentColor" strokeWidth="1.2" strokeLinejoin="round"/></svg>
             Items Requiring Action
           </h3>
-          <span style={{ fontSize: 11, fontWeight: 700, color: '#dc2626', background: '#fef2f2', padding: '2px 8px', borderRadius: 10 }}>2 needed</span>
+          <span style={{ fontSize: 11, fontWeight: 700, color: '#dc2626', background: '#fef2f2', padding: '2px 8px', borderRadius: 10 }}>{isNonBirthingBonding ? '1 needed' : '2 needed'}</span>
         </div>
         <div className="ldb-action-list">
-          <div className="ldb-action-item">
-            <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><circle cx="8" cy="8" r="7" stroke="#dc2626" strokeWidth="1.4"/><path d="M8 5v3M8 10.5v.5" stroke="#dc2626" strokeWidth="1.4" strokeLinecap="round"/></svg>
-            <div className="ldb-action-text">
-              <span className="ldb-action-name">Medical Certification Form</span>
-              <span className="ldb-action-due">Due within 15 days</span>
+          {isNonBirthingBonding ? (
+            <div className="ldb-action-item">
+              <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><circle cx="8" cy="8" r="7" stroke="#dc2626" strokeWidth="1.4"/><path d="M8 5v3M8 10.5v.5" stroke="#dc2626" strokeWidth="1.4" strokeLinecap="round"/></svg>
+              <div className="ldb-action-text">
+                <span className="ldb-action-name">Birth Certificate or Placement Documentation</span>
+                <span className="ldb-action-due">Due within 30 days</span>
+              </div>
+              <button type="button" className="ldb-btn-upload-inline">Upload</button>
             </div>
-            <button type="button" className="ldb-btn-upload-inline">Upload</button>
-          </div>
-          <div className="ldb-action-item">
-            <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><circle cx="8" cy="8" r="7" stroke="#dc2626" strokeWidth="1.4"/><path d="M8 5v3M8 10.5v.5" stroke="#dc2626" strokeWidth="1.4" strokeLinecap="round"/></svg>
-            <div className="ldb-action-text">
-              <span className="ldb-action-name">Attending Physician Statement</span>
-              <span className="ldb-action-due">Due within 15 days</span>
-            </div>
-            <button type="button" className="ldb-btn-upload-inline">Upload</button>
-          </div>
+          ) : (
+            <>
+              <div className="ldb-action-item">
+                <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><circle cx="8" cy="8" r="7" stroke="#dc2626" strokeWidth="1.4"/><path d="M8 5v3M8 10.5v.5" stroke="#dc2626" strokeWidth="1.4" strokeLinecap="round"/></svg>
+                <div className="ldb-action-text">
+                  <span className="ldb-action-name">Medical Certification Form</span>
+                  <span className="ldb-action-due">Due within 15 days</span>
+                </div>
+                <button type="button" className="ldb-btn-upload-inline">Upload</button>
+              </div>
+              <div className="ldb-action-item">
+                <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><circle cx="8" cy="8" r="7" stroke="#dc2626" strokeWidth="1.4"/><path d="M8 5v3M8 10.5v.5" stroke="#dc2626" strokeWidth="1.4" strokeLinecap="round"/></svg>
+                <div className="ldb-action-text">
+                  <span className="ldb-action-name">Attending Physician Statement</span>
+                  <span className="ldb-action-due">Due within 15 days</span>
+                </div>
+                <button type="button" className="ldb-btn-upload-inline">Upload</button>
+              </div>
+            </>
+          )}
         </div>
         {!showAllTasks ? (
           <button type="button" className="ldb-show-more-btn" onClick={function () { setShowAllTasks(true); }}>
@@ -331,7 +347,7 @@ export default function LeaveDetailNewCasePage() {
                       </div>
                       <div>
                         <div className="dt-info-field-label">Status</div>
-                        <div className="dt-info-field-value">Pending — awaiting medical certification</div>
+                        <div className="dt-info-field-value">{isNonBirthingBonding ? 'Pending — awaiting placement documentation' : 'Pending — awaiting medical certification'}</div>
                       </div>
                     </div>
                   </div>
@@ -374,7 +390,7 @@ export default function LeaveDetailNewCasePage() {
                       </div>
                       <div>
                         <div className="dt-info-field-label">Status</div>
-                        <div className="dt-info-field-value">Pending — medical documentation required</div>
+                        <div className="dt-info-field-value">{isNonBirthingBonding ? 'Pending — awaiting birth certificate' : 'Pending — medical documentation required'}</div>
                       </div>
                     </div>
                   </div>
