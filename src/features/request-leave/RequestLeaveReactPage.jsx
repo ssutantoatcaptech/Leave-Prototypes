@@ -306,7 +306,6 @@ export default function RequestLeaveReactPage() {
       s.push({ id: 'missedTime', label: 'Missed Time', title: 'Did you miss any work time before starting this leave?' });
       s.push({ id: 'leaveDetails', label: 'Schedule', title: 'What does your typical work week look like?' });
       s.push({ id: 'planAware', label: 'Benefits', title: 'A couple more questions' });
-      s.push({ id: 'bondingIntent', label: 'Bonding', title: 'When would you like to bond with your child?' });
       s.push({ id: 'medicalCert', label: 'Certification', title: 'Medical Certifications' });
       s.push({ id: 'medicalCertConsent', label: 'Consent', title: 'Medical Certification Consent' });
     } else if (mil) {
