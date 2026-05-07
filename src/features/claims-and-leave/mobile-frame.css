@@ -411,6 +411,31 @@
   color: #111827;
 }
 
+.mobile-frame-screen .cl-ma-entry-card-top-right {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.mobile-frame-screen .cl-ma-entry-edit-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  border: none;
+  background: none;
+  color: #6b7280;
+  cursor: pointer;
+  border-radius: 6px;
+  padding: 0;
+}
+
+.mobile-frame-screen .cl-ma-entry-edit-btn:hover {
+  background: #f3f4f6;
+  color: #0033a0;
+}
+
 /* Payment badges stack */
 .mobile-frame-screen .cl-payment-badges {
   flex-direction: row;

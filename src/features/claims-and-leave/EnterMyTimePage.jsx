@@ -440,7 +440,12 @@ export default function EnterMyTimePage() {
                   <div key={i} className="cl-ma-entry-card">
                     <div className="cl-ma-entry-card-top">
                       <span className="cl-ma-entry-card-date">{row.date}</span>
-                      <span className={'cl-ma-reason-badge cl-ma-reason-badge--' + row.reasonColor}>{row.reason}</span>
+                      <div className="cl-ma-entry-card-top-right">
+                        <span className={'cl-ma-reason-badge cl-ma-reason-badge--' + row.reasonColor}>{row.reason}</span>
+                        <button className="cl-ma-entry-edit-btn" type="button" aria-label="Edit entry">
+                          <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M10.08 1.92a1.5 1.5 0 012.12 0l.88.88a1.5 1.5 0 010 2.12L5.5 12.5 2 13l.5-3.5 7.58-7.58z" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round" strokeLinejoin="round"/><path d="M9 3l2 2" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round"/></svg>
+                        </button>
+                      </div>
                     </div>
                     <div className="cl-ma-entry-card-details">
                       <div className="cl-ma-entry-card-field">
