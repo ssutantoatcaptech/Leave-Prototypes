@@ -784,11 +784,15 @@ export default function PlanAbsenceReactPage() {
                 <div className="sim-split-main">
                   <div className="sim-card" style={{ padding: '28px 32px' }}>
                     <h2 style={{ fontSize: 22, fontWeight: 700, margin: '0 0 12px', letterSpacing: '-0.02em' }}>Your Leave Scenario</h2>
-                    <div style={{ background: '#f0f4f8', border: '1px solid #e0e7ef', borderRadius: 8, padding: '12px 16px', marginBottom: 28, display: 'flex', alignItems: 'flex-start', gap: 10 }}>
+                    <div style={{ background: '#f0f4f8', border: '1px solid #e0e7ef', borderRadius: 8, padding: '12px 16px', marginBottom: 12, display: 'flex', alignItems: 'flex-start', gap: 10 }}>
                       <svg width="16" height="16" viewBox="0 0 16 16" fill="none" style={{ flexShrink: 0, marginTop: 2 }}><circle cx="8" cy="8" r="7" stroke="#0033a0" strokeWidth="1.3"/><path d="M8 7.5V11" stroke="#0033a0" strokeWidth="1.3" strokeLinecap="round"/><circle cx="8" cy="5.5" r="0.75" fill="#0033a0"/></svg>
                       <p style={{ fontSize: 13, color: '#374151', lineHeight: 1.6, margin: 0 }}>
                         <strong>This is an estimate.</strong> Actual eligibility, coverage dates, and payment amounts will be determined after you submit your request and documentation is reviewed.
                       </p>
+                    </div>
+                    <div style={{ background: '#f9fafb', border: '1px solid #e8e8ec', borderRadius: 8, padding: '10px 16px', marginBottom: 28, display: 'flex', alignItems: 'center', gap: 8 }}>
+                      <svg width="14" height="14" viewBox="0 0 16 16" fill="none" style={{ flexShrink: 0 }}><path d="M2 4h12v8H2V4z" stroke="#525252" strokeWidth="1.3" strokeLinecap="round" strokeLinejoin="round"/><path d="M5 4V2M11 4V2M2 7h12" stroke="#525252" strokeWidth="1.3" strokeLinecap="round"/></svg>
+                      <p style={{ fontSize: 12, color: '#525252', margin: 0, lineHeight: 1.5 }}>Use the <strong>side panel</strong> to adjust your dates and employment details — the timeline will update instantly.</p>
                     </div>
 
                     <div style={{ background: '#fff', border: '1px solid #e8e8ec', borderRadius: 12, padding: 24, marginBottom: 28 }}>
@@ -834,6 +838,7 @@ export default function PlanAbsenceReactPage() {
                         <div className="dlp-legend-item"><div className="dlp-legend-dot" style={{ background: '#0033a0' }} />FMLA</div>
                         <div className="dlp-legend-item"><div className="dlp-legend-dot" style={{ background: '#3b82f6' }} />Short-Term Disability</div>
                         {stBenefit && <div className="dlp-legend-item"><div className="dlp-legend-dot" style={{ background: '#0d9488' }} />State Paid Leave</div>}
+                        <div className="dlp-legend-item"><div className="dlp-legend-dot" style={{ background: '#d4d4d4' }} />Unpaid</div>
                       </div>
                     </div>
 
@@ -1648,11 +1653,15 @@ export default function PlanAbsenceReactPage() {
               <div className="sim-split-main">
                 <div className="sim-card" style={{ padding: '28px 32px' }}>
                   <h2 style={{ fontSize: 22, fontWeight: 700, margin: '0 0 12px', letterSpacing: '-0.02em' }}>Your Leave Scenario</h2>
-                  <div style={{ background: '#f0f4f8', border: '1px solid #e0e7ef', borderRadius: 8, padding: '12px 16px', marginBottom: 28, display: 'flex', alignItems: 'flex-start', gap: 10 }}>
+                  <div style={{ background: '#f0f4f8', border: '1px solid #e0e7ef', borderRadius: 8, padding: '12px 16px', marginBottom: 12, display: 'flex', alignItems: 'flex-start', gap: 10 }}>
                     <svg width="16" height="16" viewBox="0 0 16 16" fill="none" style={{ flexShrink: 0, marginTop: 2 }}><circle cx="8" cy="8" r="7" stroke="#0033a0" strokeWidth="1.3"/><path d="M8 7.5V11" stroke="#0033a0" strokeWidth="1.3" strokeLinecap="round"/><circle cx="8" cy="5.5" r="0.75" fill="#0033a0"/></svg>
                     <p style={{ fontSize: 13, color: '#374151', lineHeight: 1.6, margin: 0 }}>
                       <strong>This is an estimate.</strong> Actual eligibility, coverage dates, and payment amounts will be determined after you submit your request and documentation is reviewed.
                     </p>
+                  </div>
+                  <div style={{ background: '#f9fafb', border: '1px solid #e8e8ec', borderRadius: 8, padding: '10px 16px', marginBottom: 28, display: 'flex', alignItems: 'center', gap: 8 }}>
+                    <svg width="14" height="14" viewBox="0 0 16 16" fill="none" style={{ flexShrink: 0 }}><path d="M2 4h12v8H2V4z" stroke="#525252" strokeWidth="1.3" strokeLinecap="round" strokeLinejoin="round"/><path d="M5 4V2M11 4V2M2 7h12" stroke="#525252" strokeWidth="1.3" strokeLinecap="round"/></svg>
+                    <p style={{ fontSize: 12, color: '#525252', margin: 0, lineHeight: 1.5 }}>Use the <strong>side panel</strong> to adjust your dates and employment details — the timeline will update instantly.</p>
                   </div>
 
                   {/* Timeline section */}
