@@ -58,7 +58,7 @@ const categoryTabs = ['Dental', 'Vision', 'Supplemental', 'Leave and Disability'
 export default function DentalClaimsPage() {
   const base = useBasePath();
   const navigate = useNavigate();
-  const [expandedRow, setExpandedRow] = useState(0);
+  const [expandedRow, setExpandedRow] = useState(-1);
   const [statusFilter, setStatusFilter] = useState('All');
   const [dateFilter, setDateFilter] = useState('All');
 
