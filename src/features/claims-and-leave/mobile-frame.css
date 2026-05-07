@@ -125,6 +125,7 @@
 /* Page header stacks */
 .mobile-frame-screen .cl-page-header {
   flex-direction: column;
+  align-items: stretch;
   gap: 12px;
 }
 
