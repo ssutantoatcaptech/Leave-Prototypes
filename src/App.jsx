@@ -83,7 +83,7 @@ export default function App() {
   return (
     <>
       <Routes>
-        <Route path="/" element={<Home />} />
+        <Route path="/" element={<Navigate to="/claims-and-leave/file-claim" replace />} />
         <Route path="/overview" element={<Navigate to="/overview-react" replace />} />
         <Route path="/overview-react" element={<OverviewReactPage />} />
         <Route path="/absence-history" element={<AbsenceHistoryReactPage />} />
@@ -153,7 +153,7 @@ export default function App() {
           <Route path="case-detail-caregiver/return-to-work" element={<ReturnToWorkCaregiverEmbeddedPage />} />
         </Route>
 
-        <Route path="*" element={<Navigate to="/" replace />} />
+        <Route path="*" element={<Navigate to="/claims-and-leave/file-claim" replace />} />
       </Routes>
     </>
   );
