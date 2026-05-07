@@ -675,20 +675,6 @@ export default function PlanAbsenceReactPage() {
                   <label>Hired Date <span style={{ color: '#dc2626' }}>*</span></label>
                   <input type="date" value={hireDate} onChange={(e) => setHireDate(e.target.value)} />
                 </div>
-                <div className="sim-field">
-                  <label>Average hours worked per week <span style={{ color: '#dc2626' }}>*</span></label>
-                  <select value={avgHours} onChange={(e) => setAvgHours(e.target.value)}>
-                    <option value="40">40 hours (full-time)</option>
-                    <option value="35">35 hours</option>
-                    <option value="30">30 hours</option>
-                    <option value="24">24 hours</option>
-                    <option value="20">20 hours</option>
-                  </select>
-                </div>
-                <div className="sim-field">
-                  <label>Anticipated Start Date <span style={{ color: '#dc2626' }}>*</span></label>
-                  <input type="date" value={leaveStart} onChange={(e) => setLeaveStart(e.target.value)} />
-                </div>
               </div>
 
               <div style={{ borderTop: '1px solid #e8e8ec', paddingTop: 20 }}>
@@ -712,9 +698,9 @@ export default function PlanAbsenceReactPage() {
                     <input type="number" placeholder="e.g. 20" value={reducedProposedHrs} onChange={(e) => setReducedProposedHrs(e.target.value)} />
                   </div>
                 )}
-                <div className="sim-field">
-                  <label>Expected End Date</label>
-                  <input type="date" value={leaveReturn} onChange={(e) => setLeaveReturn(e.target.value)} />
+                <div className="pa-grid">
+                  <div className="sim-field"><label>Anticipated Start Date <span style={{ color: '#dc2626' }}>*</span></label><input type="date" value={leaveStart} onChange={(e) => setLeaveStart(e.target.value)} /></div>
+                  <div className="sim-field"><label>Expected End Date</label><input type="date" value={leaveReturn} onChange={(e) => setLeaveReturn(e.target.value)} /></div>
                 </div>
               </div>
 
@@ -1548,7 +1534,6 @@ export default function PlanAbsenceReactPage() {
               <h2>Your employment &amp; leave details</h2>
               <p className="sim-desc">We use this to determine your eligibility for FMLA, Short-Term Disability, and state-specific benefits.</p>
 
-              {/* Employment details */}
               <div className="pa-grid">
                 <div className="sim-field">
                   <label>Work State <span style={{ color: '#dc2626' }}>*</span></label>
@@ -1565,20 +1550,6 @@ export default function PlanAbsenceReactPage() {
                 <div className="sim-field">
                   <label>Hired Date <span style={{ color: '#dc2626' }}>*</span></label>
                   <input type="date" value={hireDate} onChange={(e) => setHireDate(e.target.value)} />
-                </div>
-                <div className="sim-field">
-                  <label>Average hours worked per week <span style={{ color: '#dc2626' }}>*</span></label>
-                  <select value={avgHours} onChange={(e) => setAvgHours(e.target.value)}>
-                    <option value="40">40 hours (full-time)</option>
-                    <option value="35">35 hours</option>
-                    <option value="30">30 hours</option>
-                    <option value="24">24 hours</option>
-                    <option value="20">20 hours</option>
-                  </select>
-                </div>
-                <div className="sim-field">
-                  <label>{isBirth ? 'Expected Due Date' : 'Anticipated Start Date'} <span style={{ color: '#dc2626' }}>*</span></label>
-                  <input type="date" value={leaveStart} onChange={(e) => setLeaveStart(e.target.value)} />
                 </div>
               </div>
 
@@ -1603,9 +1574,9 @@ export default function PlanAbsenceReactPage() {
                     <input type="number" placeholder="e.g. 20" value={reducedProposedHrs} onChange={(e) => setReducedProposedHrs(e.target.value)} />
                   </div>
                 )}
-                <div className="sim-field">
-                  <label>Expected End Date</label>
-                  <input type="date" value={leaveReturn} onChange={(e) => setLeaveReturn(e.target.value)} />
+                <div className="pa-grid">
+                  <div className="sim-field"><label>{isBirth ? 'Expected Due Date' : 'Anticipated Start Date'} <span style={{ color: '#dc2626' }}>*</span></label><input type="date" value={leaveStart} onChange={(e) => setLeaveStart(e.target.value)} /></div>
+                  <div className="sim-field"><label>Expected End Date</label><input type="date" value={leaveReturn} onChange={(e) => setLeaveReturn(e.target.value)} /></div>
                 </div>
               </div>
               <div className="sim-btn-row">
