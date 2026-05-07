@@ -1338,6 +1338,157 @@
   /* View tabs (Pay/Coverage toggle) */
   .dlp-view-tabs { width: 100%; }
   .dlp-view-tab { flex: 1; text-align: center; }
+
+  /* Hide sidebar on mobile — replaced by filter bar */
+  .sim-split-side { display: none; }
+
+  /* Hide desktop-only hints on mobile */
+  .dlp-sidepanel-hint { display: none !important; }
+
+  /* Mobile filter bar */
+  .dlp-mobile-filter { display: block; margin-bottom: 12px; }
+
+  /* Form inputs & selects — full width, touch-friendly */
+  .sim-field input,
+  .sim-field select,
+  .plan-absence-shell .bordered-section input[type='text'],
+  .plan-absence-shell .bordered-section input[type='date'],
+  .plan-absence-shell .bordered-section input[type='number'] {
+    font-size: 16px;
+    padding: 14px 12px;
+    border-radius: 8px;
+    min-height: 48px;
+    box-sizing: border-box;
+  }
+
+  /* Buttons — full width, touch-friendly */
+  .btn {
+    width: 100%;
+    justify-content: center;
+    padding: 14px 20px;
+    font-size: 15px;
+    min-height: 48px;
+    box-sizing: border-box;
+  }
+  .btn-cancel-leave {
+    width: 100%;
+    padding: 14px 20px;
+    font-size: 15px;
+    min-height: 48px;
+    box-sizing: border-box;
+  }
+  .sim-btn-primary {
+    width: 100%;
+    padding: 14px 20px !important;
+    font-size: 15px !important;
+    min-height: 48px;
+    justify-content: center;
+    box-sizing: border-box;
+  }
+  .sim-btn-back {
+    width: 100%;
+    padding: 14px 20px;
+    font-size: 15px;
+    min-height: 48px;
+    justify-content: center;
+    text-align: center;
+    box-sizing: border-box;
+  }
+}
+
+/* ─── Mobile filter bar (always outside media query for base styles) ────────── */
+.dlp-mobile-filter {
+  display: none;
+}
+
+.dlp-mobile-filter-toggle {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  padding: 12px 14px;
+  background: #fff;
+  border: 1px solid #e5e5e5;
+  border-radius: 10px;
+  cursor: pointer;
+  font-family: inherit;
+}
+
+.dlp-mobile-filter-summary {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  flex-wrap: wrap;
+}
+
+.dlp-mobile-filter-chip {
+  display: inline-flex;
+  align-items: center;
+  padding: 4px 10px;
+  background: #f0f0f2;
+  border-radius: 6px;
+  font-size: 12px;
+  font-weight: 600;
+  color: #0f0f14;
+  white-space: nowrap;
+}
+
+.dlp-mobile-filter-chevron {
+  flex-shrink: 0;
+  color: #737373;
+  transition: transform 0.2s;
+}
+
+.dlp-mobile-filter-chevron.open {
+  transform: rotate(180deg);
+}
+
+.dlp-mobile-filter-body {
+  padding: 14px;
+  border: 1px solid #e5e5e5;
+  border-top: none;
+  border-radius: 0 0 10px 10px;
+  background: #fff;
+  margin-top: -1px;
+}
+
+.dlp-mobile-filter-fields {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}
+
+.dlp-mobile-filter-field label {
+  display: block;
+  font-size: 11px;
+  font-weight: 600;
+  color: #737373;
+  text-transform: uppercase;
+  letter-spacing: 0.3px;
+  margin-bottom: 5px;
+}
+
+.dlp-mobile-filter-field input,
+.dlp-mobile-filter-field select {
+  width: 100%;
+  padding: 10px 10px;
+  border: 1px solid #d4d4d4;
+  border-radius: 8px;
+  font-size: 14px;
+  font-family: inherit;
+  color: #0f0f14;
+  background: #fff;
+  box-sizing: border-box;
+  min-height: 44px;
+  -webkit-appearance: none;
+  appearance: none;
+}
+
+.dlp-mobile-filter-field select {
+  background-image: url("data:image/svg+xml,%3Csvg width='10' height='6' viewBox='0 0 10 6' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M1 1l4 4 4-4' stroke='%23525252' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 10px center;
+  padding-right: 28px;
 }
 
 /* ═══════════════════════════════════════════════════════════════════════════════

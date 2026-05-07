@@ -360,6 +360,7 @@ export default function PlanAbsenceReactPage() {
   const [openAccordion, setOpenAccordion] = useState(null);
   const [showTransitionModal, setShowTransitionModal] = useState(() => searchParams.get('modal') === '1');
   const [showCancelModal, setShowCancelModal] = useState(false);
+  const [mobileFilterOpen, setMobileFilterOpen] = useState(false);
   const navigate = useNavigate();
 
   const timelineRef = useRef(null);
@@ -784,17 +785,54 @@ export default function PlanAbsenceReactPage() {
             const statePct = (stateWks / displayWks) * 100;
 
             return (
+              <>
+              {/* Mobile filter bar — collapsed summary of sidebar fields */}
+              <div className="dlp-mobile-filter">
+                <button className="dlp-mobile-filter-toggle" type="button" onClick={() => setMobileFilterOpen(!mobileFilterOpen)}>
+                  <div className="dlp-mobile-filter-summary">
+                    <span className="dlp-mobile-filter-chip">{sideWorkState}</span>
+                    <span className="dlp-mobile-filter-chip" style={{ textTransform: 'capitalize' }}>{leaveType}</span>
+                    <span className="dlp-mobile-filter-chip">{leaveStart ? new Date(leaveStart + 'T00:00:00').toLocaleDateString('en-US', { month: 'short', day: 'numeric' }) : '—'} – {leaveReturn ? new Date(leaveReturn + 'T00:00:00').toLocaleDateString('en-US', { month: 'short', day: 'numeric' }) : '—'}</span>
+                  </div>
+                  <svg className={`dlp-mobile-filter-chevron${mobileFilterOpen ? ' open' : ''}`} width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M4 6l4 4 4-4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/></svg>
+                </button>
+                {mobileFilterOpen && (
+                  <div className="dlp-mobile-filter-body">
+                    <div className="dlp-mobile-filter-fields">
+                      <div className="dlp-mobile-filter-field">
+                        <label>Work State</label>
+                        <select value={sideWorkState} onChange={(e) => setSideWorkState(e.target.value)}>
+                          {US_STATES.map((s) => <option key={s} value={s}>{s}</option>)}
+                        </select>
+                      </div>
+                      <div className="dlp-mobile-filter-field">
+                        <label>Hire Date</label>
+                        <input type="date" value={sideHireDate} onChange={(e) => setSideHireDate(e.target.value)} />
+                      </div>
+                      <div className="dlp-mobile-filter-field">
+                        <label>Start Date</label>
+                        <input type="date" value={leaveStart} onChange={(e) => setLeaveStart(e.target.value)} />
+                      </div>
+                      <div className="dlp-mobile-filter-field">
+                        <label>End Date</label>
+                        <input type="date" value={leaveReturn} onChange={(e) => setLeaveReturn(e.target.value)} />
+                      </div>
+                    </div>
+                  </div>
+                )}
+              </div>
+
               <div className="sim-split">
                 <div className="sim-split-main">
                   <div className="sim-card" style={{ padding: '28px 32px' }}>
                     <h2 style={{ fontSize: 22, fontWeight: 700, margin: '0 0 12px', letterSpacing: '-0.02em' }}>Your Leave Scenario</h2>
-                    <div style={{ background: '#f0f4f8', border: '1px solid #e0e7ef', borderRadius: 8, padding: '12px 16px', marginBottom: 12, display: 'flex', alignItems: 'flex-start', gap: 10 }}>
+                    <div className="dlp-estimate-banner" style={{ background: '#f0f4f8', border: '1px solid #e0e7ef', borderRadius: 8, padding: '12px 16px', marginBottom: 12, display: 'flex', alignItems: 'flex-start', gap: 10 }}>
                       <svg width="16" height="16" viewBox="0 0 16 16" fill="none" style={{ flexShrink: 0, marginTop: 2 }}><circle cx="8" cy="8" r="7" stroke="#0033a0" strokeWidth="1.3"/><path d="M8 7.5V11" stroke="#0033a0" strokeWidth="1.3" strokeLinecap="round"/><circle cx="8" cy="5.5" r="0.75" fill="#0033a0"/></svg>
                       <p style={{ fontSize: 13, color: '#374151', lineHeight: 1.6, margin: 0 }}>
                         <strong>This is an estimate.</strong> Actual eligibility, coverage dates, and payment amounts will be determined after you submit your request and documentation is reviewed.
                       </p>
                     </div>
-                    <div style={{ background: '#f9fafb', border: '1px solid #e8e8ec', borderRadius: 8, padding: '10px 16px', marginBottom: 28, display: 'flex', alignItems: 'center', gap: 8 }}>
+                    <div className="dlp-sidepanel-hint" style={{ background: '#f9fafb', border: '1px solid #e8e8ec', borderRadius: 8, padding: '10px 16px', marginBottom: 28, display: 'flex', alignItems: 'center', gap: 8 }}>
                       <svg width="14" height="14" viewBox="0 0 16 16" fill="none" style={{ flexShrink: 0 }}><path d="M2 4h12v8H2V4z" stroke="#525252" strokeWidth="1.3" strokeLinecap="round" strokeLinejoin="round"/><path d="M5 4V2M11 4V2M2 7h12" stroke="#525252" strokeWidth="1.3" strokeLinecap="round"/></svg>
                       <p style={{ fontSize: 12, color: '#525252', margin: 0, lineHeight: 1.5 }}>Use the <strong>side panel</strong> to adjust your dates and employment details — the timeline will update instantly.</p>
                     </div>
@@ -1012,6 +1050,7 @@ export default function PlanAbsenceReactPage() {
                   </div>
                 </div>
               </div>
+              </>
             );
           })()}
         </div>
@@ -1663,18 +1702,57 @@ export default function PlanAbsenceReactPage() {
 
           {/* ─── Step 3: Design Your Plan ─── */}
           {step === 3 && (
+            <>
+            {/* Mobile filter bar */}
+            <div className="dlp-mobile-filter">
+              <button className="dlp-mobile-filter-toggle" type="button" onClick={() => setMobileFilterOpen(!mobileFilterOpen)}>
+                <div className="dlp-mobile-filter-summary">
+                  <span className="dlp-mobile-filter-chip">{sideWorkState}</span>
+                  <span className="dlp-mobile-filter-chip" style={{ textTransform: 'capitalize' }}>{leaveType}</span>
+                  <span className="dlp-mobile-filter-chip">{(isBirth ? sideDueDate : sideStart) ? new Date(((isBirth ? sideDueDate : sideStart)) + 'T00:00:00').toLocaleDateString('en-US', { month: 'short', day: 'numeric' }) : '—'} – {leaveReturn ? new Date(leaveReturn + 'T00:00:00').toLocaleDateString('en-US', { month: 'short', day: 'numeric' }) : '—'}</span>
+                </div>
+                <svg className={`dlp-mobile-filter-chevron${mobileFilterOpen ? ' open' : ''}`} width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M4 6l4 4 4-4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/></svg>
+              </button>
+              {mobileFilterOpen && (
+                <div className="dlp-mobile-filter-body">
+                  <div className="dlp-mobile-filter-fields">
+                    <div className="dlp-mobile-filter-field">
+                      <label>Work State</label>
+                      <select value={sideWorkState} onChange={(e) => setSideWorkState(e.target.value)}>
+                        {US_STATES.map((s) => <option key={s} value={s}>{s}</option>)}
+                      </select>
+                    </div>
+                    <div className="dlp-mobile-filter-field">
+                      <label>Hire Date</label>
+                      <input type="date" value={sideHireDate} onChange={(e) => setSideHireDate(e.target.value)} />
+                    </div>
+                    <div className="dlp-mobile-filter-field">
+                      <label>{isBirth ? 'Due Date' : 'Start Date'}</label>
+                      <input type="date" value={isBirth ? sideDueDate : sideStart} onChange={(e) => isBirth ? setSideDueDate(e.target.value) : setSideStart(e.target.value)} />
+                    </div>
+                    {!isBirth && (
+                      <div className="dlp-mobile-filter-field">
+                        <label>End Date</label>
+                        <input type="date" value={leaveReturn} onChange={(e) => setLeaveReturn(e.target.value)} />
+                      </div>
+                    )}
+                  </div>
+                </div>
+              )}
+            </div>
+
             <div className="sim-split">
               {/* ── Main panel ── */}
               <div className="sim-split-main">
                 <div className="sim-card" style={{ padding: '28px 32px' }}>
                   <h2 style={{ fontSize: 22, fontWeight: 700, margin: '0 0 12px', letterSpacing: '-0.02em' }}>Your Leave Scenario</h2>
-                  <div style={{ background: '#f0f4f8', border: '1px solid #e0e7ef', borderRadius: 8, padding: '12px 16px', marginBottom: 12, display: 'flex', alignItems: 'flex-start', gap: 10 }}>
+                  <div className="dlp-estimate-banner" style={{ background: '#f0f4f8', border: '1px solid #e0e7ef', borderRadius: 8, padding: '12px 16px', marginBottom: 12, display: 'flex', alignItems: 'flex-start', gap: 10 }}>
                     <svg width="16" height="16" viewBox="0 0 16 16" fill="none" style={{ flexShrink: 0, marginTop: 2 }}><circle cx="8" cy="8" r="7" stroke="#0033a0" strokeWidth="1.3"/><path d="M8 7.5V11" stroke="#0033a0" strokeWidth="1.3" strokeLinecap="round"/><circle cx="8" cy="5.5" r="0.75" fill="#0033a0"/></svg>
                     <p style={{ fontSize: 13, color: '#374151', lineHeight: 1.6, margin: 0 }}>
                       <strong>This is an estimate.</strong> Actual eligibility, coverage dates, and payment amounts will be determined after you submit your request and documentation is reviewed.
                     </p>
                   </div>
-                  <div style={{ background: '#f9fafb', border: '1px solid #e8e8ec', borderRadius: 8, padding: '10px 16px', marginBottom: 28, display: 'flex', alignItems: 'center', gap: 8 }}>
+                  <div className="dlp-sidepanel-hint" style={{ background: '#f9fafb', border: '1px solid #e8e8ec', borderRadius: 8, padding: '10px 16px', marginBottom: 28, display: 'flex', alignItems: 'center', gap: 8 }}>
                     <svg width="14" height="14" viewBox="0 0 16 16" fill="none" style={{ flexShrink: 0 }}><path d="M2 4h12v8H2V4z" stroke="#525252" strokeWidth="1.3" strokeLinecap="round" strokeLinejoin="round"/><path d="M5 4V2M11 4V2M2 7h12" stroke="#525252" strokeWidth="1.3" strokeLinecap="round"/></svg>
                     <p style={{ fontSize: 12, color: '#525252', margin: 0, lineHeight: 1.5 }}>Use the <strong>side panel</strong> to adjust your dates and employment details — the timeline will update instantly.</p>
                   </div>
@@ -2008,6 +2086,7 @@ export default function PlanAbsenceReactPage() {
                 </div>
               </div>
             </div>
+            </>
           )}
 
           {/* Step 4 is now handled by the transition modal — no inline content */}
