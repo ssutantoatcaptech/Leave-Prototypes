@@ -189,10 +189,6 @@ export default function EnterMyTimePage() {
           <h1 className="cl-page-title">Enter My Time</h1>
           <p className="cl-page-desc">Record your intermittent leave hours or days for existing claims.</p>
         </div>
-        <div className="cl-balance-badge">
-          <span className="cl-balance-label">CURRENT BALANCE</span>
-          <span className="cl-balance-value">{balance} Hours Remaining</span>
-        </div>
       </div>
 
       <div className="cl-ma-layout">
@@ -548,7 +544,6 @@ export default function EnterMyTimePage() {
                 <span>Keep any related medical notes as you may be asked to provide them for audit.</span>
               </li>
             </ul>
-            <button className="cl-ma-guidance-btn">View Reporting Policy</button>
           </div>
 
           {/* Need Help */}
@@ -573,32 +568,6 @@ export default function EnterMyTimePage() {
             </button>
           </div>
 
-          {/* Helpful Forms */}
-          <div className="cl-ma-forms-card">
-            <h3 className="cl-ma-forms-title">Helpful Forms</h3>
-            <div className="cl-ma-forms-list">
-              <a href="#" className="cl-ma-form-link">
-                <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
-                  <rect x="3" y="1" width="10" height="14" rx="1" stroke="#ef4444" strokeWidth="1.2"/>
-                  <path d="M6 5h4M6 8h4M6 11h2" stroke="#ef4444" strokeWidth="1" strokeLinecap="round"/>
-                </svg>
-                <span>Intermittent Leave Log</span>
-                <svg className="cl-ma-download-icon" width="12" height="12" viewBox="0 0 12 12" fill="none">
-                  <path d="M6 2v6M3.5 6L6 8.5 8.5 6M2 10h8" stroke="#9ca3af" strokeWidth="1.2" strokeLinecap="round" strokeLinejoin="round"/>
-                </svg>
-              </a>
-              <a href="#" className="cl-ma-form-link">
-                <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
-                  <rect x="3" y="1" width="10" height="14" rx="1" stroke="#ef4444" strokeWidth="1.2"/>
-                  <path d="M6 5h4M6 8h4M6 11h2" stroke="#ef4444" strokeWidth="1" strokeLinecap="round"/>
-                </svg>
-                <span>Medical Recertification Form</span>
-                <svg className="cl-ma-download-icon" width="12" height="12" viewBox="0 0 12 12" fill="none">
-                  <path d="M6 2v6M3.5 6L6 8.5 8.5 6M2 10h8" stroke="#9ca3af" strokeWidth="1.2" strokeLinecap="round" strokeLinejoin="round"/>
-                </svg>
-              </a>
-            </div>
-          </div>
         </div>
       </div>
     </div>
