@@ -157,7 +157,7 @@ export default function MyCasesPage() {
                         return (
                           <span key={j}>
                             <button
-                              className="cl-link-btn"
+                              className="cl-btn cl-btn--outline"
                               onClick={function () {
                                 if (action === 'View Details' && row.linkPath) {
                                   navigate(base + row.linkPath);
