@@ -1160,7 +1160,7 @@ export default function RequestLeaveReactPage() {
           <>
             <h2>When would you like to bond with your child?</h2>
             <p className="subtitle">Bonding time is time set aside for you to be with your new child. You don't have to decide everything now.</p>
-            <div className="info-box"><svg width="16" height="16" viewBox="0 0 16 16" fill="none"><circle cx="8" cy="8" r="7" stroke="#3b82f6" strokeWidth="1.2"/><path d="M8 7.5V11" stroke="#3b82f6" strokeWidth="1.2" strokeLinecap="round"/><circle cx="8" cy="5.5" r="0.75" fill="#3b82f6"/></svg><p><strong>What is bonding time?</strong> It\u2019s dedicated time to be with your new child — separate from any medical recovery.</p></div>
+            <div className="info-box"><svg width="16" height="16" viewBox="0 0 16 16" fill="none"><circle cx="8" cy="8" r="7" stroke="#3b82f6" strokeWidth="1.2"/><path d="M8 7.5V11" stroke="#3b82f6" strokeWidth="1.2" strokeLinecap="round"/><circle cx="8" cy="5.5" r="0.75" fill="#3b82f6"/></svg><p><strong>What is bonding time?</strong> Dedicated time to be with your new child — separate from any medical recovery.</p></div>
             <div className="option-cards">
               {renderOptionCard('bondingIntent', 'immediate', 'Right away', 'I want to go straight from recovery into bonding time.')}
               {renderOptionCard('bondingIntent', 'later', 'I\u2019ll come back first', 'I\u2019d like to return to work and take bonding time later.')}
