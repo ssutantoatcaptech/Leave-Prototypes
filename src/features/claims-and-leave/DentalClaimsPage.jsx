@@ -99,7 +99,7 @@ export default function DentalClaimsPage() {
           className="cl-category-dropdown"
           value="Dental"
           onChange={(e) => {
-            if (e.target.value === 'Leave and Disability') navigate(base);
+            if (e.target.value === 'Leave and Disability') navigate(`${base}/claims`);
           }}
         >
           {categoryTabs.map((tab) => (
@@ -113,7 +113,7 @@ export default function DentalClaimsPage() {
         {categoryTabs.map((tab) => (
           <NavLink
             key={tab}
-            to={tab === 'Leave and Disability' ? base : '#'}
+            to={tab === 'Leave and Disability' ? `${base}/claims` : tab === 'Dental' ? base : '#'}
             className={`cl-category-tab${tab === 'Dental' ? ' cl-category-tab--active' : ''}`}
           >
             {tab}

@@ -110,7 +110,8 @@ export default function App() {
         {/* Claims & Leave Mobile — mirrors desktop, wrapped in mobile phone frame */}
         <Route path="/claims-and-leave-mobile/dashboard" element={<MobileFrameWrapper><DashboardPage /></MobileFrameWrapper>} />
         <Route path="/claims-and-leave-mobile" element={<MobileFrameWrapper><ClaimsAndLeaveLayout /></MobileFrameWrapper>}>
-          <Route index element={<ClaimCenterPage />} />
+          <Route index element={<DentalClaimsPage />} />
+          <Route path="claims" element={<ClaimCenterPage />} />
           <Route path="file-claim" element={<FileClaimPage />} />
           <Route path="file-claim/request-leave" element={<RequestLeaveReactPage />} />
           <Route path="dental" element={<DentalClaimsPage />} />
@@ -134,7 +135,8 @@ export default function App() {
 
         {/* Claims & Leave section */}
         <Route path="/claims-and-leave" element={<ClaimsAndLeaveLayout />}>
-          <Route index element={<ClaimCenterPage />} />
+          <Route index element={<DentalClaimsPage />} />
+          <Route path="claims" element={<ClaimCenterPage />} />
           <Route path="file-claim" element={<FileClaimPage />} />
           <Route path="file-claim/request-leave" element={<RequestLeaveReactPage />} />
           <Route path="dental" element={<DentalClaimsPage />} />

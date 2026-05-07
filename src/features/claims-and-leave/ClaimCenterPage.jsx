@@ -1,4 +1,4 @@
-import { useState, useMemo, useEffect } from 'react';
+import { useState, useMemo } from 'react';
 import { NavLink, Link, useNavigate } from 'react-router-dom';
 import useBasePath from './useBasePath';
 
@@ -50,11 +50,6 @@ const categoryTabs = ['Dental', 'Vision', 'Supplemental', 'Leave and Disability'
 export default function ClaimCenterPage() {
   const base = useBasePath();
   const navigate = useNavigate();
-
-  useEffect(() => {
-    navigate(`${base}/dental`, { replace: true });
-  }, []);
-
   const [activeCategory, setActiveCategory] = useState('Leave and Disability');
   const [statusFilter, setStatusFilter] = useState('All');
   const [typeFilter, setTypeFilter] = useState('All');
