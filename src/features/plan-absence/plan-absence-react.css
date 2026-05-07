@@ -1139,21 +1139,131 @@
 }
 
 @media (max-width: 640px) {
-  .rlv2-page { padding: 12px 16px; max-width: calc(100% - 32px); }
-  .option-cards { grid-template-columns: 1fr; }
+  /* Page shell */
+  .rlv2-page {
+    padding: 16px;
+    max-width: 100%;
+    width: 100%;
+    box-sizing: border-box;
+  }
+  .rlv2-page-wide { width: 100%; }
+
+  /* Welcome screen */
+  .pa-welcome {
+    padding: 24px 16px 28px;
+    margin-bottom: 40px;
+  }
+  .pa-welcome h2 { font-size: 22px; }
+  .pa-steps-icons { gap: 4px; }
+  .pa-step-icon-box { width: 40px; height: 40px; }
+  .pa-step-icon-label { font-size: 11px; }
+  .pa-illustration-circle { width: 140px; height: 140px; }
+
+  /* Cards */
+  .sim-card {
+    padding: 24px 16px !important;
+    border-radius: 10px;
+  }
+  .sim-card h2 { font-size: 20px; }
+
+  /* Option cards (reason selection) */
+  .option-cards {
+    grid-template-columns: 1fr;
+    gap: 10px;
+  }
   .option-card {
     min-height: auto;
-    padding: 20px 18px;
+    padding: 16px;
     flex-direction: row;
     text-align: left;
+    gap: 12px;
   }
+  .option-card-icon {
+    width: 40px;
+    height: 40px;
+    border-radius: 10px;
+  }
+  .oc-tooltip { display: none !important; }
+
+  /* Form grids */
   .pa-grid { grid-template-columns: 1fr; }
   .pa-span-2 { grid-column: auto; }
-  .sim-card { padding: 24px 16px; }
+  .rq-grid { grid-template-columns: 1fr; }
+  .rq-grid-3 { grid-template-columns: 1fr; }
+  .rq-span-2 { grid-column: auto; }
 
-  .rq-week-card {
-    padding: 16px 12px;
+  /* Form sections */
+  .rq-section { padding: 20px 16px; }
+
+  /* Button rows */
+  .sim-btn-row {
+    flex-direction: column-reverse;
+    gap: 10px;
+    align-items: stretch;
   }
+  .sim-btn-row .sim-btn-primary,
+  .sim-btn-row .sim-btn-back {
+    width: 100%;
+    justify-content: center;
+    text-align: center;
+  }
+  .wizard-footer {
+    flex-direction: column-reverse;
+    gap: 10px;
+    align-items: stretch;
+  }
+  .wizard-footer .btn {
+    width: 100%;
+    justify-content: center;
+    text-align: center;
+    box-sizing: border-box;
+  }
+  .btn-cancel-leave {
+    width: 100%;
+    text-align: center;
+  }
+
+  /* Split layout (timeline step) */
+  .sim-split { gap: 16px; }
+  .sim-split-side { order: -1; }
+
+  /* Sidebar */
+  .dlp-sidebar { border-radius: 10px; }
+  .dlp-sidebar-group-label { padding: 12px 16px 0; }
+  .dlp-sidebar-group-body { padding: 8px 16px 14px; }
+
+  /* Timeline */
+  .dlp-tl-row-label {
+    width: 60px;
+    font-size: 10px;
+    padding-right: 6px;
+  }
+  .dlp-tl-weeks { padding-left: 60px; }
+  .dlp-tl-months { padding-left: 60px; font-size: 10px; }
+  .dlp-legend { gap: 10px; }
+  .dlp-legend-item { font-size: 10px; }
+
+  /* Pay summary band */
+  .dlp-pay-band {
+    flex-direction: column;
+    border-radius: 10px;
+  }
+  .dlp-pay-stat {
+    border-right: none;
+    border-bottom: 1px solid #e5e5e5;
+    padding: 12px 16px;
+  }
+  .dlp-pay-stat:last-child { border-bottom: none; }
+
+  /* Detail panel */
+  .dlp-detail-grid { grid-template-columns: 1fr; gap: 10px; }
+
+  /* Accordion */
+  .dlp-accordion-btn { padding: 12px 14px; }
+  .dlp-accordion-body { padding: 0 14px 14px; }
+
+  /* Work schedule grid */
+  .rq-week-card { padding: 16px 12px; }
   .rq-days-grid {
     grid-template-columns: repeat(7, 1fr);
     gap: 4px;
@@ -1168,15 +1278,65 @@
     font-size: 14px;
     border-radius: 6px;
   }
-  .rq-day-unit {
-    font-size: 9px;
+  .rq-day-unit { font-size: 9px; }
+  .rq-week-title { font-size: 14px; }
+  .rq-week-total { font-size: 12px; }
+
+  /* Verify & Review grids */
+  .rq-verify-card { padding: 20px 16px; }
+  .rq-verify-grid { grid-template-columns: 1fr; gap: 14px; }
+  .rq-review-grid { grid-template-columns: 1fr; gap: 10px; }
+  .rq-review-section { padding: 16px; }
+
+  /* Plan bar (request steps context bar) */
+  .rq-plan-bar {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 6px;
+    padding: 12px 16px;
   }
-  .rq-week-title {
-    font-size: 14px;
+  .rq-plan-bar-center { font-size: 12px; }
+
+  /* Transition modal */
+  .pr-modal {
+    margin: 16px;
+    max-height: calc(100vh - 32px);
+    border-radius: 14px;
   }
-  .rq-week-total {
-    font-size: 12px;
+  .pr-modal-header { padding: 20px 16px 14px; }
+  .pr-modal-header h3 { font-size: 16px; }
+  .pr-modal-body { padding: 16px; }
+  .pr-modal-footer {
+    padding: 14px 16px 20px;
+    flex-direction: column;
+    gap: 8px;
   }
+  .pr-modal-footer .pr-modal-cancel,
+  .pr-modal-footer .pr-modal-submit {
+    width: 100%;
+    text-align: center;
+    justify-content: center;
+  }
+  .pr-section { padding: 16px; }
+  .pr-collect-card { padding: 16px; }
+
+  /* Cancel modal */
+  .cancel-confirm-modal { padding: 24px 20px; }
+
+  /* Conditional sections */
+  .pa-conditional-section { padding: 14px; }
+
+  /* Alert */
+  .dlp-alert { padding: 12px 14px; font-size: 12px; }
+
+  /* Next card */
+  .dlp-next-card { padding: 18px 16px; }
+  .dlp-next-title { font-size: 15px; }
+  .dlp-next-desc { font-size: 13px; }
+
+  /* View tabs (Pay/Coverage toggle) */
+  .dlp-view-tabs { width: 100%; }
+  .dlp-view-tab { flex: 1; text-align: center; }
 }
 
 /* ═══════════════════════════════════════════════════════════════════════════════
