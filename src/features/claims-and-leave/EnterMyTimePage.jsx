@@ -79,6 +79,8 @@ export default function EnterMyTimePage() {
   ]);
   var [balance, setBalance] = useState(selectedCase.balance);
   var [submitted, setSubmitted] = useState(false);
+  var [editingIndex, setEditingIndex] = useState(null);
+  var [editForm, setEditForm] = useState({ startTime: '', endTime: '', reason: '' });
 
   var calendarDays = buildCalendarDays(calYear, calMonth);
   var hours = calcHours(startTime, endTime);
@@ -143,6 +145,33 @@ export default function EnterMyTimePage() {
     setSelectedDay(today.getDate());
     setCalMonth(today.getMonth());
     setCalYear(today.getFullYear());
+  }
+
+  function startEdit(idx) {
+    var entry = filteredAbsences[idx];
+    setEditForm({ startTime: entry.startTime, endTime: entry.endTime, reason: entry.reason });
+    setEditingIndex(idx);
+  }
+
+  function saveEdit(idx) {
+    var entry = filteredAbsences[idx];
+    var absIdx = absences.indexOf(entry);
+    if (absIdx === -1) { setEditingIndex(null); return; }
+    var updated = absences.slice();
+    var h = calcHours(editForm.startTime, editForm.endTime);
+    updated[absIdx] = Object.assign({}, entry, {
+      startTime: editForm.startTime,
+      endTime: editForm.endTime,
+      hours: h,
+      reason: editForm.reason,
+      reasonColor: getReasonColor(editForm.reason),
+    });
+    setAbsences(updated);
+    setEditingIndex(null);
+  }
+
+  function cancelEdit() {
+    setEditingIndex(null);
   }
 
   var selectedReasonData = REASONS.find(function (r) { return r.value === reason; });
@@ -436,13 +465,43 @@ export default function EnterMyTimePage() {
                 <div className="cl-ma-recent-card-empty">No absences logged for this case yet.</div>
               )}
               {filteredAbsences.map(function (row, i) {
+                if (editingIndex === i) {
+                  return (
+                    <div key={i} className="cl-ma-entry-card cl-ma-entry-card--editing">
+                      <div className="cl-ma-entry-card-top">
+                        <span className="cl-ma-entry-card-date">{row.date}</span>
+                        <span className="cl-ma-entry-editing-label">Editing</span>
+                      </div>
+                      <div className="cl-ma-entry-edit-fields">
+                        <div className="cl-ma-entry-edit-row">
+                          <label className="cl-ma-entry-edit-label">Start</label>
+                          <input type="text" className="cl-ma-entry-edit-input" value={editForm.startTime} onChange={function (e) { setEditForm(Object.assign({}, editForm, { startTime: e.target.value })); }} />
+                        </div>
+                        <div className="cl-ma-entry-edit-row">
+                          <label className="cl-ma-entry-edit-label">End</label>
+                          <input type="text" className="cl-ma-entry-edit-input" value={editForm.endTime} onChange={function (e) { setEditForm(Object.assign({}, editForm, { endTime: e.target.value })); }} />
+                        </div>
+                        <div className="cl-ma-entry-edit-row">
+                          <label className="cl-ma-entry-edit-label">Reason</label>
+                          <select className="cl-ma-entry-edit-input" value={editForm.reason} onChange={function (e) { setEditForm(Object.assign({}, editForm, { reason: e.target.value })); }}>
+                            {REASONS.map(function (r) { return <option key={r.value} value={r.value}>{r.value}</option>; })}
+                          </select>
+                        </div>
+                      </div>
+                      <div className="cl-ma-entry-edit-actions">
+                        <button type="button" className="cl-ma-entry-edit-save" onClick={function () { saveEdit(i); }}>Save</button>
+                        <button type="button" className="cl-ma-entry-edit-cancel" onClick={cancelEdit}>Cancel</button>
+                      </div>
+                    </div>
+                  );
+                }
                 return (
                   <div key={i} className="cl-ma-entry-card">
                     <div className="cl-ma-entry-card-top">
                       <span className="cl-ma-entry-card-date">{row.date}</span>
                       <div className="cl-ma-entry-card-top-right">
                         <span className={'cl-ma-reason-badge cl-ma-reason-badge--' + row.reasonColor}>{row.reason}</span>
-                        <button className="cl-ma-entry-edit-btn" type="button" aria-label="Edit entry">
+                        <button className="cl-ma-entry-edit-btn" type="button" aria-label="Edit entry" onClick={function () { startEdit(i); }}>
                           <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M10.08 1.92a1.5 1.5 0 012.12 0l.88.88a1.5 1.5 0 010 2.12L5.5 12.5 2 13l.5-3.5 7.58-7.58z" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round" strokeLinejoin="round"/><path d="M9 3l2 2" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round"/></svg>
                         </button>
                       </div>
