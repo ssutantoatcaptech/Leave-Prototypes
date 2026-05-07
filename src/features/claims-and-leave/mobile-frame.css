@@ -600,7 +600,8 @@
 }
 
 /* Cancel modal: contain within mobile frame */
-.mobile-frame-screen .pr-modal-backdrop {
+.mobile-frame-screen .pr-modal-backdrop,
+.mobile-frame-screen .cl-delete-modal-backdrop {
   position: absolute;
   inset: 0;
   z-index: 300;

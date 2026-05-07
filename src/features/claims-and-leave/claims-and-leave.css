@@ -3195,6 +3195,93 @@
   text-decoration: underline;
 }
 
+/* Delete confirmation modal */
+.cl-delete-modal-backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 300;
+  background: rgba(0, 0, 0, 0.45);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+}
+
+.cl-delete-modal {
+  background: #fff;
+  border-radius: 16px;
+  padding: 32px 24px;
+  max-width: 360px;
+  width: 100%;
+  text-align: center;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15);
+}
+
+.cl-delete-modal-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  background: #fef2f2;
+  margin-bottom: 16px;
+}
+
+.cl-delete-modal-title {
+  font-size: 18px;
+  font-weight: 700;
+  color: #0f0f14;
+  margin: 0 0 8px;
+}
+
+.cl-delete-modal-desc {
+  font-size: 14px;
+  color: #4b5563;
+  margin: 0 0 24px;
+  line-height: 1.5;
+}
+
+.cl-delete-modal-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.cl-delete-modal-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 44px;
+  padding: 12px 20px;
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  border: none;
+  font-family: inherit;
+  transition: background 0.12s;
+}
+
+.cl-delete-modal-btn--keep {
+  background: #0033a0;
+  color: #fff;
+}
+
+.cl-delete-modal-btn--keep:hover {
+  background: #002880;
+}
+
+.cl-delete-modal-btn--discard {
+  background: #fff;
+  color: #dc2626;
+  border: 1px solid #dc2626;
+}
+
+.cl-delete-modal-btn--discard:hover {
+  background: #fef2f2;
+}
+
 .cl-card-mobile-actions-row {
   display: flex;
   gap: 8px;
