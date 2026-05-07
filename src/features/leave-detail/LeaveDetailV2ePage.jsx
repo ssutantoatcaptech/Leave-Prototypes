@@ -96,6 +96,7 @@ export default function LeaveDetailV2ePage() {
   var [expandedClaims, setExpandedClaims] = useState({ absence: !isMobile, stateleave: false });
   var [paymentsOpen, setPaymentsOpen] = useState(!isMobile);
   var [showAllTasks, setShowAllTasks] = useState(false);
+  var [snapshotOpen, setSnapshotOpen] = useState(true);
   var [editingSection, setEditingSection] = useState(null);
   var [detailsForm, setDetailsForm] = useState({
     reason: 'Surgical procedure and post-operative recovery',
@@ -237,6 +238,36 @@ export default function LeaveDetailV2ePage() {
           <div className="ldb-v2-main">
 
             {isMobile && renderItemsRequiringAction()}
+
+            {isMobile && (
+              <div className="ldb-side-card ldb-mobile-snapshot-accordion">
+                <button type="button" className="ldb-accordion-toggle" onClick={function () { setSnapshotOpen(!snapshotOpen); }}>
+                  <h3 className="ldb-side-title" style={{ marginBottom: 0 }}>
+                    <svg width="14" height="14" viewBox="0 0 16 16" fill="none"><rect x="2" y="3" width="12" height="11" rx="1.5" stroke="currentColor" strokeWidth="1.2"/><path d="M2 6h12" stroke="currentColor" strokeWidth="1.2"/><path d="M5 2v2M11 2v2" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round"/></svg>
+                    Leave Snapshot
+                  </h3>
+                  <svg className={`ldb-accordion-chevron ${snapshotOpen ? 'open' : ''}`} width="12" height="12" viewBox="0 0 16 16" fill="none"><path d="M4 6l4 4 4-4" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round"/></svg>
+                </button>
+                {snapshotOpen && (
+                  <div className="ldb-accordion-body">
+                    <div className="ldb-snapshot-dates-row">
+                      <div className="ldb-snapshot-date-card">
+                        <div className="ldb-snapshot-date-label">Start Date</div>
+                        <div className="ldb-snapshot-date-value">March 1, 2025</div>
+                      </div>
+                      <div className="ldb-snapshot-date-card">
+                        <div className="ldb-snapshot-date-label">End Date</div>
+                        <div className="ldb-snapshot-date-value">April 25, 2025</div>
+                      </div>
+                    </div>
+                    <div className="ldb-snapshot-date-card ldb-snapshot-date-card--full">
+                      <div className="ldb-snapshot-date-label">Return Work Date</div>
+                      <div className="ldb-snapshot-date-value">April 26, 2025</div>
+                    </div>
+                  </div>
+                )}
+              </div>
+            )}
 
             {/* Leave Timeline */}
             <div className="ldb-card dt-timeline-wrap">

@@ -923,6 +923,23 @@
   flex-shrink: 0;
 }
 .ldb-accordion-toggle.open .ldb-accordion-chevron { transform: rotate(180deg); }
+.ldb-accordion-chevron.open { transform: rotate(180deg); }
+
+.ldb-accordion-toggle {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  font-family: inherit;
+}
+
+.ldb-accordion-body {
+  margin-top: 14px;
+}
 
 /* ── TASK TIMELINE ── */
 .ldb-task-timeline {
