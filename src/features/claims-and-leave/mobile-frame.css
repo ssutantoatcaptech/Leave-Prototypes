@@ -659,8 +659,7 @@
 }
 
 .mobile-frame-screen .option-radio {
-  top: 50%;
-  transform: translateY(-50%);
+  display: none;
 }
 
 /* Leave type picker: stack */
