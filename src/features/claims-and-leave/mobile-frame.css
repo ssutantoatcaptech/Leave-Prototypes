@@ -53,6 +53,7 @@
 }
 
 .mobile-frame-screen .cl-header {
+  position: -webkit-sticky;
   position: sticky;
   top: 0;
   z-index: 100;
@@ -67,10 +68,11 @@
   right: 0;
   z-index: 100;
   background: #ffffff;
+  padding-top: env(safe-area-inset-top, 0px);
 }
 
 .mobile-frame-native .cl-layout {
-  padding-top: 56px;
+  padding-top: calc(56px + env(safe-area-inset-top, 0px));
 }
 
 .mobile-frame-screen .cl-main-nav {
@@ -725,7 +727,10 @@
 .mobile-frame-screen .pr-modal-backdrop,
 .mobile-frame-screen .cl-delete-modal-backdrop {
   position: absolute;
-  inset: 0;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
   z-index: 300;
 }
 
