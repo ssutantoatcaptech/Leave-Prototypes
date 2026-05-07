@@ -319,6 +319,40 @@ export default function DashboardPage() {
           </div>
         </div>
       </main>
+
+      <footer className="cl-footer">
+        <div className="cl-footer-inner">
+          <div className="cl-footer-grid">
+            <div className="cl-footer-col">
+              <h4 className="cl-footer-heading">Resources</h4>
+              <a href="#" className="cl-footer-link">Leave Policies</a>
+              <a href="#" className="cl-footer-link">FAQs</a>
+              <a href="#" className="cl-footer-link">Forms &amp; Documents</a>
+            </div>
+            <div className="cl-footer-col">
+              <h4 className="cl-footer-heading">Support</h4>
+              <a href="#" className="cl-footer-link">Contact Us</a>
+              <a href="#" className="cl-footer-link">Help Center</a>
+              <a href="#" className="cl-footer-link">Report an Issue</a>
+            </div>
+            <div className="cl-footer-col">
+              <h4 className="cl-footer-heading">Legal</h4>
+              <a href="#" className="cl-footer-link">Privacy Policy</a>
+              <a href="#" className="cl-footer-link">Terms of Use</a>
+              <a href="#" className="cl-footer-link">Accessibility</a>
+            </div>
+            <div className="cl-footer-col">
+              <h4 className="cl-footer-heading">Contact</h4>
+              <a href="#" className="cl-footer-link">Phone: 1-800-555-1234</a>
+              <a href="#" className="cl-footer-link">Email: benefits@company.com</a>
+              <a href="#" className="cl-footer-link">Hours: Mon–Fri, 8am–6pm EST</a>
+            </div>
+          </div>
+          <div className="cl-footer-bottom">
+            <span>&copy; 2026 Benefits Hub. All rights reserved.</span>
+          </div>
+        </div>
+      </footer>
     </div>
   );
 }
