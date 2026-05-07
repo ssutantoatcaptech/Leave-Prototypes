@@ -633,8 +633,8 @@
 }
 
 .yesno-btn.selected {
-  border-color: #111118;
-  background: #111118;
+  border-color: #0033a0;
+  background: #0033a0;
   color: #fff;
 }
 
@@ -886,7 +886,7 @@
 .btn-next,
 .btn-submit {
   border: none;
-  background: #0f172a;
+  background: #0033a0;
   color: #fff;
 }
 
@@ -1068,7 +1068,7 @@
 }
 
 .elig-chip.eligible {
-  background: #2d2d2d;
+  background: #0033a0;
   color: #fff;
 }
 

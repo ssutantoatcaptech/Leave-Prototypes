@@ -1972,13 +1972,13 @@
   font-weight: 600;
   font-family: inherit;
   cursor: pointer;
-  border: 1px solid #d4d4d4;
-  background: #fff;
-  color: #3d3d47;
+  border: none;
+  background: #0033a0;
+  color: #fff;
   transition: 0.15s;
 }
 .btn-cancel-confirm-continue:hover {
-  background: #f5f5f7;
+  background: #002878;
 }
 .btn-cancel-confirm-discard {
   flex: 1;
@@ -1988,13 +1988,13 @@
   font-weight: 600;
   font-family: inherit;
   cursor: pointer;
-  border: none;
-  background: #525252;
-  color: #fff;
+  border: 1px solid #e2e8f0;
+  background: #fff;
+  color: #374151;
   transition: 0.15s;
 }
 .btn-cancel-confirm-discard:hover {
-  background: #3d3d47;
+  background: #f8fafc;
 }
 .cancel-confirm-actions-stack {
   display: flex;
