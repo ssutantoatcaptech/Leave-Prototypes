@@ -399,7 +399,7 @@
 .option-card.selected {
   border-color: #0033a0;
   background: #eff6ff;
-  box-shadow: 0 0 0 1px #0033a0;
+  box-shadow: none;
 }
 
 .option-card-icon {
