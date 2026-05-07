@@ -774,13 +774,13 @@ export default function PlanAbsenceReactPage() {
                         </div>
                       )}
 
-                      <div className="dlp-tl-weeks" style={{ paddingLeft: 120, marginTop: 8, display: 'flex' }}>
+                      <div className="dlp-tl-weeks" style={{ paddingLeft: 80, marginTop: 8, display: 'flex' }}>
                         {Array.from({ length: displayWks }, (_, i) => (
                           <span key={i} style={{ flex: 1, fontSize: 10, color: '#737373', textAlign: 'center' }}>Wk {i + 1}</span>
                         ))}
                       </div>
 
-                      <div className="dlp-tl-months" style={{ paddingLeft: 120, marginTop: 4 }}>
+                      <div className="dlp-tl-months" style={{ paddingLeft: 80, marginTop: 4 }}>
                         {estMonths.map((m, i) => <span key={i}>{m}</span>)}
                       </div>
 
@@ -1642,14 +1642,14 @@ export default function PlanAbsenceReactPage() {
                             </div>
                           ))}
                           {tlData.rows.length === 0 && (
-                            <div style={{ padding: '12px 0 12px 120px', fontSize: 12, color: '#737373', textAlign: 'center' }}>
+                            <div style={{ padding: '12px 0 12px 80px', fontSize: 12, color: '#737373', textAlign: 'center' }}>
                               No leave periods to display. Update your dates to see the timeline.
                             </div>
                           )}
                         </div>
                         {/* Due date marker */}
                         {isBirth && tlData.showDueMarker && (
-                          <div className="dlp-tl-marker" style={{ left: `calc(120px + ${tlData.duePct}% * (100% - 120px) / 100)`, position: 'absolute', top: 0, bottom: 0 }}>
+                          <div className="dlp-tl-marker" style={{ left: `calc(80px + ${tlData.duePct}% * (100% - 80px) / 100)`, position: 'absolute', top: 0, bottom: 0 }}>
                             <div style={{ position: 'absolute', top: -4, left: -4, width: 10, height: 10, background: '#a3860a', borderRadius: '50%', border: '2px solid #fff' }} />
                           </div>
                         )}

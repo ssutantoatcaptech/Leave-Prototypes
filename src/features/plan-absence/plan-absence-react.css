@@ -646,7 +646,7 @@
 .dlp-tl-row.active { background: #f0f0f2; }
 
 .dlp-tl-row-label {
-  width: 120px;
+  width: 80px;
   flex-shrink: 0;
   font-size: 12px;
   font-weight: 600;
@@ -749,7 +749,7 @@
   display: flex;
   margin-top: 10px;
   margin-bottom: 4px;
-  padding-left: 120px;
+  padding-left: 80px;
   gap: 0;
 }
 .dlp-tl-week-tick {
@@ -778,7 +778,7 @@
   color: #a3a3a3;
   margin-top: 6px;
   margin-bottom: 6px;
-  padding-left: 120px;
+  padding-left: 80px;
 }
 
 /* ─── Legend ─────────────────────────────────────────────────────────────────── */
