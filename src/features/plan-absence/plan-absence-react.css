@@ -1139,25 +1139,15 @@
 }
 
 @media (max-width: 640px) {
-  /* Page shell — fill parent width, no extra horizontal padding.
-     Parent (.cl-main or .plan-absence-shell) provides 16px sides. */
-  .plan-absence-shell {
-    padding-left: 16px;
-    padding-right: 16px;
-    box-sizing: border-box;
-  }
-  .cl-main .plan-absence-shell {
-    padding-left: 0;
-    padding-right: 0;
-  }
+  /* Page shell — match request-leave wizard-wrap mobile spacing */
   .rlv2-page {
     padding: 16px 0;
-    max-width: none;
+    max-width: calc(100% - 16px);
     width: 100%;
-    margin: 0;
+    margin: 0 auto;
     box-sizing: border-box;
   }
-  .rlv2-page-wide { width: 100%; max-width: none; }
+  .rlv2-page-wide { width: 100%; max-width: calc(100% - 16px); }
 
   /* Welcome screen */
   .pa-welcome {
