@@ -1139,7 +1139,7 @@
 }
 
 @media (max-width: 640px) {
-  .rlv2-page { padding: 24px 16px; max-width: calc(100% - 32px); }
+  .rlv2-page { padding: 12px 16px; max-width: calc(100% - 32px); }
   .option-cards { grid-template-columns: 1fr; }
   .option-card {
     min-height: auto;
