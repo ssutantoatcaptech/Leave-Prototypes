@@ -2495,13 +2495,18 @@ export default function PlanAbsenceReactPage() {
             <div className="pr-modal-footer">
               <button className="pr-modal-cancel" type="button" onClick={() => setShowTransitionModal(false)}>Cancel</button>
               <button type="button" className="pr-modal-submit" onClick={() => {
-                setShowTransitionModal(false);
-                if (reason === 'illness') {
-                  setIllnessIntakeStep(1);
-                } else {
-                  setStep(5);
-                }
-                window.scrollTo({ top: 0, behavior: 'smooth' });
+                const scenarioMap = { illness: 'medical_self', family: 'medical_family', birth: 'child', nonbirth: 'child_nonbirth', military: 'military', other: 'other' };
+                const transferData = {
+                  leaveScenario: scenarioMap[reason] || reason,
+                  leaveType,
+                  leaveStartDate: isBirth ? sideDueDate : (leaveStart || sideStart),
+                  expectedReturnDate: leaveReturn || addWeeksToDate(sideStart, sideDuration),
+                  workState: sideWorkState,
+                  hireDate: sideHireDate,
+                  reducedHours: leaveType === 'reduced' ? reducedProposedHrs : undefined,
+                };
+                sessionStorage.setItem('planTransfer', JSON.stringify(transferData));
+                navigate('../file-claim/request-leave');
               }}>Request Leave Now &rarr;</button>
             </div>
           </div>

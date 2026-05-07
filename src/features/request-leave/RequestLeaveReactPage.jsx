@@ -226,6 +226,12 @@ export default function RequestLeaveReactPage() {
         leaveType: fromPlan.leaveType || 'continuous',
         leaveStartDate: fromPlan.leaveStartDate || initialState.leaveStartDate,
         expectedReturnDate: fromPlan.expectedReturnDate || initialState.expectedReturnDate,
+        reducedHoursPerWeek: fromPlan.reducedHours || initialState.reducedHoursPerWeek,
+        employee: {
+          ...initialState.employee,
+          hireDate: fromPlan.hireDate || initialState.employee.hireDate,
+          workLocation: fromPlan.workState ? `${fromPlan.workState}` : initialState.employee.workLocation,
+        },
         diagnosis: fromPlan.diagnosis || '',
         firstTreatment: fromPlan.firstTreatment || '',
         nextAppointment: fromPlan.nextAppointment || '',
