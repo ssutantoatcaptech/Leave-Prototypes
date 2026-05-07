@@ -2705,11 +2705,22 @@
 
 /* Quick Actions */
 .cldb-grid-actions .cldb-card-body {
-  padding-bottom: 0;
+  padding-bottom: 14px;
 }
 
 .cldb-grid-actions {
   align-self: start;
+}
+
+.cldb-grid-benefits {
+  align-self: start;
+}
+
+@media (min-width: 769px) {
+  .cldb-grid-actions { order: 1; }
+  .cldb-grid-benefits { order: 2; }
+  .cldb-grid-status { order: 3; }
+  .cldb-grid-activity { order: 4; }
 }
 
 .cldb-quick-actions {
