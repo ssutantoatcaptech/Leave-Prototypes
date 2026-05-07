@@ -635,6 +635,11 @@
   min-width: 0;
 }
 
+/* Quick actions full width on mobile */
+.cldb-grid-actions {
+  align-self: stretch;
+}
+
 /* Action rows full width */
 .cldb-action-row {
   min-height: 44px;
