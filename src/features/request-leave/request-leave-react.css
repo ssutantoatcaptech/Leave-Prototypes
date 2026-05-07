@@ -479,34 +479,9 @@
 }
 
 .option-radio {
-  width: 18px;
-  height: 18px;
-  border-radius: 50%;
-  border: 2px solid #d1d5db;
-  position: absolute;
-  top: 12px;
-  right: 12px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  display: none;
 }
 
-.option-card.selected .option-radio {
-  border-color: #0033a0;
-}
-
-.option-radio-dot {
-  width: 9px;
-  height: 9px;
-  border-radius: 50%;
-  background: #0033a0;
-  transform: scale(0);
-  transition: 0.2s;
-}
-
-.option-card.selected .option-radio-dot {
-  transform: scale(1);
-}
 
 .option-text {
   display: flex;
