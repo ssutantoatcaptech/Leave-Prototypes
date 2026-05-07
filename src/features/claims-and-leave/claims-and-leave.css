@@ -362,12 +362,12 @@
 }
 
 .cl-btn--dark {
-  background: #0f0f14;
+  background: #0033a0;
   color: #ffffff;
 }
 
 .cl-btn--dark:hover {
-  background: #1f1f24;
+  background: #002580;
 }
 
 .cl-btn--primary {
