@@ -230,6 +230,53 @@ export default function DentalClaimsPage() {
           </tbody>
         </table>
       </div>
+
+      {/* Mobile card view */}
+      <div className="cl-cards-mobile">
+        {filtered.length === 0 && (
+          <div className="cl-card-empty-mobile">No claims match your filters.</div>
+        )}
+        {filtered.map((row, i) => (
+          <div key={i} className="cl-card-mobile">
+            <div className="cl-card-mobile-header">
+              <span className="cl-card-mobile-primary">{row.claimNum}</span>
+              <span className={`cl-badge cl-badge--${row.statusColor}`}>{row.status}</span>
+            </div>
+            <span className="cl-card-mobile-type">{row.member} — {row.provider}</span>
+            <div className="cl-card-mobile-details">
+              <div className="cl-card-mobile-field">
+                <span className="cl-card-mobile-label">Date</span>
+                <span className="cl-card-mobile-value">{row.date}</span>
+              </div>
+              <div className="cl-card-mobile-field">
+                <span className="cl-card-mobile-label">Billed</span>
+                <span className="cl-card-mobile-value">{row.billed}</span>
+              </div>
+              <div className="cl-card-mobile-field">
+                <span className="cl-card-mobile-label">You Pay</span>
+                <span className="cl-card-mobile-value">{row.memberPays}</span>
+              </div>
+            </div>
+            <button className="cl-card-mobile-action" onClick={() => setExpandedRow(expandedRow === i ? -1 : i)}>
+              {expandedRow === i ? 'Hide Details' : 'View Details'}
+            </button>
+            {expandedRow === i && (
+              <div className="cl-card-mobile-expand">
+                {row.details.map((d, j) => (
+                  <div key={j} className="cl-card-mobile-field">
+                    <span className="cl-card-mobile-label">{d.code} — {d.service}</span>
+                    <span className="cl-card-mobile-value">{d.youPay}</span>
+                  </div>
+                ))}
+                <div className="cl-card-mobile-field cl-card-mobile-field--total">
+                  <span className="cl-card-mobile-label">Total You Pay</span>
+                  <span className="cl-card-mobile-value">{row.memberPays}</span>
+                </div>
+              </div>
+            )}
+          </div>
+        ))}
+      </div>
     </div>
   );
 }
