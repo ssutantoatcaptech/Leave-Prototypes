@@ -36,6 +36,7 @@ import LeavePlanningPage from './features/claims-and-leave/LeavePlanningPage';
 import EnterMyTimePage from './features/claims-and-leave/EnterMyTimePage';
 import PaymentsPage from './features/claims-and-leave/PaymentsPage';
 import DashboardPage from './features/claims-and-leave/DashboardPage';
+import StdClaimDetailPage from './features/claims-and-leave/StdClaimDetailPage';
 import MobileFrameWrapper from './features/claims-and-leave/MobileFrameWrapper';
 
 function Home() {
@@ -128,6 +129,7 @@ export default function App() {
           <Route path="case-detail-pregnancy/return-to-work" element={<ReturnToWorkPregnancyEmbeddedPage />} />
           <Route path="case-detail-caregiver" element={<LeaveDetailCaregiverPage />} />
           <Route path="case-detail-caregiver/return-to-work" element={<ReturnToWorkCaregiverEmbeddedPage />} />
+          <Route path="std-claim-detail" element={<StdClaimDetailPage />} />
         </Route>
 
         {/* Claims & Leave Dashboard (standalone, no subnav) */}
@@ -153,6 +155,7 @@ export default function App() {
           <Route path="case-detail-pregnancy/return-to-work" element={<ReturnToWorkPregnancyEmbeddedPage />} />
           <Route path="case-detail-caregiver" element={<LeaveDetailCaregiverPage />} />
           <Route path="case-detail-caregiver/return-to-work" element={<ReturnToWorkCaregiverEmbeddedPage />} />
+          <Route path="std-claim-detail" element={<StdClaimDetailPage />} />
         </Route>
 
         <Route path="*" element={<Navigate to="/claims-and-leave/file-claim" replace />} />
