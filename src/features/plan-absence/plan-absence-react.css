@@ -2022,9 +2022,11 @@
   background: #002878;
 }
 .cancel-confirm-actions-stack .btn-cancel-confirm-discard {
-  background: #4b5563;
+  background: #ffffff;
+  color: #0033a0;
+  border: 1px solid #0033a0;
 }
 .cancel-confirm-actions-stack .btn-cancel-confirm-discard:hover {
-  background: #0033a0;
+  background: #f0f4ff;
 }
 
