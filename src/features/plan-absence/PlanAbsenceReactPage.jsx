@@ -799,7 +799,6 @@ export default function PlanAbsenceReactPage() {
                       <div className="dlp-section-head" style={{ marginBottom: 6 }}>
                         <h3 style={{ margin: 0, fontSize: 16, fontWeight: 700 }}>Leave Timeline <span style={{ fontSize: 12, fontWeight: 600, color: '#525252', background: '#f0f0f2', padding: '2px 8px', borderRadius: 4, marginLeft: 8, verticalAlign: 'middle' }}>ESTIMATE</span></h3>
                       </div>
-                      <p className="dlp-section-sub">Hover over a row to see details. <strong>All dates, durations, and pay figures shown are <em>estimates only</em>.</strong></p>
 
                       <div className="dlp-tl-row" style={{ marginBottom: 8 }}>
                         <div className="dlp-tl-row-label">FMLA</div>
@@ -1681,7 +1680,6 @@ export default function PlanAbsenceReactPage() {
                         ))}
                       </div>
                     </div>
-                    <p className="dlp-section-sub">Hover over a row to see details. <strong>All dates, durations, and pay figures shown are <em>estimates only</em></strong> — actual benefits are subject to eligibility review and final approval.</p>
 
                     <div className="dlp-timeline" ref={timelineRef} onMouseLeave={() => setOpenDetail(null)}>
                       <div style={{ position: 'relative' }}>
