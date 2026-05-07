@@ -1203,3 +1203,173 @@
 .mobile-frame-screen .rtw-page.rtw-embedded {
   min-height: auto;
 }
+
+/* ===========================
+   STD Claim Detail — Mobile Frame Overrides
+   =========================== */
+
+.mobile-frame-screen .cl-std-header {
+  flex-direction: column;
+  gap: 12px;
+  margin-bottom: 20px;
+}
+
+.mobile-frame-screen .cl-std-header-icon {
+  width: 40px;
+  height: 40px;
+  border-radius: 10px;
+}
+
+.mobile-frame-screen .cl-std-header-icon svg {
+  width: 20px;
+  height: 20px;
+}
+
+.mobile-frame-screen .cl-std-header-content .cl-page-title {
+  font-size: 18px;
+}
+
+.mobile-frame-screen .cl-std-header-meta {
+  flex-wrap: wrap;
+  gap: 6px 10px;
+  font-size: 12px;
+}
+
+.mobile-frame-screen .cl-std-grid {
+  grid-template-columns: 1fr;
+  gap: 16px;
+}
+
+.mobile-frame-screen .cl-std-card {
+  padding: 16px;
+  border-radius: 10px;
+}
+
+.mobile-frame-screen .cl-std-card-header {
+  margin-bottom: 12px;
+}
+
+.mobile-frame-screen .cl-std-card-title {
+  font-size: 15px;
+}
+
+.mobile-frame-screen .cl-std-card-subtitle {
+  font-size: 13px;
+  margin: -4px 0 16px;
+}
+
+.mobile-frame-screen .cl-std-details-grid {
+  grid-template-columns: 1fr 1fr;
+}
+
+.mobile-frame-screen .cl-std-details-grid .cl-std-field:nth-child(3n) {
+  padding-right: 12px;
+}
+
+.mobile-frame-screen .cl-std-field {
+  padding: 10px 12px 10px 0;
+}
+
+.mobile-frame-screen .cl-std-field-label {
+  font-size: 10px;
+}
+
+.mobile-frame-screen .cl-std-field-value {
+  font-size: 13px;
+}
+
+.mobile-frame-screen .cl-std-field-value--lg {
+  font-size: 18px;
+}
+
+.mobile-frame-screen .cl-std-payments-grid {
+  grid-template-columns: 1fr;
+}
+
+.mobile-frame-screen .cl-std-usage-header {
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 4px;
+}
+
+.mobile-frame-screen .cl-std-card-action {
+  margin-top: 16px;
+}
+
+.mobile-frame-screen .cl-std-card-action .cl-btn {
+  width: 100%;
+  text-align: center;
+  justify-content: center;
+}
+
+.mobile-frame-screen .cl-std-attention-item {
+  padding: 14px;
+}
+
+.mobile-frame-screen .cl-std-attention-title {
+  font-size: 13px;
+}
+
+.mobile-frame-screen .cl-std-attention-desc {
+  font-size: 12px;
+}
+
+.mobile-frame-screen .cl-std-btn-dark {
+  width: 100%;
+  justify-content: center;
+}
+
+.mobile-frame-screen .cl-std-completed-toggle {
+  font-size: 12px;
+}
+
+.mobile-frame-screen .cl-std-completed-item {
+  font-size: 12px;
+}
+
+.mobile-frame-screen .cl-std-status-current {
+  margin-bottom: 16px;
+}
+
+.mobile-frame-screen .cl-std-timeline {
+  padding-left: 20px;
+}
+
+.mobile-frame-screen .cl-std-timeline-dot {
+  left: -20px;
+  width: 12px;
+  height: 12px;
+  top: 3px;
+}
+
+.mobile-frame-screen .cl-std-timeline-item:not(:last-child)::before {
+  left: -15px;
+  top: 16px;
+}
+
+.mobile-frame-screen .cl-std-timeline-title {
+  font-size: 13px;
+}
+
+.mobile-frame-screen .cl-std-timeline-date {
+  font-size: 11px;
+}
+
+.mobile-frame-screen .cl-std-timeline-note {
+  font-size: 11px;
+}
+
+.mobile-frame-screen .cl-std-doc-item {
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 6px;
+  padding: 12px 0;
+}
+
+.mobile-frame-screen .cl-std-doc-name {
+  font-size: 13px;
+}
+
+.mobile-frame-screen .cl-std-doc-meta {
+  font-size: 11px;
+}
