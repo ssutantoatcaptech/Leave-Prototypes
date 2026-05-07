@@ -1,5 +1,5 @@
 import { useState, useMemo } from 'react';
-import { NavLink, Link } from 'react-router-dom';
+import { NavLink, Link, useNavigate } from 'react-router-dom';
 import useBasePath from './useBasePath';
 
 const dentalData = [
@@ -57,6 +57,7 @@ const categoryTabs = ['Dental', 'Vision', 'Supplemental', 'Leave and Disability'
 
 export default function DentalClaimsPage() {
   const base = useBasePath();
+  const navigate = useNavigate();
   const [expandedRow, setExpandedRow] = useState(0);
   const [statusFilter, setStatusFilter] = useState('All');
   const [dateFilter, setDateFilter] = useState('All');
@@ -92,7 +93,22 @@ export default function DentalClaimsPage() {
         <button className="cl-btn cl-btn--dark">+ Start a New Claim</button>
       </div>
 
-      {/* Category tabs */}
+      {/* Category dropdown (mobile) */}
+      <div className="cl-category-dropdown-wrap">
+        <select
+          className="cl-category-dropdown"
+          value="Dental"
+          onChange={(e) => {
+            if (e.target.value === 'Leave and Disability') navigate(base);
+          }}
+        >
+          {categoryTabs.map((tab) => (
+            <option key={tab} value={tab}>{tab}</option>
+          ))}
+        </select>
+      </div>
+
+      {/* Category tabs (desktop) */}
       <div className="cl-category-tabs">
         {categoryTabs.map((tab) => (
           <NavLink
