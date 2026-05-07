@@ -178,7 +178,7 @@
 }
 
 .cl-header-icon-btn--mobile-only {
-  display: none;
+  display: flex;
 }
 
 .cl-header-bell {
