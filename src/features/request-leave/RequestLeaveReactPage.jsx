@@ -338,17 +338,10 @@ export default function RequestLeaveReactPage() {
 
   const [currentStepIndex, setCurrentStepIndex] = useState(() => {
     if (!fromPlan) return 0;
-    const skipMap = {
-      medical_self: 2,
-      medical_family: 2,
-      child_nonbirth: 3,
-      child: 3,
-      military: 2,
-      other: 2,
-    };
-    const idx = skipMap[fromPlan.leaveScenario] || 0;
+    const steps = buildSteps(fromPlan.leaveScenario, fromPlan.leaveScenario === 'child' || fromPlan.leaveScenario === 'child_nonbirth', fromPlan.leaveScenario === 'child', fromPlan.leaveScenario === 'medical_self', fromPlan.leaveScenario === 'medical_family');
+    const idx = steps.findIndex((s) => s.id === 'leaveStructure');
     console.log('[wizard] currentStepIndex init, scenario:', fromPlan.leaveScenario, 'skip to:', idx);
-    return idx;
+    return idx >= 0 ? idx : 1;
   });
 
   const currentStep = steps[currentStepIndex] || steps[0];
