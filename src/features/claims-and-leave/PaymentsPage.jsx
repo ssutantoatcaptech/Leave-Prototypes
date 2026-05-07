@@ -317,15 +317,39 @@ export default function PaymentsPage() {
                   <span className="cl-card-mobile-label">Gross Pay</span>
                   <span className="cl-card-mobile-value">{row.gross}</span>
                 </div>
-                {row.deductions.map((ded, j) => (
-                  <div key={j} className="cl-card-mobile-field">
-                    <span className="cl-card-mobile-label">{ded.label}</span>
-                    <span className="cl-card-mobile-value">{ded.amount}</span>
-                  </div>
-                ))}
+                {row.adjustments.length > 0 && (
+                  <>
+                    <div className="cl-card-mobile-field cl-card-mobile-field--section">
+                      <span className="cl-card-mobile-label">Offsets / Adjustments</span>
+                    </div>
+                    {row.adjustments.map((adj, j) => (
+                      <div key={j} className="cl-card-mobile-field cl-card-mobile-field--indent">
+                        <span className="cl-card-mobile-label">{adj.label}</span>
+                        <span className="cl-card-mobile-value">{adj.amount}</span>
+                      </div>
+                    ))}
+                  </>
+                )}
+                {row.deductions.length > 0 && (
+                  <>
+                    <div className="cl-card-mobile-field cl-card-mobile-field--section">
+                      <span className="cl-card-mobile-label">Taxes & Deductions</span>
+                    </div>
+                    {row.deductions.map((ded, j) => (
+                      <div key={j} className="cl-card-mobile-field cl-card-mobile-field--indent">
+                        <span className="cl-card-mobile-label">{ded.label}</span>
+                        <span className="cl-card-mobile-value">{ded.amount}</span>
+                      </div>
+                    ))}
+                  </>
+                )}
                 <div className="cl-card-mobile-field cl-card-mobile-field--total">
                   <span className="cl-card-mobile-label">Net Amount</span>
                   <span className="cl-card-mobile-value">{row.net}</span>
+                </div>
+                <div className="cl-card-mobile-field">
+                  <span className="cl-card-mobile-label">Deposit</span>
+                  <span className="cl-card-mobile-value">{row.deposit}</span>
                 </div>
               </div>
             )}

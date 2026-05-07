@@ -3106,6 +3106,24 @@
   align-items: baseline;
 }
 
+.cl-card-mobile-field--section {
+  margin-top: 6px;
+  padding-top: 6px;
+  border-top: 1px solid #f0f0f2;
+}
+
+.cl-card-mobile-field--section .cl-card-mobile-label {
+  font-weight: 600;
+  color: #374151;
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
+}
+
+.cl-card-mobile-field--indent {
+  padding-left: 10px;
+}
+
 .cl-card-mobile-field--total {
   border-top: 1px solid #e5e7eb;
   padding-top: 8px;
