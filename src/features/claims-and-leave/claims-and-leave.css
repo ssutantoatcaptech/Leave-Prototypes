@@ -2603,7 +2603,7 @@
 
 /* Quick Actions */
 .cldb-grid-actions .cldb-card-body {
-  padding-bottom: 0;
+  padding-bottom: 8px;
 }
 
 .cldb-quick-actions {
@@ -2615,7 +2615,7 @@
   display: flex;
   align-items: center;
   gap: 12px;
-  padding: 13px 0;
+  padding: 14px 0;
   border: none;
   border-bottom: 1px solid #e2e8f0;
   border-radius: 0;

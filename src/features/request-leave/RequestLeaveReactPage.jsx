@@ -23,7 +23,7 @@ const initialState = {
   commEmail: true,
   commPhone: false,
   commSMS: true,
-  tempAddress: true,
+  tempAddress: false,
   tempStreet: '8827 SW 8th Street',
   tempCity: 'Lee Summit',
   tempState: 'MO',
