@@ -1540,3 +1540,165 @@
     grid-template-columns: repeat(2, 1fr);
   }
 }
+
+/* ===========================
+   Estimated Benefits — Tooltip & Accordion
+   =========================== */
+
+.eb-bar-row {
+  cursor: pointer;
+}
+
+/* Desktop tooltip */
+.eb-tooltip {
+  position: absolute;
+  top: 100%;
+  left: 60px;
+  z-index: 50;
+  background: #fff;
+  border: 1px solid #e2e8f0;
+  border-radius: 8px;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+  padding: 14px 16px;
+  min-width: 240px;
+  margin-top: 6px;
+  pointer-events: none;
+}
+
+.eb-tooltip-title {
+  font-size: 14px;
+  font-weight: 700;
+  color: #0f172a;
+  margin-bottom: 8px;
+}
+
+.eb-tooltip-row {
+  display: flex;
+  justify-content: space-between;
+  font-size: 12px;
+  padding: 3px 0;
+  color: #374151;
+}
+
+.eb-tooltip-row span:first-child {
+  color: #64748b;
+  font-weight: 600;
+}
+
+.eb-tooltip-note {
+  font-size: 11px;
+  color: #9ca3af;
+  font-style: italic;
+  margin-top: 6px;
+  padding-top: 6px;
+  border-top: 1px solid #f1f5f9;
+}
+
+/* Mobile accordion */
+.eb-accordion {
+  display: none;
+  background: #f8fafc;
+  border: 1px solid #e2e8f0;
+  border-radius: 8px;
+  padding: 14px 16px;
+  margin-top: 12px;
+}
+
+.eb-accordion-header {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 10px;
+}
+
+.eb-accordion-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+.eb-accordion-title {
+  font-size: 14px;
+  font-weight: 700;
+  color: #0f172a;
+  flex: 1;
+}
+
+.eb-accordion-close {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 24px;
+  height: 24px;
+  border: none;
+  background: none;
+  cursor: pointer;
+  border-radius: 4px;
+}
+
+.eb-accordion-close:hover {
+  background: #e2e8f0;
+}
+
+.eb-accordion-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+}
+
+.eb-accordion-field {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.eb-accordion-label {
+  font-size: 10px;
+  font-weight: 600;
+  color: #64748b;
+  text-transform: uppercase;
+}
+
+.eb-accordion-value {
+  font-size: 13px;
+  font-weight: 600;
+  color: #0f172a;
+}
+
+.eb-accordion-note {
+  font-size: 11px;
+  color: #9ca3af;
+  font-style: italic;
+  margin-top: 8px;
+  padding-top: 8px;
+  border-top: 1px solid #e2e8f0;
+}
+
+/* Show/hide based on context */
+.eb-hover-hint { display: block; }
+.eb-tap-hint { display: none; }
+
+/* Desktop: show tooltip (state-driven), hide accordion */
+@media (min-width: 769px) {
+  .eb-tooltip {
+    display: block;
+  }
+  .eb-accordion {
+    display: none !important;
+  }
+}
+
+/* Mobile: show accordion, hide tooltip, swap hint text */
+@media (max-width: 768px) {
+  .eb-hover-hint { display: none; }
+  .eb-tap-hint { display: block; }
+  .eb-tooltip { display: none !important; }
+  .eb-accordion { display: block; }
+}
+
+/* Mobile frame: same as mobile */
+.mobile-frame-screen .eb-hover-hint { display: none; }
+.mobile-frame-screen .eb-tap-hint { display: block; }
+.mobile-frame-screen .eb-tooltip { display: none !important; }
+.mobile-frame-screen .eb-accordion { display: block; }

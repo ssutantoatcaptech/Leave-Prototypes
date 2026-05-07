@@ -260,6 +260,8 @@ export default function RequestLeaveReactPage() {
   const [submittedCase, setSubmittedCase] = useState(null);
   const [hidePlanBar, setHidePlanBar] = useState(false);
   const [showCancelModal, setShowCancelModal] = useState(false);
+  const [hoveredBenefitBar, setHoveredBenefitBar] = useState(null);
+  const [expandedBenefitBar, setExpandedBenefitBar] = useState(null);
 
   const isChildScenario = formState.leaveScenario === 'child' || formState.leaveScenario === 'child_nonbirth';
   const isBirthingParent = formState.leaveScenario === 'child';
@@ -554,7 +556,10 @@ export default function RequestLeaveReactPage() {
       eligibility.statePFL.eligible ? { label: 'PFL', css: 'pfl', weeks: eligibility.statePFL.weeks } : null,
       eligibility.companyBonding.eligible ? { label: 'Company', css: 'company', weeks: eligibility.companyBonding.weeks } : null,
     ].filter(Boolean);
-    const months = ['Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec', 'Jan'];
+    const monthNames = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+    const tlStart = new Date(`${formState.leaveStartDate}T00:00:00`);
+    const months = [];
+    for (let i = 0; i < 8; i++) { months.push(monthNames[(tlStart.getMonth() + i) % 12]); }
     return (
       <div className="timeline-wrap">
         <div className="timeline-header">
@@ -1213,17 +1218,34 @@ export default function RequestLeaveReactPage() {
         );
       case 'benefits': {
         const grayPalette = ['#1e293b', '#475569', '#94a3b8', '#cbd5e1'];
+        const startDate = new Date(`${formState.leaveStartDate}T00:00:00`);
+        const endDate = new Date(`${formState.expectedReturnDate}T00:00:00`);
+        const addWeeks = (d, w) => { const r = new Date(d); r.setDate(r.getDate() + w * 7); return r; };
+
+        const fmlaEnd = addWeeks(startDate, eligibility.fmla.weeks);
+        const stdStart = new Date(startDate); stdStart.setDate(stdStart.getDate() + planConfig.std.waitingDays);
+        const stdEnd = addWeeks(stdStart, eligibility.std.weeks);
+        const pflEnd = addWeeks(startDate, eligibility.statePFL.weeks);
+        const bondStart = eligibility.std.eligible ? stdEnd : endDate;
+        const bondEnd = addWeeks(bondStart, eligibility.companyBonding.weeks);
+
         const benefitBars = [
-          eligibility.fmla.eligible ? { label: 'FMLA', color: grayPalette[0], weeks: eligibility.fmla.weeks, pay: 'Job-protected, unpaid', dates: `${shortDate(formState.leaveStartDate)} \u2013 ${shortDate(formState.expectedReturnDate)}` } : null,
-          eligibility.std.eligible ? { label: 'Short-Term Disability', color: grayPalette[1], weeks: eligibility.std.weeks, pay: `${planConfig.std.percentPay}% of salary`, dates: `After ${planConfig.std.waitingDays}-day waiting period` } : null,
-          eligibility.statePFL.eligible ? { label: `${planConfig.statePFL.state} Paid Family Leave`, color: grayPalette[2], weeks: eligibility.statePFL.weeks, pay: `${planConfig.statePFL.percentPay}% of avg weekly wage`, dates: 'Concurrent with FMLA' } : null,
-          eligibility.companyBonding.eligible ? { label: 'Company Bonding', color: grayPalette[3], weeks: eligibility.companyBonding.weeks, pay: `${planConfig.companyBonding.percentPay}% of salary`, dates: 'After medical recovery' } : null,
+          eligibility.fmla.eligible ? { label: 'FMLA', color: grayPalette[0], weeks: eligibility.fmla.weeks, pay: 'Job-protected, unpaid', startDate: startDate, endDate: fmlaEnd, note: 'Runs concurrently with paid benefits' } : null,
+          eligibility.std.eligible ? { label: 'Short-Term Disability', color: grayPalette[1], weeks: eligibility.std.weeks, pay: `${planConfig.std.percentPay}% of salary`, startDate: stdStart, endDate: stdEnd, note: `${planConfig.std.waitingDays}-day waiting period before benefits begin` } : null,
+          eligibility.statePFL.eligible ? { label: `${planConfig.statePFL.state} Paid Family Leave`, color: grayPalette[2], weeks: eligibility.statePFL.weeks, pay: `${planConfig.statePFL.percentPay}% of avg weekly wage`, startDate: startDate, endDate: pflEnd, note: 'Concurrent with FMLA' } : null,
+          eligibility.companyBonding.eligible ? { label: 'Company Bonding', color: grayPalette[3], weeks: eligibility.companyBonding.weeks, pay: `${planConfig.companyBonding.percentPay}% of salary`, startDate: bondStart, endDate: bondEnd, note: 'After medical recovery period' } : null,
         ].filter(Boolean);
+
         const totalWeeks = Math.max(...benefitBars.map((b) => b.weeks), 0);
         const maxSpan = Math.max(totalWeeks, 28);
-        const paidBars = benefitBars.filter((b) => b.css !== 'fmla');
+        const paidBars = benefitBars.filter((b) => b.label !== 'FMLA');
         const estPaidWeeks = paidBars.length > 0 ? Math.max(...paidBars.map((b) => b.weeks)) : 0;
-        const months = ['Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec', 'Jan'];
+
+        const monthNames = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+        const startMonth = startDate.getMonth();
+        const months = [];
+        for (let i = 0; i < 8; i++) { months.push(monthNames[(startMonth + i) % 12]); }
+
         return (
           <>
             <h2>Your estimated leave benefits</h2>
@@ -1234,17 +1256,31 @@ export default function RequestLeaveReactPage() {
               <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 6 }}>
                 <h3 style={{ margin: 0, fontSize: 16, fontWeight: 700, color: '#0f172a' }}>Leave Timeline <span style={{ fontSize: 12, fontWeight: 600, color: '#4b5563', background: '#f1f5f9', padding: '2px 8px', borderRadius: 4, marginLeft: 8, verticalAlign: 'middle' }}>ESTIMATE</span></h3>
               </div>
-              <p style={{ fontSize: 13, color: '#64748b', margin: '0 0 16px', lineHeight: 1.5 }}>Hover over a benefit to see details. <strong>All dates, durations, and pay figures shown are <em>estimates only</em></strong>.</p>
+              <p className="eb-hover-hint" style={{ fontSize: 13, color: '#64748b', margin: '0 0 16px', lineHeight: 1.5 }}>Hover over a benefit to see details. <strong>All dates, durations, and pay figures shown are <em>estimates only</em></strong>.</p>
+              <p className="eb-tap-hint" style={{ fontSize: 13, color: '#64748b', margin: '0 0 16px', lineHeight: 1.5 }}>Tap a benefit bar to see details. <strong>All dates, durations, and pay figures shown are <em>estimates only</em></strong>.</p>
 
               <div className="timeline-body" style={{ padding: 0 }}>
                 <div className="timeline-axis">{months.map((m) => <span key={m}>{m}</span>)}</div>
                 <div className="timeline-bars">
-                  {benefitBars.map((bar) => (
-                    <div key={bar.label} className="timeline-bar-row" title={`${bar.label}: ${bar.weeks} weeks - ${bar.pay}`}>
+                  {benefitBars.map((bar, idx) => (
+                    <div key={bar.label} className="timeline-bar-row eb-bar-row" style={{ position: 'relative' }}
+                      onMouseEnter={() => setHoveredBenefitBar(idx)}
+                      onMouseLeave={() => setHoveredBenefitBar(null)}
+                      onClick={() => setExpandedBenefitBar(expandedBenefitBar === idx ? null : idx)}
+                    >
                       <div className="timeline-bar-label">{bar.label}</div>
                       <div className="timeline-bar-track" style={{ borderRadius: 999 }}>
                         <div className="timeline-bar-fill" style={{ width: `${Math.min((bar.weeks / maxSpan) * 100, 100)}%`, borderRadius: 999, background: bar.color }}>{bar.label} {bar.weeks}wk</div>
                       </div>
+                      {hoveredBenefitBar === idx && (
+                        <div className="eb-tooltip">
+                          <div className="eb-tooltip-title">{bar.label}</div>
+                          <div className="eb-tooltip-row"><span>Duration</span><span>{bar.weeks} weeks</span></div>
+                          <div className="eb-tooltip-row"><span>Dates</span><span>{shortDate(bar.startDate.toISOString().slice(0, 10))} \u2013 {shortDate(bar.endDate.toISOString().slice(0, 10))}</span></div>
+                          <div className="eb-tooltip-row"><span>Pay</span><span>{bar.pay}</span></div>
+                          {bar.note && <div className="eb-tooltip-note">{bar.note}</div>}
+                        </div>
+                      )}
                     </div>
                   ))}
                 </div>
@@ -1252,6 +1288,26 @@ export default function RequestLeaveReactPage() {
                   {benefitBars.map((bar) => <div key={bar.label} className="timeline-legend-item"><span className="timeline-legend-dot" style={{ background: bar.color }}/>{bar.label}</div>)}
                 </div>
               </div>
+
+              {/* Mobile accordion \u2014 shown when a bar is tapped */}
+              {expandedBenefitBar !== null && benefitBars[expandedBenefitBar] && (
+                <div className="eb-accordion">
+                  <div className="eb-accordion-header">
+                    <span className="eb-accordion-dot" style={{ background: benefitBars[expandedBenefitBar].color }} />
+                    <span className="eb-accordion-title">{benefitBars[expandedBenefitBar].label}</span>
+                    <button className="eb-accordion-close" onClick={(e) => { e.stopPropagation(); setExpandedBenefitBar(null); }} aria-label="Close">
+                      <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M2 2l8 8M10 2l-8 8" stroke="#64748b" strokeWidth="1.5" strokeLinecap="round"/></svg>
+                    </button>
+                  </div>
+                  <div className="eb-accordion-grid">
+                    <div className="eb-accordion-field"><span className="eb-accordion-label">Duration</span><span className="eb-accordion-value">{benefitBars[expandedBenefitBar].weeks} weeks</span></div>
+                    <div className="eb-accordion-field"><span className="eb-accordion-label">Start</span><span className="eb-accordion-value">{shortDate(benefitBars[expandedBenefitBar].startDate.toISOString().slice(0, 10))}</span></div>
+                    <div className="eb-accordion-field"><span className="eb-accordion-label">Pay</span><span className="eb-accordion-value">{benefitBars[expandedBenefitBar].pay}</span></div>
+                    <div className="eb-accordion-field"><span className="eb-accordion-label">End</span><span className="eb-accordion-value">{shortDate(benefitBars[expandedBenefitBar].endDate.toISOString().slice(0, 10))}</span></div>
+                  </div>
+                  {benefitBars[expandedBenefitBar].note && <div className="eb-accordion-note">{benefitBars[expandedBenefitBar].note}</div>}
+                </div>
+              )}
 
               <div style={{ fontSize: 11, color: '#4b5563', background: '#f1f5f9', borderRadius: 6, padding: '8px 12px', marginTop: 16, lineHeight: 1.5, display: 'flex', alignItems: 'flex-start', gap: 6 }}>
                 <svg width="14" height="14" viewBox="0 0 16 16" fill="none" style={{ flexShrink: 0, marginTop: 1 }}><circle cx="8" cy="8" r="7" stroke="#64748b" strokeWidth="1.2"/><path d="M8 5v3" stroke="#64748b" strokeWidth="1.2" strokeLinecap="round"/><circle cx="8" cy="11" r="0.5" fill="#64748b"/></svg>
@@ -1273,7 +1329,7 @@ export default function RequestLeaveReactPage() {
                     <div style={{ fontSize: 13, fontWeight: 600, color: '#0f172a' }}>{bar.pay}</div>
                   </div>
                   <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: 12, color: '#64748b' }}>
-                    <span>{bar.dates}</span>
+                    <span>{shortDate(bar.startDate.toISOString().slice(0, 10))} \u2013 {shortDate(bar.endDate.toISOString().slice(0, 10))}</span>
                     <span>{bar.weeks} weeks</span>
                   </div>
                 </div>
@@ -1283,7 +1339,7 @@ export default function RequestLeaveReactPage() {
                 <div style={{ padding: '14px 20px', borderTop: '1px solid #e2e8f0', background: '#f9fafb', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
                   <div>
                     <div style={{ fontSize: 13, fontWeight: 600, color: '#0f172a' }}>Est. total leave</div>
-                    <div style={{ fontSize: 12, color: '#64748b' }}>~{totalWeeks} weeks {estPaidWeeks > 0 ? `~${estPaidWeeks} paid` : 'Unpaid'}</div>
+                    <div style={{ fontSize: 12, color: '#64748b' }}>~{totalWeeks} weeks {estPaidWeeks > 0 ? `\u00b7 ~${estPaidWeeks} paid` : '\u00b7 Unpaid'}</div>
                   </div>
                   <div style={{ textAlign: 'right' }}>
                     <div style={{ fontSize: 13, fontWeight: 600, color: '#0f172a' }}>Benefits available</div>
