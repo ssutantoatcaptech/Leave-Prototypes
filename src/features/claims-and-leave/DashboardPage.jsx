@@ -260,34 +260,6 @@ export default function DashboardPage() {
             </div>
           </div>
 
-          {/* Active Benefits — right after Quick Actions on desktop */}
-          <div className="cldb-card cldb-grid-benefits">
-            <div className="cldb-card-header cldb-card-header--border">
-              <div className="cldb-benefits-heading">
-                <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
-                  <path d="M8 1l2 3h4l-3 3 1 4-4-2-4 2 1-4-3-3h4l2-3z" stroke="#0f172a" strokeWidth="1.2" strokeLinejoin="round"/>
-                </svg>
-                <h3 className="cldb-card-title">Active Benefits</h3>
-              </div>
-            </div>
-            <div className="cldb-card-body">
-              {/* Missing a Benefit */}
-              <div className="cldb-missing-benefit">
-                <div className="cldb-missing-icon">
-                  <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
-                    <path d="M12 2l3 5h6l-4.5 4.5 1.5 6L12 14l-6 3.5 1.5-6L3 7h6l3-5z" stroke="#9ca3af" strokeWidth="1.2" strokeLinejoin="round"/>
-                  </svg>
-                </div>
-                <h4 className="cldb-missing-title">Missing a Benefit?</h4>
-                <p className="cldb-missing-desc">We're still setting up your benefits information with your employer. Some coverages may take a little longer to appear. Please check back soon.</p>
-              </div>
-
-              <div className="cldb-benefit-footer">
-                <button className="cldb-btn-outline">Get Support</button>
-              </div>
-            </div>
-          </div>
-
           {/* Recent Activity */}
           <div className="cldb-card cldb-grid-activity">
             <div className="cldb-card-header cldb-card-header--border">
