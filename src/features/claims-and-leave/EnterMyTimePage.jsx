@@ -71,11 +71,11 @@ export default function EnterMyTimePage() {
   var [reason, setReason] = useState('Episode');
   var [reasonOpen, setReasonOpen] = useState(false);
   var [absences, setAbsences] = useState([
-    { date: 'May 2, 2025', dateKey: '2025-05-02', startTime: '8:00 AM', endTime: '12:00 PM', hours: '4.0', reason: 'Episode', reasonColor: 'amber', addedOn: 'May 2, 2025', caseId: 'CL-975542' },
-    { date: 'Apr 28, 2025', dateKey: '2025-04-28', startTime: '8:00 AM', endTime: '4:00 PM', hours: '8.0', reason: 'Treatment', reasonColor: 'blue', addedOn: 'Apr 28, 2025', caseId: 'CL-975542' },
-    { date: 'Apr 21, 2025', dateKey: '2025-04-21', startTime: '1:00 PM', endTime: '3:30 PM', hours: '2.5', reason: 'Episode', reasonColor: 'amber', addedOn: 'Apr 21, 2025', caseId: 'CL-975542' },
-    { date: 'Apr 14, 2025', dateKey: '2025-04-14', startTime: '9:00 AM', endTime: '11:00 AM', hours: '2.0', reason: 'Treatment', reasonColor: 'blue', addedOn: 'Apr 14, 2025', caseId: 'CL-981204' },
-    { date: 'Apr 7, 2025', dateKey: '2025-04-07', startTime: '8:00 AM', endTime: '12:00 PM', hours: '4.0', reason: 'Episode', reasonColor: 'amber', addedOn: 'Apr 7, 2025', caseId: 'CL-975542' },
+    { date: 'May 2, 2026', dateKey: '2026-05-02', startTime: '8:00 AM', endTime: '12:00 PM', hours: '4.0', reason: 'Episode', reasonColor: 'amber', addedOn: 'May 2, 2026', caseId: 'CL-975542' },
+    { date: 'Apr 28, 2026', dateKey: '2026-04-28', startTime: '8:00 AM', endTime: '4:00 PM', hours: '8.0', reason: 'Treatment', reasonColor: 'blue', addedOn: 'Apr 28, 2026', caseId: 'CL-975542' },
+    { date: 'Apr 21, 2026', dateKey: '2026-04-21', startTime: '1:00 PM', endTime: '3:30 PM', hours: '2.5', reason: 'Episode', reasonColor: 'amber', addedOn: 'Apr 21, 2026', caseId: 'CL-975542' },
+    { date: 'Apr 14, 2026', dateKey: '2026-04-14', startTime: '9:00 AM', endTime: '11:00 AM', hours: '2.0', reason: 'Treatment', reasonColor: 'blue', addedOn: 'Apr 14, 2026', caseId: 'CL-981204' },
+    { date: 'Apr 7, 2026', dateKey: '2026-04-07', startTime: '8:00 AM', endTime: '12:00 PM', hours: '4.0', reason: 'Episode', reasonColor: 'amber', addedOn: 'Apr 7, 2026', caseId: 'CL-975542' },
   ]);
   var [balance, setBalance] = useState(selectedCase.balance);
   var [submitted, setSubmitted] = useState(false);

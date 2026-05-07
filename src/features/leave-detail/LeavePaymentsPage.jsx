@@ -90,11 +90,11 @@ function SiteFooter() {
 }
 
 var PAYMENTS = [
-  { id: 'PMT-4421', date: 'Aug 12, 2024', claimType: 'Short-Term Disability', claimId: '#CL-44201987', claimSub: 'Weekly Benefit', amount: '$1,150.00', taxLabel: 'TAXABLE', method: 'direct', methodDetail: 'Direct Deposit (••42)', status: 'PROCESSED', hasStatement: true },
-  { id: 'PMT-4420', date: 'Aug 5, 2024', claimType: 'Short-Term Disability', claimId: '#CL-44201987', claimSub: 'Weekly Benefit', amount: '$1,150.00', taxLabel: 'TAXABLE', method: 'direct', methodDetail: 'Direct Deposit (••42)', status: 'PROCESSED', hasStatement: true },
-  { id: 'PMT-4419', date: 'Jul 29, 2024', claimType: 'Short-Term Disability', claimId: '#CL-44201987', claimSub: 'Weekly Benefit', amount: '$1,150.00', taxLabel: 'TAXABLE', method: 'direct', methodDetail: 'Direct Deposit (••42)', status: 'PROCESSED', hasStatement: true },
-  { id: 'PMT-4418', date: 'Jul 22, 2024', claimType: 'Short-Term Disability', claimId: '#CL-44201987', claimSub: 'Partial Week', amount: '$575.00', taxLabel: 'TAXABLE', method: 'direct', methodDetail: 'Direct Deposit (••42)', status: 'PROCESSED', hasStatement: true },
-  { id: 'PMT-4417', date: 'Aug 19, 2024', claimType: 'Short-Term Disability', claimId: '#CL-44201987', claimSub: 'Weekly Benefit', amount: '$1,150.00', taxLabel: 'ESTIMATED', method: 'direct', methodDetail: 'Direct Deposit (••42)', status: 'PENDING', hasStatement: false },
+  { id: 'PMT-4421', date: 'Aug 12, 2026', claimType: 'Short-Term Disability', claimId: '#CL-44201987', claimSub: 'Weekly Benefit', amount: '$1,150.00', taxLabel: 'TAXABLE', method: 'direct', methodDetail: 'Direct Deposit (••42)', status: 'PROCESSED', hasStatement: true },
+  { id: 'PMT-4420', date: 'Aug 5, 2026', claimType: 'Short-Term Disability', claimId: '#CL-44201987', claimSub: 'Weekly Benefit', amount: '$1,150.00', taxLabel: 'TAXABLE', method: 'direct', methodDetail: 'Direct Deposit (••42)', status: 'PROCESSED', hasStatement: true },
+  { id: 'PMT-4419', date: 'Jul 29, 2026', claimType: 'Short-Term Disability', claimId: '#CL-44201987', claimSub: 'Weekly Benefit', amount: '$1,150.00', taxLabel: 'TAXABLE', method: 'direct', methodDetail: 'Direct Deposit (••42)', status: 'PROCESSED', hasStatement: true },
+  { id: 'PMT-4418', date: 'Jul 22, 2026', claimType: 'Short-Term Disability', claimId: '#CL-44201987', claimSub: 'Partial Week', amount: '$575.00', taxLabel: 'TAXABLE', method: 'direct', methodDetail: 'Direct Deposit (••42)', status: 'PROCESSED', hasStatement: true },
+  { id: 'PMT-4417', date: 'Aug 19, 2026', claimType: 'Short-Term Disability', claimId: '#CL-44201987', claimSub: 'Weekly Benefit', amount: '$1,150.00', taxLabel: 'ESTIMATED', method: 'direct', methodDetail: 'Direct Deposit (••42)', status: 'PENDING', hasStatement: false },
 ];
 
 var TOTAL_PAYMENTS = 12;
@@ -160,7 +160,7 @@ export default function LeavePaymentsPage() {
             </div>
             <div className="ldb-pmt-hero-card">
               <span className="ldb-pmt-hero-card-label">NEXT PAYMENT</span>
-              <span className="ldb-pmt-hero-card-value">Aug 19, 2024</span>
+              <span className="ldb-pmt-hero-card-value">Aug 19, 2026</span>
             </div>
           </div>
         </div>

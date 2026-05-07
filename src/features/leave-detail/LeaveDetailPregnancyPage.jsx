@@ -59,7 +59,7 @@ export default function LeaveDetailPregnancyPage() {
             <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><circle cx="8" cy="8" r="7" stroke="#dc2626" strokeWidth="1.4"/><path d="M8 5v3M8 10.5v.5" stroke="#dc2626" strokeWidth="1.4" strokeLinecap="round"/></svg>
             <div className="ldb-action-text">
               <span className="ldb-action-name">Medical Certification Form</span>
-              <span className="ldb-action-due">Due Jun 10, 2025</span>
+              <span className="ldb-action-due">Due Jun 10, 2026</span>
             </div>
             <button type="button" className="ldb-btn-upload-inline">Upload</button>
           </div>
@@ -67,7 +67,7 @@ export default function LeaveDetailPregnancyPage() {
             <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><circle cx="8" cy="8" r="7" stroke="#dc2626" strokeWidth="1.4"/><path d="M8 5v3M8 10.5v.5" stroke="#dc2626" strokeWidth="1.4" strokeLinecap="round"/></svg>
             <div className="ldb-action-text">
               <span className="ldb-action-name">Attending Physician Statement</span>
-              <span className="ldb-action-due">Due Jun 12, 2025</span>
+              <span className="ldb-action-due">Due Jun 12, 2026</span>
             </div>
             <button type="button" className="ldb-btn-upload-inline">Upload</button>
           </div>
@@ -135,7 +135,7 @@ export default function LeaveDetailPregnancyPage() {
               <h1 className="ldb-title">Birthing Parent — Pregnancy</h1>
               <div className="ldb-title-meta">
                 <span style={{ fontSize: 14, color: '#525252', fontWeight: 600 }}>NTN - 4501</span>
-                <span style={{ fontSize: 13, color: '#737373', marginLeft: 12 }}>Jun 16 – Nov 3, 2025 · Continuous</span>
+                <span style={{ fontSize: 13, color: '#737373', marginLeft: 12 }}>Jun 16 – Nov 3, 2026 · Continuous</span>
               </div>
             </div>
           </div>
@@ -167,14 +167,14 @@ export default function LeaveDetailPregnancyPage() {
                   <div className="ldb-tl-rows-wrap">
                   <div className="dlp-tl-rows">
                     {(timelineView === 'payment' ? [
-                      { id: 'std', label: 'STD', width: 36, accent: '#2563eb', name: 'Group Disability Claim (STD)', weeks: '8 weeks', range: 'Jun 16 – Aug 11, 2025', pay: '60% salary (delivery recovery)', status: 'Approved', paymentValue: '~$1,923/wk' },
-                      { id: 'njtdi', label: 'NJ TDI', width: 36, accent: '#818cf8', name: 'NJ Temporary Disability Insurance', weeks: '8 weeks', range: 'Jun 16 – Aug 11, 2025', pay: '85% salary (state program)', status: 'Approved', paymentValue: '~$1,048/wk' },
-                      { id: 'njfli', label: 'NJ FLI', width: 54, accent: '#0d9488', name: 'NJ Family Leave Insurance (Bonding)', weeks: '12 weeks', range: 'Aug 11 – Nov 3, 2025', pay: '85% AWW up to max', status: 'Approved', paymentValue: '~$1,048/wk' },
+                      { id: 'std', label: 'STD', width: 36, accent: '#2563eb', name: 'Group Disability Claim (STD)', weeks: '8 weeks', range: 'Jun 16 – Aug 11, 2026', pay: '60% salary (delivery recovery)', status: 'Approved', paymentValue: '~$1,923/wk' },
+                      { id: 'njtdi', label: 'NJ TDI', width: 36, accent: '#818cf8', name: 'NJ Temporary Disability Insurance', weeks: '8 weeks', range: 'Jun 16 – Aug 11, 2026', pay: '85% salary (state program)', status: 'Approved', paymentValue: '~$1,048/wk' },
+                      { id: 'njfli', label: 'NJ FLI', width: 54, accent: '#0d9488', name: 'NJ Family Leave Insurance (Bonding)', weeks: '12 weeks', range: 'Aug 11 – Nov 3, 2026', pay: '85% AWW up to max', status: 'Approved', paymentValue: '~$1,048/wk' },
                     ] : [
-                      { id: 'fmla', label: 'FMLA', width: 100, accent: '#0033a0', name: 'Leave Case — FMLA Protection', weeks: '12 weeks', range: 'Jun 16 – Sep 8, 2025', pay: 'Job protection (unpaid)', status: 'Approved' },
-                      { id: 'std', label: 'STD', width: 36, accent: '#2563eb', name: 'Group Disability Claim (STD)', weeks: '8 weeks', range: 'Jun 16 – Aug 11, 2025', pay: '60% salary (delivery recovery)', status: 'Approved' },
-                      { id: 'njtdi', label: 'NJ TDI', width: 36, accent: '#818cf8', name: 'NJ Temporary Disability Insurance', weeks: '8 weeks', range: 'Jun 16 – Aug 11, 2025', pay: '85% salary (state program)', status: 'Approved' },
-                      { id: 'njfli', label: 'NJ FLI', width: 54, accent: '#0d9488', name: 'NJ Family Leave Insurance (Bonding)', weeks: '12 weeks', range: 'Aug 11 – Nov 3, 2025', pay: '85% AWW up to max', status: 'Approved' },
+                      { id: 'fmla', label: 'FMLA', width: 100, accent: '#0033a0', name: 'Leave Case — FMLA Protection', weeks: '12 weeks', range: 'Jun 16 – Sep 8, 2026', pay: 'Job protection (unpaid)', status: 'Approved' },
+                      { id: 'std', label: 'STD', width: 36, accent: '#2563eb', name: 'Group Disability Claim (STD)', weeks: '8 weeks', range: 'Jun 16 – Aug 11, 2026', pay: '60% salary (delivery recovery)', status: 'Approved' },
+                      { id: 'njtdi', label: 'NJ TDI', width: 36, accent: '#818cf8', name: 'NJ Temporary Disability Insurance', weeks: '8 weeks', range: 'Jun 16 – Aug 11, 2026', pay: '85% salary (state program)', status: 'Approved' },
+                      { id: 'njfli', label: 'NJ FLI', width: 54, accent: '#0d9488', name: 'NJ Family Leave Insurance (Bonding)', weeks: '12 weeks', range: 'Aug 11 – Nov 3, 2026', pay: '85% AWW up to max', status: 'Approved' },
                     ]).map(function (item) {
                       var left = item.id === 'njfli' ? '36%' : '0%';
                       return (
@@ -198,14 +198,14 @@ export default function LeaveDetailPregnancyPage() {
                   {/* Desktop: tooltip on hover */}
                   {hoveredRow && (function () {
                     var allRows = timelineView === 'payment' ? [
-                      { id: 'std', name: 'Group Disability Claim (STD)', weeks: '8 weeks', range: 'Jun 16 – Aug 11, 2025', pay: '60% salary (delivery recovery)', status: 'Approved', paymentValue: '~$1,923/wk' },
-                      { id: 'njtdi', name: 'NJ Temporary Disability Insurance', weeks: '8 weeks', range: 'Jun 16 – Aug 11, 2025', pay: '85% salary (state program)', status: 'Approved', paymentValue: '~$1,048/wk' },
-                      { id: 'njfli', name: 'NJ Family Leave Insurance (Bonding)', weeks: '12 weeks', range: 'Aug 11 – Nov 3, 2025', pay: '85% AWW up to max', status: 'Approved', paymentValue: '~$1,048/wk' },
+                      { id: 'std', name: 'Group Disability Claim (STD)', weeks: '8 weeks', range: 'Jun 16 – Aug 11, 2026', pay: '60% salary (delivery recovery)', status: 'Approved', paymentValue: '~$1,923/wk' },
+                      { id: 'njtdi', name: 'NJ Temporary Disability Insurance', weeks: '8 weeks', range: 'Jun 16 – Aug 11, 2026', pay: '85% salary (state program)', status: 'Approved', paymentValue: '~$1,048/wk' },
+                      { id: 'njfli', name: 'NJ Family Leave Insurance (Bonding)', weeks: '12 weeks', range: 'Aug 11 – Nov 3, 2026', pay: '85% AWW up to max', status: 'Approved', paymentValue: '~$1,048/wk' },
                     ] : [
-                      { id: 'fmla', name: 'Leave Case — FMLA Protection', weeks: '12 weeks', range: 'Jun 16 – Sep 8, 2025', pay: 'Job protection (unpaid)', status: 'Approved' },
-                      { id: 'std', name: 'Group Disability Claim (STD)', weeks: '8 weeks', range: 'Jun 16 – Aug 11, 2025', pay: '60% salary (delivery recovery)', status: 'Approved' },
-                      { id: 'njtdi', name: 'NJ Temporary Disability Insurance', weeks: '8 weeks', range: 'Jun 16 – Aug 11, 2025', pay: '85% salary (state program)', status: 'Approved' },
-                      { id: 'njfli', name: 'NJ Family Leave Insurance (Bonding)', weeks: '12 weeks', range: 'Aug 11 – Nov 3, 2025', pay: '85% AWW up to max', status: 'Approved' },
+                      { id: 'fmla', name: 'Leave Case — FMLA Protection', weeks: '12 weeks', range: 'Jun 16 – Sep 8, 2026', pay: 'Job protection (unpaid)', status: 'Approved' },
+                      { id: 'std', name: 'Group Disability Claim (STD)', weeks: '8 weeks', range: 'Jun 16 – Aug 11, 2026', pay: '60% salary (delivery recovery)', status: 'Approved' },
+                      { id: 'njtdi', name: 'NJ Temporary Disability Insurance', weeks: '8 weeks', range: 'Jun 16 – Aug 11, 2026', pay: '85% salary (state program)', status: 'Approved' },
+                      { id: 'njfli', name: 'NJ Family Leave Insurance (Bonding)', weeks: '12 weeks', range: 'Aug 11 – Nov 3, 2026', pay: '85% AWW up to max', status: 'Approved' },
                     ];
                     var hovered = allRows.find(function (r) { return r.id === hoveredRow; });
                     if (!hovered) return null;
@@ -240,14 +240,14 @@ export default function LeaveDetailPregnancyPage() {
                   {/* Mobile: accordion below rows */}
                   {hoveredRow && (function () {
                     var allRows = timelineView === 'payment' ? [
-                      { id: 'std', name: 'Group Disability Claim (STD)', weeks: '8 weeks', range: 'Jun 16 – Aug 11, 2025', pay: '60% salary (delivery recovery)', status: 'Approved', paymentValue: '~$1,923/wk' },
-                      { id: 'njtdi', name: 'NJ Temporary Disability Insurance', weeks: '8 weeks', range: 'Jun 16 – Aug 11, 2025', pay: '85% salary (state program)', status: 'Approved', paymentValue: '~$1,048/wk' },
-                      { id: 'njfli', name: 'NJ Family Leave Insurance (Bonding)', weeks: '12 weeks', range: 'Aug 11 – Nov 3, 2025', pay: '85% AWW up to max', status: 'Approved', paymentValue: '~$1,048/wk' },
+                      { id: 'std', name: 'Group Disability Claim (STD)', weeks: '8 weeks', range: 'Jun 16 – Aug 11, 2026', pay: '60% salary (delivery recovery)', status: 'Approved', paymentValue: '~$1,923/wk' },
+                      { id: 'njtdi', name: 'NJ Temporary Disability Insurance', weeks: '8 weeks', range: 'Jun 16 – Aug 11, 2026', pay: '85% salary (state program)', status: 'Approved', paymentValue: '~$1,048/wk' },
+                      { id: 'njfli', name: 'NJ Family Leave Insurance (Bonding)', weeks: '12 weeks', range: 'Aug 11 – Nov 3, 2026', pay: '85% AWW up to max', status: 'Approved', paymentValue: '~$1,048/wk' },
                     ] : [
-                      { id: 'fmla', name: 'Leave Case — FMLA Protection', weeks: '12 weeks', range: 'Jun 16 – Sep 8, 2025', pay: 'Job protection (unpaid)', status: 'Approved' },
-                      { id: 'std', name: 'Group Disability Claim (STD)', weeks: '8 weeks', range: 'Jun 16 – Aug 11, 2025', pay: '60% salary (delivery recovery)', status: 'Approved' },
-                      { id: 'njtdi', name: 'NJ Temporary Disability Insurance', weeks: '8 weeks', range: 'Jun 16 – Aug 11, 2025', pay: '85% salary (state program)', status: 'Approved' },
-                      { id: 'njfli', name: 'NJ Family Leave Insurance (Bonding)', weeks: '12 weeks', range: 'Aug 11 – Nov 3, 2025', pay: '85% AWW up to max', status: 'Approved' },
+                      { id: 'fmla', name: 'Leave Case — FMLA Protection', weeks: '12 weeks', range: 'Jun 16 – Sep 8, 2026', pay: 'Job protection (unpaid)', status: 'Approved' },
+                      { id: 'std', name: 'Group Disability Claim (STD)', weeks: '8 weeks', range: 'Jun 16 – Aug 11, 2026', pay: '60% salary (delivery recovery)', status: 'Approved' },
+                      { id: 'njtdi', name: 'NJ Temporary Disability Insurance', weeks: '8 weeks', range: 'Jun 16 – Aug 11, 2026', pay: '85% salary (state program)', status: 'Approved' },
+                      { id: 'njfli', name: 'NJ Family Leave Insurance (Bonding)', weeks: '12 weeks', range: 'Aug 11 – Nov 3, 2026', pay: '85% AWW up to max', status: 'Approved' },
                     ];
                     var selected = allRows.find(function (r) { return r.id === hoveredRow; });
                     if (!selected) return null;
@@ -370,7 +370,7 @@ export default function LeaveDetailPregnancyPage() {
                       </div>
                       <div>
                         <div className="dt-info-field-label">Job Protection</div>
-                        <div className="dt-info-field-value">Active through Sep 8, 2025</div>
+                        <div className="dt-info-field-value">Active through Sep 8, 2026</div>
                       </div>
                       <div>
                         <div className="dt-info-field-label">Leave Phases</div>
@@ -378,11 +378,11 @@ export default function LeaveDetailPregnancyPage() {
                       </div>
                       <div>
                         <div className="dt-info-field-label">Expected Delivery</div>
-                        <div className="dt-info-field-value">Jun 16, 2025</div>
+                        <div className="dt-info-field-value">Jun 16, 2026</div>
                       </div>
                       <div>
                         <div className="dt-info-field-label">RTW Date (Est.)</div>
-                        <div className="dt-info-field-value">Nov 3, 2025</div>
+                        <div className="dt-info-field-value">Nov 3, 2026</div>
                       </div>
                     </div>
                     <div style={{ marginTop: 16, padding: '12px 16px', background: '#f0fdf4', borderRadius: 8, border: '1px solid #bbf7d0', fontSize: 13, color: '#166534' }}>
@@ -440,11 +440,11 @@ export default function LeaveDetailPregnancyPage() {
                       </div>
                       <div>
                         <div className="dt-info-field-label">Benefits Start</div>
-                        <div className="dt-info-field-value">Jun 16, 2025</div>
+                        <div className="dt-info-field-value">Jun 16, 2026</div>
                       </div>
                       <div>
                         <div className="dt-info-field-label">Benefits End</div>
-                        <div className="dt-info-field-value">Aug 11, 2025</div>
+                        <div className="dt-info-field-value">Aug 11, 2026</div>
                       </div>
                       <div>
                         <div className="dt-info-field-label">Payment Method</div>
@@ -502,11 +502,11 @@ export default function LeaveDetailPregnancyPage() {
                       </div>
                       <div>
                         <div className="dt-info-field-label">Benefits Start</div>
-                        <div className="dt-info-field-value">Jun 16, 2025</div>
+                        <div className="dt-info-field-value">Jun 16, 2026</div>
                       </div>
                       <div>
                         <div className="dt-info-field-label">Benefits End</div>
-                        <div className="dt-info-field-value">Aug 11, 2025</div>
+                        <div className="dt-info-field-value">Aug 11, 2026</div>
                       </div>
                       <div>
                         <div className="dt-info-field-label">Work State</div>
@@ -568,11 +568,11 @@ export default function LeaveDetailPregnancyPage() {
                       </div>
                       <div>
                         <div className="dt-info-field-label">Benefits Start</div>
-                        <div className="dt-info-field-value">Aug 11, 2025</div>
+                        <div className="dt-info-field-value">Aug 11, 2026</div>
                       </div>
                       <div>
                         <div className="dt-info-field-label">Benefits End</div>
-                        <div className="dt-info-field-value">Nov 3, 2025</div>
+                        <div className="dt-info-field-value">Nov 3, 2026</div>
                       </div>
                       <div>
                         <div className="dt-info-field-label">Work State</div>
@@ -609,7 +609,7 @@ export default function LeaveDetailPregnancyPage() {
                     </div>
                     <div className="ldb-payment-item">
                       <span className="ldb-payment-label">First Expected Payment</span>
-                      <span className="ldb-payment-value">Jun 23, 2025</span>
+                      <span className="ldb-payment-value">Jun 23, 2026</span>
                     </div>
                     <div className="ldb-payment-item">
                       <span className="ldb-payment-label">Est. Weekly (Recovery)</span>
@@ -863,26 +863,26 @@ export default function LeaveDetailPregnancyPage() {
               <div className="ldb-snapshot-dates-row">
                 <div className="ldb-snapshot-date-card">
                   <div className="ldb-snapshot-date-label">Due Date</div>
-                  <div className="ldb-snapshot-date-value">June 16, 2025</div>
+                  <div className="ldb-snapshot-date-value">June 16, 2026</div>
                 </div>
                 <div className="ldb-snapshot-date-card">
                   <div className="ldb-snapshot-date-label">Leave Start</div>
-                  <div className="ldb-snapshot-date-value">June 16, 2025</div>
+                  <div className="ldb-snapshot-date-value">June 16, 2026</div>
                 </div>
               </div>
               <div className="ldb-snapshot-dates-row">
                 <div className="ldb-snapshot-date-card">
                   <div className="ldb-snapshot-date-label">Recovery Ends</div>
-                  <div className="ldb-snapshot-date-value">Aug 11, 2025</div>
+                  <div className="ldb-snapshot-date-value">Aug 11, 2026</div>
                 </div>
                 <div className="ldb-snapshot-date-card">
                   <div className="ldb-snapshot-date-label">Bonding Ends</div>
-                  <div className="ldb-snapshot-date-value">Nov 3, 2025</div>
+                  <div className="ldb-snapshot-date-value">Nov 3, 2026</div>
                 </div>
               </div>
               <div className="ldb-snapshot-date-card ldb-snapshot-date-card--full">
                 <div className="ldb-snapshot-date-label">Return to Work Date</div>
-                <div className="ldb-snapshot-date-value">November 4, 2025</div>
+                <div className="ldb-snapshot-date-value">November 4, 2026</div>
               </div>
             </div>
 
@@ -898,7 +898,7 @@ export default function LeaveDetailPregnancyPage() {
                 <div className="ldb-doc-item">
                   <div className="ldb-doc-info">
                     <div className="ldb-doc-name">Prenatal_Certification.pdf</div>
-                    <div className="ldb-doc-meta">Uploaded on Apr 10, 2025</div>
+                    <div className="ldb-doc-meta">Uploaded on Apr 10, 2026</div>
                   </div>
                   <button type="button" className="ldb-doc-download-btn" aria-label="Download">
                     <svg width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M8 4v8" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round"/><path d="M4.5 9.5L8 13l3.5-3.5" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round" strokeLinejoin="round"/><path d="M3 14h10" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round"/></svg>
@@ -907,7 +907,7 @@ export default function LeaveDetailPregnancyPage() {
                 <div className="ldb-doc-item">
                   <div className="ldb-doc-info">
                     <div className="ldb-doc-name">NJ_TDI_FLI_Application.pdf</div>
-                    <div className="ldb-doc-meta">Uploaded on Apr 18, 2025</div>
+                    <div className="ldb-doc-meta">Uploaded on Apr 18, 2026</div>
                   </div>
                   <button type="button" className="ldb-doc-download-btn" aria-label="Download">
                     <svg width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M8 4v8" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round"/><path d="M4.5 9.5L8 13l3.5-3.5" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round" strokeLinejoin="round"/><path d="M3 14h10" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round"/></svg>
@@ -916,7 +916,7 @@ export default function LeaveDetailPregnancyPage() {
                 <div className="ldb-doc-item">
                   <div className="ldb-doc-info">
                     <div className="ldb-doc-name">Maternity_Leave_Plan.pdf</div>
-                    <div className="ldb-doc-meta">Uploaded on May 1, 2025</div>
+                    <div className="ldb-doc-meta">Uploaded on May 1, 2026</div>
                   </div>
                   <button type="button" className="ldb-doc-download-btn" aria-label="Download">
                     <svg width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M8 4v8" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round"/><path d="M4.5 9.5L8 13l3.5-3.5" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round" strokeLinejoin="round"/><path d="M3 14h10" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round"/></svg>

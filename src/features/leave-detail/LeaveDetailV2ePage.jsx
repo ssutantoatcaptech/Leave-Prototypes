@@ -143,7 +143,7 @@ export default function LeaveDetailV2ePage() {
             <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><circle cx="8" cy="8" r="7" stroke="#dc2626" strokeWidth="1.4"/><path d="M8 5v3M8 10.5v.5" stroke="#dc2626" strokeWidth="1.4" strokeLinecap="round"/></svg>
             <div className="ldb-action-text">
               <span className="ldb-action-name">Medical Certification Form</span>
-              <span className="ldb-action-due">Due May 20, 2025</span>
+              <span className="ldb-action-due">Due May 20, 2026</span>
             </div>
             <button type="button" className="ldb-btn-upload-inline">Upload</button>
           </div>
@@ -151,7 +151,7 @@ export default function LeaveDetailV2ePage() {
             <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><circle cx="8" cy="8" r="7" stroke="#dc2626" strokeWidth="1.4"/><path d="M8 5v3M8 10.5v.5" stroke="#dc2626" strokeWidth="1.4" strokeLinecap="round"/></svg>
             <div className="ldb-action-text">
               <span className="ldb-action-name">Attending Physician Statement</span>
-              <span className="ldb-action-due">Due May 22, 2025</span>
+              <span className="ldb-action-due">Due May 22, 2026</span>
             </div>
             <button type="button" className="ldb-btn-upload-inline">Upload</button>
           </div>
@@ -227,7 +227,7 @@ export default function LeaveDetailV2ePage() {
               <h1 className="ldb-title">Illness or Injury</h1>
               <div className="ldb-title-meta">
                 <span style={{ fontSize: 14, color: '#525252', fontWeight: 600 }}>NTN - 2334</span>
-                <span style={{ fontSize: 13, color: '#737373', marginLeft: 12 }}>Apr 15 – May 15, 2025 · Intermittent</span>
+                <span style={{ fontSize: 13, color: '#737373', marginLeft: 12 }}>Apr 15 – May 15, 2026 · Intermittent</span>
               </div>
             </div>
           </div>
@@ -253,16 +253,16 @@ export default function LeaveDetailV2ePage() {
                     <div className="ldb-snapshot-dates-row">
                       <div className="ldb-snapshot-date-card">
                         <div className="ldb-snapshot-date-label">Start Date</div>
-                        <div className="ldb-snapshot-date-value">March 1, 2025</div>
+                        <div className="ldb-snapshot-date-value">March 1, 2026</div>
                       </div>
                       <div className="ldb-snapshot-date-card">
                         <div className="ldb-snapshot-date-label">End Date</div>
-                        <div className="ldb-snapshot-date-value">April 25, 2025</div>
+                        <div className="ldb-snapshot-date-value">April 25, 2026</div>
                       </div>
                     </div>
                     <div className="ldb-snapshot-date-card ldb-snapshot-date-card--full">
                       <div className="ldb-snapshot-date-label">Return Work Date</div>
-                      <div className="ldb-snapshot-date-value">April 26, 2025</div>
+                      <div className="ldb-snapshot-date-value">April 26, 2026</div>
                     </div>
                   </div>
                 )}
@@ -289,12 +289,12 @@ export default function LeaveDetailV2ePage() {
                   <div className="ldb-tl-rows-wrap">
                   <div className="dlp-tl-rows">
                     {(timelineView === 'payment' ? [
-                      { id: 'std', label: 'STD', width: 50, accent: '#2563eb', name: 'Group Disability Claim (STD)', weeks: '4 weeks', range: 'Apr 15 – May 15, 2025', pay: '60% salary after 7-day wait', status: 'Pending', paymentValue: '~$2,308/wk' },
-                      { id: 'njtdi', label: 'NJ TDI', width: 100, accent: '#818cf8', name: 'NJ Temporary Disability Insurance', weeks: '12 weeks', range: 'Apr 15 – Jul 08, 2025', pay: '85% salary (state program)', status: 'Active', paymentValue: '~$1,048/wk' },
+                      { id: 'std', label: 'STD', width: 50, accent: '#2563eb', name: 'Group Disability Claim (STD)', weeks: '4 weeks', range: 'Apr 15 – May 15, 2026', pay: '60% salary after 7-day wait', status: 'Pending', paymentValue: '~$2,308/wk' },
+                      { id: 'njtdi', label: 'NJ TDI', width: 100, accent: '#818cf8', name: 'NJ Temporary Disability Insurance', weeks: '12 weeks', range: 'Apr 15 – Jul 08, 2026', pay: '85% salary (state program)', status: 'Active', paymentValue: '~$1,048/wk' },
                     ] : [
-                      { id: 'fmla', label: 'FMLA', width: 100, accent: '#0033a0', name: 'Leave Case — FMLA Protection', weeks: '12 weeks', range: 'Apr 15 – Jul 08, 2025', pay: 'Job protection (unpaid)', status: 'Pending' },
-                      { id: 'std', label: 'STD', width: 35, accent: '#2563eb', name: 'Group Disability Claim (STD)', weeks: '4 weeks', range: 'Apr 15 – May 15, 2025', pay: '60% salary after 7-day wait', status: 'Pending' },
-                      { id: 'njtdi', label: 'NJ TDI', width: 100, accent: '#818cf8', name: 'NJ Temporary Disability Insurance', weeks: '12 weeks', range: 'Apr 15 – Jul 08, 2025', pay: '85% salary (state program)', status: 'Active' },
+                      { id: 'fmla', label: 'FMLA', width: 100, accent: '#0033a0', name: 'Leave Case — FMLA Protection', weeks: '12 weeks', range: 'Apr 15 – Jul 08, 2026', pay: 'Job protection (unpaid)', status: 'Pending' },
+                      { id: 'std', label: 'STD', width: 35, accent: '#2563eb', name: 'Group Disability Claim (STD)', weeks: '4 weeks', range: 'Apr 15 – May 15, 2026', pay: '60% salary after 7-day wait', status: 'Pending' },
+                      { id: 'njtdi', label: 'NJ TDI', width: 100, accent: '#818cf8', name: 'NJ Temporary Disability Insurance', weeks: '12 weeks', range: 'Apr 15 – Jul 08, 2026', pay: '85% salary (state program)', status: 'Active' },
                     ]).map(function (item) {
                       return (
                         <button
@@ -317,12 +317,12 @@ export default function LeaveDetailV2ePage() {
                   {/* Desktop: tooltip on hover */}
                   {hoveredRow && (function () {
                     var allRows = timelineView === 'payment' ? [
-                      { id: 'std', name: 'Group Disability Claim (STD)', weeks: '4 weeks', range: 'Apr 15 – May 15, 2025', pay: '60% salary after 7-day wait', status: 'Pending', paymentValue: '~$2,308/wk' },
-                      { id: 'njtdi', name: 'NJ Temporary Disability Insurance', weeks: '12 weeks', range: 'Apr 15 – Jul 08, 2025', pay: '85% salary (state program)', status: 'Active', paymentValue: '~$1,048/wk' },
+                      { id: 'std', name: 'Group Disability Claim (STD)', weeks: '4 weeks', range: 'Apr 15 – May 15, 2026', pay: '60% salary after 7-day wait', status: 'Pending', paymentValue: '~$2,308/wk' },
+                      { id: 'njtdi', name: 'NJ Temporary Disability Insurance', weeks: '12 weeks', range: 'Apr 15 – Jul 08, 2026', pay: '85% salary (state program)', status: 'Active', paymentValue: '~$1,048/wk' },
                     ] : [
-                      { id: 'fmla', name: 'Leave Case — FMLA Protection', weeks: '12 weeks', range: 'Apr 15 – Jul 08, 2025', pay: 'Job protection (unpaid)', status: 'Approved' },
-                      { id: 'std', name: 'Group Disability Claim (STD)', weeks: '4 weeks', range: 'Apr 15 – May 15, 2025', pay: '60% salary after 7-day wait', status: 'Approved' },
-                      { id: 'njtdi', name: 'NJ Temporary Disability Insurance', weeks: '12 weeks', range: 'Apr 15 – Jul 08, 2025', pay: '85% salary (state program)', status: 'Active' },
+                      { id: 'fmla', name: 'Leave Case — FMLA Protection', weeks: '12 weeks', range: 'Apr 15 – Jul 08, 2026', pay: 'Job protection (unpaid)', status: 'Approved' },
+                      { id: 'std', name: 'Group Disability Claim (STD)', weeks: '4 weeks', range: 'Apr 15 – May 15, 2026', pay: '60% salary after 7-day wait', status: 'Approved' },
+                      { id: 'njtdi', name: 'NJ Temporary Disability Insurance', weeks: '12 weeks', range: 'Apr 15 – Jul 08, 2026', pay: '85% salary (state program)', status: 'Active' },
                     ];
                     var hovered = allRows.find(function (r) { return r.id === hoveredRow; });
                     if (!hovered) return null;
@@ -357,12 +357,12 @@ export default function LeaveDetailV2ePage() {
                   {/* Mobile: accordion below rows */}
                   {hoveredRow && (function () {
                     var allRows = timelineView === 'payment' ? [
-                      { id: 'std', name: 'Group Disability Claim (STD)', weeks: '4 weeks', range: 'Apr 15 – May 15, 2025', pay: '60% salary after 7-day wait', status: 'Pending', paymentValue: '~$2,308/wk' },
-                      { id: 'njtdi', name: 'NJ Temporary Disability Insurance', weeks: '12 weeks', range: 'Apr 15 – Jul 08, 2025', pay: '85% salary (state program)', status: 'Active', paymentValue: '~$1,048/wk' },
+                      { id: 'std', name: 'Group Disability Claim (STD)', weeks: '4 weeks', range: 'Apr 15 – May 15, 2026', pay: '60% salary after 7-day wait', status: 'Pending', paymentValue: '~$2,308/wk' },
+                      { id: 'njtdi', name: 'NJ Temporary Disability Insurance', weeks: '12 weeks', range: 'Apr 15 – Jul 08, 2026', pay: '85% salary (state program)', status: 'Active', paymentValue: '~$1,048/wk' },
                     ] : [
-                      { id: 'fmla', name: 'Leave Case — FMLA Protection', weeks: '12 weeks', range: 'Apr 15 – Jul 08, 2025', pay: 'Job protection (unpaid)', status: 'Approved' },
-                      { id: 'std', name: 'Group Disability Claim (STD)', weeks: '4 weeks', range: 'Apr 15 – May 15, 2025', pay: '60% salary after 7-day wait', status: 'Approved' },
-                      { id: 'njtdi', name: 'NJ Temporary Disability Insurance', weeks: '12 weeks', range: 'Apr 15 – Jul 08, 2025', pay: '85% salary (state program)', status: 'Active' },
+                      { id: 'fmla', name: 'Leave Case — FMLA Protection', weeks: '12 weeks', range: 'Apr 15 – Jul 08, 2026', pay: 'Job protection (unpaid)', status: 'Approved' },
+                      { id: 'std', name: 'Group Disability Claim (STD)', weeks: '4 weeks', range: 'Apr 15 – May 15, 2026', pay: '60% salary after 7-day wait', status: 'Approved' },
+                      { id: 'njtdi', name: 'NJ Temporary Disability Insurance', weeks: '12 weeks', range: 'Apr 15 – Jul 08, 2026', pay: '85% salary (state program)', status: 'Active' },
                     ];
                     var selected = allRows.find(function (r) { return r.id === hoveredRow; });
                     if (!selected) return null;
@@ -482,7 +482,7 @@ export default function LeaveDetailV2ePage() {
                       </div>
                       <div>
                         <div className="dt-info-field-label">Job Protection</div>
-                        <div className="dt-info-field-value">Active through Jul 08, 2025</div>
+                        <div className="dt-info-field-value">Active through Jul 08, 2026</div>
                       </div>
                       <div>
                         <div className="dt-info-field-label">RTW Status</div>
@@ -540,11 +540,11 @@ export default function LeaveDetailV2ePage() {
                       </div>
                       <div>
                         <div className="dt-info-field-label">Benefits Paid From</div>
-                        <div className="dt-info-field-value">Apr 22, 2025</div>
+                        <div className="dt-info-field-value">Apr 22, 2026</div>
                       </div>
                       <div>
                         <div className="dt-info-field-label">Benefits Paid Through</div>
-                        <div className="dt-info-field-value">May 15, 2025</div>
+                        <div className="dt-info-field-value">May 15, 2026</div>
                       </div>
                       <div>
                         <div className="dt-info-field-label">Payment Method</div>
@@ -653,11 +653,11 @@ export default function LeaveDetailV2ePage() {
                       </div>
                       <div>
                         <div className="dt-info-field-label">Benefits Start</div>
-                        <div className="dt-info-field-value">Apr 15, 2025</div>
+                        <div className="dt-info-field-value">Apr 15, 2026</div>
                       </div>
                       <div>
                         <div className="dt-info-field-label">Benefits End (Est.)</div>
-                        <div className="dt-info-field-value">Jul 08, 2025</div>
+                        <div className="dt-info-field-value">Jul 08, 2026</div>
                       </div>
                       <div>
                         <div className="dt-info-field-label">Total Paid</div>
@@ -698,7 +698,7 @@ export default function LeaveDetailV2ePage() {
                     </div>
                     <div className="ldb-payment-item">
                       <span className="ldb-payment-label">Expected Next Payment</span>
-                      <span className="ldb-payment-value">May 19, 2025</span>
+                      <span className="ldb-payment-value">May 19, 2026</span>
                     </div>
                     <div className="ldb-payment-item">
                       <span className="ldb-payment-label">Payment Method</span>
@@ -708,17 +708,17 @@ export default function LeaveDetailV2ePage() {
                   <p className="ldb-card-context">Payments from your Group Disability Claim (STD). Paid weekly via direct deposit.</p>
                   <div className="ldb-v2e-pmt-list">
                     <div className="ldb-v2e-pmt-row">
-                      <div className="ldb-v2e-pmt-date">May 12, 2025</div>
+                      <div className="ldb-v2e-pmt-date">May 12, 2026</div>
                       <div className="ldb-v2e-pmt-desc">STD Weekly · GDC-81</div>
                       <div className="ldb-v2e-pmt-amount">$2,308.00</div>
                     </div>
                     <div className="ldb-v2e-pmt-row">
-                      <div className="ldb-v2e-pmt-date">May 5, 2025</div>
+                      <div className="ldb-v2e-pmt-date">May 5, 2026</div>
                       <div className="ldb-v2e-pmt-desc">STD Weekly · GDC-81</div>
                       <div className="ldb-v2e-pmt-amount">$2,308.00</div>
                     </div>
                     <div className="ldb-v2e-pmt-row">
-                      <div className="ldb-v2e-pmt-date">Apr 28, 2025</div>
+                      <div className="ldb-v2e-pmt-date">Apr 28, 2026</div>
                       <div className="ldb-v2e-pmt-desc">STD Weekly · GDC-81</div>
                       <div className="ldb-v2e-pmt-amount">$2,308.00</div>
                     </div>
@@ -957,16 +957,16 @@ export default function LeaveDetailV2ePage() {
               <div className="ldb-snapshot-dates-row">
                 <div className="ldb-snapshot-date-card">
                   <div className="ldb-snapshot-date-label">Start Date</div>
-                  <div className="ldb-snapshot-date-value">March 1, 2025</div>
+                  <div className="ldb-snapshot-date-value">March 1, 2026</div>
                 </div>
                 <div className="ldb-snapshot-date-card">
                   <div className="ldb-snapshot-date-label">End Date</div>
-                  <div className="ldb-snapshot-date-value">April 25, 2025</div>
+                  <div className="ldb-snapshot-date-value">April 25, 2026</div>
                 </div>
               </div>
               <div className="ldb-snapshot-date-card ldb-snapshot-date-card--full">
                 <div className="ldb-snapshot-date-label">Return Work Date</div>
-                <div className="ldb-snapshot-date-value">April 26, 2025</div>
+                <div className="ldb-snapshot-date-value">April 26, 2026</div>
               </div>
             </div>
 
@@ -982,7 +982,7 @@ export default function LeaveDetailV2ePage() {
                 <div className="ldb-doc-item">
                   <div className="ldb-doc-info">
                     <div className="ldb-doc-name">Medical_Certification.pdf</div>
-                    <div className="ldb-doc-meta">Uploaded on Jul 29, 2024</div>
+                    <div className="ldb-doc-meta">Uploaded on Jul 29, 2026</div>
                   </div>
                   <button type="button" className="ldb-doc-download-btn" aria-label="Download">
                     <svg width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M8 4v8" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round"/><path d="M4.5 9.5L8 13l3.5-3.5" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round" strokeLinejoin="round"/><path d="M3 14h10" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round"/></svg>
@@ -991,7 +991,7 @@ export default function LeaveDetailV2ePage() {
                 <div className="ldb-doc-item">
                   <div className="ldb-doc-info">
                     <div className="ldb-doc-name">Attending_Physician_Statement.pdf</div>
-                    <div className="ldb-doc-meta">Uploaded on Jul 29, 2024</div>
+                    <div className="ldb-doc-meta">Uploaded on Jul 29, 2026</div>
                   </div>
                   <button type="button" className="ldb-doc-download-btn" aria-label="Download">
                     <svg width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M8 4v8" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round"/><path d="M4.5 9.5L8 13l3.5-3.5" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round" strokeLinejoin="round"/><path d="M3 14h10" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round"/></svg>

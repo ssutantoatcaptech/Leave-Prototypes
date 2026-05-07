@@ -126,7 +126,7 @@ export default function LeaveDetailV3cPage() {
           <div style={{ flex: 1 }}>
             <span style={{ fontSize: 13, color: '#525252' }}>Linked to employer absence: </span>
             <span style={{ fontSize: 13, fontWeight: 600, color: '#0f0f14' }}>NTN-9312 — Medical Leave (Intermittent)</span>
-            <span style={{ fontSize: 12, color: '#737373', marginLeft: 8 }}>Apr 15 – May 15, 2025</span>
+            <span style={{ fontSize: 12, color: '#737373', marginLeft: 8 }}>Apr 15 – May 15, 2026</span>
           </div>
         </div>
 
@@ -155,7 +155,7 @@ export default function LeaveDetailV3cPage() {
                 </div>
                 <div className="ldb-detail-row">
                   <span className="ldb-detail-label">Disability Date</span>
-                  <span className="ldb-detail-value">Apr 15, 2025</span>
+                  <span className="ldb-detail-value">Apr 15, 2026</span>
                 </div>
                 <div className="ldb-detail-row">
                   <span className="ldb-detail-label">Elimination Period</span>
@@ -163,7 +163,7 @@ export default function LeaveDetailV3cPage() {
                 </div>
                 <div className="ldb-detail-row">
                   <span className="ldb-detail-label">Benefits Begin</span>
-                  <span className="ldb-detail-value">Apr 22, 2025</span>
+                  <span className="ldb-detail-value">Apr 22, 2026</span>
                 </div>
                 <div className="ldb-detail-row">
                   <span className="ldb-detail-label">Benefit Rate</span>
@@ -179,7 +179,7 @@ export default function LeaveDetailV3cPage() {
                 </div>
                 <div className="ldb-detail-row">
                   <span className="ldb-detail-label">Approved Through</span>
-                  <span className="ldb-detail-value">May 15, 2025</span>
+                  <span className="ldb-detail-value">May 15, 2026</span>
                 </div>
               </div>
 
@@ -193,8 +193,8 @@ export default function LeaveDetailV3cPage() {
                   <div className="ldb-v3-duration-fill" style={{ width: '13%' }} />
                 </div>
                 <div className="ldb-v3-duration-dates">
-                  <span>Apr 22, 2025</span>
-                  <span>Oct 21, 2025</span>
+                  <span>Apr 22, 2026</span>
+                  <span>Oct 21, 2026</span>
                 </div>
               </div>
             </div>
@@ -222,7 +222,7 @@ export default function LeaveDetailV3cPage() {
                     </div>
                     <div className="ldb-payment-item">
                       <span className="ldb-payment-label">Expected Next Payment</span>
-                      <span className="ldb-payment-value">May 19, 2025</span>
+                      <span className="ldb-payment-value">May 19, 2026</span>
                     </div>
                     <div className="ldb-payment-item">
                       <span className="ldb-payment-label">Payment Method</span>
@@ -231,17 +231,17 @@ export default function LeaveDetailV3cPage() {
                   </div>
                   <div className="ldb-v2e-pmt-list">
                     <div className="ldb-v2e-pmt-row">
-                      <div className="ldb-v2e-pmt-date">May 12, 2025</div>
+                      <div className="ldb-v2e-pmt-date">May 12, 2026</div>
                       <div className="ldb-v2e-pmt-desc">STD Weekly Benefit</div>
                       <div className="ldb-v2e-pmt-amount">$2,308.00</div>
                     </div>
                     <div className="ldb-v2e-pmt-row">
-                      <div className="ldb-v2e-pmt-date">May 5, 2025</div>
+                      <div className="ldb-v2e-pmt-date">May 5, 2026</div>
                       <div className="ldb-v2e-pmt-desc">STD Weekly Benefit</div>
                       <div className="ldb-v2e-pmt-amount">$2,308.00</div>
                     </div>
                     <div className="ldb-v2e-pmt-row">
-                      <div className="ldb-v2e-pmt-date">Apr 28, 2025</div>
+                      <div className="ldb-v2e-pmt-date">Apr 28, 2026</div>
                       <div className="ldb-v2e-pmt-desc">STD Weekly Benefit</div>
                       <div className="ldb-v2e-pmt-amount">$2,308.00</div>
                     </div>
@@ -298,14 +298,14 @@ export default function LeaveDetailV3cPage() {
                       <div className="ldb-action-dot done" />
                       <div className="ldb-action-content">
                         <div className="ldb-action-title">Medical Certification Submitted</div>
-                        <div className="ldb-action-meta">Completed Apr 18, 2025</div>
+                        <div className="ldb-action-meta">Completed Apr 18, 2026</div>
                       </div>
                     </div>
                     <div className="ldb-action-item done">
                       <div className="ldb-action-dot done" />
                       <div className="ldb-action-content">
                         <div className="ldb-action-title">Attending Physician Statement</div>
-                        <div className="ldb-action-meta">Completed Apr 16, 2025</div>
+                        <div className="ldb-action-meta">Completed Apr 16, 2026</div>
                       </div>
                     </div>
                   </div>
@@ -333,29 +333,29 @@ export default function LeaveDetailV3cPage() {
                   <div className="ldb-v3-step-dot" />
                   <div className="ldb-v3-step-content">
                     <div className="ldb-v3-step-title">Claim Filed</div>
-                    <div className="ldb-v3-step-date">Apr 15, 2025</div>
+                    <div className="ldb-v3-step-date">Apr 15, 2026</div>
                   </div>
                 </div>
                 <div className="ldb-v3-step done">
                   <div className="ldb-v3-step-dot" />
                   <div className="ldb-v3-step-content">
                     <div className="ldb-v3-step-title">Documentation Received</div>
-                    <div className="ldb-v3-step-date">Apr 18, 2025</div>
+                    <div className="ldb-v3-step-date">Apr 18, 2026</div>
                   </div>
                 </div>
                 <div className="ldb-v3-step done">
                   <div className="ldb-v3-step-dot" />
                   <div className="ldb-v3-step-content">
                     <div className="ldb-v3-step-title">Initial Period Approved</div>
-                    <div className="ldb-v3-step-date">Apr 22, 2025</div>
-                    <div className="ldb-v3-step-desc">Approved through May 15, 2025. 7-day elimination period applied.</div>
+                    <div className="ldb-v3-step-date">Apr 22, 2026</div>
+                    <div className="ldb-v3-step-desc">Approved through May 15, 2026. 7-day elimination period applied.</div>
                   </div>
                 </div>
                 <div className="ldb-v3-step current">
                   <div className="ldb-v3-step-dot" />
                   <div className="ldb-v3-step-content">
                     <div className="ldb-v3-step-title">Benefits In Payment</div>
-                    <div className="ldb-v3-step-date">Since Apr 22, 2025</div>
+                    <div className="ldb-v3-step-date">Since Apr 22, 2026</div>
                     <div className="ldb-v3-step-desc">Next payment May 19. Updated certification needed to extend.</div>
                   </div>
                 </div>
@@ -363,7 +363,7 @@ export default function LeaveDetailV3cPage() {
                   <div className="ldb-v3-step-dot" />
                   <div className="ldb-v3-step-content">
                     <div className="ldb-v3-step-title">Continued Review</div>
-                    <div className="ldb-v3-step-date">May 15, 2025</div>
+                    <div className="ldb-v3-step-date">May 15, 2026</div>
                     <div className="ldb-v3-step-desc">Certification required to extend benefits beyond this date.</div>
                   </div>
                 </div>
@@ -380,35 +380,35 @@ export default function LeaveDetailV3cPage() {
                 <div className="ldb-doc-item">
                   <div className="ldb-doc-info">
                     <div className="ldb-doc-name">EOB — May 12</div>
-                    <div className="ldb-doc-meta">PDF · May 12, 2025</div>
+                    <div className="ldb-doc-meta">PDF · May 12, 2026</div>
                   </div>
                   <a href="#" className="ldb-link">Download</a>
                 </div>
                 <div className="ldb-doc-item">
                   <div className="ldb-doc-info">
                     <div className="ldb-doc-name">EOB — May 5</div>
-                    <div className="ldb-doc-meta">PDF · May 5, 2025</div>
+                    <div className="ldb-doc-meta">PDF · May 5, 2026</div>
                   </div>
                   <a href="#" className="ldb-link">Download</a>
                 </div>
                 <div className="ldb-doc-item">
                   <div className="ldb-doc-info">
                     <div className="ldb-doc-name">EOB — Apr 28</div>
-                    <div className="ldb-doc-meta">PDF · Apr 28, 2025</div>
+                    <div className="ldb-doc-meta">PDF · Apr 28, 2026</div>
                   </div>
                   <a href="#" className="ldb-link">Download</a>
                 </div>
                 <div className="ldb-doc-item">
                   <div className="ldb-doc-info">
                     <div className="ldb-doc-name">Medical Certification</div>
-                    <div className="ldb-doc-meta">PDF · Apr 18, 2025</div>
+                    <div className="ldb-doc-meta">PDF · Apr 18, 2026</div>
                   </div>
                   <a href="#" className="ldb-link">Download</a>
                 </div>
                 <div className="ldb-doc-item">
                   <div className="ldb-doc-info">
                     <div className="ldb-doc-name">Attending Physician Statement</div>
-                    <div className="ldb-doc-meta">PDF · Apr 16, 2025</div>
+                    <div className="ldb-doc-meta">PDF · Apr 16, 2026</div>
                   </div>
                   <a href="#" className="ldb-link">Download</a>
                 </div>

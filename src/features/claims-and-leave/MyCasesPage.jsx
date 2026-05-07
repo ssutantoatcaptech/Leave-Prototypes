@@ -6,7 +6,7 @@ var initialCases = [
   {
     type: 'Illness or Injury',
     id: 'CLM #12345',
-    lastUpdate: '04 / 15 / 2025',
+    lastUpdate: '04 / 15 / 2026',
     status: 'Saved',
     statusColor: 'amber',
     required: null,
@@ -16,7 +16,7 @@ var initialCases = [
   {
     type: 'Birthing parent pregnancy',
     id: 'CLM #12890',
-    lastUpdate: '05 / 01 / 2025',
+    lastUpdate: '05 / 01 / 2026',
     status: 'Approved',
     statusColor: 'green',
     required: null,
@@ -26,7 +26,7 @@ var initialCases = [
   {
     type: 'Illness or Injury',
     id: 'NTN #12554',
-    lastUpdate: '03 / 22 / 2025',
+    lastUpdate: '03 / 22 / 2026',
     status: 'Decisioned',
     statusColor: 'green',
     required: null,
@@ -36,7 +36,7 @@ var initialCases = [
   {
     type: 'Caring for family member',
     id: 'CLM #13201',
-    lastUpdate: '04 / 30 / 2025',
+    lastUpdate: '04 / 30 / 2026',
     status: 'Approved',
     statusColor: 'green',
     required: null,
@@ -46,7 +46,7 @@ var initialCases = [
   {
     type: 'Military-related',
     id: 'NTN #09881',
-    lastUpdate: '01 / 10 / 2025',
+    lastUpdate: '01 / 10 / 2026',
     status: 'Closed',
     statusColor: 'gray',
     required: null,

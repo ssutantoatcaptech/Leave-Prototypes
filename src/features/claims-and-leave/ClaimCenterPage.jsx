@@ -4,8 +4,8 @@ import useBasePath from './useBasePath';
 
 const claimsData = [
   {
-    date: 'Oct 15, 2024',
-    claimNum: 'CLM-2024-08941',
+    date: 'Oct 15, 2026',
+    claimNum: 'CLM-2026-08941',
     type: 'Short-Term Disability',
     member: 'Sarah Johnson',
     status: 'Pending',
@@ -15,8 +15,8 @@ const claimsData = [
     link: 'std-claim-detail',
   },
   {
-    date: 'Oct 8, 2024',
-    claimNum: 'CLM-2024-08832',
+    date: 'Oct 8, 2026',
+    claimNum: 'CLM-2026-08832',
     type: 'Long-Term Disability',
     member: 'Sarah Johnson',
     status: 'Approved',
@@ -26,8 +26,8 @@ const claimsData = [
     link: 'std-claim-detail',
   },
   {
-    date: 'Sep 22, 2024',
-    claimNum: 'CLM-2024-08510',
+    date: 'Sep 22, 2026',
+    claimNum: 'CLM-2026-08510',
     type: 'Short-Term Disability',
     member: 'Michael Johnson',
     status: 'Info Required',
@@ -37,8 +37,8 @@ const claimsData = [
     link: 'std-claim-detail',
   },
   {
-    date: 'Aug 30, 2024',
-    claimNum: 'CLM-2024-07994',
+    date: 'Aug 30, 2026',
+    claimNum: 'CLM-2026-07994',
     type: 'Accidental Death & Dismemberment',
     member: 'Sarah Johnson',
     status: 'Closed',
@@ -67,7 +67,7 @@ export default function ClaimCenterPage() {
       }
       if (dateFilter !== 'All') {
         const d = new Date(row.date);
-        const now = new Date('2024-10-20');
+        const now = new Date('2026-10-20');
         const diff = (now - d) / (1000 * 60 * 60 * 24);
         if (dateFilter === 'Last 30 Days' && diff > 30) return false;
         if (dateFilter === 'Last 90 Days' && diff > 90) return false;

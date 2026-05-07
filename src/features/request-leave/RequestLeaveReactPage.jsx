@@ -400,7 +400,7 @@ export default function RequestLeaveReactPage() {
     const prefills = {
       child: {
         diagnosis: 'Pregnancy — expected delivery',
-        firstTreatment: '2025-10-15',
+        firstTreatment: '2026-10-15',
         nextAppointment: '2026-05-20',
         providerName: 'Dr. Dempsey',
         providerSuffix: 'OB-GYN',

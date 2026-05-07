@@ -114,7 +114,7 @@ export default function LeaveDetailSupplementalPage() {
               <h1 className="ldb-title">NTN-9312-SC-82 — Supplemental Health <span className="ldb-status-badge" style={{ fontSize: 12, marginLeft: 12, verticalAlign: 'middle', background: '#fffbeb', color: '#92400e' }}>Under Review</span></h1>
               <div className="ldb-title-meta">
                 <span style={{ fontSize: 14, color: '#525252' }}>Hospital Indemnity — flat cash benefit for inpatient stays</span>
-                <span style={{ fontSize: 13, color: '#737373', marginLeft: 12 }}>Apr 15 – Apr 17, 2025 · One-time</span>
+                <span style={{ fontSize: 13, color: '#737373', marginLeft: 12 }}>Apr 15 – Apr 17, 2026 · One-time</span>
               </div>
             </div>
           </div>
@@ -156,7 +156,7 @@ export default function LeaveDetailSupplementalPage() {
                     </div>
                     <div>
                       <div className="dt-info-field-label">Inpatient Days</div>
-                      <div className="dt-info-field-value">3 days (Apr 15–17, 2025)</div>
+                      <div className="dt-info-field-value">3 days (Apr 15–17, 2026)</div>
                     </div>
                     <div>
                       <div className="dt-info-field-label">Expected Payout</div>
@@ -172,7 +172,7 @@ export default function LeaveDetailSupplementalPage() {
                     </div>
                     <div>
                       <div className="dt-info-field-label">Filed</div>
-                      <div className="dt-info-field-value">Apr 18, 2025</div>
+                      <div className="dt-info-field-value">Apr 18, 2026</div>
                     </div>
                   </div>
                   <div style={{ marginTop: 16, padding: '12px 16px', background: '#f5f3ff', borderRadius: 8, border: '1px solid #ede9fe', fontSize: 13, color: '#5b21b6' }}>
@@ -191,7 +191,7 @@ export default function LeaveDetailSupplementalPage() {
               <div style={{ display: 'flex', alignItems: 'center', gap: 16, padding: '12px 16px', background: '#fafafa', borderRadius: 8, border: '1px solid #f0f0f2' }}>
                 <div style={{ flex: 1 }}>
                   <div style={{ fontWeight: 600, fontSize: 14 }}>NTN-9312 — Medical Leave</div>
-                  <div style={{ fontSize: 13, color: '#737373', marginTop: 2 }}>Back Surgery Recovery · Apr 15 – May 15, 2025</div>
+                  <div style={{ fontSize: 13, color: '#737373', marginTop: 2 }}>Back Surgery Recovery · Apr 15 – May 15, 2026</div>
                 </div>
                 <span className="ldb-status-badge pending-status" style={{ fontSize: 11 }}>Pending</span>
                 <Link to="/leave-detail-v2e" style={{ fontSize: 13, fontWeight: 600, color: '#0033a0', textDecoration: 'none' }}>
@@ -271,7 +271,7 @@ export default function LeaveDetailSupplementalPage() {
                       <div className="ldb-action-dot done" />
                       <div className="ldb-action-content">
                         <div className="ldb-action-title">Claim Filed</div>
-                        <div className="ldb-action-meta">Completed Apr 18, 2025</div>
+                        <div className="ldb-action-meta">Completed Apr 18, 2026</div>
                       </div>
                     </div>
                   </div>

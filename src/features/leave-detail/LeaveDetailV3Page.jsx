@@ -53,7 +53,7 @@ function GlobalFooter() {
           </div>
         </div>
         <div className="ld-global-footer-bottom">
-          <span>&copy; 2024 Benefits Hub Administration. All rights reserved.</span>
+          <span>&copy; 2026 Benefits Hub Administration. All rights reserved.</span>
           <span className="ld-global-footer-legal">Insurance products are underwritten by United of Omaha Life Insurance Company.</span>
         </div>
       </div>
@@ -107,7 +107,7 @@ export default function LeaveDetailV3Page() {
                 <span className="ld-title-dot" />
                 <span className="ld-title-id">CLM-94820</span>
                 <span className="ld-title-sep">|</span>
-                <span>Filed May 4, 2024</span>
+                <span>Filed May 4, 2026</span>
               </div>
             </div>
           </div>
@@ -142,15 +142,15 @@ export default function LeaveDetailV3Page() {
                 </div>
                 <div className="ld-detail-row">
                   <span className="ld-detail-label">Leave Start</span>
-                  <span className="ld-detail-value">May 4, 2024</span>
+                  <span className="ld-detail-value">May 4, 2026</span>
                 </div>
                 <div className="ld-detail-row">
                   <span className="ld-detail-label">Benefits Begin</span>
-                  <span className="ld-detail-value">May 11, 2024</span>
+                  <span className="ld-detail-value">May 11, 2026</span>
                 </div>
                 <div className="ld-detail-row">
                   <span className="ld-detail-label">Expected RTW</span>
-                  <span className="ld-detail-value">Aug 5, 2024</span>
+                  <span className="ld-detail-value">Aug 5, 2026</span>
                 </div>
                 <div className="ld-detail-row">
                   <span className="ld-detail-label">Max Benefit Duration</span>
@@ -172,8 +172,8 @@ export default function LeaveDetailV3Page() {
                   <div className="ld-v3-duration-fill" style={{ width: '66.7%' }} />
                 </div>
                 <div className="ld-v3-duration-dates">
-                  <span>May 11, 2024</span>
-                  <span>Aug 3, 2024</span>
+                  <span>May 11, 2026</span>
+                  <span>Aug 3, 2026</span>
                 </div>
               </div>
             </div>
@@ -214,7 +214,7 @@ export default function LeaveDetailV3Page() {
                     </thead>
                     <tbody>
                       <tr>
-                        <td>Jul 12, 2024</td>
+                        <td>Jul 12, 2026</td>
                         <td>Jun 29 - Jul 12</td>
                         <td>$1,036.59</td>
                         <td><span className="ld-claim-status processed">PAID</span></td>
@@ -232,7 +232,7 @@ export default function LeaveDetailV3Page() {
                         </td></tr>
                       )}
                       <tr>
-                        <td>Jun 28, 2024</td>
+                        <td>Jun 28, 2026</td>
                         <td>Jun 15 - Jun 28</td>
                         <td>$1,036.59</td>
                         <td><span className="ld-claim-status processed">PAID</span></td>
@@ -250,7 +250,7 @@ export default function LeaveDetailV3Page() {
                         </td></tr>
                       )}
                       <tr>
-                        <td>Jun 14, 2024</td>
+                        <td>Jun 14, 2026</td>
                         <td>Jun 01 - Jun 14</td>
                         <td>$1,036.59</td>
                         <td><span className="ld-claim-status processed">PAID</span></td>
@@ -268,7 +268,7 @@ export default function LeaveDetailV3Page() {
                         </td></tr>
                       )}
                       <tr>
-                        <td>May 31, 2024</td>
+                        <td>May 31, 2026</td>
                         <td>May 18 - May 31</td>
                         <td>$1,036.59</td>
                         <td><span className="ld-claim-status processed">PAID</span></td>
@@ -286,7 +286,7 @@ export default function LeaveDetailV3Page() {
                         </td></tr>
                       )}
                       <tr>
-                        <td>May 17, 2024</td>
+                        <td>May 17, 2026</td>
                         <td>May 11 - May 17</td>
                         <td>$518.30</td>
                         <td><span className="ld-claim-status processed">PAID</span></td>
@@ -304,7 +304,7 @@ export default function LeaveDetailV3Page() {
                         </td></tr>
                       )}
                       <tr>
-                        <td>Jul 26, 2024</td>
+                        <td>Jul 26, 2026</td>
                         <td>Jul 13 - Jul 26</td>
                         <td>$1,036.59</td>
                         <td><span className="ld-claim-status pending-status">SCHEDULED</span></td>
@@ -322,7 +322,7 @@ export default function LeaveDetailV3Page() {
                       <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M4 2h6l4 4v8a1 1 0 01-1 1H4a1 1 0 01-1-1V3a1 1 0 011-1z" stroke="#0052cc" strokeWidth="1.2"/><path d="M10 2v4h4" stroke="#0052cc" strokeWidth="1.2"/></svg>
                       <div className="ld-doc-info">
                         <div className="ld-doc-name">Explanation of Benefits — Jul 12</div>
-                        <div className="ld-doc-meta">PDF · Generated Jul 12, 2024</div>
+                        <div className="ld-doc-meta">PDF · Generated Jul 12, 2026</div>
                       </div>
                       <a href="#" className="ld-link">Download</a>
                     </div>
@@ -330,7 +330,7 @@ export default function LeaveDetailV3Page() {
                       <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M4 2h6l4 4v8a1 1 0 01-1 1H4a1 1 0 01-1-1V3a1 1 0 011-1z" stroke="#0052cc" strokeWidth="1.2"/><path d="M10 2v4h4" stroke="#0052cc" strokeWidth="1.2"/></svg>
                       <div className="ld-doc-info">
                         <div className="ld-doc-name">Explanation of Benefits — Jun 28</div>
-                        <div className="ld-doc-meta">PDF · Generated Jun 28, 2024</div>
+                        <div className="ld-doc-meta">PDF · Generated Jun 28, 2026</div>
                       </div>
                       <a href="#" className="ld-link">Download</a>
                     </div>
@@ -338,7 +338,7 @@ export default function LeaveDetailV3Page() {
                       <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M4 2h6l4 4v8a1 1 0 01-1 1H4a1 1 0 01-1-1V3a1 1 0 011-1z" stroke="#0052cc" strokeWidth="1.2"/><path d="M10 2v4h4" stroke="#0052cc" strokeWidth="1.2"/></svg>
                       <div className="ld-doc-info">
                         <div className="ld-doc-name">Explanation of Benefits — Jun 14</div>
-                        <div className="ld-doc-meta">PDF · Generated Jun 14, 2024</div>
+                        <div className="ld-doc-meta">PDF · Generated Jun 14, 2026</div>
                       </div>
                       <a href="#" className="ld-link">Download</a>
                     </div>
@@ -346,7 +346,7 @@ export default function LeaveDetailV3Page() {
                       <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M4 2h6l4 4v8a1 1 0 01-1 1H4a1 1 0 01-1-1V3a1 1 0 011-1z" stroke="#22c55e" strokeWidth="1.2"/><path d="M10 2v4h4" stroke="#22c55e" strokeWidth="1.2"/></svg>
                       <div className="ld-doc-info">
                         <div className="ld-doc-name">Claim Approval Letter</div>
-                        <div className="ld-doc-meta">PDF · May 10, 2024</div>
+                        <div className="ld-doc-meta">PDF · May 10, 2026</div>
                       </div>
                       <a href="#" className="ld-link">Download</a>
                     </div>
@@ -354,7 +354,7 @@ export default function LeaveDetailV3Page() {
                       <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M4 2h6l4 4v8a1 1 0 01-1 1H4a1 1 0 01-1-1V3a1 1 0 011-1z" stroke="#737373" strokeWidth="1.2"/><path d="M10 2v4h4" stroke="#737373" strokeWidth="1.2"/></svg>
                       <div className="ld-doc-info">
                         <div className="ld-doc-name">Attending Physician Statement</div>
-                        <div className="ld-doc-meta">PDF · Submitted May 6, 2024</div>
+                        <div className="ld-doc-meta">PDF · Submitted May 6, 2026</div>
                       </div>
                       <a href="#" className="ld-link">Download</a>
                     </div>
@@ -374,28 +374,28 @@ export default function LeaveDetailV3Page() {
               </h3>
               <div className="ld-v3-status-badge-wrap">
                 <span className="ld-status-badge approved">APPROVED</span>
-                <span className="ld-v3-status-since">Since May 10, 2024</span>
+                <span className="ld-v3-status-since">Since May 10, 2026</span>
               </div>
               <div className="ld-v3-status-timeline">
                 <div className="ld-v3-step done">
                   <div className="ld-v3-step-dot" />
                   <div className="ld-v3-step-content">
                     <div className="ld-v3-step-title">Claim Filed</div>
-                    <div className="ld-v3-step-date">May 4, 2024</div>
+                    <div className="ld-v3-step-date">May 4, 2026</div>
                   </div>
                 </div>
                 <div className="ld-v3-step done">
                   <div className="ld-v3-step-dot" />
                   <div className="ld-v3-step-content">
                     <div className="ld-v3-step-title">Documentation Received</div>
-                    <div className="ld-v3-step-date">May 7, 2024</div>
+                    <div className="ld-v3-step-date">May 7, 2026</div>
                   </div>
                 </div>
                 <div className="ld-v3-step done">
                   <div className="ld-v3-step-dot" />
                   <div className="ld-v3-step-content">
                     <div className="ld-v3-step-title">Claim Approved</div>
-                    <div className="ld-v3-step-date">May 10, 2024</div>
+                    <div className="ld-v3-step-date">May 10, 2026</div>
                     <div className="ld-v3-step-desc">7-day elimination period waived.</div>
                   </div>
                 </div>
@@ -403,7 +403,7 @@ export default function LeaveDetailV3Page() {
                   <div className="ld-v3-step-dot" />
                   <div className="ld-v3-step-content">
                     <div className="ld-v3-step-title">Benefits In Payment</div>
-                    <div className="ld-v3-step-date">Since May 11, 2024</div>
+                    <div className="ld-v3-step-date">Since May 11, 2026</div>
                     <div className="ld-v3-step-desc">Next payment Jul 26.</div>
                     <div className="ld-v3-step-action">
                       <svg width="14" height="14" viewBox="0 0 16 16" fill="none"><circle cx="8" cy="8" r="6.5" stroke="#ef4444" strokeWidth="1.2"/><path d="M8 5v3" stroke="#ef4444" strokeWidth="1.2" strokeLinecap="round"/><circle cx="8" cy="11" r="0.7" fill="#ef4444"/></svg>
@@ -419,7 +419,7 @@ export default function LeaveDetailV3Page() {
                   <div className="ld-v3-step-dot" />
                   <div className="ld-v3-step-content">
                     <div className="ld-v3-step-title">Expected RTW</div>
-                    <div className="ld-v3-step-date">Aug 5, 2024</div>
+                    <div className="ld-v3-step-date">Aug 5, 2026</div>
                   </div>
                 </div>
               </div>

@@ -276,8 +276,8 @@ export default function DashboardPage() {
                 </div>
                 <div className="cldb-activity-content">
                   <span className="cldb-activity-title">Dental EOB Available</span>
-                  <span className="cldb-activity-desc">Your dental Explanation of Benefits from Dec 10, 2024 is now available.</span>
-                  <span className="cldb-activity-date">Jan 20, 2025</span>
+                  <span className="cldb-activity-desc">Your dental Explanation of Benefits from Dec 10, 2026 is now available.</span>
+                  <span className="cldb-activity-date">Jan 20, 2026</span>
                 </div>
                 <svg className="cldb-activity-chevron" width="10" height="16" viewBox="0 0 10 16" fill="none">
                   <path d="M2 2l6 6-6 6" stroke="#9ca3af" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
@@ -292,8 +292,8 @@ export default function DashboardPage() {
                 </div>
                 <div className="cldb-activity-content">
                   <span className="cldb-activity-title">Claim Processed</span>
-                  <span className="cldb-activity-desc">Dental claim #VC-2025-4412</span>
-                  <span className="cldb-activity-date">Jan 18, 2025</span>
+                  <span className="cldb-activity-desc">Dental claim #VC-2026-4412</span>
+                  <span className="cldb-activity-date">Jan 18, 2026</span>
                 </div>
                 <svg className="cldb-activity-chevron" width="10" height="16" viewBox="0 0 10 16" fill="none">
                   <path d="M2 2l6 6-6 6" stroke="#9ca3af" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
@@ -308,8 +308,8 @@ export default function DashboardPage() {
                 </div>
                 <div className="cldb-activity-content">
                   <span className="cldb-activity-title">Leave Request Approved</span>
-                  <span className="cldb-activity-desc">Leave from 2/2/25 through 2-10-25</span>
-                  <span className="cldb-activity-date">Jan 18, 2025</span>
+                  <span className="cldb-activity-desc">Leave from 2/2/26 through 2-10-26</span>
+                  <span className="cldb-activity-date">Jan 18, 2026</span>
                 </div>
                 <svg className="cldb-activity-chevron" width="10" height="16" viewBox="0 0 10 16" fill="none">
                   <path d="M2 2l6 6-6 6" stroke="#9ca3af" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>

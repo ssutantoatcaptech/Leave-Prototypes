@@ -178,11 +178,11 @@ export default function LeaveDetailV2bPage() {
                 </div>
                 <div className="ldb-detail-row">
                   <span className="ldb-detail-label">Leave Start</span>
-                  <span className="ldb-detail-value">Jun 03, 2024</span>
+                  <span className="ldb-detail-value">Jun 03, 2026</span>
                 </div>
                 <div className="ldb-detail-row">
                   <span className="ldb-detail-label">Leave End</span>
-                  <span className="ldb-detail-value">Aug 24, 2024</span>
+                  <span className="ldb-detail-value">Aug 24, 2026</span>
                 </div>
                 <div className="ldb-detail-row">
                   <span className="ldb-detail-label">Max Duration</span>
@@ -217,7 +217,7 @@ export default function LeaveDetailV2bPage() {
                     </div>
                     <div className="ldb-v2-bar-tooltip">
                       <div className="ldb-v2-ms-tooltip-title">FMLA Protection</div>
-                      <div className="ldb-v2-ms-tooltip-date">Jun 03 – Aug 24, 2024</div>
+                      <div className="ldb-v2-ms-tooltip-date">Jun 03 – Aug 24, 2026</div>
                       <div className="ldb-v2-ms-tooltip-desc">12 weeks federal job protection. Covers entire leave duration.</div>
                     </div>
                   </div>
@@ -228,7 +228,7 @@ export default function LeaveDetailV2bPage() {
                     </div>
                     <div className="ldb-v2-bar-tooltip">
                       <div className="ldb-v2-ms-tooltip-title">Short-Term Disability</div>
-                      <div className="ldb-v2-ms-tooltip-date">Jun 03 – Jul 05, 2024</div>
+                      <div className="ldb-v2-ms-tooltip-date">Jun 03 – Jul 05, 2026</div>
                       <div className="ldb-v2-ms-tooltip-desc">60% income replacement. Weekly benefit: $850.00. Approved NTN-7729103.</div>
                     </div>
                   </div>
@@ -239,7 +239,7 @@ export default function LeaveDetailV2bPage() {
                     </div>
                     <div className="ldb-v2-bar-tooltip">
                       <div className="ldb-v2-ms-tooltip-title">Paid Family Medical Leave</div>
-                      <div className="ldb-v2-ms-tooltip-date">Jun 24 – Aug 12, 2024</div>
+                      <div className="ldb-v2-ms-tooltip-date">Jun 24 – Aug 12, 2026</div>
                       <div className="ldb-v2-ms-tooltip-desc">State bonding benefit. Begins after birth date, ends 7 weeks post-delivery.</div>
                     </div>
                   </div>
@@ -286,7 +286,7 @@ export default function LeaveDetailV2bPage() {
                         </td>
                         <td>NTN-7729103</td>
                         <td><span className="ldb-claim-status approved">APPROVED</span></td>
-                        <td>May 12, 2024</td>
+                        <td>May 12, 2026</td>
                       </tr>
                       <tr>
                         <td>
@@ -295,7 +295,7 @@ export default function LeaveDetailV2bPage() {
                         </td>
                         <td>NTN-8812034</td>
                         <td><span className="ldb-claim-status not-eligible">NOT ELIGIBLE</span></td>
-                        <td>May 14, 2024</td>
+                        <td>May 14, 2026</td>
                       </tr>
                     </tbody>
                   </table>
@@ -311,7 +311,7 @@ export default function LeaveDetailV2bPage() {
                     </div>
                     <div className="ldb-payment-box">
                       <div className="ldb-payment-box-label">NEXT EXPECTED PAYMENT</div>
-                      <div className="ldb-payment-box-value">Jul 26, 2024</div>
+                      <div className="ldb-payment-box-value">Jul 26, 2026</div>
                     </div>
                     <div className="ldb-payment-box">
                       <div className="ldb-payment-box-label">ESTIMATED WEEKLY BENEFIT</div>
@@ -331,7 +331,7 @@ export default function LeaveDetailV2bPage() {
                     </thead>
                     <tbody>
                       <tr>
-                        <td>Jul 12, 2024</td>
+                        <td>Jul 12, 2026</td>
                         <td>Jun 29 - Jul 12</td>
                         <td>$1,700.00</td>
                         <td><span className="ldb-claim-status processed">PROCESSED</span></td>
@@ -349,7 +349,7 @@ export default function LeaveDetailV2bPage() {
                         </td></tr>
                       )}
                       <tr>
-                        <td>Jun 28, 2024</td>
+                        <td>Jun 28, 2026</td>
                         <td>Jun 15 - Jun 28</td>
                         <td>$1,700.00</td>
                         <td><span className="ldb-claim-status processed">PROCESSED</span></td>
@@ -367,7 +367,7 @@ export default function LeaveDetailV2bPage() {
                         </td></tr>
                       )}
                       <tr>
-                        <td>Jun 14, 2024</td>
+                        <td>Jun 14, 2026</td>
                         <td>Jun 01 - Jun 14</td>
                         <td>$1,700.00</td>
                         <td><span className="ldb-claim-status processed">PROCESSED</span></td>
@@ -385,7 +385,7 @@ export default function LeaveDetailV2bPage() {
                         </td></tr>
                       )}
                       <tr>
-                        <td>May 31, 2024</td>
+                        <td>May 31, 2026</td>
                         <td>May 18 - May 31</td>
                         <td>$850.00</td>
                         <td><span className="ldb-claim-status processed">PROCESSED</span></td>
@@ -403,7 +403,7 @@ export default function LeaveDetailV2bPage() {
                         </td></tr>
                       )}
                       <tr>
-                        <td>May 17, 2024</td>
+                        <td>May 17, 2026</td>
                         <td>May 04 - May 17</td>
                         <td>$850.00</td>
                         <td><span className="ldb-claim-status processed">PROCESSED</span></td>
@@ -421,7 +421,7 @@ export default function LeaveDetailV2bPage() {
                         </td></tr>
                       )}
                       <tr>
-                        <td>May 03, 2024</td>
+                        <td>May 03, 2026</td>
                         <td>Apr 20 - May 03</td>
                         <td>$850.00</td>
                         <td><span className="ldb-claim-status processed">PROCESSED</span></td>
@@ -456,7 +456,7 @@ export default function LeaveDetailV2bPage() {
                   <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M4 2h6l4 4v8a1 1 0 01-1 1H4a1 1 0 01-1-1V3a1 1 0 011-1z" stroke="#525252" strokeWidth="1.2"/><path d="M10 2v4h4" stroke="#525252" strokeWidth="1.2"/></svg>
                   <div className="ldb-doc-info">
                     <div className="ldb-doc-name">Approval_Notice.pdf</div>
-                    <div className="ldb-doc-meta">May 13, 2024 &middot; 1.2 MB</div>
+                    <div className="ldb-doc-meta">May 13, 2026 &middot; 1.2 MB</div>
                   </div>
                   <button type="button" className="ldb-icon-btn" aria-label="Download">
                     <svg width="12" height="12" viewBox="0 0 16 16" fill="none"><path d="M8 2v9M4.5 7.5L8 11l3.5-3.5M3 13h10" stroke="currentColor" strokeWidth="1.3" strokeLinecap="round" strokeLinejoin="round"/></svg>
@@ -466,7 +466,7 @@ export default function LeaveDetailV2bPage() {
                   <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M4 2h6l4 4v8a1 1 0 01-1 1H4a1 1 0 01-1-1V3a1 1 0 011-1z" stroke="#525252" strokeWidth="1.2"/><path d="M10 2v4h4" stroke="#525252" strokeWidth="1.2"/></svg>
                   <div className="ldb-doc-info">
                     <div className="ldb-doc-name">Medical_Cert_SarahJ.pdf</div>
-                    <div className="ldb-doc-meta">May 06, 2024 &middot; 2.4 MB</div>
+                    <div className="ldb-doc-meta">May 06, 2026 &middot; 2.4 MB</div>
                   </div>
                   <button type="button" className="ldb-icon-btn" aria-label="Download">
                     <svg width="12" height="12" viewBox="0 0 16 16" fill="none"><path d="M8 2v9M4.5 7.5L8 11l3.5-3.5M3 13h10" stroke="currentColor" strokeWidth="1.3" strokeLinecap="round" strokeLinejoin="round"/></svg>
@@ -506,7 +506,7 @@ export default function LeaveDetailV2bPage() {
                       <div className="ldb-task-tl-dot done" />
                       <div className="ldb-task-tl-content">
                         <div className="ldb-task-tl-title">Submit Medical Certification</div>
-                        <div className="ldb-task-tl-meta">Completed Jun 5, 2024</div>
+                        <div className="ldb-task-tl-meta">Completed Jun 5, 2026</div>
                       </div>
                       <span className="ldb-task-tl-badge done">Done</span>
                     </div>
@@ -514,7 +514,7 @@ export default function LeaveDetailV2bPage() {
                       <div className="ldb-task-tl-dot done" />
                       <div className="ldb-task-tl-content">
                         <div className="ldb-task-tl-title">Employer Verification</div>
-                        <div className="ldb-task-tl-meta">Completed Jun 8, 2024</div>
+                        <div className="ldb-task-tl-meta">Completed Jun 8, 2026</div>
                       </div>
                       <span className="ldb-task-tl-badge done">Done</span>
                     </div>
@@ -522,7 +522,7 @@ export default function LeaveDetailV2bPage() {
                       <div className="ldb-task-tl-dot done" />
                       <div className="ldb-task-tl-content">
                         <div className="ldb-task-tl-title">Claim Decision</div>
-                        <div className="ldb-task-tl-meta">Approved Jun 10, 2024</div>
+                        <div className="ldb-task-tl-meta">Approved Jun 10, 2026</div>
                       </div>
                       <span className="ldb-task-tl-badge done">Done</span>
                     </div>
@@ -544,7 +544,7 @@ export default function LeaveDetailV2bPage() {
                       <div className="ldb-task-tl-dot done" />
                       <div className="ldb-task-tl-content">
                         <div className="ldb-task-tl-title">Eligibility Confirmed</div>
-                        <div className="ldb-task-tl-meta">Completed Jun 3, 2024</div>
+                        <div className="ldb-task-tl-meta">Completed Jun 3, 2026</div>
                       </div>
                       <span className="ldb-task-tl-badge done">Done</span>
                     </div>
@@ -552,7 +552,7 @@ export default function LeaveDetailV2bPage() {
                       <div className="ldb-task-tl-dot urgent" />
                       <div className="ldb-task-tl-content">
                         <div className="ldb-task-tl-title">Submit Birth Certificate</div>
-                        <div className="ldb-task-tl-meta">Due by Jul 24, 2024</div>
+                        <div className="ldb-task-tl-meta">Due by Jul 24, 2026</div>
                       </div>
                       <span className="ldb-task-tl-badge urgent">Action</span>
                     </div>
@@ -560,7 +560,7 @@ export default function LeaveDetailV2bPage() {
                       <div className="ldb-task-tl-dot pending" />
                       <div className="ldb-task-tl-content">
                         <div className="ldb-task-tl-title">Return to Work Confirmation</div>
-                        <div className="ldb-task-tl-meta">Due by Aug 24, 2024</div>
+                        <div className="ldb-task-tl-meta">Due by Aug 24, 2026</div>
                       </div>
                       <span className="ldb-task-tl-badge pending">Pending</span>
                     </div>
@@ -582,7 +582,7 @@ export default function LeaveDetailV2bPage() {
                       <div className="ldb-task-tl-dot done" />
                       <div className="ldb-task-tl-content">
                         <div className="ldb-task-tl-title">Bonding Application Submitted</div>
-                        <div className="ldb-task-tl-meta">Completed Jun 25, 2024</div>
+                        <div className="ldb-task-tl-meta">Completed Jun 25, 2026</div>
                       </div>
                       <span className="ldb-task-tl-badge done">Done</span>
                     </div>
@@ -590,7 +590,7 @@ export default function LeaveDetailV2bPage() {
                       <div className="ldb-task-tl-dot in-progress" />
                       <div className="ldb-task-tl-content">
                         <div className="ldb-task-tl-title">State Review</div>
-                        <div className="ldb-task-tl-meta">In progress since Jul 1, 2024</div>
+                        <div className="ldb-task-tl-meta">In progress since Jul 1, 2026</div>
                       </div>
                       <span className="ldb-task-tl-badge in-progress">In Progress</span>
                     </div>

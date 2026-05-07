@@ -4,8 +4,8 @@ import useBasePath from './useBasePath';
 
 const dentalData = [
   {
-    date: 'Oct 10, 2024',
-    claimNum: 'DNT-2024-04521',
+    date: 'Oct 10, 2026',
+    claimNum: 'DNT-2026-04521',
     member: 'Sarah Johnson',
     provider: 'Dr. Emily Chen, DDS',
     billed: '$1,240.00',
@@ -20,8 +20,8 @@ const dentalData = [
     ],
   },
   {
-    date: 'Sep 5, 2024',
-    claimNum: 'DNT-2024-04210',
+    date: 'Sep 5, 2026',
+    claimNum: 'DNT-2026-04210',
     member: 'Michael Johnson',
     provider: 'Bright Smiles Dental',
     billed: '$320.00',
@@ -36,8 +36,8 @@ const dentalData = [
     ],
   },
   {
-    date: 'Aug 12, 2024',
-    claimNum: 'DNT-2024-03987',
+    date: 'Aug 12, 2026',
+    claimNum: 'DNT-2026-03987',
     member: 'Sarah Johnson',
     provider: 'Dr. Emily Chen, DDS',
     billed: '$2,100.00',
@@ -67,7 +67,7 @@ export default function DentalClaimsPage() {
       if (statusFilter !== 'All' && row.status !== statusFilter) return false;
       if (dateFilter !== 'All') {
         const d = new Date(row.date);
-        const now = new Date('2024-10-20');
+        const now = new Date('2026-10-20');
         const diff = (now - d) / (1000 * 60 * 60 * 24);
         if (dateFilter === 'Last 30 Days' && diff > 30) return false;
         if (dateFilter === 'Last 90 Days' && diff > 90) return false;

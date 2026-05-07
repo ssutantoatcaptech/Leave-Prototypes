@@ -61,7 +61,7 @@ export default function LeaveDetailCaregiverPage() {
             <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><circle cx="8" cy="8" r="7" stroke="#dc2626" strokeWidth="1.4"/><path d="M8 5v3M8 10.5v.5" stroke="#dc2626" strokeWidth="1.4" strokeLinecap="round"/></svg>
             <div className="ldb-action-text">
               <span className="ldb-action-name">Medical Certification Form</span>
-              <span className="ldb-action-due">Due Jun 5, 2025</span>
+              <span className="ldb-action-due">Due Jun 5, 2026</span>
             </div>
             <button type="button" className="ldb-btn-upload-inline">Upload</button>
           </div>
@@ -69,7 +69,7 @@ export default function LeaveDetailCaregiverPage() {
             <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><circle cx="8" cy="8" r="7" stroke="#dc2626" strokeWidth="1.4"/><path d="M8 5v3M8 10.5v.5" stroke="#dc2626" strokeWidth="1.4" strokeLinecap="round"/></svg>
             <div className="ldb-action-text">
               <span className="ldb-action-name">Family Member Physician Statement</span>
-              <span className="ldb-action-due">Due Jun 8, 2025</span>
+              <span className="ldb-action-due">Due Jun 8, 2026</span>
             </div>
             <button type="button" className="ldb-btn-upload-inline">Upload</button>
           </div>
@@ -130,7 +130,7 @@ export default function LeaveDetailCaregiverPage() {
               <h1 className="ldb-title">Caring for Family Member</h1>
               <div className="ldb-title-meta">
                 <span style={{ fontSize: 14, color: '#525252', fontWeight: 600 }}>NTN - 5220</span>
-                <span style={{ fontSize: 13, color: '#737373', marginLeft: 12 }}>May 5 – Jul 28, 2025 · Intermittent</span>
+                <span style={{ fontSize: 13, color: '#737373', marginLeft: 12 }}>May 5 – Jul 28, 2026 · Intermittent</span>
               </div>
             </div>
           </div>
@@ -162,10 +162,10 @@ export default function LeaveDetailCaregiverPage() {
                   <div className="ldb-tl-rows-wrap">
                   <div className="dlp-tl-rows">
                     {(timelineView === 'payment' ? [
-                      { id: 'njfli', label: 'NJ FLI', width: 100, accent: '#0d9488', name: 'NJ Family Leave Insurance (Caregiving)', weeks: '12 weeks', range: 'May 5 – Jul 28, 2025', pay: '85% AWW up to max', status: 'Approved', paymentValue: '~$1,048/wk' },
+                      { id: 'njfli', label: 'NJ FLI', width: 100, accent: '#0d9488', name: 'NJ Family Leave Insurance (Caregiving)', weeks: '12 weeks', range: 'May 5 – Jul 28, 2026', pay: '85% AWW up to max', status: 'Approved', paymentValue: '~$1,048/wk' },
                     ] : [
-                      { id: 'fmla', label: 'FMLA', width: 100, accent: '#0033a0', name: 'Leave Case — FMLA Protection', weeks: '12 weeks', range: 'May 5 – Jul 28, 2025', pay: 'Job protection (unpaid)', status: 'Approved' },
-                      { id: 'njfli', label: 'NJ FLI', width: 100, accent: '#0d9488', name: 'NJ Family Leave Insurance (Caregiving)', weeks: '12 weeks', range: 'May 5 – Jul 28, 2025', pay: '85% AWW up to max', status: 'Approved' },
+                      { id: 'fmla', label: 'FMLA', width: 100, accent: '#0033a0', name: 'Leave Case — FMLA Protection', weeks: '12 weeks', range: 'May 5 – Jul 28, 2026', pay: 'Job protection (unpaid)', status: 'Approved' },
+                      { id: 'njfli', label: 'NJ FLI', width: 100, accent: '#0d9488', name: 'NJ Family Leave Insurance (Caregiving)', weeks: '12 weeks', range: 'May 5 – Jul 28, 2026', pay: '85% AWW up to max', status: 'Approved' },
                     ]).map(function (item) {
                       return (
                         <button
@@ -187,10 +187,10 @@ export default function LeaveDetailCaregiverPage() {
 
                   {hoveredRow && (function () {
                     var allRows = timelineView === 'payment' ? [
-                      { id: 'njfli', name: 'NJ Family Leave Insurance (Caregiving)', weeks: '12 weeks', range: 'May 5 – Jul 28, 2025', pay: '85% AWW up to max', status: 'Approved', paymentValue: '~$1,048/wk' },
+                      { id: 'njfli', name: 'NJ Family Leave Insurance (Caregiving)', weeks: '12 weeks', range: 'May 5 – Jul 28, 2026', pay: '85% AWW up to max', status: 'Approved', paymentValue: '~$1,048/wk' },
                     ] : [
-                      { id: 'fmla', name: 'Leave Case — FMLA Protection', weeks: '12 weeks', range: 'May 5 – Jul 28, 2025', pay: 'Job protection (unpaid)', status: 'Approved' },
-                      { id: 'njfli', name: 'NJ Family Leave Insurance (Caregiving)', weeks: '12 weeks', range: 'May 5 – Jul 28, 2025', pay: '85% AWW up to max', status: 'Approved' },
+                      { id: 'fmla', name: 'Leave Case — FMLA Protection', weeks: '12 weeks', range: 'May 5 – Jul 28, 2026', pay: 'Job protection (unpaid)', status: 'Approved' },
+                      { id: 'njfli', name: 'NJ Family Leave Insurance (Caregiving)', weeks: '12 weeks', range: 'May 5 – Jul 28, 2026', pay: '85% AWW up to max', status: 'Approved' },
                     ];
                     var hovered = allRows.find(function (r) { return r.id === hoveredRow; });
                     if (!hovered) return null;
@@ -223,10 +223,10 @@ export default function LeaveDetailCaregiverPage() {
 
                   {hoveredRow && (function () {
                     var allRows = timelineView === 'payment' ? [
-                      { id: 'njfli', name: 'NJ Family Leave Insurance (Caregiving)', weeks: '12 weeks', range: 'May 5 – Jul 28, 2025', pay: '85% AWW up to max', status: 'Approved', paymentValue: '~$1,048/wk' },
+                      { id: 'njfli', name: 'NJ Family Leave Insurance (Caregiving)', weeks: '12 weeks', range: 'May 5 – Jul 28, 2026', pay: '85% AWW up to max', status: 'Approved', paymentValue: '~$1,048/wk' },
                     ] : [
-                      { id: 'fmla', name: 'Leave Case — FMLA Protection', weeks: '12 weeks', range: 'May 5 – Jul 28, 2025', pay: 'Job protection (unpaid)', status: 'Approved' },
-                      { id: 'njfli', name: 'NJ Family Leave Insurance (Caregiving)', weeks: '12 weeks', range: 'May 5 – Jul 28, 2025', pay: '85% AWW up to max', status: 'Approved' },
+                      { id: 'fmla', name: 'Leave Case — FMLA Protection', weeks: '12 weeks', range: 'May 5 – Jul 28, 2026', pay: 'Job protection (unpaid)', status: 'Approved' },
+                      { id: 'njfli', name: 'NJ Family Leave Insurance (Caregiving)', weeks: '12 weeks', range: 'May 5 – Jul 28, 2026', pay: '85% AWW up to max', status: 'Approved' },
                     ];
                     var selected = allRows.find(function (r) { return r.id === hoveredRow; });
                     if (!selected) return null;
@@ -351,7 +351,7 @@ export default function LeaveDetailCaregiverPage() {
                       </div>
                       <div>
                         <div className="dt-info-field-label">Job Protection</div>
-                        <div className="dt-info-field-value">Active through Jul 28, 2025</div>
+                        <div className="dt-info-field-value">Active through Jul 28, 2026</div>
                       </div>
                       <div>
                         <div className="dt-info-field-label">Schedule</div>
@@ -413,11 +413,11 @@ export default function LeaveDetailCaregiverPage() {
                       </div>
                       <div>
                         <div className="dt-info-field-label">Benefits Start</div>
-                        <div className="dt-info-field-value">May 5, 2025</div>
+                        <div className="dt-info-field-value">May 5, 2026</div>
                       </div>
                       <div>
                         <div className="dt-info-field-label">Benefits End (Est.)</div>
-                        <div className="dt-info-field-value">Jul 28, 2025</div>
+                        <div className="dt-info-field-value">Jul 28, 2026</div>
                       </div>
                       <div>
                         <div className="dt-info-field-label">Work State</div>
@@ -458,7 +458,7 @@ export default function LeaveDetailCaregiverPage() {
                     </div>
                     <div className="ldb-payment-item">
                       <span className="ldb-payment-label">First Expected Payment</span>
-                      <span className="ldb-payment-value">May 12, 2025</span>
+                      <span className="ldb-payment-value">May 12, 2026</span>
                     </div>
                     <div className="ldb-payment-item">
                       <span className="ldb-payment-label">Est. Weekly (Full Week)</span>
@@ -728,11 +728,11 @@ export default function LeaveDetailCaregiverPage() {
               <div className="ldb-snapshot-dates-row">
                 <div className="ldb-snapshot-date-card">
                   <div className="ldb-snapshot-date-label">Leave Start</div>
-                  <div className="ldb-snapshot-date-value">May 5, 2025</div>
+                  <div className="ldb-snapshot-date-value">May 5, 2026</div>
                 </div>
                 <div className="ldb-snapshot-date-card">
                   <div className="ldb-snapshot-date-label">Leave End (Est.)</div>
-                  <div className="ldb-snapshot-date-value">Jul 28, 2025</div>
+                  <div className="ldb-snapshot-date-value">Jul 28, 2026</div>
                 </div>
               </div>
               <div className="ldb-snapshot-dates-row">
@@ -763,7 +763,7 @@ export default function LeaveDetailCaregiverPage() {
                 <div className="ldb-doc-item">
                   <div className="ldb-doc-info">
                     <div className="ldb-doc-name">NJ_FLI_Application.pdf</div>
-                    <div className="ldb-doc-meta">Uploaded on Apr 30, 2025</div>
+                    <div className="ldb-doc-meta">Uploaded on Apr 30, 2026</div>
                   </div>
                   <button type="button" className="ldb-doc-download-btn" aria-label="Download">
                     <svg width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M8 4v8" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round"/><path d="M4.5 9.5L8 13l3.5-3.5" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round" strokeLinejoin="round"/><path d="M3 14h10" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round"/></svg>
@@ -772,7 +772,7 @@ export default function LeaveDetailCaregiverPage() {
                 <div className="ldb-doc-item">
                   <div className="ldb-doc-info">
                     <div className="ldb-doc-name">Employer_Leave_Notice.pdf</div>
-                    <div className="ldb-doc-meta">Uploaded on Apr 25, 2025</div>
+                    <div className="ldb-doc-meta">Uploaded on Apr 25, 2026</div>
                   </div>
                   <button type="button" className="ldb-doc-download-btn" aria-label="Download">
                     <svg width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M8 4v8" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round"/><path d="M4.5 9.5L8 13l3.5-3.5" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round" strokeLinejoin="round"/><path d="M3 14h10" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round"/></svg>

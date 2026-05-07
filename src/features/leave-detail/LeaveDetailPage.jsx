@@ -85,9 +85,9 @@ export default function LeaveDetailPage() {
 
               <div className="ld-timeline">
                 <div className="ld-timeline-months">
-                  <span>OCTOBER 2024</span>
-                  <span>NOVEMBER 2024</span>
-                  <span>DECEMBER 2024</span>
+                  <span>OCTOBER 2026</span>
+                  <span>NOVEMBER 2026</span>
+                  <span>DECEMBER 2026</span>
                 </div>
 
                 <div className="ld-timeline-row">
@@ -143,7 +143,7 @@ export default function LeaveDetailPage() {
                     </td>
                     <td>NTN-7729103</td>
                     <td><span className="ld-claim-status approved">APPROVED</span></td>
-                    <td>May 12, 2024</td>
+                    <td>May 12, 2026</td>
                     <td><a href="#" className="ld-link">View Claim</a></td>
                   </tr>
                   <tr>
@@ -153,7 +153,7 @@ export default function LeaveDetailPage() {
                     </td>
                     <td>NTN-8812034</td>
                     <td><span className="ld-claim-status not-eligible">NOT ELIGIBLE</span></td>
-                    <td>May 14, 2024</td>
+                    <td>May 14, 2026</td>
                     <td><a href="#" className="ld-link">View Details</a></td>
                   </tr>
                 </tbody>
@@ -174,7 +174,7 @@ export default function LeaveDetailPage() {
                 </div>
                 <div className="ld-payment-box">
                   <div className="ld-payment-box-label">NEXT EXPECTED PAYMENT</div>
-                  <div className="ld-payment-box-value">Jun 15, 2024</div>
+                  <div className="ld-payment-box-value">Jun 15, 2026</div>
                 </div>
                 <div className="ld-payment-box">
                   <div className="ld-payment-box-label">ESTIMATED WEEKLY BENEFIT</div>
@@ -193,13 +193,13 @@ export default function LeaveDetailPage() {
                 </thead>
                 <tbody>
                   <tr>
-                    <td>May 29, 2024</td>
+                    <td>May 29, 2026</td>
                     <td>May 15 - May 28</td>
                     <td>$1,700.00</td>
                     <td><span className="ld-claim-status processed">PROCESSED</span></td>
                   </tr>
                   <tr>
-                    <td>May 15, 2024</td>
+                    <td>May 15, 2026</td>
                     <td>May 01 - May 14</td>
                     <td>$1,700.00</td>
                     <td><span className="ld-claim-status processed">PROCESSED</span></td>
@@ -233,7 +233,7 @@ export default function LeaveDetailPage() {
                 </div>
                 <div className="ld-task-content">
                   <div className="ld-task-name">Initial Medical Certification</div>
-                  <div className="ld-task-desc">Received and verified on May 10, 2024.</div>
+                  <div className="ld-task-desc">Received and verified on May 10, 2026.</div>
                 </div>
               </div>
             </div>
@@ -284,7 +284,7 @@ export default function LeaveDetailPage() {
                   <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M4 2h6l4 4v8a1 1 0 01-1 1H4a1 1 0 01-1-1V3a1 1 0 011-1z" stroke="#ef4444" strokeWidth="1.2"/><path d="M10 2v4h4" stroke="#ef4444" strokeWidth="1.2"/></svg>
                   <div className="ld-doc-info">
                     <div className="ld-doc-name">Approval_Notice.pdf</div>
-                    <div className="ld-doc-meta">May 13, 2024 &middot; 1.2 MB</div>
+                    <div className="ld-doc-meta">May 13, 2026 &middot; 1.2 MB</div>
                   </div>
                   <button type="button" className="ld-icon-btn" aria-label="Download">
                     <svg width="12" height="12" viewBox="0 0 16 16" fill="none"><path d="M8 2v9M4.5 7.5L8 11l3.5-3.5M3 13h10" stroke="currentColor" strokeWidth="1.3" strokeLinecap="round" strokeLinejoin="round"/></svg>
@@ -294,7 +294,7 @@ export default function LeaveDetailPage() {
                   <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M4 2h6l4 4v8a1 1 0 01-1 1H4a1 1 0 01-1-1V3a1 1 0 011-1z" stroke="#ef4444" strokeWidth="1.2"/><path d="M10 2v4h4" stroke="#ef4444" strokeWidth="1.2"/></svg>
                   <div className="ld-doc-info">
                     <div className="ld-doc-name">Medical_Cert_SarahJ.pdf</div>
-                    <div className="ld-doc-meta">May 06, 2024 &middot; 2.4 MB</div>
+                    <div className="ld-doc-meta">May 06, 2026 &middot; 2.4 MB</div>
                   </div>
                   <button type="button" className="ld-icon-btn" aria-label="Download">
                     <svg width="12" height="12" viewBox="0 0 16 16" fill="none"><path d="M8 2v9M4.5 7.5L8 11l3.5-3.5M3 13h10" stroke="currentColor" strokeWidth="1.3" strokeLinecap="round" strokeLinejoin="round"/></svg>
@@ -313,7 +313,7 @@ export default function LeaveDetailPage() {
               <div className="ld-details-list">
                 <div className="ld-detail-row">
                   <div className="ld-detail-label">EFFECTIVE DATES</div>
-                  <div className="ld-detail-value">Jun 03, 2024 - Aug 24, 2024</div>
+                  <div className="ld-detail-value">Jun 03, 2026 - Aug 24, 2026</div>
                 </div>
                 <div className="ld-detail-row">
                   <div className="ld-detail-label">LEAVE REASON</div>
@@ -338,7 +338,7 @@ export default function LeaveDetailPage() {
         {/* Footer */}
         <footer className="ld-footer">
           <div className="ld-footer-left">
-            &copy; 2024 Benefits Hub
+            &copy; 2026 Benefits Hub
           </div>
           <div className="ld-footer-links">
             <a href="#">Privacy Policy</a>

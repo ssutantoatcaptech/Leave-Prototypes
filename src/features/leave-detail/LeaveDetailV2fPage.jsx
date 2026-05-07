@@ -144,7 +144,7 @@ export default function LeaveDetailV2fPage() {
               <h1 className="ldb-title">NTN-7841 — Maternity Leave <span className="ldb-status-badge approved-status" style={{ fontSize: 12, marginLeft: 12, verticalAlign: 'middle' }}>Approved</span></h1>
               <div className="ldb-title-meta">
                 <span style={{ fontSize: 14, color: '#525252' }}>Pregnancy, childbirth, and postpartum recovery</span>
-                <span style={{ fontSize: 13, color: '#737373', marginLeft: 12 }}>Mar 10 – Jun 02, 2025 · Continuous</span>
+                <span style={{ fontSize: 13, color: '#737373', marginLeft: 12 }}>Mar 10 – Jun 02, 2026 · Continuous</span>
               </div>
             </div>
           </div>
@@ -182,10 +182,10 @@ export default function LeaveDetailV2fPage() {
                   <div className="ldb-tl-rows-wrap">
                   <div className="dlp-tl-rows">
                     {(timelineView === 'payment' ? [
-                      { id: 'std', label: 'STD', width: 50, accent: '#4b4b4b', name: 'Group Disability Claim (STD)', weeks: '6 weeks', range: 'Mar 17 – Apr 28, 2025', pay: '60% salary after 7-day wait', status: 'Approved', paymentValue: '~$1,846/wk' },
+                      { id: 'std', label: 'STD', width: 50, accent: '#4b4b4b', name: 'Group Disability Claim (STD)', weeks: '6 weeks', range: 'Mar 17 – Apr 28, 2026', pay: '60% salary after 7-day wait', status: 'Approved', paymentValue: '~$1,846/wk' },
                     ] : [
-                      { id: 'fmla', label: 'FMLA', width: 100, accent: '#1f1f1f', name: 'Leave Case — FMLA Protection', weeks: '12 weeks', range: 'Mar 10 – Jun 02, 2025', pay: 'Job protection (unpaid)', status: 'Approved' },
-                      { id: 'std', label: 'STD', width: 50, accent: '#4b4b4b', name: 'Group Disability Claim (STD)', weeks: '6 weeks', range: 'Mar 17 – Apr 28, 2025', pay: '60% salary after 7-day wait', status: 'Approved' },
+                      { id: 'fmla', label: 'FMLA', width: 100, accent: '#1f1f1f', name: 'Leave Case — FMLA Protection', weeks: '12 weeks', range: 'Mar 10 – Jun 02, 2026', pay: 'Job protection (unpaid)', status: 'Approved' },
+                      { id: 'std', label: 'STD', width: 50, accent: '#4b4b4b', name: 'Group Disability Claim (STD)', weeks: '6 weeks', range: 'Mar 17 – Apr 28, 2026', pay: '60% salary after 7-day wait', status: 'Approved' },
                     ]).map(function (item) {
                       return (
                         <button
@@ -206,10 +206,10 @@ export default function LeaveDetailV2fPage() {
 
                   {hoveredRow && (function () {
                     var allRows = timelineView === 'payment' ? [
-                      { id: 'std', name: 'Group Disability Claim (STD)', weeks: '6 weeks', range: 'Mar 17 – Apr 28, 2025', pay: '60% salary after 7-day wait', status: 'Approved', paymentValue: '~$1,846/wk' },
+                      { id: 'std', name: 'Group Disability Claim (STD)', weeks: '6 weeks', range: 'Mar 17 – Apr 28, 2026', pay: '60% salary after 7-day wait', status: 'Approved', paymentValue: '~$1,846/wk' },
                     ] : [
-                      { id: 'fmla', name: 'Leave Case — FMLA Protection', weeks: '12 weeks', range: 'Mar 10 – Jun 02, 2025', pay: 'Job protection (unpaid)', status: 'Approved' },
-                      { id: 'std', name: 'Group Disability Claim (STD)', weeks: '6 weeks', range: 'Mar 17 – Apr 28, 2025', pay: '60% salary after 7-day wait', status: 'Approved' },
+                      { id: 'fmla', name: 'Leave Case — FMLA Protection', weeks: '12 weeks', range: 'Mar 10 – Jun 02, 2026', pay: 'Job protection (unpaid)', status: 'Approved' },
+                      { id: 'std', name: 'Group Disability Claim (STD)', weeks: '6 weeks', range: 'Mar 17 – Apr 28, 2026', pay: '60% salary after 7-day wait', status: 'Approved' },
                     ];
                     var hovered = allRows.find(function (r) { return r.id === hoveredRow; });
                     if (!hovered) return null;
@@ -324,11 +324,11 @@ export default function LeaveDetailV2fPage() {
                       </div>
                       <div>
                         <div className="dt-info-field-label">Job Protection</div>
-                        <div className="dt-info-field-value">Active through Jun 02, 2025</div>
+                        <div className="dt-info-field-value">Active through Jun 02, 2026</div>
                       </div>
                       <div>
                         <div className="dt-info-field-label">RTW Date</div>
-                        <div className="dt-info-field-value">Jun 02, 2025 (scheduled)</div>
+                        <div className="dt-info-field-value">Jun 02, 2026 (scheduled)</div>
                       </div>
                     </div>
                     <div style={{ marginTop: 16, padding: '12px 16px', background: '#f0fdf4', borderRadius: 8, border: '1px solid #bbf7d0', fontSize: 13, color: '#166534' }}>
@@ -379,11 +379,11 @@ export default function LeaveDetailV2fPage() {
                       </div>
                       <div>
                         <div className="dt-info-field-label">Benefits Paid From</div>
-                        <div className="dt-info-field-value">Mar 17, 2025</div>
+                        <div className="dt-info-field-value">Mar 17, 2026</div>
                       </div>
                       <div>
                         <div className="dt-info-field-label">Benefits Paid Through</div>
-                        <div className="dt-info-field-value">Apr 28, 2025</div>
+                        <div className="dt-info-field-value">Apr 28, 2026</div>
                       </div>
                       <div>
                         <div className="dt-info-field-label">Payment Method</div>
@@ -422,7 +422,7 @@ export default function LeaveDetailV2fPage() {
                     </div>
                     <div className="ldb-payment-item">
                       <span className="ldb-payment-label">STD Benefits Ended</span>
-                      <span className="ldb-payment-value">Apr 28, 2025</span>
+                      <span className="ldb-payment-value">Apr 28, 2026</span>
                     </div>
                     <div className="ldb-payment-item">
                       <span className="ldb-payment-label">Payment Method</span>
@@ -431,17 +431,17 @@ export default function LeaveDetailV2fPage() {
                   </div>
                   <div className="ldb-v2e-pmt-list">
                     <div className="ldb-v2e-pmt-row">
-                      <div className="ldb-v2e-pmt-date">Apr 28, 2025</div>
+                      <div className="ldb-v2e-pmt-date">Apr 28, 2026</div>
                       <div className="ldb-v2e-pmt-desc">STD Weekly · GDC-01</div>
                       <div className="ldb-v2e-pmt-amount">$1,846.00</div>
                     </div>
                     <div className="ldb-v2e-pmt-row">
-                      <div className="ldb-v2e-pmt-date">Apr 21, 2025</div>
+                      <div className="ldb-v2e-pmt-date">Apr 21, 2026</div>
                       <div className="ldb-v2e-pmt-desc">STD Weekly · GDC-01</div>
                       <div className="ldb-v2e-pmt-amount">$1,846.00</div>
                     </div>
                     <div className="ldb-v2e-pmt-row">
-                      <div className="ldb-v2e-pmt-date">Apr 14, 2025</div>
+                      <div className="ldb-v2e-pmt-date">Apr 14, 2026</div>
                       <div className="ldb-v2e-pmt-desc">STD Weekly · GDC-01</div>
                       <div className="ldb-v2e-pmt-amount">$1,846.00</div>
                     </div>

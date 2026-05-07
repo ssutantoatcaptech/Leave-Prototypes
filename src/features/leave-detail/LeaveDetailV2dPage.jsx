@@ -93,7 +93,7 @@ export default function LeaveDetailV2dPage() {
   var [detailsExpanded, setDetailsExpanded] = useState(false);
   var [detailsForm, setDetailsForm] = useState({
     leaveType: 'Intermittent',
-    startDate: '2024-07-15',
+    startDate: '2026-07-15',
     endDate: '',
     returnDate: '',
     duration: 'Up to 12 weeks',
@@ -194,10 +194,10 @@ export default function LeaveDetailV2dPage() {
                   <div className="ldb-tl-rows-wrap">
                   <div className="dlp-tl-rows">
                     {(timelineView === 'payment' ? [
-                      { id: 'std', label: 'STD', width: 50, accent: '#4b4b4b', name: 'Short-Term Disability (STD)', weeks: '6 weeks', range: 'Jul 15 – Aug 26, 2024', pay: '60% salary after 7-day wait', status: 'Pending', paymentValue: '~$2,308/wk' },
+                      { id: 'std', label: 'STD', width: 50, accent: '#4b4b4b', name: 'Short-Term Disability (STD)', weeks: '6 weeks', range: 'Jul 15 – Aug 26, 2026', pay: '60% salary after 7-day wait', status: 'Pending', paymentValue: '~$2,308/wk' },
                     ] : [
-                      { id: 'fmla', label: 'FMLA', width: 100, accent: '#1f1f1f', name: 'FMLA (Job Protection)', weeks: '12 weeks', range: 'Jul 15 – Oct 07, 2024', pay: 'Job protection (unpaid)', status: 'Pending' },
-                      { id: 'std', label: 'STD', width: 50, accent: '#4b4b4b', name: 'Short-Term Disability (STD)', weeks: '6 weeks', range: 'Jul 15 – Aug 26, 2024', pay: '60% salary after 7-day wait', status: 'Pending' },
+                      { id: 'fmla', label: 'FMLA', width: 100, accent: '#1f1f1f', name: 'FMLA (Job Protection)', weeks: '12 weeks', range: 'Jul 15 – Oct 07, 2026', pay: 'Job protection (unpaid)', status: 'Pending' },
+                      { id: 'std', label: 'STD', width: 50, accent: '#4b4b4b', name: 'Short-Term Disability (STD)', weeks: '6 weeks', range: 'Jul 15 – Aug 26, 2026', pay: '60% salary after 7-day wait', status: 'Pending' },
                     ]).map(function (item, index) {
                       return (
                         <button
@@ -218,10 +218,10 @@ export default function LeaveDetailV2dPage() {
 
                   {hoveredRow && (function () {
                     var allRows = timelineView === 'payment' ? [
-                      { id: 'std', name: 'Short-Term Disability (STD)', weeks: '6 weeks', range: 'Jul 15 – Aug 26, 2024', pay: '60% salary after 7-day wait', status: 'Pending', paymentValue: '~$2,308/wk' },
+                      { id: 'std', name: 'Short-Term Disability (STD)', weeks: '6 weeks', range: 'Jul 15 – Aug 26, 2026', pay: '60% salary after 7-day wait', status: 'Pending', paymentValue: '~$2,308/wk' },
                     ] : [
-                      { id: 'fmla', name: 'FMLA (Job Protection)', weeks: '12 weeks', range: 'Jul 15 – Oct 07, 2024', pay: 'Job protection (unpaid)', status: 'Pending' },
-                      { id: 'std', name: 'Short-Term Disability (STD)', weeks: '6 weeks', range: 'Jul 15 – Aug 26, 2024', pay: '60% salary after 7-day wait', status: 'Pending' },
+                      { id: 'fmla', name: 'FMLA (Job Protection)', weeks: '12 weeks', range: 'Jul 15 – Oct 07, 2026', pay: 'Job protection (unpaid)', status: 'Pending' },
+                      { id: 'std', name: 'Short-Term Disability (STD)', weeks: '6 weeks', range: 'Jul 15 – Aug 26, 2026', pay: '60% salary after 7-day wait', status: 'Pending' },
                     ];
                     var hovered = allRows.find(function (r) { return r.id === hoveredRow; });
                     if (!hovered) return null;
@@ -334,7 +334,7 @@ export default function LeaveDetailV2dPage() {
                       </div>
                       <div className="ldb-claim-sub">Medical Certification Required</div>
                     </td>
-                    <td>FML-2024-0715</td>
+                    <td>FML-2026-0715</td>
                     <td><span className="ldb-claim-status pending-status">PENDING</span></td>
                     <td>Awaiting docs</td>
                   </tr>
@@ -443,7 +443,7 @@ export default function LeaveDetailV2dPage() {
                     </div>
                     <div>
                       <div className="dt-info-field-label">Leave Start Date</div>
-                      <div className="dt-info-field-value">Jul 15, 2024</div>
+                      <div className="dt-info-field-value">Jul 15, 2026</div>
                     </div>
                     <div>
                       <div className="dt-info-field-label">Leave End Date</div>
@@ -746,7 +746,7 @@ export default function LeaveDetailV2dPage() {
                   </div>
                   <div className="ldb-doc-info">
                     <div className="ldb-doc-name">Medical_Certification.pdf</div>
-                    <div className="ldb-doc-meta">Due by Jul 29, 2024</div>
+                    <div className="ldb-doc-meta">Due by Jul 29, 2026</div>
                   </div>
                   <button type="button" className="ldb-doc-download-btn" aria-label="Download">
                     <svg width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M8 3v8" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round"/><path d="M4.5 8.5L8 12l3.5-3.5" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round" strokeLinejoin="round"/><path d="M3 14h10" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round"/></svg>
@@ -758,7 +758,7 @@ export default function LeaveDetailV2dPage() {
                   </div>
                   <div className="ldb-doc-info">
                     <div className="ldb-doc-name">Attending_Physician_Statement.pdf</div>
-                    <div className="ldb-doc-meta">Due by Jul 29, 2024</div>
+                    <div className="ldb-doc-meta">Due by Jul 29, 2026</div>
                   </div>
                   <button type="button" className="ldb-doc-download-btn" aria-label="Download">
                     <svg width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M8 3v8" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round"/><path d="M4.5 8.5L8 12l3.5-3.5" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round" strokeLinejoin="round"/><path d="M3 14h10" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round"/></svg>
@@ -811,7 +811,7 @@ export default function LeaveDetailV2dPage() {
                   </div>
                   <div className="ldb-payment-item">
                     <span className="ldb-payment-label">Expected Next Payment</span>
-                    <span className="ldb-payment-value">Aug 19, 2024</span>
+                    <span className="ldb-payment-value">Aug 19, 2026</span>
                   </div>
                   <div className="ldb-payment-item">
                     <span className="ldb-payment-label">Expected Weekly Benefit</span>
@@ -838,7 +838,7 @@ export default function LeaveDetailV2dPage() {
                 <div className="ldb-drawer-pmt-item">
                   <button type="button" className={'ldb-drawer-pmt-row clickable' + (expandedPayments.pmt1 ? ' expanded' : '')} onClick={function () { setExpandedPayments(function (p) { return Object.assign({}, p, { pmt1: !p.pmt1 }); }); }}>
                     <div className="ldb-drawer-pmt-info">
-                      <span className="ldb-drawer-pmt-date">Aug 12, 2024</span>
+                      <span className="ldb-drawer-pmt-date">Aug 12, 2026</span>
                       <span className="ldb-drawer-pmt-type">STD Weekly · Direct Deposit</span>
                     </div>
                     <div className="ldb-drawer-pmt-right">
@@ -850,7 +850,7 @@ export default function LeaveDetailV2dPage() {
                     <div className="ldb-drawer-pmt-details">
                       <div className="ldb-drawer-pmt-detail-row"><span>Payment ID</span><span>PMT-001</span></div>
                       <div className="ldb-drawer-pmt-detail-row"><span>Claim Type</span><span>Short-Term Disability</span></div>
-                      <div className="ldb-drawer-pmt-detail-row"><span>Period Covered</span><span>Aug 5 – Aug 11, 2024</span></div>
+                      <div className="ldb-drawer-pmt-detail-row"><span>Period Covered</span><span>Aug 5 – Aug 11, 2026</span></div>
                       <div className="ldb-drawer-pmt-detail-row"><span>Gross Amount</span><span>$1,150.00</span></div>
                       <div className="ldb-drawer-pmt-detail-row"><span>Tax Withheld</span><span>$0.00</span></div>
                       <div className="ldb-drawer-pmt-detail-row"><span>Offset</span><span>$0.00</span></div>
@@ -862,7 +862,7 @@ export default function LeaveDetailV2dPage() {
                 <div className="ldb-drawer-pmt-item">
                   <button type="button" className={'ldb-drawer-pmt-row clickable' + (expandedPayments.pmt2 ? ' expanded' : '')} onClick={function () { setExpandedPayments(function (p) { return Object.assign({}, p, { pmt2: !p.pmt2 }); }); }}>
                     <div className="ldb-drawer-pmt-info">
-                      <span className="ldb-drawer-pmt-date">Aug 5, 2024</span>
+                      <span className="ldb-drawer-pmt-date">Aug 5, 2026</span>
                       <span className="ldb-drawer-pmt-type">STD Weekly · Direct Deposit</span>
                     </div>
                     <div className="ldb-drawer-pmt-right">
@@ -874,7 +874,7 @@ export default function LeaveDetailV2dPage() {
                     <div className="ldb-drawer-pmt-details">
                       <div className="ldb-drawer-pmt-detail-row"><span>Payment ID</span><span>PMT-002</span></div>
                       <div className="ldb-drawer-pmt-detail-row"><span>Claim Type</span><span>Short-Term Disability</span></div>
-                      <div className="ldb-drawer-pmt-detail-row"><span>Period Covered</span><span>Jul 29 – Aug 4, 2024</span></div>
+                      <div className="ldb-drawer-pmt-detail-row"><span>Period Covered</span><span>Jul 29 – Aug 4, 2026</span></div>
                       <div className="ldb-drawer-pmt-detail-row"><span>Gross Amount</span><span>$1,150.00</span></div>
                       <div className="ldb-drawer-pmt-detail-row"><span>Tax Withheld</span><span>$0.00</span></div>
                       <div className="ldb-drawer-pmt-detail-row"><span>Offset</span><span>$0.00</span></div>
@@ -886,7 +886,7 @@ export default function LeaveDetailV2dPage() {
                 <div className="ldb-drawer-pmt-item">
                   <button type="button" className={'ldb-drawer-pmt-row clickable' + (expandedPayments.pmt3 ? ' expanded' : '')} onClick={function () { setExpandedPayments(function (p) { return Object.assign({}, p, { pmt3: !p.pmt3 }); }); }}>
                     <div className="ldb-drawer-pmt-info">
-                      <span className="ldb-drawer-pmt-date">Jul 29, 2024</span>
+                      <span className="ldb-drawer-pmt-date">Jul 29, 2026</span>
                       <span className="ldb-drawer-pmt-type">STD Weekly · Direct Deposit</span>
                     </div>
                     <div className="ldb-drawer-pmt-right">
@@ -898,7 +898,7 @@ export default function LeaveDetailV2dPage() {
                     <div className="ldb-drawer-pmt-details">
                       <div className="ldb-drawer-pmt-detail-row"><span>Payment ID</span><span>PMT-003</span></div>
                       <div className="ldb-drawer-pmt-detail-row"><span>Claim Type</span><span>Short-Term Disability</span></div>
-                      <div className="ldb-drawer-pmt-detail-row"><span>Period Covered</span><span>Jul 22 – Jul 28, 2024</span></div>
+                      <div className="ldb-drawer-pmt-detail-row"><span>Period Covered</span><span>Jul 22 – Jul 28, 2026</span></div>
                       <div className="ldb-drawer-pmt-detail-row"><span>Gross Amount</span><span>$1,150.00</span></div>
                       <div className="ldb-drawer-pmt-detail-row"><span>Tax Withheld</span><span>$0.00</span></div>
                       <div className="ldb-drawer-pmt-detail-row"><span>Offset</span><span>$0.00</span></div>
@@ -910,7 +910,7 @@ export default function LeaveDetailV2dPage() {
                 <div className="ldb-drawer-pmt-item">
                   <button type="button" className={'ldb-drawer-pmt-row clickable' + (expandedPayments.pmt4 ? ' expanded' : '')} onClick={function () { setExpandedPayments(function (p) { return Object.assign({}, p, { pmt4: !p.pmt4 }); }); }}>
                     <div className="ldb-drawer-pmt-info">
-                      <span className="ldb-drawer-pmt-date">Jul 22, 2024</span>
+                      <span className="ldb-drawer-pmt-date">Jul 22, 2026</span>
                       <span className="ldb-drawer-pmt-type">STD Partial · Direct Deposit</span>
                     </div>
                     <div className="ldb-drawer-pmt-right">
@@ -922,7 +922,7 @@ export default function LeaveDetailV2dPage() {
                     <div className="ldb-drawer-pmt-details">
                       <div className="ldb-drawer-pmt-detail-row"><span>Payment ID</span><span>PMT-004</span></div>
                       <div className="ldb-drawer-pmt-detail-row"><span>Claim Type</span><span>Short-Term Disability</span></div>
-                      <div className="ldb-drawer-pmt-detail-row"><span>Period Covered</span><span>Jul 15 – Jul 21, 2024</span></div>
+                      <div className="ldb-drawer-pmt-detail-row"><span>Period Covered</span><span>Jul 15 – Jul 21, 2026</span></div>
                       <div className="ldb-drawer-pmt-detail-row"><span>Gross Amount</span><span>$575.00</span></div>
                       <div className="ldb-drawer-pmt-detail-row"><span>Tax Withheld</span><span>$0.00</span></div>
                       <div className="ldb-drawer-pmt-detail-row"><span>Offset</span><span>$0.00</span></div>
