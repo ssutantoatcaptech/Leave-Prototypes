@@ -3875,23 +3875,131 @@
   }
 }
 
-@media (max-width: 640px) {
+@media (max-width: 768px) {
+  .cl-std-header {
+    flex-direction: column;
+    gap: 12px;
+    margin-bottom: 20px;
+  }
+
+  .cl-std-header-icon {
+    width: 40px;
+    height: 40px;
+    border-radius: 10px;
+  }
+
+  .cl-std-header-icon svg {
+    width: 20px;
+    height: 20px;
+  }
+
+  .cl-std-header-content .cl-page-title {
+    font-size: 20px;
+  }
+
+  .cl-std-header-meta {
+    flex-wrap: wrap;
+    gap: 6px 10px;
+  }
+
+  .cl-std-card {
+    padding: 16px;
+    border-radius: 10px;
+  }
+
+  .cl-std-card-header {
+    margin-bottom: 12px;
+  }
+
+  .cl-std-card-title {
+    font-size: 15px;
+  }
+
   .cl-std-details-grid {
     grid-template-columns: 1fr 1fr;
+  }
+
+  .cl-std-details-grid .cl-std-field:nth-child(3n) {
+    padding-right: 16px;
+  }
+
+  .cl-std-field {
+    padding: 10px 12px 10px 0;
+  }
+
+  .cl-std-field-label {
+    font-size: 11px;
+  }
+
+  .cl-std-field-value {
+    font-size: 13px;
+  }
+
+  .cl-std-field-value--lg {
+    font-size: 18px;
   }
 
   .cl-std-payments-grid {
     grid-template-columns: 1fr;
   }
 
-  .cl-std-header {
+  .cl-std-usage-header {
     flex-direction: column;
-    gap: 12px;
+    align-items: flex-start;
+    gap: 4px;
   }
 
-  .cl-std-header-meta {
-    flex-wrap: wrap;
-    gap: 6px;
+  .cl-std-doc-item {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+    padding: 12px 0;
+  }
+
+  .cl-std-card-action {
+    margin-top: 16px;
+  }
+
+  .cl-std-card-action .cl-btn {
+    width: 100%;
+    text-align: center;
+    justify-content: center;
+  }
+
+  .cl-std-attention-item {
+    padding: 14px;
+  }
+
+  .cl-std-btn-dark {
+    width: 100%;
+    justify-content: center;
+  }
+
+  .cl-std-timeline {
+    padding-left: 20px;
+  }
+
+  .cl-std-timeline-dot {
+    left: -20px;
+    width: 12px;
+    height: 12px;
+  }
+
+  .cl-std-timeline-item:not(:last-child)::before {
+    left: -15px;
+    top: 16px;
+  }
+
+  .cl-std-timeline-title {
+    font-size: 13px;
+  }
+
+  .cl-std-timeline-date {
+    font-size: 11px;
+  }
+
+  .cl-std-timeline-note {
+    font-size: 11px;
   }
 }
 
