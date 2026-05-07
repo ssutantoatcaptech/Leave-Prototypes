@@ -944,12 +944,32 @@ export default function PlanAbsenceReactPage() {
                 ))}
               </div>
 
-              <p style={{ fontSize: 13, color: '#525252', margin: '12px 0 16px' }}>{leaveType === 'continuous' ? "You'll be fully away from work for the duration of your absence." : leaveType === 'intermittent' ? "You'll take time off periodically — for flare-ups, treatments, or appointments." : "You'll continue working but with fewer hours per day or days per week."}</p>
-              <div className="pa-grid">
-                <div className="sim-field"><label>Anticipated Start Date <span style={{ color: '#dc2626' }}>*</span></label><input type="date" value={leaveStart} onChange={(e) => setLeaveStart(e.target.value)} /></div>
-                <div className="sim-field"><label>Expected End Date</label><input type="date" value={leaveReturn} onChange={(e) => setLeaveReturn(e.target.value)} /></div>
-                <div className="sim-field"><label>What was your last day worked?</label><input type="date" value={lastDayWorked} onChange={(e) => setLastDayWorked(e.target.value)} /></div>
-                <div className="sim-field"><label>Hours worked on last day <span style={{ color: '#dc2626' }}>*</span></label><input type="text" value={hoursLastDay} onChange={(e) => setHoursLastDay(e.target.value)} placeholder="08:00" /></div>
+              <div className="lt-context">
+                <p className="lt-context-desc">{leaveType === 'continuous' ? "You'll be fully away from work for the duration of your absence." : leaveType === 'intermittent' ? "You'll take time off periodically — for flare-ups, treatments, or appointments." : "You'll continue working but with fewer hours per day or days per week."}</p>
+                <div className="bordered-section">
+                  {leaveType === 'continuous' ? (
+                    <>
+                      <div className="form-row cols-2">
+                        <div className="form-group"><label>Anticipated Start Date <span className="req">*</span></label><input type="date" value={leaveStart} onChange={(e) => setLeaveStart(e.target.value)} /></div>
+                        <div className="form-group"><label>Expected End Date</label><input type="date" value={leaveReturn} onChange={(e) => setLeaveReturn(e.target.value)} /><div className="helper">Your best estimate of when you expect to return to work.</div></div>
+                      </div>
+                      <div className="form-row cols-2" style={{ marginTop: 16 }}>
+                        <div className="form-group"><label>What was your last day worked?</label><input type="date" value={lastDayWorked} onChange={(e) => setLastDayWorked(e.target.value)} /></div>
+                        <div className="form-group"><label>Hours worked on last day<span className="req">*</span></label><input type="text" value={hoursLastDay} onChange={(e) => setHoursLastDay(e.target.value)} placeholder="08:00" /></div>
+                      </div>
+                    </>
+                  ) : leaveType === 'intermittent' ? (
+                    <div className="form-row cols-2">
+                      <div className="form-group"><label>Anticipated Start Date <span className="req">*</span></label><input type="date" value={leaveStart} onChange={(e) => setLeaveStart(e.target.value)} /></div>
+                      <div className="form-group"><label>How often do you need time off?</label><input type="text" placeholder="e.g. 1-2 times per week" value={intermittentFreq} onChange={(e) => setIntermittentFreq(e.target.value)} /></div>
+                    </div>
+                  ) : (
+                    <div className="form-row cols-2">
+                      <div className="form-group"><label>Anticipated Start Date <span className="req">*</span></label><input type="date" value={leaveStart} onChange={(e) => setLeaveStart(e.target.value)} /></div>
+                      <div className="form-group"><label>Hours per week you plan to work</label><input type="number" value={reducedProposedHrs} onChange={(e) => setReducedProposedHrs(e.target.value)} /></div>
+                    </div>
+                  )}
+                </div>
               </div>
 
               <div className="sim-btn-row" style={{ justifyContent: 'flex-end' }}>
@@ -972,10 +992,43 @@ export default function PlanAbsenceReactPage() {
                 <button className={`rq-yn-btn${hasMissedTime === false ? ' active' : ''}`} type="button" onClick={() => setHasMissedTime(false)}>No</button>
               </div>
 
-              <div className="pa-grid" style={{ marginBottom: 20 }}>
-                <div className="sim-field"><label>What was the first day you missed work?</label><input type="date" value={missedFirstDay} onChange={(e) => setMissedFirstDay(e.target.value)} /></div>
-                <div className="sim-field"><label>Hours scheduled to work <span style={{ color: '#dc2626' }}>*</span></label><input type="text" value={missedHoursScheduled} onChange={(e) => setMissedHoursScheduled(e.target.value)} placeholder="08:00" /></div>
-              </div>
+              {hasMissedTime === true && leaveType === 'continuous' && (
+                <div className="bordered-section" style={{ marginBottom: 20 }}>
+                  <div className="form-row cols-2">
+                    <div className="form-group"><label>What was the first day you missed work?</label><input type="date" value={missedFirstDay} onChange={(e) => setMissedFirstDay(e.target.value)} /></div>
+                    <div className="form-group"><label>Hours scheduled to work<span className="req">*</span></label><input type="text" value={missedHoursScheduled} onChange={(e) => setMissedHoursScheduled(e.target.value)} placeholder="08:00" /></div>
+                  </div>
+                </div>
+              )}
+
+              {hasMissedTime === true && leaveType === 'intermittent' && (
+                <div style={{ marginBottom: 20 }}>
+                  <div className="rq-grid" style={{ gridTemplateColumns: '1fr auto auto auto', gap: 12, alignItems: 'end', marginBottom: 12 }}>
+                    <div style={{ fontSize: 13, fontWeight: 600, color: '#525252' }}>Day(s) you missed work</div>
+                    <div style={{ fontSize: 13, fontWeight: 600, color: '#525252' }}>Hrs | Min</div>
+                    <div style={{ fontSize: 13, fontWeight: 600, color: '#525252' }}>Reason</div>
+                    <div style={{ width: 32 }} />
+                  </div>
+                  {missedEntries.map((entry, i) => (
+                    <div key={i} className="rq-grid" style={{ gridTemplateColumns: '1fr auto auto auto', gap: 12, alignItems: 'center', marginBottom: 8 }}>
+                      <input type="date" value={entry.date} onChange={(e) => { const arr = [...missedEntries]; arr[i] = { ...arr[i], date: e.target.value }; setMissedEntries(arr); }} />
+                      <input type="text" value={entry.hours} style={{ width: 80 }} onChange={(e) => { const arr = [...missedEntries]; arr[i] = { ...arr[i], hours: e.target.value }; setMissedEntries(arr); }} />
+                      <input type="text" value={entry.reason} style={{ width: 120 }} placeholder="Episode" onChange={(e) => { const arr = [...missedEntries]; arr[i] = { ...arr[i], reason: e.target.value }; setMissedEntries(arr); }} />
+                      <button type="button" onClick={() => setMissedEntries((prev) => prev.filter((_, j) => j !== i))} style={{ width: 32, height: 32, display: 'flex', alignItems: 'center', justifyContent: 'center', border: '1px solid #d4d4d8', borderRadius: 6, background: '#fff', cursor: 'pointer', fontSize: 16 }}>&minus;</button>
+                    </div>
+                  ))}
+                  <button type="button" className="rq-add-week" onClick={() => setMissedEntries((prev) => [...prev, { date: '', hours: '08:00', reason: '' }])}>
+                    <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M7 1v12M1 7h12" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"/></svg>
+                    Add another date
+                  </button>
+                  <div style={{ textAlign: 'right', fontSize: 13, fontWeight: 600, color: '#0f0f14', marginTop: 8 }}>
+                    {missedEntries.reduce((sum, e) => {
+                      const parts = e.hours.split(':');
+                      return sum + (parseInt(parts[0]) || 0) + ((parseInt(parts[1]) || 0) / 60);
+                    }, 0).toFixed(0)} total hours missed
+                  </div>
+                </div>
+              )}
 
               <div className="sim-btn-row" style={{ justifyContent: 'flex-end' }}>
                 <div style={{ display: 'flex', gap: 12 }}>
@@ -1184,23 +1237,27 @@ export default function PlanAbsenceReactPage() {
                   </div>
                   <Toggle on={tempAddr} onClick={() => setTempAddr(!tempAddr)} />
                 </div>
-                <div style={{ fontSize: 13, color: '#737373', marginBottom: 16 }}>Will you be at a different address during your absence?</div>
-                <div className="sim-field" style={{ marginBottom: 16 }}>
-                  <label>Street Address</label>
-                  <input type="text" value={tempStreet} onChange={(e) => setTempStreet(e.target.value)} />
-                </div>
-                <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', gap: 12, marginBottom: 16 }}>
-                  <div className="sim-field"><label>City</label><input type="text" value={tempCity} onChange={(e) => setTempCity(e.target.value)} /></div>
-                  <div className="sim-field"><label>State</label><select value={tempState} onChange={(e) => setTempState(e.target.value)} style={{ width: '100%' }}><option value="">—</option>{US_STATES.map((s) => <option key={s} value={s}>{s}</option>)}</select></div>
-                  <div className="sim-field"><label>ZIP</label><input type="text" maxLength={5} value={tempZip} onChange={(e) => setTempZip(e.target.value)} /></div>
-                </div>
-                <div style={{ marginBottom: 16 }}>
-                  <label style={{ display: 'block', fontSize: 13, fontWeight: 600, color: '#525252', marginBottom: 8 }}>Temporary Address Dates</label>
-                  <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 12 }}>
-                    <div className="sim-field"><label>Start Date</label><input type="date" value={tempFrom} onChange={(e) => setTempFrom(e.target.value)} /></div>
-                    <div className="sim-field"><label>End Date</label><input type="date" value={tempTo} onChange={(e) => setTempTo(e.target.value)} /></div>
-                  </div>
-                </div>
+                <div style={{ fontSize: 13, color: '#737373', marginBottom: tempAddr ? 16 : 0 }}>Will you be at a different address during your absence?</div>
+                {tempAddr && (
+                  <>
+                    <div className="sim-field" style={{ marginBottom: 16 }}>
+                      <label>Street Address</label>
+                      <input type="text" value={tempStreet} onChange={(e) => setTempStreet(e.target.value)} />
+                    </div>
+                    <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', gap: 12, marginBottom: 16 }}>
+                      <div className="sim-field"><label>City</label><input type="text" value={tempCity} onChange={(e) => setTempCity(e.target.value)} /></div>
+                      <div className="sim-field"><label>State</label><select value={tempState} onChange={(e) => setTempState(e.target.value)} style={{ width: '100%' }}><option value="">—</option>{US_STATES.map((s) => <option key={s} value={s}>{s}</option>)}</select></div>
+                      <div className="sim-field"><label>ZIP</label><input type="text" maxLength={5} value={tempZip} onChange={(e) => setTempZip(e.target.value)} /></div>
+                    </div>
+                    <div style={{ marginBottom: 16 }}>
+                      <label style={{ display: 'block', fontSize: 13, fontWeight: 600, color: '#525252', marginBottom: 8 }}>Temporary Address Dates</label>
+                      <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 12 }}>
+                        <div className="sim-field"><label>Start Date</label><input type="date" value={tempFrom} onChange={(e) => setTempFrom(e.target.value)} /></div>
+                        <div className="sim-field"><label>End Date</label><input type="date" value={tempTo} onChange={(e) => setTempTo(e.target.value)} /></div>
+                      </div>
+                    </div>
+                  </>
+                )}
               </div>
 
               <div className="sim-btn-row" style={{ justifyContent: 'flex-end' }}>
