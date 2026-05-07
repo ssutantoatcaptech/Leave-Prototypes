@@ -210,7 +210,7 @@ export default function DashboardPage() {
                 <h3 className="cldb-status-title">You're All Caught Up</h3>
                 <button className="cldb-status-dismiss" aria-label="Dismiss">
                   <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
-                    <path d="M1 1l12 12M13 1L1 13" stroke="#737373" strokeWidth="1.5" strokeLinecap="round"/>
+                    <path d="M1 1l12 12M13 1L1 13" stroke="#64748b" strokeWidth="1.5" strokeLinecap="round"/>
                   </svg>
                 </button>
               </div>
@@ -225,35 +225,35 @@ export default function DashboardPage() {
               <div className="cldb-quick-actions">
                 <button className="cldb-action-row">
                   <span className="cldb-action-icon">
-                    <svg width="16" height="14" viewBox="0 0 16 14" fill="none"><rect x="0.5" y="0.5" width="15" height="11" rx="1.5" stroke="#404040"/><rect x="0.5" y="11.5" width="15" height="2" rx="0.5" stroke="#404040"/></svg>
+                    <svg width="16" height="14" viewBox="0 0 16 14" fill="none"><rect x="0.5" y="0.5" width="15" height="11" rx="1.5" stroke="#374151"/><rect x="0.5" y="11.5" width="15" height="2" rx="0.5" stroke="#374151"/></svg>
                   </span>
                   <span className="cldb-action-label">View ID Cards</span>
                   <span className="cldb-action-chevron">&rsaquo;</span>
                 </button>
                 <button className="cldb-action-row">
                   <span className="cldb-action-icon">
-                    <svg width="14" height="16" viewBox="0 0 14 16" fill="none"><rect x="0.5" y="0.5" width="13" height="15" rx="1.5" stroke="#404040"/><path d="M4 5h6M4 8h6M4 11h3" stroke="#404040" strokeLinecap="round"/></svg>
+                    <svg width="14" height="16" viewBox="0 0 14 16" fill="none"><rect x="0.5" y="0.5" width="13" height="15" rx="1.5" stroke="#374151"/><path d="M4 5h6M4 8h6M4 11h3" stroke="#374151" strokeLinecap="round"/></svg>
                   </span>
                   <span className="cldb-action-label">Submit New Claim</span>
                   <span className="cldb-action-chevron">&rsaquo;</span>
                 </button>
                 <button className="cldb-action-row" onClick={() => navigate(`${base}/file-claim/request-leave?step=1`)}>
                   <span className="cldb-action-icon">
-                    <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><rect x="0.5" y="2.5" width="13" height="11" rx="1.5" stroke="#404040"/><path d="M4 0.5v4M10 0.5v4" stroke="#404040" strokeLinecap="round"/></svg>
+                    <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><rect x="0.5" y="2.5" width="13" height="11" rx="1.5" stroke="#374151"/><path d="M4 0.5v4M10 0.5v4" stroke="#374151" strokeLinecap="round"/></svg>
                   </span>
                   <span className="cldb-action-label">Request Leave</span>
                   <span className="cldb-action-chevron">&rsaquo;</span>
                 </button>
                 <button className="cldb-action-row">
                   <span className="cldb-action-icon">
-                    <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><circle cx="7" cy="5" r="3.5" stroke="#404040"/><path d="M1 13.5c0-3 2.5-5 6-5s6 2 6 5" stroke="#404040" strokeLinecap="round"/></svg>
+                    <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><circle cx="7" cy="5" r="3.5" stroke="#374151"/><path d="M1 13.5c0-3 2.5-5 6-5s6 2 6 5" stroke="#374151" strokeLinecap="round"/></svg>
                   </span>
                   <span className="cldb-action-label">Manage Preferences</span>
                   <span className="cldb-action-chevron">&rsaquo;</span>
                 </button>
                 <button className="cldb-action-row">
                   <span className="cldb-action-icon">
-                    <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><circle cx="7" cy="7" r="6.5" stroke="#404040"/><path d="M7 4v3l2 2" stroke="#404040" strokeLinecap="round" strokeLinejoin="round"/></svg>
+                    <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><circle cx="7" cy="7" r="6.5" stroke="#374151"/><path d="M7 4v3l2 2" stroke="#374151" strokeLinecap="round" strokeLinejoin="round"/></svg>
                   </span>
                   <span className="cldb-action-label">Contact Support</span>
                   <span className="cldb-action-chevron">&rsaquo;</span>
@@ -266,14 +266,14 @@ export default function DashboardPage() {
           <div className="cldb-card cldb-grid-activity">
             <div className="cldb-card-header cldb-card-header--border">
               <h3 className="cldb-card-title">Recent Activity</h3>
-              <button className="cldb-view-all-btn">View All <svg width="6" height="10" viewBox="0 0 6 10" fill="none"><path d="M1 1l4 4-4 4" stroke="#737373" strokeWidth="1.2" strokeLinecap="round" strokeLinejoin="round"/></svg></button>
+              <button className="cldb-view-all-btn">View All <svg width="6" height="10" viewBox="0 0 6 10" fill="none"><path d="M1 1l4 4-4 4" stroke="#64748b" strokeWidth="1.2" strokeLinecap="round" strokeLinejoin="round"/></svg></button>
             </div>
             <div className="cldb-activity-list">
               <div className="cldb-activity-row">
                 <div className="cldb-activity-icon cldb-activity-icon--doc">
                   <svg width="12" height="16" viewBox="0 0 12 16" fill="none">
-                    <path d="M1 1h7l3 3v11H1V1z" stroke="#404040" strokeWidth="1.2"/>
-                    <path d="M8 1v3h3" stroke="#404040" strokeWidth="1.2"/>
+                    <path d="M1 1h7l3 3v11H1V1z" stroke="#374151" strokeWidth="1.2"/>
+                    <path d="M8 1v3h3" stroke="#374151" strokeWidth="1.2"/>
                   </svg>
                 </div>
                 <div className="cldb-activity-content">
@@ -282,13 +282,13 @@ export default function DashboardPage() {
                   <span className="cldb-activity-date">Jan 20, 2025</span>
                 </div>
                 <svg className="cldb-activity-chevron" width="10" height="16" viewBox="0 0 10 16" fill="none">
-                  <path d="M2 2l6 6-6 6" stroke="#a3a3a3" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+                  <path d="M2 2l6 6-6 6" stroke="#9ca3af" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
                 </svg>
               </div>
               <div className="cldb-activity-row">
                 <div className="cldb-activity-icon cldb-activity-icon--check">
                   <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
-                    <circle cx="8" cy="8" r="7" fill="#404040"/>
+                    <circle cx="8" cy="8" r="7" fill="#374151"/>
                     <path d="M5 8l2 2 4-4" stroke="#fff" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
                   </svg>
                 </div>
@@ -298,13 +298,13 @@ export default function DashboardPage() {
                   <span className="cldb-activity-date">Jan 18, 2025</span>
                 </div>
                 <svg className="cldb-activity-chevron" width="10" height="16" viewBox="0 0 10 16" fill="none">
-                  <path d="M2 2l6 6-6 6" stroke="#a3a3a3" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+                  <path d="M2 2l6 6-6 6" stroke="#9ca3af" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
                 </svg>
               </div>
               <div className="cldb-activity-row">
                 <div className="cldb-activity-icon cldb-activity-icon--check">
                   <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
-                    <circle cx="8" cy="8" r="7" fill="#404040"/>
+                    <circle cx="8" cy="8" r="7" fill="#374151"/>
                     <path d="M5 8l2 2 4-4" stroke="#fff" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
                   </svg>
                 </div>
@@ -314,7 +314,7 @@ export default function DashboardPage() {
                   <span className="cldb-activity-date">Jan 18, 2025</span>
                 </div>
                 <svg className="cldb-activity-chevron" width="10" height="16" viewBox="0 0 10 16" fill="none">
-                  <path d="M2 2l6 6-6 6" stroke="#a3a3a3" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+                  <path d="M2 2l6 6-6 6" stroke="#9ca3af" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
                 </svg>
               </div>
             </div>
@@ -325,7 +325,7 @@ export default function DashboardPage() {
             <div className="cldb-card-header cldb-card-header--border">
               <div className="cldb-benefits-heading">
                 <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
-                  <path d="M8 1l2 3h4l-3 3 1 4-4-2-4 2 1-4-3-3h4l2-3z" stroke="#171717" strokeWidth="1.2" strokeLinejoin="round"/>
+                  <path d="M8 1l2 3h4l-3 3 1 4-4-2-4 2 1-4-3-3h4l2-3z" stroke="#0f172a" strokeWidth="1.2" strokeLinejoin="round"/>
                 </svg>
                 <h3 className="cldb-card-title">Active Benefits</h3>
               </div>
@@ -335,7 +335,7 @@ export default function DashboardPage() {
               <div className="cldb-missing-benefit">
                 <div className="cldb-missing-icon">
                   <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
-                    <path d="M12 2l3 5h6l-4.5 4.5 1.5 6L12 14l-6 3.5 1.5-6L3 7h6l3-5z" stroke="#a3a3a3" strokeWidth="1.2" strokeLinejoin="round"/>
+                    <path d="M12 2l3 5h6l-4.5 4.5 1.5 6L12 14l-6 3.5 1.5-6L3 7h6l3-5z" stroke="#9ca3af" strokeWidth="1.2" strokeLinejoin="round"/>
                   </svg>
                 </div>
                 <h4 className="cldb-missing-title">Missing a Benefit?</h4>

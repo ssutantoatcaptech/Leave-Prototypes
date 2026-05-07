@@ -2298,14 +2298,14 @@
    =========================== */
 
 .cldb-hero {
-  background: #e8edf5;
+  background: #f0f4ff;
   padding: 64px 0;
 }
 
 .cldb-hero-title {
   font-size: 40px;
   font-weight: 600;
-  color: #171717;
+  color: #0f172a;
   margin: 0;
   max-width: 1440px;
   margin-left: auto;
@@ -2326,7 +2326,7 @@
 .cldb-section-title {
   font-size: 20px;
   font-weight: 400;
-  color: #171717;
+  color: #0f172a;
   margin: 0 0 24px 0;
 }
 
@@ -2355,8 +2355,8 @@
 
 /* Status Banner */
 .cldb-status-banner {
-  background: #f5f5f5;
-  border: 1px solid #e5e5e5;
+  background: #f8fafc;
+  border: 1px solid #e2e8f0;
   border-radius: 8px;
   padding: 25px;
   display: flex;
@@ -2392,7 +2392,7 @@
 .cldb-status-title {
   font-size: 18px;
   font-weight: 400;
-  color: #171717;
+  color: #0f172a;
   margin: 0;
 }
 
@@ -2401,12 +2401,12 @@
   border: none;
   cursor: pointer;
   padding: 4px;
-  color: #737373;
+  color: #64748b;
 }
 
 .cldb-status-desc {
   font-size: 14px;
-  color: #525252;
+  color: #4b5563;
   margin: 0;
   line-height: 1.5;
 }
@@ -2414,7 +2414,7 @@
 /* Card */
 .cldb-card {
   background: #fff;
-  border: 1px solid #e5e5e5;
+  border: 1px solid #e2e8f0;
   border-radius: 12px;
   box-shadow: 0 1px 1px rgba(0, 0, 0, 0.05);
   overflow: hidden;
@@ -2428,14 +2428,14 @@
 }
 
 .cldb-card-header--border {
-  border-bottom: 1px solid #f5f5f5;
+  border-bottom: 1px solid #f1f5f9;
   padding: 12px 16px 13px;
 }
 
 .cldb-card-title {
   font-size: 16px;
   font-weight: 400;
-  color: #171717;
+  color: #0f172a;
   margin: 0;
 }
 
@@ -2455,7 +2455,7 @@
 .cldb-empty-icon {
   width: 64px;
   height: 64px;
-  background: #f5f5f5;
+  background: #f1f5f9;
   border-radius: 50%;
   display: flex;
   align-items: center;
@@ -2466,13 +2466,13 @@
 .cldb-empty-title {
   font-size: 16px;
   font-weight: 400;
-  color: #171717;
+  color: #0f172a;
   margin: 0 0 8px 0;
 }
 
 .cldb-empty-desc {
   font-size: 14px;
-  color: #737373;
+  color: #64748b;
   margin: 0 0 16px 0;
   line-height: 1.5;
 }
@@ -2488,7 +2488,7 @@
   align-items: center;
   gap: 16px;
   padding: 16px;
-  border-bottom: 1px solid #f5f5f5;
+  border-bottom: 1px solid #f1f5f9;
   cursor: pointer;
   transition: background 0.12s;
 }
@@ -2498,14 +2498,14 @@
 }
 
 .cldb-activity-row:hover {
-  background: #fafafa;
+  background: #f8fafc;
 }
 
 .cldb-activity-icon {
   width: 40px;
   height: 40px;
   border-radius: 4px;
-  background: #f5f5f5;
+  background: #f1f5f9;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -2522,19 +2522,19 @@
 .cldb-activity-title {
   font-size: 16px;
   font-weight: 400;
-  color: #171717;
+  color: #0f172a;
   line-height: 24px;
 }
 
 .cldb-activity-desc {
   font-size: 12px;
-  color: #737373;
+  color: #64748b;
   line-height: 16px;
 }
 
 .cldb-activity-date {
   font-size: 10px;
-  color: #a3a3a3;
+  color: #9ca3af;
   line-height: 15px;
   margin-top: 2px;
 }
@@ -2548,7 +2548,7 @@
   border: none;
   padding: 0;
   font-size: 12px;
-  color: #737373;
+  color: #64748b;
   cursor: pointer;
   font-family: inherit;
   display: flex;
@@ -2557,7 +2557,7 @@
 }
 
 .cldb-view-all-btn:hover {
-  color: #404040;
+  color: #0f172a;
 }
 
 /* Buttons */
@@ -2579,8 +2579,8 @@
 
 .cldb-btn-outline {
   background: #fff;
-  color: #404040;
-  border: 1px solid #e5e5e5;
+  color: #374151;
+  border: 1px solid #e2e8f0;
   border-radius: 4px;
   padding: 9px 17px;
   font-size: 14px;
@@ -2590,14 +2590,14 @@
 }
 
 .cldb-btn-outline:hover {
-  border-color: #a3a3a3;
+  border-color: #94a3b8;
 }
 
 /* Sidebar Title */
 .cldb-sidebar-title {
   font-size: 20px;
   font-weight: 400;
-  color: #171717;
+  color: #0f172a;
   margin: 0 0 12px 0;
 }
 
@@ -2613,7 +2613,7 @@
   align-items: center;
   gap: 12px;
   padding: 13px 17px;
-  border: 1px solid #f5f5f5;
+  border: 1px solid #e2e8f0;
   border-radius: 8px;
   background: none;
   cursor: pointer;
@@ -2624,7 +2624,8 @@
 }
 
 .cldb-action-row:hover {
-  border-color: #d4d4d4;
+  border-color: #cbd5e1;
+  background: #f8fafc;
 }
 
 .cldb-action-icon {
@@ -2638,12 +2639,12 @@
 .cldb-action-label {
   flex: 1;
   font-size: 16px;
-  color: #404040;
+  color: #374151;
 }
 
 .cldb-action-chevron {
   font-size: 20px;
-  color: #a3a3a3;
+  color: #9ca3af;
   line-height: 1;
 }
 
@@ -2660,7 +2661,7 @@
 
 /* Benefit Items */
 .cldb-benefit-item {
-  border: 1px solid #e5e5e5;
+  border: 1px solid #e2e8f0;
   border-radius: 4px;
   padding: 13px;
   margin-bottom: 24px;
