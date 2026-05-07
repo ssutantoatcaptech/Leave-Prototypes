@@ -1389,10 +1389,10 @@ export default function RequestLeaveReactPage() {
       return (
         <div className="wizard-footer">
           <div className="footer-left">
-            <button type="button" className="btn btn-back" onClick={goBack}>← Back</button>
+            <button type="button" className="btn btn-cancel-leave" onClick={() => setShowCancelModal(true)}>Cancel</button>
           </div>
           <div className="footer-right">
-            <button type="button" className="btn btn-cancel-leave" onClick={() => setShowCancelModal(true)}>Cancel</button>
+            <button type="button" className="btn btn-back" onClick={goBack}>← Back</button>
             <button type="button" className="btn btn-submit" onClick={submitRequest}>Submit</button>
           </div>
         </div>
@@ -1401,10 +1401,10 @@ export default function RequestLeaveReactPage() {
     return (
       <div className="wizard-footer">
         <div className="footer-left">
-          {currentStepIndex > 0 ? <button type="button" className="btn btn-back" onClick={goBack}>← Back</button> : <div/>}
+          <button type="button" className="btn btn-cancel-leave" onClick={() => setShowCancelModal(true)}>Cancel</button>
         </div>
         <div className="footer-right">
-          <button type="button" className="btn btn-cancel-leave" onClick={() => setShowCancelModal(true)}>Cancel</button>
+          {currentStepIndex > 0 ? <button type="button" className="btn btn-back" onClick={goBack}>← Back</button> : null}
           <button type="button" className="btn btn-next" onClick={goNext}>Continue →</button>
         </div>
       </div>
