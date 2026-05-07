@@ -306,8 +306,6 @@ export default function RequestLeaveReactPage() {
       s.push({ id: 'missedTime', label: 'Missed Time', title: 'Did you miss any work time before starting this leave?' });
       s.push({ id: 'leaveDetails', label: 'Schedule', title: 'What does your typical work week look like?' });
       s.push({ id: 'planAware', label: 'Benefits', title: 'A couple more questions' });
-      s.push({ id: 'medicalCert', label: 'Certification', title: 'Medical Certifications' });
-      s.push({ id: 'medicalCertConsent', label: 'Consent', title: 'Medical Certification Consent' });
     } else if (mil) {
       s.push({ id: 'leaveStructure', label: 'Structure', title: 'How will you take your absence?' });
       s.push({ id: 'missedTime', label: 'Missed Time', title: 'Did you miss any work time before starting this leave?' });
@@ -476,7 +474,7 @@ export default function RequestLeaveReactPage() {
         weeks: fmlaEligible ? planConfig.fmla.maxWeeks : 0,
       },
       std: {
-        eligible: formState.leaveScenario === 'medical_self' || (isChildScenario && formState.childScenario === 'birth'),
+        eligible: formState.leaveScenario === 'medical_self' || (formState.leaveScenario === 'child' && formState.childScenario === 'birth'),
         reason: `${planConfig.std.percentPay}% pay after ${planConfig.std.waitingDays}-day waiting period`,
         weeks: planConfig.std.durationWeeks,
       },
