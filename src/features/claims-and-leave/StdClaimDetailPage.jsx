@@ -202,21 +202,21 @@ export default function StdClaimDetailPage() {
             </div>
 
             <div className="cl-std-timeline">
-              <div className="cl-std-timeline-item">
+              <div className="cl-std-timeline-item cl-std-timeline-item--completed">
                 <div className="cl-std-timeline-dot" />
                 <div className="cl-std-timeline-content">
                   <span className="cl-std-timeline-title">Claim Filed</span>
                   <span className="cl-std-timeline-date">May 4, 2026</span>
                 </div>
               </div>
-              <div className="cl-std-timeline-item">
+              <div className="cl-std-timeline-item cl-std-timeline-item--completed">
                 <div className="cl-std-timeline-dot" />
                 <div className="cl-std-timeline-content">
                   <span className="cl-std-timeline-title">Documentation Received</span>
                   <span className="cl-std-timeline-date">May 7, 2026</span>
                 </div>
               </div>
-              <div className="cl-std-timeline-item">
+              <div className="cl-std-timeline-item cl-std-timeline-item--completed">
                 <div className="cl-std-timeline-dot" />
                 <div className="cl-std-timeline-content">
                   <span className="cl-std-timeline-title">Claim Approved</span>
@@ -224,7 +224,7 @@ export default function StdClaimDetailPage() {
                   <span className="cl-std-timeline-note">7-day elimination period waived.</span>
                 </div>
               </div>
-              <div className="cl-std-timeline-item cl-std-timeline-item--active">
+              <div className="cl-std-timeline-item cl-std-timeline-item--completed cl-std-timeline-item--active">
                 <div className="cl-std-timeline-dot" />
                 <div className="cl-std-timeline-content">
                   <span className="cl-std-timeline-title">Benefits In Payment</span>
