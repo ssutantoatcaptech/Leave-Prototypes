@@ -1373,3 +1373,249 @@
 .mobile-frame-screen .cl-std-doc-meta {
   font-size: 11px;
 }
+
+/* ─── Plan a Leave — Mobile Frame Overrides ─────────────────────────────────── */
+
+.mobile-frame-screen .rlv2-page {
+  padding: 16px 0;
+  max-width: none;
+  width: 100%;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+.mobile-frame-screen .rlv2-page-wide {
+  width: 100%;
+  max-width: none;
+}
+
+.mobile-frame-screen .sim-card {
+  padding: 24px 16px !important;
+  border-radius: 10px;
+}
+
+.mobile-frame-screen .sim-card h2 {
+  font-size: 20px;
+}
+
+.mobile-frame-screen .option-cards {
+  grid-template-columns: 1fr;
+  gap: 10px;
+}
+
+.mobile-frame-screen .option-card {
+  min-height: auto;
+  padding: 16px;
+  flex-direction: row;
+  text-align: left;
+  gap: 12px;
+}
+
+.mobile-frame-screen .option-card-icon {
+  width: 40px;
+  height: 40px;
+  border-radius: 10px;
+}
+
+.mobile-frame-screen .oc-tooltip {
+  display: none !important;
+}
+
+.mobile-frame-screen .pa-grid {
+  grid-template-columns: 1fr;
+}
+
+.mobile-frame-screen .pa-span-2 {
+  grid-column: auto;
+}
+
+.mobile-frame-screen .sim-field input,
+.mobile-frame-screen .sim-field select {
+  font-size: 16px;
+  padding: 14px 12px;
+  border-radius: 8px;
+  min-height: 48px;
+  box-sizing: border-box;
+  width: 100%;
+}
+
+.mobile-frame-screen .sim-field select {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg width='12' height='8' viewBox='0 0 12 8' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M1 1.5l5 5 5-5' stroke='%23404040' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 14px center;
+  padding-right: 36px;
+}
+
+.mobile-frame-screen .sim-field input[type='date'] {
+  -webkit-appearance: none;
+  appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg width='16' height='16' viewBox='0 0 16 16' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Crect x='2' y='3' width='12' height='11' rx='1.5' stroke='%2362626e' stroke-width='1.2'/%3E%3Cpath d='M2 6.5h12M5.5 1.5v3M10.5 1.5v3' stroke='%2362626e' stroke-width='1.2' stroke-linecap='round'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 12px center;
+  background-size: 16px 16px;
+}
+
+.mobile-frame-screen .lt-picker {
+  flex-direction: column;
+  gap: 8px;
+}
+
+.mobile-frame-screen .lt-btn {
+  padding: 14px 16px;
+  min-height: 48px;
+}
+
+/* Button rows */
+.mobile-frame-screen .sim-btn-row {
+  flex-direction: column-reverse;
+  gap: 10px;
+  align-items: stretch;
+}
+
+.mobile-frame-screen .sim-btn-row .sim-btn-primary,
+.mobile-frame-screen .sim-btn-row .sim-btn-back {
+  width: 100%;
+  justify-content: center;
+  text-align: center;
+}
+
+.mobile-frame-screen .wizard-footer {
+  flex-direction: column-reverse;
+  gap: 10px;
+  align-items: stretch;
+}
+
+.mobile-frame-screen .wizard-footer .btn {
+  width: 100%;
+  justify-content: center;
+  text-align: center;
+  box-sizing: border-box;
+}
+
+.mobile-frame-screen .btn {
+  width: 100%;
+  justify-content: center;
+  padding: 14px 20px;
+  font-size: 15px;
+  min-height: 48px;
+  box-sizing: border-box;
+}
+
+.mobile-frame-screen .btn-cancel-leave {
+  width: 100%;
+  padding: 14px 20px;
+  font-size: 15px;
+  min-height: 48px;
+  box-sizing: border-box;
+}
+
+.mobile-frame-screen .sim-btn-primary {
+  width: 100%;
+  padding: 14px 20px !important;
+  font-size: 15px !important;
+  min-height: 48px;
+  justify-content: center;
+  box-sizing: border-box;
+}
+
+.mobile-frame-screen .sim-btn-back {
+  width: 100%;
+  padding: 14px 20px;
+  font-size: 15px;
+  min-height: 48px;
+  justify-content: center;
+  text-align: center;
+  box-sizing: border-box;
+}
+
+/* Split layout — stack on mobile frame */
+.mobile-frame-screen .sim-split {
+  grid-template-columns: 1fr;
+  gap: 16px;
+}
+
+.mobile-frame-screen .sim-split-side {
+  display: none;
+}
+
+.mobile-frame-screen .dlp-sidepanel-hint {
+  display: none !important;
+}
+
+/* Mobile filter bar — show in frame */
+.mobile-frame-screen .dlp-mobile-filter {
+  display: block;
+  margin-bottom: 12px;
+}
+
+/* Timeline adjustments */
+.mobile-frame-screen .dlp-tl-row-label {
+  width: 60px;
+  font-size: 10px;
+  padding-right: 6px;
+}
+
+.mobile-frame-screen .dlp-tl-weeks {
+  padding-left: 60px;
+}
+
+.mobile-frame-screen .dlp-tl-months {
+  padding-left: 60px;
+  font-size: 10px;
+}
+
+.mobile-frame-screen .dlp-legend {
+  gap: 10px;
+}
+
+.mobile-frame-screen .dlp-legend-item {
+  font-size: 10px;
+}
+
+/* Pay band stacks */
+.mobile-frame-screen .dlp-pay-band {
+  flex-direction: column;
+}
+
+.mobile-frame-screen .dlp-pay-stat {
+  border-right: none;
+  border-bottom: 1px solid #e5e5e5;
+  padding: 12px 16px;
+}
+
+.mobile-frame-screen .dlp-pay-stat:last-child {
+  border-bottom: none;
+}
+
+/* Detail panel */
+.mobile-frame-screen .dlp-detail-grid {
+  grid-template-columns: 1fr;
+}
+
+/* View tabs full width */
+.mobile-frame-screen .dlp-view-tabs {
+  width: 100%;
+}
+
+.mobile-frame-screen .dlp-view-tab {
+  flex: 1;
+  text-align: center;
+}
+
+/* Welcome screen */
+.mobile-frame-screen .pa-welcome {
+  padding: 24px 16px 28px;
+  margin-bottom: 40px;
+}
+
+.mobile-frame-screen .pa-welcome h2 {
+  font-size: 22px;
+}
+
+.mobile-frame-screen .pa-illustration-circle {
+  width: 140px;
+  height: 140px;
+}
