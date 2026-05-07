@@ -1082,7 +1082,7 @@ export default function RequestLeaveReactPage() {
             ))}
             {formState.extraWeeks.length === 0 && (
               <>
-                <button type="button" className="rotation-add" onClick={addExtraWeek}><svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M8 3v10M3 8h10" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"/></svg>Add alternate week</button>
+                <button type="button" className="rotation-add" onClick={addExtraWeek}><svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M8 3v10M3 8h10" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"/></svg>Add Week</button>
                 <div className="helper" style={{ marginTop: 8 }}>Add an alternate week if your schedule rotates or varies week-to-week (e.g., compressed schedules, alternating shifts).</div>
               </>
             )}
