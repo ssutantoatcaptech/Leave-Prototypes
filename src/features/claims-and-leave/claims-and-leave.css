@@ -2610,6 +2610,10 @@
 }
 
 /* Quick Actions */
+.cldb-grid-actions .cldb-card-body {
+  padding-bottom: 8px;
+}
+
 .cldb-quick-actions {
   display: flex;
   flex-direction: column;
