@@ -649,9 +649,9 @@ export default function PlanAbsenceReactPage() {
                 This helps us identify which benefits and protections may apply to you.
               </div>
               <div className="sim-btn-row">
-                <button className="sim-btn-back" type="button" onClick={goIllnessBack}>&larr; Back</button>
+                <button className="btn btn-cancel-leave" type="button" onClick={() => setShowCancelModal(true)}>Cancel</button>
                 <div style={{ display: 'flex', gap: 12 }}>
-                  <button className="btn btn-cancel-leave" type="button" onClick={() => setShowCancelModal(true)}>Cancel</button>
+                  <button className="sim-btn-back" type="button" onClick={goIllnessBack}>&larr; Back</button>
                   <button className="sim-btn-primary" type="button" onClick={goIllnessNext}>Continue &#8594;</button>
                 </div>
               </div>
@@ -719,9 +719,9 @@ export default function PlanAbsenceReactPage() {
               </div>
 
               <div className="sim-btn-row">
-                <button className="sim-btn-back" type="button" onClick={goIllnessBack}>&larr; Back</button>
+                <button className="btn btn-cancel-leave" type="button" onClick={() => setShowCancelModal(true)}>Cancel</button>
                 <div style={{ display: 'flex', gap: 12 }}>
-                  <button className="btn btn-cancel-leave" type="button" onClick={() => setShowCancelModal(true)}>Cancel</button>
+                  <button className="sim-btn-back" type="button" onClick={goIllnessBack}>&larr; Back</button>
                   <button className="sim-btn-primary" type="button" onClick={goIllnessNext}>See My Coverage &#8594;</button>
                 </div>
               </div>
@@ -880,8 +880,8 @@ export default function PlanAbsenceReactPage() {
                     </div>
 
                     <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 16, marginTop: 16 }}>
-                      <button type="button" onClick={goIllnessBack} style={{ background: 'none', border: 'none', fontSize: 13, fontWeight: 600, color: '#525252', cursor: 'pointer', fontFamily: 'inherit' }}>&larr; Back</button>
                       <button className="btn btn-cancel-leave" type="button" onClick={() => setShowCancelModal(true)}>Cancel</button>
+                      <button type="button" onClick={goIllnessBack} style={{ background: 'none', border: 'none', fontSize: 13, fontWeight: 600, color: '#525252', cursor: 'pointer', fontFamily: 'inherit' }}>&larr; Back</button>
                       <button type="button" style={{ display: 'inline-flex', alignItems: 'center', gap: 5, background: 'none', border: 'none', fontSize: 13, fontWeight: 600, color: '#525252', cursor: 'pointer', fontFamily: 'inherit' }}>
                         <svg width="13" height="13" viewBox="0 0 16 16" fill="none"><path d="M2 3h12v10H2V3z" stroke="currentColor" strokeWidth="1.3" strokeLinecap="round" strokeLinejoin="round"/><path d="M2 3l6 5 6-5" stroke="currentColor" strokeWidth="1.3" strokeLinecap="round" strokeLinejoin="round"/></svg>
                         Email Plan
@@ -1533,9 +1533,9 @@ export default function PlanAbsenceReactPage() {
                 This helps us identify which benefits and protections may apply to you.
               </div>
               <div className="sim-btn-row">
-                <button className="sim-btn-back" type="button" onClick={goBack}>&larr; Back</button>
+                <button className="btn btn-cancel-leave" type="button" onClick={() => setShowCancelModal(true)}>Cancel</button>
                 <div style={{ display: 'flex', gap: 12 }}>
-                  <button className="btn btn-cancel-leave" type="button" onClick={() => setShowCancelModal(true)}>Cancel</button>
+                  <button className="sim-btn-back" type="button" onClick={goBack}>&larr; Back</button>
                   <button className="sim-btn-primary" type="button" onClick={goNext}>Continue &#8594;</button>
                 </div>
               </div>
@@ -1609,9 +1609,9 @@ export default function PlanAbsenceReactPage() {
                 </div>
               </div>
               <div className="sim-btn-row">
-                <button className="sim-btn-back" type="button" onClick={goBack}>&larr; Back</button>
+                <button className="btn btn-cancel-leave" type="button" onClick={() => setShowCancelModal(true)}>Cancel</button>
                 <div style={{ display: 'flex', gap: 12 }}>
-                  <button className="btn btn-cancel-leave" type="button" onClick={() => setShowCancelModal(true)}>Cancel</button>
+                  <button className="sim-btn-back" type="button" onClick={goBack}>&larr; Back</button>
                   <button className="sim-btn-primary" type="button" onClick={goNext}>See My Coverage &#8594;</button>
                 </div>
               </div>
@@ -1813,8 +1813,8 @@ export default function PlanAbsenceReactPage() {
                   </div>
 
                   <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 16, marginTop: 16 }}>
-                    <button type="button" onClick={goBack} style={{ background: 'none', border: 'none', fontSize: 13, fontWeight: 600, color: '#525252', cursor: 'pointer', fontFamily: 'inherit' }}>&larr; Back</button>
                     <button className="btn btn-cancel-leave" type="button" onClick={() => setShowCancelModal(true)}>Cancel</button>
+                    <button type="button" onClick={goBack} style={{ background: 'none', border: 'none', fontSize: 13, fontWeight: 600, color: '#525252', cursor: 'pointer', fontFamily: 'inherit' }}>&larr; Back</button>
                     <button type="button" style={{ display: 'inline-flex', alignItems: 'center', gap: 5, background: 'none', border: 'none', fontSize: 13, fontWeight: 600, color: '#525252', cursor: 'pointer', fontFamily: 'inherit' }}>
                       <svg width="13" height="13" viewBox="0 0 16 16" fill="none"><path d="M2 3h12v10H2V3z" stroke="currentColor" strokeWidth="1.3" strokeLinecap="round" strokeLinejoin="round"/><path d="M2 3l6 5 6-5" stroke="currentColor" strokeWidth="1.3" strokeLinecap="round" strokeLinejoin="round"/></svg>
                       Email Plan
