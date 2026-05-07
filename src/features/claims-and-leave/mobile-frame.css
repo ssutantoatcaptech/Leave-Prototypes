@@ -9,9 +9,6 @@
 
 /* Native mobile: no frame, natural height */
 .mobile-frame-native {
-  overflow-y: auto;
-  overflow-x: hidden;
-  -webkit-overflow-scrolling: touch;
   background: #fff;
 }
 
