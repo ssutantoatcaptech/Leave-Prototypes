@@ -25,7 +25,7 @@ export default function FileClaimPage() {
             </div>
             <h2 className="cl-intro-card-title">Request a Leave</h2>
             <p className="cl-intro-card-desc">
-              Request parental leave, own illness/injury, care for a sick family member, military leave, or other job-protected time away from work.
+              Taking time away from work? Start here — whether it's for the birth of a child, your own illness or injury, caring for a family member, military service, or any other job-protected leave.
             </p>
             <button className="cl-btn cl-btn--primary" onClick={() => navigate(`${base}/file-claim/request-leave?step=1`)}>Request Leave</button>
             <span className="cl-intro-card-meta">Takes about 5-8 minutes</span>
@@ -43,7 +43,7 @@ export default function FileClaimPage() {
             </div>
             <h2 className="cl-intro-card-title">File a Claim</h2>
             <p className="cl-intro-card-desc">
-              Submit a claim for disability, accidental death &amp; dismemberment, or other supplemental benefits.
+              Already back at work or not taking time off? Use this to submit a claim for supplemental benefits like accident, critical illness, or hospital indemnity.
             </p>
             <button className="cl-btn cl-btn--primary">Start a Claim</button>
             <span className="cl-intro-card-meta">Takes about 10-15 minutes</span>
