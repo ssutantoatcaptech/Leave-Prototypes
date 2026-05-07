@@ -674,6 +674,10 @@
   grid-template-columns: 1fr;
 }
 
+.mobile-frame-screen .request-leave-shell input[type='date'] {
+  text-align: left;
+}
+
 /* Readonly grid: single column */
 .mobile-frame-screen .readonly-grid {
   grid-template-columns: 1fr;
