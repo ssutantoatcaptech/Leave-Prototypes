@@ -1082,6 +1082,7 @@ export default function RequestLeaveReactPage() {
               </div>
             ))}
             <button type="button" className="rotation-add" onClick={addExtraWeek}><svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M8 3v10M3 8h10" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"/></svg>Add another week</button>
+            <div className="helper" style={{ marginTop: 8 }}>Add a second week if your schedule rotates or varies week-to-week (e.g., compressed schedules, alternating shifts).</div>
           </>
         );
       case 'childScenario':
