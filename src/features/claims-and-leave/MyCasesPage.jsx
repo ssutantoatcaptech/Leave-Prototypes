@@ -126,7 +126,7 @@ export default function MyCasesPage() {
               <th>Last Update</th>
               <th>Status</th>
               <th>Required Actions</th>
-              <th className="cl-th-right">Actions</th>
+              <th>Actions</th>
             </tr>
           </thead>
           <tbody>
@@ -151,7 +151,7 @@ export default function MyCasesPage() {
                       <span className="cl-required-action">{row.required}</span>
                     )}
                   </td>
-                  <td className="cl-td-right">
+                  <td>
                     <div className="cl-action-links">
                       {row.actions.map(function (action, j) {
                         return (
