@@ -103,7 +103,7 @@ export default function PaymentsPage() {
   const base = useBasePath();
   const [searchParams] = useSearchParams();
   const claimParam = searchParams.get('claim') || '';
-  const [expandedRow, setExpandedRow] = useState(0);
+  const [expandedRow, setExpandedRow] = useState(-1);
   const [search, setSearch] = useState(claimParam);
   const [typeFilter, setTypeFilter] = useState('All');
   const [dateFilter, setDateFilter] = useState('All');
