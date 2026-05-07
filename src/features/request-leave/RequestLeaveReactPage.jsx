@@ -1041,7 +1041,7 @@ export default function RequestLeaveReactPage() {
               <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 4 }}>
                 <div className="section-title" style={{ display: 'flex', alignItems: 'center', gap: 8, marginBottom: 0 }}>
                   <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><rect x="3" y="6" width="18" height="13" rx="2" stroke="#4b5563" strokeWidth="1.5"/><path d="M3 10h18" stroke="#4b5563" strokeWidth="1.5"/><path d="M8 3v4M16 3v4" stroke="#4b5563" strokeWidth="1.5" strokeLinecap="round"/></svg>
-                  Week 1
+                  {formState.extraWeeks.length > 0 ? 'Regular Week' : 'Your Work Week'}
                 </div>
                 <div style={{ fontSize: 13, color: '#64748b' }}>{Object.values(formState.scheduleHours).reduce((sum, h) => sum + Number(h || 0), 0)} hrs / week</div>
               </div>
@@ -1063,7 +1063,7 @@ export default function RequestLeaveReactPage() {
             {formState.extraWeeks.map((week, weekIndex) => (
               <div key={`week-${weekIndex}`} className="bordered-section">
                 <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '12px' }}>
-                  <div className="section-title" style={{ marginBottom: 0 }}>Week {weekIndex + 2}</div>
+                  <div className="section-title" style={{ marginBottom: 0 }}>Alternate Week</div>
                   <button type="button" className="rotation-remove" onClick={() => removeExtraWeek(weekIndex)}>Remove</button>
                 </div>
                 <div className="schedule-grid">
@@ -1081,8 +1081,12 @@ export default function RequestLeaveReactPage() {
                 </div>
               </div>
             ))}
-            <button type="button" className="rotation-add" onClick={addExtraWeek}><svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M8 3v10M3 8h10" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"/></svg>Add another week</button>
-            <div className="helper" style={{ marginTop: 8 }}>Add a second week if your schedule rotates or varies week-to-week (e.g., compressed schedules, alternating shifts).</div>
+            {formState.extraWeeks.length === 0 && (
+              <>
+                <button type="button" className="rotation-add" onClick={addExtraWeek}><svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M8 3v10M3 8h10" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"/></svg>Add alternate week</button>
+                <div className="helper" style={{ marginTop: 8 }}>Add an alternate week if your schedule rotates or varies week-to-week (e.g., compressed schedules, alternating shifts).</div>
+              </>
+            )}
           </>
         );
       case 'childScenario':
