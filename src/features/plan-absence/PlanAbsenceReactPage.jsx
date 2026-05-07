@@ -751,10 +751,6 @@ export default function PlanAbsenceReactPage() {
                       </div>
                       <p className="dlp-section-sub">Hover over a row to see details. <strong>All dates, durations, and pay figures shown are <em>estimates only</em>.</strong></p>
 
-                      <div className="dlp-tl-months" style={{ paddingLeft: 120, marginBottom: 12 }}>
-                        {estMonths.map((m, i) => <span key={i}>{m}</span>)}
-                      </div>
-
                       <div className="dlp-tl-row" style={{ marginBottom: 8 }}>
                         <div className="dlp-tl-row-label">FMLA</div>
                         <div className="dlp-tl-row-bar">
@@ -778,15 +774,20 @@ export default function PlanAbsenceReactPage() {
                         </div>
                       )}
 
+                      <div className="dlp-tl-weeks" style={{ paddingLeft: 120, marginTop: 8, display: 'flex' }}>
+                        {Array.from({ length: displayWks }, (_, i) => (
+                          <span key={i} style={{ flex: 1, fontSize: 10, color: '#737373', textAlign: 'center' }}>Wk {i + 1}</span>
+                        ))}
+                      </div>
+
+                      <div className="dlp-tl-months" style={{ paddingLeft: 120, marginTop: 4 }}>
+                        {estMonths.map((m, i) => <span key={i}>{m}</span>)}
+                      </div>
+
                       <div className="dlp-legend" style={{ marginTop: 16 }}>
                         <div className="dlp-legend-item"><div className="dlp-legend-dot" style={{ background: '#0033a0' }} />FMLA</div>
                         <div className="dlp-legend-item"><div className="dlp-legend-dot" style={{ background: '#3b82f6' }} />Short-Term Disability</div>
                         {stBenefit && <div className="dlp-legend-item"><div className="dlp-legend-dot" style={{ background: '#0d9488' }} />State Paid Leave</div>}
-                      </div>
-
-                      <div style={{ fontSize: 11, color: '#525252', background: '#f5f5f7', borderRadius: 6, padding: '8px 12px', marginTop: 16, lineHeight: 1.5, display: 'flex', alignItems: 'flex-start', gap: 6 }}>
-                        <svg width="14" height="14" viewBox="0 0 16 16" fill="none" style={{ flexShrink: 0, marginTop: 1 }}><circle cx="8" cy="8" r="7" stroke="#737373" strokeWidth="1.2"/><path d="M8 5v3" stroke="#737373" strokeWidth="1.2" strokeLinecap="round"/><circle cx="8" cy="11" r="0.5" fill="#737373"/></svg>
-                        <span><strong>This is an estimate.</strong> Actual eligibility, coverage dates, and payment amounts will be determined after you submit your request and documentation is reviewed.</span>
                       </div>
                     </div>
 
@@ -1735,11 +1736,6 @@ export default function PlanAbsenceReactPage() {
                       )}
                     </div>
 
-                    {/* Estimate info bar */}
-                    <div style={{ fontSize: 11, color: '#525252', background: '#f5f5f7', borderRadius: 6, padding: '8px 12px', marginTop: 16, lineHeight: 1.5, display: 'flex', alignItems: 'flex-start', gap: 6 }}>
-                      <svg width="14" height="14" viewBox="0 0 16 16" fill="none" style={{ flexShrink: 0, marginTop: 1 }}><circle cx="8" cy="8" r="7" stroke="#737373" strokeWidth="1.2"/><path d="M8 5v3" stroke="#737373" strokeWidth="1.2" strokeLinecap="round"/><circle cx="8" cy="11" r="0.5" fill="#737373"/></svg>
-                      <span><strong>This is an estimate.</strong> Actual eligibility, coverage dates, and payment amounts will be determined after you submit your request and documentation is reviewed.</span>
-                    </div>
                   </div>
 
                   {/* Estimated coverage review — single card */}
