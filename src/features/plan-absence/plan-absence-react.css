@@ -249,44 +249,36 @@
 }
 
 .option-card:hover {
-  border-color: #b0b0ba;
-  background: #fafafc;
+  border-color: #0033a0;
+  background: #f8fafc;
   box-shadow: 0 2px 8px rgba(0,0,0,0.06);
 }
 
 .option-card.selected {
-  border-color: #1a1a2e;
-  background: #f5f5ff;
-  box-shadow: 0 0 0 1px #1a1a2e;
+  border-color: #0033a0;
+  background: #eff6ff;
+  box-shadow: 0 0 0 1px #0033a0;
 }
 
 .option-card-icon {
   width: 44px;
   height: 44px;
   border-radius: 12px;
-  background: #f0f2f5;
+  background: #f1f5f9;
+  color: #374151;
   display: flex;
   align-items: center;
   justify-content: center;
   flex-shrink: 0;
 }
 
-.option-card.selected .option-card-icon { background: #e8e8f4; }
+.option-card.selected .option-card-icon { background: #dbeafe; color: #0033a0; }
 
 .option-radio {
-  position: absolute;
-  top: 16px;
-  left: 16px;
-  width: 18px;
-  height: 18px;
-  border-radius: 50%;
-  border: 2px solid #d0d0d5;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  display: none;
 }
 
-.option-card.selected .option-radio { border-color: #1a1a2e; }
+.option-card.selected .option-radio { border-color: #0033a0; }
 
 .option-radio-dot {
   width: 8px;
