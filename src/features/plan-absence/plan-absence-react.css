@@ -1139,9 +1139,19 @@
 }
 
 @media (max-width: 640px) {
-  /* Page shell — 16px left/right padding, cards fill full width */
+  /* Page shell — fill parent width, no extra horizontal padding.
+     Parent (.cl-main or .plan-absence-shell) provides 16px sides. */
+  .plan-absence-shell {
+    padding-left: 16px;
+    padding-right: 16px;
+    box-sizing: border-box;
+  }
+  .cl-main .plan-absence-shell {
+    padding-left: 0;
+    padding-right: 0;
+  }
   .rlv2-page {
-    padding: 16px;
+    padding: 16px 0;
     max-width: none;
     width: 100%;
     margin: 0;
