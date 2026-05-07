@@ -12,6 +12,7 @@ const claimsData = [
     statusColor: 'blue',
     payment: '—',
     actions: 'View Details',
+    link: 'std-claim-detail',
   },
   {
     date: 'Oct 8, 2024',
@@ -22,6 +23,7 @@ const claimsData = [
     statusColor: 'green',
     payment: '$2,450.00',
     actions: 'View Details',
+    link: 'std-claim-detail',
   },
   {
     date: 'Sep 22, 2024',
@@ -32,6 +34,7 @@ const claimsData = [
     statusColor: 'amber',
     payment: '—',
     actions: 'Upload Documents',
+    link: 'std-claim-detail',
   },
   {
     date: 'Aug 30, 2024',
@@ -178,7 +181,7 @@ export default function ClaimCenterPage() {
                 </td>
                 <td>{row.payment}</td>
                 <td>
-                  <button className="cl-link-btn">{row.actions}</button>
+                  <button className="cl-link-btn" onClick={() => { if (row.link) navigate(`${base}/${row.link}`); }}>{row.actions}</button>
                 </td>
               </tr>
             ))}
@@ -212,7 +215,7 @@ export default function ClaimCenterPage() {
                 <span className="cl-card-mobile-value">{row.payment}</span>
               </div>
             </div>
-            <button className="cl-card-mobile-action">{row.actions}</button>
+            <button className="cl-card-mobile-action" onClick={() => { if (row.link) navigate(`${base}/${row.link}`); }}>{row.actions}</button>
           </div>
         ))}
       </div>
