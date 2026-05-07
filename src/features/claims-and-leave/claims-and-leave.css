@@ -2705,7 +2705,11 @@
 
 /* Quick Actions */
 .cldb-grid-actions .cldb-card-body {
-  padding-bottom: 6px;
+  padding-bottom: 0;
+}
+
+.cldb-grid-actions {
+  align-self: start;
 }
 
 .cldb-quick-actions {
