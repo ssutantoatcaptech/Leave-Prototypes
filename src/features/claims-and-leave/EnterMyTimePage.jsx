@@ -375,8 +375,8 @@ export default function EnterMyTimePage() {
             <div className="cl-ma-form-footer">
               <p className="cl-ma-disclaimer">By submitting, you certify that this absence is related to your approved claim.</p>
               <div className="cl-ma-form-actions">
-                <button className="cl-ma-btn-cancel" type="button" onClick={handleCancel}>Cancel</button>
                 <button className="cl-ma-btn-submit" type="button" onClick={handleSubmit} disabled={parseFloat(hours) <= 0}>Submit Time Entry</button>
+                <button className="cl-ma-btn-cancel" type="button" onClick={handleCancel}>Cancel</button>
               </div>
             </div>
           </div>

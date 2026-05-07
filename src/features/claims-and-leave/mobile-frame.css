@@ -287,8 +287,11 @@
 
 .mobile-frame-screen .cl-ma-form-footer {
   flex-direction: column;
-  gap: 12px;
+  gap: 16px;
   align-items: stretch;
+  margin-top: 20px;
+  padding-top: 16px;
+  border-top: 1px solid #e5e7eb;
 }
 
 .mobile-frame-screen .cl-ma-form-actions {
