@@ -108,6 +108,52 @@ function snapDur(calcWeeks) {
   return opts.reduce((prev, cur) => Math.abs(cur - calcWeeks) < Math.abs(prev - calcWeeks) ? cur : prev);
 }
 
+const STATE_BENEFIT_PROGRAMS = {
+  CA: [
+    { name: 'CA Paid Family Leave', desc: 'Up to 8 weeks at 60-70% pay for family care and bonding.' },
+    { name: 'CA Pregnancy Disability Leave', desc: 'Up to 4 months for pregnancy-related disability at 60-70% pay.' },
+  ],
+  CO: [
+    { name: 'CO FAMLI', desc: 'Up to 12 weeks at ~90% pay for medical, family, and parental leave.' },
+  ],
+  CT: [
+    { name: 'CT Paid Leave', desc: 'Up to 12 weeks at ~95% pay for medical, family, and parental leave.' },
+  ],
+  DE: [
+    { name: 'DE Healthy Delaware Families', desc: 'Up to 12 weeks for parental leave and 6 weeks for medical/caregiver.' },
+  ],
+  DC: [
+    { name: 'DC Paid Family Leave', desc: 'Up to 12 weeks at ~90% pay for parental, family, and medical leave.' },
+  ],
+  HI: [
+    { name: 'HI Temporary Disability Insurance', desc: 'Up to 26 weeks at ~58% pay for own illness or disability.' },
+  ],
+  MA: [
+    { name: 'MA Paid Family & Medical Leave', desc: 'Up to 20 weeks for medical and 12 weeks for family at ~80% pay.' },
+  ],
+  MN: [
+    { name: 'MN Paid Leave', desc: 'Up to 12 weeks at ~90% pay for medical, family, and parental leave.' },
+  ],
+  NJ: [
+    { name: 'NJ Temporary Disability Insurance', desc: 'Up to 26 weeks at ~85% pay for own illness.' },
+    { name: 'NJ Family Leave Insurance', desc: 'Up to 12 weeks at ~85% pay for family care and bonding.' },
+  ],
+  NY: [
+    { name: 'NY Disability Benefits', desc: 'Up to 26 weeks at 50% pay (capped) for own illness.' },
+    { name: 'NY Paid Family Leave', desc: 'Up to 12 weeks at 67% pay for family care and bonding.' },
+  ],
+  OR: [
+    { name: 'OR Paid Leave', desc: 'Up to 12 weeks at ~100% pay for medical, family, and parental leave.' },
+  ],
+  RI: [
+    { name: 'RI Temporary Disability Insurance', desc: 'Up to 30 weeks at ~60% pay for own illness.' },
+    { name: 'RI Temporary Caregiver Insurance', desc: 'Up to 6 weeks at ~60% pay for family care.' },
+  ],
+  WA: [
+    { name: 'WA Paid Family & Medical Leave', desc: 'Up to 12 weeks medical + 12 weeks family at up to 90% pay.' },
+  ],
+};
+
 // ─── Sub-components ───────────────────────────────────────────────────────────
 
 function SiteFooter() {
@@ -844,20 +890,25 @@ export default function PlanAbsenceReactPage() {
                       </div>
                     </div>
 
-                    {stBenefit && (
+                    {STATE_BENEFIT_PROGRAMS[sideWorkState] && (
                       <div style={{ background: '#fff', border: '1px solid #e5e5e5', borderRadius: 10, overflow: 'hidden', marginBottom: 28 }}>
                         <div style={{ padding: '20px 20px 12px' }}>
                           <h3 style={{ fontSize: 16, fontWeight: 700, color: '#0f0f14', margin: 0 }}>Other Benefits You May be Eligible for</h3>
                         </div>
-                        <div style={{ padding: '0 20px 8px' }}>
-                          <div style={{ display: 'flex', alignItems: 'center', gap: 8, fontSize: 13, color: '#525252', marginBottom: 12 }}>
-                            <svg width="14" height="14" viewBox="0 0 16 16" fill="none"><circle cx="8" cy="8" r="7" stroke="#0033a0" strokeWidth="1.3"/><path d="M8 7.5V11" stroke="#0033a0" strokeWidth="1.3" strokeLinecap="round"/><circle cx="8" cy="5.5" r="0.75" fill="#0033a0"/></svg>
+                        <div style={{ padding: '0 20px 16px' }}>
+                          <div style={{ display: 'flex', alignItems: 'center', gap: 8, fontSize: 13, color: '#525252', marginBottom: 16, background: '#f9fafb', border: '1px solid #e8e8ec', borderRadius: 8, padding: '12px 16px' }}>
+                            <svg width="14" height="14" viewBox="0 0 16 16" fill="none" style={{ flexShrink: 0 }}><circle cx="8" cy="8" r="7" stroke="#525252" strokeWidth="1.3"/><path d="M8 7.5V11" stroke="#525252" strokeWidth="1.3" strokeLinecap="round"/><circle cx="8" cy="5.5" r="0.75" fill="#525252"/></svg>
                             You may still need to apply for state benefits on your state site
                           </div>
-                          <div style={{ background: '#f9fafb', border: '1px solid #e8e8ec', borderRadius: 8, padding: '14px 16px', marginBottom: 10 }}>
-                            <div style={{ fontSize: 11, color: '#737373', marginBottom: 4 }}>Benefits you May be Eligible for</div>
-                            <div style={{ fontSize: 14, fontWeight: 700, color: '#0f0f14' }}>{stBenefit.name}</div>
-                          </div>
+                          {STATE_BENEFIT_PROGRAMS[sideWorkState].map((prog, idx) => (
+                            <div key={idx} style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', background: '#f9fafb', border: '1px solid #e8e8ec', borderRadius: 8, padding: '14px 16px', marginBottom: idx < STATE_BENEFIT_PROGRAMS[sideWorkState].length - 1 ? 10 : 0 }}>
+                              <div>
+                                <div style={{ fontSize: 11, color: '#737373', marginBottom: 2 }}>Benefits you May be Eligible for</div>
+                                <div style={{ fontSize: 14, fontWeight: 700, color: '#0f0f14' }}>{prog.name}</div>
+                              </div>
+                              <button type="button" style={{ background: '#fff', border: '1px solid #e5e5e5', borderRadius: 6, padding: '6px 14px', fontSize: 13, fontWeight: 600, color: '#0f0f14', cursor: 'pointer', fontFamily: 'inherit', whiteSpace: 'nowrap' }}>Learn More</button>
+                            </div>
+                          ))}
                         </div>
                       </div>
                     )}
@@ -1778,6 +1829,29 @@ export default function PlanAbsenceReactPage() {
                       <button className="btn btn-next" type="button" onClick={() => setShowTransitionModal(true)} style={{ padding: '12px 36px', fontSize: 14, borderRadius: 8 }}>Start My Leave Request &rarr;</button>
                     </div>
                   </div>
+
+                  {STATE_BENEFIT_PROGRAMS[sideWorkState] && (
+                    <div style={{ marginTop: 28, background: '#fff', border: '1px solid #e5e5e5', borderRadius: 10, overflow: 'hidden' }}>
+                      <div style={{ padding: '20px 20px 12px' }}>
+                        <h3 style={{ fontSize: 16, fontWeight: 700, color: '#0f0f14', margin: 0 }}>Other Benefits You May be Eligible for</h3>
+                      </div>
+                      <div style={{ padding: '0 20px 16px' }}>
+                        <div style={{ display: 'flex', alignItems: 'center', gap: 8, fontSize: 13, color: '#525252', marginBottom: 16, background: '#f9fafb', border: '1px solid #e8e8ec', borderRadius: 8, padding: '12px 16px' }}>
+                          <svg width="14" height="14" viewBox="0 0 16 16" fill="none" style={{ flexShrink: 0 }}><circle cx="8" cy="8" r="7" stroke="#525252" strokeWidth="1.3"/><path d="M8 7.5V11" stroke="#525252" strokeWidth="1.3" strokeLinecap="round"/><circle cx="8" cy="5.5" r="0.75" fill="#525252"/></svg>
+                          You may still need to apply for state benefits on your state site
+                        </div>
+                        {STATE_BENEFIT_PROGRAMS[sideWorkState].map((prog, idx) => (
+                          <div key={idx} style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', background: '#f9fafb', border: '1px solid #e8e8ec', borderRadius: 8, padding: '14px 16px', marginBottom: idx < STATE_BENEFIT_PROGRAMS[sideWorkState].length - 1 ? 10 : 0 }}>
+                            <div>
+                              <div style={{ fontSize: 11, color: '#737373', marginBottom: 2 }}>Benefits you May be Eligible for</div>
+                              <div style={{ fontSize: 14, fontWeight: 700, color: '#0f0f14' }}>{prog.name}</div>
+                            </div>
+                            <button type="button" style={{ background: '#fff', border: '1px solid #e5e5e5', borderRadius: 6, padding: '6px 14px', fontSize: 13, fontWeight: 600, color: '#0f0f14', cursor: 'pointer', fontFamily: 'inherit', whiteSpace: 'nowrap' }}>Learn More</button>
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+                  )}
 
                   <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 16, marginTop: 16 }}>
                     <button className="btn btn-cancel-leave" type="button" onClick={() => setShowCancelModal(true)}>Cancel</button>
