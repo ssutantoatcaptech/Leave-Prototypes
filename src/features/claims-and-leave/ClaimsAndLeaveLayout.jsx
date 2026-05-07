@@ -103,7 +103,7 @@ export default function ClaimsAndLeaveLayout() {
           <div className="cl-header-right">
             <button className="cl-header-action">ID Cards</button>
             <button className="cl-header-action">Messages</button>
-            <button className="cl-header-icon-btn" aria-label="ID Cards">
+            <button className="cl-header-icon-btn cl-header-icon-btn--mobile-only" aria-label="ID Cards">
               <svg width="26" height="20" viewBox="0 0 26 20" fill="none">
                 <rect x="1" y="1" width="24" height="18" rx="2" stroke="currentColor" strokeWidth="1.5"/>
                 <circle cx="10" cy="9" r="2.5" stroke="currentColor" strokeWidth="1.2"/>

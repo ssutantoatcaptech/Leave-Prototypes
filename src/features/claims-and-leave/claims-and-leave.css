@@ -177,6 +177,10 @@
   background: #f3f4f6;
 }
 
+.cl-header-icon-btn--mobile-only {
+  display: none;
+}
+
 .cl-header-bell {
   position: relative;
 }
@@ -1338,6 +1342,10 @@
   .cl-header-right .cl-avatar-name,
   .cl-header-action {
     display: none;
+  }
+
+  .cl-header-icon-btn--mobile-only {
+    display: flex;
   }
 
   .cl-main-nav {
