@@ -94,7 +94,7 @@ export default function MyCasesPage() {
           <p className="cl-page-desc">Manage your active, saved, and historical leave and claim cases.</p>
         </div>
         <div className="cl-page-actions">
-          <button className="cl-btn cl-btn--dark">+ Request New Leave/Claim</button>
+          <button className="cl-btn cl-btn--dark" onClick={function () { navigate(base + '/file-claim'); }}>+ Request New Leave/Claim</button>
         </div>
       </div>
 
