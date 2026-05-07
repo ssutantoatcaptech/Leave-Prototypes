@@ -1036,7 +1036,6 @@ export default function RequestLeaveReactPage() {
         return (
           <>
             <h2>Tell us about your typical work schedule</h2>
-            <p className="subtitle">This should reflect your usual work schedule before your absence.</p>
             <div className="bordered-section">
               <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 4 }}>
                 <div className="section-title" style={{ display: 'flex', alignItems: 'center', gap: 8, marginBottom: 0 }}>
