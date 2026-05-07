@@ -628,27 +628,31 @@ export default function PlanAbsenceReactPage() {
                 Why are you taking leave?{' '}
                 <span className="wiz-tooltip-wrap">
                   <svg className="wiz-tooltip-icon" width="16" height="16" viewBox="0 0 16 16" fill="none"><circle cx="8" cy="8" r="7" stroke="#737373" strokeWidth="1.3"/><path d="M8 7.5V11" stroke="#737373" strokeWidth="1.3" strokeLinecap="round"/><circle cx="8" cy="5.5" r="0.75" fill="#737373"/></svg>
-                  <span className="wiz-tooltip-text">Select the primary reason for your leave.</span>
+                  <span className="wiz-tooltip-text">Select the primary reason for your leave. Don&rsquo;t worry if you&rsquo;re not sure about the details yet &mdash; we&rsquo;ll walk through everything together.</span>
                 </span>
               </h2>
-              <div className="option-cards" style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 12 }}>
+              <div className="option-cards">
                 {REASON_OPTIONS.map((opt) => (
                   <div
                     key={opt.value}
                     className={`option-card has-tooltip${reason === opt.value ? ' selected' : ''}`}
                     onClick={() => setReason(opt.value)}
-                    style={{ textAlign: 'center', padding: '20px 12px', display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 10 }}
                   >
                     <div className="option-radio"><div className="option-radio-dot" /></div>
                     <div className="option-card-icon">{opt.icon}</div>
-                    <div className="option-text"><h4 style={{ fontSize: 13, fontWeight: 600 }}>{opt.title}</h4></div>
+                    <div className="option-text"><h4>{opt.title}</h4></div>
+                    <span className={`oc-tooltip${opt.tooltipRight ? ' oc-tooltip-right' : ''}`}>{opt.tooltip}</span>
                   </div>
                 ))}
               </div>
-              <div className="sim-btn-row" style={{ justifyContent: 'flex-end' }}>
+              <div style={{ fontSize: 13, color: '#737373', marginBottom: 16, lineHeight: 1.5 }}>
+                This helps us identify which benefits and protections may apply to you.
+              </div>
+              <div className="sim-btn-row">
+                <button className="sim-btn-back" type="button" onClick={goIllnessBack}>&larr; Back</button>
                 <div style={{ display: 'flex', gap: 12 }}>
-                  <button className="sim-btn-back" type="button" onClick={goIllnessBack}>Back</button>
-                  <button className="sim-btn-primary" type="button" onClick={goIllnessNext}>Next</button>
+                  <button className="btn btn-cancel-leave" type="button" onClick={() => setShowCancelModal(true)}>Cancel</button>
+                  <button className="sim-btn-primary" type="button" onClick={goIllnessNext}>Continue &#8594;</button>
                 </div>
               </div>
             </div>
@@ -671,6 +675,20 @@ export default function PlanAbsenceReactPage() {
                   <label>Hired Date <span style={{ color: '#dc2626' }}>*</span></label>
                   <input type="date" value={hireDate} onChange={(e) => setHireDate(e.target.value)} />
                 </div>
+                <div className="sim-field">
+                  <label>Average hours worked per week <span style={{ color: '#dc2626' }}>*</span></label>
+                  <select value={avgHours} onChange={(e) => setAvgHours(e.target.value)}>
+                    <option value="40">40 hours (full-time)</option>
+                    <option value="35">35 hours</option>
+                    <option value="30">30 hours</option>
+                    <option value="24">24 hours</option>
+                    <option value="20">20 hours</option>
+                  </select>
+                </div>
+                <div className="sim-field">
+                  <label>Anticipated Start Date <span style={{ color: '#dc2626' }}>*</span></label>
+                  <input type="date" value={leaveStart} onChange={(e) => setLeaveStart(e.target.value)} />
+                </div>
               </div>
 
               <div style={{ borderTop: '1px solid #e8e8ec', paddingTop: 20 }}>
@@ -688,9 +706,15 @@ export default function PlanAbsenceReactPage() {
                   ))}
                 </div>
                 <p style={{ fontSize: 13, color: '#525252', margin: '12px 0 16px' }}>{leaveType === 'continuous' ? "You'll be fully away from work for the duration of your leave." : leaveType === 'intermittent' ? "You'll take time off periodically — for flare-ups, treatments, or appointments." : "You'll continue working but with fewer hours per day or days per week."}</p>
-                <div className="pa-grid">
-                  <div className="sim-field"><label>Anticipated Start Date <span style={{ color: '#dc2626' }}>*</span></label><input type="date" value={leaveStart} onChange={(e) => setLeaveStart(e.target.value)} /></div>
-                  <div className="sim-field"><label>Expected End Date</label><input type="date" value={leaveReturn} onChange={(e) => setLeaveReturn(e.target.value)} /></div>
+                {leaveType === 'reduced' && (
+                  <div className="sim-field" style={{ marginBottom: 16 }}>
+                    <label>Hours per week you plan to work <span style={{ color: '#dc2626' }}>*</span></label>
+                    <input type="number" placeholder="e.g. 20" value={reducedProposedHrs} onChange={(e) => setReducedProposedHrs(e.target.value)} />
+                  </div>
+                )}
+                <div className="sim-field">
+                  <label>Expected End Date</label>
+                  <input type="date" value={leaveReturn} onChange={(e) => setLeaveReturn(e.target.value)} />
                 </div>
               </div>
 
@@ -857,6 +881,7 @@ export default function PlanAbsenceReactPage() {
 
                     <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 16, marginTop: 16 }}>
                       <button type="button" onClick={goIllnessBack} style={{ background: 'none', border: 'none', fontSize: 13, fontWeight: 600, color: '#525252', cursor: 'pointer', fontFamily: 'inherit' }}>&larr; Back</button>
+                      <button className="btn btn-cancel-leave" type="button" onClick={() => setShowCancelModal(true)}>Cancel</button>
                       <button type="button" style={{ display: 'inline-flex', alignItems: 'center', gap: 5, background: 'none', border: 'none', fontSize: 13, fontWeight: 600, color: '#525252', cursor: 'pointer', fontFamily: 'inherit' }}>
                         <svg width="13" height="13" viewBox="0 0 16 16" fill="none"><path d="M2 3h12v10H2V3z" stroke="currentColor" strokeWidth="1.3" strokeLinecap="round" strokeLinejoin="round"/><path d="M2 3l6 5 6-5" stroke="currentColor" strokeWidth="1.3" strokeLinecap="round" strokeLinejoin="round"/></svg>
                         Email Plan
@@ -1572,9 +1597,15 @@ export default function PlanAbsenceReactPage() {
                   ))}
                 </div>
                 <p style={{ fontSize: 13, color: '#525252', margin: '12px 0 16px' }}>{leaveType === 'continuous' ? "You'll be fully away from work for the duration of your leave." : leaveType === 'intermittent' ? "You'll take time off periodically — for flare-ups, treatments, or appointments." : "You'll continue working but with fewer hours per day or days per week."}</p>
-                <div className="pa-grid">
-                  <div className="sim-field"><label>Anticipated Start Date <span style={{ color: '#dc2626' }}>*</span></label><input type="date" value={leaveStart} onChange={(e) => setLeaveStart(e.target.value)} /></div>
-                  <div className="sim-field"><label>Expected End Date</label><input type="date" value={leaveReturn} onChange={(e) => setLeaveReturn(e.target.value)} /></div>
+                {leaveType === 'reduced' && (
+                  <div className="sim-field" style={{ marginBottom: 16 }}>
+                    <label>Hours per week you plan to work <span style={{ color: '#dc2626' }}>*</span></label>
+                    <input type="number" placeholder="e.g. 20" value={reducedProposedHrs} onChange={(e) => setReducedProposedHrs(e.target.value)} />
+                  </div>
+                )}
+                <div className="sim-field">
+                  <label>Expected End Date</label>
+                  <input type="date" value={leaveReturn} onChange={(e) => setLeaveReturn(e.target.value)} />
                 </div>
               </div>
               <div className="sim-btn-row">
@@ -1783,6 +1814,7 @@ export default function PlanAbsenceReactPage() {
 
                   <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 16, marginTop: 16 }}>
                     <button type="button" onClick={goBack} style={{ background: 'none', border: 'none', fontSize: 13, fontWeight: 600, color: '#525252', cursor: 'pointer', fontFamily: 'inherit' }}>&larr; Back</button>
+                    <button className="btn btn-cancel-leave" type="button" onClick={() => setShowCancelModal(true)}>Cancel</button>
                     <button type="button" style={{ display: 'inline-flex', alignItems: 'center', gap: 5, background: 'none', border: 'none', fontSize: 13, fontWeight: 600, color: '#525252', cursor: 'pointer', fontFamily: 'inherit' }}>
                       <svg width="13" height="13" viewBox="0 0 16 16" fill="none"><path d="M2 3h12v10H2V3z" stroke="currentColor" strokeWidth="1.3" strokeLinecap="round" strokeLinejoin="round"/><path d="M2 3l6 5 6-5" stroke="currentColor" strokeWidth="1.3" strokeLinecap="round" strokeLinejoin="round"/></svg>
                       Email Plan
