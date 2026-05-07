@@ -1139,14 +1139,15 @@
 }
 
 @media (max-width: 640px) {
-  /* Page shell */
+  /* Page shell — 16px left/right padding, cards fill full width */
   .rlv2-page {
     padding: 16px;
-    max-width: 100%;
+    max-width: none;
     width: 100%;
+    margin: 0;
     box-sizing: border-box;
   }
-  .rlv2-page-wide { width: 100%; }
+  .rlv2-page-wide { width: 100%; max-width: none; }
 
   /* Welcome screen */
   .pa-welcome {

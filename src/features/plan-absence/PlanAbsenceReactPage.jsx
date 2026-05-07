@@ -1,4 +1,4 @@
-import { useMemo, useState, useRef } from 'react';
+import { useEffect, useMemo, useState, useRef } from 'react';
 import { Link, useSearchParams, useNavigate } from 'react-router-dom';
 import '../overview/overview-react.css';
 import '../request-leave/request-leave-react.css';
@@ -363,6 +363,10 @@ export default function PlanAbsenceReactPage() {
   const navigate = useNavigate();
 
   const timelineRef = useRef(null);
+
+  useEffect(() => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }, [step, illnessStep, illnessIntakeStep]);
 
   // ─── Derived ──────────────────────────────────────────────────────────────
 
