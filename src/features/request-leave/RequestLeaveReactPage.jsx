@@ -296,9 +296,9 @@ export default function RequestLeaveReactPage() {
       s.push({ id: 'leaveStructure', label: 'Structure', title: 'How would you like to structure your leave?' });
       s.push({ id: 'missedTime', label: 'Missed Time', title: 'Did you miss any work time before starting this leave?' });
       s.push({ id: 'leaveDetails', label: 'Schedule', title: 'Tell us about your typical work schedule' });
-      s.push({ id: 'familyMember', label: 'Family', title: 'Tell us about the person you\u2019re caring for' });
-      s.push({ id: 'familyCondition', label: 'Condition', title: 'About the patient\u2019s condition' });
-      s.push({ id: 'providerDetails', label: 'Provider', title: 'The Patient\u2019s Provider Details' });
+      s.push({ id: 'familyMember', label: 'Family', title: "Tell us about the person you're caring for" });
+      s.push({ id: 'familyCondition', label: 'Condition', title: "About the patient's condition" });
+      s.push({ id: 'providerDetails', label: 'Provider', title: "The Patient's Provider Details" });
       s.push({ id: 'medicalCertConsent', label: 'Consent', title: 'Medical Certification Consent' });
     } else if (nonbirth) {
       s.push({ id: 'childScenario', label: 'Child', title: 'How are you welcoming your child?' });
@@ -711,8 +711,8 @@ export default function RequestLeaveReactPage() {
         const reasonDescriptions = {
           medical_self: 'You need time off for surgery, illness, injury, or recovery.',
           medical_family: 'Someone close to you needs your care due to a serious health condition.',
-          child_nonbirth: 'You\u2019re welcoming a child through adoption, foster care, or as a non-birthing parent.',
-          child: 'You\u2019re having a baby or need time for pregnancy and bonding.',
+          child_nonbirth: "You're welcoming a child through adoption, foster care, or as a non-birthing parent.",
+          child: "You're having a baby or need time for pregnancy and bonding.",
           military: 'You need time off for qualifying military exigency or to care for a service member.',
           other: "Your reason doesn't fit the categories above.",
         };
@@ -720,7 +720,7 @@ export default function RequestLeaveReactPage() {
           <>
             <h2 style={{ marginBottom: 20 }}>Why are you taking leave?</h2>
             <div className="option-cards">
-              {renderOptionCard('leaveScenario', 'medical_self', 'Employee\u2019s Own Illness or Injury', '', true)}
+              {renderOptionCard('leaveScenario', 'medical_self', "Employee's Own Illness or Injury", '', true)}
               {renderOptionCard('leaveScenario', 'medical_family', 'Care for Sick Family Member with Health Condition', '', true)}
               {renderOptionCard('leaveScenario', 'child_nonbirth', 'Non-Birthing Parent, Adoption, or Foster Care Placement (Bonding)', '', true, 'right')}
               {renderOptionCard('leaveScenario', 'child', 'Birthing Parent, Pregnancy, or Bonding', '', true)}
@@ -749,7 +749,7 @@ export default function RequestLeaveReactPage() {
               ))}
             </div>
             <div className="lt-context">
-              <p className="lt-context-desc">{formState.leaveType === 'continuous' ? "You\u2019ll be fully away from work for the duration of your absence." : formState.leaveType === 'intermittent' ? "Your schedule will vary, as you need time off for flare-ups, treatment, or appointments." : "Reduced Schedule is typically a set or consistent schedule adjustment per day, per week."}</p>
+              <p className="lt-context-desc">{formState.leaveType === 'continuous' ? "You'll be fully away from work for the duration of your absence." : formState.leaveType === 'intermittent' ? "Your schedule will vary, as you need time off for flare-ups, treatment, or appointments." : "Reduced Schedule is typically a set or consistent schedule adjustment per day, per week."}</p>
               <div className="bordered-section">
                 {formState.leaveType === 'continuous' ? (
                   <>
@@ -827,7 +827,7 @@ export default function RequestLeaveReactPage() {
         if (formState.leaveScenario === 'medical_family') {
           return (
             <>
-              <h2>Tell us about the person you\u2019re caring for</h2>
+              <h2>Tell us about the person you're caring for</h2>
               <p className="subtitle">We need a few details about your family member to determine your coverage.</p>
               <div className="bordered-section">
                 <div className="form-row cols-2">
@@ -878,7 +878,7 @@ export default function RequestLeaveReactPage() {
         return (
           <>
             <h2>Who is your healthcare provider?</h2>
-            <p className="subtitle">We\u2019ll need to send them a form to certify your leave.</p>
+            <p className="subtitle">We'll need to send them a form to certify your leave.</p>
             <div className="bordered-section">
               <div className="form-group"><label>Facility / Practice Name</label><input type="text" value={formState.providerFacility} onChange={(event) => updateField('providerFacility', event.target.value)}/></div>
               <div className="provider-name-row">
@@ -902,7 +902,7 @@ export default function RequestLeaveReactPage() {
                 <div className={`checkbox-box ${formState.authorizeMedCert ? 'checked' : ''}`}><span className="check-icon">✓</span></div>
                 <div>
                   <div className="checkbox-text">I authorize sending medical certification to my provider</div>
-                  <div className="checkbox-desc">We\u2019ll send your provider a form to complete to support your leave request.</div>
+                  <div className="checkbox-desc">We'll send your provider a form to complete to support your leave request.</div>
                 </div>
               </div>
             </div>
@@ -1024,7 +1024,7 @@ export default function RequestLeaveReactPage() {
                     <div className={`checkbox-box ${formState.authorizeMedCert ? 'checked' : ''}`}><span className="check-icon">✓</span></div>
                     <div>
                       <div className="checkbox-text">I authorize sending medical certification to my provider</div>
-                      <div className="checkbox-desc">We\u2019ll send your provider a form to complete to support your leave request.</div>
+                      <div className="checkbox-desc">We'll send your provider a form to complete to support your leave request.</div>
                     </div>
                   </div>
                 </div>
@@ -1165,8 +1165,8 @@ export default function RequestLeaveReactPage() {
             <p className="subtitle">Bonding time is time set aside for you to be with your new child. You don't have to decide everything now.</p>
             <div className="option-cards">
               {renderOptionCard('bondingIntent', 'immediate', 'Right away', 'I want to go straight from recovery into bonding time.')}
-              {renderOptionCard('bondingIntent', 'later', 'I\u2019ll come back first', 'I\u2019d like to return to work and take bonding time later.')}
-              {renderOptionCard('bondingIntent', 'unsure', 'Not sure yet', 'I\u2019ll figure it out later — that\u2019s totally fine.')}
+              {renderOptionCard('bondingIntent', 'later', "I'll come back first", "I'd like to return to work and take bonding time later.")}
+              {renderOptionCard('bondingIntent', 'unsure', 'Not sure yet', "I'll figure it out later — that's totally fine.")}
             </div>
           </>
         );
@@ -1174,7 +1174,7 @@ export default function RequestLeaveReactPage() {
         return (
           <>
             <h2>How should we reach you?</h2>
-            <p className="subtitle">Please review and update anything that\u2019s changed, including an email address you\u2019ll have access to during the leave (such as a personal email).</p>
+            <p className="subtitle">Please review and update anything that's changed, including an email address you'll have access to during the leave (such as a personal email).</p>
             <div className="bordered-section">
               <div className="form-row cols-2">
                 <div className="form-group"><label>Email Address <span className="req">*</span></label><input type="email" value={formState.email} onChange={(event) => updateField('email', event.target.value)}/></div>
@@ -1522,7 +1522,7 @@ export default function RequestLeaveReactPage() {
                   <h3>What happens next</h3>
                   {[
                     { icon: <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M9 12l2 2 4-4" stroke="#16a34a" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/><circle cx="12" cy="12" r="10" stroke="#16a34a" strokeWidth="1.5"/></svg>, text: 'Your manager will be notified of your upcoming absence' },
-                    { icon: <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="10" stroke="#6366f1" strokeWidth="1.5"/><path d="M12 7v5l3 2" stroke="#6366f1" strokeWidth="1.5" strokeLinecap="round"/></svg>, text: "We\u2019re reviewing your eligibility \u2014 we\u2019ll update you within 1\u20132 business days" },
+                    { icon: <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="10" stroke="#6366f1" strokeWidth="1.5"/><path d="M12 7v5l3 2" stroke="#6366f1" strokeWidth="1.5" strokeLinecap="round"/></svg>, text: "We're reviewing your eligibility \u2014 we'll update you within 1\u20132 business days" },
                     { icon: <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z" stroke="#f59e0b" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/><path d="M14 2v6h6" stroke="#f59e0b" strokeWidth="1.5"/></svg>, text: 'You may be asked to upload supporting documents (medical certification, etc.)' },
                     { icon: <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><rect x="3" y="4" width="18" height="17" rx="2" stroke="#3b82f6" strokeWidth="1.5"/><path d="M3 9h18" stroke="#3b82f6" strokeWidth="1.5"/></svg>, text: 'Track your absence status anytime from the overview' },
                   ].map((item) => (
