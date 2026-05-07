@@ -363,7 +363,7 @@ export default function PaymentsPage() {
           <div className="cl-info-card-icon">
             <svg width="20" height="20" viewBox="0 0 20 20" fill="none"><circle cx="10" cy="10" r="8" stroke="currentColor" strokeWidth="1.4"/><path d="M10 6v4l2.5 1.5" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round"/></svg>
           </div>
-          <h3 className="cl-info-card-title">Payment Schedule</h3>
+          <h3 className="cl-info-card-title">Manage Direct Deposit</h3>
           <p className="cl-info-card-text">Payments are processed bi-weekly on alternating Mondays. Your next payment is estimated based on your current claim schedule.</p>
           <button className="cl-info-card-btn">View Payment Calendar</button>
         </div>
