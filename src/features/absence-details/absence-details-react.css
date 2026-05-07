@@ -986,8 +986,8 @@
 
 .ad-upload-dropzone { border: 2px dashed #d0d0d5; border-radius: 10px; padding: 28px 16px; text-align: center; background: #fafbfc; display: flex; flex-direction: column; align-items: center; gap: 8px; font-size: 13px; color: #737373; }
 .ad-upload-dropzone { min-height: 164px; justify-content: center; }
-.dt-upload-btn { padding: 8px 20px; border-radius: 6px; background: #111118; color: #fff; border: none; font-size: 13px; font-weight: 600; cursor: pointer; font-family: inherit; }
-.dt-upload-btn:hover { background: #2a2a3a; }
+.dt-upload-btn { padding: 8px 20px; border-radius: 6px; background: #0033a0; color: #fff; border: none; font-size: 13px; font-weight: 600; cursor: pointer; font-family: inherit; }
+.dt-upload-btn:hover { background: #002878; }
 
 .ad-table { width: 100%; border-collapse: collapse; }
 .ad-table th { text-align: left; font-size: 11px; font-weight: 700; color: #737373; text-transform: uppercase; letter-spacing: 0.4px; padding: 0 0 12px; border-bottom: 1px solid #e5e5e5; }
@@ -1965,8 +1965,8 @@
 .ah-row:hover .ah-edit-btn { opacity: 1; color: #0f0f14; border-color: #0f0f14; }
 
 .ah-table-footer { padding: 14px 20px; border-top: 1px solid #f0f0f2; }
-.ah-log-btn { display: inline-flex; align-items: center; gap: 6px; padding: 10px 20px; background: #111118; color: #fff; border: none; border-radius: 8px; font-size: 14px; font-weight: 600; font-family: inherit; cursor: pointer; transition: background 0.15s; }
-.ah-log-btn:hover { background: #2d2d35; }
+.ah-log-btn { display: inline-flex; align-items: center; gap: 6px; padding: 10px 20px; background: #0033a0; color: #fff; border: none; border-radius: 8px; font-size: 14px; font-weight: 600; font-family: inherit; cursor: pointer; transition: background 0.15s; }
+.ah-log-btn:hover { background: #002878; }
 
 /* Calendar */
 .ah-cal-header { display: flex; justify-content: space-between; align-items: center; padding: 14px 16px 10px; }

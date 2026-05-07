@@ -60,7 +60,7 @@
 }
 .nav-mobile-avatar {
   border-radius: 999px;
-  background: #111118;
+  background: #0033a0;
   color: #fff;
   font-weight: 700;
   font-size: 16px;
@@ -275,7 +275,7 @@
 .ov-action-card:hover { border-color: #b0b0ba; box-shadow: 0 2px 8px rgba(0,0,0,0.06); }
 .ov-action-card:first-child { box-shadow: 0 1px 2px rgba(0,0,0,0.05); }
 .ov-action-icon { width: 40px; height: 40px; border-radius: 8px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
-.ov-action-icon.dark { background: #111118; }
+.ov-action-icon.dark { background: #0033a0; }
 .ov-action-icon.light { background: #f0f0f2; }
 .ov-action-card h3 { font-size: 15px; font-weight: 600; color: #0f0f14; margin: 0; }
 .ov-action-card p { font-size: 13px; color: #525252; line-height: 1.4; margin: 2px 0 0; }
