@@ -4,8 +4,8 @@ import useBasePath from './useBasePath';
 
 const paymentsData = [
   {
-    date: 'Oct 14, 2024',
-    claim: 'CLM-2024-08832',
+    date: 'Apr 14, 2026',
+    claim: 'CLM-2026-08832',
     caseRef: 'NTN-9312-GDC-81',
     type: 'Short-Term Disability',
     net: '$2,450.00',
@@ -24,8 +24,8 @@ const paymentsData = [
     deposit: 'Direct Deposit — Chase ****4521',
   },
   {
-    date: 'Sep 30, 2024',
-    claim: 'CLM-2024-08832',
+    date: 'Mar 31, 2026',
+    claim: 'CLM-2026-08832',
     caseRef: 'NTN-9312-GDC-81',
     type: 'Short-Term Disability',
     net: '$2,450.00',
@@ -44,8 +44,8 @@ const paymentsData = [
     deposit: 'Direct Deposit — Chase ****4521',
   },
   {
-    date: 'Sep 16, 2024',
-    claim: 'CLM-2024-08832',
+    date: 'Mar 17, 2026',
+    claim: 'CLM-2026-08832',
     caseRef: 'NTN-9312-GDC-81',
     type: 'Short-Term Disability',
     net: '$2,450.00',
@@ -64,8 +64,8 @@ const paymentsData = [
     deposit: 'Direct Deposit — Chase ****4521',
   },
   {
-    date: 'Sep 2, 2024',
-    claim: 'CLM-2024-08510',
+    date: 'Mar 3, 2026',
+    claim: 'CLM-2026-08510',
     caseRef: 'NTN-4501-GDC-10',
     type: 'Short-Term Disability',
     net: '$2,150.00',
@@ -84,8 +84,8 @@ const paymentsData = [
     deposit: 'Direct Deposit — Chase ****4521',
   },
   {
-    date: 'Aug 19, 2024',
-    claim: 'CLM-2024-07994',
+    date: 'Feb 17, 2026',
+    claim: 'CLM-2026-07994',
     caseRef: 'NTN-5220-FLI-31',
     type: 'AD&D Benefit',
     net: '$15,000.00',
@@ -118,7 +118,7 @@ export default function PaymentsPage() {
       if (typeFilter !== 'All' && row.type !== typeFilter) return false;
       if (dateFilter !== 'All') {
         const d = new Date(row.date);
-        const now = new Date('2024-10-20');
+        const now = new Date('2026-05-07');
         const diff = (now - d) / (1000 * 60 * 60 * 24);
         if (dateFilter === 'Last 30 Days' && diff > 30) return false;
         if (dateFilter === 'Last 90 Days' && diff > 90) return false;
@@ -148,7 +148,7 @@ export default function PaymentsPage() {
           </div>
           <div className="cl-payment-badge">
             <span className="cl-payment-badge-label">Next Payment</span>
-            <span className="cl-payment-badge-value">Oct 28, 2024</span>
+            <span className="cl-payment-badge-value">May 12, 2026</span>
           </div>
         </div>
       </div>
