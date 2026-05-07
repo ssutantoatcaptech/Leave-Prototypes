@@ -2605,26 +2605,29 @@
 .cldb-quick-actions {
   display: flex;
   flex-direction: column;
-  gap: 8px;
 }
 
 .cldb-action-row {
   display: flex;
   align-items: center;
   gap: 12px;
-  padding: 13px 17px;
-  border: 1px solid #e2e8f0;
-  border-radius: 8px;
+  padding: 13px 0;
+  border: none;
+  border-bottom: 1px solid #e2e8f0;
+  border-radius: 0;
   background: none;
   cursor: pointer;
   width: 100%;
   text-align: left;
   font-family: inherit;
-  transition: border-color 0.15s;
+  transition: background 0.15s;
+}
+
+.cldb-action-row:last-child {
+  border-bottom: none;
 }
 
 .cldb-action-row:hover {
-  border-color: #cbd5e1;
   background: #f8fafc;
 }
 
