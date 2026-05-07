@@ -59,6 +59,20 @@
   background: #ffffff;
 }
 
+/* Native mobile: use fixed since page scrolls via document */
+.mobile-frame-native .cl-header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 100;
+  background: #ffffff;
+}
+
+.mobile-frame-native .cl-layout {
+  padding-top: 56px;
+}
+
 .mobile-frame-screen .cl-main-nav {
   display: none;
 }
