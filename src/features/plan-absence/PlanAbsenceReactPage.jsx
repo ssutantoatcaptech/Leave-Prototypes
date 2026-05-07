@@ -620,13 +620,6 @@ export default function PlanAbsenceReactPage() {
       {/* ═══ ILLNESS-SPECIFIC FLOW — Planning Phase (steps 1-3) ═══ */}
       {started && reason === 'illness' && illnessStep >= 1 && illnessStep <= illnessTotalSteps && illnessIntakeStep === 0 && !showIllnessConfirmation && (
         <div className={`rlv2-page${illnessStep === 3 ? ' rlv2-page-wide' : ''}`}>
-          {/* Stepper */}
-          <div className="sim-stepper">
-            <div className="stepper">
-              <div className="stepper-counter">Step <strong>{illnessStep}</strong> of <strong>{illnessTotalSteps}</strong></div>
-              <div className="stepper-title">{ILLNESS_STEP_LABELS[illnessStep - 1]}</div>
-            </div>
-          </div>
 
           {/* ─── Illness Step 1: Reason ─── */}
           {illnessStep === 1 && (
@@ -1460,15 +1453,6 @@ export default function PlanAbsenceReactPage() {
       {/* ═══ NON-ILLNESS WIZARD STEPS (original flow) ═══ */}
       {started && reason !== 'illness' && (
         <div className={`rlv2-page${step === 3 ? ' rlv2-page-wide' : ''}`}>
-          {/* Stepper — only for plan steps 1-3 */}
-          {step <= 3 && (
-            <div className="sim-stepper">
-              <div className="stepper">
-                <div className="stepper-counter">Step <strong>{step}</strong> of <strong>3</strong></div>
-                <div className="stepper-title">{STEP_LABELS[step - 1]}</div>
-              </div>
-            </div>
-          )}
 
           {/* ─── Step 1: Reason ─── */}
           {step === 1 && (
