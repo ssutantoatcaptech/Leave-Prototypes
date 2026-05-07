@@ -407,6 +407,7 @@
   height: 44px;
   border-radius: 12px;
   background: #f1f5f9;
+  color: #374151;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -415,6 +416,7 @@
 
 .option-card.selected .option-card-icon {
   background: #dbeafe;
+  color: #0033a0;
 }
 
 .option-card.selected .option-text h4 {
