@@ -1139,7 +1139,7 @@
 }
 
 @media (max-width: 640px) {
-  .rlv2-page { padding: 24px 16px; }
+  .rlv2-page { padding: 24px 16px; max-width: calc(100% - 32px); }
   .option-cards { grid-template-columns: 1fr; }
   .option-card {
     min-height: auto;
@@ -1149,7 +1149,34 @@
   }
   .pa-grid { grid-template-columns: 1fr; }
   .pa-span-2 { grid-column: auto; }
-  .sim-card { padding: 24px 20px; }
+  .sim-card { padding: 24px 16px; }
+
+  .rq-week-card {
+    padding: 16px 12px;
+  }
+  .rq-days-grid {
+    grid-template-columns: repeat(7, 1fr);
+    gap: 4px;
+  }
+  .rq-day-label {
+    font-size: 9px;
+    letter-spacing: 0;
+    margin-bottom: 4px;
+  }
+  .rq-day-input {
+    padding: 8px 2px;
+    font-size: 14px;
+    border-radius: 6px;
+  }
+  .rq-day-unit {
+    font-size: 9px;
+  }
+  .rq-week-title {
+    font-size: 14px;
+  }
+  .rq-week-total {
+    font-size: 12px;
+  }
 }
 
 /* ═══════════════════════════════════════════════════════════════════════════════
@@ -1675,6 +1702,15 @@
   border-color: #105fa8;
   outline: none;
   box-shadow: 0 0 0 2px rgba(16,95,168,0.15);
+}
+
+.rq-day-input::-webkit-inner-spin-button,
+.rq-day-input::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+.rq-day-input {
+  -moz-appearance: textfield;
 }
 
 .rq-day-unit {
