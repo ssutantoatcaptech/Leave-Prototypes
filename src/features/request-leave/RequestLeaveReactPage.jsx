@@ -1150,7 +1150,6 @@ export default function RequestLeaveReactPage() {
                 <button type="button" className={`yesno-btn ${formState.primaryCaregiver === 'unsure' ? 'selected' : ''}`} onClick={() => updateField('primaryCaregiver', 'unsure')}>Not sure yet</button>
               </div>
             </div>
-            {!isBirthingParent && renderTimeline()}
           </>
         );
       case 'bondingIntent':
