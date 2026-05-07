@@ -177,9 +177,6 @@
   background: #f3f4f6;
 }
 
-.cl-header-icon-btn--mobile-only {
-  display: flex;
-}
 
 .cl-header-bell {
   position: relative;
@@ -1339,13 +1336,8 @@
     padding: 0 16px;
   }
 
-  .cl-header-right .cl-avatar-name,
-  .cl-header-action {
+  .cl-header-right .cl-avatar-name {
     display: none;
-  }
-
-  .cl-header-icon-btn--mobile-only {
-    display: flex;
   }
 
   .cl-main-nav {
