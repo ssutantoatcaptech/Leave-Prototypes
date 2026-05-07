@@ -798,6 +798,18 @@ export default function PlanAbsenceReactPage() {
                     <div style={{ background: '#fff', border: '1px solid #e8e8ec', borderRadius: 12, padding: 24, marginBottom: 28 }}>
                       <div className="dlp-section-head" style={{ marginBottom: 6 }}>
                         <h3 style={{ margin: 0, fontSize: 16, fontWeight: 700 }}>Leave Timeline <span style={{ fontSize: 12, fontWeight: 600, color: '#525252', background: '#f0f0f2', padding: '2px 8px', borderRadius: 4, marginLeft: 8, verticalAlign: 'middle' }}>ESTIMATE</span></h3>
+                        <div className="dlp-view-tabs">
+                          {['pay', 'coverage'].map((v) => (
+                            <button
+                              key={v}
+                              className={`dlp-view-tab${activeView === v ? ' active' : ''}`}
+                              type="button"
+                              onClick={() => setActiveView(v)}
+                            >
+                              {v.charAt(0).toUpperCase() + v.slice(1)}
+                            </button>
+                          ))}
+                        </div>
                       </div>
 
                       <div className="dlp-tl-row" style={{ marginBottom: 8 }}>
@@ -1832,9 +1844,6 @@ export default function PlanAbsenceReactPage() {
                       </div>
                     )}
 
-                    <div style={{ padding: '20px', borderTop: '1px solid #e5e5e5', textAlign: 'center' }}>
-                      <button className="btn btn-next" type="button" onClick={() => setShowTransitionModal(true)} style={{ padding: '12px 36px', fontSize: 14, borderRadius: 8 }}>Start My Leave Request &rarr;</button>
-                    </div>
                   </div>
 
                   {STATE_BENEFIT_PROGRAMS[sideWorkState] && (
@@ -1859,6 +1868,10 @@ export default function PlanAbsenceReactPage() {
                       </div>
                     </div>
                   )}
+
+                  <div style={{ padding: '20px 0 0', textAlign: 'center' }}>
+                    <button className="btn btn-next" type="button" onClick={() => setShowTransitionModal(true)} style={{ padding: '12px 36px', fontSize: 14, borderRadius: 8 }}>Start My Leave Request &rarr;</button>
+                  </div>
 
                   <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 16, marginTop: 16 }}>
                     <button className="btn btn-cancel-leave" type="button" onClick={() => setShowCancelModal(true)}>Cancel</button>
