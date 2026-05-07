@@ -197,7 +197,7 @@ export default function PlanAbsenceReactPage() {
   const urlIStep = searchParams.get('istep');
 
   // Navigation
-  const [started, setStarted] = useState(() => (urlStep && urlStep !== '0') || urlIStep ? true : false);
+  const [started, setStarted] = useState(true);
   const [step, setStep] = useState(() => urlStep && urlStep !== '0' ? parseInt(urlStep, 10) : 1);
 
   // Step 1
