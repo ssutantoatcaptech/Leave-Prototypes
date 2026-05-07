@@ -11,8 +11,7 @@ export default function LeavePlanningPage() {
         <span className="cl-planning-eyebrow">PLAN A LEAVE</span>
         <h1 className="cl-planning-title">Plan your Leave</h1>
         <p className="cl-planning-desc">
-          Use this tool to get an estimated view of your benefits, timeline, and pay during a potential leave.
-          Answer a few questions and we will show you what to expect.
+          Tell us your reason and a few details — we'll show you <strong>estimated</strong> benefits, timeline, and pay so you can plan with confidence. Final amounts are determined after approval.
         </p>
 
         <div className="cl-planning-illustration">

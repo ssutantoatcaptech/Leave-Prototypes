@@ -668,7 +668,7 @@ export default function PlanAbsenceReactPage() {
                   </select>
                 </div>
                 <div className="sim-field">
-                  <label>Employment Start Date <span style={{ color: '#dc2626' }}>*</span></label>
+                  <label>Hired Date <span style={{ color: '#dc2626' }}>*</span></label>
                   <input type="date" value={hireDate} onChange={(e) => setHireDate(e.target.value)} />
                 </div>
               </div>
@@ -727,10 +727,13 @@ export default function PlanAbsenceReactPage() {
               <div className="sim-split">
                 <div className="sim-split-main">
                   <div className="sim-card" style={{ padding: '28px 32px' }}>
-                    <h2 style={{ fontSize: 22, fontWeight: 700, margin: '0 0 12px', letterSpacing: '-0.02em' }}>Your estimated leave benefits</h2>
-                    <p style={{ fontSize: 14, color: '#525252', lineHeight: 1.6, margin: '0 0 28px' }}>
-                      Based on the information you&rsquo;ve provided, here&rsquo;s an estimate of the benefits you may be eligible for. This is not a guarantee &mdash; final determination is made after review.
-                    </p>
+                    <h2 style={{ fontSize: 22, fontWeight: 700, margin: '0 0 12px', letterSpacing: '-0.02em' }}>Your Leave Scenario</h2>
+                    <div style={{ background: '#f0f4f8', border: '1px solid #e0e7ef', borderRadius: 8, padding: '12px 16px', marginBottom: 28, display: 'flex', alignItems: 'flex-start', gap: 10 }}>
+                      <svg width="16" height="16" viewBox="0 0 16 16" fill="none" style={{ flexShrink: 0, marginTop: 2 }}><circle cx="8" cy="8" r="7" stroke="#0033a0" strokeWidth="1.3"/><path d="M8 7.5V11" stroke="#0033a0" strokeWidth="1.3" strokeLinecap="round"/><circle cx="8" cy="5.5" r="0.75" fill="#0033a0"/></svg>
+                      <p style={{ fontSize: 13, color: '#374151', lineHeight: 1.6, margin: 0 }}>
+                        <strong>This is an estimate.</strong> Actual eligibility, coverage dates, and payment amounts will be determined after you submit your request and documentation is reviewed.
+                      </p>
+                    </div>
 
                     <div style={{ background: '#fff', border: '1px solid #e8e8ec', borderRadius: 12, padding: 24, marginBottom: 28 }}>
                       <div className="dlp-section-head" style={{ marginBottom: 6 }}>
@@ -830,18 +833,34 @@ export default function PlanAbsenceReactPage() {
                       </div>
                     </div>
 
+                    {stBenefit && (
+                      <div style={{ background: '#fff', border: '1px solid #e5e5e5', borderRadius: 10, overflow: 'hidden', marginBottom: 28 }}>
+                        <div style={{ padding: '20px 20px 12px' }}>
+                          <h3 style={{ fontSize: 16, fontWeight: 700, color: '#0f0f14', margin: 0 }}>Other Benefits You May be Eligible for</h3>
+                        </div>
+                        <div style={{ padding: '0 20px 8px' }}>
+                          <div style={{ display: 'flex', alignItems: 'center', gap: 8, fontSize: 13, color: '#525252', marginBottom: 12 }}>
+                            <svg width="14" height="14" viewBox="0 0 16 16" fill="none"><circle cx="8" cy="8" r="7" stroke="#0033a0" strokeWidth="1.3"/><path d="M8 7.5V11" stroke="#0033a0" strokeWidth="1.3" strokeLinecap="round"/><circle cx="8" cy="5.5" r="0.75" fill="#0033a0"/></svg>
+                            You may still need to apply for state benefits on your state site
+                          </div>
+                          <div style={{ background: '#f9fafb', border: '1px solid #e8e8ec', borderRadius: 8, padding: '14px 16px', marginBottom: 10 }}>
+                            <div style={{ fontSize: 11, color: '#737373', marginBottom: 4 }}>Benefits you May be Eligible for</div>
+                            <div style={{ fontSize: 14, fontWeight: 700, color: '#0f0f14' }}>{stBenefit.name}</div>
+                          </div>
+                        </div>
+                      </div>
+                    )}
+
                     <div style={{ padding: '20px 0 0', textAlign: 'center' }}>
                       <button className="btn btn-next" type="button" onClick={() => setShowTransitionModal(true)} style={{ padding: '12px 36px', fontSize: 14, borderRadius: 8 }}>Start My Leave Request &rarr;</button>
                     </div>
 
                     <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 16, marginTop: 16 }}>
                       <button type="button" onClick={goIllnessBack} style={{ background: 'none', border: 'none', fontSize: 13, fontWeight: 600, color: '#525252', cursor: 'pointer', fontFamily: 'inherit' }}>&larr; Back</button>
-                      <button type="button" style={{ background: 'none', border: 'none', fontSize: 13, fontWeight: 600, color: '#525252', cursor: 'pointer', fontFamily: 'inherit' }}>Save Estimates</button>
                       <button type="button" style={{ display: 'inline-flex', alignItems: 'center', gap: 5, background: 'none', border: 'none', fontSize: 13, fontWeight: 600, color: '#525252', cursor: 'pointer', fontFamily: 'inherit' }}>
                         <svg width="13" height="13" viewBox="0 0 16 16" fill="none"><path d="M2 3h12v10H2V3z" stroke="currentColor" strokeWidth="1.3" strokeLinecap="round" strokeLinejoin="round"/><path d="M2 3l6 5 6-5" stroke="currentColor" strokeWidth="1.3" strokeLinecap="round" strokeLinejoin="round"/></svg>
                         Email Plan
                       </button>
-                      <button type="button" className="btn btn-cancel-leave" onClick={() => setShowCancelModal(true)} style={{ fontSize: 13, padding: '6px 16px' }}>Cancel</button>
                     </div>
                   </div>
                 </div>
@@ -858,23 +877,30 @@ export default function PlanAbsenceReactPage() {
                           </select>
                         </div>
                         <div className="dlp-side-field" style={{ marginBottom: 0 }}>
-                          <label>Start Date</label>
+                          <label>Hired Date</label>
                           <input type="date" value={sideHireDate} onChange={(e) => setSideHireDate(e.target.value)} />
                         </div>
                       </div>
                     </div>
 
                     <div className="dlp-sidebar">
-                      <div className="dlp-sidebar-group-label">KEY DATES</div>
+                      <div className="dlp-sidebar-group-label">LEAVE DATE</div>
                       <div className="dlp-sidebar-group-body">
                         <div className="dlp-side-field">
                           <label>Anticipated Start Date</label>
                           <input type="date" value={leaveStart} onChange={(e) => setLeaveStart(e.target.value)} />
                         </div>
                         <div className="dlp-side-field" style={{ marginBottom: 0 }}>
-                          <label>Expected End Date</label>
+                          <label>Estimated End Date</label>
                           <input type="date" value={leaveReturn} onChange={(e) => setLeaveReturn(e.target.value)} />
                         </div>
+                      </div>
+                    </div>
+
+                    <div className="dlp-sidebar">
+                      <div className="dlp-sidebar-group-label">LEAVE TYPE</div>
+                      <div className="dlp-sidebar-group-body">
+                        <div style={{ fontSize: 14, color: '#0f0f14' }}>{leaveType === 'continuous' ? 'Continuous' : leaveType === 'intermittent' ? 'Intermittent' : 'Reduced Schedule'}</div>
                       </div>
                     </div>
 
@@ -1512,7 +1538,7 @@ export default function PlanAbsenceReactPage() {
                   </select>
                 </div>
                 <div className="sim-field">
-                  <label>Employment Start Date <span style={{ color: '#dc2626' }}>*</span></label>
+                  <label>Hired Date <span style={{ color: '#dc2626' }}>*</span></label>
                   <input type="date" value={hireDate} onChange={(e) => setHireDate(e.target.value)} />
                 </div>
                 <div className="sim-field">
@@ -1567,6 +1593,13 @@ export default function PlanAbsenceReactPage() {
               {/* ── Main panel ── */}
               <div className="sim-split-main">
                 <div className="sim-card" style={{ padding: '28px 32px' }}>
+                  <h2 style={{ fontSize: 22, fontWeight: 700, margin: '0 0 12px', letterSpacing: '-0.02em' }}>Your Leave Scenario</h2>
+                  <div style={{ background: '#f0f4f8', border: '1px solid #e0e7ef', borderRadius: 8, padding: '12px 16px', marginBottom: 28, display: 'flex', alignItems: 'flex-start', gap: 10 }}>
+                    <svg width="16" height="16" viewBox="0 0 16 16" fill="none" style={{ flexShrink: 0, marginTop: 2 }}><circle cx="8" cy="8" r="7" stroke="#0033a0" strokeWidth="1.3"/><path d="M8 7.5V11" stroke="#0033a0" strokeWidth="1.3" strokeLinecap="round"/><circle cx="8" cy="5.5" r="0.75" fill="#0033a0"/></svg>
+                    <p style={{ fontSize: 13, color: '#374151', lineHeight: 1.6, margin: 0 }}>
+                      <strong>This is an estimate.</strong> Actual eligibility, coverage dates, and payment amounts will be determined after you submit your request and documentation is reviewed.
+                    </p>
+                  </div>
 
                   {/* Timeline section */}
                   <div style={{ background: '#fff', border: '1px solid #e8e8ec', borderRadius: 12, padding: 24, marginBottom: 28 }}>
@@ -1750,12 +1783,10 @@ export default function PlanAbsenceReactPage() {
 
                   <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 16, marginTop: 16 }}>
                     <button type="button" onClick={goBack} style={{ background: 'none', border: 'none', fontSize: 13, fontWeight: 600, color: '#525252', cursor: 'pointer', fontFamily: 'inherit' }}>&larr; Back</button>
-                    <button type="button" style={{ background: 'none', border: 'none', fontSize: 13, fontWeight: 600, color: '#525252', cursor: 'pointer', fontFamily: 'inherit' }}>Save Estimates</button>
                     <button type="button" style={{ display: 'inline-flex', alignItems: 'center', gap: 5, background: 'none', border: 'none', fontSize: 13, fontWeight: 600, color: '#525252', cursor: 'pointer', fontFamily: 'inherit' }}>
                       <svg width="13" height="13" viewBox="0 0 16 16" fill="none"><path d="M2 3h12v10H2V3z" stroke="currentColor" strokeWidth="1.3" strokeLinecap="round" strokeLinejoin="round"/><path d="M2 3l6 5 6-5" stroke="currentColor" strokeWidth="1.3" strokeLinecap="round" strokeLinejoin="round"/></svg>
                       Email Plan
                     </button>
-                    <button type="button" className="btn btn-cancel-leave" onClick={() => setShowCancelModal(true)} style={{ fontSize: 13, padding: '6px 16px' }}>Cancel</button>
                   </div>
                 </div>
               </div>
@@ -1766,7 +1797,6 @@ export default function PlanAbsenceReactPage() {
 
                   {isBirth ? (
                     <>
-                      {/* EMPLOYMENT — birth (top of sidebar per Figma) */}
                       <div className="dlp-sidebar">
                         <div className="dlp-sidebar-group-label">EMPLOYMENT</div>
                         <div className="dlp-sidebar-group-body">
@@ -1777,14 +1807,13 @@ export default function PlanAbsenceReactPage() {
                             </select>
                           </div>
                           <div className="dlp-side-field" style={{ marginBottom: 0 }}>
-                            <label>Start Date</label>
+                            <label>Hired Date</label>
                             <input type="date" value={sideHireDate} onChange={(e) => setSideHireDate(e.target.value)} />
                           </div>
                         </div>
                       </div>
-                      {/* KEY DATE — birth */}
                       <div className="dlp-sidebar">
-                        <div className="dlp-sidebar-group-label">KEY DATE</div>
+                        <div className="dlp-sidebar-group-label">LEAVE DATE</div>
                         <div className="dlp-sidebar-group-body">
                           <div className="dlp-side-field" style={{ marginBottom: 0 }}>
                             <label>Due Date</label>
@@ -1792,10 +1821,15 @@ export default function PlanAbsenceReactPage() {
                           </div>
                         </div>
                       </div>
+                      <div className="dlp-sidebar">
+                        <div className="dlp-sidebar-group-label">LEAVE TYPE</div>
+                        <div className="dlp-sidebar-group-body">
+                          <div style={{ fontSize: 14, color: '#0f0f14' }}>{leaveType === 'continuous' ? 'Continuous' : leaveType === 'intermittent' ? 'Intermittent' : 'Reduced Schedule'}</div>
+                        </div>
+                      </div>
                     </>
                   ) : (
                     <>
-                      {/* EMPLOYMENT — non-birth (top of sidebar per Figma) */}
                       <div className="dlp-sidebar">
                         <div className="dlp-sidebar-group-label">EMPLOYMENT</div>
                         <div className="dlp-sidebar-group-body">
@@ -1806,20 +1840,30 @@ export default function PlanAbsenceReactPage() {
                             </select>
                           </div>
                           <div className="dlp-side-field" style={{ marginBottom: 0 }}>
-                            <label>Start Date</label>
+                            <label>Hired Date</label>
                             <input type="date" value={sideHireDate} onChange={(e) => setSideHireDate(e.target.value)} />
                           </div>
                         </div>
                       </div>
 
-                      {/* KEY DATE — non-birth */}
                       <div className="dlp-sidebar">
-                        <div className="dlp-sidebar-group-label">KEY DATE</div>
+                        <div className="dlp-sidebar-group-label">LEAVE DATE</div>
                         <div className="dlp-sidebar-group-body">
-                          <div className="dlp-side-field" style={{ marginBottom: 0 }}>
+                          <div className="dlp-side-field">
                             <label>Anticipated Start Date</label>
                             <input type="date" value={sideStart} onChange={(e) => setSideStart(e.target.value)} />
                           </div>
+                          <div className="dlp-side-field" style={{ marginBottom: 0 }}>
+                            <label>Estimated End Date</label>
+                            <input type="date" value={leaveReturn} onChange={(e) => setLeaveReturn(e.target.value)} />
+                          </div>
+                        </div>
+                      </div>
+
+                      <div className="dlp-sidebar">
+                        <div className="dlp-sidebar-group-label">LEAVE TYPE</div>
+                        <div className="dlp-sidebar-group-body">
+                          <div style={{ fontSize: 14, color: '#0f0f14' }}>{leaveType === 'continuous' ? 'Continuous' : leaveType === 'intermittent' ? 'Intermittent' : 'Reduced Schedule'}</div>
                         </div>
                       </div>
 
@@ -2270,8 +2314,7 @@ export default function PlanAbsenceReactPage() {
           <div className="pr-modal" onClick={(e) => e.stopPropagation()}>
             <div className="pr-modal-header">
               <div>
-                <div className="pr-modal-kicker">Ready to Request</div>
-                <h3>You&rsquo;re moving from planning to your formal leave request</h3>
+                <h3>Review your plan and submit</h3>
               </div>
               <button className="pr-modal-close" type="button" onClick={() => setShowTransitionModal(false)}>&times;</button>
             </div>
