@@ -678,12 +678,19 @@ export default function RequestLeaveReactPage() {
               <div className="missed-entry-row2">
                 <div className="form-group missed-entry-reason">
                   <label>{index === 0 ? 'Reason' : ' '}</label>
-                  <input type="text" placeholder="e.g., Episode" value={entry.reason || ''} onChange={(event) => updateMissedDateEntry(index, 'reason', event.target.value)}/>
+                  <select value={entry.reason || ''} onChange={(event) => updateMissedDateEntry(index, 'reason', event.target.value)}>
+                    <option value="">Select reason</option>
+                    <option value="Episode">Episode</option>
+                    <option value="Treatment">Treatment</option>
+                    <option value="Recovery">Recovery</option>
+                    <option value="Flare-up">Flare-up</option>
+                    <option value="Appointment">Appointment</option>
+                    <option value="Other">Other</option>
+                  </select>
                 </div>
               </div>
             ) : null}
           </div>
-        ))}
         ))}
         <button type="button" className="rotation-add" onClick={addMissedDateEntry}>Add another date</button>
         {showReason && totalHours > 0 ? (
