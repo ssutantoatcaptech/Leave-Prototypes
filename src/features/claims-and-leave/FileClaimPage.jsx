@@ -27,7 +27,7 @@ export default function FileClaimPage() {
             <p className="cl-intro-card-desc">
               Taking time away from work? Start here — whether it's for the birth of a child, your own illness or injury, caring for a family member, military service, or any other job-protected leave.
             </p>
-            <button className="cl-btn cl-btn--primary" onClick={() => navigate(`${base}/file-claim/request-leave?step=1`)}>Request Leave</button>
+            <button className="cl-btn cl-btn--primary" onClick={() => { sessionStorage.removeItem('planTransfer'); navigate(`${base}/file-claim/request-leave?step=1`); }}>Request Leave</button>
             <span className="cl-intro-card-meta">Takes about 5-8 minutes</span>
           </div>
 
