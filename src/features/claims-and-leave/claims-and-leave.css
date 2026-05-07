@@ -2716,12 +2716,6 @@
   align-self: start;
 }
 
-@media (min-width: 769px) {
-  .cldb-grid-actions { order: 1; }
-  .cldb-grid-benefits { order: 2; }
-  .cldb-grid-status { order: 3; }
-  .cldb-grid-activity { order: 4; }
-}
 
 .cldb-quick-actions {
   display: flex;

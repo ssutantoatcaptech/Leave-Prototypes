@@ -260,65 +260,7 @@ export default function DashboardPage() {
             </div>
           </div>
 
-          {/* Recent Activity — order 3 on mobile */}
-          <div className="cldb-card cldb-grid-activity">
-            <div className="cldb-card-header cldb-card-header--border">
-              <h3 className="cldb-card-title">Recent Activity</h3>
-              <button className="cldb-view-all-btn">View All <svg width="6" height="10" viewBox="0 0 6 10" fill="none"><path d="M1 1l4 4-4 4" stroke="#64748b" strokeWidth="1.2" strokeLinecap="round" strokeLinejoin="round"/></svg></button>
-            </div>
-            <div className="cldb-activity-list">
-              <div className="cldb-activity-row">
-                <div className="cldb-activity-icon cldb-activity-icon--doc">
-                  <svg width="12" height="16" viewBox="0 0 12 16" fill="none">
-                    <path d="M1 1h7l3 3v11H1V1z" stroke="#374151" strokeWidth="1.2"/>
-                    <path d="M8 1v3h3" stroke="#374151" strokeWidth="1.2"/>
-                  </svg>
-                </div>
-                <div className="cldb-activity-content">
-                  <span className="cldb-activity-title">Dental EOB Available</span>
-                  <span className="cldb-activity-desc">Your dental Explanation of Benefits from Dec 10, 2024 is now available.</span>
-                  <span className="cldb-activity-date">Jan 20, 2025</span>
-                </div>
-                <svg className="cldb-activity-chevron" width="10" height="16" viewBox="0 0 10 16" fill="none">
-                  <path d="M2 2l6 6-6 6" stroke="#9ca3af" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
-                </svg>
-              </div>
-              <div className="cldb-activity-row">
-                <div className="cldb-activity-icon cldb-activity-icon--check">
-                  <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
-                    <circle cx="8" cy="8" r="7" fill="#374151"/>
-                    <path d="M5 8l2 2 4-4" stroke="#fff" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
-                  </svg>
-                </div>
-                <div className="cldb-activity-content">
-                  <span className="cldb-activity-title">Claim Processed</span>
-                  <span className="cldb-activity-desc">Dental claim #VC-2025-4412</span>
-                  <span className="cldb-activity-date">Jan 18, 2025</span>
-                </div>
-                <svg className="cldb-activity-chevron" width="10" height="16" viewBox="0 0 10 16" fill="none">
-                  <path d="M2 2l6 6-6 6" stroke="#9ca3af" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
-                </svg>
-              </div>
-              <div className="cldb-activity-row">
-                <div className="cldb-activity-icon cldb-activity-icon--check">
-                  <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
-                    <circle cx="8" cy="8" r="7" fill="#374151"/>
-                    <path d="M5 8l2 2 4-4" stroke="#fff" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
-                  </svg>
-                </div>
-                <div className="cldb-activity-content">
-                  <span className="cldb-activity-title">Leave Request Approved</span>
-                  <span className="cldb-activity-desc">Leave from 2/2/25 through 2-10-25</span>
-                  <span className="cldb-activity-date">Jan 18, 2025</span>
-                </div>
-                <svg className="cldb-activity-chevron" width="10" height="16" viewBox="0 0 10 16" fill="none">
-                  <path d="M2 2l6 6-6 6" stroke="#9ca3af" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
-                </svg>
-              </div>
-            </div>
-          </div>
-
-          {/* Active Benefits — order 4 on mobile */}
+          {/* Active Benefits — right after Quick Actions on desktop */}
           <div className="cldb-card cldb-grid-benefits">
             <div className="cldb-card-header cldb-card-header--border">
               <div className="cldb-benefits-heading">
