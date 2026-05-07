@@ -412,6 +412,10 @@
   background: #dbeafe;
 }
 
+.option-card.selected .option-text h4 {
+  color: #0033a0;
+}
+
 .option-card.has-tooltip {
   position: relative;
 }
