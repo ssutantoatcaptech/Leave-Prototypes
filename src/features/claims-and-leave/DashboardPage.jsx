@@ -21,9 +21,9 @@ export default function DashboardPage() {
 
   const subNavTabs = [
     { label: 'Claims Center', to: base },
+    { label: 'My Leave', to: `${base}/my-cases` },
     { label: 'Leave Planning Tool', to: `${base}/leave-planning` },
     { label: 'File a Claim or Leave', to: `${base}/file-claim` },
-    { label: 'My Leave', to: `${base}/my-cases` },
     { label: 'Enter My Time', to: `${base}/enter-time` },
     { label: 'Payments', to: `${base}/payments` },
   ];
