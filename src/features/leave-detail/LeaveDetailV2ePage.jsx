@@ -98,6 +98,7 @@ export default function LeaveDetailV2ePage() {
   var [showAllTasks, setShowAllTasks] = useState(false);
   var [snapshotOpen, setSnapshotOpen] = useState(true);
   var [editingSection, setEditingSection] = useState(null);
+  var [detailTab, setDetailTab] = useState('claims');
   var [detailsForm, setDetailsForm] = useState({
     reason: 'Surgical procedure and post-operative recovery',
     duration: 'Up to 12 weeks (FMLA eligible)',
@@ -436,7 +437,16 @@ export default function LeaveDetailV2ePage() {
                 </div>
             </div>
 
-            {/* Associated Claims — Primary Section */}
+            {/* Detail Tabs */}
+            <div className="ldb-detail-tabs">
+              <button type="button" className={'ldb-detail-tab' + (detailTab === 'claims' ? ' active' : '')} onClick={function () { setDetailTab('claims'); }}>Claims & Payments</button>
+              <button type="button" className={'ldb-detail-tab' + (detailTab === 'about' ? ' active' : '')} onClick={function () { setDetailTab('about'); }}>About This Leave</button>
+              <button type="button" className={'ldb-detail-tab' + (detailTab === 'communications' ? ' active' : '')} onClick={function () { setDetailTab('communications'); }}>Communications</button>
+            </div>
+
+            {/* Tab: Claims & Payments */}
+            {detailTab === 'claims' && (
+            <>
             <div className="ldb-card">
               <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 20 }}>
                 <h2 className="ldb-card-title" style={{ marginBottom: 0 }}>
@@ -730,18 +740,12 @@ export default function LeaveDetailV2ePage() {
                 </>
               )}
             </div>
+            </>
+            )}
 
-            {/* About This Leave — Collapsible + Editable */}
+            {/* Tab: About This Leave */}
+            {detailTab === 'about' && (
             <div className="ldb-card">
-              <button type="button" className="ldb-card-collapse-header" onClick={function () { setAboutLeaveOpen(!aboutLeaveOpen); }}>
-                <h2 className="ldb-card-title" style={{ marginBottom: 0 }}>
-                  <svg width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M2 4h12M2 8h12M2 12h8" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round"/></svg>
-                  About This Leave
-                </h2>
-                <svg className={'ldb-card-collapse-chevron' + (aboutLeaveOpen ? ' open' : '')} width="12" height="7" viewBox="0 0 12 7" fill="none"><path d="M1 1l5 5 5-5" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round"/></svg>
-              </button>
-              {aboutLeaveOpen && (
-                <>
                   {/* Leave Reason */}
                   <div className="dt-info-block">
                     <div className="dt-info-block-header">
@@ -905,9 +909,52 @@ export default function LeaveDetailV2ePage() {
                       </div>
                     )}
                   </div>
-                </>
-              )}
             </div>
+            )}
+
+            {/* Tab: Communications */}
+            {detailTab === 'communications' && (
+            <div className="ldb-card">
+              <div className="ldb-comms-list">
+                <div className="ldb-comms-item">
+                  <div className="ldb-comms-info">
+                    <div className="ldb-comms-name">FMLA Rights & Responsibilities Notice</div>
+                    <div className="ldb-comms-meta">May 2, 2026 · CLM #12345</div>
+                  </div>
+                  <a href="#" className="ldb-comms-link">View</a>
+                </div>
+                <div className="ldb-comms-item">
+                  <div className="ldb-comms-info">
+                    <div className="ldb-comms-name">STD Claim Acknowledgement</div>
+                    <div className="ldb-comms-meta">Apr 18, 2026 · NTN-9312-GDC-81</div>
+                  </div>
+                  <a href="#" className="ldb-comms-link">View</a>
+                </div>
+                <div className="ldb-comms-item">
+                  <div className="ldb-comms-info">
+                    <div className="ldb-comms-name">Medical Certification Request</div>
+                    <div className="ldb-comms-meta">Apr 16, 2026 · CLM #12345</div>
+                  </div>
+                  <a href="#" className="ldb-comms-link">View</a>
+                </div>
+                <div className="ldb-comms-item">
+                  <div className="ldb-comms-info">
+                    <div className="ldb-comms-name">Leave Approval Notification</div>
+                    <div className="ldb-comms-meta">Apr 15, 2026 · CLM #12345</div>
+                  </div>
+                  <a href="#" className="ldb-comms-link">View</a>
+                </div>
+                <div className="ldb-comms-item">
+                  <div className="ldb-comms-info">
+                    <div className="ldb-comms-name">NJ TDI Application Confirmation</div>
+                    <div className="ldb-comms-meta">Apr 15, 2026 · NTN-9312-STL-83</div>
+                  </div>
+                  <a href="#" className="ldb-comms-link">View</a>
+                </div>
+              </div>
+            </div>
+            )}
+
           </div>
 
           {/* Right Sidebar — Redesigned */}
