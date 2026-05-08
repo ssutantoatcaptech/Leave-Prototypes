@@ -1476,7 +1476,11 @@
 @media (max-width: 768px) {
   .ldb-details-bar { grid-template-columns: 1fr; }
   .ldb-title-card { flex-direction: column; align-items: flex-start; gap: 16px; }
-  .ldb-title { font-size: 28px; }
+  .ldb-title-left { align-items: flex-start; }
+  .ldb-title { font-size: 22px; }
+  .ldb-title-meta { flex-wrap: wrap; gap: 4px; margin-top: 4px; }
+  .ldb-title-meta span { margin-left: 0 !important; }
+  .ldb-title-badge { display: inline-flex; order: -1; }
   .ldb-payment-summary { grid-template-columns: 1fr; }
   .ldb-pmt-expand-grid { grid-template-columns: repeat(2, 1fr); }
   .ldb-v3-details-grid { grid-template-columns: 1fr; }
