@@ -1297,7 +1297,7 @@ export default function RequestLeaveReactPage() {
                         <div className="eb-tooltip">
                           <div className="eb-tooltip-title">{bar.label}</div>
                           <div className="eb-tooltip-row"><span>Duration</span><span>{bar.weeks} weeks</span></div>
-                          <div className="eb-tooltip-row"><span>Dates</span><span>{shortDate(bar.startDate.toISOString().slice(0, 10))} \u2013 {shortDate(bar.endDate.toISOString().slice(0, 10))}</span></div>
+                          <div className="eb-tooltip-row"><span>Dates</span><span>{shortDate(bar.startDate.toISOString().slice(0, 10))} to {shortDate(bar.endDate.toISOString().slice(0, 10))}</span></div>
                           <div className="eb-tooltip-row"><span>Pay</span><span>{bar.pay}</span></div>
                           {bar.note && <div className="eb-tooltip-note">{bar.note}</div>}
                         </div>
@@ -1330,10 +1330,6 @@ export default function RequestLeaveReactPage() {
                 </div>
               )}
 
-              <div style={{ fontSize: 11, color: '#4b5563', background: '#f1f5f9', borderRadius: 6, padding: '8px 12px', marginTop: 16, lineHeight: 1.5, display: 'flex', alignItems: 'flex-start', gap: 6 }}>
-                <svg width="14" height="14" viewBox="0 0 16 16" fill="none" style={{ flexShrink: 0, marginTop: 1 }}><circle cx="8" cy="8" r="7" stroke="#64748b" strokeWidth="1.2"/><path d="M8 5v3" stroke="#64748b" strokeWidth="1.2" strokeLinecap="round"/><circle cx="8" cy="11" r="0.5" fill="#64748b"/></svg>
-                <span><strong>This is an estimate.</strong> Actual eligibility, coverage dates, and payment amounts will be determined after you submit your request and documentation is reviewed.</span>
-              </div>
             </div>
 
             {/* Coverage summary */}
@@ -1350,7 +1346,7 @@ export default function RequestLeaveReactPage() {
                     <div style={{ fontSize: 13, fontWeight: 600, color: '#0f172a' }}>{bar.pay}</div>
                   </div>
                   <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: 12, color: '#64748b' }}>
-                    <span>{shortDate(bar.startDate.toISOString().slice(0, 10))} \u2013 {shortDate(bar.endDate.toISOString().slice(0, 10))}</span>
+                    <span>{shortDate(bar.startDate.toISOString().slice(0, 10))} to {shortDate(bar.endDate.toISOString().slice(0, 10))}</span>
                     <span>{bar.weeks} weeks</span>
                   </div>
                 </div>
