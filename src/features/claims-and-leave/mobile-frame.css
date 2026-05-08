@@ -1920,7 +1920,7 @@
 
 .mobile-frame-screen .ldb-detail-tab {
   padding: 10px 12px;
-  font-size: 12px;
+  font-size: 16px;
   white-space: nowrap;
   flex-shrink: 0;
 }
@@ -1931,9 +1931,58 @@
 }
 
 .mobile-frame-screen .ldb-comms-name {
-  font-size: 13px;
+  font-size: 16px;
 }
 
 .mobile-frame-screen .ldb-comms-meta {
-  font-size: 11px;
+  font-size: 14px;
+}
+
+.mobile-frame-screen .ldb-comms-link {
+  font-size: 16px;
+}
+
+.mobile-frame-screen .ldb-payment-label,
+.mobile-frame-screen .ldb-payment-value {
+  font-size: 16px;
+}
+
+.mobile-frame-screen .ldb-action-name {
+  font-size: 16px;
+}
+
+.mobile-frame-screen .ldb-action-due {
+  font-size: 14px;
+}
+
+.mobile-frame-screen .ldb-quick-action-item {
+  font-size: 16px;
+}
+
+.mobile-frame-screen .ldb-claim-accordion-title {
+  font-size: 16px;
+}
+
+.mobile-frame-screen .ldb-claim-accordion-sub {
+  font-size: 16px;
+}
+
+.mobile-frame-screen .ldb-v2e-pmt-row {
+  font-size: 16px;
+}
+
+.mobile-frame-screen .ldb-v2e-pmt-desc {
+  font-size: 16px;
+}
+
+.mobile-frame-screen .ldb-card-context {
+  font-size: 16px;
+}
+
+.mobile-frame-screen .dt-info-field-value {
+  font-size: 16px;
+}
+
+.mobile-frame-screen .ldb-snapshot-date-value {
+  font-size: 16px;
 }
