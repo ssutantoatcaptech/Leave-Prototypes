@@ -1478,16 +1478,13 @@
   .ldb-site-footer-grid { grid-template-columns: repeat(2, 1fr); }
 
   .ldb-detail-tabs {
-    overflow-x: auto;
-    -webkit-overflow-scrolling: touch;
+    flex-wrap: wrap;
     gap: 0;
     margin-bottom: 16px;
   }
   .ldb-detail-tab {
     padding: 10px 14px;
     font-size: 16px;
-    white-space: nowrap;
-    flex-shrink: 0;
   }
   .ldb-comms-item {
     padding: 12px 0;
@@ -2561,6 +2558,7 @@
 /* Detail Tabs */
 .ldb-detail-tabs {
   display: flex;
+  flex-wrap: wrap;
   gap: 0;
   border-bottom: 2px solid #e5e7eb;
   margin-bottom: 20px;

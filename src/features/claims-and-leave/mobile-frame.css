@@ -1912,8 +1912,7 @@
 
 /* Leave Detail — Tabs on mobile frame */
 .mobile-frame-screen .ldb-detail-tabs {
-  overflow-x: auto;
-  -webkit-overflow-scrolling: touch;
+  flex-wrap: wrap;
   margin-bottom: 16px;
   width: 100%;
 }
@@ -1921,8 +1920,6 @@
 .mobile-frame-screen .ldb-detail-tab {
   padding: 10px 12px;
   font-size: 16px;
-  white-space: nowrap;
-  flex-shrink: 0;
 }
 
 .mobile-frame-screen .ldb-comms-item {
