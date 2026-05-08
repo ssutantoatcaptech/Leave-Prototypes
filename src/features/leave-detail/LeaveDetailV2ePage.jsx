@@ -261,7 +261,7 @@ export default function LeaveDetailV2ePage() {
                     </div>
                     <div className="ldb-snapshot-date-card ldb-snapshot-date-card--full">
                       <div className="ldb-snapshot-date-label">Return Work Date</div>
-                      <div className="ldb-snapshot-date-value" style={{ color: '#dc2626' }}>Pending — submit RTW form</div>
+                      <div className="ldb-snapshot-date-value">July 9, 2026</div>
                     </div>
                   </div>
                 )}
@@ -1010,7 +1010,7 @@ export default function LeaveDetailV2ePage() {
               </div>
               <div className="ldb-snapshot-date-card ldb-snapshot-date-card--full">
                 <div className="ldb-snapshot-date-label">Return Work Date</div>
-                <div className="ldb-snapshot-date-value" style={{ color: '#dc2626' }}>Pending — submit RTW form</div>
+                <div className="ldb-snapshot-date-value">July 9, 2026</div>
               </div>
             </div>
 
