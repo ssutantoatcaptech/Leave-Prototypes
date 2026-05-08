@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { NavLink, useLocation, useNavigate } from 'react-router-dom';
 import useBasePath from './useBasePath';
 import './claims-and-leave.css';
@@ -10,6 +10,18 @@ export default function DashboardPage() {
   const base = useBasePath();
   const [mobileNavOpen, setMobileNavOpen] = useState(false);
   const [claimsExpanded, setClaimsExpanded] = useState(false);
+  const [dropdownOpen, setDropdownOpen] = useState(false);
+  const dropdownRef = useRef(null);
+
+  useEffect(function () {
+    function handleClickOutside(e) {
+      if (dropdownRef.current && !dropdownRef.current.contains(e.target)) {
+        setDropdownOpen(false);
+      }
+    }
+    document.addEventListener('mousedown', handleClickOutside);
+    return function () { document.removeEventListener('mousedown', handleClickOutside); };
+  }, []);
 
   const navLinks = [
     { label: 'Dashboard', to: `${base}/dashboard` },
@@ -53,10 +65,11 @@ export default function DashboardPage() {
             <nav className="cl-main-nav">
               {navLinks.map((link) => (
                 link.dropdown ? (
-                  <div key={link.label} className="cl-nav-dropdown">
+                  <div key={link.label} className={`cl-nav-dropdown${dropdownOpen ? ' open' : ''}`} ref={dropdownRef}>
                     <button
                       type="button"
                       className="cl-main-nav-link cl-main-nav-link--btn"
+                      onClick={() => setDropdownOpen(!dropdownOpen)}
                     >
                       {link.label}
                       <svg className="cl-nav-chevron" width="10" height="10" viewBox="0 0 10 10" fill="none"><path d="M2.5 4l2.5 2.5L7.5 4" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round" strokeLinejoin="round"/></svg>
@@ -67,6 +80,7 @@ export default function DashboardPage() {
                           key={tab.label}
                           to={tab.to}
                           className="cl-nav-dropdown-item"
+                          onClick={() => setDropdownOpen(false)}
                         >
                           {tab.label}
                         </NavLink>
