@@ -643,13 +643,31 @@ export default function RequestLeaveReactPage() {
     const startDate = new Date(`${formState.leaveStartDate}T00:00:00`);
     const endDate = new Date(`${formState.expectedReturnDate}T00:00:00`);
     const durationDays = Math.max(0, Math.round((endDate - startDate) / (1000 * 60 * 60 * 24)));
+    const reason = ({ medical_self: 'Illness or Injury', medical_family: 'Caring for family member', child: 'Birthing parent pregnancy', child_nonbirth: 'Bonding Leave', military: 'Military-related' })[formState.leaveScenario] || 'Leave of Absence';
+    const submittedOn = new Date().toLocaleDateString('en-US', { month: '2-digit', day: '2-digit', year: 'numeric' }).replace(/\//g, ' / ');
+    const caseEntry = {
+      type: reason,
+      id: `NTN #${reference.split('-')[1]}`,
+      lastUpdate: submittedOn,
+      status: 'In Review',
+      statusColor: 'blue',
+      required: null,
+      actions: ['View Details'],
+      linkPath: '/case-detail',
+      leaveType: formState.leaveType,
+      startDate: formState.leaveStartDate,
+      endDate: formState.expectedReturnDate,
+    };
+    const existing = JSON.parse(localStorage.getItem('submittedLeaves') || '[]');
+    existing.unshift(caseEntry);
+    localStorage.setItem('submittedLeaves', JSON.stringify(existing));
     setSubmittedCase({
       id: reference,
       startDate: formState.leaveStartDate,
       endDate: formState.expectedReturnDate,
       durationDays,
       leaveType: formState.leaveType,
-      reason: ({ medical_self: 'Illness or Injury', medical_family: 'Care for Family Member', child: 'Pregnancy & Bonding', child_nonbirth: 'Bonding Leave', military: 'Military Related' })[formState.leaveScenario] || 'Leave of Absence',
+      reason,
       provider: formState.providerName,
       facility: formState.providerFacility,
       submittedOn: new Date().toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' }),

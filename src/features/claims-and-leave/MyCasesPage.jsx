@@ -63,7 +63,11 @@ export default function MyCasesPage() {
   var [hiddenIds, setHiddenIds] = useState([]);
   var [deleteTarget, setDeleteTarget] = useState(null);
 
-  var casesData = initialCases.filter(function (c) { return hiddenIds.indexOf(c.id) === -1; });
+  var submittedLeaves = useMemo(function () {
+    try { return JSON.parse(localStorage.getItem('submittedLeaves') || '[]'); } catch (e) { return []; }
+  }, []);
+
+  var casesData = submittedLeaves.concat(initialCases).filter(function (c) { return hiddenIds.indexOf(c.id) === -1; });
 
   var filtered = useMemo(function () {
     return casesData.filter(function (row) {
@@ -102,6 +106,7 @@ export default function MyCasesPage() {
       <div className="cl-filter-bar">
         <select className="cl-select" value={statusFilter} onChange={function (e) { setStatusFilter(e.target.value); }}>
           <option value="All">Status: All Leaves</option>
+          <option value="In Review">In Review</option>
           <option value="Saved">Saved</option>
           <option value="Approved">Approved</option>
           <option value="Decisioned">Decisioned</option>
