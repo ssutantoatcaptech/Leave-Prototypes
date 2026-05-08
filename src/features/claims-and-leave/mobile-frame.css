@@ -1901,3 +1901,30 @@
 .mobile-frame-screen .rq-yn-btn {
   flex: 1;
 }
+
+/* Leave Detail — Tabs on mobile frame */
+.mobile-frame-screen .ldb-detail-tabs {
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  margin-bottom: 16px;
+}
+
+.mobile-frame-screen .ldb-detail-tab {
+  padding: 10px 12px;
+  font-size: 12px;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+.mobile-frame-screen .ldb-comms-item {
+  padding: 12px 0;
+  gap: 10px;
+}
+
+.mobile-frame-screen .ldb-comms-name {
+  font-size: 13px;
+}
+
+.mobile-frame-screen .ldb-comms-meta {
+  font-size: 11px;
+}
