@@ -492,12 +492,9 @@ export default function LeaveDetailV2ePage() {
                         <div className="dt-info-field-value">Active through Jul 08, 2026</div>
                       </div>
                       <div>
-                        <div className="dt-info-field-label">RTW Status</div>
-                        <div className="dt-info-field-value" style={{ color: '#dc2626', fontWeight: 600 }}>Action needed — submit Return to Work form</div>
+                        <div className="dt-info-field-label">RTW Date</div>
+                        <div className="dt-info-field-value">July 9, 2026</div>
                       </div>
-                    </div>
-                    <div style={{ marginTop: 16, padding: '12px 16px', background: '#fef2f2', borderRadius: 8, border: '1px solid #fecaca', fontSize: 16, color: '#991b1b' }}>
-                      <strong>Action required:</strong> Your leave is ending soon. Submit your Return to Work Certification to confirm your return date and any work restrictions.
                     </div>
                   </div>
                 )}
