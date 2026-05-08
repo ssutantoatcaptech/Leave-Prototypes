@@ -710,23 +710,6 @@ export default function LeaveDetailV2ePage() {
                     </div>
                   </div>
                   <p className="ldb-card-context">Payments from your Group Disability Claim (STD). Paid weekly via direct deposit.</p>
-                  <div className="ldb-v2e-pmt-list">
-                    <div className="ldb-v2e-pmt-row">
-                      <div className="ldb-v2e-pmt-date">May 12, 2026</div>
-                      <div className="ldb-v2e-pmt-desc">STD Weekly · GDC-81</div>
-                      <div className="ldb-v2e-pmt-amount">$2,308.00</div>
-                    </div>
-                    <div className="ldb-v2e-pmt-row">
-                      <div className="ldb-v2e-pmt-date">May 5, 2026</div>
-                      <div className="ldb-v2e-pmt-desc">STD Weekly · GDC-81</div>
-                      <div className="ldb-v2e-pmt-amount">$2,308.00</div>
-                    </div>
-                    <div className="ldb-v2e-pmt-row">
-                      <div className="ldb-v2e-pmt-date">Apr 28, 2026</div>
-                      <div className="ldb-v2e-pmt-desc">STD Weekly · GDC-81</div>
-                      <div className="ldb-v2e-pmt-amount">$2,308.00</div>
-                    </div>
-                  </div>
                   <Link to={`${base}/payments?claim=NTN-9312-GDC-81&case=NTN-9312`} className="ldb-payments-view-btn" style={{ textDecoration: 'none' }}>
                     VIEW ALL PAYMENTS
                     <svg width="12" height="12" viewBox="0 0 16 16" fill="none"><path d="M6 4l4 4-4 4" stroke="currentColor" strokeWidth="1.3" strokeLinecap="round" strokeLinejoin="round"/></svg>
