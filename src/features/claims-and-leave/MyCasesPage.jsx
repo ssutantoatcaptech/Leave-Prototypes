@@ -165,6 +165,7 @@ export default function MyCasesPage() {
                               className="cl-btn cl-btn--outline"
                               onClick={function () {
                                 if (action === 'View Details' && row.linkPath) {
+                                  sessionStorage.setItem('viewingCase', JSON.stringify(row));
                                   navigate(base + row.linkPath);
                                 }
                               }}
@@ -212,7 +213,7 @@ export default function MyCasesPage() {
               </div>
               <button
                 className="cl-card-mobile-action"
-                onClick={function () { if (row.linkPath) navigate(base + row.linkPath); }}
+                onClick={function () { if (row.linkPath) { sessionStorage.setItem('viewingCase', JSON.stringify(row)); navigate(base + row.linkPath); } }}
               >
                 View Details
               </button>

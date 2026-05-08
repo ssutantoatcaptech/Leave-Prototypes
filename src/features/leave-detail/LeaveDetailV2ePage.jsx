@@ -99,6 +99,12 @@ export default function LeaveDetailV2ePage() {
   var [snapshotOpen, setSnapshotOpen] = useState(true);
   var [editingSection, setEditingSection] = useState(null);
   var [detailTab, setDetailTab] = useState('claims');
+
+  var viewingCase = (function () {
+    try { return JSON.parse(sessionStorage.getItem('viewingCase') || 'null'); } catch (e) { return null; }
+  })();
+  var caseScenario = viewingCase && viewingCase.leaveScenario ? viewingCase.leaveScenario : 'medical_self';
+  var caseSentCert = viewingCase ? viewingCase.sendCertToPhysician : false;
   var [detailsForm, setDetailsForm] = useState({
     reason: 'Chronic lower back condition — intermittent flare-ups requiring treatment',
     duration: '12 weeks intermittent (FMLA approved)',
@@ -130,6 +136,57 @@ export default function LeaveDetailV2ePage() {
   }
 
   function renderItemsRequiringAction() {
+    var pendingItems = [];
+    var completedItems = [];
+
+    if (caseScenario === 'medical_self' || caseScenario === 'medical_family') {
+      pendingItems.push({ name: 'Return to Work Certification', due: 'Submit before your return date' });
+      completedItems.push({ name: 'Initial Leave Request Form', date: 'Completed Apr 15' });
+      if (!caseSentCert) {
+        pendingItems.push({ name: 'Medical Certification Form', due: 'Upload within 15 days' });
+        pendingItems.push({ name: 'Attending Physician Statement', due: 'Upload within 15 days' });
+      } else {
+        completedItems.push({ name: 'Medical Certification Form', date: 'Sent to provider' });
+        completedItems.push({ name: 'Attending Physician Statement', date: 'Sent to provider' });
+      }
+      completedItems.push({ name: 'Direct Deposit Authorization', date: 'Completed Apr 16' });
+      if (caseScenario === 'medical_self') {
+        completedItems.push({ name: 'NJ TDI Application', date: 'Completed Apr 17' });
+      }
+    } else if (caseScenario === 'child') {
+      pendingItems.push({ name: 'Return to Work Certification', due: 'Submit before your return date' });
+      completedItems.push({ name: 'Initial Leave Request Form', date: 'Completed Apr 15' });
+      if (!caseSentCert) {
+        pendingItems.push({ name: 'Medical Certification Form', due: 'Upload within 15 days' });
+      } else {
+        completedItems.push({ name: 'Medical Certification Form', date: 'Sent to provider' });
+      }
+      completedItems.push({ name: 'Birth Certificate or Hospital Record', date: 'Completed Apr 20' });
+      completedItems.push({ name: 'Direct Deposit Authorization', date: 'Completed Apr 16' });
+    } else if (caseScenario === 'child_nonbirth') {
+      pendingItems.push({ name: 'Birth Certificate or Adoption Documentation', due: 'Upload within 15 days' });
+      pendingItems.push({ name: 'Return to Work Certification', due: 'Submit before your return date' });
+      completedItems.push({ name: 'Initial Leave Request Form', date: 'Completed Apr 15' });
+      completedItems.push({ name: 'Placement or Court Documentation', date: 'Completed Apr 18' });
+      completedItems.push({ name: 'Direct Deposit Authorization', date: 'Completed Apr 16' });
+    } else if (caseScenario === 'military') {
+      pendingItems.push({ name: 'Military Orders or Active Duty Documentation', due: 'Upload within 15 days' });
+      completedItems.push({ name: 'Initial Leave Request Form', date: 'Completed Apr 15' });
+      completedItems.push({ name: 'Direct Deposit Authorization', date: 'Completed Apr 16' });
+    } else {
+      pendingItems.push({ name: 'Return to Work Certification', due: 'Submit before your return date' });
+      completedItems.push({ name: 'Initial Leave Request Form', date: 'Completed Apr 15' });
+      if (!caseSentCert) {
+        completedItems.push({ name: 'Medical Certification Form', date: 'Completed Apr 18' });
+        completedItems.push({ name: 'Attending Physician Statement', date: 'Completed Apr 20' });
+      } else {
+        completedItems.push({ name: 'Medical Certification Form', date: 'Sent to provider' });
+        completedItems.push({ name: 'Attending Physician Statement', date: 'Sent to provider' });
+      }
+      completedItems.push({ name: 'Direct Deposit Authorization', date: 'Completed Apr 16' });
+      completedItems.push({ name: 'NJ TDI Application', date: 'Completed Apr 17' });
+    }
+
     return (
       <div className="ldb-side-card ldb-side-card--shadow">
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 16 }}>
@@ -137,67 +194,51 @@ export default function LeaveDetailV2ePage() {
             <svg width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M8 1l1.8 5.4H15l-4.2 3.1 1.6 5-4.4-3.2L3.6 14.5l1.6-5L1 6.4h5.2L8 1z" stroke="currentColor" strokeWidth="1.2" strokeLinejoin="round"/></svg>
             Items Requiring Action
           </h3>
-          <span style={{ fontSize: 11, fontWeight: 700, color: '#dc2626', background: '#fef2f2', padding: '2px 8px', borderRadius: 10 }}>1 needed</span>
+          {pendingItems.length > 0 && (
+            <span style={{ fontSize: 11, fontWeight: 700, color: '#dc2626', background: '#fef2f2', padding: '2px 8px', borderRadius: 10 }}>{pendingItems.length} needed</span>
+          )}
         </div>
-        <div className="ldb-action-list">
-          <div className="ldb-action-item">
-            <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><circle cx="8" cy="8" r="7" stroke="#dc2626" strokeWidth="1.4"/><path d="M8 5v3M8 10.5v.5" stroke="#dc2626" strokeWidth="1.4" strokeLinecap="round"/></svg>
-            <div className="ldb-action-text">
-              <span className="ldb-action-name">Return to Work Certification</span>
-              <span className="ldb-action-due">Submit before your return date</span>
-            </div>
-            <button type="button" className="ldb-btn-upload-inline">Upload</button>
+        {pendingItems.length > 0 && (
+          <div className="ldb-action-list">
+            {pendingItems.map(function (item, i) {
+              return (
+                <div key={i} className="ldb-action-item">
+                  <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><circle cx="8" cy="8" r="7" stroke="#dc2626" strokeWidth="1.4"/><path d="M8 5v3M8 10.5v.5" stroke="#dc2626" strokeWidth="1.4" strokeLinecap="round"/></svg>
+                  <div className="ldb-action-text">
+                    <span className="ldb-action-name">{item.name}</span>
+                    <span className="ldb-action-due">{item.due}</span>
+                  </div>
+                  <button type="button" className="ldb-btn-upload-inline">Upload</button>
+                </div>
+              );
+            })}
           </div>
-        </div>
-        {!showAllTasks ? (
+        )}
+        {completedItems.length > 0 && !showAllTasks ? (
           <button type="button" className="ldb-show-more-btn" onClick={function () { setShowAllTasks(true); }}>
             <svg width="12" height="12" viewBox="0 0 16 16" fill="none"><path d="M8 4v8M4 8h8" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round"/></svg>
-            5 completed tasks
+            {completedItems.length} completed tasks
           </button>
-        ) : (
+        ) : completedItems.length > 0 && showAllTasks ? (
           <>
             <div className="ldb-action-list" style={{ marginTop: 8 }}>
-              <div className="ldb-action-item ldb-action-item--done">
-                <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><circle cx="8" cy="8" r="7" stroke="#16a34a" strokeWidth="1.4"/><path d="M5.5 8l2 2 3.5-3.5" stroke="#16a34a" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round"/></svg>
-                <div className="ldb-action-text">
-                  <span className="ldb-action-name">Initial Leave Request Form</span>
-                  <span className="ldb-action-due" style={{ color: '#16a34a' }}>Completed Apr 15</span>
-                </div>
-              </div>
-              <div className="ldb-action-item ldb-action-item--done">
-                <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><circle cx="8" cy="8" r="7" stroke="#16a34a" strokeWidth="1.4"/><path d="M5.5 8l2 2 3.5-3.5" stroke="#16a34a" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round"/></svg>
-                <div className="ldb-action-text">
-                  <span className="ldb-action-name">Medical Certification Form</span>
-                  <span className="ldb-action-due" style={{ color: '#16a34a' }}>Completed Apr 18</span>
-                </div>
-              </div>
-              <div className="ldb-action-item ldb-action-item--done">
-                <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><circle cx="8" cy="8" r="7" stroke="#16a34a" strokeWidth="1.4"/><path d="M5.5 8l2 2 3.5-3.5" stroke="#16a34a" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round"/></svg>
-                <div className="ldb-action-text">
-                  <span className="ldb-action-name">Attending Physician Statement</span>
-                  <span className="ldb-action-due" style={{ color: '#16a34a' }}>Completed Apr 20</span>
-                </div>
-              </div>
-              <div className="ldb-action-item ldb-action-item--done">
-                <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><circle cx="8" cy="8" r="7" stroke="#16a34a" strokeWidth="1.4"/><path d="M5.5 8l2 2 3.5-3.5" stroke="#16a34a" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round"/></svg>
-                <div className="ldb-action-text">
-                  <span className="ldb-action-name">Direct Deposit Authorization</span>
-                  <span className="ldb-action-due" style={{ color: '#16a34a' }}>Completed Apr 16</span>
-                </div>
-              </div>
-              <div className="ldb-action-item ldb-action-item--done">
-                <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><circle cx="8" cy="8" r="7" stroke="#16a34a" strokeWidth="1.4"/><path d="M5.5 8l2 2 3.5-3.5" stroke="#16a34a" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round"/></svg>
-                <div className="ldb-action-text">
-                  <span className="ldb-action-name">NJ TDI Application</span>
-                  <span className="ldb-action-due" style={{ color: '#16a34a' }}>Completed Apr 17</span>
-                </div>
-              </div>
+              {completedItems.map(function (item, i) {
+                return (
+                  <div key={i} className="ldb-action-item ldb-action-item--done">
+                    <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><circle cx="8" cy="8" r="7" stroke="#16a34a" strokeWidth="1.4"/><path d="M5.5 8l2 2 3.5-3.5" stroke="#16a34a" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round"/></svg>
+                    <div className="ldb-action-text">
+                      <span className="ldb-action-name">{item.name}</span>
+                      <span className="ldb-action-due" style={{ color: '#16a34a' }}>{item.date}</span>
+                    </div>
+                  </div>
+                );
+              })}
             </div>
             <button type="button" className="ldb-show-more-btn" onClick={function () { setShowAllTasks(false); }}>
               Show less
             </button>
           </>
-        )}
+        ) : null}
       </div>
     );
   }
@@ -453,17 +494,21 @@ export default function LeaveDetailV2ePage() {
                 <span style={{ fontSize: 12, color: '#737373' }}>Click a row to expand</span>
               </div>
 
-              {/* Leave Case Claim */}
+              {/* Leave Case — FMLA (all scenarios) */}
               <div className="ldb-claim-accordion">
                 <button type="button" className={'ldb-claim-accordion-header' + (expandedClaims.absence ? ' expanded' : '')} onClick={function () { toggleClaim('absence'); }}>
                   <div className="ldb-claim-accordion-left">
                     <svg className="ldb-claim-accordion-chevron" width="10" height="6" viewBox="0 0 10 6" fill="none"><path d="M1 1l4 4 4-4" stroke="currentColor" strokeWidth="1.3" strokeLinecap="round" strokeLinejoin="round"/></svg>
                     <div>
                       <div className="ldb-claim-accordion-title-wrap">
-                        <span className="ldb-claim-accordion-title">Leave Case — FMLA (Intermittent)</span>
+                        <span className="ldb-claim-accordion-title">
+                          {caseScenario === 'child' ? 'Leave Case — FMLA (Pregnancy & Bonding)' : caseScenario === 'child_nonbirth' ? 'Leave Case — FMLA (Bonding)' : caseScenario === 'medical_family' ? 'Leave Case — FMLA (Family Care)' : caseScenario === 'military' ? 'Leave Case — FMLA (Military Exigency)' : 'Leave Case — FMLA (Intermittent)'}
+                        </span>
                         <span className="ldb-claim-status ldb-claim-status--inline" style={{ background: '#dcfce7', color: '#166534' }}>Approved</span>
                       </div>
-                      <div className="ldb-claim-accordion-sub">CLM-12345-ABS · Intermittent FMLA — job protection &amp; RTW tracking</div>
+                      <div className="ldb-claim-accordion-sub">
+                        {caseScenario === 'child' ? 'CLM-12345-ABS · Continuous FMLA — pregnancy/bonding leave' : caseScenario === 'child_nonbirth' ? 'CLM-12345-ABS · Continuous FMLA — bonding leave' : caseScenario === 'medical_family' ? 'CLM-12345-ABS · FMLA — family caregiver leave' : caseScenario === 'military' ? 'CLM-12345-ABS · FMLA — qualifying exigency leave' : 'CLM-12345-ABS · Intermittent FMLA — job protection & RTW tracking'}
+                      </div>
                     </div>
                   </div>
                   <span className="ldb-claim-status ldb-claim-status--end" style={{ background: '#dcfce7', color: '#166534' }}>Approved</span>
@@ -477,7 +522,7 @@ export default function LeaveDetailV2ePage() {
                       </div>
                       <div>
                         <div className="dt-info-field-label">Leave Type</div>
-                        <div className="dt-info-field-value">Intermittent</div>
+                        <div className="dt-info-field-value">{caseScenario === 'child' || caseScenario === 'child_nonbirth' ? 'Continuous' : caseScenario === 'medical_self' ? 'Intermittent' : 'Continuous'}</div>
                       </div>
                       <div>
                         <div className="dt-info-field-label">FMLA Eligible</div>
@@ -500,17 +545,18 @@ export default function LeaveDetailV2ePage() {
                 )}
               </div>
 
-              {/* Group Disability Claim */}
+              {/* Group Disability Claim — only for medical_self and child (birthing parent) */}
+              {(caseScenario === 'medical_self' || caseScenario === 'child') && (
               <div className="ldb-claim-accordion">
                 <button type="button" className={'ldb-claim-accordion-header' + (expandedClaims.disability ? ' expanded' : '')} onClick={function () { toggleClaim('disability'); }}>
                   <div className="ldb-claim-accordion-left">
                     <svg className="ldb-claim-accordion-chevron" width="10" height="6" viewBox="0 0 10 6" fill="none"><path d="M1 1l4 4 4-4" stroke="currentColor" strokeWidth="1.3" strokeLinecap="round" strokeLinejoin="round"/></svg>
                     <div>
                       <div className="ldb-claim-accordion-title-wrap">
-                        <span className="ldb-claim-accordion-title">Group Disability Claim</span>
+                        <span className="ldb-claim-accordion-title">{caseScenario === 'child' ? 'Maternity Disability Claim' : 'Group Disability Claim'}</span>
                         <span className="ldb-claim-status ldb-claim-status--inline" style={{ background: '#dcfce7', color: '#166534' }}>Approved</span>
                       </div>
-                      <div className="ldb-claim-accordion-sub">CLM-12345-GDC · STD Benefit — income replacement at 60% of earnings</div>
+                      <div className="ldb-claim-accordion-sub">{caseScenario === 'child' ? 'CLM-12345-GDC · STD Benefit — maternity disability at 60% of earnings' : 'CLM-12345-GDC · STD Benefit — income replacement at 60% of earnings'}</div>
                     </div>
                   </div>
                   <span className="ldb-claim-status ldb-claim-status--end" style={{ background: '#dcfce7', color: '#166534' }}>Approved</span>
@@ -543,27 +589,17 @@ export default function LeaveDetailV2ePage() {
                         <div className="dt-info-field-value" style={{ fontWeight: 700 }}>$2,308.00</div>
                       </div>
                       <div>
-                        <div className="dt-info-field-label">Benefits Paid From</div>
-                        <div className="dt-info-field-value">Apr 22, 2026</div>
-                      </div>
-                      <div>
-                        <div className="dt-info-field-label">Benefits Paid Through</div>
-                        <div className="dt-info-field-value">May 15, 2026</div>
-                      </div>
-                      <div>
                         <div className="dt-info-field-label">Payment Method</div>
                         <div className="dt-info-field-value">Direct Deposit ****4872</div>
-                      </div>
-                      <div>
-                        <div className="dt-info-field-label">Total Paid</div>
-                        <div className="dt-info-field-value" style={{ fontWeight: 700 }}>$7,893.00</div>
                       </div>
                     </div>
                   </div>
                 )}
               </div>
+              )}
 
-              {/* Supplemental Health Claim */}
+              {/* Supplemental Health Claim — only for medical_self */}
+              {caseScenario === 'medical_self' && (
               <div className="ldb-claim-accordion">
                 <button type="button" className={'ldb-claim-accordion-header' + (expandedClaims.supplemental ? ' expanded' : '')} onClick={function () { toggleClaim('supplemental'); }}>
                   <div className="ldb-claim-accordion-left">
@@ -601,29 +637,24 @@ export default function LeaveDetailV2ePage() {
                         <div className="dt-info-field-label">Expected Payout</div>
                         <div className="dt-info-field-value" style={{ fontWeight: 700 }}>$600.00</div>
                       </div>
-                      <div>
-                        <div className="dt-info-field-label">Status</div>
-                        <div className="dt-info-field-value">Under Review — awaiting itemized bill</div>
-                      </div>
-                    </div>
-                    <div style={{ marginTop: 16, padding: '12px 16px', background: '#f5f3ff', borderRadius: 8, border: '1px solid #ede9fe', fontSize: 13, color: '#5b21b6' }}>
-                      <strong>Action needed:</strong> Upload itemized hospital bill to complete review. This claim pays in addition to your STD benefit.
                     </div>
                   </div>
                 )}
               </div>
+              )}
 
-              {/* State Paid Leave Claim */}
+              {/* State Paid Leave — for medical_self and child */}
+              {(caseScenario === 'medical_self' || caseScenario === 'child') && (
               <div className="ldb-claim-accordion">
                 <button type="button" className={'ldb-claim-accordion-header' + (expandedClaims.stateleave ? ' expanded' : '')} onClick={function () { toggleClaim('stateleave'); }}>
                   <div className="ldb-claim-accordion-left">
                     <svg className="ldb-claim-accordion-chevron" width="10" height="6" viewBox="0 0 10 6" fill="none"><path d="M1 1l4 4 4-4" stroke="currentColor" strokeWidth="1.3" strokeLinecap="round" strokeLinejoin="round"/></svg>
                     <div>
                       <div className="ldb-claim-accordion-title-wrap">
-                        <span className="ldb-claim-accordion-title">State Paid Leave — NJ TDI</span>
+                        <span className="ldb-claim-accordion-title">{caseScenario === 'child' ? 'State Paid Leave — NJ FLI' : 'State Paid Leave — NJ TDI'}</span>
                         <span className="ldb-claim-status ldb-claim-status--inline" style={{ background: '#eef2ff', color: '#6366f1' }}>Active</span>
                       </div>
-                      <div className="ldb-claim-accordion-sub">NTN-9312-STL-83 · NJ Temporary Disability Insurance — state-funded income replacement</div>
+                      <div className="ldb-claim-accordion-sub">{caseScenario === 'child' ? 'NTN-9312-STL-83 · NJ Family Leave Insurance — state-funded bonding benefit' : 'NTN-9312-STL-83 · NJ Temporary Disability Insurance — state-funded income replacement'}</div>
                     </div>
                   </div>
                   <span className="ldb-claim-status ldb-claim-status--end" style={{ background: '#eef2ff', color: '#6366f1' }}>Active</span>
@@ -637,7 +668,7 @@ export default function LeaveDetailV2ePage() {
                       </div>
                       <div>
                         <div className="dt-info-field-label">Program</div>
-                        <div className="dt-info-field-value">NJ Temporary Disability Insurance (TDI)</div>
+                        <div className="dt-info-field-value">{caseScenario === 'child' ? 'NJ Family Leave Insurance (FLI)' : 'NJ Temporary Disability Insurance (TDI)'}</div>
                       </div>
                       <div>
                         <div className="dt-info-field-label">Benefit %</div>
@@ -649,35 +680,66 @@ export default function LeaveDetailV2ePage() {
                       </div>
                       <div>
                         <div className="dt-info-field-label">Max Duration</div>
-                        <div className="dt-info-field-value">26 weeks</div>
-                      </div>
-                      <div>
-                        <div className="dt-info-field-label">Work State</div>
-                        <div className="dt-info-field-value">New Jersey</div>
-                      </div>
-                      <div>
-                        <div className="dt-info-field-label">Benefits Start</div>
-                        <div className="dt-info-field-value">Apr 15, 2026</div>
-                      </div>
-                      <div>
-                        <div className="dt-info-field-label">Benefits End (Est.)</div>
-                        <div className="dt-info-field-value">Jul 08, 2026</div>
-                      </div>
-                      <div>
-                        <div className="dt-info-field-label">Total Paid</div>
-                        <div className="dt-info-field-value" style={{ fontWeight: 700 }}>$4,192.00</div>
+                        <div className="dt-info-field-value">{caseScenario === 'child' ? '12 weeks' : '26 weeks'}</div>
                       </div>
                       <div>
                         <div className="dt-info-field-label">Payment Method</div>
                         <div className="dt-info-field-value">Direct Deposit ****4872</div>
                       </div>
                     </div>
-                    <div style={{ marginTop: 16, padding: '12px 16px', background: '#eef2ff', borderRadius: 8, border: '1px solid #e0e7ff', fontSize: 13, color: '#3730a3' }}>
-                      <strong>Note:</strong> NJ TDI is paid separately from your employer STD benefit. Combined, you receive approximately 85% income replacement during your leave. This benefit is funded by NJ state payroll contributions.
+                  </div>
+                )}
+              </div>
+              )}
+
+              {/* NJ Family Leave — for medical_family and child_nonbirth */}
+              {(caseScenario === 'medical_family' || caseScenario === 'child_nonbirth') && (
+              <div className="ldb-claim-accordion">
+                <button type="button" className={'ldb-claim-accordion-header' + (expandedClaims.stateleave ? ' expanded' : '')} onClick={function () { toggleClaim('stateleave'); }}>
+                  <div className="ldb-claim-accordion-left">
+                    <svg className="ldb-claim-accordion-chevron" width="10" height="6" viewBox="0 0 10 6" fill="none"><path d="M1 1l4 4 4-4" stroke="currentColor" strokeWidth="1.3" strokeLinecap="round" strokeLinejoin="round"/></svg>
+                    <div>
+                      <div className="ldb-claim-accordion-title-wrap">
+                        <span className="ldb-claim-accordion-title">State Paid Leave — NJ FLI</span>
+                        <span className="ldb-claim-status ldb-claim-status--inline" style={{ background: '#eef2ff', color: '#6366f1' }}>Active</span>
+                      </div>
+                      <div className="ldb-claim-accordion-sub">NTN-9312-STL-83 · NJ Family Leave Insurance — state-funded caregiver/bonding benefit</div>
+                    </div>
+                  </div>
+                  <span className="ldb-claim-status ldb-claim-status--end" style={{ background: '#eef2ff', color: '#6366f1' }}>Active</span>
+                </button>
+                {expandedClaims.stateleave && (
+                  <div className="ldb-claim-accordion-body">
+                    <div className="dt-info-grid">
+                      <div>
+                        <div className="dt-info-field-label">Claim ID</div>
+                        <div className="dt-info-field-value">NTN-9312-STL-83</div>
+                      </div>
+                      <div>
+                        <div className="dt-info-field-label">Program</div>
+                        <div className="dt-info-field-value">NJ Family Leave Insurance (FLI)</div>
+                      </div>
+                      <div>
+                        <div className="dt-info-field-label">Benefit %</div>
+                        <div className="dt-info-field-value">85% of average weekly wage</div>
+                      </div>
+                      <div>
+                        <div className="dt-info-field-label">Weekly Benefit</div>
+                        <div className="dt-info-field-value" style={{ fontWeight: 700 }}>$1,048.00</div>
+                      </div>
+                      <div>
+                        <div className="dt-info-field-label">Max Duration</div>
+                        <div className="dt-info-field-value">12 weeks</div>
+                      </div>
+                      <div>
+                        <div className="dt-info-field-label">Payment Method</div>
+                        <div className="dt-info-field-value">Direct Deposit ****4872</div>
+                      </div>
                     </div>
                   </div>
                 )}
               </div>
+              )}
             </div>
 
             {/* Associated Payments */}

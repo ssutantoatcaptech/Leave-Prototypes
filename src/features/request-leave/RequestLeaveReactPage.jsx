@@ -657,6 +657,9 @@ export default function RequestLeaveReactPage() {
       leaveType: formState.leaveType,
       startDate: formState.leaveStartDate,
       endDate: formState.expectedReturnDate,
+      leaveScenario: formState.leaveScenario,
+      sendCertToPhysician: formState.sendCertToPhysician,
+      childScenario: formState.childScenario,
     };
     const existing = JSON.parse(localStorage.getItem('submittedLeaves') || '[]');
     existing.unshift(caseEntry);
