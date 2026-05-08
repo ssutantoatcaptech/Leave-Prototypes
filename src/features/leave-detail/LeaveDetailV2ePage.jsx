@@ -960,7 +960,29 @@ export default function LeaveDetailV2ePage() {
             {/* 1. Items Requiring Action (sidebar on desktop) */}
             {!isMobile && renderItemsRequiringAction()}
 
-            {/* 2. Quick Actions */}
+            {/* 2. Leave Snapshot */}
+            <div className="ldb-side-card">
+              <h3 className="ldb-side-title">
+                <svg width="14" height="14" viewBox="0 0 16 16" fill="none"><rect x="2" y="3" width="12" height="11" rx="1.5" stroke="currentColor" strokeWidth="1.2"/><path d="M2 6h12" stroke="currentColor" strokeWidth="1.2"/><path d="M5 2v2M11 2v2" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round"/></svg>
+                Leave Snapshot
+              </h3>
+              <div className="ldb-snapshot-dates-row">
+                <div className="ldb-snapshot-date-card">
+                  <div className="ldb-snapshot-date-label">Start Date</div>
+                  <div className="ldb-snapshot-date-value">April 15, 2026</div>
+                </div>
+                <div className="ldb-snapshot-date-card">
+                  <div className="ldb-snapshot-date-label">End Date</div>
+                  <div className="ldb-snapshot-date-value">July 8, 2026</div>
+                </div>
+              </div>
+              <div className="ldb-snapshot-date-card ldb-snapshot-date-card--full">
+                <div className="ldb-snapshot-date-label">Return Work Date</div>
+                <div className="ldb-snapshot-date-value">July 9, 2026</div>
+              </div>
+            </div>
+
+            {/* 3. Quick Actions */}
             <div className="ldb-side-card ldb-side-card--shadow">
               <div className="ldb-quick-actions-label">QUICK ACTIONS</div>
               <div className="ldb-quick-actions-list">
@@ -989,28 +1011,6 @@ export default function LeaveDetailV2ePage() {
                   <span>Message claims specialist</span>
                   <svg width="10" height="10" viewBox="0 0 16 16" fill="none" className="ldb-quick-action-chevron"><path d="M6 4l4 4-4 4" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round"/></svg>
                 </button>
-              </div>
-            </div>
-
-            {/* 3. Leave Snapshot */}
-            <div className="ldb-side-card">
-              <h3 className="ldb-side-title">
-                <svg width="14" height="14" viewBox="0 0 16 16" fill="none"><rect x="2" y="3" width="12" height="11" rx="1.5" stroke="currentColor" strokeWidth="1.2"/><path d="M2 6h12" stroke="currentColor" strokeWidth="1.2"/><path d="M5 2v2M11 2v2" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round"/></svg>
-                Leave Snapshot
-              </h3>
-              <div className="ldb-snapshot-dates-row">
-                <div className="ldb-snapshot-date-card">
-                  <div className="ldb-snapshot-date-label">Start Date</div>
-                  <div className="ldb-snapshot-date-value">April 15, 2026</div>
-                </div>
-                <div className="ldb-snapshot-date-card">
-                  <div className="ldb-snapshot-date-label">End Date</div>
-                  <div className="ldb-snapshot-date-value">July 8, 2026</div>
-                </div>
-              </div>
-              <div className="ldb-snapshot-date-card ldb-snapshot-date-card--full">
-                <div className="ldb-snapshot-date-label">Return Work Date</div>
-                <div className="ldb-snapshot-date-value">July 9, 2026</div>
               </div>
             </div>
 
