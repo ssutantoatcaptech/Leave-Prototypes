@@ -441,7 +441,6 @@ export default function LeaveDetailV2ePage() {
             <div className="ldb-detail-tabs">
               <button type="button" className={'ldb-detail-tab' + (detailTab === 'claims' ? ' active' : '')} onClick={function () { setDetailTab('claims'); }}>Claims & Payments</button>
               <button type="button" className={'ldb-detail-tab' + (detailTab === 'about' ? ' active' : '')} onClick={function () { setDetailTab('about'); }}>Leave Details</button>
-              <button type="button" className={'ldb-detail-tab' + (detailTab === 'communications' ? ' active' : '')} onClick={function () { setDetailTab('communications'); }}>Communications</button>
             </div>
 
             {/* Tab: Claims & Payments */}
