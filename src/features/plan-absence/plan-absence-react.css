@@ -781,6 +781,55 @@
   padding-left: 80px;
 }
 
+/* ─── Mobile detail panel (shown on tap) ──────────────────────────────────── */
+.dlp-tl-mobile-detail {
+  display: none;
+  background: #f8fafc;
+  border: 1px solid #e2e8f0;
+  border-radius: 8px;
+  padding: 14px 16px;
+  margin: 8px 0 12px;
+}
+
+.dlp-tl-mobile-detail-title {
+  font-size: 14px;
+  font-weight: 700;
+  color: #0f0f14;
+  margin-bottom: 10px;
+}
+
+.dlp-tl-mobile-detail-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+}
+
+.dlp-tl-mobile-detail-label {
+  font-size: 10px;
+  font-weight: 600;
+  color: #737373;
+  text-transform: uppercase;
+  margin-bottom: 2px;
+}
+
+.dlp-tl-mobile-detail-value {
+  font-size: 13px;
+  font-weight: 600;
+  color: #0f0f14;
+}
+
+/* ─── Cancel link (downplayed) ─────────────────────────────────────────────── */
+.dlp-cancel-link {
+  background: none;
+  border: none;
+  color: #737373;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  font-family: inherit;
+  text-decoration: underline;
+}
+
 /* ─── Legend ─────────────────────────────────────────────────────────────────── */
 .dlp-legend {
   display: flex;
@@ -1198,15 +1247,39 @@
 
   /* Button rows */
   .sim-btn-row {
-    flex-direction: column-reverse;
-    gap: 10px;
-    align-items: stretch;
+    flex-direction: column-reverse !important;
+    gap: 10px !important;
+    align-items: stretch !important;
+    justify-content: flex-start !important;
+  }
+  .sim-btn-row > div {
+    display: flex !important;
+    flex-direction: column-reverse !important;
+    gap: 10px !important;
+    width: 100% !important;
   }
   .sim-btn-row .sim-btn-primary,
   .sim-btn-row .sim-btn-back {
     width: 100%;
     justify-content: center;
     text-align: center;
+  }
+  /* Inline grids collapse to single column (exclude rq-grid) */
+  .sim-card div[style*="grid"]:not(.rq-grid) {
+    grid-template-columns: 1fr !important;
+  }
+  .bordered-section div[style*="grid"]:not(.rq-grid) {
+    grid-template-columns: 1fr !important;
+  }
+  /* Confirmation dates & actions stack */
+  .pa-confirm-dates {
+    flex-direction: column !important;
+  }
+  .pa-confirm-actions {
+    flex-direction: column !important;
+  }
+  .pa-confirm-actions .btn {
+    width: 100% !important;
   }
   .wizard-footer {
     flex-direction: column-reverse;
@@ -1335,9 +1408,41 @@
   .dlp-next-title { font-size: 15px; }
   .dlp-next-desc { font-size: 13px; }
 
-  /* View tabs (Pay/Coverage toggle) */
-  .dlp-view-tabs { width: 100%; }
-  .dlp-view-tab { flex: 1; text-align: center; }
+  /* View tabs (Pay/Coverage toggle) — center below title */
+  .dlp-section-head {
+    flex-direction: column !important;
+    align-items: flex-start !important;
+    gap: 10px;
+    margin-bottom: 14px !important;
+  }
+  .dlp-view-tabs { width: 100%; align-self: center; }
+  .dlp-view-tab { flex: 1; text-align: center; padding: 8px 12px; font-size: 13px; }
+
+  /* Timeline rows: taller for tap targets */
+  .dlp-tl-row { min-height: 44px; }
+  .dlp-tl-row-bar { height: 32px !important; border-radius: 6px; }
+  .dlp-tl-row-label { width: 50px; min-width: 50px; font-size: 11px; }
+  .dlp-tl-seg { border-radius: 6px; }
+
+  /* Hide week ticks, keep months */
+  .dlp-tl-weeks { display: none !important; }
+  .dlp-tl-months { padding-left: 50px !important; margin-top: 10px; }
+
+  /* Show mobile detail on tap */
+  .dlp-tl-mobile-detail { display: block; }
+
+  /* Cancel button — downplay to text link */
+  .btn-cancel-leave {
+    background: none !important;
+    border: none !important;
+    color: #737373 !important;
+    font-size: 13px !important;
+    font-weight: 600 !important;
+    padding: 8px 0 !important;
+    min-height: auto !important;
+    text-decoration: underline;
+    order: 99;
+  }
 
   /* Hide sidebar on mobile — replaced by filter bar */
   .sim-split-side { display: none; }
@@ -1437,6 +1542,12 @@
 /* ─── Mobile filter bar (always outside media query for base styles) ────────── */
 .dlp-mobile-filter {
   display: none;
+}
+
+.dlp-mobile-filter-label {
+  font-size: 14px;
+  font-weight: 700;
+  color: #0f0f14;
 }
 
 .dlp-mobile-filter-toggle {

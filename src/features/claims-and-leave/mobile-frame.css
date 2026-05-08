@@ -1376,6 +1376,16 @@
 
 /* ─── Plan a Leave — Mobile Frame Overrides ─────────────────────────────────── */
 
+/* Hide the standalone SiteNav when inside claims-and-leave layout */
+.mobile-frame-screen .plan-absence-shell > .top-nav {
+  display: none;
+}
+
+.mobile-frame-screen .plan-absence-shell {
+  background: transparent;
+  min-height: auto;
+}
+
 .mobile-frame-screen .rlv2-page {
   padding: 16px 0;
   max-width: none;
@@ -1470,9 +1480,18 @@
 
 /* Button rows */
 .mobile-frame-screen .sim-btn-row {
-  flex-direction: column-reverse;
-  gap: 10px;
-  align-items: stretch;
+  flex-direction: column-reverse !important;
+  gap: 10px !important;
+  align-items: stretch !important;
+  justify-content: flex-start !important;
+}
+
+/* Override the inner inline-styled div wrapping Back + Primary */
+.mobile-frame-screen .sim-btn-row > div {
+  display: flex !important;
+  flex-direction: column-reverse !important;
+  gap: 10px !important;
+  width: 100% !important;
 }
 
 .mobile-frame-screen .sim-btn-row .sim-btn-primary,
@@ -1486,6 +1505,13 @@
   flex-direction: column-reverse;
   gap: 10px;
   align-items: stretch;
+}
+
+.mobile-frame-screen .wizard-footer > div {
+  display: flex !important;
+  flex-direction: column-reverse !important;
+  gap: 10px !important;
+  width: 100% !important;
 }
 
 .mobile-frame-screen .wizard-footer .btn {
@@ -1519,6 +1545,7 @@
   min-height: 48px;
   justify-content: center;
   box-sizing: border-box;
+  white-space: nowrap;
 }
 
 .mobile-frame-screen .sim-btn-back {
@@ -1551,28 +1578,114 @@
   margin-bottom: 12px;
 }
 
+.mobile-frame-screen .dlp-mobile-filter-label {
+  font-size: 14px;
+  font-weight: 700;
+  color: #0f0f14;
+}
+
+/* Section head: stack title + tabs vertically on mobile */
+.mobile-frame-screen .dlp-section-head {
+  flex-direction: column !important;
+  align-items: flex-start !important;
+  gap: 10px;
+  margin-bottom: 14px !important;
+}
+
+.mobile-frame-screen .dlp-view-tabs {
+  width: 100%;
+  align-self: center;
+}
+
+.mobile-frame-screen .dlp-view-tab {
+  flex: 1;
+  text-align: center;
+  padding: 8px 12px;
+  font-size: 13px;
+}
+
 /* Timeline adjustments */
+.mobile-frame-screen .dlp-tl-row {
+  min-height: 44px;
+  cursor: pointer;
+}
+
 .mobile-frame-screen .dlp-tl-row-label {
-  width: 60px;
-  font-size: 10px;
+  width: 50px;
+  min-width: 50px;
+  font-size: 11px;
   padding-right: 6px;
 }
 
+.mobile-frame-screen .dlp-tl-row-bar {
+  height: 32px !important;
+  border-radius: 6px;
+}
+
+.mobile-frame-screen .dlp-tl-seg {
+  border-radius: 6px;
+}
+
+/* Hide week ticks on mobile, keep months */
 .mobile-frame-screen .dlp-tl-weeks {
-  padding-left: 60px;
+  display: none !important;
 }
 
 .mobile-frame-screen .dlp-tl-months {
-  padding-left: 60px;
+  padding-left: 50px !important;
   font-size: 10px;
+  margin-top: 10px;
 }
 
 .mobile-frame-screen .dlp-legend {
   gap: 10px;
+  flex-wrap: wrap;
 }
 
 .mobile-frame-screen .dlp-legend-item {
   font-size: 10px;
+}
+
+/* Mobile detail panel (shown on tap) */
+.mobile-frame-screen .dlp-tl-mobile-detail {
+  display: block;
+}
+
+/* Cancel button — downplay to text link */
+.mobile-frame-screen .btn-cancel-leave {
+  background: none !important;
+  border: none !important;
+  color: #737373 !important;
+  font-size: 13px !important;
+  font-weight: 600 !important;
+  padding: 8px 0 !important;
+  min-height: auto !important;
+  text-decoration: underline;
+  width: auto !important;
+}
+
+.mobile-frame-screen .dlp-cancel-link {
+  background: none;
+  border: none;
+  color: #737373;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  font-family: inherit;
+  text-decoration: underline;
+}
+
+/* Step 3 action row: wrap on mobile */
+.mobile-frame-screen .dlp-step3-actions {
+  flex-wrap: wrap !important;
+  justify-content: center !important;
+  gap: 12px !important;
+}
+
+/* Primary button on step 3 — full width */
+.mobile-frame-screen .btn-next {
+  width: 100% !important;
+  text-align: center;
 }
 
 /* Pay band stacks */
@@ -1618,4 +1731,173 @@
 .mobile-frame-screen .pa-illustration-circle {
   width: 140px;
   height: 140px;
+}
+
+/* Override inline grid layouts inside sim-card to single column (exclude rq-grid which handles its own responsive) */
+.mobile-frame-screen .sim-card div[style*="grid"]:not(.rq-grid) {
+  grid-template-columns: 1fr !important;
+}
+
+.mobile-frame-screen .bordered-section div[style*="grid"]:not(.rq-grid) {
+  grid-template-columns: 1fr !important;
+}
+
+
+/* Override dlp-estimate-banner inline styles for mobile */
+.mobile-frame-screen .dlp-estimate-banner {
+  flex-direction: column !important;
+  padding: 10px 14px !important;
+  font-size: 12px;
+}
+
+/* Form grids: force single column */
+.mobile-frame-screen .pa-grid {
+  grid-template-columns: 1fr !important;
+}
+
+.mobile-frame-screen .pa-span-2 {
+  grid-column: auto !important;
+}
+
+.mobile-frame-screen .rq-grid {
+  grid-template-columns: 1fr;
+}
+
+.mobile-frame-screen .rq-span-2 {
+  grid-column: auto !important;
+}
+
+.mobile-frame-screen .rq-field input,
+.mobile-frame-screen .rq-field select {
+  font-size: 16px;
+  min-height: 48px;
+  padding: 14px 12px;
+}
+
+/* Stepper (step progress) */
+.mobile-frame-screen .pa-steps-icons {
+  gap: 4px;
+}
+
+.mobile-frame-screen .pa-step-icon-box {
+  width: 40px;
+  height: 40px;
+}
+
+.mobile-frame-screen .pa-step-icon-label {
+  font-size: 11px;
+}
+
+/* sim-field inputs/selects — ensure proper sizing */
+.mobile-frame-screen .sim-field label {
+  font-size: 13px;
+  margin-bottom: 6px;
+}
+
+/* Bordered sections */
+.mobile-frame-screen .bordered-section {
+  padding: 16px !important;
+  border-radius: 8px;
+}
+
+/* Cancel modal inside frame */
+.mobile-frame-screen .cancel-confirm-modal {
+  padding: 24px 20px;
+}
+
+/* Submit modal / Transition modal */
+.mobile-frame-screen .pr-modal {
+  margin: 16px;
+  max-height: calc(100% - 32px);
+  border-radius: 14px;
+}
+
+.mobile-frame-screen .pr-modal-footer {
+  flex-direction: column;
+  gap: 8px;
+}
+
+.mobile-frame-screen .pr-modal-footer .pr-modal-cancel,
+.mobile-frame-screen .pr-modal-footer .pr-modal-submit {
+  width: 100%;
+  text-align: center;
+  justify-content: center;
+}
+
+/* rq-section */
+.mobile-frame-screen .rq-section {
+  padding: 20px 16px;
+}
+
+/* rq-week-card / work schedule */
+.mobile-frame-screen .rq-week-card {
+  padding: 16px 12px;
+}
+
+.mobile-frame-screen .rq-days-grid {
+  grid-template-columns: repeat(7, 1fr);
+  gap: 4px;
+}
+
+.mobile-frame-screen .rq-day-label {
+  font-size: 9px;
+}
+
+.mobile-frame-screen .rq-day-input {
+  padding: 8px 2px;
+  font-size: 14px;
+  border-radius: 6px;
+}
+
+/* Verify/Review grids */
+.mobile-frame-screen .rq-verify-grid {
+  grid-template-columns: 1fr;
+}
+
+.mobile-frame-screen .rq-review-grid {
+  grid-template-columns: 1fr;
+}
+
+/* Accordion */
+.mobile-frame-screen .dlp-accordion-btn {
+  padding: 12px 14px;
+}
+
+.mobile-frame-screen .dlp-accordion-body {
+  padding: 0 14px 14px;
+}
+
+/* Alert bar */
+.mobile-frame-screen .dlp-alert {
+  padding: 12px 14px;
+  font-size: 12px;
+}
+
+/* Conditional section */
+.mobile-frame-screen .pa-conditional-section {
+  padding: 14px;
+}
+
+/* Confirmation page: stack date cards vertically */
+.mobile-frame-screen .pa-confirm-dates {
+  flex-direction: column !important;
+}
+
+/* Confirmation page: action buttons stack */
+.mobile-frame-screen .pa-confirm-actions {
+  flex-direction: column !important;
+}
+
+.mobile-frame-screen .pa-confirm-actions .btn {
+  width: 100% !important;
+  text-align: center;
+}
+
+/* rq-yn-group (yes/no buttons) — ensure full width */
+.mobile-frame-screen .rq-yn-group {
+  width: 100%;
+}
+
+.mobile-frame-screen .rq-yn-btn {
+  flex: 1;
 }

@@ -85,12 +85,12 @@ export default function MyCasesPage() {
       <div className="cl-breadcrumb">
         <Link to={base} className="cl-breadcrumb-link">Claims &amp; Leave</Link>
         <span className="cl-breadcrumb-sep">&gt;</span>
-        <span>My Cases</span>
+        <span>My Leave</span>
       </div>
 
       <div className="cl-page-header">
         <div>
-          <h1 className="cl-page-title">My Cases</h1>
+          <h1 className="cl-page-title">My Leave</h1>
           <p className="cl-page-desc">Manage your active, saved, and historical leave and claim cases.</p>
         </div>
         <div className="cl-page-actions">

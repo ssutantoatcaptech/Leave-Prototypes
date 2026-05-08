@@ -789,11 +789,7 @@ export default function PlanAbsenceReactPage() {
               {/* Mobile filter bar — collapsed summary of sidebar fields */}
               <div className="dlp-mobile-filter">
                 <button className="dlp-mobile-filter-toggle" type="button" onClick={() => setMobileFilterOpen(!mobileFilterOpen)}>
-                  <div className="dlp-mobile-filter-summary">
-                    <span className="dlp-mobile-filter-chip">{sideWorkState}</span>
-                    <span className="dlp-mobile-filter-chip" style={{ textTransform: 'capitalize' }}>{leaveType}</span>
-                    <span className="dlp-mobile-filter-chip">{leaveStart ? new Date(leaveStart + 'T00:00:00').toLocaleDateString('en-US', { month: 'short', day: 'numeric' }) : '—'} – {leaveReturn ? new Date(leaveReturn + 'T00:00:00').toLocaleDateString('en-US', { month: 'short', day: 'numeric' }) : '—'}</span>
-                  </div>
+                  <div className="dlp-mobile-filter-label">Get Your Leave Estimates</div>
                   <svg className={`dlp-mobile-filter-chevron${mobileFilterOpen ? ' open' : ''}`} width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M4 6l4 4 4-4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/></svg>
                 </button>
                 {mobileFilterOpen && (
@@ -854,45 +850,103 @@ export default function PlanAbsenceReactPage() {
                         </div>
                       </div>
 
-                      <div className="dlp-tl-row" style={{ marginBottom: 8 }}>
-                        <div className="dlp-tl-row-label">FMLA</div>
-                        <div className="dlp-tl-row-bar">
-                          <div className="dlp-tl-seg full" style={{ left: '0%', width: `${fmlaPct}%` }} />
-                        </div>
-                      </div>
+                      {/* Timeline rows with hover tooltip (desktop) + tap accordion (mobile) */}
+                      {(() => {
+                        const illRows = [
+                          { id: 'fmla', label: 'FMLA', pct: fmlaPct, segClass: activeView === 'pay' ? 'full' : 'full', detail: { title: 'FMLA Job Protection', duration: `${fmlaWks} weeks`, dates: `${leaveStart} – ${fmlaEndDate}`, pay: activeView === 'pay' ? '60% via STD (concurrent)' : '—', protection: 'FMLA (federal)' } },
+                          { id: 'std', label: 'STD', pct: stdPct, segClass: activeView === 'pay' ? 'partial' : 'insurance', detail: { title: 'Short-Term Disability', duration: `${stdWks} weeks`, dates: `${leaveStart} – ${stdEndDate}`, pay: '60% of salary', protection: fmlaEligible ? 'FMLA' : 'None' } },
+                          ...(stBenefit ? [{ id: 'state', label: 'State', pct: statePct, segClass: 'state', detail: { title: stBenefit.name, duration: `${stateWks} weeks`, dates: `${leaveStart} – ${stateEndDate}`, pay: `${stBenefit.payPct}% of salary`, protection: 'State law' } }] : []),
+                        ];
+                        return (
+                          <div className="dlp-timeline" onMouseLeave={() => setOpenDetail(null)}>
+                            <div style={{ position: 'relative' }}>
+                              <div className="dlp-tl-rows">
+                                {illRows.map((row, idx) => (
+                                  <div
+                                    key={row.id}
+                                    className={`dlp-tl-row${openDetail === row.id ? ' active' : ''}`}
+                                    style={{ cursor: 'pointer' }}
+                                    onMouseEnter={() => setOpenDetail(row.id)}
+                                    onClick={() => setOpenDetail(openDetail === row.id ? null : row.id)}
+                                  >
+                                    <div className="dlp-tl-row-label">{row.label}</div>
+                                    <div className="dlp-tl-row-bar">
+                                      <div className={`dlp-tl-seg ${row.segClass}`} style={{ left: '0%', width: `${row.pct}%` }} />
+                                    </div>
+                                  </div>
+                                ))}
+                              </div>
 
-                      <div className="dlp-tl-row">
-                        <div className="dlp-tl-row-label">STD</div>
-                        <div className="dlp-tl-row-bar">
-                          <div className="dlp-tl-seg partial" style={{ left: '0%', width: `${stdPct}%` }} />
-                        </div>
-                      </div>
+                              {/* Desktop hover tooltip */}
+                              {openDetail && (() => {
+                                const rowIdx = illRows.findIndex((r) => r.id === openDetail);
+                                if (rowIdx < 0) return null;
+                                const row = illRows[rowIdx];
+                                const tooltipLeft = Math.max(24, Math.min(92, row.pct / 2));
+                                return (
+                                  <div
+                                    className="ad-coverage-tooltip ad-coverage-tooltip-floating"
+                                    style={{ '--tooltip-top': `${rowIdx * 38 + 10}px`, '--tooltip-left': `${tooltipLeft}%` }}
+                                  >
+                                    <div className="ad-coverage-tooltip-head"><div className="title">{row.detail.title}</div></div>
+                                    <div className="ad-coverage-tooltip-grid">
+                                      <div><div className="label">Duration</div><div className="value">{row.detail.duration}</div></div>
+                                      <div><div className="label">Dates</div><div className="value">{row.detail.dates}</div></div>
+                                      <div><div className="label">Pay</div><div className="value">{row.detail.pay}</div></div>
+                                      <div><div className="label">Protection</div><div className="value">{row.detail.protection}</div></div>
+                                    </div>
+                                  </div>
+                                );
+                              })()}
+                            </div>
 
-                      {stBenefit && (
-                        <div className="dlp-tl-row" style={{ marginTop: 8 }}>
-                          <div className="dlp-tl-row-label">State</div>
-                          <div className="dlp-tl-row-bar">
-                            <div className="dlp-tl-seg state" style={{ left: '0%', width: `${statePct}%` }} />
+                            {/* Mobile accordion detail */}
+                            {openDetail && (() => {
+                              const row = illRows.find((r) => r.id === openDetail);
+                              if (!row) return null;
+                              return (
+                                <div className="dlp-tl-mobile-detail">
+                                  <div className="dlp-tl-mobile-detail-title">{row.detail.title}</div>
+                                  <div className="dlp-tl-mobile-detail-grid">
+                                    <div><div className="dlp-tl-mobile-detail-label">Duration</div><div className="dlp-tl-mobile-detail-value">{row.detail.duration}</div></div>
+                                    <div><div className="dlp-tl-mobile-detail-label">Dates</div><div className="dlp-tl-mobile-detail-value">{row.detail.dates}</div></div>
+                                    <div><div className="dlp-tl-mobile-detail-label">Pay</div><div className="dlp-tl-mobile-detail-value">{row.detail.pay}</div></div>
+                                    <div><div className="dlp-tl-mobile-detail-label">Protection</div><div className="dlp-tl-mobile-detail-value">{row.detail.protection}</div></div>
+                                  </div>
+                                </div>
+                              );
+                            })()}
+
+                            <div className="dlp-tl-weeks" style={{ paddingLeft: 80, marginTop: 8, display: 'flex' }}>
+                              {Array.from({ length: displayWks }, (_, i) => (
+                                <span key={i} style={{ flex: 1, fontSize: 10, color: '#737373', textAlign: 'center' }}>Wk {i + 1}</span>
+                              ))}
+                            </div>
+
+                            <div className="dlp-tl-months" style={{ paddingLeft: 80, marginTop: 4 }}>
+                              {estMonths.map((m, i) => <span key={i}>{m}</span>)}
+                            </div>
+
+                            <div className="dlp-legend" style={{ marginTop: 16 }}>
+                              {activeView === 'pay' ? (
+                                <>
+                                  <div className="dlp-legend-item"><div className="dlp-legend-dot" style={{ background: '#2d2d2d' }} />Job-protected (FMLA)</div>
+                                  <div className="dlp-legend-item"><div className="dlp-legend-dot" style={{ background: '#3b82f6' }} />Paid (STD 60%)</div>
+                                  {stBenefit && <div className="dlp-legend-item"><div className="dlp-legend-dot" style={{ background: '#0d9488' }} />State Paid Leave</div>}
+                                  <div className="dlp-legend-item"><div className="dlp-legend-dot" style={{ background: '#d4d4d4' }} />Unpaid</div>
+                                </>
+                              ) : (
+                                <>
+                                  <div className="dlp-legend-item"><div className="dlp-legend-dot" style={{ background: '#2d2d2d' }} />FMLA (federal protection)</div>
+                                  <div className="dlp-legend-item"><div className="dlp-legend-dot" style={{ background: '#a3a3a3' }} />Insurance (STD)</div>
+                                  {stBenefit && <div className="dlp-legend-item"><div className="dlp-legend-dot" style={{ background: '#0d9488' }} />State Paid Leave</div>}
+                                  <div className="dlp-legend-item"><div className="dlp-legend-dot" style={{ background: '#d4d4d4' }} />No coverage</div>
+                                </>
+                              )}
+                            </div>
                           </div>
-                        </div>
-                      )}
-
-                      <div className="dlp-tl-weeks" style={{ paddingLeft: 80, marginTop: 8, display: 'flex' }}>
-                        {Array.from({ length: displayWks }, (_, i) => (
-                          <span key={i} style={{ flex: 1, fontSize: 10, color: '#737373', textAlign: 'center' }}>Wk {i + 1}</span>
-                        ))}
-                      </div>
-
-                      <div className="dlp-tl-months" style={{ paddingLeft: 80, marginTop: 4 }}>
-                        {estMonths.map((m, i) => <span key={i}>{m}</span>)}
-                      </div>
-
-                      <div className="dlp-legend" style={{ marginTop: 16 }}>
-                        <div className="dlp-legend-item"><div className="dlp-legend-dot" style={{ background: '#0033a0' }} />FMLA</div>
-                        <div className="dlp-legend-item"><div className="dlp-legend-dot" style={{ background: '#3b82f6' }} />Short-Term Disability</div>
-                        {stBenefit && <div className="dlp-legend-item"><div className="dlp-legend-dot" style={{ background: '#0d9488' }} />State Paid Leave</div>}
-                        <div className="dlp-legend-item"><div className="dlp-legend-dot" style={{ background: '#d4d4d4' }} />Unpaid</div>
-                      </div>
+                        );
+                      })()}
                     </div>
 
                     <div style={{ background: '#fff', border: '1px solid #e5e5e5', borderRadius: 10, overflow: 'hidden', marginBottom: 28 }}>
@@ -975,13 +1029,13 @@ export default function PlanAbsenceReactPage() {
                       <button className="btn btn-next" type="button" onClick={() => setShowTransitionModal(true)} style={{ padding: '12px 36px', fontSize: 14, borderRadius: 8 }}>Start My Leave Request &rarr;</button>
                     </div>
 
-                    <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 16, marginTop: 16 }}>
-                      <button className="btn btn-cancel-leave" type="button" onClick={() => setShowCancelModal(true)}>Cancel</button>
+                    <div className="dlp-step3-actions" style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 16, marginTop: 16 }}>
                       <button type="button" onClick={goIllnessBack} style={{ background: 'none', border: 'none', fontSize: 13, fontWeight: 600, color: '#525252', cursor: 'pointer', fontFamily: 'inherit' }}>&larr; Back</button>
                       <button type="button" style={{ display: 'inline-flex', alignItems: 'center', gap: 5, background: 'none', border: 'none', fontSize: 13, fontWeight: 600, color: '#525252', cursor: 'pointer', fontFamily: 'inherit' }}>
                         <svg width="13" height="13" viewBox="0 0 16 16" fill="none"><path d="M2 3h12v10H2V3z" stroke="currentColor" strokeWidth="1.3" strokeLinecap="round" strokeLinejoin="round"/><path d="M2 3l6 5 6-5" stroke="currentColor" strokeWidth="1.3" strokeLinecap="round" strokeLinejoin="round"/></svg>
                         Email Plan
                       </button>
+                      <button type="button" className="dlp-cancel-link" onClick={() => setShowCancelModal(true)}>Cancel</button>
                     </div>
                   </div>
                 </div>
@@ -1541,7 +1595,7 @@ export default function PlanAbsenceReactPage() {
             <div style={{ fontSize: 14, fontStyle: 'italic', color: '#525252', marginBottom: 28 }}>Your Case In Review</div>
 
             {/* Date row */}
-            <div style={{ display: 'flex', gap: 12, justifyContent: 'center', marginBottom: 28 }}>
+            <div className="pa-confirm-dates" style={{ display: 'flex', gap: 12, justifyContent: 'center', marginBottom: 28 }}>
               {[
                 { label: 'START DATE', value: leaveStart ? fmtDate(new Date(leaveStart + 'T00:00:00')) : '—' },
                 { label: 'END DATE', value: leaveReturn ? fmtDate(new Date(leaveReturn + 'T00:00:00')) : '—' },
@@ -1590,7 +1644,7 @@ export default function PlanAbsenceReactPage() {
             </div>
 
             {/* Action buttons */}
-            <div style={{ display: 'flex', justifyContent: 'center', gap: 12 }}>
+            <div className="pa-confirm-actions" style={{ display: 'flex', justifyContent: 'center', gap: 12 }}>
               <Link to="/absence-details" className="btn" style={{ padding: '12px 24px', fontSize: 14, border: '1px solid #d4d4d8', borderRadius: 8, textDecoration: 'none', color: '#0f0f14', fontWeight: 600 }}>View Absence Details</Link>
               <Link to="/overview-react" className="btn" style={{ padding: '12px 24px', fontSize: 14, border: '1px solid #d4d4d8', borderRadius: 8, textDecoration: 'none', color: '#0f0f14', fontWeight: 600 }}>Back to Leave</Link>
             </div>
@@ -1706,11 +1760,7 @@ export default function PlanAbsenceReactPage() {
             {/* Mobile filter bar */}
             <div className="dlp-mobile-filter">
               <button className="dlp-mobile-filter-toggle" type="button" onClick={() => setMobileFilterOpen(!mobileFilterOpen)}>
-                <div className="dlp-mobile-filter-summary">
-                  <span className="dlp-mobile-filter-chip">{sideWorkState}</span>
-                  <span className="dlp-mobile-filter-chip" style={{ textTransform: 'capitalize' }}>{leaveType}</span>
-                  <span className="dlp-mobile-filter-chip">{(isBirth ? sideDueDate : sideStart) ? new Date(((isBirth ? sideDueDate : sideStart)) + 'T00:00:00').toLocaleDateString('en-US', { month: 'short', day: 'numeric' }) : '—'} – {leaveReturn ? new Date(leaveReturn + 'T00:00:00').toLocaleDateString('en-US', { month: 'short', day: 'numeric' }) : '—'}</span>
-                </div>
+                <div className="dlp-mobile-filter-label">Get Your Leave Estimates</div>
                 <svg className={`dlp-mobile-filter-chevron${mobileFilterOpen ? ' open' : ''}`} width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M4 6l4 4 4-4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/></svg>
               </button>
               {mobileFilterOpen && (
@@ -1783,6 +1833,7 @@ export default function PlanAbsenceReactPage() {
                               key={row.id}
                               className={`dlp-tl-row${openDetail === row.id ? ' active' : ''}`}
                               onMouseEnter={() => setOpenDetail(row.id)}
+                              onClick={() => setOpenDetail(openDetail === row.id ? null : row.id)}
                             >
                               <div className="dlp-tl-row-label">{row.label}</div>
                               <div className="dlp-tl-row-bar">
@@ -1807,7 +1858,7 @@ export default function PlanAbsenceReactPage() {
                         )}
                       </div>
 
-                      {/* Hover tooltip */}
+                      {/* Hover tooltip (desktop) */}
                       {openDetail && detailData && (() => {
                         const rowIdx = tlData.rows.findIndex((r) => r.id === openDetail);
                         const row = tlData.rows[rowIdx];
@@ -1844,6 +1895,19 @@ export default function PlanAbsenceReactPage() {
                           </div>
                         );
                       })()}
+
+                      {/* Mobile inline detail (shown on tap) */}
+                      {openDetail && detailData && (
+                        <div className="dlp-tl-mobile-detail">
+                          <div className="dlp-tl-mobile-detail-title">{detailData.title}</div>
+                          <div className="dlp-tl-mobile-detail-grid">
+                            <div><div className="dlp-tl-mobile-detail-label">Duration</div><div className="dlp-tl-mobile-detail-value">{detailData.duration}</div></div>
+                            <div><div className="dlp-tl-mobile-detail-label">Dates</div><div className="dlp-tl-mobile-detail-value">{detailData.dates}</div></div>
+                            <div><div className="dlp-tl-mobile-detail-label">Pay</div><div className="dlp-tl-mobile-detail-value">{detailData.pay?.text || '—'}</div></div>
+                            <div><div className="dlp-tl-mobile-detail-label">Protection</div><div className="dlp-tl-mobile-detail-value">{detailData.protection?.text || '—'}</div></div>
+                          </div>
+                        </div>
+                      )}
 
                       {/* Week ticks */}
                       {tlData.absenceWeeks > 0 && (
@@ -1955,13 +2019,13 @@ export default function PlanAbsenceReactPage() {
                     <button className="btn btn-next" type="button" onClick={() => setShowTransitionModal(true)} style={{ padding: '12px 36px', fontSize: 14, borderRadius: 8 }}>Start My Leave Request &rarr;</button>
                   </div>
 
-                  <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 16, marginTop: 16 }}>
-                    <button className="btn btn-cancel-leave" type="button" onClick={() => setShowCancelModal(true)}>Cancel</button>
+                  <div className="dlp-step3-actions" style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 16, marginTop: 16 }}>
                     <button type="button" onClick={goBack} style={{ background: 'none', border: 'none', fontSize: 13, fontWeight: 600, color: '#525252', cursor: 'pointer', fontFamily: 'inherit' }}>&larr; Back</button>
                     <button type="button" style={{ display: 'inline-flex', alignItems: 'center', gap: 5, background: 'none', border: 'none', fontSize: 13, fontWeight: 600, color: '#525252', cursor: 'pointer', fontFamily: 'inherit' }}>
                       <svg width="13" height="13" viewBox="0 0 16 16" fill="none"><path d="M2 3h12v10H2V3z" stroke="currentColor" strokeWidth="1.3" strokeLinecap="round" strokeLinejoin="round"/><path d="M2 3l6 5 6-5" stroke="currentColor" strokeWidth="1.3" strokeLinecap="round" strokeLinejoin="round"/></svg>
                       Email Plan
                     </button>
+                    <button type="button" className="dlp-cancel-link" onClick={() => setShowCancelModal(true)}>Cancel</button>
                   </div>
                 </div>
               </div>
@@ -2495,7 +2559,7 @@ export default function PlanAbsenceReactPage() {
               <button className="pr-modal-close" type="button" onClick={() => setShowTransitionModal(false)}>&times;</button>
             </div>
 
-            <div className="pr-modal-body">
+            <div className="pr-modal-body" ref={(el) => { if (el) el.scrollTop = 0; }}>
               <div className="pr-transition-banner">
                 <svg width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M9 1a8 8 0 100 16A8 8 0 009 1zm0 3.5v4.5M9 12.5h.008" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round"/></svg>
                 <span>The details from your plan will carry over and pre-fill your request. You can still make changes during the intake process.</span>

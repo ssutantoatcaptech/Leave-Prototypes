@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { NavLink, Outlet, useLocation } from 'react-router-dom';
 import './claims-and-leave.css';
 import './responsive.css';
@@ -7,6 +7,18 @@ export default function ClaimsAndLeaveLayout() {
   const location = useLocation();
   const [mobileNavOpen, setMobileNavOpen] = useState(false);
   const [claimsExpanded, setClaimsExpanded] = useState(false);
+  const [dropdownOpen, setDropdownOpen] = useState(false);
+  const dropdownRef = useRef(null);
+
+  useEffect(function () {
+    function handleClickOutside(e) {
+      if (dropdownRef.current && !dropdownRef.current.contains(e.target)) {
+        setDropdownOpen(false);
+      }
+    }
+    document.addEventListener('mousedown', handleClickOutside);
+    return function () { document.removeEventListener('mousedown', handleClickOutside); };
+  }, []);
 
   useEffect(function () {
     if (mobileNavOpen) {
@@ -29,7 +41,7 @@ export default function ClaimsAndLeaveLayout() {
   const subNavTabs = [
     { label: 'Claims Center', to: base },
     { label: 'File a Claim or Leave', to: `${base}/file-claim` },
-    { label: 'My Cases', to: `${base}/my-cases` },
+    { label: 'My Leave', to: `${base}/my-cases` },
     { label: 'Leave Planning Tool', to: `${base}/leave-planning` },
     { label: 'Enter My Time', to: `${base}/enter-time` },
     { label: 'Payments', to: `${base}/payments` },
@@ -63,10 +75,11 @@ export default function ClaimsAndLeaveLayout() {
             <nav className="cl-main-nav">
               {navLinks.map((link) => (
                 link.label === 'Claims & Leave' ? (
-                  <div key={link.label} className="cl-nav-dropdown">
+                  <div key={link.label} className={`cl-nav-dropdown${dropdownOpen ? ' open' : ''}`} ref={dropdownRef}>
                     <button
                       type="button"
                       className={`cl-main-nav-link cl-main-nav-link--btn${location.pathname.startsWith(base) ? ' cl-main-nav-link--active' : ''}`}
+                      onClick={() => setDropdownOpen(!dropdownOpen)}
                     >
                       {link.label}
                       <svg className="cl-nav-chevron" width="10" height="10" viewBox="0 0 10 10" fill="none"><path d="M2.5 4l2.5 2.5L7.5 4" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round" strokeLinejoin="round"/></svg>
@@ -78,6 +91,7 @@ export default function ClaimsAndLeaveLayout() {
                           to={tab.to}
                           className="cl-nav-dropdown-item"
                           end={tab.to === base}
+                          onClick={() => setDropdownOpen(false)}
                         >
                           {tab.label}
                         </NavLink>
