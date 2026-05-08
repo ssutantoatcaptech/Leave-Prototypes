@@ -93,8 +93,8 @@ export default function LeaveDetailV2ePage() {
   var navigate = useNavigate();
   var [timelineView, setTimelineView] = useState('protection');
   var [hoveredRow, setHoveredRow] = useState(null);
-  var [expandedClaims, setExpandedClaims] = useState({ absence: !isMobile, stateleave: false });
-  var [paymentsOpen, setPaymentsOpen] = useState(!isMobile);
+  var [expandedClaims, setExpandedClaims] = useState({ absence: false, stateleave: false });
+  var [paymentsOpen, setPaymentsOpen] = useState(false);
   var [showAllTasks, setShowAllTasks] = useState(false);
   var [snapshotOpen, setSnapshotOpen] = useState(true);
   var [editingSection, setEditingSection] = useState(null);
