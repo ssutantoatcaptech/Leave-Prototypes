@@ -164,6 +164,11 @@
   background: #e8f0fe;
   color: #0033a0;
 }
+.ldb-status-badge.approved-status {
+  background: #f0fdf4;
+  color: #166534;
+  border: 1px solid #dcfce7;
+}
 .ldb-title-text {
   display: flex;
   flex-direction: column;

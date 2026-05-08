@@ -100,8 +100,8 @@ export default function LeaveDetailV2ePage() {
   var [editingSection, setEditingSection] = useState(null);
   var [detailTab, setDetailTab] = useState('claims');
   var [detailsForm, setDetailsForm] = useState({
-    reason: 'Surgical procedure and post-operative recovery',
-    duration: 'Up to 12 weeks (FMLA eligible)',
+    reason: 'Chronic lower back condition — intermittent flare-ups requiring treatment',
+    duration: '12 weeks intermittent (FMLA approved)',
     provider: 'Dr. Patel (Orthopedic Surgery)',
     facility: 'Hackensack University Medical Center',
     providerPhone: '(201) 555-8200',
@@ -137,30 +137,14 @@ export default function LeaveDetailV2ePage() {
             <svg width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M8 1l1.8 5.4H15l-4.2 3.1 1.6 5-4.4-3.2L3.6 14.5l1.6-5L1 6.4h5.2L8 1z" stroke="currentColor" strokeWidth="1.2" strokeLinejoin="round"/></svg>
             Items Requiring Action
           </h3>
-          <span style={{ fontSize: 11, fontWeight: 700, color: '#dc2626', background: '#fef2f2', padding: '2px 8px', borderRadius: 10 }}>3 needed</span>
+          <span style={{ fontSize: 11, fontWeight: 700, color: '#dc2626', background: '#fef2f2', padding: '2px 8px', borderRadius: 10 }}>1 needed</span>
         </div>
         <div className="ldb-action-list">
           <div className="ldb-action-item">
             <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><circle cx="8" cy="8" r="7" stroke="#dc2626" strokeWidth="1.4"/><path d="M8 5v3M8 10.5v.5" stroke="#dc2626" strokeWidth="1.4" strokeLinecap="round"/></svg>
             <div className="ldb-action-text">
-              <span className="ldb-action-name">Medical Certification Form</span>
-              <span className="ldb-action-due">Due May 20, 2026</span>
-            </div>
-            <button type="button" className="ldb-btn-upload-inline">Upload</button>
-          </div>
-          <div className="ldb-action-item">
-            <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><circle cx="8" cy="8" r="7" stroke="#dc2626" strokeWidth="1.4"/><path d="M8 5v3M8 10.5v.5" stroke="#dc2626" strokeWidth="1.4" strokeLinecap="round"/></svg>
-            <div className="ldb-action-text">
-              <span className="ldb-action-name">Attending Physician Statement</span>
-              <span className="ldb-action-due">Due May 22, 2026</span>
-            </div>
-            <button type="button" className="ldb-btn-upload-inline">Upload</button>
-          </div>
-          <div className="ldb-action-item">
-            <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><circle cx="8" cy="8" r="7" stroke="#f59e0b" strokeWidth="1.4"/><path d="M8 5v3M8 10.5v.5" stroke="#f59e0b" strokeWidth="1.4" strokeLinecap="round"/></svg>
-            <div className="ldb-action-text">
               <span className="ldb-action-name">Return to Work Certification</span>
-              <span className="ldb-action-due">Due before returning</span>
+              <span className="ldb-action-due">Submit before your return date</span>
             </div>
             <button type="button" className="ldb-btn-upload-inline">Upload</button>
           </div>
@@ -168,7 +152,7 @@ export default function LeaveDetailV2ePage() {
         {!showAllTasks ? (
           <button type="button" className="ldb-show-more-btn" onClick={function () { setShowAllTasks(true); }}>
             <svg width="12" height="12" viewBox="0 0 16 16" fill="none"><path d="M8 4v8M4 8h8" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round"/></svg>
-            4 more tasks
+            5 completed tasks
           </button>
         ) : (
           <>
@@ -178,6 +162,20 @@ export default function LeaveDetailV2ePage() {
                 <div className="ldb-action-text">
                   <span className="ldb-action-name">Initial Leave Request Form</span>
                   <span className="ldb-action-due" style={{ color: '#16a34a' }}>Completed Apr 15</span>
+                </div>
+              </div>
+              <div className="ldb-action-item ldb-action-item--done">
+                <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><circle cx="8" cy="8" r="7" stroke="#16a34a" strokeWidth="1.4"/><path d="M5.5 8l2 2 3.5-3.5" stroke="#16a34a" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round"/></svg>
+                <div className="ldb-action-text">
+                  <span className="ldb-action-name">Medical Certification Form</span>
+                  <span className="ldb-action-due" style={{ color: '#16a34a' }}>Completed Apr 18</span>
+                </div>
+              </div>
+              <div className="ldb-action-item ldb-action-item--done">
+                <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><circle cx="8" cy="8" r="7" stroke="#16a34a" strokeWidth="1.4"/><path d="M5.5 8l2 2 3.5-3.5" stroke="#16a34a" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round"/></svg>
+                <div className="ldb-action-text">
+                  <span className="ldb-action-name">Attending Physician Statement</span>
+                  <span className="ldb-action-due" style={{ color: '#16a34a' }}>Completed Apr 20</span>
                 </div>
               </div>
               <div className="ldb-action-item ldb-action-item--done">
@@ -224,11 +222,11 @@ export default function LeaveDetailV2ePage() {
               <svg width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2v10z" stroke="#fff" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"/><path d="M8 10h8M8 13h5" stroke="#fff" strokeWidth="1.8" strokeLinecap="round"/></svg>
             </div>
             <div className="ldb-title-text">
-              <span className="ldb-status-badge pending-status ldb-title-badge">Pending</span>
-              <h1 className="ldb-title">Illness or Injury</h1>
+              <span className="ldb-status-badge approved-status ldb-title-badge">Approved</span>
+              <h1 className="ldb-title">Illness or Injury — Own Condition</h1>
               <div className="ldb-title-meta">
-                <span style={{ fontSize: 14, color: '#525252', fontWeight: 600 }}>NTN - 2334</span>
-                <span style={{ fontSize: 13, color: '#737373', marginLeft: 12 }}>Apr 15 – May 15, 2026 · Intermittent</span>
+                <span style={{ fontSize: 14, color: '#525252', fontWeight: 600 }}>CLM #12345</span>
+                <span style={{ fontSize: 13, color: '#737373', marginLeft: 12 }}>Apr 15 – Jul 08, 2026 · Intermittent</span>
               </div>
             </div>
           </div>
@@ -254,16 +252,16 @@ export default function LeaveDetailV2ePage() {
                     <div className="ldb-snapshot-dates-row">
                       <div className="ldb-snapshot-date-card">
                         <div className="ldb-snapshot-date-label">Start Date</div>
-                        <div className="ldb-snapshot-date-value">March 1, 2026</div>
+                        <div className="ldb-snapshot-date-value">April 15, 2026</div>
                       </div>
                       <div className="ldb-snapshot-date-card">
                         <div className="ldb-snapshot-date-label">End Date</div>
-                        <div className="ldb-snapshot-date-value">April 25, 2026</div>
+                        <div className="ldb-snapshot-date-value">July 8, 2026</div>
                       </div>
                     </div>
                     <div className="ldb-snapshot-date-card ldb-snapshot-date-card--full">
                       <div className="ldb-snapshot-date-label">Return Work Date</div>
-                      <div className="ldb-snapshot-date-value">April 26, 2026</div>
+                      <div className="ldb-snapshot-date-value" style={{ color: '#dc2626' }}>Pending — submit RTW form</div>
                     </div>
                   </div>
                 )}
@@ -290,11 +288,11 @@ export default function LeaveDetailV2ePage() {
                   <div className="ldb-tl-rows-wrap">
                   <div className="dlp-tl-rows">
                     {(timelineView === 'payment' ? [
-                      { id: 'std', label: 'STD', width: 50, accent: '#2563eb', name: 'Group Disability Claim (STD)', weeks: '4 weeks', range: 'Apr 15 – May 15, 2026', pay: '60% salary after 7-day wait', status: 'Pending', paymentValue: '~$2,308/wk' },
+                      { id: 'std', label: 'STD', width: 50, accent: '#2563eb', name: 'Group Disability Claim (STD)', weeks: '4 weeks', range: 'Apr 15 – May 15, 2026', pay: '60% salary after 7-day wait', status: 'Approved', paymentValue: '~$2,308/wk' },
                       { id: 'njtdi', label: 'NJ TDI', width: 100, accent: '#818cf8', name: 'NJ Temporary Disability Insurance', weeks: '12 weeks', range: 'Apr 15 – Jul 08, 2026', pay: '85% salary (state program)', status: 'Active', paymentValue: '~$1,048/wk' },
                     ] : [
-                      { id: 'fmla', label: 'FMLA', width: 100, accent: '#0033a0', name: 'Leave Case — FMLA Protection', weeks: '12 weeks', range: 'Apr 15 – Jul 08, 2026', pay: 'Job protection (unpaid)', status: 'Pending' },
-                      { id: 'std', label: 'STD', width: 35, accent: '#2563eb', name: 'Group Disability Claim (STD)', weeks: '4 weeks', range: 'Apr 15 – May 15, 2026', pay: '60% salary after 7-day wait', status: 'Pending' },
+                      { id: 'fmla', label: 'FMLA', width: 100, accent: '#0033a0', name: 'Leave Case — FMLA (Intermittent)', weeks: '12 weeks', range: 'Apr 15 – Jul 08, 2026', pay: 'Job protection (unpaid)', status: 'Approved' },
+                      { id: 'std', label: 'STD', width: 35, accent: '#2563eb', name: 'Group Disability Claim (STD)', weeks: '4 weeks', range: 'Apr 15 – May 15, 2026', pay: '60% salary after 7-day wait', status: 'Approved' },
                       { id: 'njtdi', label: 'NJ TDI', width: 100, accent: '#818cf8', name: 'NJ Temporary Disability Insurance', weeks: '12 weeks', range: 'Apr 15 – Jul 08, 2026', pay: '85% salary (state program)', status: 'Active' },
                     ]).map(function (item) {
                       return (
@@ -318,10 +316,10 @@ export default function LeaveDetailV2ePage() {
                   {/* Desktop: tooltip on hover */}
                   {hoveredRow && (function () {
                     var allRows = timelineView === 'payment' ? [
-                      { id: 'std', name: 'Group Disability Claim (STD)', weeks: '4 weeks', range: 'Apr 15 – May 15, 2026', pay: '60% salary after 7-day wait', status: 'Pending', paymentValue: '~$2,308/wk' },
+                      { id: 'std', name: 'Group Disability Claim (STD)', weeks: '4 weeks', range: 'Apr 15 – May 15, 2026', pay: '60% salary after 7-day wait', status: 'Approved', paymentValue: '~$2,308/wk' },
                       { id: 'njtdi', name: 'NJ Temporary Disability Insurance', weeks: '12 weeks', range: 'Apr 15 – Jul 08, 2026', pay: '85% salary (state program)', status: 'Active', paymentValue: '~$1,048/wk' },
                     ] : [
-                      { id: 'fmla', name: 'Leave Case — FMLA Protection', weeks: '12 weeks', range: 'Apr 15 – Jul 08, 2026', pay: 'Job protection (unpaid)', status: 'Approved' },
+                      { id: 'fmla', name: 'Leave Case — FMLA (Intermittent)', weeks: '12 weeks', range: 'Apr 15 – Jul 08, 2026', pay: 'Job protection (unpaid)', status: 'Approved' },
                       { id: 'std', name: 'Group Disability Claim (STD)', weeks: '4 weeks', range: 'Apr 15 – May 15, 2026', pay: '60% salary after 7-day wait', status: 'Approved' },
                       { id: 'njtdi', name: 'NJ Temporary Disability Insurance', weeks: '12 weeks', range: 'Apr 15 – Jul 08, 2026', pay: '85% salary (state program)', status: 'Active' },
                     ];
@@ -358,10 +356,10 @@ export default function LeaveDetailV2ePage() {
                   {/* Mobile: accordion below rows */}
                   {hoveredRow && (function () {
                     var allRows = timelineView === 'payment' ? [
-                      { id: 'std', name: 'Group Disability Claim (STD)', weeks: '4 weeks', range: 'Apr 15 – May 15, 2026', pay: '60% salary after 7-day wait', status: 'Pending', paymentValue: '~$2,308/wk' },
+                      { id: 'std', name: 'Group Disability Claim (STD)', weeks: '4 weeks', range: 'Apr 15 – May 15, 2026', pay: '60% salary after 7-day wait', status: 'Approved', paymentValue: '~$2,308/wk' },
                       { id: 'njtdi', name: 'NJ Temporary Disability Insurance', weeks: '12 weeks', range: 'Apr 15 – Jul 08, 2026', pay: '85% salary (state program)', status: 'Active', paymentValue: '~$1,048/wk' },
                     ] : [
-                      { id: 'fmla', name: 'Leave Case — FMLA Protection', weeks: '12 weeks', range: 'Apr 15 – Jul 08, 2026', pay: 'Job protection (unpaid)', status: 'Approved' },
+                      { id: 'fmla', name: 'Leave Case — FMLA (Intermittent)', weeks: '12 weeks', range: 'Apr 15 – Jul 08, 2026', pay: 'Job protection (unpaid)', status: 'Approved' },
                       { id: 'std', name: 'Group Disability Claim (STD)', weeks: '4 weeks', range: 'Apr 15 – May 15, 2026', pay: '60% salary after 7-day wait', status: 'Approved' },
                       { id: 'njtdi', name: 'NJ Temporary Disability Insurance', weeks: '12 weeks', range: 'Apr 15 – Jul 08, 2026', pay: '85% salary (state program)', status: 'Active' },
                     ];
@@ -462,20 +460,20 @@ export default function LeaveDetailV2ePage() {
                     <svg className="ldb-claim-accordion-chevron" width="10" height="6" viewBox="0 0 10 6" fill="none"><path d="M1 1l4 4 4-4" stroke="currentColor" strokeWidth="1.3" strokeLinecap="round" strokeLinejoin="round"/></svg>
                     <div>
                       <div className="ldb-claim-accordion-title-wrap">
-                        <span className="ldb-claim-accordion-title">Leave Case</span>
-                        <span className="ldb-claim-status ldb-claim-status--inline" style={{ background: '#e8f0fe', color: '#0033a0' }}>Pending</span>
+                        <span className="ldb-claim-accordion-title">Leave Case — FMLA (Intermittent)</span>
+                        <span className="ldb-claim-status ldb-claim-status--inline" style={{ background: '#dcfce7', color: '#166534' }}>Approved</span>
                       </div>
-                      <div className="ldb-claim-accordion-sub">NTN-9312-ABS-81 · Adjudication — FMLA designation, RTW tracking</div>
+                      <div className="ldb-claim-accordion-sub">CLM-12345-ABS · Intermittent FMLA — job protection &amp; RTW tracking</div>
                     </div>
                   </div>
-                  <span className="ldb-claim-status ldb-claim-status--end" style={{ background: '#e8f0fe', color: '#0033a0' }}>Pending</span>
+                  <span className="ldb-claim-status ldb-claim-status--end" style={{ background: '#dcfce7', color: '#166534' }}>Approved</span>
                 </button>
                 {expandedClaims.absence && (
                   <div className="ldb-claim-accordion-body">
                     <div className="dt-info-grid">
                       <div>
                         <div className="dt-info-field-label">Claim ID</div>
-                        <div className="dt-info-field-value">NTN-9312-ABS-81</div>
+                        <div className="dt-info-field-value">CLM-12345-ABS</div>
                       </div>
                       <div>
                         <div className="dt-info-field-label">Leave Type</div>
@@ -483,11 +481,11 @@ export default function LeaveDetailV2ePage() {
                       </div>
                       <div>
                         <div className="dt-info-field-label">FMLA Eligible</div>
-                        <div className="dt-info-field-value">Yes — 12 weeks available</div>
+                        <div className="dt-info-field-value">Yes — 12 weeks approved</div>
                       </div>
                       <div>
                         <div className="dt-info-field-label">FMLA Used</div>
-                        <div className="dt-info-field-value">4 weeks, 2 days</div>
+                        <div className="dt-info-field-value">6 weeks, 3 days</div>
                       </div>
                       <div>
                         <div className="dt-info-field-label">Job Protection</div>
@@ -495,11 +493,11 @@ export default function LeaveDetailV2ePage() {
                       </div>
                       <div>
                         <div className="dt-info-field-label">RTW Status</div>
-                        <div className="dt-info-field-value">Pending — no RTW date filed</div>
+                        <div className="dt-info-field-value" style={{ color: '#dc2626', fontWeight: 600 }}>Action needed — submit Return to Work form</div>
                       </div>
                     </div>
-                    <div style={{ marginTop: 16, padding: '12px 16px', background: '#fffbeb', borderRadius: 8, border: '1px solid #fef3c7', fontSize: 13, color: '#92400e' }}>
-                      <strong>Note:</strong> FMLA protects your job and benefits but does not provide income. Income replacement comes from your Group Disability Claim below.
+                    <div style={{ marginTop: 16, padding: '12px 16px', background: '#fef2f2', borderRadius: 8, border: '1px solid #fecaca', fontSize: 16, color: '#991b1b' }}>
+                      <strong>Action required:</strong> Your leave is ending soon. Submit your Return to Work Certification to confirm your return date and any work restrictions.
                     </div>
                   </div>
                 )}
@@ -513,19 +511,19 @@ export default function LeaveDetailV2ePage() {
                     <div>
                       <div className="ldb-claim-accordion-title-wrap">
                         <span className="ldb-claim-accordion-title">Group Disability Claim</span>
-                        <span className="ldb-claim-status ldb-claim-status--inline" style={{ background: '#e8f0fe', color: '#0033a0' }}>Pending</span>
+                        <span className="ldb-claim-status ldb-claim-status--inline" style={{ background: '#dcfce7', color: '#166534' }}>Approved</span>
                       </div>
-                      <div className="ldb-claim-accordion-sub">NTN-9312-GDC-81 · STD Benefit — income replacement at 60% of earnings</div>
+                      <div className="ldb-claim-accordion-sub">CLM-12345-GDC · STD Benefit — income replacement at 60% of earnings</div>
                     </div>
                   </div>
-                  <span className="ldb-claim-status ldb-claim-status--end" style={{ background: '#e8f0fe', color: '#0033a0' }}>Pending</span>
+                  <span className="ldb-claim-status ldb-claim-status--end" style={{ background: '#dcfce7', color: '#166534' }}>Approved</span>
                 </button>
                 {expandedClaims.disability && (
                   <div className="ldb-claim-accordion-body">
                     <div className="dt-info-grid">
                       <div>
                         <div className="dt-info-field-label">Claim ID</div>
-                        <div className="dt-info-field-value">NTN-9312-GDC-81</div>
+                        <div className="dt-info-field-value">CLM-12345-GDC</div>
                       </div>
                       <div>
                         <div className="dt-info-field-label">Benefit Type</div>
@@ -1003,16 +1001,16 @@ export default function LeaveDetailV2ePage() {
               <div className="ldb-snapshot-dates-row">
                 <div className="ldb-snapshot-date-card">
                   <div className="ldb-snapshot-date-label">Start Date</div>
-                  <div className="ldb-snapshot-date-value">March 1, 2026</div>
+                  <div className="ldb-snapshot-date-value">April 15, 2026</div>
                 </div>
                 <div className="ldb-snapshot-date-card">
                   <div className="ldb-snapshot-date-label">End Date</div>
-                  <div className="ldb-snapshot-date-value">April 25, 2026</div>
+                  <div className="ldb-snapshot-date-value">July 8, 2026</div>
                 </div>
               </div>
               <div className="ldb-snapshot-date-card ldb-snapshot-date-card--full">
                 <div className="ldb-snapshot-date-label">Return Work Date</div>
-                <div className="ldb-snapshot-date-value">April 26, 2026</div>
+                <div className="ldb-snapshot-date-value" style={{ color: '#dc2626' }}>Pending — submit RTW form</div>
               </div>
             </div>
 
