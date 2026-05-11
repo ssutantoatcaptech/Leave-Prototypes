@@ -897,11 +897,6 @@ export default function RequestLeaveReactPage() {
           <>
             <h2>Tell us about your condition</h2>
             <p className="subtitle">Your provider will handle the clinical certification. This helps us start the right process.</p>
-            <div className="form-group"><label>Medical Condition <span className="req">*</span></label><input type="text" placeholder="e.g., back surgery, chronic condition" value={formState.diagnosis} onChange={(event) => updateField('diagnosis', event.target.value)}/></div>
-            <div className="form-row cols-2">
-              <div className="form-group"><label>First Date of Treatment</label><input type="date" value={formState.firstTreatment} onChange={(event) => updateField('firstTreatment', event.target.value)}/></div>
-              <div className="form-group"><label>Next Scheduled Appointment</label><input type="date" value={formState.nextAppointment} onChange={(event) => updateField('nextAppointment', event.target.value)}/></div>
-            </div>
             <div className="bordered-section">
             <label>Will the person being cared for (you or a family member) be hospitalized or need ongoing treatment?</label>
             <div className="yesno" style={{ marginBottom: 0 }}>
@@ -916,6 +911,11 @@ export default function RequestLeaveReactPage() {
               <button type="button" className={`yesno-btn ${formState.workersComp === 'no' ? 'selected' : ''}`} onClick={() => updateField('workersComp', 'no')}>No</button>
             </div>
             </div>
+            <div className="form-row cols-2">
+              <div className="form-group"><label>First Date of Treatment</label><input type="date" value={formState.firstTreatment} onChange={(event) => updateField('firstTreatment', event.target.value)}/></div>
+              <div className="form-group"><label>Next Scheduled Appointment</label><input type="date" value={formState.nextAppointment} onChange={(event) => updateField('nextAppointment', event.target.value)}/></div>
+            </div>
+            <div className="form-group" style={{ marginBottom: 0 }}><label>Medical Condition (Optional)</label><input type="text" placeholder="e.g., back surgery, chronic condition" value={formState.diagnosis} onChange={(event) => updateField('diagnosis', event.target.value)}/></div>
           </>
         );
       case 'provider':
