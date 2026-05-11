@@ -894,12 +894,12 @@ export default function RequestLeaveReactPage() {
       case 'missedTime': {
         const isIntermittentOrReduced = formState.leaveType === 'intermittent' || formState.leaveType === 'reduced';
         const isContinuous = formState.leaveType === 'continuous';
-        const missedSubtitle = isMedicalSelf ? 'Log any work days you've already missed due to your illness or injury.'
-          : isFamilyCare ? 'Log any work days you've already missed to care for your family member.'
-          : isBirthingParent ? 'Log any work days you've already missed due to pregnancy or delivery.'
-          : isChildScenario ? 'Log any work days you've already missed for bonding or placement.'
-          : isMilitary ? 'Log any work days you've already missed for military-related activities.'
-          : 'Log any work days you've already missed related to your leave reason.';
+        const missedSubtitle = isMedicalSelf ? "Log any work days you've already missed due to your illness or injury."
+          : isFamilyCare ? "Log any work days you've already missed to care for your family member."
+          : isBirthingParent ? "Log any work days you've already missed due to pregnancy or delivery."
+          : isChildScenario ? "Log any work days you've already missed for bonding or placement."
+          : isMilitary ? "Log any work days you've already missed for military-related activities."
+          : "Log any work days you've already missed related to your leave reason.";
         return (
           <>
             <h2>Did you miss any work time before starting this leave?</h2>
