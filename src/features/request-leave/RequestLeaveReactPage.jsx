@@ -214,6 +214,11 @@ export default function RequestLeaveReactPage() {
   const isMobileRequest = rlLocation.pathname.startsWith('/claims-and-leave-mobile');
   const rlBase = isMobileRequest ? '/claims-and-leave-mobile' : '/claims-and-leave';
   const [searchParams, setSearchParams] = useSearchParams();
+  const [freshStartCleared] = useState(() => {
+    const isFresh = searchParams.get('step') === '1' && searchParams.get('resume') !== '1';
+    if (isFresh) { sessionStorage.removeItem(DRAFT_KEY); }
+    return isFresh;
+  });
   const [fromPlan] = useState(() => {
     const data = getPlanTransfer();
     console.log('[wizard] planTransfer data:', data);
@@ -376,6 +381,15 @@ export default function RequestLeaveReactPage() {
   });
 
   const currentStep = steps[currentStepIndex] || steps[0];
+
+  useEffect(() => {
+    if (freshStartCleared) {
+      const params = new URLSearchParams(window.location.search);
+      params.delete('step');
+      const newUrl = params.toString() ? `${window.location.pathname}?${params}` : window.location.pathname;
+      window.history.replaceState({}, '', newUrl);
+    }
+  }, []);
 
   useEffect(() => {
     localStorage.setItem(DRAFT_KEY, JSON.stringify({ formState, stepIndex: currentStepIndex }));
