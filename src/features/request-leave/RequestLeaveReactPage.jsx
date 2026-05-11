@@ -289,12 +289,6 @@ export default function RequestLeaveReactPage() {
   const [otherReasonError, setOtherReasonError] = useState(false);
   const [employeeInfoFlag, setEmployeeInfoFlag] = useState({ open: false, fields: {}, submitted: false });
 
-
-  useEffect(() => {
-    localStorage.setItem(DRAFT_KEY, JSON.stringify({ formState, stepIndex: currentStepIndex }));
-    sessionStorage.setItem(DRAFT_KEY, JSON.stringify({ formState, stepIndex: currentStepIndex }));
-  }, [formState, currentStepIndex]);
-
   const isChildScenario = formState.leaveScenario === 'child' || formState.leaveScenario === 'child_nonbirth';
   const isBirthingParent = formState.leaveScenario === 'child';
   const isMedicalScenario = formState.leaveScenario === 'medical_self' || formState.leaveScenario === 'medical_family';
@@ -382,6 +376,11 @@ export default function RequestLeaveReactPage() {
   });
 
   const currentStep = steps[currentStepIndex] || steps[0];
+
+  useEffect(() => {
+    localStorage.setItem(DRAFT_KEY, JSON.stringify({ formState, stepIndex: currentStepIndex }));
+    sessionStorage.setItem(DRAFT_KEY, JSON.stringify({ formState, stepIndex: currentStepIndex }));
+  }, [formState, currentStepIndex]);
 
   function updateField(key, value) {
     setFormState((previous) => ({ ...previous, [key]: value }));
