@@ -734,7 +734,7 @@
 }
 
 .cl-intro-card {
-  background: #f8f9fb;
+  background: #ffffff;
   border: 1px solid #e5e7eb;
   border-radius: 16px;
   padding: 40px 32px 32px;
@@ -758,7 +758,7 @@
   align-items: center;
   justify-content: center;
   border-radius: 50%;
-  background: #ffffff;
+  background: #eff6ff;
   margin-bottom: 8px;
 }
 
