@@ -597,6 +597,9 @@ export default function RequestLeaveReactPage() {
   }
 
   function goNext() {
+    if (currentStep.id === 'leaveReason' && formState.leaveScenario === 'other' && !formState.otherLeaveReason) {
+      return;
+    }
     setCurrentStepIndex((index) => Math.min(index + 1, steps.length - 1));
     scrollToTop();
   }

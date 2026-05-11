@@ -531,6 +531,9 @@ export default function PlanAbsenceReactPage() {
   }
 
   function goNext() {
+    if (step === 1 && reason === 'other' && !otherLeaveReason) {
+      return;
+    }
     if (step === 2) {
       setSideWorkState(workState);
       setSideHireDate(hireDate);
@@ -564,6 +567,9 @@ export default function PlanAbsenceReactPage() {
   const illnessTotalSteps = ILLNESS_STEP_LABELS.length;
 
   function goIllnessNext() {
+    if (illnessStep === 1 && reason === 'other' && !otherLeaveReason) {
+      return;
+    }
     if (illnessStep === 1 && reason !== 'illness') {
       setStep(2);
       window.scrollTo({ top: 0, behavior: 'smooth' });
