@@ -34,7 +34,7 @@ const initialState = {
   lastDayWorked: '2026-05-26',
   hoursLastDay: '08:00',
   alreadyMissedTime: false,
-  missedDateEntries: [{ date: '2026-04-02', endDate: '2026-04-02', hours: '08:00', reason: 'Episode' }, { date: '2026-04-03', endDate: '2026-04-03', hours: '08:00', reason: 'Treatment' }, { date: '2026-04-04', endDate: '2026-04-04', hours: '08:00', reason: 'Treatment' }],
+  missedDateEntries: [{ date: '2026-04-02', startTime: '08:00', endTime: '16:00', hours: '08:00', reason: 'Episode' }, { date: '2026-04-03', startTime: '08:00', endTime: '16:00', hours: '08:00', reason: 'Treatment' }, { date: '2026-04-04', startTime: '08:00', endTime: '16:00', hours: '08:00', reason: 'Treatment' }],
   reducedHoursPerWeek: '20',
   leaveStartDate: '2026-06-01',
   expectedReturnDate: '2026-09-15',
@@ -379,7 +379,7 @@ export default function RequestLeaveReactPage() {
   }
 
   function addMissedDateEntry() {
-    setFormState((previous) => ({ ...previous, missedDateEntries: [...previous.missedDateEntries, { date: '', endDate: '', hours: '', reason: '' }] }));
+    setFormState((previous) => ({ ...previous, missedDateEntries: [...previous.missedDateEntries, { date: '', startTime: '', endTime: '', hours: '', reason: '' }] }));
   }
 
   function updateMissedDateEntry(index, key, value) {
@@ -715,9 +715,15 @@ export default function RequestLeaveReactPage() {
                 <input type="date" value={entry.date} onChange={(event) => updateMissedDateEntry(index, 'date', event.target.value)}/>
               </div>
               {showReason && (
-                <div className="form-group missed-entry-date">
-                  <label>{index === 0 ? 'End Date' : ' '}</label>
-                  <input type="date" value={entry.endDate || ''} onChange={(event) => updateMissedDateEntry(index, 'endDate', event.target.value)}/>
+                <div className="form-group missed-entry-hours">
+                  <label>{index === 0 ? 'Start Time' : ' '}</label>
+                  <input type="time" value={entry.startTime || ''} onChange={(event) => updateMissedDateEntry(index, 'startTime', event.target.value)}/>
+                </div>
+              )}
+              {showReason && (
+                <div className="form-group missed-entry-hours">
+                  <label>{index === 0 ? 'End Time' : ' '}</label>
+                  <input type="time" value={entry.endTime || ''} onChange={(event) => updateMissedDateEntry(index, 'endTime', event.target.value)}/>
                 </div>
               )}
               <div className="form-group missed-entry-hours">
