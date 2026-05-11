@@ -34,7 +34,7 @@ const initialState = {
   lastDayWorked: '2026-05-26',
   hoursLastDay: '08:00',
   alreadyMissedTime: false,
-  missedDateEntries: [{ date: '2026-04-02', startTime: '08:00', endTime: '16:00', hours: '08:00', reason: 'Episode' }, { date: '2026-04-03', startTime: '08:00', endTime: '16:00', hours: '08:00', reason: 'Treatment' }, { date: '2026-04-04', startTime: '08:00', endTime: '16:00', hours: '08:00', reason: 'Treatment' }],
+  missedDateEntries: [{ date: '2026-04-02', startTime: '8:00 AM', endTime: '4:00 PM', hours: '08:00', reason: 'Episode' }, { date: '2026-04-03', startTime: '8:00 AM', endTime: '4:00 PM', hours: '08:00', reason: 'Treatment' }, { date: '2026-04-04', startTime: '8:00 AM', endTime: '4:00 PM', hours: '08:00', reason: 'Treatment' }],
   reducedHoursPerWeek: '20',
   leaveStartDate: '2026-06-01',
   expectedReturnDate: '2026-09-15',
@@ -717,13 +717,13 @@ export default function RequestLeaveReactPage() {
               {showReason && (
                 <div className="form-group missed-entry-time">
                   <label>{index === 0 ? 'Start Time' : ' '}</label>
-                  <input type="text" placeholder="HH:MM" value={entry.startTime || ''} onChange={(event) => updateMissedDateEntry(index, 'startTime', event.target.value)}/>
+                  <input type="text" placeholder="8:00 AM" value={entry.startTime || ''} onChange={(event) => updateMissedDateEntry(index, 'startTime', event.target.value)}/>
                 </div>
               )}
               {showReason && (
                 <div className="form-group missed-entry-time">
                   <label>{index === 0 ? 'End Time' : ' '}</label>
-                  <input type="text" placeholder="HH:MM" value={entry.endTime || ''} onChange={(event) => updateMissedDateEntry(index, 'endTime', event.target.value)}/>
+                  <input type="text" placeholder="4:00 PM" value={entry.endTime || ''} onChange={(event) => updateMissedDateEntry(index, 'endTime', event.target.value)}/>
                 </div>
               )}
               <div className="form-group missed-entry-hours">

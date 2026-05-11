@@ -818,7 +818,7 @@
 }
 
 .missed-entry-time {
-  width: 160px;
+  width: 130px;
   flex-shrink: 0;
   margin-bottom: 0;
 }
@@ -1573,6 +1573,24 @@
 }
 
 @media (max-width: 640px) {
+  .missed-entry-row1 {
+    flex-wrap: wrap;
+  }
+
+  .missed-entry-date {
+    width: 100%;
+    flex: unset;
+  }
+
+  .missed-entry-time {
+    flex: 1;
+    width: auto;
+  }
+
+  .missed-entry-hours {
+    width: 100%;
+  }
+
   .wizard-wrap {
     max-width: calc(100% - 16px);
   }
@@ -1756,3 +1774,21 @@
 .mobile-frame-screen .eb-tap-hint { display: block; }
 .mobile-frame-screen .eb-tooltip { display: none !important; }
 .mobile-frame-screen .eb-accordion { display: block; }
+
+.mobile-frame-screen .missed-entry-row1 {
+  flex-wrap: wrap;
+}
+
+.mobile-frame-screen .missed-entry-date {
+  width: 100%;
+  flex: unset;
+}
+
+.mobile-frame-screen .missed-entry-time {
+  flex: 1;
+  width: auto;
+}
+
+.mobile-frame-screen .missed-entry-hours {
+  width: 100%;
+}
