@@ -34,7 +34,7 @@ const initialState = {
   lastDayWorked: '2026-05-26',
   hoursLastDay: '08:00',
   alreadyMissedTime: false,
-  missedDateEntries: [{ date: '2026-04-02', hours: '08:00', reason: 'Episode' }, { date: '2026-04-03', hours: '08:00', reason: 'Treatment' }, { date: '2026-04-04', hours: '08:00', reason: 'Treatment' }],
+  missedDateEntries: [{ date: '2026-04-02', endDate: '2026-04-02', hours: '08:00', reason: 'Episode' }, { date: '2026-04-03', endDate: '2026-04-03', hours: '08:00', reason: 'Treatment' }, { date: '2026-04-04', endDate: '2026-04-04', hours: '08:00', reason: 'Treatment' }],
   reducedHoursPerWeek: '20',
   leaveStartDate: '2026-06-01',
   expectedReturnDate: '2026-09-15',
@@ -379,7 +379,7 @@ export default function RequestLeaveReactPage() {
   }
 
   function addMissedDateEntry() {
-    setFormState((previous) => ({ ...previous, missedDateEntries: [...previous.missedDateEntries, { date: '', hours: '', reason: '' }] }));
+    setFormState((previous) => ({ ...previous, missedDateEntries: [...previous.missedDateEntries, { date: '', endDate: '', hours: '', reason: '' }] }));
   }
 
   function updateMissedDateEntry(index, key, value) {
@@ -711,11 +711,17 @@ export default function RequestLeaveReactPage() {
           <div key={`${index}-${entry.date}`} className="missed-entry">
             <div className="missed-entry-row1">
               <div className="form-group missed-entry-date">
-                <label>{index === 0 ? 'Date' : ' '}</label>
+                <label>{index === 0 ? (showReason ? 'Day(s) you missed work' : 'Date') : ' '}</label>
                 <input type="date" value={entry.date} onChange={(event) => updateMissedDateEntry(index, 'date', event.target.value)}/>
               </div>
+              {showReason && (
+                <div className="form-group missed-entry-date">
+                  <label>{index === 0 ? 'End Date' : ' '}</label>
+                  <input type="date" value={entry.endDate || ''} onChange={(event) => updateMissedDateEntry(index, 'endDate', event.target.value)}/>
+                </div>
+              )}
               <div className="form-group missed-entry-hours">
-                <label>{index === 0 ? 'Hrs | Min' : ' '}</label>
+                <label>{index === 0 ? (showReason ? 'Total Hrs | Min' : 'Hrs | Min') : ' '}</label>
                 <input type="text" value={entry.hours} onChange={(event) => updateMissedDateEntry(index, 'hours', event.target.value)}/>
               </div>
               {formState.missedDateEntries.length > 1 ? <button type="button" className="missed-entry-remove" onClick={() => removeMissedDateEntry(index)}>—</button> : null}
@@ -925,7 +931,7 @@ export default function RequestLeaveReactPage() {
               <button type="button" className={`yesno-btn ${formState.workersComp === 'no' ? 'selected' : ''}`} onClick={() => updateField('workersComp', 'no')}>No</button>
             </div>
             </div>
-            <div className="form-row cols-2">
+            <div className="form-row cols-2" style={{ marginTop: 24 }}>
               <div className="form-group"><label>First Date of Treatment</label><input type="date" value={formState.firstTreatment} onChange={(event) => updateField('firstTreatment', event.target.value)}/></div>
               <div className="form-group"><label>Next Scheduled Appointment</label><input type="date" value={formState.nextAppointment} onChange={(event) => updateField('nextAppointment', event.target.value)}/></div>
             </div>
