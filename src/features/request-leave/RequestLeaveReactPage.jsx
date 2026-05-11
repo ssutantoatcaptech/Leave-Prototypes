@@ -225,7 +225,7 @@ export default function RequestLeaveReactPage() {
     var isResume = searchParams.get('resume') === '1';
     try { session = JSON.parse(sessionStorage.getItem(DRAFT_KEY)); } catch (e) { /* ignore */ }
     try { saved = JSON.parse(localStorage.getItem(DRAFT_KEY)); } catch (e) { /* ignore */ }
-    if (session && session.formState && !fromPlan && !searchParams.get('step')) {
+    if (session && session.formState && !fromPlan) {
       return { ...initialState, ...session.formState };
     }
     if (saved && saved.formState && !fromPlan && isResume) {
@@ -276,7 +276,7 @@ export default function RequestLeaveReactPage() {
     var isResume = searchParams.get('resume') === '1';
     try { session = JSON.parse(sessionStorage.getItem(DRAFT_KEY)); } catch (e) { /* ignore */ }
     try { saved = JSON.parse(localStorage.getItem(DRAFT_KEY)); } catch (e) { /* ignore */ }
-    if (session && session.stepIndex > 0 && !searchParams.get('step')) return true;
+    if (session && session.stepIndex > 0) return true;
     if (saved && saved.stepIndex > 0 && isResume) return true;
     const urlStep = searchParams.get('step');
     return !!fromPlan || (urlStep && urlStep !== '0');
@@ -362,7 +362,7 @@ export default function RequestLeaveReactPage() {
     var isResume = searchParams.get('resume') === '1';
     try { session = JSON.parse(sessionStorage.getItem(DRAFT_KEY)); } catch (e) { /* ignore */ }
     try { saved = JSON.parse(localStorage.getItem(DRAFT_KEY)); } catch (e) { /* ignore */ }
-    if (session && session.stepIndex !== undefined && !fromPlan && !searchParams.get('step')) {
+    if (session && session.stepIndex !== undefined && !fromPlan) {
       return Math.min(session.stepIndex, steps.length - 1);
     }
     if (saved && saved.stepIndex !== undefined && !fromPlan && isResume) {
