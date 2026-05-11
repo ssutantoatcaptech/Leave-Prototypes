@@ -1485,57 +1485,54 @@ export default function RequestLeaveReactPage() {
                     {Object.entries(employeeInfoFlag.fields).filter(([, v]) => v.checked).map(([key, val]) => (
                       <div key={key} className="emp-flag-summary-item">
                         <span className="emp-flag-summary-label">{key}</span>
-                        {val.note && <span className="emp-flag-summary-note">{val.note}</span>}
+                        {val.note && <span className="emp-flag-summary-note">— {val.note}</span>}
                       </div>
                     ))}
                   </div>
                 </div>
               ) : (
-                <button type="button" className="emp-flag-trigger" onClick={() => setEmployeeInfoFlag((prev) => ({ ...prev, open: true }))}>
-                  <span>Something doesn't look right?</span>
-                  <svg width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M6 3l5 5-5 5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/></svg>
-                </button>
-              )}
-              {employeeInfoFlag.open && (
-                <div className="emp-flag-backdrop" onClick={() => setEmployeeInfoFlag((prev) => ({ ...prev, open: false }))}>
-                  <div className="emp-flag-modal" onClick={(e) => e.stopPropagation()}>
-                    <div className="emp-flag-modal-header">
-                      <h3>Flag incorrect information</h3>
-                      <button type="button" className="emp-flag-modal-close" onClick={() => setEmployeeInfoFlag((prev) => ({ ...prev, open: false }))}>
-                        <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M4 4l8 8M12 4l-8 8" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"/></svg>
-                      </button>
+                <div className="emp-flag-accordion">
+                  <button type="button" className="emp-flag-accordion-trigger" onClick={() => setEmployeeInfoFlag((prev) => ({ ...prev, open: !prev.open }))}>
+                    <span className="emp-flag-accordion-label">
+                      <span className="emp-flag-dot"/>
+                      <span>Something doesn't look right?</span>
+                    </span>
+                    <svg className={`emp-flag-chevron${employeeInfoFlag.open ? ' emp-flag-chevron--open' : ''}`} width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M4 6l4 4 4-4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/></svg>
+                  </button>
+                  {employeeInfoFlag.open && (
+                    <div className="emp-flag-accordion-body">
+                      <p className="emp-flag-hint">Check any fields that are incorrect and add a note. This flags them for your employer to review — it won't change your info now.</p>
+                      <div className="emp-flag-list">
+                        {[
+                          { key: 'Name', value: `${formState.employee.firstName} ${formState.employee.lastName}` },
+                          { key: 'Employee ID', value: formState.employee.employeeId },
+                          { key: 'Employer', value: formState.employee.employer },
+                          { key: 'Occupation', value: formState.employee.occupation },
+                          { key: 'Work Location', value: formState.employee.workLocation },
+                          { key: 'Hire Date', value: formatDate(formState.employee.hireDate) },
+                          { key: 'Employment Type', value: formState.employee.employmentType },
+                          { key: 'Address', value: formState.employee.address },
+                        ].map((item) => {
+                          const isChecked = employeeInfoFlag.fields[item.key]?.checked || false;
+                          const note = employeeInfoFlag.fields[item.key]?.note || '';
+                          return (
+                            <div key={item.key} className={`emp-flag-row ${isChecked ? 'emp-flag-row--active' : ''}`}>
+                              <label className="emp-flag-row-check">
+                                <input type="checkbox" checked={isChecked} onChange={() => setEmployeeInfoFlag((prev) => ({ ...prev, fields: { ...prev.fields, [item.key]: { ...prev.fields[item.key], checked: !isChecked } } }))}/>
+                                <span className="emp-flag-checkbox-custom">{isChecked && <svg width="10" height="10" viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-5" stroke="#fff" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"/></svg>}</span>
+                              </label>
+                              <span className="emp-flag-row-value">{item.key}</span>
+                              <input type="text" className="emp-flag-row-note" placeholder="What's incorrect?" value={note} onChange={(event) => setEmployeeInfoFlag((prev) => ({ ...prev, fields: { ...prev.fields, [item.key]: { ...prev.fields[item.key], checked: true, note: event.target.value } } }))}/>
+                            </div>
+                          );
+                        })}
+                      </div>
+                      <div className="emp-flag-actions">
+                        <button type="button" className="emp-flag-btn-save" disabled={!Object.values(employeeInfoFlag.fields).some((f) => f.checked)} onClick={() => setEmployeeInfoFlag((prev) => ({ ...prev, open: false, submitted: true }))}>Save</button>
+                        <button type="button" className="emp-flag-btn-clear" onClick={() => setEmployeeInfoFlag({ open: false, fields: {}, submitted: false })}>Clear</button>
+                      </div>
                     </div>
-                    <p className="emp-flag-modal-desc">Check any fields that are incorrect and let us know what needs to be updated. This won't change your information now — it flags it for your employer to review and correct.</p>
-                    <div className="emp-flag-list">
-                      {[
-                        { key: 'Name', value: `${formState.employee.firstName} ${formState.employee.lastName}` },
-                        { key: 'Employee ID', value: formState.employee.employeeId },
-                        { key: 'Employer', value: formState.employee.employer },
-                        { key: 'Occupation', value: formState.employee.occupation },
-                        { key: 'Work Location', value: formState.employee.workLocation },
-                        { key: 'Hire Date', value: formatDate(formState.employee.hireDate) },
-                        { key: 'Employment Type', value: formState.employee.employmentType },
-                        { key: 'Address', value: formState.employee.address },
-                      ].map((item) => {
-                        const isChecked = employeeInfoFlag.fields[item.key]?.checked || false;
-                        const note = employeeInfoFlag.fields[item.key]?.note || '';
-                        return (
-                          <div key={item.key} className={`emp-flag-row ${isChecked ? 'emp-flag-row--active' : ''}`}>
-                            <label className="emp-flag-row-check">
-                              <input type="checkbox" checked={isChecked} onChange={() => setEmployeeInfoFlag((prev) => ({ ...prev, fields: { ...prev.fields, [item.key]: { ...prev.fields[item.key], checked: !isChecked } } }))}/>
-                              <span className="emp-flag-checkbox-custom">{isChecked && <svg width="10" height="10" viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-5" stroke="#fff" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"/></svg>}</span>
-                            </label>
-                            <span className="emp-flag-row-value">{item.key}</span>
-                            <input type="text" className="emp-flag-row-note" placeholder="What's incorrect?" value={note} onChange={(event) => setEmployeeInfoFlag((prev) => ({ ...prev, fields: { ...prev.fields, [item.key]: { ...prev.fields[item.key], checked: true, note: event.target.value } } }))}/>
-                          </div>
-                        );
-                      })}
-                    </div>
-                    <div className="emp-flag-modal-footer">
-                      <button type="button" className="emp-flag-modal-cancel" onClick={() => setEmployeeInfoFlag((prev) => ({ ...prev, open: false }))}>Cancel</button>
-                      <button type="button" className="emp-flag-modal-save" disabled={!Object.values(employeeInfoFlag.fields).some((f) => f.checked)} onClick={() => setEmployeeInfoFlag((prev) => ({ ...prev, open: false, submitted: true }))}>Save</button>
-                    </div>
-                  </div>
+                  )}
                 </div>
               )}
             </div>

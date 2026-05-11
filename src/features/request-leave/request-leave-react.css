@@ -1022,150 +1022,116 @@
 }
 
 /* Employee info flag — accordion */
-/* -- Employee Flag: Trigger Button -- */
-.emp-flag-trigger {
+/* -- Employee Flag: Accordion -- */
+.emp-flag-accordion {
+  margin-top: 14px;
+  border: 1px solid #e2e8f0;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.emp-flag-accordion-trigger {
   display: flex;
   align-items: center;
   justify-content: space-between;
   width: 100%;
-  margin-top: 14px;
   padding: 12px 14px;
   background: #f8fafc;
-  border: 1px solid #e2e8f0;
-  border-radius: 8px;
+  border: none;
   font-size: 13px;
   font-family: inherit;
   font-weight: 500;
   color: #475569;
   cursor: pointer;
-  transition: background 0.15s, border-color 0.15s;
-}
-
-.emp-flag-trigger:hover {
-  background: #f1f5f9;
-  border-color: #cbd5e1;
-}
-
-.emp-flag-trigger svg {
-  color: #94a3b8;
-  flex-shrink: 0;
-}
-
-/* -- Employee Flag: Modal Backdrop -- */
-.emp-flag-backdrop {
-  position: fixed;
-  inset: 0;
-  background: rgba(15, 23, 42, 0.4);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  z-index: 1000;
-  padding: 24px;
-}
-
-/* -- Employee Flag: Modal -- */
-.emp-flag-modal {
-  background: #fff;
-  border-radius: 14px;
-  width: 100%;
-  max-width: 560px;
-  max-height: calc(100vh - 48px);
-  overflow-y: auto;
-  box-shadow: 0 20px 60px rgba(15, 23, 42, 0.18), 0 4px 16px rgba(15, 23, 42, 0.08);
-}
-
-.emp-flag-modal-header {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 20px 24px 0;
-}
-
-.emp-flag-modal-header h3 {
-  margin: 0;
-  font-size: 17px;
-  font-weight: 600;
-  color: #0f172a;
-}
-
-.emp-flag-modal-close {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 32px;
-  height: 32px;
-  border: none;
-  border-radius: 8px;
-  background: transparent;
-  color: #64748b;
-  cursor: pointer;
-  font-size: 18px;
   transition: background 0.15s;
 }
 
-.emp-flag-modal-close:hover {
+.emp-flag-accordion-trigger:hover {
   background: #f1f5f9;
 }
 
-.emp-flag-modal-desc {
-  padding: 8px 24px 16px;
-  margin: 0;
-  font-size: 13px;
+.emp-flag-accordion-label {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.emp-flag-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: #f59e0b;
+  flex-shrink: 0;
+}
+
+.emp-flag-chevron {
+  transition: transform 0.2s;
+  color: #94a3b8;
+}
+
+.emp-flag-chevron--open {
+  transform: rotate(180deg);
+}
+
+.emp-flag-accordion-body {
+  padding: 12px 14px 14px;
+  border-top: 1px solid #e2e8f0;
+}
+
+.emp-flag-hint {
+  margin: 0 0 12px;
+  font-size: 12px;
   color: #64748b;
   line-height: 1.5;
 }
 
-.emp-flag-modal-body {
-  padding: 0 24px;
-}
-
-.emp-flag-modal-footer {
+/* -- Employee Flag: Actions (Save / Clear) -- */
+.emp-flag-actions {
   display: flex;
   align-items: center;
-  justify-content: flex-end;
   gap: 10px;
-  padding: 16px 24px 20px;
+  margin-top: 14px;
+  padding-top: 12px;
   border-top: 1px solid #f1f5f9;
-  margin-top: 16px;
 }
 
-.emp-flag-modal-cancel {
-  padding: 8px 18px;
-  border: 1px solid #e2e8f0;
-  border-radius: 8px;
-  background: #fff;
-  font-size: 13px;
-  font-family: inherit;
-  font-weight: 500;
-  color: #475569;
-  cursor: pointer;
-  transition: background 0.15s;
-}
-
-.emp-flag-modal-cancel:hover {
-  background: #f8fafc;
-}
-
-.emp-flag-modal-save {
-  padding: 8px 20px;
+.emp-flag-btn-save {
+  padding: 7px 18px;
   border: none;
-  border-radius: 8px;
+  border-radius: 7px;
   background: #0f172a;
   font-size: 13px;
   font-family: inherit;
   font-weight: 600;
   color: #fff;
   cursor: pointer;
-  transition: opacity 0.15s;
+  transition: background 0.15s;
 }
 
-.emp-flag-modal-save:disabled {
-  opacity: 0.4;
+.emp-flag-btn-save:disabled {
+  opacity: 0.35;
   cursor: not-allowed;
 }
 
-.emp-flag-modal-save:not(:disabled):hover {
+.emp-flag-btn-save:not(:disabled):hover {
   background: #1e293b;
+}
+
+.emp-flag-btn-clear {
+  padding: 7px 14px;
+  border: 1px solid #e2e8f0;
+  border-radius: 7px;
+  background: #fff;
+  font-size: 13px;
+  font-family: inherit;
+  font-weight: 500;
+  color: #64748b;
+  cursor: pointer;
+  transition: background 0.15s;
+}
+
+.emp-flag-btn-clear:hover {
+  background: #f8fafc;
 }
 
 /* -- Employee Flag: Summary (after save) -- */
@@ -1234,7 +1200,7 @@
   font-style: italic;
 }
 
-/* -- Employee Flag: Shared Row Styles (used in modal) -- */
+/* -- Employee Flag: Row Styles -- */
 .emp-flag-list {
   display: flex;
   flex-direction: column;
