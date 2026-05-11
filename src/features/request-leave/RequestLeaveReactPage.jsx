@@ -1021,9 +1021,9 @@ export default function RequestLeaveReactPage() {
         return (
           <>
             <h2>Medical Certification Consent</h2>
-            <p className="subtitle" style={{ lineHeight: 1.7 }}>You are responsible for ensuring the healthcare provider receives and completes the certification and for providing the form to Benefits Hub on time. Please check with the healthcare provider's office about any fees that may charge to complete a form to make revisions.</p>
+            <p className="subtitle" style={{ lineHeight: 1.7 }}>You are responsible for ensuring the healthcare provider receives and completes the certification and for providing the form to Mutual of Omaha on time. Mutual of Omaha can send the certifications to your provider to help expedite processing.</p>
             <div className="bordered-section">
-              <label style={{ fontWeight: 600 }}>Would you like to authorize to send any required certifications directly to the healthcare provider for completion or clarification?</label>
+              <label style={{ fontWeight: 600 }}>Would you like to authorize Mutual of Omaha to send any required certifications directly to the healthcare provider for completion or clarification?</label>
               <div className="yesno" style={{ marginTop: 12, marginBottom: 0 }}>
                 <button type="button" className={`yesno-btn ${formState.authorizeMedCert ? 'selected' : ''}`} onClick={() => updateField('authorizeMedCert', true)}>Yes</button>
                 <button type="button" className={`yesno-btn ${formState.authorizeMedCert === false ? 'selected' : ''}`} onClick={() => updateField('authorizeMedCert', false)}>No</button>
@@ -1035,9 +1035,9 @@ export default function RequestLeaveReactPage() {
         return (
           <>
             <h2>Medical Certifications</h2>
-            <p className="subtitle">For qualifying medical leave, a healthcare provider certification may be required.</p>
+            <p className="subtitle" style={{ lineHeight: 1.7 }}>You are responsible for ensuring the healthcare provider receives and completes the certification and for providing the form to Mutual of Omaha on time. Mutual of Omaha can send the certifications to your provider to help expedite processing.</p>
             <div className="bordered-section">
-              <label>Would you like us to send the certification form to your physician?</label>
+              <label style={{ fontWeight: 600 }}>Would you like to authorize Mutual of Omaha to send any required certifications directly to the healthcare provider for completion or clarification?</label>
               <div className="yesno" style={{ marginTop: 8 }}>
                 <button type="button" className={`yesno-btn ${formState.sendCertToPhysician ? 'selected' : ''}`} onClick={() => updateField('sendCertToPhysician', true)}>Yes</button>
                 <button type="button" className={`yesno-btn ${formState.sendCertToPhysician === false ? 'selected' : ''}`} onClick={() => updateField('sendCertToPhysician', false)}>No</button>
