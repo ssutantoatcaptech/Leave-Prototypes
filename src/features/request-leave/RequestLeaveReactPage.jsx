@@ -221,8 +221,9 @@ export default function RequestLeaveReactPage() {
   });
   const [formState, setFormState] = useState(() => {
     var saved = null;
+    var isResume = !searchParams.get('step');
     try { saved = JSON.parse(localStorage.getItem(DRAFT_KEY)); } catch (e) { /* ignore */ }
-    if (saved && saved.formState && !fromPlan) {
+    if (saved && saved.formState && !fromPlan && isResume) {
       return { ...initialState, ...saved.formState };
     }
     if (fromPlan) {
@@ -266,8 +267,9 @@ export default function RequestLeaveReactPage() {
   });
   const [started, setStarted] = useState(() => {
     var saved = null;
+    var isResume = !searchParams.get('step');
     try { saved = JSON.parse(localStorage.getItem(DRAFT_KEY)); } catch (e) { /* ignore */ }
-    if (saved && saved.stepIndex > 0) return true;
+    if (saved && saved.stepIndex > 0 && isResume) return true;
     const urlStep = searchParams.get('step');
     return !!fromPlan || (urlStep && urlStep !== '0');
   });
@@ -278,6 +280,12 @@ export default function RequestLeaveReactPage() {
   const [expandedBenefitBar, setExpandedBenefitBar] = useState(null);
   const [otherReasonError, setOtherReasonError] = useState(false);
   const [employeeInfoFlag, setEmployeeInfoFlag] = useState({ open: false, fields: {}, submitted: false });
+
+  useEffect(() => {
+    if (searchParams.get('step')) {
+      localStorage.removeItem(DRAFT_KEY);
+    }
+  }, []);
 
   useEffect(() => {
     localStorage.setItem(DRAFT_KEY, JSON.stringify({ formState, stepIndex: currentStepIndex }));
@@ -352,9 +360,10 @@ export default function RequestLeaveReactPage() {
 
   const [currentStepIndex, setCurrentStepIndex] = useState(() => {
     var saved = null;
+    var isResume = !searchParams.get('step');
     try { saved = JSON.parse(localStorage.getItem(DRAFT_KEY)); } catch (e) { /* ignore */ }
-    if (saved && saved.stepIndex !== undefined && !fromPlan) {
-      return saved.stepIndex;
+    if (saved && saved.stepIndex !== undefined && !fromPlan && isResume) {
+      return Math.min(saved.stepIndex, steps.length - 1);
     }
     if (!fromPlan) return 0;
     const steps = buildSteps(fromPlan.leaveScenario, fromPlan.leaveScenario === 'child' || fromPlan.leaveScenario === 'child_nonbirth', fromPlan.leaveScenario === 'child', fromPlan.leaveScenario === 'medical_self', fromPlan.leaveScenario === 'medical_family');
