@@ -269,6 +269,7 @@ export default function RequestLeaveReactPage() {
   const [showCancelModal, setShowCancelModal] = useState(false);
   const [hoveredBenefitBar, setHoveredBenefitBar] = useState(null);
   const [expandedBenefitBar, setExpandedBenefitBar] = useState(null);
+  const [otherReasonError, setOtherReasonError] = useState(false);
 
   const isChildScenario = formState.leaveScenario === 'child' || formState.leaveScenario === 'child_nonbirth';
   const isBirthingParent = formState.leaveScenario === 'child';
@@ -598,8 +599,10 @@ export default function RequestLeaveReactPage() {
 
   function goNext() {
     if (currentStep.id === 'leaveReason' && formState.leaveScenario === 'other' && !formState.otherLeaveReason) {
+      setOtherReasonError(true);
       return;
     }
+    setOtherReasonError(false);
     setCurrentStepIndex((index) => Math.min(index + 1, steps.length - 1));
     scrollToTop();
   }
@@ -759,7 +762,7 @@ export default function RequestLeaveReactPage() {
             {formState.leaveScenario === 'other' && (
               <div className="form-group" style={{ marginTop: 16 }}>
                 <label>Select a reason</label>
-                <select value={formState.otherLeaveReason} onChange={(event) => updateField('otherLeaveReason', event.target.value)}>
+                <select value={formState.otherLeaveReason} onChange={(event) => { updateField('otherLeaveReason', event.target.value); setOtherReasonError(false); }}>
                   <option value="">Select...</option>
                   <option value="Personal">Personal</option>
                   <option value="Court Appearance/Witness Leave">Court Appearance/Witness Leave</option>
@@ -768,6 +771,9 @@ export default function RequestLeaveReactPage() {
                   <option value="Organ or Blood Donor">Organ or Blood Donor</option>
                   <option value="Voting">Voting</option>
                 </select>
+                {otherReasonError && !formState.otherLeaveReason && (
+                  <div style={{ color: '#dc2626', fontSize: 13, marginTop: 6 }}>Please select a reason to continue.</div>
+                )}
               </div>
             )}
           </>

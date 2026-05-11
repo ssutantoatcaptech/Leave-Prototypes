@@ -249,6 +249,7 @@ export default function PlanAbsenceReactPage() {
   // Step 1
   const [reason, setReason] = useState(() => urlReason || 'illness');
   const [otherLeaveReason, setOtherLeaveReason] = useState('');
+  const [otherReasonError, setOtherReasonError] = useState(false);
 
   // Step 2
   const [workState, setWorkState] = useState('MO');
@@ -532,8 +533,10 @@ export default function PlanAbsenceReactPage() {
 
   function goNext() {
     if (step === 1 && reason === 'other' && !otherLeaveReason) {
+      setOtherReasonError(true);
       return;
     }
+    setOtherReasonError(false);
     if (step === 2) {
       setSideWorkState(workState);
       setSideHireDate(hireDate);
@@ -568,8 +571,10 @@ export default function PlanAbsenceReactPage() {
 
   function goIllnessNext() {
     if (illnessStep === 1 && reason === 'other' && !otherLeaveReason) {
+      setOtherReasonError(true);
       return;
     }
+    setOtherReasonError(false);
     if (illnessStep === 1 && reason !== 'illness') {
       setStep(2);
       window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -709,7 +714,7 @@ export default function PlanAbsenceReactPage() {
               {reason === 'other' && (
                 <div className="sim-field" style={{ marginBottom: 16 }}>
                   <label>Select a reason</label>
-                  <select value={otherLeaveReason} onChange={(e) => setOtherLeaveReason(e.target.value)}>
+                  <select value={otherLeaveReason} onChange={(e) => { setOtherLeaveReason(e.target.value); setOtherReasonError(false); }}>
                     <option value="">Select...</option>
                     <option value="Personal">Personal</option>
                     <option value="Court Appearance/Witness Leave">Court Appearance/Witness Leave</option>
@@ -718,6 +723,9 @@ export default function PlanAbsenceReactPage() {
                     <option value="Organ or Blood Donor">Organ or Blood Donor</option>
                     <option value="Voting">Voting</option>
                   </select>
+                  {otherReasonError && !otherLeaveReason && (
+                    <div style={{ color: '#dc2626', fontSize: 13, marginTop: 6 }}>Please select a reason to continue.</div>
+                  )}
                 </div>
               )}
               <div className="sim-btn-row">
@@ -1707,7 +1715,7 @@ export default function PlanAbsenceReactPage() {
               {reason === 'other' && (
                 <div className="sim-field" style={{ marginBottom: 16 }}>
                   <label>Select a reason</label>
-                  <select value={otherLeaveReason} onChange={(e) => setOtherLeaveReason(e.target.value)}>
+                  <select value={otherLeaveReason} onChange={(e) => { setOtherLeaveReason(e.target.value); setOtherReasonError(false); }}>
                     <option value="">Select...</option>
                     <option value="Personal">Personal</option>
                     <option value="Court Appearance/Witness Leave">Court Appearance/Witness Leave</option>
@@ -1716,6 +1724,9 @@ export default function PlanAbsenceReactPage() {
                     <option value="Organ or Blood Donor">Organ or Blood Donor</option>
                     <option value="Voting">Voting</option>
                   </select>
+                  {otherReasonError && !otherLeaveReason && (
+                    <div style={{ color: '#dc2626', fontSize: 13, marginTop: 6 }}>Please select a reason to continue.</div>
+                  )}
                 </div>
               )}
               <div className="sim-btn-row">
