@@ -775,11 +775,11 @@ export default function RequestLeaveReactPage() {
                   <>
                     <div className="form-row cols-2">
                       <div className="form-group"><label>Anticipated Start Date <span className="req">*</span></label><input type="date" value={formState.leaveStartDate} onChange={(event) => updateField('leaveStartDate', event.target.value)}/></div>
-                      <div className="form-group"><label>Expected End Date</label><input type="date" value={formState.expectedReturnDate} onChange={(event) => updateField('expectedReturnDate', event.target.value)}/><div className="helper">Your best estimate of when you expect to return to work.</div></div>
+                      <div className="form-group"><label>Expected Return to Work Date</label><input type="date" value={formState.expectedReturnDate} onChange={(event) => updateField('expectedReturnDate', event.target.value)}/><div className="helper">Your best estimate of when you expect to return to work.</div></div>
                     </div>
                     <div className="form-row cols-2" style={{ marginBottom: 0 }}>
                       <div className="form-group" style={{ marginBottom: 0 }}><label>What was your last day worked?</label><input type="date" value={formState.lastDayWorked} onChange={(event) => updateField('lastDayWorked', event.target.value)}/></div>
-                      <div className="form-group" style={{ marginBottom: 0 }}><label>Hours worked on last day<span className="req">*</span></label><input type="text" value={formState.hoursLastDay} onChange={(event) => updateField('hoursLastDay', event.target.value)}/></div>
+                      <div className="form-group" style={{ marginBottom: 0 }}><label>Hours missed on last day worked<span className="req">*</span></label><input type="text" value={formState.hoursLastDay} onChange={(event) => updateField('hoursLastDay', event.target.value)}/></div>
                     </div>
                   </>
                 ) : formState.leaveType === 'intermittent' ? (
@@ -787,7 +787,7 @@ export default function RequestLeaveReactPage() {
                     <div className="form-group"><label>Anticipated Start Date <span className="req">*</span></label><input type="date" value={formState.leaveStartDate} onChange={(event) => updateField('leaveStartDate', event.target.value)}/></div>
                     <div className="form-row cols-2" style={{ marginBottom: 0 }}>
                       <div className="form-group" style={{ marginBottom: 0 }}><label>What was your last day worked?</label><input type="date" value={formState.lastDayWorked} onChange={(event) => updateField('lastDayWorked', event.target.value)}/></div>
-                      <div className="form-group" style={{ marginBottom: 0 }}><label>Hours worked on last day<span className="req">*</span></label><input type="text" value={formState.hoursLastDay} onChange={(event) => updateField('hoursLastDay', event.target.value)}/></div>
+                      <div className="form-group" style={{ marginBottom: 0 }}><label>Hours missed on last day worked<span className="req">*</span></label><input type="text" value={formState.hoursLastDay} onChange={(event) => updateField('hoursLastDay', event.target.value)}/></div>
                     </div>
                   </>
                 ) : (
@@ -798,7 +798,7 @@ export default function RequestLeaveReactPage() {
                     </div>
                     <div className="form-row cols-2" style={{ marginBottom: 0 }}>
                       <div className="form-group" style={{ marginBottom: 0 }}><label>What was your last day worked?</label><input type="date" value={formState.lastDayWorked} onChange={(event) => updateField('lastDayWorked', event.target.value)}/></div>
-                      <div className="form-group" style={{ marginBottom: 0 }}><label>Hours worked on last day<span className="req">*</span></label><input type="text" value={formState.hoursLastDay} onChange={(event) => updateField('hoursLastDay', event.target.value)}/></div>
+                      <div className="form-group" style={{ marginBottom: 0 }}><label>Hours missed on last day worked<span className="req">*</span></label><input type="text" value={formState.hoursLastDay} onChange={(event) => updateField('hoursLastDay', event.target.value)}/></div>
                     </div>
                   </>
                 )}
@@ -1583,7 +1583,7 @@ export default function RequestLeaveReactPage() {
                     <div className="success-date-value">{shortDate(submittedCase.startDate)}</div>
                   </div>
                   <div className="success-date-box">
-                    <div className="success-date-label">Expected End Date</div>
+                    <div className="success-date-label">Expected Return to Work Date</div>
                     <div className="success-date-value">{shortDate(submittedCase.endDate)}</div>
                   </div>
                   <div className="success-date-box">
@@ -1737,7 +1737,7 @@ export default function RequestLeaveReactPage() {
                     <div className="success-date-value">{shortDate(submittedCase.startDate)}</div>
                   </div>
                   <div className="success-date-box">
-                    <div className="success-date-label">Expected End Date</div>
+                    <div className="success-date-label">Expected Return to Work Date</div>
                     <div className="success-date-value">{shortDate(submittedCase.endDate)}</div>
                   </div>
                   <div className="success-date-box">
@@ -1814,7 +1814,7 @@ export default function RequestLeaveReactPage() {
                     <div className="success-date-value">{shortDate(submittedCase.startDate)}</div>
                   </div>
                   <div className="success-date-box">
-                    <div className="success-date-label">Expected End Date</div>
+                    <div className="success-date-label">Expected Return to Work Date</div>
                     <div className="success-date-value">{shortDate(submittedCase.endDate)}</div>
                   </div>
                   <div className="success-date-box">
@@ -1884,7 +1884,7 @@ export default function RequestLeaveReactPage() {
                     <div className="success-date-value">{shortDate(submittedCase.startDate)}</div>
                   </div>
                   <div className="success-date-box">
-                    <div className="success-date-label">Expected End Date</div>
+                    <div className="success-date-label">Expected Return to Work Date</div>
                     <div className="success-date-value">{shortDate(submittedCase.endDate)}</div>
                   </div>
                   <div className="success-date-box">
