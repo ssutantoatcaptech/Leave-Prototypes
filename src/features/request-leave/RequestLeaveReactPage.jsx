@@ -71,6 +71,7 @@ const initialState = {
   familyDob: '',
   workersComp: 'no',
   leaveScenario: '',
+  otherLeaveReason: '',
   seriousHealthCondition: true,
   episodeFrequency: '2-3 times per month',
   episodeDuration: '1-2 days per episode',
@@ -752,6 +753,20 @@ export default function RequestLeaveReactPage() {
                 <p className="lt-context-desc">{reasonDescriptions[formState.leaveScenario]}</p>
               </div>
             ) : null}
+            {formState.leaveScenario === 'other' && (
+              <div className="form-group" style={{ marginTop: 16 }}>
+                <label>Select a reason</label>
+                <select value={formState.otherLeaveReason} onChange={(event) => updateField('otherLeaveReason', event.target.value)}>
+                  <option value="">Select...</option>
+                  <option value="Personal">Personal</option>
+                  <option value="Court Appearance/Witness Leave">Court Appearance/Witness Leave</option>
+                  <option value="Crime Victim/Safe Leave">Crime Victim/Safe Leave</option>
+                  <option value="Volunteer Emergency Responder">Volunteer Emergency Responder</option>
+                  <option value="Organ or Blood Donor">Organ or Blood Donor</option>
+                  <option value="Voting">Voting</option>
+                </select>
+              </div>
+            )}
           </>
         );
       }

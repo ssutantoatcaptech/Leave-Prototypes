@@ -248,6 +248,7 @@ export default function PlanAbsenceReactPage() {
 
   // Step 1
   const [reason, setReason] = useState(() => urlReason || 'illness');
+  const [otherLeaveReason, setOtherLeaveReason] = useState('');
 
   // Step 2
   const [workState, setWorkState] = useState('MO');
@@ -699,6 +700,20 @@ export default function PlanAbsenceReactPage() {
               <div style={{ fontSize: 13, color: '#737373', marginBottom: 16, lineHeight: 1.5 }}>
                 This helps us identify which benefits and protections may apply to you.
               </div>
+              {reason === 'other' && (
+                <div className="sim-field" style={{ marginBottom: 16 }}>
+                  <label>Select a reason</label>
+                  <select value={otherLeaveReason} onChange={(e) => setOtherLeaveReason(e.target.value)}>
+                    <option value="">Select...</option>
+                    <option value="Personal">Personal</option>
+                    <option value="Court Appearance/Witness Leave">Court Appearance/Witness Leave</option>
+                    <option value="Crime Victim/Safe Leave">Crime Victim/Safe Leave</option>
+                    <option value="Volunteer Emergency Responder">Volunteer Emergency Responder</option>
+                    <option value="Organ or Blood Donor">Organ or Blood Donor</option>
+                    <option value="Voting">Voting</option>
+                  </select>
+                </div>
+              )}
               <div className="sim-btn-row">
                 <button className="btn btn-cancel-leave" type="button" onClick={() => setShowCancelModal(true)}>Cancel</button>
                 <div style={{ display: 'flex', gap: 12 }}>
@@ -1683,6 +1698,20 @@ export default function PlanAbsenceReactPage() {
               <div style={{ fontSize: 13, color: '#737373', marginBottom: 16, lineHeight: 1.5 }}>
                 This helps us identify which benefits and protections may apply to you.
               </div>
+              {reason === 'other' && (
+                <div className="sim-field" style={{ marginBottom: 16 }}>
+                  <label>Select a reason</label>
+                  <select value={otherLeaveReason} onChange={(e) => setOtherLeaveReason(e.target.value)}>
+                    <option value="">Select...</option>
+                    <option value="Personal">Personal</option>
+                    <option value="Court Appearance/Witness Leave">Court Appearance/Witness Leave</option>
+                    <option value="Crime Victim/Safe Leave">Crime Victim/Safe Leave</option>
+                    <option value="Volunteer Emergency Responder">Volunteer Emergency Responder</option>
+                    <option value="Organ or Blood Donor">Organ or Blood Donor</option>
+                    <option value="Voting">Voting</option>
+                  </select>
+                </div>
+              )}
               <div className="sim-btn-row">
                 <button className="btn btn-cancel-leave" type="button" onClick={() => setShowCancelModal(true)}>Cancel</button>
                 <div style={{ display: 'flex', gap: 12 }}>
