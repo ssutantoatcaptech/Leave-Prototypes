@@ -1129,8 +1129,9 @@
   font-size: 13px;
   font-weight: 500;
   color: #334155;
-  min-width: 100px;
+  width: 140px;
   flex-shrink: 0;
+  line-height: 1.4;
 }
 
 .emp-flag-row-note {
