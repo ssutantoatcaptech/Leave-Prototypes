@@ -1666,12 +1666,12 @@ export default function RequestLeaveReactPage() {
                     </div>
                     <div className="success-case-title">Short-Term Disability</div>
                   </div>
-                  <div className="success-case-card">
-                    <div className="success-case-header">
-                      <div className="success-case-id">Supplemental Health - {submittedCase.id}-ABC-03</div>
-                      <span className="success-case-badge"><span className="success-case-badge-dot"/> Pending</span>
-                    </div>
-                    <div className="success-case-title">Hospital Indemnity</div>
+                </div>
+                <div className="success-enrollment-banner">
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="10" stroke="#0369a1" strokeWidth="1.5"/><path d="M12 8v4" stroke="#0369a1" strokeWidth="1.5" strokeLinecap="round"/><circle cx="12" cy="16" r="0.75" fill="#0369a1"/></svg>
+                  <div className="success-enrollment-text">
+                    <span>You're enrolled in Hospital Indemnity and may be eligible for additional benefits.</span>
+                    <a href="#" className="success-enrollment-link">Learn more →</a>
                   </div>
                 </div>
                 <div className="success-footer">
@@ -1743,12 +1743,12 @@ export default function RequestLeaveReactPage() {
                     </div>
                     <div className="success-case-title">Short Term Disability, NY Paid Family Leave & FMLA</div>
                   </div>
-                  <div className="success-case-card">
-                    <div className="success-case-header">
-                      <div className="success-case-id">Supplemental Health - {submittedCase.id}-ABC-03</div>
-                      <span className="success-case-badge"><span className="success-case-badge-dot"/> Pending</span>
-                    </div>
-                    <div className="success-case-title">Hospital Indemnity</div>
+                </div>
+                <div className="success-enrollment-banner">
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="10" stroke="#0369a1" strokeWidth="1.5"/><path d="M12 8v4" stroke="#0369a1" strokeWidth="1.5" strokeLinecap="round"/><circle cx="12" cy="16" r="0.75" fill="#0369a1"/></svg>
+                  <div className="success-enrollment-text">
+                    <span>You're enrolled in Hospital Indemnity and may be eligible for additional benefits.</span>
+                    <a href="#" className="success-enrollment-link">Learn more →</a>
                   </div>
                 </div>
                 <div className="success-footer">
@@ -1820,12 +1820,12 @@ export default function RequestLeaveReactPage() {
                     </div>
                     <div className="success-case-title">NY Paid Family Leave & FMLA</div>
                   </div>
-                  <div className="success-case-card">
-                    <div className="success-case-header">
-                      <div className="success-case-id">Supplemental Health - {submittedCase.id}-ABC-03</div>
-                      <span className="success-case-badge"><span className="success-case-badge-dot"/> Pending</span>
-                    </div>
-                    <div className="success-case-title">Hospital Indemnity</div>
+                </div>
+                <div className="success-enrollment-banner">
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="10" stroke="#0369a1" strokeWidth="1.5"/><path d="M12 8v4" stroke="#0369a1" strokeWidth="1.5" strokeLinecap="round"/><circle cx="12" cy="16" r="0.75" fill="#0369a1"/></svg>
+                  <div className="success-enrollment-text">
+                    <span>You're enrolled in Hospital Indemnity and may be eligible for additional benefits.</span>
+                    <a href="#" className="success-enrollment-link">Learn more →</a>
                   </div>
                 </div>
                 <div className="success-footer">
@@ -1897,12 +1897,12 @@ export default function RequestLeaveReactPage() {
                     </div>
                     <div className="success-case-title">Short Term Disability & NY Paid Family Leave</div>
                   </div>
-                  <div className="success-case-card">
-                    <div className="success-case-header">
-                      <div className="success-case-id">Supplemental Health - {submittedCase.id}-ABC-03</div>
-                      <span className="success-case-badge"><span className="success-case-badge-dot"/> Pending</span>
-                    </div>
-                    <div className="success-case-title">Hospital Indemnity</div>
+                </div>
+                <div className="success-enrollment-banner">
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="10" stroke="#0369a1" strokeWidth="1.5"/><path d="M12 8v4" stroke="#0369a1" strokeWidth="1.5" strokeLinecap="round"/><circle cx="12" cy="16" r="0.75" fill="#0369a1"/></svg>
+                  <div className="success-enrollment-text">
+                    <span>You're enrolled in Hospital Indemnity and may be eligible for additional benefits.</span>
+                    <a href="#" className="success-enrollment-link">Learn more →</a>
                   </div>
                 </div>
                 <div className="success-footer">
