@@ -1462,11 +1462,12 @@ export default function RequestLeaveReactPage() {
                       <svg width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M4 4l8 8M12 4l-8 8" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"/></svg>
                     </button>
                   </div>
-                  <div className="emp-flag-fields">
+                  <div className="emp-flag-list">
                     {['Name', 'Employee ID', 'Employer', 'Occupation', 'Work Location', 'Hire Date', 'Employment Type', 'Address'].map((field) => (
-                      <label key={field} className={`emp-flag-chip ${employeeInfoFlag.fields.includes(field) ? 'emp-flag-chip--selected' : ''}`}>
+                      <label key={field} className="emp-flag-list-item">
                         <input type="checkbox" checked={employeeInfoFlag.fields.includes(field)} onChange={() => setEmployeeInfoFlag((prev) => ({ ...prev, fields: prev.fields.includes(field) ? prev.fields.filter((f) => f !== field) : [...prev.fields, field] }))}/>
-                        {field}
+                        <span className="emp-flag-checkbox-custom">{employeeInfoFlag.fields.includes(field) && <svg width="10" height="10" viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-5" stroke="#fff" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"/></svg>}</span>
+                        <span className="emp-flag-list-label">{field}</span>
                       </label>
                     ))}
                   </div>
