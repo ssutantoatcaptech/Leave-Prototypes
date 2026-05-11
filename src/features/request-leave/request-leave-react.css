@@ -1087,34 +1087,29 @@
   display: flex;
   flex-direction: column;
   gap: 0;
-  margin-bottom: 12px;
-  border: 1px solid #e2e8f0;
-  border-radius: 8px;
-  overflow: hidden;
+  margin-bottom: 14px;
 }
 
-.emp-flag-list-item {
+.emp-flag-row {
   display: flex;
   align-items: center;
   gap: 10px;
-  padding: 10px 14px;
-  font-size: 13px;
-  color: #334155;
-  cursor: pointer;
-  transition: background 0.1s;
-  user-select: none;
+  padding: 8px 0;
   border-bottom: 1px solid #f1f5f9;
 }
 
-.emp-flag-list-item:last-child {
+.emp-flag-row:last-child {
   border-bottom: none;
 }
 
-.emp-flag-list-item:hover {
-  background: #f8fafc;
+.emp-flag-row-check {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  flex-shrink: 0;
 }
 
-.emp-flag-list-item input[type='checkbox'] {
+.emp-flag-row-check input[type='checkbox'] {
   display: none;
 }
 
@@ -1131,39 +1126,50 @@
   background: #fff;
 }
 
-.emp-flag-list-item input:checked + .emp-flag-checkbox-custom {
+.emp-flag-row-check input:checked + .emp-flag-checkbox-custom {
   background: #0f172a;
   border-color: #0f172a;
 }
 
-.emp-flag-list-label {
+.emp-flag-row-value {
+  font-size: 13px;
   font-weight: 500;
+  color: #334155;
+  min-width: 100px;
+  flex-shrink: 0;
 }
 
-.emp-flag-note {
-  width: 100%;
-  padding: 10px 12px;
+.emp-flag-row-note {
+  flex: 1;
+  padding: 6px 10px;
   border: 1px solid #e2e8f0;
-  border-radius: 8px;
-  font-size: 13px;
+  border-radius: 6px;
+  font-size: 12px;
   font-family: inherit;
   color: #334155;
   background: #fff;
-  resize: none;
   outline: none;
-  margin-bottom: 12px;
   height: auto !important;
   min-height: unset !important;
   transition: border-color 0.15s;
 }
 
-.emp-flag-note:focus {
+.emp-flag-row-note::placeholder {
+  color: #94a3b8;
+}
+
+.emp-flag-row-note:focus {
   border-color: #94a3b8;
 }
 
-.emp-flag-note::placeholder {
-  color: #94a3b8;
+.emp-flag-row--active .emp-flag-row-value {
+  color: #0f172a;
 }
+
+.emp-flag-row--active .emp-flag-row-note {
+  border-color: #cbd5e1;
+}
+
 
 .emp-flag-submit {
   display: inline-flex;
