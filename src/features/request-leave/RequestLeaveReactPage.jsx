@@ -1019,14 +1019,12 @@ export default function RequestLeaveReactPage() {
             <p className="subtitle">We need a few details about your family member to determine your coverage. Their medical information will be kept confidential.</p>
             <div className="bordered-section">
               <div className="section-title" style={{ display: 'flex', alignItems: 'center', gap: 8 }}><svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2" stroke="#4b5563" strokeWidth="1.5" strokeLinecap="round"/><circle cx="12" cy="7" r="4" stroke="#4b5563" strokeWidth="1.5"/></svg>Family Member Information</div>
+              <div className="form-group"><label>Relationship <span className="req">*</span></label><select value={formState.familyRelationship} onChange={(event) => updateField('familyRelationship', event.target.value)}><option value="">Select...</option><option value="spouse">Spouse</option><option value="parent">Parent</option><option value="child">Child</option><option value="sibling">Sibling</option><option value="other">Other</option></select><div className="helper">Your relationship determines which leave protections and benefits may apply.</div></div>
               <div className="form-row cols-2">
                 <div className="form-group"><label>First Name <span className="req">*</span></label><input type="text" value={formState.familyFirstName} onChange={(event) => updateField('familyFirstName', event.target.value)}/></div>
                 <div className="form-group"><label>Last Name <span className="req">*</span></label><input type="text" value={formState.familyLastName} onChange={(event) => updateField('familyLastName', event.target.value)}/></div>
               </div>
-              <div className="form-row cols-2" style={{ marginBottom: 0 }}>
-                <div className="form-group" style={{ marginBottom: 0 }}><label>Relationship <span className="req">*</span></label><select value={formState.familyRelationship} onChange={(event) => updateField('familyRelationship', event.target.value)}><option value="">Select...</option><option value="spouse">Spouse</option><option value="parent">Parent</option><option value="child">Child</option><option value="sibling">Sibling</option><option value="other">Other</option></select></div>
-                <div className="form-group" style={{ marginBottom: 0 }}><label>Date of Birth</label><input type="date" value={formState.familyDob} onChange={(event) => updateField('familyDob', event.target.value)}/></div>
-              </div>
+              <div className="form-group" style={{ marginBottom: 0 }}><label>Date of Birth {formState.familyRelationship === 'child' && <span className="req">*</span>}</label><input type="date" value={formState.familyDob} onChange={(event) => updateField('familyDob', event.target.value)}/></div>
             </div>
           </>
         );
