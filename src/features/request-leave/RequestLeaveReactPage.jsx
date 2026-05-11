@@ -717,13 +717,13 @@ export default function RequestLeaveReactPage() {
               {showReason && (
                 <div className="form-group missed-entry-time">
                   <label>{index === 0 ? 'Start Time' : ' '}</label>
-                  <input type="time" value={entry.startTime || ''} onChange={(event) => updateMissedDateEntry(index, 'startTime', event.target.value)}/>
+                  <input type="text" placeholder="HH:MM" value={entry.startTime || ''} onChange={(event) => updateMissedDateEntry(index, 'startTime', event.target.value)}/>
                 </div>
               )}
               {showReason && (
                 <div className="form-group missed-entry-time">
                   <label>{index === 0 ? 'End Time' : ' '}</label>
-                  <input type="time" value={entry.endTime || ''} onChange={(event) => updateMissedDateEntry(index, 'endTime', event.target.value)}/>
+                  <input type="text" placeholder="HH:MM" value={entry.endTime || ''} onChange={(event) => updateMissedDateEntry(index, 'endTime', event.target.value)}/>
                 </div>
               )}
               <div className="form-group missed-entry-hours">
@@ -1040,8 +1040,9 @@ export default function RequestLeaveReactPage() {
                 <div className="form-group" style={{ marginBottom: 0 }}><label>ZIP</label><input type="text" value={formState.providerZip} onChange={(event) => updateField('providerZip', event.target.value)}/></div>
               </div>
             </div>
-            <div style={{ marginTop: 16, padding: '12px 16px', background: '#f8fafc', borderRadius: 8, border: '1px solid #e2e8f0', fontSize: 13, color: '#334155', lineHeight: 1.6 }}>
-              By providing this information you're authorizing Mutual of Omaha to send paperwork to your health care provider.
+            <div style={{ marginTop: 16, padding: '12px 16px', background: '#f8fafc', borderRadius: 8, border: '1px solid #e2e8f0', fontSize: 13, color: '#334155', lineHeight: 1.6, display: 'flex', alignItems: 'flex-start', gap: 8 }}>
+              <svg width="16" height="16" viewBox="0 0 16 16" fill="none" style={{ flexShrink: 0, marginTop: 2 }}><circle cx="8" cy="8" r="7" stroke="#64748b" strokeWidth="1.2"/><path d="M8 7v4" stroke="#64748b" strokeWidth="1.3" strokeLinecap="round"/><circle cx="8" cy="5" r="0.75" fill="#64748b"/></svg>
+              <span>By providing this information you're authorizing Mutual of Omaha to send paperwork to your health care provider.</span>
             </div>
             <button type="button" className="rotation-add"><svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M8 3v10M3 8h10" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"/></svg>Add another provider</button>
           </>

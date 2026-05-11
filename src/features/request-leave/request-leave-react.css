@@ -162,11 +162,13 @@
 .request-leave-shell input[type='email'],
 .request-leave-shell input[type='tel'],
 .request-leave-shell input[type='date'],
+.request-leave-shell input[type='time'],
 .request-leave-shell input[type='number'],
 .request-leave-shell select,
 .request-leave-shell textarea {
   width: 100%;
   padding: 12px 14px;
+  height: 44px;
   background: #fff;
   border: 1px solid #d1d5db;
   border-radius: 7px;
@@ -180,8 +182,14 @@
   appearance: none;
 }
 
+.request-leave-shell textarea {
+  height: auto;
+  min-height: 100px;
+}
+
 .request-leave-shell input[type='date'] {
   text-align: left;
+  height: 44px;
   background-image: url("data:image/svg+xml,%3Csvg width='16' height='16' viewBox='0 0 16 16' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Crect x='2' y='3' width='12' height='11' rx='1.5' stroke='%2362626e' stroke-width='1.2'/%3E%3Cpath d='M2 6.5h12M5.5 1.5v3M10.5 1.5v3' stroke='%2362626e' stroke-width='1.2' stroke-linecap='round'/%3E%3C/svg%3E");
   background-repeat: no-repeat;
   background-position: right 12px center;
@@ -193,6 +201,38 @@
   width: 20px;
   height: 20px;
   cursor: pointer;
+}
+
+.request-leave-shell input[type='time'] {
+  text-align: left;
+  font-size: 15px;
+  font-family: inherit;
+  line-height: 1.4;
+  height: 44px;
+  padding: 12px 14px;
+  background-image: url("data:image/svg+xml,%3Csvg width='16' height='16' viewBox='0 0 16 16' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Ccircle cx='8' cy='8' r='6' stroke='%2362626e' stroke-width='1.2'/%3E%3Cpath d='M8 4.5V8l2.5 1.5' stroke='%2362626e' stroke-width='1.2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 12px center;
+  background-size: 16px 16px;
+}
+
+.request-leave-shell input[type='time']::-webkit-calendar-picker-indicator {
+  opacity: 0;
+  width: 20px;
+  height: 20px;
+  cursor: pointer;
+}
+
+.request-leave-shell input[type='time']::-webkit-datetime-edit,
+.request-leave-shell input[type='time']::-webkit-datetime-edit-fields-wrapper,
+.request-leave-shell input[type='time']::-webkit-datetime-edit-hour-field,
+.request-leave-shell input[type='time']::-webkit-datetime-edit-minute-field,
+.request-leave-shell input[type='time']::-webkit-datetime-edit-ampm-field,
+.request-leave-shell input[type='time']::-webkit-datetime-edit-text {
+  font-size: 15px;
+  font-family: inherit;
+  color: #0f172a;
+  padding: 0;
 }
 
 .request-leave-shell input[type='number'] {
@@ -778,9 +818,16 @@
 }
 
 .missed-entry-time {
-  width: 130px;
+  width: 160px;
   flex-shrink: 0;
   margin-bottom: 0;
+}
+
+.missed-entry-time input[type='text'] {
+  background-image: url("data:image/svg+xml,%3Csvg width='16' height='16' viewBox='0 0 16 16' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Ccircle cx='8' cy='8' r='6' stroke='%2362626e' stroke-width='1.2'/%3E%3Cpath d='M8 4.5V8l2.5 1.5' stroke='%2362626e' stroke-width='1.2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 12px center;
+  background-size: 16px 16px;
 }
 
 .missed-entry-reason {
