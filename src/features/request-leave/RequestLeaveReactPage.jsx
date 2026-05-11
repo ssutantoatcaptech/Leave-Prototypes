@@ -369,9 +369,8 @@ export default function RequestLeaveReactPage() {
       return Math.min(saved.stepIndex, steps.length - 1);
     }
     if (!fromPlan) return 0;
-    const steps = buildSteps(fromPlan.leaveScenario, fromPlan.leaveScenario === 'child' || fromPlan.leaveScenario === 'child_nonbirth', fromPlan.leaveScenario === 'child', fromPlan.leaveScenario === 'medical_self', fromPlan.leaveScenario === 'medical_family');
-    const idx = steps.findIndex((s) => s.id === 'leaveStructure');
-    console.log('[wizard] currentStepIndex init, scenario:', fromPlan.leaveScenario, 'skip to:', idx);
+    const planSteps = buildSteps(fromPlan.leaveScenario, fromPlan.leaveScenario === 'child' || fromPlan.leaveScenario === 'child_nonbirth', fromPlan.leaveScenario === 'child', fromPlan.leaveScenario === 'medical_self', fromPlan.leaveScenario === 'medical_family');
+    const idx = planSteps.findIndex((s) => s.id === 'leaveStructure');
     return idx >= 0 ? idx : 1;
   });
 
