@@ -1503,7 +1503,7 @@ export default function RequestLeaveReactPage() {
                               <input type="checkbox" checked={isChecked} onChange={() => setEmployeeInfoFlag((prev) => ({ ...prev, fields: { ...prev.fields, [item.key]: { ...prev.fields[item.key], checked: !isChecked } } }))}/>
                               <span className="emp-flag-checkbox-custom">{isChecked && <svg width="10" height="10" viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-5" stroke="#fff" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"/></svg>}</span>
                             </label>
-                            <span className="emp-flag-row-value">{item.value}</span>
+                            <span className="emp-flag-row-value">{item.key}</span>
                             <input type="text" className="emp-flag-row-note" placeholder="What's incorrect?" value={note} onChange={(event) => setEmployeeInfoFlag((prev) => ({ ...prev, fields: { ...prev.fields, [item.key]: { ...prev.fields[item.key], checked: true, note: event.target.value } } }))}/>
                           </div>
                         );
