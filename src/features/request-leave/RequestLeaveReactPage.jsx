@@ -1331,98 +1331,99 @@ export default function RequestLeaveReactPage() {
           </>
         );
       case 'benefits': {
-        const grayPalette = ['#1e293b', '#475569', '#94a3b8', '#cbd5e1'];
         const startDate = new Date(`${formState.leaveStartDate}T00:00:00`);
-        const endDate = new Date(`${formState.expectedReturnDate}T00:00:00`);
         const addWeeks = (d, w) => { const r = new Date(d); r.setDate(r.getDate() + w * 7); return r; };
 
         const fmlaEnd = addWeeks(startDate, eligibility.fmla.weeks);
         const stdStart = new Date(startDate); stdStart.setDate(stdStart.getDate() + planConfig.std.waitingDays);
         const stdEnd = addWeeks(stdStart, eligibility.std.weeks);
         const pflEnd = addWeeks(startDate, eligibility.statePFL.weeks);
-        const bondStart = eligibility.std.eligible ? stdEnd : endDate;
+        const bondStart = eligibility.std.eligible ? stdEnd : startDate;
         const bondEnd = addWeeks(bondStart, eligibility.companyBonding.weeks);
 
         const benefitBars = [
-          eligibility.fmla.eligible ? { label: 'FMLA', color: grayPalette[0], weeks: eligibility.fmla.weeks, pay: 'Job-protected, unpaid', startDate: startDate, endDate: fmlaEnd, note: 'Runs concurrently with paid benefits' } : null,
-          eligibility.std.eligible ? { label: 'Short-Term Disability', color: grayPalette[1], weeks: eligibility.std.weeks, pay: `${planConfig.std.percentPay}% of salary`, startDate: stdStart, endDate: stdEnd, note: `${planConfig.std.waitingDays}-day waiting period before benefits begin` } : null,
-          eligibility.statePFL.eligible ? { label: `${planConfig.statePFL.state} Paid Family Leave`, color: grayPalette[2], weeks: eligibility.statePFL.weeks, pay: `${planConfig.statePFL.percentPay}% of avg weekly wage`, startDate: startDate, endDate: pflEnd, note: 'Concurrent with FMLA' } : null,
-          eligibility.companyBonding.eligible ? { label: 'Company Bonding', color: grayPalette[3], weeks: eligibility.companyBonding.weeks, pay: `${planConfig.companyBonding.percentPay}% of salary`, startDate: bondStart, endDate: bondEnd, note: 'After medical recovery period' } : null,
+          eligibility.fmla.eligible ? { id: 'fmla', label: 'FMLA', segClass: 'full', weeks: eligibility.fmla.weeks, pay: 'Job-protected, unpaid', startDate: startDate, endDate: fmlaEnd, note: 'Runs concurrently with paid benefits' } : null,
+          eligibility.std.eligible ? { id: 'std', label: 'STD', segClass: 'insurance', weeks: eligibility.std.weeks, pay: `${planConfig.std.percentPay}% of salary`, startDate: stdStart, endDate: stdEnd, note: `${planConfig.std.waitingDays}-day waiting period` } : null,
+          eligibility.statePFL.eligible ? { id: 'pfl', label: 'PFL', segClass: 'state', weeks: eligibility.statePFL.weeks, pay: `${planConfig.statePFL.percentPay}% avg weekly wage`, startDate: startDate, endDate: pflEnd, note: 'Concurrent with FMLA' } : null,
+          eligibility.companyBonding.eligible ? { id: 'bonding', label: 'Bonding', segClass: 'none', weeks: eligibility.companyBonding.weeks, pay: `${planConfig.companyBonding.percentPay}% of salary`, startDate: bondStart, endDate: bondEnd, note: 'After medical recovery' } : null,
         ].filter(Boolean);
 
         const totalWeeks = Math.max(...benefitBars.map((b) => b.weeks), 0);
-        const maxSpan = Math.max(totalWeeks, 28);
-        const paidBars = benefitBars.filter((b) => b.label !== 'FMLA');
+        const displayWks = Math.max(totalWeeks, 12);
+        const pct = (wks) => Math.max(0, Math.min(100, (wks / displayWks) * 100));
+        const paidBars = benefitBars.filter((b) => b.id !== 'fmla');
         const estPaidWeeks = paidBars.length > 0 ? Math.max(...paidBars.map((b) => b.weeks)) : 0;
 
         const monthNames = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
         const startMonth = startDate.getMonth();
-        const months = [];
-        for (let i = 0; i < 8; i++) { months.push(monthNames[(startMonth + i) % 12]); }
+        const estMonths = [];
+        for (let i = 0; i < 7; i++) { estMonths.push(monthNames[(startMonth + i) % 12]); }
 
         return (
           <>
             <h2>Your estimated leave benefits</h2>
-            <p className="subtitle">Based on the information you've provided, here's an estimate of the benefits you may be eligible for. This is not a guarantee - final determination is made after review.</p>
+            <p className="subtitle">Based on the information you've provided, here's an estimate of the benefits you may be eligible for. This is not a guarantee \u2014 final determination is made after review.</p>
 
             {/* Timeline */}
             <div style={{ background: '#fff', border: '1px solid #e2e8f0', borderRadius: 12, padding: 24, marginTop: 8 }}>
               <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 6 }}>
-                <h3 style={{ margin: 0, fontSize: 16, fontWeight: 700, color: '#0f172a' }}>Leave Timeline <span style={{ fontSize: 12, fontWeight: 600, color: '#4b5563', background: '#f1f5f9', padding: '2px 8px', borderRadius: 4, marginLeft: 8, verticalAlign: 'middle' }}>ESTIMATE</span></h3>
+                <h3 style={{ margin: 0, fontSize: 16, fontWeight: 700, color: '#0f172a' }}>Leave Timeline <span style={{ fontSize: 11, fontWeight: 600, color: '#64748b', background: '#f1f5f9', padding: '2px 8px', borderRadius: 4, marginLeft: 8, verticalAlign: 'middle' }}>ESTIMATE</span></h3>
               </div>
-              <p className="eb-hover-hint" style={{ fontSize: 13, color: '#64748b', margin: '0 0 16px', lineHeight: 1.5 }}>Hover over a benefit to see details. <strong>All dates, durations, and pay figures shown are <em>estimates only</em></strong>.</p>
-              <p className="eb-tap-hint" style={{ fontSize: 13, color: '#64748b', margin: '0 0 16px', lineHeight: 1.5 }}>Tap a benefit bar to see details. <strong>All dates, durations, and pay figures shown are <em>estimates only</em></strong>.</p>
+              <p className="eb-hover-hint" style={{ fontSize: 13, color: '#64748b', margin: '0 0 16px', lineHeight: 1.5 }}>Hover over a benefit to see details. All dates and pay are <strong>estimates only</strong>.</p>
+              <p className="eb-tap-hint" style={{ fontSize: 13, color: '#64748b', margin: '0 0 16px', lineHeight: 1.5 }}>Tap a benefit bar to see details. All dates and pay are <strong>estimates only</strong>.</p>
 
-              <div className="timeline-body" style={{ padding: 0 }}>
-                <div className="timeline-axis">{months.map((m) => <span key={m}>{m}</span>)}</div>
-                <div className="timeline-bars">
-                  {benefitBars.map((bar, idx) => (
-                    <div key={bar.label} className="timeline-bar-row eb-bar-row" style={{ position: 'relative' }}
-                      onMouseEnter={() => setHoveredBenefitBar(idx)}
-                      onMouseLeave={() => setHoveredBenefitBar(null)}
-                      onClick={() => setExpandedBenefitBar(expandedBenefitBar === idx ? null : idx)}
-                    >
-                      <div className="timeline-bar-label">{bar.label}</div>
-                      <div className="timeline-bar-track" style={{ borderRadius: 999 }}>
-                        <div className="timeline-bar-fill" style={{ width: `${Math.min((bar.weeks / maxSpan) * 100, 100)}%`, borderRadius: 999, background: bar.color }}>{bar.label} {bar.weeks}wk</div>
-                      </div>
-                      {hoveredBenefitBar === idx && (
-                        <div className="eb-tooltip">
-                          <div className="eb-tooltip-title">{bar.label}</div>
-                          <div className="eb-tooltip-row"><span>Duration</span><span>{bar.weeks} weeks</span></div>
-                          <div className="eb-tooltip-row"><span>Dates</span><span>{shortDate(bar.startDate.toISOString().slice(0, 10))} to {shortDate(bar.endDate.toISOString().slice(0, 10))}</span></div>
-                          <div className="eb-tooltip-row"><span>Pay</span><span>{bar.pay}</span></div>
-                          {bar.note && <div className="eb-tooltip-note">{bar.note}</div>}
+              <div className="dlp-timeline" onMouseLeave={() => setHoveredBenefitBar(null)}>
+                <div style={{ position: 'relative' }}>
+                  <div className="dlp-tl-rows">
+                    {benefitBars.map((bar, idx) => (
+                      <div
+                        key={bar.id}
+                        className={`dlp-tl-row${expandedBenefitBar === idx ? ' active' : ''}`}
+                        onMouseEnter={() => setHoveredBenefitBar(idx)}
+                        onClick={() => setExpandedBenefitBar(expandedBenefitBar === idx ? null : idx)}
+                      >
+                        <div className="dlp-tl-row-label">{bar.label}</div>
+                        <div className="dlp-tl-row-bar">
+                          <div className={`dlp-tl-seg ${bar.segClass}`} style={{ left: '0%', width: `${pct(bar.weeks)}%` }} />
                         </div>
-                      )}
+                      </div>
+                    ))}
+                  </div>
+
+                  {hoveredBenefitBar !== null && benefitBars[hoveredBenefitBar] && (
+                    <div className="eb-tooltip" style={{ top: `${hoveredBenefitBar * 38 + 10}px` }}>
+                      <div className="eb-tooltip-title">{benefitBars[hoveredBenefitBar].label}</div>
+                      <div className="eb-tooltip-row"><span>Duration</span><span>{benefitBars[hoveredBenefitBar].weeks} weeks</span></div>
+                      <div className="eb-tooltip-row"><span>Dates</span><span>{shortDate(benefitBars[hoveredBenefitBar].startDate.toISOString().slice(0, 10))} \u2013 {shortDate(benefitBars[hoveredBenefitBar].endDate.toISOString().slice(0, 10))}</span></div>
+                      <div className="eb-tooltip-row"><span>Pay</span><span>{benefitBars[hoveredBenefitBar].pay}</span></div>
+                      {benefitBars[hoveredBenefitBar].note && <div className="eb-tooltip-note">{benefitBars[hoveredBenefitBar].note}</div>}
                     </div>
+                  )}
+                </div>
+
+                <div className="dlp-tl-months" style={{ paddingLeft: 80, marginTop: 8 }}>
+                  {estMonths.map((m, i) => <span key={i}>{m}</span>)}
+                </div>
+
+                <div className="dlp-legend" style={{ marginTop: 14 }}>
+                  {benefitBars.map((bar) => (
+                    <div key={bar.id} className="dlp-legend-item"><div className={`dlp-legend-dot dlp-tl-seg ${bar.segClass}`} style={{ position: 'static', height: 8, width: 8, borderRadius: 2 }} />{bar.label === 'FMLA' ? 'FMLA (job protection)' : bar.label === 'STD' ? 'Short-Term Disability' : bar.label === 'PFL' ? `${planConfig.statePFL.state} Paid Family Leave` : 'Company Bonding'}</div>
                   ))}
                 </div>
-                <div className="timeline-legend">
-                  {benefitBars.map((bar) => <div key={bar.label} className="timeline-legend-item"><span className="timeline-legend-dot" style={{ background: bar.color }}/>{bar.label}</div>)}
-                </div>
               </div>
 
-              {/* Mobile accordion \u2014 shown when a bar is tapped */}
+              {/* Mobile detail \u2014 shown when a bar is tapped */}
               {expandedBenefitBar !== null && benefitBars[expandedBenefitBar] && (
-                <div className="eb-accordion">
-                  <div className="eb-accordion-header">
-                    <span className="eb-accordion-dot" style={{ background: benefitBars[expandedBenefitBar].color }} />
-                    <span className="eb-accordion-title">{benefitBars[expandedBenefitBar].label}</span>
-                    <button className="eb-accordion-close" onClick={(e) => { e.stopPropagation(); setExpandedBenefitBar(null); }} aria-label="Close">
-                      <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M2 2l8 8M10 2l-8 8" stroke="#64748b" strokeWidth="1.5" strokeLinecap="round"/></svg>
-                    </button>
+                <div className="dlp-tl-mobile-detail" style={{ marginTop: 12 }}>
+                  <div className="dlp-tl-mobile-detail-title">{benefitBars[expandedBenefitBar].label === 'FMLA' ? 'FMLA (Job Protection)' : benefitBars[expandedBenefitBar].label === 'STD' ? 'Short-Term Disability' : benefitBars[expandedBenefitBar].label === 'PFL' ? `${planConfig.statePFL.state} Paid Family Leave` : 'Company Bonding'}</div>
+                  <div className="dlp-tl-mobile-detail-grid">
+                    <div><div className="dlp-tl-mobile-detail-label">Duration</div><div className="dlp-tl-mobile-detail-value">{benefitBars[expandedBenefitBar].weeks} weeks</div></div>
+                    <div><div className="dlp-tl-mobile-detail-label">Dates</div><div className="dlp-tl-mobile-detail-value">{shortDate(benefitBars[expandedBenefitBar].startDate.toISOString().slice(0, 10))} \u2013 {shortDate(benefitBars[expandedBenefitBar].endDate.toISOString().slice(0, 10))}</div></div>
+                    <div><div className="dlp-tl-mobile-detail-label">Pay</div><div className="dlp-tl-mobile-detail-value">{benefitBars[expandedBenefitBar].pay}</div></div>
+                    <div><div className="dlp-tl-mobile-detail-label">Note</div><div className="dlp-tl-mobile-detail-value">{benefitBars[expandedBenefitBar].note}</div></div>
                   </div>
-                  <div className="eb-accordion-grid">
-                    <div className="eb-accordion-field"><span className="eb-accordion-label">Duration</span><span className="eb-accordion-value">{benefitBars[expandedBenefitBar].weeks} weeks</span></div>
-                    <div className="eb-accordion-field"><span className="eb-accordion-label">Start</span><span className="eb-accordion-value">{shortDate(benefitBars[expandedBenefitBar].startDate.toISOString().slice(0, 10))}</span></div>
-                    <div className="eb-accordion-field"><span className="eb-accordion-label">Pay</span><span className="eb-accordion-value">{benefitBars[expandedBenefitBar].pay}</span></div>
-                    <div className="eb-accordion-field"><span className="eb-accordion-label">End</span><span className="eb-accordion-value">{shortDate(benefitBars[expandedBenefitBar].endDate.toISOString().slice(0, 10))}</span></div>
-                  </div>
-                  {benefitBars[expandedBenefitBar].note && <div className="eb-accordion-note">{benefitBars[expandedBenefitBar].note}</div>}
                 </div>
               )}
-
             </div>
 
             {/* Coverage summary */}
@@ -1433,13 +1434,13 @@ export default function RequestLeaveReactPage() {
               </div>
 
               {benefitBars.map((bar) => (
-                <div key={bar.label} style={{ padding: '16px 20px', borderTop: '1px solid #f1f5f9' }}>
+                <div key={bar.id} style={{ padding: '16px 20px', borderTop: '1px solid #f1f5f9' }}>
                   <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 4 }}>
-                    <div style={{ fontSize: 14, fontWeight: 600, color: '#0f172a' }}>{bar.label}</div>
+                    <div style={{ fontSize: 14, fontWeight: 600, color: '#0f172a' }}>{bar.label === 'FMLA' ? 'FMLA (Job Protection)' : bar.label === 'STD' ? 'Short-Term Disability' : bar.label === 'PFL' ? `${planConfig.statePFL.state} Paid Family Leave` : 'Company Bonding'}</div>
                     <div style={{ fontSize: 13, fontWeight: 600, color: '#0f172a' }}>{bar.pay}</div>
                   </div>
                   <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: 12, color: '#64748b' }}>
-                    <span>{shortDate(bar.startDate.toISOString().slice(0, 10))} to {shortDate(bar.endDate.toISOString().slice(0, 10))}</span>
+                    <span>{shortDate(bar.startDate.toISOString().slice(0, 10))} \u2013 {shortDate(bar.endDate.toISOString().slice(0, 10))}</span>
                     <span>{bar.weeks} weeks</span>
                   </div>
                 </div>
