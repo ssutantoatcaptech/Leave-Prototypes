@@ -498,7 +498,8 @@ export default function RequestLeaveReactPage() {
   }
 
   function calculateEligibility() {
-    const hireDate = new Date(`${formState.employee.hireDate}T00:00:00`);
+    const emp = formState.employee || {};
+    const hireDate = new Date(`${emp.hireDate || '2020-01-01'}T00:00:00`);
     const now = new Date();
     const monthsEmployed = (now.getFullYear() - hireDate.getFullYear()) * 12 + (now.getMonth() - hireDate.getMonth());
     const fmlaEligible = monthsEmployed >= planConfig.fmla.tenureMonths;
