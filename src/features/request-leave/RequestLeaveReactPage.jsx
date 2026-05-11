@@ -603,11 +603,25 @@ export default function RequestLeaveReactPage() {
       return;
     }
     setOtherReasonError(false);
+    if (currentStep.id === 'medicalCertConsent' && formState.authorizeMedCert === false) {
+      var providerIdx = steps.findIndex(function (s) { return s.id === 'providerDetails'; });
+      if (providerIdx >= 0 && providerIdx === currentStepIndex + 1) {
+        setCurrentStepIndex(function (index) { return Math.min(index + 2, steps.length - 1); });
+        scrollToTop();
+        return;
+      }
+    }
     setCurrentStepIndex((index) => Math.min(index + 1, steps.length - 1));
     scrollToTop();
   }
 
   function goBack() {
+    var prevStep = steps[currentStepIndex - 1];
+    if (prevStep && prevStep.id === 'providerDetails' && formState.authorizeMedCert === false) {
+      setCurrentStepIndex(function (index) { return Math.max(index - 2, 0); });
+      scrollToTop();
+      return;
+    }
     setCurrentStepIndex((index) => Math.max(index - 1, 0));
     scrollToTop();
   }
