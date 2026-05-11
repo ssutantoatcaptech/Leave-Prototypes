@@ -289,8 +289,8 @@ export default function RequestLeaveReactPage() {
       s.push({ id: 'missedTime', label: 'Missed Time', title: 'Did you miss any work time before starting this leave?' });
       s.push({ id: 'leaveDetails', label: 'Schedule', title: 'Tell us about your typical work schedule' });
       s.push({ id: 'medical', label: 'Condition', title: 'Tell us about your condition' });
-      s.push({ id: 'providerDetails', label: 'Provider', title: 'Provider Details' });
       s.push({ id: 'medicalCertConsent', label: 'Consent', title: 'Medical Certification Consent' });
+      s.push({ id: 'providerDetails', label: 'Provider', title: 'Provider Details' });
     } else if (birthing) {
       s.push({ id: 'childScenario', label: 'Child', title: 'Has the birth already occurred?' });
       s.push({ id: 'leaveStructure', label: 'Structure', title: 'How will you take your absence?' });
@@ -298,16 +298,16 @@ export default function RequestLeaveReactPage() {
       s.push({ id: 'leaveDetails', label: 'Schedule', title: 'What does your typical work week look like?' });
       s.push({ id: 'planAware', label: 'Benefits', title: 'A couple more questions' });
       s.push({ id: 'bondingIntent', label: 'Bonding', title: 'When would you like to bond with your child?' });
-      s.push({ id: 'providerDetails', label: 'Provider', title: 'Provider Details' });
       s.push({ id: 'medicalCertConsent', label: 'Consent', title: 'Medical Certification Consent' });
+      s.push({ id: 'providerDetails', label: 'Provider', title: 'Provider Details' });
     } else if (famCare) {
       s.push({ id: 'leaveStructure', label: 'Structure', title: 'How would you like to structure your leave?' });
       s.push({ id: 'missedTime', label: 'Missed Time', title: 'Did you miss any work time before starting this leave?' });
       s.push({ id: 'leaveDetails', label: 'Schedule', title: 'Tell us about your typical work schedule' });
       s.push({ id: 'familyMember', label: 'Family', title: "Tell us about the person you're caring for" });
       s.push({ id: 'familyCondition', label: 'Condition', title: "About the patient's condition" });
-      s.push({ id: 'providerDetails', label: 'Provider', title: "The Patient's Provider Details" });
       s.push({ id: 'medicalCertConsent', label: 'Consent', title: 'Medical Certification Consent' });
+      s.push({ id: 'providerDetails', label: 'Provider', title: "The Patient's Provider Details" });
     } else if (nonbirth) {
       s.push({ id: 'childScenario', label: 'Child', title: 'How are you welcoming your child?' });
       s.push({ id: 'leaveStructure', label: 'Structure', title: 'How will you take your absence?' });
