@@ -1473,17 +1473,38 @@ export default function RequestLeaveReactPage() {
                 <ReviewField label="Employment Type" value={formState.employee.employmentType}/>
                 <ReviewField label="Address" value={formState.employee.address}/>
               </div>
-              <div className="emp-flag-accordion">
-                <button type="button" className="emp-flag-accordion-trigger" onClick={() => setEmployeeInfoFlag((prev) => ({ ...prev, open: !prev.open }))}>
-                  <span className="emp-flag-accordion-label">
-                    {Object.values(employeeInfoFlag.fields).some((f) => f.checked) && <span className="emp-flag-dot"/>}
-                    Something doesn't look right?
-                  </span>
-                  <svg width="12" height="12" viewBox="0 0 12 12" fill="none" className={`emp-flag-chevron ${employeeInfoFlag.open ? 'emp-flag-chevron--open' : ''}`}><path d="M3 4.5l3 3 3-3" stroke="currentColor" strokeWidth="1.3" strokeLinecap="round" strokeLinejoin="round"/></svg>
+              {employeeInfoFlag.submitted ? (
+                <div className="emp-flag-summary">
+                  <div className="emp-flag-summary-header">
+                    <svg width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M2 8.5l4 4 8-8" stroke="#16a34a" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"/></svg>
+                    <span>Flagged {Object.values(employeeInfoFlag.fields).filter((f) => f.checked).length} field{Object.values(employeeInfoFlag.fields).filter((f) => f.checked).length !== 1 ? 's' : ''} for review</span>
+                    <button type="button" className="emp-flag-summary-edit" onClick={() => setEmployeeInfoFlag((prev) => ({ ...prev, open: true, submitted: false }))}>Edit</button>
+                  </div>
+                  <div className="emp-flag-summary-list">
+                    {Object.entries(employeeInfoFlag.fields).filter(([, v]) => v.checked).map(([key, val]) => (
+                      <div key={key} className="emp-flag-summary-item">
+                        <span className="emp-flag-summary-label">{key}</span>
+                        {val.note && <span className="emp-flag-summary-note">{val.note}</span>}
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              ) : (
+                <button type="button" className="emp-flag-trigger" onClick={() => setEmployeeInfoFlag((prev) => ({ ...prev, open: true }))}>
+                  <span>Something doesn't look right?</span>
+                  <svg width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M6 3l5 5-5 5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/></svg>
                 </button>
-                <p className="emp-flag-hint">Check any fields that are incorrect and let us know what needs to be updated. This won't change your information now — it flags it for your employer to review and correct.</p>
-                {employeeInfoFlag.open && (
-                  <div className="emp-flag-accordion-body">
+              )}
+              {employeeInfoFlag.open && (
+                <div className="emp-flag-backdrop" onClick={() => setEmployeeInfoFlag((prev) => ({ ...prev, open: false }))}>
+                  <div className="emp-flag-modal" onClick={(e) => e.stopPropagation()}>
+                    <div className="emp-flag-modal-header">
+                      <h3>Flag incorrect information</h3>
+                      <button type="button" className="emp-flag-modal-close" onClick={() => setEmployeeInfoFlag((prev) => ({ ...prev, open: false }))}>
+                        <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M4 4l8 8M12 4l-8 8" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"/></svg>
+                      </button>
+                    </div>
+                    <p className="emp-flag-modal-desc">Check any fields that are incorrect and let us know what needs to be updated. This won't change your information now — it flags it for your employer to review and correct.</p>
                     <div className="emp-flag-list">
                       {[
                         { key: 'Name', value: `${formState.employee.firstName} ${formState.employee.lastName}` },
@@ -1509,9 +1530,13 @@ export default function RequestLeaveReactPage() {
                         );
                       })}
                     </div>
+                    <div className="emp-flag-modal-footer">
+                      <button type="button" className="emp-flag-modal-cancel" onClick={() => setEmployeeInfoFlag((prev) => ({ ...prev, open: false }))}>Cancel</button>
+                      <button type="button" className="emp-flag-modal-save" disabled={!Object.values(employeeInfoFlag.fields).some((f) => f.checked)} onClick={() => setEmployeeInfoFlag((prev) => ({ ...prev, open: false, submitted: true }))}>Save</button>
+                    </div>
                   </div>
-                )}
-              </div>
+                </div>
+              )}
             </div>
             <div className="br-section">
               <div className="br-section-header"><h3>Contact Information</h3><button className="br-section-edit" type="button" onClick={() => jumpToStep('contact')}>Edit</button></div>

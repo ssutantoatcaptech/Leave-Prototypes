@@ -1022,21 +1022,118 @@
 }
 
 /* Employee info flag — accordion */
-.emp-flag-accordion {
-  margin-top: 14px;
-  border: 1px solid #e2e8f0;
-  border-radius: 8px;
-  overflow: hidden;
-}
-
-.emp-flag-accordion-trigger {
+/* -- Employee Flag: Trigger Button -- */
+.emp-flag-trigger {
   display: flex;
   align-items: center;
   justify-content: space-between;
   width: 100%;
+  margin-top: 14px;
   padding: 12px 14px;
   background: #f8fafc;
+  border: 1px solid #e2e8f0;
+  border-radius: 8px;
+  font-size: 13px;
+  font-family: inherit;
+  font-weight: 500;
+  color: #475569;
+  cursor: pointer;
+  transition: background 0.15s, border-color 0.15s;
+}
+
+.emp-flag-trigger:hover {
+  background: #f1f5f9;
+  border-color: #cbd5e1;
+}
+
+.emp-flag-trigger svg {
+  color: #94a3b8;
+  flex-shrink: 0;
+}
+
+/* -- Employee Flag: Modal Backdrop -- */
+.emp-flag-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(15, 23, 42, 0.4);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  padding: 24px;
+}
+
+/* -- Employee Flag: Modal -- */
+.emp-flag-modal {
+  background: #fff;
+  border-radius: 14px;
+  width: 100%;
+  max-width: 560px;
+  max-height: calc(100vh - 48px);
+  overflow-y: auto;
+  box-shadow: 0 20px 60px rgba(15, 23, 42, 0.18), 0 4px 16px rgba(15, 23, 42, 0.08);
+}
+
+.emp-flag-modal-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 20px 24px 0;
+}
+
+.emp-flag-modal-header h3 {
+  margin: 0;
+  font-size: 17px;
+  font-weight: 600;
+  color: #0f172a;
+}
+
+.emp-flag-modal-close {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
   border: none;
+  border-radius: 8px;
+  background: transparent;
+  color: #64748b;
+  cursor: pointer;
+  font-size: 18px;
+  transition: background 0.15s;
+}
+
+.emp-flag-modal-close:hover {
+  background: #f1f5f9;
+}
+
+.emp-flag-modal-desc {
+  padding: 8px 24px 16px;
+  margin: 0;
+  font-size: 13px;
+  color: #64748b;
+  line-height: 1.5;
+}
+
+.emp-flag-modal-body {
+  padding: 0 24px;
+}
+
+.emp-flag-modal-footer {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 10px;
+  padding: 16px 24px 20px;
+  border-top: 1px solid #f1f5f9;
+  margin-top: 16px;
+}
+
+.emp-flag-modal-cancel {
+  padding: 8px 18px;
+  border: 1px solid #e2e8f0;
+  border-radius: 8px;
+  background: #fff;
   font-size: 13px;
   font-family: inherit;
   font-weight: 500;
@@ -1045,51 +1142,103 @@
   transition: background 0.15s;
 }
 
-.emp-flag-accordion-trigger:hover {
-  background: #f1f5f9;
+.emp-flag-modal-cancel:hover {
+  background: #f8fafc;
 }
 
-.emp-flag-accordion-label {
+.emp-flag-modal-save {
+  padding: 8px 20px;
+  border: none;
+  border-radius: 8px;
+  background: #0f172a;
+  font-size: 13px;
+  font-family: inherit;
+  font-weight: 600;
+  color: #fff;
+  cursor: pointer;
+  transition: opacity 0.15s;
+}
+
+.emp-flag-modal-save:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+.emp-flag-modal-save:not(:disabled):hover {
+  background: #1e293b;
+}
+
+/* -- Employee Flag: Summary (after save) -- */
+.emp-flag-summary {
+  margin-top: 14px;
+  border: 1px solid #d1fae5;
+  border-radius: 8px;
+  background: #f0fdf4;
+  overflow: hidden;
+}
+
+.emp-flag-summary-header {
   display: flex;
   align-items: center;
   gap: 8px;
+  padding: 12px 14px;
+  font-size: 13px;
+  font-weight: 500;
+  color: #166534;
 }
 
-.emp-flag-dot {
-  width: 7px;
-  height: 7px;
-  border-radius: 50%;
-  background: #f59e0b;
+.emp-flag-summary-header svg {
   flex-shrink: 0;
 }
 
-.emp-flag-chevron {
-  transition: transform 0.2s;
-  color: #94a3b8;
-}
-
-.emp-flag-chevron--open {
-  transform: rotate(180deg);
-}
-
-.emp-flag-hint {
-  padding: 0 14px 12px;
-  margin: 8px 0 0;
+.emp-flag-summary-edit {
+  margin-left: auto;
+  padding: 4px 10px;
+  border: 1px solid #bbf7d0;
+  border-radius: 6px;
+  background: #fff;
   font-size: 12px;
+  font-family: inherit;
+  font-weight: 500;
+  color: #166534;
+  cursor: pointer;
+  transition: background 0.15s;
+}
+
+.emp-flag-summary-edit:hover {
+  background: #dcfce7;
+}
+
+.emp-flag-summary-list {
+  padding: 0 14px 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.emp-flag-summary-item {
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+  font-size: 12px;
+  color: #334155;
+}
+
+.emp-flag-summary-label {
+  font-weight: 600;
+  flex-shrink: 0;
+}
+
+.emp-flag-summary-note {
   color: #64748b;
-  line-height: 1.5;
+  font-style: italic;
 }
 
-.emp-flag-accordion-body {
-  padding: 12px 14px 14px;
-  border-top: 1px solid #e2e8f0;
-}
-
+/* -- Employee Flag: Shared Row Styles (used in modal) -- */
 .emp-flag-list {
   display: flex;
   flex-direction: column;
   gap: 0;
-  margin-bottom: 14px;
 }
 
 .emp-flag-row {
