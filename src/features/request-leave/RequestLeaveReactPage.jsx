@@ -743,6 +743,7 @@ export default function RequestLeaveReactPage() {
       <>
         {formState.missedDateEntries.map((entry, index) => (
           <div key={`${index}-${entry.date}`} className="missed-entry">
+            {formState.missedDateEntries.length > 1 && showReason ? <div className="missed-entry-top"><button type="button" className="missed-entry-remove-text" onClick={() => removeMissedDateEntry(index)}>Remove</button></div> : null}
             <div className="missed-entry-row1">
               <div className="form-group missed-entry-date">
                 <label>{index === 0 ? (showReason ? 'Day(s) you missed work' : 'Date') : ' '}</label>
@@ -764,7 +765,7 @@ export default function RequestLeaveReactPage() {
                 <label>{index === 0 ? (showReason ? 'Total Hrs | Min' : 'Hrs | Min') : ' '}</label>
                 <input type="text" value={entry.hours} onChange={(event) => updateMissedDateEntry(index, 'hours', event.target.value)}/>
               </div>
-              {formState.missedDateEntries.length > 1 ? <button type="button" className="missed-entry-remove" onClick={() => removeMissedDateEntry(index)}>—</button> : null}
+              {formState.missedDateEntries.length > 1 && !showReason ? <button type="button" className="missed-entry-remove" onClick={() => removeMissedDateEntry(index)}>—</button> : null}
             </div>
             {showReason ? (
               <div className="missed-entry-row2">
@@ -893,10 +894,16 @@ export default function RequestLeaveReactPage() {
       case 'missedTime': {
         const isIntermittentOrReduced = formState.leaveType === 'intermittent' || formState.leaveType === 'reduced';
         const isContinuous = formState.leaveType === 'continuous';
+        const missedSubtitle = isMedicalSelf ? 'Log any work days you've already missed due to your illness or injury.'
+          : isFamilyCare ? 'Log any work days you've already missed to care for your family member.'
+          : isBirthingParent ? 'Log any work days you've already missed due to pregnancy or delivery.'
+          : isChildScenario ? 'Log any work days you've already missed for bonding or placement.'
+          : isMilitary ? 'Log any work days you've already missed for military-related activities.'
+          : 'Log any work days you've already missed related to your leave reason.';
         return (
           <>
             <h2>Did you miss any work time before starting this leave?</h2>
-            <p className="subtitle">Log any work days you've already missed for this condition.</p>
+            <p className="subtitle">{missedSubtitle}</p>
             <div className="yesno" style={{ marginBottom: 16 }}>
               <button type="button" className={`yesno-btn ${formState.alreadyMissedTime === true ? 'selected' : ''}`} onClick={() => updateField('alreadyMissedTime', true)}>Yes</button>
               <button type="button" className={`yesno-btn ${formState.alreadyMissedTime === false ? 'selected' : ''}`} onClick={() => updateField('alreadyMissedTime', false)}>No</button>

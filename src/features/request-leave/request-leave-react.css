@@ -857,6 +857,29 @@
   margin-bottom: 8px;
 }
 
+.missed-entry-top {
+  display: flex;
+  justify-content: flex-end;
+  margin-bottom: 2px;
+}
+
+.missed-entry-remove-text {
+  padding: 2px 8px;
+  border: none;
+  border-radius: 4px;
+  background: none;
+  font-size: 11px;
+  font-family: inherit;
+  font-weight: 600;
+  color: #dc2626;
+  cursor: pointer;
+  transition: background 0.15s;
+}
+
+.missed-entry-remove-text:hover {
+  background: #fef2f2;
+}
+
 .rotation-add,
 .rotation-remove {
   font-family: inherit;
