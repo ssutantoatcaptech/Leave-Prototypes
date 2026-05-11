@@ -38,6 +38,7 @@ import PaymentsPage from './features/claims-and-leave/PaymentsPage';
 import DashboardPage from './features/claims-and-leave/DashboardPage';
 import StdClaimDetailPage from './features/claims-and-leave/StdClaimDetailPage';
 import MobileFrameWrapper from './features/claims-and-leave/MobileFrameWrapper';
+import AdaAccommodationPage from './features/ada-accommodation/AdaAccommodationPage';
 
 function Home() {
   return (
@@ -115,6 +116,7 @@ export default function App() {
           <Route path="claims" element={<ClaimCenterPage />} />
           <Route path="file-claim" element={<FileClaimPage />} />
           <Route path="file-claim/request-leave" element={<RequestLeaveReactPage />} />
+          <Route path="file-claim/ada-accommodation" element={<AdaAccommodationPage />} />
           <Route path="dental" element={<DentalClaimsPage />} />
           <Route path="my-leaves" element={<ClaimsMyLeavesPage />} />
           <Route path="my-cases" element={<MyCasesPage />} />
@@ -141,6 +143,7 @@ export default function App() {
           <Route path="claims" element={<ClaimCenterPage />} />
           <Route path="file-claim" element={<FileClaimPage />} />
           <Route path="file-claim/request-leave" element={<RequestLeaveReactPage />} />
+          <Route path="file-claim/ada-accommodation" element={<AdaAccommodationPage />} />
           <Route path="dental" element={<DentalClaimsPage />} />
           <Route path="my-leaves" element={<ClaimsMyLeavesPage />} />
           <Route path="my-cases" element={<MyCasesPage />} />

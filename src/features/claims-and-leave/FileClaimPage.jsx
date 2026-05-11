@@ -8,9 +8,9 @@ export default function FileClaimPage() {
   return (
     <div className="cl-page cl-page--centered">
       <div className="cl-file-claim-wrap">
-        <h1 className="cl-page-title cl-text-center">Get Started Filing a Claim or Requesting a Leave</h1>
+        <h1 className="cl-page-title cl-text-center">How Can We Help You Today?</h1>
         <p className="cl-page-desc cl-text-center">
-          Choose one of the options below to begin. We will guide you through the process step-by-step.
+          Choose one of the options below to get started. We'll guide you through each step.
         </p>
 
         <div className="cl-card-row">
@@ -27,8 +27,10 @@ export default function FileClaimPage() {
             <p className="cl-intro-card-desc">
               Taking time away from work? Start here — whether it's for the birth of a child, your own illness or injury, caring for a family member, military service, or any other job-protected leave.
             </p>
-            <button className="cl-btn cl-btn--primary" onClick={() => { sessionStorage.removeItem('planTransfer'); sessionStorage.removeItem('requestLeaveReactDraft'); navigate(`${base}/file-claim/request-leave?step=1`); }}>Request Leave</button>
-            <span className="cl-intro-card-meta">Takes about 5-8 minutes</span>
+            <div className="cl-intro-card-footer">
+              <button className="cl-btn cl-btn--primary" onClick={() => { sessionStorage.removeItem('planTransfer'); sessionStorage.removeItem('requestLeaveReactDraft'); navigate(`${base}/file-claim/request-leave?step=1`); }}>Request Leave</button>
+              <span className="cl-intro-card-meta">Takes about 5-8 minutes</span>
+            </div>
           </div>
 
           {/* File a Claim card */}
@@ -45,8 +47,10 @@ export default function FileClaimPage() {
             <p className="cl-intro-card-desc">
               Already back at work or not taking time off? Use this to submit a claim for supplemental benefits like accident, critical illness, or hospital indemnity.
             </p>
-            <button className="cl-btn cl-btn--primary">Start a Claim</button>
-            <span className="cl-intro-card-meta">Takes about 10-15 minutes</span>
+            <div className="cl-intro-card-footer">
+              <button className="cl-btn cl-btn--primary">Start a Claim</button>
+              <span className="cl-intro-card-meta">Takes about 10-15 minutes</span>
+            </div>
           </div>
 
           {/* Workplace Accommodation card */}
@@ -61,10 +65,12 @@ export default function FileClaimPage() {
             </div>
             <h2 className="cl-intro-card-title">Workplace Accommodation</h2>
             <p className="cl-intro-card-desc">
-              Request workplace adjustments or support related to a medical condition or disability.
+              Request workplace adjustments or support related to a medical condition or disability. We'll work with you to find the right solution.
             </p>
-            <button className="cl-btn cl-btn--primary">Request Accommodation</button>
-            <span className="cl-intro-card-meta">Takes about 10-15 minutes</span>
+            <div className="cl-intro-card-footer">
+              <button className="cl-btn cl-btn--primary" onClick={() => navigate(`${base}/file-claim/ada-accommodation`)}>Request Accommodation</button>
+              <span className="cl-intro-card-meta">Takes about 10-15 minutes</span>
+            </div>
           </div>
         </div>
       </div>

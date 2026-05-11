@@ -1,0 +1,854 @@
+.ada-page {
+  min-height: 100vh;
+  background: #f5f5f7;
+  font-family: 'Source Sans Pro', sans-serif;
+  color: #0f0f14;
+}
+
+.ada-page.ada-embedded {
+  background: transparent;
+  min-height: auto;
+}
+
+.ada-content {
+  width: 696px;
+  max-width: calc(100% - 64px);
+  margin: 0 auto;
+  padding: 40px 0 80px;
+}
+
+.ada-embedded .ada-content {
+  padding: 24px 0 24px;
+}
+
+.ada-back {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 14px;
+  font-weight: 500;
+  color: #525252;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  margin-bottom: 28px;
+}
+
+.ada-back:hover {
+  color: #0f0f14;
+}
+
+/* Welcome Card */
+.ada-welcome-card {
+  background: #fff;
+  border: 1px solid #e5e5e5;
+  border-radius: 12px;
+  padding: 36px 32px;
+}
+
+.ada-title {
+  font-size: 28px;
+  font-weight: 700;
+  margin: 0 0 8px;
+}
+
+.ada-subtitle {
+  font-size: 15px;
+  color: #525252;
+  line-height: 1.6;
+  margin: 0 0 28px;
+}
+
+.ada-steps-container {
+  border: 1px solid #e5e5e5;
+  border-radius: 10px;
+  padding: 24px;
+  margin-bottom: 24px;
+}
+
+.ada-card-title {
+  font-size: 16px;
+  font-weight: 600;
+  margin: 0 0 18px;
+}
+
+.ada-steps-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.ada-step-item {
+  display: flex;
+  gap: 14px;
+  align-items: flex-start;
+}
+
+.ada-step-num {
+  width: 30px;
+  height: 30px;
+  min-width: 30px;
+  border-radius: 50%;
+  background: #0f0f14;
+  color: #fff;
+  font-size: 14px;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.ada-step-text h4 {
+  font-size: 15px;
+  font-weight: 600;
+  margin: 0 0 3px;
+}
+
+.ada-step-text p {
+  font-size: 14px;
+  color: #737373;
+  margin: 0;
+  line-height: 1.5;
+}
+
+.ada-reassurance {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-bottom: 28px;
+}
+
+.ada-reassurance-item {
+  display: flex;
+  gap: 10px;
+  align-items: flex-start;
+  font-size: 14px;
+  color: #525252;
+  line-height: 1.5;
+}
+
+.ada-reassurance-item svg {
+  min-width: 16px;
+  margin-top: 2px;
+}
+
+.ada-info-note {
+  display: flex;
+  gap: 10px;
+  align-items: flex-start;
+  padding: 14px 16px;
+  background: #f8f9fb;
+  border-radius: 10px;
+  font-size: 14px;
+  color: #525252;
+  line-height: 1.5;
+  margin-bottom: 24px;
+}
+
+.ada-info-note svg {
+  min-width: 16px;
+  margin-top: 2px;
+}
+
+/* Buttons */
+.ada-btn-primary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 12px 28px;
+  background: #0f0f14;
+  color: #fff;
+  border: none;
+  border-radius: 10px;
+  font-size: 15px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: opacity 0.15s;
+}
+
+.ada-btn-primary:hover {
+  opacity: 0.88;
+}
+
+.ada-btn-primary:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+.ada-btn-full {
+  width: 100%;
+  justify-content: center;
+}
+
+/* Confirm Card */
+.ada-confirm-card {
+  background: #fff;
+  border: 1px solid #e5e5e5;
+  border-radius: 12px;
+  padding: 36px 32px;
+}
+
+.ada-confirm-header {
+  margin-bottom: 24px;
+}
+
+.ada-confirm-header h2 {
+  font-size: 24px;
+  font-weight: 700;
+  margin: 0 0 6px;
+}
+
+.ada-confirm-header p {
+  font-size: 14px;
+  color: #525252;
+  margin: 0;
+}
+
+/* Progress */
+.ada-progress-wrap {
+  margin-bottom: 28px;
+}
+
+.ada-progress-label {
+  font-size: 13px;
+  font-weight: 500;
+  color: #737373;
+  margin-bottom: 8px;
+}
+
+.ada-progress-track {
+  height: 4px;
+  background: #e5e5e5;
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+.ada-progress-fill {
+  height: 100%;
+  background: #0f0f14;
+  border-radius: 4px;
+  transition: width 0.3s ease;
+}
+
+/* Accordion */
+.ada-accordion {
+  background: #fff;
+  border: 1px solid #e8e8ec;
+  border-radius: 14px;
+  margin-bottom: 12px;
+  overflow: hidden;
+  transition: border-color 0.2s;
+}
+
+.ada-accordion.open {
+  border-color: #d4d4d8;
+}
+
+.ada-accordion-header {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 18px 20px;
+  cursor: pointer;
+  background: none;
+  border: none;
+  width: 100%;
+  text-align: left;
+}
+
+.ada-accordion-num {
+  width: 30px;
+  height: 30px;
+  min-width: 30px;
+  border-radius: 50%;
+  background: #0f0f14;
+  color: #fff;
+  font-size: 14px;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.ada-accordion-num.done {
+  background: #16a34a;
+}
+
+.ada-accordion-info {
+  flex: 1;
+}
+
+.ada-accordion-title {
+  font-size: 15px;
+  font-weight: 600;
+  margin: 0;
+}
+
+.ada-accordion-summary {
+  font-size: 13px;
+  color: #737373;
+  margin-top: 2px;
+}
+
+.ada-tag {
+  padding: 3px 10px;
+  border-radius: 6px;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.4px;
+  text-transform: uppercase;
+}
+
+.ada-tag.todo {
+  background: #f0f0f2;
+  color: #525252;
+}
+
+.ada-tag.done {
+  background: #f0fdf4;
+  color: #16a34a;
+}
+
+.ada-tag.optional {
+  background: #f8f9fb;
+  color: #a3a3a3;
+}
+
+.ada-accordion-edit {
+  font-size: 13px;
+  font-weight: 500;
+  color: #0f0f14;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 4px 10px;
+  border-radius: 6px;
+}
+
+.ada-accordion-edit:hover {
+  background: #f0f0f2;
+}
+
+.ada-accordion-body {
+  padding: 0 20px 20px 64px;
+}
+
+.ada-field-desc {
+  font-size: 14px;
+  color: #525252;
+  margin: 0 0 16px;
+  line-height: 1.5;
+}
+
+/* Radio */
+.ada-radio-group {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-bottom: 16px;
+}
+
+.ada-radio-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 14px 16px;
+  border: 1.5px solid #e5e5e5;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: border-color 0.15s;
+}
+
+.ada-radio-item:hover {
+  border-color: #d4d4d8;
+}
+
+.ada-radio-item.selected {
+  border-color: #0f0f14;
+}
+
+.ada-radio-item input[type="radio"] {
+  accent-color: #0f0f14;
+  width: 16px;
+  height: 16px;
+}
+
+.ada-radio-label {
+  flex: 1;
+}
+
+.ada-radio-label-text {
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.ada-radio-label-hint {
+  font-size: 13px;
+  color: #737373;
+  margin-top: 2px;
+}
+
+/* Inputs */
+.ada-input-group {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  margin-bottom: 12px;
+}
+
+.ada-input-group:last-child {
+  margin-bottom: 0;
+}
+
+.ada-input-group label {
+  font-size: 13px;
+  font-weight: 500;
+  color: #525252;
+}
+
+.ada-input-group input,
+.ada-input-group select,
+.ada-input-group textarea {
+  padding: 10px 12px;
+  border: 1.5px solid #e5e5e5;
+  border-radius: 8px;
+  font-size: 14px;
+  font-family: inherit;
+  outline: none;
+  transition: border-color 0.15s;
+}
+
+.ada-input-group input:focus,
+.ada-input-group select:focus,
+.ada-input-group textarea:focus {
+  border-color: #0f0f14;
+}
+
+.ada-input-group textarea {
+  min-height: 80px;
+  resize: vertical;
+}
+
+.ada-char-count {
+  font-size: 12px;
+  color: #a3a3a3;
+  text-align: right;
+  margin-top: 2px;
+}
+
+/* Upload */
+.ada-upload-area {
+  border: 2px dashed #e5e5e5;
+  border-radius: 10px;
+  padding: 28px 20px;
+  text-align: center;
+  cursor: pointer;
+  transition: border-color 0.15s, background 0.15s;
+  margin-bottom: 12px;
+}
+
+.ada-upload-area:hover {
+  border-color: #d4d4d8;
+  background: #fafafa;
+}
+
+.ada-upload-icon {
+  margin-bottom: 8px;
+}
+
+.ada-upload-text {
+  font-size: 14px;
+  font-weight: 500;
+  color: #0f0f14;
+  margin-bottom: 4px;
+}
+
+.ada-upload-hint {
+  font-size: 13px;
+  color: #737373;
+}
+
+.ada-upload-file {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 14px;
+  background: #f8f9fb;
+  border-radius: 8px;
+  margin-bottom: 8px;
+}
+
+.ada-upload-file-info {
+  flex: 1;
+}
+
+.ada-upload-file-name {
+  font-size: 14px;
+  font-weight: 500;
+  color: #0f0f14;
+}
+
+.ada-upload-file-size {
+  font-size: 12px;
+  color: #737373;
+}
+
+.ada-upload-file-remove {
+  font-size: 13px;
+  font-weight: 500;
+  color: #dc2626;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 4px 8px;
+  border-radius: 4px;
+}
+
+.ada-upload-file-remove:hover {
+  background: #fef2f2;
+}
+
+.ada-what-needed {
+  margin-top: 12px;
+}
+
+.ada-what-needed-title {
+  font-size: 13px;
+  font-weight: 600;
+  color: #525252;
+  margin: 0 0 6px;
+}
+
+.ada-what-needed-list {
+  list-style: disc;
+  padding-left: 18px;
+  margin: 0;
+  font-size: 13px;
+  color: #737373;
+  line-height: 1.7;
+}
+
+/* Review */
+.ada-review-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px;
+  margin-bottom: 16px;
+}
+
+.ada-review-item-label {
+  font-size: 12px;
+  color: #737373;
+  text-transform: uppercase;
+  font-weight: 600;
+  letter-spacing: 0.3px;
+  margin-bottom: 3px;
+}
+
+.ada-review-item-value {
+  font-size: 14px;
+  font-weight: 500;
+  color: #0f0f14;
+}
+
+.ada-review-full {
+  grid-column: 1 / -1;
+}
+
+.ada-confirm-checkbox {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  padding: 14px 16px;
+  background: #f8f9fb;
+  border-radius: 10px;
+  cursor: pointer;
+}
+
+.ada-confirm-checkbox input[type="checkbox"] {
+  accent-color: #0f0f14;
+  width: 16px;
+  height: 16px;
+  margin-top: 1px;
+}
+
+.ada-confirm-checkbox span {
+  font-size: 14px;
+  color: #525252;
+  line-height: 1.5;
+}
+
+/* Actions */
+.ada-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+  margin-top: 20px;
+  padding-top: 16px;
+  border-top: 1px solid #e8e8ec;
+}
+
+.ada-btn-save {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 10px 22px;
+  background: #0f0f14;
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: opacity 0.15s;
+}
+
+.ada-btn-save:hover {
+  opacity: 0.88;
+}
+
+.ada-btn-save:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+.ada-btn-discard {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 10px 22px;
+  background: #fff;
+  color: #525252;
+  border: 1.5px solid #e5e5e5;
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: border-color 0.15s;
+}
+
+.ada-btn-discard:hover {
+  border-color: #d4d4d8;
+}
+
+.ada-submit-area {
+  margin-top: 28px;
+  display: flex;
+  justify-content: flex-end;
+}
+
+/* Success */
+.ada-success-card {
+  background: #fff;
+  border: 1px solid #e5e5e5;
+  border-radius: 12px;
+  padding: 48px 28px;
+  text-align: center;
+}
+
+.ada-success-icon {
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  background: #16a34a;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 20px;
+}
+
+.ada-success-title {
+  font-size: 22px;
+  font-weight: 700;
+  margin: 0 0 10px;
+}
+
+.ada-success-desc {
+  font-size: 15px;
+  color: #525252;
+  margin: 0 0 32px;
+  max-width: 440px;
+  margin-left: auto;
+  margin-right: auto;
+  line-height: 1.5;
+}
+
+.ada-whats-next {
+  background: #f8f9fb;
+  border-radius: 10px;
+  padding: 24px;
+  max-width: 440px;
+  margin: 0 auto 28px;
+  text-align: left;
+}
+
+.ada-whats-next-title {
+  font-size: 15px;
+  font-weight: 600;
+  margin: 0 0 14px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.ada-whats-next-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.ada-whats-next-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  font-size: 14px;
+  color: #525252;
+  line-height: 1.5;
+}
+
+.ada-whats-next-item svg {
+  min-width: 16px;
+  margin-top: 2px;
+}
+
+.ada-success-actions {
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+}
+
+.ada-btn-secondary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 12px 28px;
+  background: #fff;
+  color: #0f0f14;
+  border: 1.5px solid #e5e5e5;
+  border-radius: 10px;
+  font-size: 15px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: border-color 0.15s;
+}
+
+.ada-btn-secondary:hover {
+  border-color: #d4d4d8;
+}
+
+/* What to expect */
+.ada-expect {
+  margin-top: 32px;
+  padding: 24px;
+  background: #fff;
+  border: 1px solid #e5e5e5;
+  border-radius: 12px;
+}
+
+.ada-expect-title {
+  font-size: 16px;
+  font-weight: 600;
+  margin: 0 0 20px;
+}
+
+.ada-expect-steps {
+  display: flex;
+  align-items: flex-start;
+  gap: 0;
+}
+
+.ada-expect-step {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 8px;
+  position: relative;
+}
+
+.ada-expect-step:not(:last-child)::after {
+  content: '';
+  position: absolute;
+  top: 16px;
+  left: calc(50% + 20px);
+  right: calc(-50% + 20px);
+  height: 2px;
+  background: #e5e5e5;
+}
+
+.ada-expect-step-icon {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: #f8f9fb;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  z-index: 1;
+}
+
+.ada-expect-step-text {
+  font-size: 12px;
+  color: #525252;
+  line-height: 1.4;
+  max-width: 120px;
+}
+
+@media (max-width: 960px) {
+  .ada-content {
+    max-width: calc(100% - 32px);
+  }
+}
+
+@media (max-width: 640px) {
+  .ada-content {
+    max-width: calc(100% - 16px);
+  }
+
+  .ada-welcome-card,
+  .ada-confirm-card,
+  .ada-success-card {
+    padding: 24px 16px;
+  }
+
+  .ada-title {
+    font-size: 24px;
+  }
+
+  .ada-review-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .ada-expect-steps {
+    flex-direction: column;
+    gap: 16px;
+    align-items: flex-start;
+  }
+
+  .ada-expect-step {
+    flex-direction: row;
+    text-align: left;
+    gap: 12px;
+  }
+
+  .ada-expect-step:not(:last-child)::after {
+    display: none;
+  }
+
+  .ada-expect-step-text {
+    max-width: none;
+  }
+
+  .ada-success-actions {
+    flex-direction: column;
+  }
+}
