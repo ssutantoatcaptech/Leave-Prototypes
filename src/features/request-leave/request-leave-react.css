@@ -772,7 +772,14 @@
 }
 
 .missed-entry-hours {
-  width: 100px;
+  width: 120px;
+  flex-shrink: 0;
+  margin-bottom: 0;
+}
+
+.missed-entry-time {
+  width: 130px;
+  flex-shrink: 0;
   margin-bottom: 0;
 }
 

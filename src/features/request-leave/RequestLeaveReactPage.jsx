@@ -715,13 +715,13 @@ export default function RequestLeaveReactPage() {
                 <input type="date" value={entry.date} onChange={(event) => updateMissedDateEntry(index, 'date', event.target.value)}/>
               </div>
               {showReason && (
-                <div className="form-group missed-entry-hours">
+                <div className="form-group missed-entry-time">
                   <label>{index === 0 ? 'Start Time' : ' '}</label>
                   <input type="time" value={entry.startTime || ''} onChange={(event) => updateMissedDateEntry(index, 'startTime', event.target.value)}/>
                 </div>
               )}
               {showReason && (
-                <div className="form-group missed-entry-hours">
+                <div className="form-group missed-entry-time">
                   <label>{index === 0 ? 'End Time' : ' '}</label>
                   <input type="time" value={entry.endTime || ''} onChange={(event) => updateMissedDateEntry(index, 'endTime', event.target.value)}/>
                 </div>
