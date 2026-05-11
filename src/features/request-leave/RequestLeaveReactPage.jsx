@@ -220,9 +220,14 @@ export default function RequestLeaveReactPage() {
     return data;
   });
   const [formState, setFormState] = useState(() => {
+    var session = null;
     var saved = null;
-    var isResume = !searchParams.get('step');
+    var isResume = searchParams.get('resume') === '1';
+    try { session = JSON.parse(sessionStorage.getItem(DRAFT_KEY)); } catch (e) { /* ignore */ }
     try { saved = JSON.parse(localStorage.getItem(DRAFT_KEY)); } catch (e) { /* ignore */ }
+    if (session && session.formState && !fromPlan && !searchParams.get('step')) {
+      return { ...initialState, ...session.formState };
+    }
     if (saved && saved.formState && !fromPlan && isResume) {
       return { ...initialState, ...saved.formState };
     }
@@ -266,9 +271,12 @@ export default function RequestLeaveReactPage() {
     return initialState;
   });
   const [started, setStarted] = useState(() => {
+    var session = null;
     var saved = null;
-    var isResume = !searchParams.get('step');
+    var isResume = searchParams.get('resume') === '1';
+    try { session = JSON.parse(sessionStorage.getItem(DRAFT_KEY)); } catch (e) { /* ignore */ }
     try { saved = JSON.parse(localStorage.getItem(DRAFT_KEY)); } catch (e) { /* ignore */ }
+    if (session && session.stepIndex > 0 && !searchParams.get('step')) return true;
     if (saved && saved.stepIndex > 0 && isResume) return true;
     const urlStep = searchParams.get('step');
     return !!fromPlan || (urlStep && urlStep !== '0');
@@ -281,14 +289,10 @@ export default function RequestLeaveReactPage() {
   const [otherReasonError, setOtherReasonError] = useState(false);
   const [employeeInfoFlag, setEmployeeInfoFlag] = useState({ open: false, fields: {}, submitted: false });
 
-  useEffect(() => {
-    if (searchParams.get('step')) {
-      localStorage.removeItem(DRAFT_KEY);
-    }
-  }, []);
 
   useEffect(() => {
     localStorage.setItem(DRAFT_KEY, JSON.stringify({ formState, stepIndex: currentStepIndex }));
+    sessionStorage.setItem(DRAFT_KEY, JSON.stringify({ formState, stepIndex: currentStepIndex }));
   }, [formState, currentStepIndex]);
 
   const isChildScenario = formState.leaveScenario === 'child' || formState.leaveScenario === 'child_nonbirth';
@@ -359,9 +363,14 @@ export default function RequestLeaveReactPage() {
   );
 
   const [currentStepIndex, setCurrentStepIndex] = useState(() => {
+    var session = null;
     var saved = null;
-    var isResume = !searchParams.get('step');
+    var isResume = searchParams.get('resume') === '1';
+    try { session = JSON.parse(sessionStorage.getItem(DRAFT_KEY)); } catch (e) { /* ignore */ }
     try { saved = JSON.parse(localStorage.getItem(DRAFT_KEY)); } catch (e) { /* ignore */ }
+    if (session && session.stepIndex !== undefined && !fromPlan && !searchParams.get('step')) {
+      return Math.min(session.stepIndex, steps.length - 1);
+    }
     if (saved && saved.stepIndex !== undefined && !fromPlan && isResume) {
       return Math.min(saved.stepIndex, steps.length - 1);
     }
