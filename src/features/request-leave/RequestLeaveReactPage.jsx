@@ -995,7 +995,7 @@ export default function RequestLeaveReactPage() {
         return (
           <>
             <h2>{isFamilyCare ? "The Patient's Provider Details" : "Provider Details"}</h2>
-            <p className="subtitle">{isFamilyCare ? "Tell us more about the patient's medical provider." : "Tell us more about your medical provider."}</p>
+            <p className="subtitle">{isFamilyCare ? "Tell us more how to contact the patient's medical provider." : "Tell us more how to contact your medical provider."}</p>
             <div className="bordered-section">
               <div className="form-group"><label>Facility / Practice Name</label><input type="text" value={formState.providerFacility} onChange={(event) => updateField('providerFacility', event.target.value)}/></div>
               <div className="provider-name-row">
@@ -1013,6 +1013,9 @@ export default function RequestLeaveReactPage() {
                 <div className="form-group" style={{ marginBottom: 0 }}><label>State</label><select value={formState.providerState} onChange={(event) => updateField('providerState', event.target.value)}><option value="">Select...</option>{stateOptions.map((option) => <option key={option} value={option}>{option}</option>)}</select></div>
                 <div className="form-group" style={{ marginBottom: 0 }}><label>ZIP</label><input type="text" value={formState.providerZip} onChange={(event) => updateField('providerZip', event.target.value)}/></div>
               </div>
+            </div>
+            <div style={{ marginTop: 16, padding: '12px 16px', background: '#f8fafc', borderRadius: 8, border: '1px solid #e2e8f0', fontSize: 13, color: '#334155', lineHeight: 1.6 }}>
+              By providing this information you're authorizing Mutual of Omaha to send paperwork to your health care provider.
             </div>
             <button type="button" className="rotation-add"><svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M8 3v10M3 8h10" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"/></svg>Add another provider</button>
           </>
