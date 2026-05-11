@@ -48,6 +48,24 @@ export default function FileClaimPage() {
             <button className="cl-btn cl-btn--primary">Start a Claim</button>
             <span className="cl-intro-card-meta">Takes about 10-15 minutes</span>
           </div>
+
+          {/* Workplace Accommodation card */}
+          <div className="cl-intro-card">
+            <div className="cl-intro-card-icon">
+              <svg width="32" height="32" viewBox="0 0 32 32" fill="none">
+                <circle cx="16" cy="16" r="16" fill="#0033a0" opacity="0.12"/>
+                <path d="M20 21v-1a4 4 0 00-4-4h-2a4 4 0 00-4 4v1" stroke="#0033a0" strokeWidth="1.5" strokeLinecap="round"/>
+                <circle cx="15" cy="11" r="3" stroke="#0033a0" strokeWidth="1.5"/>
+                <path d="M21 14l2 2 3-3" stroke="#0033a0" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+              </svg>
+            </div>
+            <h2 className="cl-intro-card-title">Workplace Accommodation</h2>
+            <p className="cl-intro-card-desc">
+              Request workplace adjustments or support related to a medical condition or disability.
+            </p>
+            <button className="cl-btn cl-btn--primary">Request Accommodation</button>
+            <span className="cl-intro-card-meta">Takes about 10-15 minutes</span>
+          </div>
         </div>
       </div>
     </div>
