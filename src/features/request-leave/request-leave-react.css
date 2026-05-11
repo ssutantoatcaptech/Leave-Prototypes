@@ -1021,6 +1021,205 @@
   margin: 0;
 }
 
+/* Employee info flag */
+.emp-flag-trigger {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 14px;
+  padding: 10px 14px;
+  width: 100%;
+  background: none;
+  border: 1px dashed #d1d5db;
+  border-radius: 8px;
+  font-size: 13px;
+  font-family: inherit;
+  font-weight: 500;
+  color: #64748b;
+  cursor: pointer;
+  transition: all 0.15s;
+}
+
+.emp-flag-trigger:hover {
+  border-color: #94a3b8;
+  color: #334155;
+  background: #f8fafc;
+}
+
+.emp-flag-panel {
+  margin-top: 14px;
+  padding: 16px;
+  border: 1px solid #e2e8f0;
+  border-radius: 10px;
+  background: #f8fafc;
+}
+
+.emp-flag-panel-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 12px;
+  font-size: 13px;
+  font-weight: 600;
+  color: #334155;
+}
+
+.emp-flag-close {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 24px;
+  height: 24px;
+  border: none;
+  background: none;
+  border-radius: 4px;
+  cursor: pointer;
+  color: #94a3b8;
+  transition: all 0.15s;
+}
+
+.emp-flag-close:hover {
+  background: #e2e8f0;
+  color: #334155;
+}
+
+.emp-flag-fields {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-bottom: 12px;
+}
+
+.emp-flag-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 0;
+  padding: 6px 12px;
+  border: 1px solid #e2e8f0;
+  border-radius: 20px;
+  font-size: 12px;
+  font-weight: 500;
+  color: #475569;
+  background: #fff;
+  cursor: pointer;
+  transition: all 0.15s;
+  user-select: none;
+}
+
+.emp-flag-chip input[type='checkbox'] {
+  display: none;
+}
+
+.emp-flag-chip:hover {
+  border-color: #cbd5e1;
+  background: #f1f5f9;
+}
+
+.emp-flag-chip--selected {
+  border-color: #f59e0b;
+  background: #fffbeb;
+  color: #92400e;
+}
+
+.emp-flag-note {
+  width: 100%;
+  padding: 10px 12px;
+  border: 1px solid #e2e8f0;
+  border-radius: 8px;
+  font-size: 13px;
+  font-family: inherit;
+  color: #334155;
+  background: #fff;
+  resize: none;
+  outline: none;
+  margin-bottom: 12px;
+  height: auto !important;
+  min-height: unset !important;
+  transition: border-color 0.15s;
+}
+
+.emp-flag-note:focus {
+  border-color: #94a3b8;
+}
+
+.emp-flag-note::placeholder {
+  color: #94a3b8;
+}
+
+.emp-flag-submit {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 8px 16px;
+  background: #0f172a;
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  font-size: 13px;
+  font-weight: 600;
+  font-family: inherit;
+  cursor: pointer;
+  transition: opacity 0.15s;
+}
+
+.emp-flag-submit:disabled {
+  opacity: 0.35;
+  cursor: not-allowed;
+}
+
+.emp-flag-submit:not(:disabled):hover {
+  opacity: 0.85;
+}
+
+.emp-flag-confirmed {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: 14px;
+  padding: 12px 14px;
+  background: #fffbeb;
+  border: 1px solid #fde68a;
+  border-radius: 8px;
+}
+
+.emp-flag-confirmed svg {
+  flex-shrink: 0;
+}
+
+.emp-flag-confirmed div {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+
+.emp-flag-confirmed-title {
+  font-size: 13px;
+  font-weight: 600;
+  color: #92400e;
+}
+
+.emp-flag-confirmed-detail {
+  font-size: 12px;
+  color: #a16207;
+}
+
+.emp-flag-undo {
+  padding: 5px 10px;
+  font-size: 12px;
+  font-weight: 600;
+  font-family: inherit;
+  color: #92400e;
+  background: none;
+  border: 1px solid #fde68a;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: all 0.15s;
+}
+
+.emp-flag-undo:hover {
+  background: #fef3c7;
+}
+
 .elig-signal {
   display: flex;
   align-items: center;

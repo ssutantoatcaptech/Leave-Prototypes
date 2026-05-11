@@ -270,6 +270,7 @@ export default function RequestLeaveReactPage() {
   const [hoveredBenefitBar, setHoveredBenefitBar] = useState(null);
   const [expandedBenefitBar, setExpandedBenefitBar] = useState(null);
   const [otherReasonError, setOtherReasonError] = useState(false);
+  const [employeeInfoFlag, setEmployeeInfoFlag] = useState({ open: false, fields: [], note: '', submitted: false });
 
   const isChildScenario = formState.leaveScenario === 'child' || formState.leaveScenario === 'child_nonbirth';
   const isBirthingParent = formState.leaveScenario === 'child';
@@ -1439,10 +1440,42 @@ export default function RequestLeaveReactPage() {
                 <ReviewField label="Employment Type" value={formState.employee.employmentType}/>
                 <ReviewField label="Address" value={formState.employee.address}/>
               </div>
-              <div style={{ fontSize: 12, color: '#9ca3af', display: 'flex', alignItems: 'center', gap: 6, marginTop: 12, paddingTop: 10, borderTop: '1px solid #f1f5f9' }}>
-                <svg width="14" height="14" viewBox="0 0 16 16" fill="none"><circle cx="8" cy="8" r="7" stroke="#9ca3af" strokeWidth="1.2"/><path d="M8 5v3" stroke="#9ca3af" strokeWidth="1.2" strokeLinecap="round"/><circle cx="8" cy="11" r="0.5" fill="#9ca3af"/></svg>
-                This information is provided by your employer. Contact your employer to make changes.
-              </div>
+              {employeeInfoFlag.submitted ? (
+                <div className="emp-flag-confirmed">
+                  <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><circle cx="8" cy="8" r="7" stroke="#f59e0b" strokeWidth="1.2"/><path d="M8 5v3" stroke="#f59e0b" strokeWidth="1.3" strokeLinecap="round"/><circle cx="8" cy="11" r="0.75" fill="#f59e0b"/></svg>
+                  <div>
+                    <span className="emp-flag-confirmed-title">Flagged for review</span>
+                    <span className="emp-flag-confirmed-detail">{employeeInfoFlag.fields.length} field{employeeInfoFlag.fields.length !== 1 ? 's' : ''} marked incorrect</span>
+                  </div>
+                  <button type="button" className="emp-flag-undo" onClick={() => setEmployeeInfoFlag({ open: false, fields: [], note: '', submitted: false })}>Undo</button>
+                </div>
+              ) : !employeeInfoFlag.open ? (
+                <button type="button" className="emp-flag-trigger" onClick={() => setEmployeeInfoFlag((prev) => ({ ...prev, open: true }))}>
+                  <svg width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M3 14V3.5a1.5 1.5 0 011.5-1.5h7a1.5 1.5 0 011.5 1.5V10l-4 4H3z" stroke="currentColor" strokeWidth="1.2" strokeLinejoin="round"/><path d="M9 10v4l4-4H9z" stroke="currentColor" strokeWidth="1.2" strokeLinejoin="round"/></svg>
+                  Something doesn't look right?
+                </button>
+              ) : (
+                <div className="emp-flag-panel">
+                  <div className="emp-flag-panel-header">
+                    <span>Select what's incorrect</span>
+                    <button type="button" className="emp-flag-close" onClick={() => setEmployeeInfoFlag({ open: false, fields: [], note: '', submitted: false })}>
+                      <svg width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M4 4l8 8M12 4l-8 8" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"/></svg>
+                    </button>
+                  </div>
+                  <div className="emp-flag-fields">
+                    {['Name', 'Employee ID', 'Employer', 'Occupation', 'Work Location', 'Hire Date', 'Employment Type', 'Address'].map((field) => (
+                      <label key={field} className={`emp-flag-chip ${employeeInfoFlag.fields.includes(field) ? 'emp-flag-chip--selected' : ''}`}>
+                        <input type="checkbox" checked={employeeInfoFlag.fields.includes(field)} onChange={() => setEmployeeInfoFlag((prev) => ({ ...prev, fields: prev.fields.includes(field) ? prev.fields.filter((f) => f !== field) : [...prev.fields, field] }))}/>
+                        {field}
+                      </label>
+                    ))}
+                  </div>
+                  <textarea className="emp-flag-note" placeholder="Tell us what's wrong (optional)" rows={2} value={employeeInfoFlag.note} onChange={(event) => setEmployeeInfoFlag((prev) => ({ ...prev, note: event.target.value }))}/>
+                  <button type="button" className="emp-flag-submit" disabled={employeeInfoFlag.fields.length === 0} onClick={() => setEmployeeInfoFlag((prev) => ({ ...prev, submitted: true, open: false }))}>
+                    Flag for review
+                  </button>
+                </div>
+              )}
             </div>
             <div className="br-section">
               <div className="br-section-header"><h3>Contact Information</h3><button className="br-section-edit" type="button" onClick={() => jumpToStep('contact')}>Edit</button></div>
