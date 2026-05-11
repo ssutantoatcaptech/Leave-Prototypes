@@ -18,7 +18,9 @@
 }
 
 .ada-embedded .ada-content {
-  padding: 24px 0 24px;
+  width: 100%;
+  max-width: 100%;
+  padding: 0;
 }
 
 .ada-back {
@@ -807,11 +809,19 @@
   .ada-content {
     max-width: calc(100% - 32px);
   }
+
+  .ada-embedded .ada-content {
+    max-width: 100%;
+  }
 }
 
 @media (max-width: 640px) {
   .ada-content {
     max-width: calc(100% - 16px);
+  }
+
+  .ada-embedded .ada-content {
+    max-width: 100%;
   }
 
   .ada-welcome-card,
