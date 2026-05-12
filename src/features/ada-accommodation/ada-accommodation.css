@@ -20,7 +20,9 @@
 .ada-embedded .ada-content {
   width: 100%;
   max-width: 100%;
-  padding: 24px 0 24px;
+  padding: 0;
+  margin: 0 -16px;
+  width: calc(100% + 32px);
 }
 
 .ada-back {
