@@ -2761,3 +2761,19 @@
   background: #f5f5f5;
   color: #737373;
 }
+
+.ldb-activity-table--compact {
+  min-width: 0;
+}
+
+.ldb-activity-table--compact td strong {
+  display: block;
+  font-weight: 600;
+  color: #1f2937;
+  margin-bottom: 2px;
+}
+
+.ldb-activity-table--compact td br + * {
+  font-size: 13px;
+  color: #6b7280;
+}

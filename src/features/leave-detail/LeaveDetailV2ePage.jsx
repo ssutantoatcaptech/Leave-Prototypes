@@ -955,96 +955,74 @@ export default function LeaveDetailV2ePage() {
             {/* Tab: Activity Log */}
             {detailTab === 'activity' && (
             <div className="ldb-card ldb-activity-log">
-              <table className="ldb-activity-table">
+              <table className="ldb-activity-table ldb-activity-table--compact">
                 <thead>
                   <tr>
-                    <th>Date &amp; Time</th>
-                    <th>Activity Type</th>
-                    <th>Update</th>
+                    <th>Date</th>
+                    <th>Activity</th>
                     <th>Status</th>
-                    <th>Waiting On</th>
                     <th>Next Step</th>
                   </tr>
                 </thead>
                 <tbody>
                   <tr>
-                    <td className="ldb-activity-td-date">Apr 18, 2026 · 9:42 AM</td>
-                    <td>Document Review</td>
-                    <td>Your medical certification was reviewed by Mutual of Omaha.</td>
+                    <td className="ldb-activity-td-date">Apr 18, 2026</td>
+                    <td><strong>Document Review</strong><br/>Medical certification reviewed by Mutual of Omaha.</td>
                     <td><span className="ldb-activity-badge ldb-activity-badge--completed">Completed</span></td>
                     <td className="ldb-activity-td-muted">—</td>
-                    <td>No action needed.</td>
                   </tr>
                   <tr className="ldb-activity-row--action">
-                    <td className="ldb-activity-td-date">Apr 17, 2026 · 2:15 PM</td>
-                    <td>Employee Action</td>
-                    <td>Additional medical documentation is still needed to continue eligibility review.</td>
+                    <td className="ldb-activity-td-date">Apr 17, 2026</td>
+                    <td><strong>Employee Action</strong><br/>Additional medical documentation needed for eligibility review.</td>
                     <td><span className="ldb-activity-badge ldb-activity-badge--action">Action Required</span></td>
-                    <td className="ldb-activity-td-waiting">Employee</td>
-                    <td>Upload documents by Apr 24 to avoid delays.</td>
+                    <td>Upload documents by Apr 24.</td>
                   </tr>
                   <tr>
-                    <td className="ldb-activity-td-date">Apr 16, 2026 · 11:08 AM</td>
-                    <td>Communication</td>
-                    <td>A message was sent to your healthcare provider requesting certification forms.</td>
+                    <td className="ldb-activity-td-date">Apr 16, 2026</td>
+                    <td><strong>Communication</strong><br/>Message sent to healthcare provider requesting certification forms.</td>
                     <td><span className="ldb-activity-badge ldb-activity-badge--progress">In Progress</span></td>
-                    <td className="ldb-activity-td-waiting">Healthcare Provider</td>
-                    <td>Waiting for provider response.</td>
+                    <td>Waiting on healthcare provider.</td>
                   </tr>
                   <tr>
-                    <td className="ldb-activity-td-date">Apr 15, 2026 · 8:30 AM</td>
-                    <td>Eligibility Review</td>
-                    <td>Your leave eligibility review has started.</td>
+                    <td className="ldb-activity-td-date">Apr 15, 2026</td>
+                    <td><strong>Eligibility Review</strong><br/>Leave eligibility review has started.</td>
                     <td><span className="ldb-activity-badge ldb-activity-badge--progress">In Progress</span></td>
-                    <td className="ldb-activity-td-waiting">Mutual of Omaha</td>
-                    <td>Review is currently underway.</td>
+                    <td>Under review by Mutual of Omaha.</td>
                   </tr>
                   <tr>
-                    <td className="ldb-activity-td-date">Apr 14, 2026 · 4:52 PM</td>
-                    <td>Employer Update</td>
-                    <td>Your manager was notified of your approved leave dates.</td>
+                    <td className="ldb-activity-td-date">Apr 14, 2026</td>
+                    <td><strong>Employer Update</strong><br/>Manager notified of approved leave dates.</td>
                     <td><span className="ldb-activity-badge ldb-activity-badge--completed">Completed</span></td>
                     <td className="ldb-activity-td-muted">—</td>
-                    <td>No action needed.</td>
                   </tr>
                   <tr>
-                    <td className="ldb-activity-td-date">Apr 14, 2026 · 1:20 PM</td>
-                    <td>Payment Update</td>
-                    <td>Your first disability payment has been scheduled.</td>
+                    <td className="ldb-activity-td-date">Apr 14, 2026</td>
+                    <td><strong>Payment Scheduled</strong><br/>First disability payment has been scheduled.</td>
                     <td><span className="ldb-activity-badge ldb-activity-badge--completed">Completed</span></td>
-                    <td className="ldb-activity-td-muted">—</td>
-                    <td>Payment expected within 2–3 business days.</td>
+                    <td>Payment in 2–3 business days.</td>
                   </tr>
                   <tr>
-                    <td className="ldb-activity-td-date">Apr 13, 2026 · 10:05 AM</td>
-                    <td>Return to Work</td>
-                    <td>Return-to-work confirmation will be required 7 days before your expected return date.</td>
+                    <td className="ldb-activity-td-date">Apr 13, 2026</td>
+                    <td><strong>Return to Work</strong><br/>Confirmation required 7 days before expected return date.</td>
                     <td><span className="ldb-activity-badge ldb-activity-badge--upcoming">Upcoming</span></td>
-                    <td className="ldb-activity-td-waiting">Employee</td>
-                    <td>A reminder will appear closer to your return date.</td>
+                    <td>Reminder will appear closer to return date.</td>
                   </tr>
                   <tr>
-                    <td className="ldb-activity-td-date">Apr 12, 2026 · 3:40 PM</td>
-                    <td>Leave Decision</td>
-                    <td>Your FMLA leave was approved.</td>
+                    <td className="ldb-activity-td-date">Apr 12, 2026</td>
+                    <td><strong>Leave Decision</strong><br/>FMLA leave was approved.</td>
                     <td><span className="ldb-activity-badge ldb-activity-badge--completed">Completed</span></td>
                     <td className="ldb-activity-td-muted">—</td>
-                    <td>Your leave is now active.</td>
                   </tr>
                   <tr>
-                    <td className="ldb-activity-td-date">Apr 10, 2026 · 9:14 AM</td>
-                    <td>Document Upload</td>
-                    <td>You uploaded medical certification documents.</td>
+                    <td className="ldb-activity-td-date">Apr 10, 2026</td>
+                    <td><strong>Document Upload</strong><br/>Medical certification documents uploaded.</td>
                     <td><span className="ldb-activity-badge ldb-activity-badge--completed">Completed</span></td>
                     <td className="ldb-activity-td-muted">—</td>
-                    <td>Documents received successfully.</td>
                   </tr>
                   <tr>
-                    <td className="ldb-activity-td-date">Apr 8, 2026 · 1:02 PM</td>
-                    <td>Leave Request</td>
-                    <td>Your leave request was submitted successfully.</td>
+                    <td className="ldb-activity-td-date">Apr 8, 2026</td>
+                    <td><strong>Leave Request</strong><br/>Leave request submitted successfully.</td>
                     <td><span className="ldb-activity-badge ldb-activity-badge--completed">Completed</span></td>
-                    <td className="ldb-activity-td-muted">—</td>
                     <td>Review process has started.</td>
                   </tr>
                 </tbody>
