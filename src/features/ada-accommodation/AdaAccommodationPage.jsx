@@ -338,7 +338,7 @@ function ConfirmView({ adaState, setAdaState, done, setDone, editing, setEditing
                   <div className="ada-review-item-label">Duration</div>
                   <div className="ada-review-item-value">{adaState.duration === 'ongoing' ? 'Ongoing' : adaState.duration === 'temporary' ? 'Temporary' : '—'}{adaState.duration === 'temporary' && adaState.endDate ? ` (until ${new Date(adaState.endDate + 'T00:00:00').toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })})` : ''}</div>
                 </div>
-                <div className="ada-review-full">
+                <div>
                   <div className="ada-review-item-label">Impact at work</div>
                   <div className="ada-review-item-value">{adaState.impact || 'Not provided'}</div>
                 </div>
