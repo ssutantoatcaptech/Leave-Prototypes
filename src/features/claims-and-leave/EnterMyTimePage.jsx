@@ -442,9 +442,9 @@ export default function EnterMyTimePage() {
                   )}
 
                   <div className="cl-ma-warning">
-                    <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
-                      <path d="M8 1l7 14H1L8 1z" fill="#f59e0b"/>
-                      <path d="M8 6v4M8 12h.01" stroke="white" strokeWidth="1.5" strokeLinecap="round"/>
+                    <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+                      <circle cx="10" cy="10" r="9" fill="#105fa8"/>
+                      <path d="M10 6v5M10 13.5h.01" stroke="#ffffff" strokeWidth="1.8" strokeLinecap="round"/>
                     </svg>
                     <span>Intermittent leave must be reported within 48 hours of the absence occurring to ensure timely payment.</span>
                   </div>
@@ -589,6 +589,7 @@ export default function EnterMyTimePage() {
                         <td className="cl-ma-cell-bold">{row.hours}</td>
                         <td>
                           <span className={'cl-ma-reason-badge cl-ma-reason-badge--' + row.reasonColor}>
+                            <span className={'cl-ma-reason-dot cl-ma-reason-dot--' + row.reasonColor}></span>
                             {row.reason}
                           </span>
                         </td>
@@ -647,7 +648,7 @@ export default function EnterMyTimePage() {
                     <div className="cl-ma-entry-card-top">
                       <span className="cl-ma-entry-card-date">{row.date}</span>
                       <div className="cl-ma-entry-card-top-right">
-                        <span className={'cl-ma-reason-badge cl-ma-reason-badge--' + row.reasonColor}>{row.reason}</span>
+                        <span className={'cl-ma-reason-badge cl-ma-reason-badge--' + row.reasonColor}><span className={'cl-ma-reason-dot cl-ma-reason-dot--' + row.reasonColor}></span>{row.reason}</span>
                         <button className="cl-ma-entry-edit-btn" type="button" aria-label="Edit entry" onClick={function () { startEdit(i); }}>
                           <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M10.08 1.92a1.5 1.5 0 012.12 0l.88.88a1.5 1.5 0 010 2.12L5.5 12.5 2 13l.5-3.5 7.58-7.58z" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round" strokeLinejoin="round"/><path d="M9 3l2 2" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round"/></svg>
                         </button>
