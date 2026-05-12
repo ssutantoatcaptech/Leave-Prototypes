@@ -4,60 +4,53 @@ import useBasePath from './useBasePath';
 
 var initialCases = [
   {
-    type: 'Illness or Injury',
+    type: 'Birthing parent pregnancy',
     id: 'CLM #12345',
     lastUpdate: '04 / 28 / 2026',
-    status: 'Approved',
-    statusColor: 'green',
-    required: 'Return to Work',
-    actions: ['View Details'],
+    status: 'Pending',
+    requiredActions: 'Return to Work',
     linkPath: '/case-detail',
   },
   {
-    type: 'Birthing parent pregnancy',
-    id: 'CLM #12890',
+    type: 'Illness or Injury',
+    id: 'CLM #12345',
     lastUpdate: '05 / 01 / 2026',
-    status: 'Approved',
-    statusColor: 'green',
-    required: null,
-    actions: ['View Details'],
+    status: 'Decisioned',
+    requiredActions: 'N/A',
     linkPath: '/case-detail-pregnancy',
   },
   {
-    type: 'Illness or Injury',
-    id: 'NTN #12554',
-    lastUpdate: '03 / 22 / 2026',
-    status: 'Decisioned',
-    statusColor: 'green',
-    required: null,
-    actions: ['View Details'],
-    linkPath: '/case-detail',
-  },
-  {
     type: 'Caring for family member',
-    id: 'CLM #13201',
-    lastUpdate: '04 / 30 / 2026',
-    status: 'Approved',
-    statusColor: 'green',
-    required: null,
-    actions: ['View Details'],
+    id: 'N/A',
+    lastUpdate: '03 / 22 / 2026',
+    status: 'Saved',
+    requiredActions: 'N/A',
     linkPath: '/case-detail-caregiver',
   },
   {
     type: 'Military-related',
     id: 'NTN #09881',
+    lastUpdate: '04 / 30 / 2026',
+    status: 'Decisioned',
+    requiredActions: 'N/A',
+    linkPath: '/case-detail',
+  },
+  {
+    type: 'Military-related',
+    id: 'NTN #098331',
     lastUpdate: '01 / 10 / 2026',
     status: 'Closed',
-    statusColor: 'gray',
-    required: null,
-    actions: ['View Details'],
+    requiredActions: 'N/A',
     linkPath: null,
   },
 ];
 
+var PAGE_SIZE = 5;
+
 export default function MyCasesPage() {
   var base = useBasePath();
   var navigate = useNavigate();
+  var [currentPage, setCurrentPage] = useState(1);
   var [statusFilter, setStatusFilter] = useState('All');
   var [typeFilter, setTypeFilter] = useState('All');
   var [hiddenIds, setHiddenIds] = useState([]);
@@ -77,6 +70,26 @@ export default function MyCasesPage() {
     });
   }, [statusFilter, typeFilter, hiddenIds]);
 
+  var totalEntries = filtered.length;
+  var totalPages = Math.max(1, Math.ceil(totalEntries / PAGE_SIZE));
+  var startIdx = (currentPage - 1) * PAGE_SIZE;
+  var endIdx = Math.min(startIdx + PAGE_SIZE, totalEntries);
+  var pageData = filtered.slice(startIdx, endIdx);
+
+  function handlePageChange(page) {
+    if (page >= 1 && page <= totalPages) {
+      setCurrentPage(page);
+    }
+  }
+
+  function getPageNumbers() {
+    var pages = [];
+    for (var i = 1; i <= totalPages; i++) {
+      pages.push(i);
+    }
+    return pages;
+  }
+
   function confirmDelete() {
     if (deleteTarget) {
       setHiddenIds(function (prev) { return prev.concat(deleteTarget.id); });
@@ -85,165 +98,178 @@ export default function MyCasesPage() {
   }
 
   return (
-    <div className="cl-page">
-      <div className="cl-breadcrumb">
-        <Link to={base} className="cl-breadcrumb-link">Claims &amp; Leave</Link>
-        <span className="cl-breadcrumb-sep">&gt;</span>
-        <span>My Leave</span>
+    <div className="cl-page cl-ml-page">
+      {/* Breadcrumb */}
+      <div className="cl-ml-breadcrumb">
+        <Link to={base} className="cl-ml-breadcrumb-link">Claims &amp; Leave</Link>
+        <span className="cl-ml-breadcrumb-sep">&gt;</span>
+        <span className="cl-ml-breadcrumb-current">My Leave</span>
       </div>
 
-      <div className="cl-page-header">
-        <div>
-          <h1 className="cl-page-title">My Leave</h1>
-          <p className="cl-page-desc">Manage your active, saved, and historical leave and claim cases.</p>
+      {/* Page Header */}
+      <div className="cl-ml-header">
+        <div className="cl-ml-header-text">
+          <h1 className="cl-ml-title">My Leaves</h1>
+          <p className="cl-ml-subtitle">Manage your active, saved, and historical leave requests.</p>
         </div>
-        <div className="cl-page-actions">
-          <button className="cl-btn cl-btn--dark" onClick={function () { navigate(base + '/file-claim'); }}>+ Request New Leave/Claim</button>
+        <div className="cl-ml-header-action">
+          <div className="cl-ml-gradient-decor" aria-hidden="true"></div>
+          <button className="cl-ml-btn-new" onClick={function () { navigate(base + '/file-claim'); }}>+ Request New Leave</button>
         </div>
       </div>
 
-      {/* Filters */}
-      <div className="cl-filter-bar">
-        <select className="cl-select" value={statusFilter} onChange={function (e) { setStatusFilter(e.target.value); }}>
-          <option value="All">Status: All Leaves</option>
-          <option value="In Review">In Review</option>
-          <option value="Saved">Saved</option>
-          <option value="Approved">Approved</option>
-          <option value="Decisioned">Decisioned</option>
-          <option value="Closed">Closed</option>
-        </select>
-        <select className="cl-select" value={typeFilter} onChange={function (e) { setTypeFilter(e.target.value); }}>
-          <option value="All">Leave Type</option>
-          <option value="Illness or Injury">Illness or Injury</option>
-          <option value="Birthing parent pregnancy">Birthing Parent Pregnancy</option>
-          <option value="Caring for family member">Caring for Family Member</option>
-          <option value="Military-related">Military-related</option>
-        </select>
-        <span className="cl-filter-count">Showing {filtered.length} leaves</span>
-      </div>
+      {/* Table Card */}
+      <div className="cl-ml-table-card">
+        {/* Filter Toolbar */}
+        <div className="cl-ml-filters">
+          <div className="cl-ml-filter-group">
+            <label className="cl-ml-filter-label">STATUS</label>
+            <select
+              className="cl-ml-filter-select"
+              value={statusFilter}
+              onChange={function (e) { setStatusFilter(e.target.value); setCurrentPage(1); }}
+            >
+              <option value="All">All</option>
+              <option value="Pending">Pending</option>
+              <option value="Decisioned">Decisioned</option>
+              <option value="Saved">Saved</option>
+              <option value="Closed">Closed</option>
+            </select>
+          </div>
+          <div className="cl-ml-filter-group">
+            <label className="cl-ml-filter-label">LEAVE TYPE</label>
+            <select
+              className="cl-ml-filter-select"
+              value={typeFilter}
+              onChange={function (e) { setTypeFilter(e.target.value); setCurrentPage(1); }}
+            >
+              <option value="All">All</option>
+              <option value="Birthing parent pregnancy">Birthing Parent Pregnancy</option>
+              <option value="Illness or Injury">Illness or Injury</option>
+              <option value="Caring for family member">Caring for Family Member</option>
+              <option value="Military-related">Military-related</option>
+            </select>
+          </div>
+        </div>
 
-      {/* Table */}
-      <div className="cl-table-wrap">
-        <table className="cl-table">
+        {/* Table */}
+        <table className="cl-ml-table">
           <thead>
             <tr>
-              <th>Type &amp; ID</th>
+              <th className="cl-ml-th-first">Leave Type &amp; ID</th>
               <th>Last Update</th>
               <th>Status</th>
               <th>Required Actions</th>
-              <th>Actions</th>
+              <th>Action</th>
             </tr>
           </thead>
           <tbody>
-            {filtered.length === 0 && (
-              <tr><td colSpan="5" style={{ textAlign: 'center', padding: '32px 16px', color: '#6b7280' }}>No cases match your filters.</td></tr>
+            {pageData.length === 0 && (
+              <tr><td colSpan="5" style={{ textAlign: 'center', padding: '32px 16px', color: '#5d5d5d' }}>No cases match your filters.</td></tr>
             )}
-            {filtered.map(function (row, i) {
+            {pageData.map(function (row, i) {
               return (
-                <tr key={i}>
-                  <td>
-                    <div className="cl-cell-stacked">
-                      <span className="cl-cell-primary">{row.type}</span>
-                      <span className="cl-cell-secondary">{row.id}</span>
+                <tr key={startIdx + i} className="cl-ml-row">
+                  <td className="cl-ml-td-first">
+                    <div className="cl-ml-cell-stacked">
+                      <span className="cl-ml-cell-type">{row.type}</span>
+                      <span className="cl-ml-cell-id">{row.id}</span>
                     </div>
                   </td>
-                  <td className="cl-cell-muted">{row.lastUpdate}</td>
-                  <td>
-                    <span className={'cl-badge cl-badge--' + row.statusColor}>{row.status}</span>
+                  <td className="cl-ml-td">{row.lastUpdate}</td>
+                  <td className="cl-ml-td">
+                    <span className="cl-ml-status-pill">{row.status}</span>
                   </td>
-                  <td>
-                    {row.required && (
-                      <span className="cl-required-action">{row.required}</span>
+                  <td className="cl-ml-td">{row.requiredActions || 'N/A'}</td>
+                  <td className="cl-ml-td">
+                    {row.status === 'Saved' ? (
+                      <div className="cl-ml-action-group">
+                        <button className="cl-ml-action-delete" onClick={function () { setDeleteTarget(row); }}>Delete</button>
+                        <span
+                          className="cl-ml-action-link"
+                          onClick={function () {
+                            if (row.linkPath) {
+                              sessionStorage.setItem('viewingCase', JSON.stringify(row));
+                              navigate(base + row.linkPath);
+                            }
+                          }}
+                        >Resume ›</span>
+                      </div>
+                    ) : (
+                      <span
+                        className="cl-ml-action-link"
+                        onClick={function () {
+                          if (row.linkPath) {
+                            sessionStorage.setItem('viewingCase', JSON.stringify(row));
+                            navigate(base + row.linkPath);
+                          }
+                        }}
+                      >View Details ›</span>
                     )}
-                  </td>
-                  <td>
-                    <div className="cl-action-links">
-                      {row.actions.map(function (action, j) {
-                        return (
-                          <span key={j}>
-                            <button
-                              className="cl-btn cl-btn--outline"
-                              onClick={function () {
-                                if (action === 'View Details' && row.linkPath) {
-                                  sessionStorage.setItem('viewingCase', JSON.stringify(row));
-                                  navigate(base + row.linkPath);
-                                }
-                              }}
-                            >
-                              {action}
-                            </button>
-                            {j < row.actions.length - 1 && <span className="cl-action-sep">|</span>}
-                          </span>
-                        );
-                      })}
-                    </div>
                   </td>
                 </tr>
               );
             })}
           </tbody>
         </table>
-      </div>
 
-      {/* Mobile card view */}
-      <div className="cl-cards-mobile">
-        {filtered.length === 0 && (
-          <div className="cl-card-empty-mobile">No cases match your filters.</div>
-        )}
-        {filtered.map(function (row, i) {
-          var canDelete = row.status !== 'Closed' && row.status !== 'Decisioned';
-          return (
-            <div key={i} className="cl-card-mobile">
-              <div className="cl-card-mobile-header">
-                <span className="cl-card-mobile-primary">{row.type}</span>
-                <span className={'cl-badge cl-badge--' + row.statusColor}>{row.status}</span>
-              </div>
-              <span className="cl-card-mobile-type">{row.id}</span>
-              <div className="cl-card-mobile-details">
-                <div className="cl-card-mobile-field">
-                  <span className="cl-card-mobile-label">Last Update</span>
-                  <span className="cl-card-mobile-value">{row.lastUpdate}</span>
-                </div>
-                {row.required && (
-                  <div className="cl-card-mobile-field">
-                    <span className="cl-card-mobile-label">Required</span>
-                    <span className="cl-card-mobile-value cl-required-action">{row.required}</span>
-                  </div>
-                )}
-              </div>
-              <button
-                className="cl-card-mobile-action"
-                onClick={function () { if (row.linkPath) { sessionStorage.setItem('viewingCase', JSON.stringify(row)); navigate(base + row.linkPath); } }}
-              >
-                View Details
-              </button>
-              {canDelete && (
+        {/* Pagination */}
+        <div className="cl-ml-pagination">
+          <div className="cl-ml-pagination-controls">
+            <button
+              className="cl-ml-page-btn"
+              onClick={function () { handlePageChange(currentPage - 1); }}
+              disabled={currentPage === 1}
+              aria-label="Previous page"
+            >
+              <svg width="7" height="12" viewBox="0 0 7 12" fill="none">
+                <path d="M6 1L1 6L6 11" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+              </svg>
+            </button>
+            {getPageNumbers().map(function (page) {
+              return (
                 <button
-                  className="cl-card-mobile-delete-text"
-                  onClick={function () { setDeleteTarget(row); }}
+                  key={page}
+                  className={'cl-ml-page-btn cl-ml-page-num' + (page === currentPage ? ' cl-ml-page-num--active' : '')}
+                  onClick={function () { handlePageChange(page); }}
                 >
-                  Delete Case
+                  {page}
                 </button>
-              )}
-            </div>
-          );
-        })}
+              );
+            })}
+            <button
+              className="cl-ml-page-btn"
+              onClick={function () { handlePageChange(currentPage + 1); }}
+              disabled={currentPage === totalPages}
+              aria-label="Next page"
+            >
+              <svg width="7" height="12" viewBox="0 0 7 12" fill="none">
+                <path d="M1 1L6 6L1 11" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+              </svg>
+            </button>
+          </div>
+          <p className="cl-ml-pagination-info">
+            Showing {startIdx + 1} to {endIdx} of {totalEntries} entries
+          </p>
+        </div>
       </div>
 
       {/* Delete confirmation modal */}
       {deleteTarget && (
-        <div className="cl-delete-modal-backdrop" onClick={function () { setDeleteTarget(null); }}>
-          <div className="cl-delete-modal" onClick={function (e) { e.stopPropagation(); }}>
-            <div className="cl-delete-modal-icon">
-              <svg width="28" height="28" viewBox="0 0 24 24" fill="none"><path d="M12 9v4" stroke="#dc2626" strokeWidth="2" strokeLinecap="round"/><circle cx="12" cy="16" r="1" fill="#dc2626"/><path d="M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z" stroke="#dc2626" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/></svg>
-            </div>
-            <h3 className="cl-delete-modal-title">Are you sure?</h3>
-            <p className="cl-delete-modal-desc">
-              This will remove <strong>{deleteTarget.type}</strong> ({deleteTarget.id}) from your cases. It will reappear when you refresh the page.
-            </p>
-            <div className="cl-delete-modal-actions">
-              <button className="cl-delete-modal-btn cl-delete-modal-btn--keep" onClick={function () { setDeleteTarget(null); }}>Keep Case</button>
-              <button className="cl-delete-modal-btn cl-delete-modal-btn--discard" onClick={confirmDelete}>Discard Case</button>
+        <div className="cl-ma-modal-overlay" onClick={function () { setDeleteTarget(null); }}>
+          <div className="cl-ma-modal" onClick={function (e) { e.stopPropagation(); }} style={{ maxWidth: '420px', padding: '32px' }}>
+            <div style={{ textAlign: 'center' }}>
+              <div style={{ width: '48px', height: '48px', borderRadius: '50%', background: '#fef2f2', display: 'flex', alignItems: 'center', justifyContent: 'center', margin: '0 auto 16px' }}>
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M12 9v4" stroke="#dc2626" strokeWidth="2" strokeLinecap="round"/><circle cx="12" cy="16" r="1" fill="#dc2626"/><path d="M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z" stroke="#dc2626" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/></svg>
+              </div>
+              <h3 style={{ fontSize: '18px', fontWeight: 700, color: '#222', margin: '0 0 8px' }}>Are you sure?</h3>
+              <p style={{ fontSize: '14px', color: '#5d5d5d', margin: '0 0 24px', lineHeight: 1.5 }}>
+                This will remove <strong>{deleteTarget.type}</strong> ({deleteTarget.id}) from your cases.
+              </p>
+              <div style={{ display: 'flex', gap: '12px', justifyContent: 'center' }}>
+                <button className="cl-ml-btn-new" style={{ background: '#fff', color: '#222', border: '1.5px solid #e4e4e4' }} onClick={function () { setDeleteTarget(null); }}>Keep Case</button>
+                <button className="cl-ml-btn-new" style={{ background: '#dc2626' }} onClick={confirmDelete}>Discard Case</button>
+              </div>
             </div>
           </div>
         </div>
