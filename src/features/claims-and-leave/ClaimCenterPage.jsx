@@ -4,273 +4,218 @@ import useBasePath from './useBasePath';
 
 const claimsData = [
   {
-    leaveType: 'Birthing parent pregnancy',
-    caseId: 'CLM #12345',
-    lastUpdate: '04 / 28 / 2026',
+    date: 'Oct 15, 2026',
+    claimNum: 'CLM-2026-08941',
+    type: 'Short-Term Disability',
+    member: 'Sarah Johnson',
     status: 'Pending',
+    statusColor: 'blue',
+    payment: '—',
+    actions: 'View Details',
+    link: 'std-claim-detail',
+  },
+  {
+    date: 'Oct 8, 2026',
+    claimNum: 'CLM-2026-08832',
+    type: 'Long-Term Disability',
+    member: 'Sarah Johnson',
+    status: 'Approved',
+    statusColor: 'green',
+    payment: '$2,450.00',
+    actions: 'View Details',
+    link: 'std-claim-detail',
+  },
+  {
+    date: 'Sep 22, 2026',
+    claimNum: 'CLM-2026-08510',
+    type: 'Short-Term Disability',
+    member: 'Michael Johnson',
+    status: 'Info Required',
     statusColor: 'amber',
-    requiredActions: 'Return to Work',
-    actions: ['View Details'],
+    payment: '—',
+    actions: 'Upload Documents',
     link: 'std-claim-detail',
   },
   {
-    leaveType: 'Illness or Injury',
-    caseId: '#CLM #12345',
-    lastUpdate: '05 / 01 / 2026',
-    status: 'Decisioned',
-    statusColor: 'gray',
-    requiredActions: 'N/A',
-    actions: ['View Details'],
-    link: 'std-claim-detail',
-  },
-  {
-    leaveType: 'Caring for family member',
-    caseId: 'N/A',
-    lastUpdate: '03 / 22 / 2026',
-    status: 'Saved',
-    statusColor: 'gray',
-    requiredActions: 'N/A',
-    actions: ['Delete', 'Resume'],
-    link: null,
-  },
-  {
-    leaveType: 'Military-related',
-    caseId: 'NTN #09881',
-    lastUpdate: '04 / 30 / 2026',
-    status: 'Decisioned',
-    statusColor: 'gray',
-    requiredActions: 'N/A',
-    actions: ['View Details'],
-    link: 'std-claim-detail',
-  },
-  {
-    leaveType: 'Military-related',
-    caseId: 'NTN #098331',
-    lastUpdate: '01 / 10 / 2026',
+    date: 'Aug 30, 2026',
+    claimNum: 'CLM-2026-07994',
+    type: 'Accidental Death & Dismemberment',
+    member: 'Sarah Johnson',
     status: 'Closed',
     statusColor: 'gray',
-    requiredActions: 'N/A',
-    actions: ['View Details'],
-    link: 'std-claim-detail',
+    payment: '$15,000.00',
+    actions: 'View Details',
   },
 ];
 
-const PAGE_SIZE = 5;
-const TOTAL_ENTRIES = 24;
+const categoryTabs = ['Dental', 'Vision', 'Supplemental', 'Leave and Disability', 'Life'];
 
 export default function ClaimCenterPage() {
   const base = useBasePath();
   const navigate = useNavigate();
+  const [activeCategory, setActiveCategory] = useState('Leave and Disability');
   const [statusFilter, setStatusFilter] = useState('All');
   const [typeFilter, setTypeFilter] = useState('All');
-  const [currentPage, setCurrentPage] = useState(1);
+  const [dateFilter, setDateFilter] = useState('All');
 
   const filtered = useMemo(() => {
     return claimsData.filter((row) => {
       if (statusFilter !== 'All' && row.status !== statusFilter) return false;
-      if (typeFilter !== 'All' && row.leaveType !== typeFilter) return false;
+      if (typeFilter !== 'All') {
+        if (typeFilter === 'AD&D' && row.type !== 'Accidental Death & Dismemberment') return false;
+        if (typeFilter !== 'AD&D' && row.type !== typeFilter) return false;
+      }
+      if (dateFilter !== 'All') {
+        const d = new Date(row.date);
+        const now = new Date('2026-10-20');
+        const diff = (now - d) / (1000 * 60 * 60 * 24);
+        if (dateFilter === 'Last 30 Days' && diff > 30) return false;
+        if (dateFilter === 'Last 90 Days' && diff > 90) return false;
+        if (dateFilter === 'Last Year' && diff > 365) return false;
+      }
       return true;
     });
-  }, [statusFilter, typeFilter]);
-
-  const totalPages = 5;
-
-  const handlePageChange = (page) => {
-    if (page >= 1 && page <= totalPages) {
-      setCurrentPage(page);
-    }
-  };
+  }, [statusFilter, typeFilter, dateFilter]);
 
   return (
-    <div className="cl-claims-page">
-      <div className="cl-claims-breadcrumb">
-        <Link to={base} className="cl-claims-breadcrumb-link">Claims &amp; Leave</Link>
-        <span className="cl-claims-breadcrumb-sep">&gt;</span>
-        <span className="cl-claims-breadcrumb-current">My Leave</span>
+    <div className="cl-page">
+      <div className="cl-breadcrumb">
+        <Link to={base} className="cl-breadcrumb-link">Claims &amp; Leave</Link>
+        <span className="cl-breadcrumb-sep">&gt;</span>
+        <span>Claims Center</span>
       </div>
 
-      <div className="cl-claims-header">
-        <div className="cl-claims-header-text">
-          <h1 className="cl-claims-title">My Leaves</h1>
-          <p className="cl-claims-subtitle">Manage your active, saved, and historical leave requests.</p>
+      <div className="cl-page-header">
+        <div>
+          <h1 className="cl-page-title">Claims Center</h1>
+          <p className="cl-page-desc">Track and manage your insurance claims.</p>
         </div>
-        <button className="cl-claims-new-btn">
-          <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
-            <path d="M7 1v12M1 7h12" stroke="#ffffff" strokeWidth="2" strokeLinecap="round"/>
-          </svg>
-          Request New Leave
-        </button>
+        <button className="cl-btn cl-btn--dark">+ Start a New Claim</button>
       </div>
 
-      {/* Filter bar + Table card */}
-      <div className="cl-claims-card">
-        <div className="cl-claims-filter-bar">
-          <div className="cl-claims-filter-group">
-            <label className="cl-claims-filter-label">STATUS</label>
-            <select className="cl-claims-select" value={statusFilter} onChange={(e) => setStatusFilter(e.target.value)}>
-              <option value="All">All</option>
-              <option value="Pending">Pending</option>
-              <option value="Decisioned">Decisioned</option>
-              <option value="Saved">Saved</option>
-              <option value="Closed">Closed</option>
-            </select>
-          </div>
-          <div className="cl-claims-filter-group">
-            <label className="cl-claims-filter-label">LEAVE TYPE</label>
-            <select className="cl-claims-select" value={typeFilter} onChange={(e) => setTypeFilter(e.target.value)}>
-              <option value="All">All</option>
-              <option value="Birthing parent pregnancy">Birthing parent pregnancy</option>
-              <option value="Illness or Injury">Illness or Injury</option>
-              <option value="Caring for family member">Caring for family member</option>
-              <option value="Military-related">Military-related</option>
-            </select>
-          </div>
-        </div>
+      {/* Category dropdown (mobile) */}
+      <div className="cl-category-dropdown-wrap">
+        <select
+          className="cl-category-dropdown"
+          value={activeCategory}
+          onChange={(e) => {
+            setActiveCategory(e.target.value);
+            if (e.target.value === 'Dental') navigate(`${base}/dental`);
+          }}
+        >
+          {categoryTabs.map((tab) => (
+            <option key={tab} value={tab}>{tab}</option>
+          ))}
+        </select>
+      </div>
 
-        {/* Claims table */}
-        <div className="cl-claims-table-wrap">
-          <table className="cl-claims-table">
-            <thead>
-              <tr>
-                <th>Leave Type & ID</th>
-                <th>Last Update</th>
-                <th>Status</th>
-                <th>Required Actions</th>
-                <th>Action</th>
+      {/* Category tabs (desktop) */}
+      <div className="cl-category-tabs">
+        {categoryTabs.map((tab) => (
+          <NavLink
+            key={tab}
+            to={tab === 'Dental' ? `${base}/dental` : '#'}
+            className={`cl-category-tab${tab === activeCategory ? ' cl-category-tab--active' : ''}`}
+            onClick={(e) => { if (tab !== 'Dental') e.preventDefault(); setActiveCategory(tab); }}
+          >
+            {tab}
+          </NavLink>
+        ))}
+      </div>
+
+      {/* Filter bar */}
+      <div className="cl-filter-bar">
+        <select className="cl-select" value={statusFilter} onChange={(e) => setStatusFilter(e.target.value)}>
+          <option value="All">All Statuses</option>
+          <option value="Pending">Pending</option>
+          <option value="Approved">Approved</option>
+          <option value="Info Required">Info Required</option>
+          <option value="Closed">Closed</option>
+        </select>
+        <select className="cl-select" value={typeFilter} onChange={(e) => setTypeFilter(e.target.value)}>
+          <option value="All">All Types</option>
+          <option value="Short-Term Disability">Short-Term Disability</option>
+          <option value="Long-Term Disability">Long-Term Disability</option>
+          <option value="AD&D">AD&D</option>
+        </select>
+        <select className="cl-select" value={dateFilter} onChange={(e) => setDateFilter(e.target.value)}>
+          <option value="All">Date Range</option>
+          <option value="Last 30 Days">Last 30 Days</option>
+          <option value="Last 90 Days">Last 90 Days</option>
+          <option value="Last Year">Last Year</option>
+        </select>
+        <button className="cl-btn cl-btn--outline">Export History (CSV)</button>
+      </div>
+
+      <div className="cl-pagination-info">Showing {filtered.length} of {claimsData.length} claims</div>
+
+      {/* Claims table */}
+      <div className="cl-table-wrap">
+        <table className="cl-table">
+          <thead>
+            <tr>
+              <th>Submission Date</th>
+              <th>Claim # &amp; Type</th>
+              <th>Member Name</th>
+              <th>Status</th>
+              <th>Payment / Benefit</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            {filtered.length === 0 && (
+              <tr><td colSpan="6" style={{ textAlign: 'center', padding: '32px 16px', color: '#6b7280' }}>No claims match your filters.</td></tr>
+            )}
+            {filtered.map((row, i) => (
+              <tr key={i}>
+                <td>{row.date}</td>
+                <td>
+                  <div className="cl-cell-stacked">
+                    <span className="cl-cell-primary">{row.claimNum}</span>
+                    <span className="cl-cell-secondary">{row.type}</span>
+                  </div>
+                </td>
+                <td>{row.member}</td>
+                <td>
+                  <span className={`cl-badge cl-badge--${row.statusColor}`}>{row.status}</span>
+                </td>
+                <td>{row.payment}</td>
+                <td>
+                  <button className="cl-link-btn" onClick={() => { if (row.link) navigate(`${base}/${row.link}`); }}>{row.actions}</button>
+                </td>
               </tr>
-            </thead>
-            <tbody>
-              {filtered.length === 0 && (
-                <tr><td colSpan="5" style={{ textAlign: 'center', padding: '32px 16px', color: '#6b7280' }}>No leaves match your filters.</td></tr>
-              )}
-              {filtered.map((row, i) => (
-                <tr key={i}>
-                  <td>
-                    <div className="cl-claims-type-cell">
-                      <span className="cl-claims-type-name">{row.leaveType}</span>
-                      <span className="cl-claims-type-id">{row.caseId}</span>
-                    </div>
-                  </td>
-                  <td>{row.lastUpdate}</td>
-                  <td>
-                    <span className="cl-claims-pill">
-                      <span className={'cl-claims-pill-dot cl-claims-pill-dot--' + row.statusColor}></span>
-                      {row.status}
-                    </span>
-                  </td>
-                  <td>{row.requiredActions}</td>
-                  <td>
-                    <div className="cl-claims-actions">
-                      {row.actions.map((action, j) => (
-                        <button
-                          key={j}
-                          className={'cl-claims-action-btn' + (action === 'Delete' ? ' cl-claims-action-btn--delete' : '')}
-                          onClick={() => { if (row.link) navigate(`${base}/${row.link}`); }}
-                        >
-                          {action}{action !== 'Delete' && (
-                            <svg width="10" height="10" viewBox="0 0 10 10" fill="none">
-                              <path d="M3 1.5l4 3.5-4 3.5" stroke="currentColor" strokeWidth="1.3" strokeLinecap="round" strokeLinejoin="round"/>
-                            </svg>
-                          )}
-                        </button>
-                      ))}
-                    </div>
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
-
-        {/* Pagination */}
-        <div className="cl-claims-pagination">
-          <div className="cl-claims-pagination-buttons">
-            <button
-              className="cl-claims-page-btn"
-              disabled={currentPage === 1}
-              onClick={() => handlePageChange(currentPage - 1)}
-            >
-              &lt;
-            </button>
-            <button
-              className={`cl-claims-page-btn ${currentPage === 1 ? 'cl-claims-page-btn--active' : ''}`}
-              onClick={() => handlePageChange(1)}
-            >
-              1
-            </button>
-            <button
-              className={`cl-claims-page-btn ${currentPage === 2 ? 'cl-claims-page-btn--active' : ''}`}
-              onClick={() => handlePageChange(2)}
-            >
-              2
-            </button>
-            <button
-              className={`cl-claims-page-btn ${currentPage === 3 ? 'cl-claims-page-btn--active' : ''}`}
-              onClick={() => handlePageChange(3)}
-            >
-              3
-            </button>
-            <span className="cl-claims-page-ellipsis">...</span>
-            <button
-              className={`cl-claims-page-btn ${currentPage === 5 ? 'cl-claims-page-btn--active' : ''}`}
-              onClick={() => handlePageChange(5)}
-            >
-              5
-            </button>
-            <button
-              className="cl-claims-page-btn"
-              disabled={currentPage === totalPages}
-              onClick={() => handlePageChange(currentPage + 1)}
-            >
-              &gt;
-            </button>
-          </div>
-          <div className="cl-claims-pagination-info">
-            Showing 1 to {PAGE_SIZE} of {TOTAL_ENTRIES} entries
-          </div>
-        </div>
+            ))}
+          </tbody>
+        </table>
       </div>
 
       {/* Mobile card view */}
-      <div className="cl-claims-cards-mobile">
+      <div className="cl-cards-mobile">
         {filtered.length === 0 && (
-          <div className="cl-claims-card-empty">No leaves match your filters.</div>
+          <div className="cl-card-empty-mobile">No claims match your filters.</div>
         )}
         {filtered.map((row, i) => (
-          <div key={i} className="cl-claims-card-mobile">
-            <div className="cl-claims-card-mobile-header">
-              <span className="cl-claims-card-mobile-type">{row.leaveType}</span>
-              <span className="cl-claims-pill">
-                <span className={'cl-claims-pill-dot cl-claims-pill-dot--' + row.statusColor}></span>
-                {row.status}
-              </span>
+          <div key={i} className="cl-card-mobile">
+            <div className="cl-card-mobile-header">
+              <span className="cl-card-mobile-primary">{row.claimNum}</span>
+              <span className={`cl-badge cl-badge--${row.statusColor}`}>{row.status}</span>
             </div>
-            <span className="cl-claims-card-mobile-id">{row.caseId}</span>
-            <div className="cl-claims-card-mobile-details">
-              <div className="cl-claims-card-mobile-field">
-                <span className="cl-claims-card-mobile-label">Last Update</span>
-                <span className="cl-claims-card-mobile-value">{row.lastUpdate}</span>
+            <span className="cl-card-mobile-type">{row.type}</span>
+            <div className="cl-card-mobile-details">
+              <div className="cl-card-mobile-field">
+                <span className="cl-card-mobile-label">Member</span>
+                <span className="cl-card-mobile-value">{row.member}</span>
               </div>
-              <div className="cl-claims-card-mobile-field">
-                <span className="cl-claims-card-mobile-label">Required Actions</span>
-                <span className="cl-claims-card-mobile-value">{row.requiredActions}</span>
+              <div className="cl-card-mobile-field">
+                <span className="cl-card-mobile-label">Date</span>
+                <span className="cl-card-mobile-value">{row.date}</span>
+              </div>
+              <div className="cl-card-mobile-field">
+                <span className="cl-card-mobile-label">Payment</span>
+                <span className="cl-card-mobile-value">{row.payment}</span>
               </div>
             </div>
-            <div className="cl-claims-card-mobile-actions">
-              {row.actions.map((action, j) => (
-                <button
-                  key={j}
-                  className={'cl-claims-action-btn' + (action === 'Delete' ? ' cl-claims-action-btn--delete' : '')}
-                  onClick={() => { if (row.link) navigate(`${base}/${row.link}`); }}
-                >
-                  {action}{action !== 'Delete' && (
-                    <svg width="10" height="10" viewBox="0 0 10 10" fill="none">
-                      <path d="M3 1.5l4 3.5-4 3.5" stroke="currentColor" strokeWidth="1.3" strokeLinecap="round" strokeLinejoin="round"/>
-                    </svg>
-                  )}
-                </button>
-              ))}
-            </div>
+            <button className="cl-card-mobile-action" onClick={() => { if (row.link) navigate(`${base}/${row.link}`); }}>{row.actions}</button>
           </div>
         ))}
       </div>
