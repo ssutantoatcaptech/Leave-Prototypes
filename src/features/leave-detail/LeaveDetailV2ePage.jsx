@@ -988,13 +988,28 @@ export default function LeaveDetailV2ePage() {
                 </thead>
                 <tbody>
                   <tr>
-                    <td className="ldb-activity-td-date">Apr 18, 2026<span className="ldb-activity-td-time">9:42 AM</span></td>
-                    <td><strong>Leave request confirmed</strong> — eligibility notice and required forms are now available in your documents. <a href="#" className="ldb-activity-doc-link"><svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M7 1v8M4 6l3 3 3-3" stroke="currentColor" strokeWidth="1.3" strokeLinecap="round" strokeLinejoin="round"/><path d="M1 10v2a1 1 0 001 1h10a1 1 0 001-1v-2" stroke="currentColor" strokeWidth="1.3" strokeLinecap="round"/></svg> Eligibility_Notice.pdf</a></td>
+                    <td className="ldb-activity-td-date">May 8, 2026<span className="ldb-activity-td-time">3:40 PM</span></td>
+                    <td><strong>Return to work confirmed</strong> — returning on May 19 as scheduled.</td>
+                    <td className="ldb-activity-td-person">Sarah Johnson<span className="ldb-activity-td-role">Employee</span></td>
+                  </tr>
+                  <tr>
+                    <td className="ldb-activity-td-date">May 5, 2026<span className="ldb-activity-td-time">9:00 AM</span></td>
+                    <td><strong>Return to work reminder</strong> — please confirm your return date by May 12.</td>
                     <td className="ldb-activity-td-person">Lisa Martinez<span className="ldb-activity-td-role">Claim Specialist</span></td>
                   </tr>
                   <tr>
-                    <td className="ldb-activity-td-date">Apr 17, 2026<span className="ldb-activity-td-time">2:15 PM</span></td>
-                    <td><strong>Documentation reminder</strong> — medical certification is due within 6 days. Upload via your documents page.</td>
+                    <td className="ldb-activity-td-date">Apr 22, 2026<span className="ldb-activity-td-time">1:20 PM</span></td>
+                    <td><strong>Payment scheduled</strong> — first disability payment initiated, expected in your account within 2–3 business days.</td>
+                    <td className="ldb-activity-td-person">Lisa Martinez<span className="ldb-activity-td-role">Claim Specialist</span></td>
+                  </tr>
+                  <tr>
+                    <td className="ldb-activity-td-date">Apr 21, 2026<span className="ldb-activity-td-time">4:52 PM</span></td>
+                    <td><strong>Employer notified</strong> — your manager has been informed of approved leave dates and expected return.</td>
+                    <td className="ldb-activity-td-person">Lisa Martinez<span className="ldb-activity-td-role">Claim Specialist</span></td>
+                  </tr>
+                  <tr>
+                    <td className="ldb-activity-td-date">Apr 21, 2026<span className="ldb-activity-td-time">8:30 AM</span></td>
+                    <td><strong>Leave decision issued</strong> — FMLA leave approved through May 19. Decision letter available in your documents. <a href="#" className="ldb-activity-doc-link"><svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M7 1v8M4 6l3 3 3-3" stroke="currentColor" strokeWidth="1.3" strokeLinecap="round" strokeLinejoin="round"/><path d="M1 10v2a1 1 0 001 1h10a1 1 0 001-1v-2" stroke="currentColor" strokeWidth="1.3" strokeLinecap="round"/></svg> Decision_Letter.pdf</a></td>
                     <td className="ldb-activity-td-person">Lisa Martinez<span className="ldb-activity-td-role">Claim Specialist</span></td>
                   </tr>
                   <tr>
@@ -1003,37 +1018,22 @@ export default function LeaveDetailV2ePage() {
                     <td className="ldb-activity-td-person">Sarah Johnson<span className="ldb-activity-td-role">Employee</span></td>
                   </tr>
                   <tr>
-                    <td className="ldb-activity-td-date">Apr 15, 2026<span className="ldb-activity-td-time">8:30 AM</span></td>
-                    <td><strong>Leave decision issued</strong> — FMLA leave approved through May 19. Decision letter available in your documents. <a href="#" className="ldb-activity-doc-link"><svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M7 1v8M4 6l3 3 3-3" stroke="currentColor" strokeWidth="1.3" strokeLinecap="round" strokeLinejoin="round"/><path d="M1 10v2a1 1 0 001 1h10a1 1 0 001-1v-2" stroke="currentColor" strokeWidth="1.3" strokeLinecap="round"/></svg> Decision_Letter.pdf</a></td>
+                    <td className="ldb-activity-td-date">Apr 14, 2026<span className="ldb-activity-td-time">2:15 PM</span></td>
+                    <td><strong>Documentation reminder</strong> — medical certification is due within 6 days. Upload via your documents page.</td>
                     <td className="ldb-activity-td-person">Lisa Martinez<span className="ldb-activity-td-role">Claim Specialist</span></td>
                   </tr>
                   <tr>
-                    <td className="ldb-activity-td-date">Apr 14, 2026<span className="ldb-activity-td-time">4:52 PM</span></td>
-                    <td><strong>Employer notified</strong> — your manager has been informed of approved leave dates and expected return.</td>
-                    <td className="ldb-activity-td-person">Lisa Martinez<span className="ldb-activity-td-role">Claim Specialist</span></td>
-                  </tr>
-                  <tr>
-                    <td className="ldb-activity-td-date">Apr 14, 2026<span className="ldb-activity-td-time">1:20 PM</span></td>
-                    <td><strong>Payment scheduled</strong> — first disability payment initiated, expected in your account within 2–3 business days.</td>
-                    <td className="ldb-activity-td-person">Lisa Martinez<span className="ldb-activity-td-role">Claim Specialist</span></td>
-                  </tr>
-                  <tr>
-                    <td className="ldb-activity-td-date">Apr 13, 2026<span className="ldb-activity-td-time">10:05 AM</span></td>
-                    <td><strong>Return to work reminder</strong> — please confirm your return date by May 12.</td>
-                    <td className="ldb-activity-td-person">Lisa Martinez<span className="ldb-activity-td-role">Claim Specialist</span></td>
-                  </tr>
-                  <tr>
-                    <td className="ldb-activity-td-date">Apr 12, 2026<span className="ldb-activity-td-time">3:40 PM</span></td>
-                    <td><strong>Return to work confirmed</strong> — returning on May 19 as scheduled.</td>
-                    <td className="ldb-activity-td-person">Sarah Johnson<span className="ldb-activity-td-role">Employee</span></td>
-                  </tr>
-                  <tr>
-                    <td className="ldb-activity-td-date">Apr 10, 2026<span className="ldb-activity-td-time">9:14 AM</span></td>
+                    <td className="ldb-activity-td-date">Apr 12, 2026<span className="ldb-activity-td-time">9:14 AM</span></td>
                     <td><strong>Additional documentation needed</strong> — supplemental forms available for download. Please complete and upload. <a href="#" className="ldb-activity-doc-link"><svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M7 1v8M4 6l3 3 3-3" stroke="currentColor" strokeWidth="1.3" strokeLinecap="round" strokeLinejoin="round"/><path d="M1 10v2a1 1 0 001 1h10a1 1 0 001-1v-2" stroke="currentColor" strokeWidth="1.3" strokeLinecap="round"/></svg> Supplemental_Forms.pdf</a></td>
                     <td className="ldb-activity-td-person">Lisa Martinez<span className="ldb-activity-td-role">Claim Specialist</span></td>
                   </tr>
                   <tr>
-                    <td className="ldb-activity-td-date">Apr 8, 2026<span className="ldb-activity-td-time">1:02 PM</span></td>
+                    <td className="ldb-activity-td-date">Apr 8, 2026<span className="ldb-activity-td-time">9:42 AM</span></td>
+                    <td><strong>Leave request confirmed</strong> — eligibility notice and required forms are now available in your documents. <a href="#" className="ldb-activity-doc-link"><svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M7 1v8M4 6l3 3 3-3" stroke="currentColor" strokeWidth="1.3" strokeLinecap="round" strokeLinejoin="round"/><path d="M1 10v2a1 1 0 001 1h10a1 1 0 001-1v-2" stroke="currentColor" strokeWidth="1.3" strokeLinecap="round"/></svg> Eligibility_Notice.pdf</a></td>
+                    <td className="ldb-activity-td-person">Lisa Martinez<span className="ldb-activity-td-role">Claim Specialist</span></td>
+                  </tr>
+                  <tr>
+                    <td className="ldb-activity-td-date">Apr 7, 2026<span className="ldb-activity-td-time">1:02 PM</span></td>
                     <td><strong>Leave request submitted</strong> — your request is being reviewed. You'll be notified when a decision is made.</td>
                     <td className="ldb-activity-td-person">Sarah Johnson<span className="ldb-activity-td-role">Employee</span></td>
                   </tr>
@@ -1043,18 +1043,39 @@ export default function LeaveDetailV2ePage() {
               <div className="ldb-activity-cards">
                 <div className="ldb-activity-card">
                   <div className="ldb-activity-card-header">
-                    <span className="ldb-activity-card-date">Apr 18, 2026 · 9:42 AM</span>
-                    <span className="ldb-activity-card-person">Lisa Martinez<span className="ldb-activity-card-role">Claim Specialist</span></span>
+                    <span className="ldb-activity-card-date">May 8, 2026 · 3:40 PM</span>
+                    <span className="ldb-activity-card-person">Sarah Johnson<span className="ldb-activity-card-role">Employee</span></span>
                   </div>
-                  <div className="ldb-activity-card-body"><strong>Leave request confirmed</strong> — eligibility notice and required forms are now available in your documents.</div>
-                  <a href="#" className="ldb-activity-doc-link"><svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M7 1v8M4 6l3 3 3-3" stroke="currentColor" strokeWidth="1.3" strokeLinecap="round" strokeLinejoin="round"/><path d="M1 10v2a1 1 0 001 1h10a1 1 0 001-1v-2" stroke="currentColor" strokeWidth="1.3" strokeLinecap="round"/></svg> Eligibility_Notice.pdf</a>
+                  <div className="ldb-activity-card-body"><strong>Return to work confirmed</strong> — returning on May 19 as scheduled.</div>
                 </div>
                 <div className="ldb-activity-card">
                   <div className="ldb-activity-card-header">
-                    <span className="ldb-activity-card-date">Apr 17, 2026 · 2:15 PM</span>
+                    <span className="ldb-activity-card-date">May 5, 2026 · 9:00 AM</span>
                     <span className="ldb-activity-card-person">Lisa Martinez<span className="ldb-activity-card-role">Claim Specialist</span></span>
                   </div>
-                  <div className="ldb-activity-card-body"><strong>Documentation reminder</strong> — medical certification is due within 6 days. Upload via your documents page.</div>
+                  <div className="ldb-activity-card-body"><strong>Return to work reminder</strong> — please confirm your return date by May 12.</div>
+                </div>
+                <div className="ldb-activity-card">
+                  <div className="ldb-activity-card-header">
+                    <span className="ldb-activity-card-date">Apr 22, 2026 · 1:20 PM</span>
+                    <span className="ldb-activity-card-person">Lisa Martinez<span className="ldb-activity-card-role">Claim Specialist</span></span>
+                  </div>
+                  <div className="ldb-activity-card-body"><strong>Payment scheduled</strong> — first disability payment initiated, expected in your account within 2–3 business days.</div>
+                </div>
+                <div className="ldb-activity-card">
+                  <div className="ldb-activity-card-header">
+                    <span className="ldb-activity-card-date">Apr 21, 2026 · 4:52 PM</span>
+                    <span className="ldb-activity-card-person">Lisa Martinez<span className="ldb-activity-card-role">Claim Specialist</span></span>
+                  </div>
+                  <div className="ldb-activity-card-body"><strong>Employer notified</strong> — your manager has been informed of approved leave dates and expected return.</div>
+                </div>
+                <div className="ldb-activity-card">
+                  <div className="ldb-activity-card-header">
+                    <span className="ldb-activity-card-date">Apr 21, 2026 · 8:30 AM</span>
+                    <span className="ldb-activity-card-person">Lisa Martinez<span className="ldb-activity-card-role">Claim Specialist</span></span>
+                  </div>
+                  <div className="ldb-activity-card-body"><strong>Leave decision issued</strong> — FMLA leave approved through May 19. Decision letter available in your documents.</div>
+                  <a href="#" className="ldb-activity-doc-link"><svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M7 1v8M4 6l3 3 3-3" stroke="currentColor" strokeWidth="1.3" strokeLinecap="round" strokeLinejoin="round"/><path d="M1 10v2a1 1 0 001 1h10a1 1 0 001-1v-2" stroke="currentColor" strokeWidth="1.3" strokeLinecap="round"/></svg> Decision_Letter.pdf</a>
                 </div>
                 <div className="ldb-activity-card">
                   <div className="ldb-activity-card-header">
@@ -1066,43 +1087,14 @@ export default function LeaveDetailV2ePage() {
                 </div>
                 <div className="ldb-activity-card">
                   <div className="ldb-activity-card-header">
-                    <span className="ldb-activity-card-date">Apr 15, 2026 · 8:30 AM</span>
+                    <span className="ldb-activity-card-date">Apr 14, 2026 · 2:15 PM</span>
                     <span className="ldb-activity-card-person">Lisa Martinez<span className="ldb-activity-card-role">Claim Specialist</span></span>
                   </div>
-                  <div className="ldb-activity-card-body"><strong>Leave decision issued</strong> — FMLA leave approved through May 19. Decision letter available in your documents.</div>
-                  <a href="#" className="ldb-activity-doc-link"><svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M7 1v8M4 6l3 3 3-3" stroke="currentColor" strokeWidth="1.3" strokeLinecap="round" strokeLinejoin="round"/><path d="M1 10v2a1 1 0 001 1h10a1 1 0 001-1v-2" stroke="currentColor" strokeWidth="1.3" strokeLinecap="round"/></svg> Decision_Letter.pdf</a>
+                  <div className="ldb-activity-card-body"><strong>Documentation reminder</strong> — medical certification is due within 6 days. Upload via your documents page.</div>
                 </div>
                 <div className="ldb-activity-card">
                   <div className="ldb-activity-card-header">
-                    <span className="ldb-activity-card-date">Apr 14, 2026 · 4:52 PM</span>
-                    <span className="ldb-activity-card-person">Lisa Martinez<span className="ldb-activity-card-role">Claim Specialist</span></span>
-                  </div>
-                  <div className="ldb-activity-card-body"><strong>Employer notified</strong> — your manager has been informed of approved leave dates and expected return.</div>
-                </div>
-                <div className="ldb-activity-card">
-                  <div className="ldb-activity-card-header">
-                    <span className="ldb-activity-card-date">Apr 14, 2026 · 1:20 PM</span>
-                    <span className="ldb-activity-card-person">Lisa Martinez<span className="ldb-activity-card-role">Claim Specialist</span></span>
-                  </div>
-                  <div className="ldb-activity-card-body"><strong>Payment scheduled</strong> — first disability payment initiated, expected in your account within 2–3 business days.</div>
-                </div>
-                <div className="ldb-activity-card">
-                  <div className="ldb-activity-card-header">
-                    <span className="ldb-activity-card-date">Apr 13, 2026 · 10:05 AM</span>
-                    <span className="ldb-activity-card-person">Lisa Martinez<span className="ldb-activity-card-role">Claim Specialist</span></span>
-                  </div>
-                  <div className="ldb-activity-card-body"><strong>Return to work reminder</strong> — please confirm your return date by May 12.</div>
-                </div>
-                <div className="ldb-activity-card">
-                  <div className="ldb-activity-card-header">
-                    <span className="ldb-activity-card-date">Apr 12, 2026 · 3:40 PM</span>
-                    <span className="ldb-activity-card-person">Sarah Johnson<span className="ldb-activity-card-role">Employee</span></span>
-                  </div>
-                  <div className="ldb-activity-card-body"><strong>Return to work confirmed</strong> — returning on May 19 as scheduled.</div>
-                </div>
-                <div className="ldb-activity-card">
-                  <div className="ldb-activity-card-header">
-                    <span className="ldb-activity-card-date">Apr 10, 2026 · 9:14 AM</span>
+                    <span className="ldb-activity-card-date">Apr 12, 2026 · 9:14 AM</span>
                     <span className="ldb-activity-card-person">Lisa Martinez<span className="ldb-activity-card-role">Claim Specialist</span></span>
                   </div>
                   <div className="ldb-activity-card-body"><strong>Additional documentation needed</strong> — supplemental forms available for download. Please complete and upload.</div>
@@ -1110,7 +1102,15 @@ export default function LeaveDetailV2ePage() {
                 </div>
                 <div className="ldb-activity-card">
                   <div className="ldb-activity-card-header">
-                    <span className="ldb-activity-card-date">Apr 8, 2026 · 1:02 PM</span>
+                    <span className="ldb-activity-card-date">Apr 8, 2026 · 9:42 AM</span>
+                    <span className="ldb-activity-card-person">Lisa Martinez<span className="ldb-activity-card-role">Claim Specialist</span></span>
+                  </div>
+                  <div className="ldb-activity-card-body"><strong>Leave request confirmed</strong> — eligibility notice and required forms are now available in your documents.</div>
+                  <a href="#" className="ldb-activity-doc-link"><svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M7 1v8M4 6l3 3 3-3" stroke="currentColor" strokeWidth="1.3" strokeLinecap="round" strokeLinejoin="round"/><path d="M1 10v2a1 1 0 001 1h10a1 1 0 001-1v-2" stroke="currentColor" strokeWidth="1.3" strokeLinecap="round"/></svg> Eligibility_Notice.pdf</a>
+                </div>
+                <div className="ldb-activity-card">
+                  <div className="ldb-activity-card-header">
+                    <span className="ldb-activity-card-date">Apr 7, 2026 · 1:02 PM</span>
                     <span className="ldb-activity-card-person">Sarah Johnson<span className="ldb-activity-card-role">Employee</span></span>
                   </div>
                   <div className="ldb-activity-card-body"><strong>Leave request submitted</strong> — your request is being reviewed. You'll be notified when a decision is made.</div>
