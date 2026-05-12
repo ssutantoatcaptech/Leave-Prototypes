@@ -1487,14 +1487,91 @@
   .ldb-site-footer-grid { grid-template-columns: repeat(2, 1fr); }
 
   .ldb-detail-tabs {
-    flex-wrap: wrap;
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
     gap: 0;
     margin-bottom: 16px;
   }
+  .ldb-detail-tabs::-webkit-scrollbar {
+    display: none;
+  }
   .ldb-detail-tab {
     padding: 10px 14px;
-    font-size: 16px;
+    font-size: 14px;
+    white-space: nowrap;
+    flex-shrink: 0;
   }
+
+  .ldb-activity-filters {
+    flex-wrap: wrap;
+    gap: 10px;
+    padding: 12px 14px 10px;
+  }
+
+  .ldb-activity-table--striped {
+    display: none;
+  }
+
+  .ldb-activity-cards {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    padding: 16px;
+  }
+
+  .ldb-activity-card {
+    background: #fff;
+    border: 1px solid #e5e7eb;
+    border-radius: 10px;
+    padding: 14px 16px;
+  }
+
+  .ldb-activity-card:nth-child(even) {
+    background: #f8f9fb;
+  }
+
+  .ldb-activity-card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 8px;
+  }
+
+  .ldb-activity-card-date {
+    font-size: 12px;
+    color: #6b7280;
+  }
+
+  .ldb-activity-card-person {
+    font-size: 12px;
+    color: #374151;
+    font-weight: 500;
+    text-align: right;
+  }
+
+  .ldb-activity-card-role {
+    display: block;
+    font-size: 11px;
+    color: #9ca3af;
+    font-weight: 400;
+  }
+
+  .ldb-activity-card-body {
+    font-size: 14px;
+    line-height: 1.5;
+    color: #374151;
+  }
+
+  .ldb-activity-card-body strong {
+    color: #1f2937;
+  }
+
+  .ldb-activity-card .ldb-activity-doc-link {
+    margin-top: 8px;
+  }
+
   .ldb-comms-item {
     padding: 12px 0;
     gap: 12px;
@@ -2818,6 +2895,10 @@
 
 .ldb-activity-doc-link svg {
   flex-shrink: 0;
+}
+
+.ldb-activity-cards {
+  display: none;
 }
 
 .ldb-activity-filters {
