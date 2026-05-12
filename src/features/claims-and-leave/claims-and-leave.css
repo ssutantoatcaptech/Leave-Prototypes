@@ -6,7 +6,7 @@
 /* Layout */
 .cl-layout {
   min-height: 100vh;
-  background: #f8faf9;
+  background: #f8fbfd;
   font-family: 'Source Sans Pro', 'Inter', system-ui, sans-serif;
   display: flex;
   flex-direction: column;
