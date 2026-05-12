@@ -4966,6 +4966,485 @@
 }
 
 /* ===========================
+   Claims Center / My Leaves Page (Figma redesign)
+   =========================== */
+
+.cl-main:has(.cl-claims-page) {
+  padding: 0;
+  max-width: none;
+  background: #f8fbfd;
+}
+
+.cl-claims-page {
+  max-width: 1440px;
+  margin: 0 auto;
+  padding: 48px 60px 80px;
+  font-family: 'Source Sans Pro', sans-serif;
+}
+
+.cl-claims-breadcrumb {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 14px;
+  margin-bottom: 12px;
+}
+
+.cl-claims-breadcrumb-link {
+  color: #105fa8;
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.cl-claims-breadcrumb-link:hover {
+  text-decoration: underline;
+}
+
+.cl-claims-breadcrumb-sep {
+  color: #9ca3af;
+  font-size: 12px;
+}
+
+.cl-claims-breadcrumb-current {
+  color: #5d5d5d;
+}
+
+.cl-claims-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  margin-bottom: 36px;
+}
+
+.cl-claims-title {
+  font-size: 36px;
+  font-weight: 700;
+  color: #003a70;
+  margin: 0 0 8px;
+  line-height: 1.2;
+}
+
+.cl-claims-subtitle {
+  font-size: 16px;
+  color: #5d5d5d;
+  margin: 0;
+  line-height: 1.5;
+}
+
+.cl-claims-new-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 12px 24px;
+  background: #105fa8;
+  color: #ffffff;
+  border: none;
+  border-radius: 6px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  white-space: nowrap;
+  font-family: 'Source Sans Pro', sans-serif;
+  transition: background 0.15s;
+}
+
+.cl-claims-new-btn:hover {
+  background: #0a4a85;
+}
+
+/* Card wrapper */
+.cl-claims-card {
+  background: #ffffff;
+  border: 1.5px solid #dfebf6;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.04);
+}
+
+/* Filter bar */
+.cl-claims-filter-bar {
+  display: flex;
+  align-items: flex-end;
+  gap: 24px;
+  padding: 24px 36px;
+  border-bottom: 1px solid #f0f0f0;
+}
+
+.cl-claims-filter-group {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.cl-claims-filter-label {
+  font-size: 11px;
+  font-weight: 600;
+  color: #5d5d5d;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  font-family: 'Source Sans Pro', sans-serif;
+}
+
+.cl-claims-select {
+  padding: 10px 36px 10px 14px;
+  border: 1px solid #dfebf6;
+  border-radius: 6px;
+  font-size: 14px;
+  color: #222;
+  background: #ffffff url("data:image/svg+xml,%3Csvg width='10' height='6' viewBox='0 0 10 6' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M1 1l4 4 4-4' stroke='%235d5d5d' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") no-repeat right 12px center;
+  appearance: none;
+  cursor: pointer;
+  white-space: nowrap;
+  font-family: 'Source Sans Pro', sans-serif;
+  min-width: 180px;
+  outline: none;
+}
+
+.cl-claims-select:focus {
+  border-color: #105fa8;
+}
+
+/* Table */
+.cl-claims-table-wrap {
+  overflow-x: auto;
+}
+
+.cl-claims-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 14px;
+}
+
+.cl-claims-table thead {
+  background: #f8fbfd;
+}
+
+.cl-claims-table th {
+  padding: 20px 24px;
+  text-align: left;
+  font-weight: 600;
+  font-size: 14px;
+  color: #222;
+  border-bottom: 1px solid #f0f0f0;
+}
+
+.cl-claims-table th:first-child {
+  padding-left: 36px;
+}
+
+.cl-claims-table td {
+  padding: 22px 24px;
+  border-bottom: 1px solid #f0f0f0;
+  color: #222;
+  vertical-align: middle;
+  font-size: 14px;
+}
+
+.cl-claims-table td:first-child {
+  padding-left: 36px;
+}
+
+.cl-claims-table tbody tr {
+  height: 76px;
+}
+
+.cl-claims-table tbody tr:last-child td {
+  border-bottom: none;
+}
+
+.cl-claims-table tbody tr:hover {
+  background: #f8fbfd;
+}
+
+/* Leave type cell */
+.cl-claims-type-cell {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.cl-claims-type-name {
+  font-weight: 600;
+  color: #222;
+}
+
+.cl-claims-type-id {
+  font-size: 12px;
+  color: #5d5d5d;
+}
+
+/* Status pills (DS pattern) */
+.cl-claims-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 5px 14px;
+  border-radius: 120px;
+  border: 1.5px solid #e4e4e4;
+  background: #ffffff;
+  font-family: 'Source Sans Pro', sans-serif;
+  font-size: 13px;
+  font-weight: 500;
+  color: #222;
+  white-space: nowrap;
+}
+
+.cl-claims-pill-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+.cl-claims-pill-dot--amber {
+  background: #f59e0b;
+}
+
+.cl-claims-pill-dot--green {
+  background: #10b981;
+}
+
+.cl-claims-pill-dot--blue {
+  background: #105fa8;
+}
+
+.cl-claims-pill-dot--gray {
+  background: #9ca3af;
+}
+
+/* Action buttons */
+.cl-claims-actions {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.cl-claims-action-btn {
+  background: none;
+  border: none;
+  color: #105fa8;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  padding: 0;
+  font-family: 'Source Sans Pro', sans-serif;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.cl-claims-action-btn:hover {
+  text-decoration: underline;
+}
+
+.cl-claims-action-btn--delete {
+  color: #dc2626;
+}
+
+.cl-claims-action-btn--delete:hover {
+  color: #b91c1c;
+}
+
+/* Pagination */
+.cl-claims-pagination {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 24px 36px;
+  border-top: 1px solid #f0f0f0;
+}
+
+.cl-claims-pagination-buttons {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.cl-claims-page-btn {
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid #e4e4e4;
+  border-radius: 6px;
+  background: #ffffff;
+  font-size: 14px;
+  font-weight: 500;
+  color: #222;
+  cursor: pointer;
+  transition: background 0.15s, border-color 0.15s;
+  font-family: 'Source Sans Pro', sans-serif;
+}
+
+.cl-claims-page-btn:hover:not(:disabled) {
+  background: #f0f0f0;
+  border-color: #d0d0d0;
+}
+
+.cl-claims-page-btn:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+.cl-claims-page-btn--active {
+  background: #f0f0f0;
+  border-color: #d0d0d0;
+  font-weight: 700;
+}
+
+.cl-claims-page-ellipsis {
+  width: 40px;
+  text-align: center;
+  font-size: 14px;
+  color: #5d5d5d;
+  user-select: none;
+}
+
+.cl-claims-pagination-info {
+  font-size: 13px;
+  color: #5d5d5d;
+}
+
+/* Mobile card view */
+.cl-claims-cards-mobile {
+  display: none;
+}
+
+.cl-claims-card-mobile {
+  background: #ffffff;
+  border: 1.5px solid #dfebf6;
+  border-radius: 12px;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.cl-claims-card-mobile-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.cl-claims-card-mobile-type {
+  font-weight: 600;
+  font-size: 15px;
+  color: #222;
+}
+
+.cl-claims-card-mobile-id {
+  font-size: 12px;
+  color: #5d5d5d;
+}
+
+.cl-claims-card-mobile-details {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding-top: 8px;
+  border-top: 1px solid #f0f0f0;
+}
+
+.cl-claims-card-mobile-field {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.cl-claims-card-mobile-label {
+  font-size: 12px;
+  color: #5d5d5d;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+}
+
+.cl-claims-card-mobile-value {
+  font-size: 14px;
+  color: #222;
+  font-weight: 500;
+}
+
+.cl-claims-card-mobile-actions {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding-top: 12px;
+  border-top: 1px solid #f0f0f0;
+}
+
+.cl-claims-card-empty {
+  text-align: center;
+  padding: 32px;
+  color: #5d5d5d;
+  font-size: 14px;
+}
+
+/* Responsive */
+@media (max-width: 1024px) {
+  .cl-claims-page {
+    padding: 32px 32px;
+  }
+
+  .cl-claims-header {
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  .cl-claims-filter-bar {
+    flex-wrap: wrap;
+    padding: 20px 24px;
+  }
+
+  .cl-claims-table th,
+  .cl-claims-table td {
+    padding: 16px 16px;
+  }
+
+  .cl-claims-table th:first-child,
+  .cl-claims-table td:first-child {
+    padding-left: 24px;
+  }
+
+  .cl-claims-pagination {
+    padding: 20px 24px;
+  }
+}
+
+@media (max-width: 768px) {
+  .cl-claims-page {
+    padding: 24px 16px;
+  }
+
+  .cl-claims-title {
+    font-size: 28px;
+  }
+
+  .cl-claims-card {
+    display: none;
+  }
+
+  .cl-claims-cards-mobile {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .cl-claims-new-btn {
+    width: 100%;
+    justify-content: center;
+  }
+
+  .cl-claims-filter-bar {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 12px;
+    padding: 16px;
+  }
+}
+
+/* ===========================
    Payments Page (Figma redesign)
    =========================== */
 
