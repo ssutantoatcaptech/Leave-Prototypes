@@ -2247,7 +2247,7 @@ export default function RequestLeaveReactPage() {
                 </div>
               ))}
             </div>
-            <button type="button" className="btn btn-next" style={{ padding: '14px 48px', fontSize: 16, borderRadius: 8 }} onClick={() => setStarted(true)}>Get Started</button>
+            <button type="button" className="btn btn-next btn-lg" onClick={() => setStarted(true)}>Get Started</button>
             <div className="landing-footer-note">Not sure where to start? <Link to="/plan-absence">Plan your leave first →</Link></div>
           </div>
         </div>
