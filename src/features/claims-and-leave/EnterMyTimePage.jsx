@@ -183,7 +183,8 @@ export default function EnterMyTimePage() {
     var totalH = 0;
 
     selectedDates.forEach(function (dk, idx) {
-      var dayData = perDayEdits[dk] || { startTime: startTime, endTime: endTime };
+      var dayData = perDayEdits[dk] || { startTime: startTime, endTime: endTime, reason: reason };
+      var dayReason = dayData.reason || reason;
       var dayHours = calcHours(dayData.startTime, dayData.endTime);
       totalH += parseFloat(dayHours);
       newEntries.push({
@@ -192,8 +193,8 @@ export default function EnterMyTimePage() {
         startTime: dayData.startTime,
         endTime: dayData.endTime,
         hours: dayHours,
-        reason: reason,
-        reasonColor: getReasonColor(reason),
+        reason: dayReason,
+        reasonColor: getReasonColor(dayReason),
         addedOn: todayStr,
         caseId: selectedCase.id,
         entryKey: entryKey + '-' + idx,
@@ -249,8 +250,8 @@ export default function EnterMyTimePage() {
     setEditingIndex(null);
   }
 
-  function updatePerDayTime(dk, field, value) {
-    var existing = perDayEdits[dk] || { startTime: startTime, endTime: endTime };
+  function updatePerDayEdit(dk, field, value) {
+    var existing = perDayEdits[dk] || { startTime: startTime, endTime: endTime, reason: reason };
     var updated = Object.assign({}, existing);
     updated[field] = value;
     setPerDayEdits(Object.assign({}, perDayEdits, { [dk]: updated }));
@@ -416,31 +417,6 @@ export default function EnterMyTimePage() {
                         </div>
                       )}
 
-                      {/* Logged absences for current month */}
-                      {(function () {
-                        var monthAbsences = filteredAbsences.filter(function (a) {
-                          var prefix = calYear + '-' + String(calMonth + 1).padStart(2, '0');
-                          return a.dateKey && a.dateKey.startsWith(prefix);
-                        });
-                        if (monthAbsences.length === 0) return null;
-                        return (
-                          <div className="cl-ma-cal-logged">
-                            <div className="cl-ma-cal-logged-title">Logged this month ({monthAbsences.length})</div>
-                            <div className="cl-ma-cal-logged-list">
-                              {monthAbsences.map(function (a, idx) {
-                                return (
-                                  <div key={idx} className="cl-ma-cal-logged-row">
-                                    <span className={'cl-ma-cal-logged-dot cl-ma-cal-logged-dot--' + a.reasonColor} />
-                                    <span className="cl-ma-cal-logged-date">{a.date}</span>
-                                    <span className="cl-ma-cal-logged-hours">{a.hours}h</span>
-                                    <span className={'cl-ma-reason-badge cl-ma-reason-badge--' + a.reasonColor}>{a.reason}</span>
-                                  </div>
-                                );
-                              })}
-                            </div>
-                          </div>
-                        );
-                      })()}
                     </div>
                   </div>
                 </div>
@@ -777,7 +753,8 @@ export default function EnterMyTimePage() {
                 </thead>
                 <tbody>
                   {selectedDates.map(function (dk) {
-                    var dayData = perDayEdits[dk] || { startTime: startTime, endTime: endTime };
+                    var dayData = perDayEdits[dk] || { startTime: startTime, endTime: endTime, reason: reason };
+                    var dayReason = dayData.reason || reason;
                     var dayHours = calcHours(dayData.startTime, dayData.endTime);
                     return (
                       <tr key={dk}>
@@ -787,7 +764,7 @@ export default function EnterMyTimePage() {
                             type="text"
                             className="cl-ma-preview-input"
                             value={dayData.startTime}
-                            onChange={function (e) { updatePerDayTime(dk, 'startTime', e.target.value); }}
+                            onChange={function (e) { updatePerDayEdit(dk, 'startTime', e.target.value); }}
                           />
                         </td>
                         <td>
@@ -795,11 +772,19 @@ export default function EnterMyTimePage() {
                             type="text"
                             className="cl-ma-preview-input"
                             value={dayData.endTime}
-                            onChange={function (e) { updatePerDayTime(dk, 'endTime', e.target.value); }}
+                            onChange={function (e) { updatePerDayEdit(dk, 'endTime', e.target.value); }}
                           />
                         </td>
                         <td className="cl-ma-cell-bold">{dayHours}h</td>
-                        <td><span className={'cl-ma-reason-badge cl-ma-reason-badge--' + getReasonColor(reason)}>{reason}</span></td>
+                        <td>
+                          <select
+                            className="cl-ma-preview-select"
+                            value={dayReason}
+                            onChange={function (e) { updatePerDayEdit(dk, 'reason', e.target.value); }}
+                          >
+                            {REASONS.map(function (r) { return <option key={r.value} value={r.value}>{r.value}</option>; })}
+                          </select>
+                        </td>
                       </tr>
                     );
                   })}
