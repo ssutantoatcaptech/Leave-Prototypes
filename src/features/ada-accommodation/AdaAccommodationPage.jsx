@@ -24,25 +24,18 @@ function WelcomeView({ onContinue, onBack }) {
               <div className="ada-step-num">1</div>
               <div className="ada-step-text">
                 <h4>Tell us what you need</h4>
-                <p>Help us understand how an accommodation may support you at work.</p>
+                <p>Share what difficulty you're having at work, what accommodation would help, and when you need it.</p>
               </div>
             </li>
             <li className="ada-step-item">
               <div className="ada-step-num">2</div>
-              <div className="ada-step-text">
-                <h4>Add details</h4>
-                <p>Share specifics about your situation so we can explore options together.</p>
-              </div>
-            </li>
-            <li className="ada-step-item">
-              <div className="ada-step-num">3</div>
               <div className="ada-step-text">
                 <h4>Upload documentation</h4>
                 <p>Attach supporting documents from your healthcare provider, if available.</p>
               </div>
             </li>
             <li className="ada-step-item">
-              <div className="ada-step-num">4</div>
+              <div className="ada-step-num">3</div>
               <div className="ada-step-text">
                 <h4>Review &amp; submit</h4>
                 <p>Confirm everything looks right before sending your request.</p>
@@ -71,17 +64,16 @@ function WelcomeView({ onContinue, onBack }) {
 }
 
 function ConfirmView({ adaState, setAdaState, done, setDone, editing, setEditing, snapshot, setSnapshot, onSubmit, onBack }) {
-  const [openStep, setOpenStep] = useState('need');
-  const requiredSteps = ['need', 'details', 'review'];
-  const completedCount = [done.need, done.details, done.docs, done.review].filter(Boolean).length;
-  const totalSteps = 4;
-  const allRequiredDone = done.need && done.details && done.review;
+  const [openStep, setOpenStep] = useState('details');
+  const completedCount = [done.details, done.docs, done.review].filter(Boolean).length;
+  const totalSteps = 3;
+  const allRequiredDone = done.details && done.review;
 
   function saveStep(stepKey) {
     setDone((prev) => ({ ...prev, [stepKey]: true }));
     setEditing(null);
     setSnapshot(null);
-    const order = ['need', 'details', 'docs', 'review'];
+    const order = ['details', 'docs', 'review'];
     const nextIndex = order.indexOf(stepKey) + 1;
     if (nextIndex < order.length && !done[order[nextIndex]]) {
       setOpenStep(order[nextIndex]);
@@ -116,11 +108,6 @@ function ConfirmView({ adaState, setAdaState, done, setDone, editing, setEditing
 
   function stepSummary(stepKey) {
     if (!done[stepKey]) return null;
-    if (stepKey === 'need') {
-      return adaState.needType === 'accommodation' ? 'I need an accommodation at work' :
-             adaState.needType === 'unsure' ? "I'm not sure what I need" :
-             'Questions about the ADA process';
-    }
     if (stepKey === 'details') {
       const parts = [adaState.accommodationType, adaState.duration === 'ongoing' ? 'Ongoing' : 'Temporary'].filter(Boolean);
       return parts.join(' · ') || 'Details provided';
@@ -168,60 +155,13 @@ function ConfirmView({ adaState, setAdaState, done, setDone, editing, setEditing
         </div>
 
         {/* Step 1: Tell us what you need */}
-        <div className={`ada-accordion ${openStep === 'need' ? 'open' : ''}`}>
-          <button className="ada-accordion-header" type="button" onClick={() => toggleStep('need')}>
-            <div className={`ada-accordion-num ${done.need ? 'done' : ''}`}>
-              {done.need ? <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M3.5 7l2.5 2.5L10.5 4" stroke="#fff" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/></svg> : '1'}
-            </div>
-            <div className="ada-accordion-info">
-              <div className="ada-accordion-title">Tell us what you need</div>
-              {done.need && openStep !== 'need' && <div className="ada-accordion-summary">{stepSummary('need')}</div>}
-            </div>
-            {stepTag('need', false)}
-            {done.need && editing !== 'need' && <button className="ada-accordion-edit" type="button" onClick={(e) => { e.stopPropagation(); startEdit('need'); }}>Edit</button>}
-          </button>
-          {openStep === 'need' && (
-            <div className="ada-accordion-body">
-              <p className="ada-field-desc">What would you like help with today? This helps us understand how an accommodation may support you at work.</p>
-              <div className="ada-radio-group">
-                <label className={`ada-radio-item ${adaState.needType === 'accommodation' ? 'selected' : ''}`}>
-                  <input type="radio" name="needType" checked={adaState.needType === 'accommodation'} onChange={() => setAdaState((s) => ({ ...s, needType: 'accommodation' }))} />
-                  <div className="ada-radio-label">
-                    <div className="ada-radio-label-text">I need an accommodation at work</div>
-                    <div className="ada-radio-label-hint">Request adjustments to help you perform your job</div>
-                  </div>
-                </label>
-                <label className={`ada-radio-item ${adaState.needType === 'unsure' ? 'selected' : ''}`}>
-                  <input type="radio" name="needType" checked={adaState.needType === 'unsure'} onChange={() => setAdaState((s) => ({ ...s, needType: 'unsure' }))} />
-                  <div className="ada-radio-label">
-                    <div className="ada-radio-label-text">I'm not sure what I need</div>
-                    <div className="ada-radio-label-hint">We'll help you figure out what support is available</div>
-                  </div>
-                </label>
-                <label className={`ada-radio-item ${adaState.needType === 'questions' ? 'selected' : ''}`}>
-                  <input type="radio" name="needType" checked={adaState.needType === 'questions'} onChange={() => setAdaState((s) => ({ ...s, needType: 'questions' }))} />
-                  <div className="ada-radio-label">
-                    <div className="ada-radio-label-text">I have questions about the ADA process</div>
-                    <div className="ada-radio-label-hint">Learn about your rights and available options</div>
-                  </div>
-                </label>
-              </div>
-              <div className="ada-actions">
-                {editing === 'need' && <button className="ada-btn-discard" type="button" onClick={discardEdit}>Discard</button>}
-                <button className="ada-btn-save" type="button" disabled={!adaState.needType} onClick={() => saveStep('need')}>Save</button>
-              </div>
-            </div>
-          )}
-        </div>
-
-        {/* Step 2: Add details */}
         <div className={`ada-accordion ${openStep === 'details' ? 'open' : ''}`}>
           <button className="ada-accordion-header" type="button" onClick={() => toggleStep('details')}>
             <div className={`ada-accordion-num ${done.details ? 'done' : ''}`}>
-              {done.details ? <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M3.5 7l2.5 2.5L10.5 4" stroke="#fff" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/></svg> : '2'}
+              {done.details ? <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M3.5 7l2.5 2.5L10.5 4" stroke="#fff" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/></svg> : '1'}
             </div>
             <div className="ada-accordion-info">
-              <div className="ada-accordion-title">Add details</div>
+              <div className="ada-accordion-title">Tell us what you need</div>
               {done.details && openStep !== 'details' && <div className="ada-accordion-summary">{stepSummary('details')}</div>}
             </div>
             {stepTag('details', false)}
@@ -313,7 +253,7 @@ function ConfirmView({ adaState, setAdaState, done, setDone, editing, setEditing
         <div className={`ada-accordion ${openStep === 'docs' ? 'open' : ''}`}>
           <button className="ada-accordion-header" type="button" onClick={() => toggleStep('docs')}>
             <div className={`ada-accordion-num ${done.docs ? 'done' : ''}`}>
-              {done.docs ? <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M3.5 7l2.5 2.5L10.5 4" stroke="#fff" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/></svg> : '3'}
+              {done.docs ? <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M3.5 7l2.5 2.5L10.5 4" stroke="#fff" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/></svg> : '2'}
             </div>
             <div className="ada-accordion-info">
               <div className="ada-accordion-title">Upload documentation</div>
@@ -369,7 +309,7 @@ function ConfirmView({ adaState, setAdaState, done, setDone, editing, setEditing
         <div className={`ada-accordion ${openStep === 'review' ? 'open' : ''}`}>
           <button className="ada-accordion-header" type="button" onClick={() => toggleStep('review')}>
             <div className={`ada-accordion-num ${done.review ? 'done' : ''}`}>
-              {done.review ? <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M3.5 7l2.5 2.5L10.5 4" stroke="#fff" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/></svg> : '4'}
+              {done.review ? <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M3.5 7l2.5 2.5L10.5 4" stroke="#fff" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/></svg> : '3'}
             </div>
             <div className="ada-accordion-info">
               <div className="ada-accordion-title">Review &amp; submit</div>
@@ -422,7 +362,7 @@ function ConfirmView({ adaState, setAdaState, done, setDone, editing, setEditing
               </label>
 
               <div className="ada-actions">
-                <button className="ada-btn-save" type="button" disabled={!adaState.confirmed || !done.need || !done.details} onClick={() => { saveStep('review'); onSubmit(); }}>
+                <button className="ada-btn-save" type="button" disabled={!adaState.confirmed || !done.details} onClick={() => { saveStep('review'); onSubmit(); }}>
                   Submit Request
                 </button>
               </div>
@@ -514,7 +454,6 @@ export default function AdaAccommodationPage() {
 
   const [view, setView] = useState('welcome');
   const [adaState, setAdaState] = useState({
-    needType: '',
     accommodationFor: '',
     impact: '',
     accommodationType: '',
@@ -524,7 +463,7 @@ export default function AdaAccommodationPage() {
     files: [],
     confirmed: false,
   });
-  const [done, setDone] = useState({ need: false, details: false, docs: false, review: false });
+  const [done, setDone] = useState({ details: false, docs: false, review: false });
   const [editing, setEditing] = useState(null);
   const [snapshot, setSnapshot] = useState(null);
 
