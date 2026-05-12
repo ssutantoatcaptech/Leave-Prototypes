@@ -5,13 +5,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" />
     <title>Leave Intake Wizard React</title>
     <link href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <script src="https://mcp.figma.com/mcp/html-to-design/capture.js" async></script>
+    <script src="https://mcp.figma.com/mcp/html-to-design/capture.js"></script>
     <script>
-      // Handle SPA redirect from 404.html
+      // Handle SPA redirect from 404.html (preserve hash for Figma capture)
       (function() {
         var redirect = new URLSearchParams(window.location.search).get('p');
         if (redirect) {
-          window.history.replaceState(null, '', redirect);
+          window.history.replaceState(null, '', redirect + window.location.hash);
         }
       })();
     </script>
@@ -19,5 +19,9 @@
   </head>
   <body>
     <div id="root"></div>
+    <button id="figma-send-btn" onclick="window.location.href = window.location.pathname + window.location.search + '#figmacapture&figmadelay=1000'; window.location.reload();" style="position:fixed;bottom:20px;right:20px;z-index:99999;padding:10px 16px;background:#0d99ff;color:#fff;border:none;border-radius:8px;font-size:13px;font-weight:600;cursor:pointer;box-shadow:0 2px 8px rgba(0,0,0,0.2);display:flex;align-items:center;gap:6px;">
+      <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M2.5 1h4v4.5h-4z" fill="#F24E1E"/><path d="M6.5 1h4v4.5h-4z" fill="#FF7262"/><path d="M10.5 1h3v4.5h-3z" fill="#A259FF"/><path d="M2.5 5.5h4V10h-4z" fill="#1ABCFE"/><path d="M6.5 5.5h4V10h-4z" fill="#0ACF83"/><path d="M2.5 10h4v3a2 2 0 01-4 0v-1z" fill="#0ACF83"/></svg>
+      Copy to Figma
+    </button>
   </body>
 </html>
