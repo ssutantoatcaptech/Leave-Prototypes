@@ -261,17 +261,17 @@ export default function EnterMyTimePage() {
   var selectedReasonData = REASONS.find(function (r) { return r.value === reason; });
 
   return (
-    <div className="cl-page">
-      <div className="cl-breadcrumb">
-        <Link to={base} className="cl-breadcrumb-link">Claims &amp; Leave</Link>
-        <span className="cl-breadcrumb-sep">&gt;</span>
-        <span>Enter My Time</span>
+    <div className="cl-page cl-ml-page">
+      <div className="cl-ml-breadcrumb">
+        <Link to={base} className="cl-ml-breadcrumb-link">Claims &amp; Leave</Link>
+        <span className="cl-ml-breadcrumb-sep">&gt;</span>
+        <span className="cl-ml-breadcrumb-current">Enter My Time</span>
       </div>
 
-      <div className="cl-page-header">
-        <div>
-          <h1 className="cl-page-title">Enter My Time</h1>
-          <p className="cl-page-desc">Record your intermittent leave hours or days for existing claims.</p>
+      <div className="cl-ml-header">
+        <div className="cl-ml-header-text">
+          <h1 className="cl-ml-title">Enter My Time</h1>
+          <p className="cl-ml-subtitle">Record your intermittent leave hours or days for existing claims.</p>
         </div>
       </div>
 
