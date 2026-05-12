@@ -4154,6 +4154,14 @@
   opacity: 0.7;
 }
 
+.cl-ml-page .cl-ml-breadcrumb,
+.cl-ml-page .cl-ml-header,
+.cl-ml-page .cl-ml-table-card,
+.cl-ml-page .cl-ma-layout {
+  position: relative;
+  z-index: 1;
+}
+
 .cl-ml-btn-new {
   position: relative;
   z-index: 1;
