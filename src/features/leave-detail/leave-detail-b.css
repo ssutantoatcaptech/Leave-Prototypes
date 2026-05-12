@@ -2643,3 +2643,147 @@
 .ldb-comms-link:hover {
   text-decoration: underline;
 }
+
+/* Activity Log */
+.ldb-activity-log {
+  padding: 24px;
+}
+
+.ldb-activity-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  position: relative;
+}
+
+.ldb-activity-item {
+  display: flex;
+  gap: 16px;
+  padding: 16px 0;
+  position: relative;
+  border-bottom: 1px solid #f3f4f6;
+}
+
+.ldb-activity-item:last-child {
+  border-bottom: none;
+}
+
+.ldb-activity-item--action {
+  background: #fffbeb;
+  margin: 0 -24px;
+  padding: 16px 24px;
+  border-radius: 8px;
+  border-bottom: none;
+}
+
+.ldb-activity-dot {
+  width: 10px;
+  height: 10px;
+  min-width: 10px;
+  border-radius: 50%;
+  margin-top: 6px;
+  position: relative;
+}
+
+.ldb-activity-dot--completed {
+  background: #16a34a;
+}
+
+.ldb-activity-dot--action {
+  background: #f59e0b;
+}
+
+.ldb-activity-dot--progress {
+  background: #3b82f6;
+}
+
+.ldb-activity-dot--upcoming {
+  background: #a3a3a3;
+}
+
+.ldb-activity-content {
+  flex: 1;
+  min-width: 0;
+}
+
+.ldb-activity-header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 4px;
+}
+
+.ldb-activity-type {
+  font-size: 13px;
+  font-weight: 600;
+  color: #0f0f14;
+}
+
+.ldb-activity-badge {
+  display: inline-block;
+  padding: 2px 8px;
+  border-radius: 4px;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.3px;
+}
+
+.ldb-activity-badge--completed {
+  background: #f0fdf4;
+  color: #16a34a;
+}
+
+.ldb-activity-badge--action {
+  background: #fef3c7;
+  color: #b45309;
+}
+
+.ldb-activity-badge--progress {
+  background: #eff6ff;
+  color: #2563eb;
+}
+
+.ldb-activity-badge--upcoming {
+  background: #f5f5f5;
+  color: #737373;
+}
+
+.ldb-activity-update {
+  font-size: 14px;
+  color: #374151;
+  line-height: 1.5;
+  margin: 0 0 6px;
+}
+
+.ldb-activity-meta {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.ldb-activity-date {
+  font-size: 12px;
+  color: #9ca3af;
+}
+
+.ldb-activity-next {
+  font-size: 12px;
+  color: #6b7280;
+}
+
+.ldb-activity-waiting {
+  font-size: 12px;
+  color: #b45309;
+  font-weight: 500;
+}
+
+.ldb-activity-next-step {
+  font-size: 13px;
+  color: #525252;
+  margin-top: 6px;
+  padding: 8px 12px;
+  background: #f8f9fb;
+  border-radius: 6px;
+  line-height: 1.4;
+}

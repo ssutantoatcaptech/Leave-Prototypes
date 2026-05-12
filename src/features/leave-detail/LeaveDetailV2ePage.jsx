@@ -954,15 +954,161 @@ export default function LeaveDetailV2ePage() {
 
             {/* Tab: Activity Log */}
             {detailTab === 'activity' && (
-            <div className="ldb-card">
-              <div className="ldb-empty-state">
-                <svg width="40" height="40" viewBox="0 0 40 40" fill="none">
-                  <rect x="6" y="8" width="28" height="24" rx="3" stroke="#d4d4d8" strokeWidth="1.5"/>
-                  <path d="M6 14h28" stroke="#d4d4d8" strokeWidth="1.5"/>
-                  <path d="M12 20h10M12 25h16M12 30h8" stroke="#d4d4d8" strokeWidth="1.5" strokeLinecap="round"/>
-                </svg>
-                <h3 className="ldb-empty-title">No activity yet</h3>
-                <p className="ldb-empty-desc">Actions, updates, and status changes for this leave will appear here as they happen.</p>
+            <div className="ldb-card ldb-activity-log">
+              <div className="ldb-activity-list">
+                <div className="ldb-activity-item">
+                  <div className="ldb-activity-dot ldb-activity-dot--completed" />
+                  <div className="ldb-activity-content">
+                    <div className="ldb-activity-header">
+                      <span className="ldb-activity-type">Document Review</span>
+                      <span className="ldb-activity-badge ldb-activity-badge--completed">Completed</span>
+                    </div>
+                    <p className="ldb-activity-update">Your medical certification was reviewed by Mutual of Omaha.</p>
+                    <div className="ldb-activity-meta">
+                      <span className="ldb-activity-date">Apr 18, 2026 · 9:42 AM</span>
+                      <span className="ldb-activity-next">No action needed.</span>
+                    </div>
+                  </div>
+                </div>
+
+                <div className="ldb-activity-item ldb-activity-item--action">
+                  <div className="ldb-activity-dot ldb-activity-dot--action" />
+                  <div className="ldb-activity-content">
+                    <div className="ldb-activity-header">
+                      <span className="ldb-activity-type">Employee Action</span>
+                      <span className="ldb-activity-badge ldb-activity-badge--action">Action Required</span>
+                    </div>
+                    <p className="ldb-activity-update">Additional medical documentation is still needed to continue eligibility review.</p>
+                    <div className="ldb-activity-meta">
+                      <span className="ldb-activity-date">Apr 17, 2026 · 2:15 PM</span>
+                      <span className="ldb-activity-waiting">Waiting on: Employee</span>
+                    </div>
+                    <div className="ldb-activity-next-step">Upload documents by Apr 24 to avoid delays.</div>
+                  </div>
+                </div>
+
+                <div className="ldb-activity-item">
+                  <div className="ldb-activity-dot ldb-activity-dot--progress" />
+                  <div className="ldb-activity-content">
+                    <div className="ldb-activity-header">
+                      <span className="ldb-activity-type">Communication</span>
+                      <span className="ldb-activity-badge ldb-activity-badge--progress">In Progress</span>
+                    </div>
+                    <p className="ldb-activity-update">A message was sent to your healthcare provider requesting certification forms.</p>
+                    <div className="ldb-activity-meta">
+                      <span className="ldb-activity-date">Apr 16, 2026 · 11:08 AM</span>
+                      <span className="ldb-activity-waiting">Waiting on: Healthcare Provider</span>
+                    </div>
+                    <div className="ldb-activity-next-step">Waiting for provider response.</div>
+                  </div>
+                </div>
+
+                <div className="ldb-activity-item">
+                  <div className="ldb-activity-dot ldb-activity-dot--progress" />
+                  <div className="ldb-activity-content">
+                    <div className="ldb-activity-header">
+                      <span className="ldb-activity-type">Eligibility Review</span>
+                      <span className="ldb-activity-badge ldb-activity-badge--progress">In Progress</span>
+                    </div>
+                    <p className="ldb-activity-update">Your leave eligibility review has started.</p>
+                    <div className="ldb-activity-meta">
+                      <span className="ldb-activity-date">Apr 15, 2026 · 8:30 AM</span>
+                      <span className="ldb-activity-waiting">Waiting on: Mutual of Omaha</span>
+                    </div>
+                    <div className="ldb-activity-next-step">Review is currently underway.</div>
+                  </div>
+                </div>
+
+                <div className="ldb-activity-item">
+                  <div className="ldb-activity-dot ldb-activity-dot--completed" />
+                  <div className="ldb-activity-content">
+                    <div className="ldb-activity-header">
+                      <span className="ldb-activity-type">Employer Update</span>
+                      <span className="ldb-activity-badge ldb-activity-badge--completed">Completed</span>
+                    </div>
+                    <p className="ldb-activity-update">Your manager was notified of your approved leave dates.</p>
+                    <div className="ldb-activity-meta">
+                      <span className="ldb-activity-date">Apr 14, 2026 · 4:52 PM</span>
+                      <span className="ldb-activity-next">No action needed.</span>
+                    </div>
+                  </div>
+                </div>
+
+                <div className="ldb-activity-item">
+                  <div className="ldb-activity-dot ldb-activity-dot--completed" />
+                  <div className="ldb-activity-content">
+                    <div className="ldb-activity-header">
+                      <span className="ldb-activity-type">Payment Update</span>
+                      <span className="ldb-activity-badge ldb-activity-badge--completed">Completed</span>
+                    </div>
+                    <p className="ldb-activity-update">Your first disability payment has been scheduled.</p>
+                    <div className="ldb-activity-meta">
+                      <span className="ldb-activity-date">Apr 14, 2026 · 1:20 PM</span>
+                      <span className="ldb-activity-next">Payment expected within 2–3 business days.</span>
+                    </div>
+                  </div>
+                </div>
+
+                <div className="ldb-activity-item">
+                  <div className="ldb-activity-dot ldb-activity-dot--upcoming" />
+                  <div className="ldb-activity-content">
+                    <div className="ldb-activity-header">
+                      <span className="ldb-activity-type">Return to Work</span>
+                      <span className="ldb-activity-badge ldb-activity-badge--upcoming">Upcoming</span>
+                    </div>
+                    <p className="ldb-activity-update">Return-to-work confirmation will be required 7 days before your expected return date.</p>
+                    <div className="ldb-activity-meta">
+                      <span className="ldb-activity-date">Apr 13, 2026 · 10:05 AM</span>
+                      <span className="ldb-activity-waiting">Waiting on: Employee</span>
+                    </div>
+                    <div className="ldb-activity-next-step">A reminder will appear closer to your return date.</div>
+                  </div>
+                </div>
+
+                <div className="ldb-activity-item">
+                  <div className="ldb-activity-dot ldb-activity-dot--completed" />
+                  <div className="ldb-activity-content">
+                    <div className="ldb-activity-header">
+                      <span className="ldb-activity-type">Leave Decision</span>
+                      <span className="ldb-activity-badge ldb-activity-badge--completed">Completed</span>
+                    </div>
+                    <p className="ldb-activity-update">Your FMLA leave was approved.</p>
+                    <div className="ldb-activity-meta">
+                      <span className="ldb-activity-date">Apr 12, 2026 · 3:40 PM</span>
+                      <span className="ldb-activity-next">Your leave is now active.</span>
+                    </div>
+                  </div>
+                </div>
+
+                <div className="ldb-activity-item">
+                  <div className="ldb-activity-dot ldb-activity-dot--completed" />
+                  <div className="ldb-activity-content">
+                    <div className="ldb-activity-header">
+                      <span className="ldb-activity-type">Document Upload</span>
+                      <span className="ldb-activity-badge ldb-activity-badge--completed">Completed</span>
+                    </div>
+                    <p className="ldb-activity-update">You uploaded medical certification documents.</p>
+                    <div className="ldb-activity-meta">
+                      <span className="ldb-activity-date">Apr 10, 2026 · 9:14 AM</span>
+                      <span className="ldb-activity-next">Documents received successfully.</span>
+                    </div>
+                  </div>
+                </div>
+
+                <div className="ldb-activity-item">
+                  <div className="ldb-activity-dot ldb-activity-dot--completed" />
+                  <div className="ldb-activity-content">
+                    <div className="ldb-activity-header">
+                      <span className="ldb-activity-type">Leave Request</span>
+                      <span className="ldb-activity-badge ldb-activity-badge--completed">Completed</span>
+                    </div>
+                    <p className="ldb-activity-update">Your leave request was submitted successfully.</p>
+                    <div className="ldb-activity-meta">
+                      <span className="ldb-activity-date">Apr 8, 2026 · 1:02 PM</span>
+                      <span className="ldb-activity-next">Review process has started.</span>
+                    </div>
+                  </div>
+                </div>
               </div>
             </div>
             )}
