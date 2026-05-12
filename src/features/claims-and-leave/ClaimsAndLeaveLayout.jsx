@@ -49,7 +49,21 @@ export default function ClaimsAndLeaveLayout() {
 
   return (
     <div className="cl-layout">
-      {/* Top header bar */}
+      {/* Brand Header Bar */}
+      <div className="cl-brand-bar">
+        <div className="cl-brand-bar-inner">
+          <div className="cl-brand-bar-logo">
+            <svg width="20" height="20" viewBox="0 0 20 20" fill="none"><circle cx="10" cy="10" r="9" stroke="white" strokeWidth="1.5"/><path d="M5 10c0-2.8 2.2-5 5-5s5 2.2 5 5-2.2 5-5 5-5-2.2-5-5z" stroke="white" strokeWidth="1"/><path d="M7 8l3 2 3-2" stroke="white" strokeWidth="1" strokeLinecap="round"/></svg>
+            <span className="cl-brand-bar-name">Mutual of Omaha</span>
+          </div>
+          <div className="cl-brand-bar-right">
+            <span className="cl-brand-bar-label">GROUP ID:</span>
+            <span className="cl-brand-bar-value">G000CSM5</span>
+          </div>
+        </div>
+      </div>
+
+      {/* Main Navigation Header */}
       <header className="cl-header">
         <div className="cl-header-inner">
           {/* Mobile: hamburger + brand */}
@@ -70,7 +84,7 @@ export default function ClaimsAndLeaveLayout() {
                 </svg>
               )}
             </button>
-            <NavLink to={`${base}/dashboard`} className="cl-brand">Benefits Hub</NavLink>
+            <NavLink to={`${base}/dashboard`} className="cl-brand">Benefit Hub</NavLink>
             {/* Desktop nav */}
             <nav className="cl-main-nav">
               {navLinks.map((link) => (
@@ -115,24 +129,30 @@ export default function ClaimsAndLeaveLayout() {
           </div>
           {/* Right: utility icons + avatar */}
           <div className="cl-header-right">
+            <div className="cl-header-lang">
+              <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><circle cx="8" cy="8" r="6.5" stroke="currentColor" strokeWidth="1.2"/><ellipse cx="8" cy="8" rx="3" ry="6.5" stroke="currentColor" strokeWidth="1.2"/><path d="M1.5 8h13" stroke="currentColor" strokeWidth="1.2"/></svg>
+              <span>ENG</span>
+              <svg width="10" height="10" viewBox="0 0 10 10" fill="none"><path d="M2.5 4l2.5 2.5L7.5 4" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round" strokeLinejoin="round"/></svg>
+            </div>
             <button className="cl-header-icon-btn" aria-label="ID Cards">
-              <svg width="26" height="20" viewBox="0 0 26 20" fill="none">
-                <rect x="1" y="1" width="24" height="18" rx="2" stroke="currentColor" strokeWidth="1.5"/>
-                <circle cx="10" cy="9" r="2.5" stroke="currentColor" strokeWidth="1.2"/>
-                <path d="M5.5 16c0-2.5 2-4 4.5-4s4.5 1.5 4.5 4" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round"/>
-                <path d="M17 7h4M17 10h4M17 13h3" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round"/>
+              <svg width="22" height="16" viewBox="0 0 22 16" fill="none">
+                <rect x="1" y="1" width="20" height="14" rx="2" stroke="currentColor" strokeWidth="1.5"/>
+                <circle cx="8.5" cy="7" r="2" stroke="currentColor" strokeWidth="1.2"/>
+                <path d="M5 13c0-2 1.5-3 3.5-3s3.5 1 3.5 3" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round"/>
+                <path d="M14 5h4M14 7.5h4M14 10h3" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round"/>
               </svg>
+              <span className="cl-header-icon-label">ID Cards</span>
             </button>
             <button className="cl-header-icon-btn cl-header-bell" aria-label="Notifications">
-              <svg width="20" height="22" viewBox="0 0 20 22" fill="none">
-                <path d="M10 1c-1.5 0-2.8.6-3.8 1.5C5.2 3.6 4.5 5.2 4.5 7v4.5L3 13.5V15h14v-1.5l-1.5-2V7c0-1.8-.7-3.4-1.7-4.5C12.8 1.6 11.5 1 10 1z" stroke="currentColor" strokeWidth="1.5" strokeLinejoin="round"/>
-                <path d="M7.5 15v.5a2.5 2.5 0 005 0V15" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"/>
+              <svg width="18" height="20" viewBox="0 0 18 20" fill="none">
+                <path d="M9 1c-1.3 0-2.5.5-3.3 1.3C4.8 3.2 4.2 4.7 4.2 6.2v4L3 12.2V13.5h12v-1.3l-1.2-2V6.2c0-1.5-.6-3-1.5-4C11.5 1.5 10.3 1 9 1z" stroke="currentColor" strokeWidth="1.5" strokeLinejoin="round"/>
+                <path d="M6.8 13.5v.3a2.2 2.2 0 004.4 0v-.3" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"/>
               </svg>
               <span className="cl-bell-dot" />
             </button>
             <div className="cl-avatar">
-              <span className="cl-avatar-circle">SJ</span>
-              <span className="cl-avatar-name">Sarah Johnson</span>
+              <span className="cl-avatar-circle">AB</span>
+              <span className="cl-avatar-name">Name Here</span>
             </div>
           </div>
         </div>
@@ -272,34 +292,68 @@ export default function ClaimsAndLeaveLayout() {
       {/* Footer */}
       <footer className="cl-footer">
         <div className="cl-footer-inner">
+          <h2 className="cl-footer-brand">Benefit Hub</h2>
           <div className="cl-footer-grid">
             <div className="cl-footer-col">
-              <h4 className="cl-footer-heading">Resources</h4>
-              <a href="#" className="cl-footer-link">Leave Policies</a>
-              <a href="#" className="cl-footer-link">FAQs</a>
-              <a href="#" className="cl-footer-link">Forms &amp; Documents</a>
+              <h4 className="cl-footer-heading">Benefits</h4>
+              <a href="#" className="cl-footer-link">All Benefits</a>
+              <a href="#" className="cl-footer-link">Dental</a>
+              <a href="#" className="cl-footer-link">Life</a>
+              <a href="#" className="cl-footer-link">Accident</a>
+              <a href="#" className="cl-footer-link">Hospital Indemnity</a>
             </div>
             <div className="cl-footer-col">
-              <h4 className="cl-footer-heading">Support</h4>
-              <a href="#" className="cl-footer-link">Contact Us</a>
-              <a href="#" className="cl-footer-link">Help Center</a>
-              <a href="#" className="cl-footer-link">Report an Issue</a>
+              <h4 className="cl-footer-heading">Claims</h4>
+              <a href="#" className="cl-footer-link">Dental</a>
+              <a href="#" className="cl-footer-link">Placeholder</a>
+              <a href="#" className="cl-footer-link">Placeholder</a>
+              <a href="#" className="cl-footer-link">Placeholder</a>
+              <a href="#" className="cl-footer-link">Placeholder</a>
             </div>
             <div className="cl-footer-col">
-              <h4 className="cl-footer-heading">Legal</h4>
-              <a href="#" className="cl-footer-link">Privacy Policy</a>
-              <a href="#" className="cl-footer-link">Terms of Use</a>
-              <a href="#" className="cl-footer-link">Accessibility</a>
+              <h4 className="cl-footer-heading">Leave</h4>
+              <a href="#" className="cl-footer-link">My Leave</a>
+              <a href="#" className="cl-footer-link">Request New Leave</a>
+              <a href="#" className="cl-footer-link">Leave Status</a>
+              <a href="#" className="cl-footer-link">Documents &amp; Payments</a>
+              <a href="#" className="cl-footer-link">Resources</a>
             </div>
             <div className="cl-footer-col">
-              <h4 className="cl-footer-heading">Contact</h4>
-              <a href="#" className="cl-footer-link">Phone: 1-800-555-1234</a>
-              <a href="#" className="cl-footer-link">Email: benefits@company.com</a>
-              <a href="#" className="cl-footer-link">Hours: Mon–Fri, 8am–6pm EST</a>
+              <h4 className="cl-footer-heading">Get Assistance</h4>
+              <a href="#" className="cl-footer-link cl-footer-link--chat">
+                Chat Support
+                <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M1 1h9v7H5l-3 3V8H1V1z" stroke="currentColor" strokeWidth="1.2" strokeLinejoin="round"/></svg>
+              </a>
+              <div className="cl-footer-support-row">
+                <div className="cl-footer-support-item">
+                  <span className="cl-footer-support-label">General Support</span>
+                  <a href="#" className="cl-footer-link">1-800-555-0123</a>
+                </div>
+                <div className="cl-footer-support-item">
+                  <span className="cl-footer-support-label">Dental Support</span>
+                  <a href="#" className="cl-footer-link">1-800-555-0124</a>
+                </div>
+                <div className="cl-footer-support-item">
+                  <span className="cl-footer-support-label">Vision Support</span>
+                  <a href="#" className="cl-footer-link">1-800-555-0124</a>
+                </div>
+              </div>
+              <div className="cl-footer-support-row">
+                <div className="cl-footer-support-item">
+                  <span className="cl-footer-support-label">Leave &amp; Supplementary Health Support</span>
+                  <a href="#" className="cl-footer-link">1-800-555-0125</a>
+                </div>
+              </div>
             </div>
           </div>
           <div className="cl-footer-bottom">
-            <span>&copy; 2026 Benefits Hub. All rights reserved.</span>
+            <div className="cl-footer-legal-links">
+              <a href="#" className="cl-footer-legal-link">Privacy Policy</a>
+              <a href="#" className="cl-footer-legal-link">Manage Cookie Preferences</a>
+              <a href="#" className="cl-footer-legal-link">Terms of Use</a>
+              <a href="#" className="cl-footer-legal-link">Accessibility Services</a>
+            </div>
+            <span className="cl-footer-copyright">&copy; 2026 Mutual of Omaha Insurance Company. All rights reserved.</span>
           </div>
         </div>
       </footer>
