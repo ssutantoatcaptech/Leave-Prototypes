@@ -933,6 +933,7 @@ export default function RequestLeaveReactPage() {
             </div>
             <div className="lt-context">
               <p className="lt-context-desc">{formState.leaveType === 'continuous' ? "You'll be fully away from work for the duration of your absence." : formState.leaveType === 'intermittent' ? "Your schedule will vary, as you need time off for flare-ups, treatment, or appointments." : "Reduced Schedule is typically a set or consistent schedule adjustment per day, per week."}</p>
+              <h3 className="section-title">Provide your leave details</h3>
               <div className="bordered-section">
                 {formState.leaveType === 'continuous' ? (
                   <>
@@ -1702,6 +1703,7 @@ export default function RequestLeaveReactPage() {
           {currentStepIndex > 0 ? <button type="button" className="btn btn-back" onClick={goBack}>← Back</button> : null}
           <button type="button" className="btn btn-next" onClick={goNext}>Continue →</button>
         </div>
+        <div className="footer-save-note"><svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M7 1v6l3 3" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round"/><circle cx="7" cy="7" r="6" stroke="currentColor" strokeWidth="1.2"/></svg> All updates saved</div>
       </div>
     );
   }
