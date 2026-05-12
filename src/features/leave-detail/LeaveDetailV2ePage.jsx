@@ -958,7 +958,7 @@ export default function LeaveDetailV2ePage() {
               <table className="ldb-activity-table ldb-activity-table--compact">
                 <thead>
                   <tr>
-                    <th>Date</th>
+                    <th>Date & Time</th>
                     <th>Activity</th>
                     <th>Status</th>
                     <th>Next Step</th>
@@ -966,61 +966,61 @@ export default function LeaveDetailV2ePage() {
                 </thead>
                 <tbody>
                   <tr>
-                    <td className="ldb-activity-td-date">Apr 18, 2026</td>
+                    <td className="ldb-activity-td-date">Apr 18, 2026<span className="ldb-activity-td-time">9:42 AM</span></td>
                     <td><strong>Document Review</strong><br/>Medical certification reviewed by Mutual of Omaha.</td>
                     <td><span className="ldb-activity-badge ldb-activity-badge--completed">Completed</span></td>
                     <td className="ldb-activity-td-muted">—</td>
                   </tr>
                   <tr className="ldb-activity-row--action">
-                    <td className="ldb-activity-td-date">Apr 17, 2026</td>
+                    <td className="ldb-activity-td-date">Apr 17, 2026<span className="ldb-activity-td-time">2:15 PM</span></td>
                     <td><strong>Employee Action</strong><br/>Additional medical documentation needed for eligibility review.</td>
                     <td><span className="ldb-activity-badge ldb-activity-badge--action">Action Required</span></td>
                     <td>Upload documents by Apr 24.</td>
                   </tr>
                   <tr>
-                    <td className="ldb-activity-td-date">Apr 16, 2026</td>
+                    <td className="ldb-activity-td-date">Apr 16, 2026<span className="ldb-activity-td-time">11:08 AM</span></td>
                     <td><strong>Communication</strong><br/>Message sent to healthcare provider requesting certification forms.</td>
                     <td><span className="ldb-activity-badge ldb-activity-badge--progress">In Progress</span></td>
                     <td>Waiting on healthcare provider.</td>
                   </tr>
                   <tr>
-                    <td className="ldb-activity-td-date">Apr 15, 2026</td>
+                    <td className="ldb-activity-td-date">Apr 15, 2026<span className="ldb-activity-td-time">8:30 AM</span></td>
                     <td><strong>Eligibility Review</strong><br/>Leave eligibility review has started.</td>
                     <td><span className="ldb-activity-badge ldb-activity-badge--progress">In Progress</span></td>
                     <td>Under review by Mutual of Omaha.</td>
                   </tr>
                   <tr>
-                    <td className="ldb-activity-td-date">Apr 14, 2026</td>
+                    <td className="ldb-activity-td-date">Apr 14, 2026<span className="ldb-activity-td-time">4:52 PM</span></td>
                     <td><strong>Employer Update</strong><br/>Manager notified of approved leave dates.</td>
                     <td><span className="ldb-activity-badge ldb-activity-badge--completed">Completed</span></td>
                     <td className="ldb-activity-td-muted">—</td>
                   </tr>
                   <tr>
-                    <td className="ldb-activity-td-date">Apr 14, 2026</td>
+                    <td className="ldb-activity-td-date">Apr 14, 2026<span className="ldb-activity-td-time">1:20 PM</span></td>
                     <td><strong>Payment Scheduled</strong><br/>First disability payment has been scheduled.</td>
                     <td><span className="ldb-activity-badge ldb-activity-badge--completed">Completed</span></td>
                     <td>Payment in 2–3 business days.</td>
                   </tr>
                   <tr>
-                    <td className="ldb-activity-td-date">Apr 13, 2026</td>
+                    <td className="ldb-activity-td-date">Apr 13, 2026<span className="ldb-activity-td-time">10:05 AM</span></td>
                     <td><strong>Return to Work</strong><br/>Confirmation required 7 days before expected return date.</td>
                     <td><span className="ldb-activity-badge ldb-activity-badge--upcoming">Upcoming</span></td>
                     <td>Reminder will appear closer to return date.</td>
                   </tr>
                   <tr>
-                    <td className="ldb-activity-td-date">Apr 12, 2026</td>
+                    <td className="ldb-activity-td-date">Apr 12, 2026<span className="ldb-activity-td-time">3:40 PM</span></td>
                     <td><strong>Leave Decision</strong><br/>FMLA leave was approved.</td>
                     <td><span className="ldb-activity-badge ldb-activity-badge--completed">Completed</span></td>
                     <td className="ldb-activity-td-muted">—</td>
                   </tr>
                   <tr>
-                    <td className="ldb-activity-td-date">Apr 10, 2026</td>
+                    <td className="ldb-activity-td-date">Apr 10, 2026<span className="ldb-activity-td-time">9:14 AM</span></td>
                     <td><strong>Document Upload</strong><br/>Medical certification documents uploaded.</td>
                     <td><span className="ldb-activity-badge ldb-activity-badge--completed">Completed</span></td>
                     <td className="ldb-activity-td-muted">—</td>
                   </tr>
                   <tr>
-                    <td className="ldb-activity-td-date">Apr 8, 2026</td>
+                    <td className="ldb-activity-td-date">Apr 8, 2026<span className="ldb-activity-td-time">1:02 PM</span></td>
                     <td><strong>Leave Request</strong><br/>Leave request submitted successfully.</td>
                     <td><span className="ldb-activity-badge ldb-activity-badge--completed">Completed</span></td>
                     <td>Review process has started.</td>

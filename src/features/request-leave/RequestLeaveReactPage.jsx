@@ -104,6 +104,67 @@ const optionIcons = {
   unsure: <svg width="22" height="22" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="9" stroke="currentColor" strokeWidth="1.5"/><path d="M9 9a3 3 0 015.12 1.5c0 1.5-2.12 2-2.12 3.5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"/><circle cx="12" cy="17" r="0.75" fill="currentColor"/></svg>,
 };
 
+function CalendarIcon() {
+  return (
+    <svg className="input-icon input-icon--calendar" width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <rect x="2" y="3" width="12" height="11" rx="1.5" stroke="#62626e" strokeWidth="1.2"/>
+      <path d="M2 6.5h12M5.5 1.5v3M10.5 1.5v3" stroke="#62626e" strokeWidth="1.2" strokeLinecap="round"/>
+    </svg>
+  );
+}
+
+function ChevronIcon() {
+  return (
+    <svg className="input-icon input-icon--chevron" width="12" height="8" viewBox="0 0 12 8" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M1 1.5L6 6.5L11 1.5" stroke="#62626e" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+    </svg>
+  );
+}
+
+function DateInput({ value, onChange, placeholder = 'mm/dd/yyyy', ...props }) {
+  const displayValue = value ? new Date(`${value}T00:00:00`).toLocaleDateString('en-US', { month: '2-digit', day: '2-digit', year: 'numeric' }) : '';
+  return (
+    <div className="date-input-wrapper">
+      <input type="text" value={displayValue} readOnly placeholder={placeholder} onClick={(e) => { const hidden = e.target.nextSibling; if (hidden) hidden.showPicker?.(); }} {...props} />
+      <input type="date" className="date-input-hidden" value={value} onChange={onChange} tabIndex={-1} />
+      <CalendarIcon />
+    </div>
+  );
+}
+
+function SelectInput({ value, onChange, children, ...props }) {
+  const options = [];
+  const extractOptions = (nodes) => {
+    (Array.isArray(nodes) ? nodes : [nodes]).forEach((child) => {
+      if (!child) return;
+      if (Array.isArray(child)) { extractOptions(child); return; }
+      if (child.props && child.type === 'option') {
+        options.push({ value: child.props.value ?? child.props.children, label: child.props.children });
+      }
+    });
+  };
+  extractOptions(children);
+  const selectedLabel = options.find((o) => String(o.value) === String(value))?.label || value || 'Select...';
+  return (
+    <div className="select-input-wrapper">
+      <div className="select-display" onClick={(e) => { const sel = e.currentTarget.nextSibling; if (sel) sel.click(); }}>{selectedLabel}</div>
+      <select className="select-hidden" value={value} onChange={onChange} {...props}>{children}</select>
+      <ChevronIcon />
+    </div>
+  );
+}
+
+function CommCheckbox({ checked, onChange, label }) {
+  return (
+    <label className="comm-check" onClick={(e) => { e.preventDefault(); onChange({ target: { checked: !checked } }); }}>
+      <span className={`comm-check-box${checked ? ' checked' : ''}`}>
+        {checked && <svg width="10" height="8" viewBox="0 0 10 8" fill="none"><path d="M1 4l2.5 2.5L9 1" stroke="#fff" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/></svg>}
+      </span>
+      {label}
+    </label>
+  );
+}
+
 let _cachedPlanTransfer = null;
 function getPlanTransfer() {
   if (_cachedPlanTransfer) return _cachedPlanTransfer;
@@ -214,6 +275,7 @@ export default function RequestLeaveReactPage() {
   const isMobileRequest = rlLocation.pathname.startsWith('/claims-and-leave-mobile');
   const rlBase = isMobileRequest ? '/claims-and-leave-mobile' : '/claims-and-leave';
   const [searchParams, setSearchParams] = useSearchParams();
+  const hideChrome = searchParams.get('chrome') === '0';
   const [fromPlan] = useState(() => {
     const data = getPlanTransfer();
     console.log('[wizard] planTransfer data:', data);
@@ -281,7 +343,12 @@ export default function RequestLeaveReactPage() {
     const urlStep = searchParams.get('step');
     return !!fromPlan || (urlStep && urlStep !== '0');
   });
-  const [submittedCase, setSubmittedCase] = useState(null);
+  const [submittedCase, setSubmittedCase] = useState(() => {
+    if (searchParams.get('submitted') === '1') {
+      return { id: 'NTN-4821', startDate: '2026-06-01', endDate: '2026-09-15', durationDays: 106, leaveType: 'continuous', reason: 'Illness or Injury', provider: 'Dr. Dempsey', facility: "St. Luke's Medical Center", leaveScenario: 'medical_self' };
+    }
+    return null;
+  });
   const [hidePlanBar, setHidePlanBar] = useState(false);
   const [showCancelModal, setShowCancelModal] = useState(false);
   const [hoveredBenefitBar, setHoveredBenefitBar] = useState(null);
@@ -360,6 +427,8 @@ export default function RequestLeaveReactPage() {
     var session = null;
     var saved = null;
     var isResume = searchParams.get('resume') === '1';
+    const urlStepIdx = searchParams.get('stepIdx');
+    if (urlStepIdx !== null) return Math.min(parseInt(urlStepIdx, 10), steps.length - 1);
     try { session = JSON.parse(sessionStorage.getItem(DRAFT_KEY)); } catch (e) { /* ignore */ }
     try { saved = JSON.parse(localStorage.getItem(DRAFT_KEY)); } catch (e) { /* ignore */ }
     if (session && session.stepIndex !== undefined && !fromPlan) {
@@ -380,6 +449,16 @@ export default function RequestLeaveReactPage() {
     localStorage.setItem(DRAFT_KEY, JSON.stringify({ formState, stepIndex: currentStepIndex }));
     sessionStorage.setItem(DRAFT_KEY, JSON.stringify({ formState, stepIndex: currentStepIndex }));
   }, [formState, currentStepIndex]);
+
+  useEffect(() => {
+    if (submittedCase) {
+      document.title = `Intake — ${String(steps.length + 1).padStart(2, '0')} Leave Request Submitted`;
+    } else if (started && currentStep) {
+      document.title = `Intake — ${String(currentStepIndex + 1).padStart(2, '0')} ${currentStep.title}`;
+    } else {
+      document.title = 'Request Leave — Get Started';
+    }
+  }, [currentStepIndex, currentStep, started, submittedCase, steps.length]);
 
   function updateField(key, value) {
     setFormState((previous) => ({ ...previous, [key]: value }));
@@ -743,11 +822,10 @@ export default function RequestLeaveReactPage() {
       <>
         {formState.missedDateEntries.map((entry, index) => (
           <div key={`${index}-${entry.date}`} className="missed-entry">
-            {formState.missedDateEntries.length > 1 && showReason ? <div className="missed-entry-top"><button type="button" className="missed-entry-remove-text" onClick={() => removeMissedDateEntry(index)}>Remove</button></div> : null}
             <div className="missed-entry-row1">
               <div className="form-group missed-entry-date">
                 <label>{index === 0 ? (showReason ? 'Day(s) you missed work' : 'Date') : ' '}</label>
-                <input type="date" value={entry.date} onChange={(event) => updateMissedDateEntry(index, 'date', event.target.value)}/>
+                <DateInput value={entry.date} onChange={(event) => updateMissedDateEntry(index, 'date', event.target.value)}/>
               </div>
               {showReason && (
                 <div className="form-group missed-entry-time">
@@ -765,13 +843,13 @@ export default function RequestLeaveReactPage() {
                 <label>{index === 0 ? (showReason ? 'Total Hrs | Min' : 'Hrs | Min') : ' '}</label>
                 <input type="text" value={entry.hours} onChange={(event) => updateMissedDateEntry(index, 'hours', event.target.value)}/>
               </div>
-              {formState.missedDateEntries.length > 1 && !showReason ? <button type="button" className="missed-entry-remove" onClick={() => removeMissedDateEntry(index)}>—</button> : null}
+              {formState.missedDateEntries.length > 1 ? <button type="button" className="missed-entry-remove" onClick={() => removeMissedDateEntry(index)}>—</button> : null}
             </div>
             {showReason ? (
               <div className="missed-entry-row2">
                 <div className="form-group missed-entry-reason">
                   <label>{index === 0 ? 'Reason' : ' '}</label>
-                  <select value={entry.reason || ''} onChange={(event) => updateMissedDateEntry(index, 'reason', event.target.value)}>
+                  <SelectInput value={entry.reason || ''} onChange={(event) => updateMissedDateEntry(index, 'reason', event.target.value)}>
                     <option value="">Select reason</option>
                     <option value="Episode">Episode</option>
                     <option value="Treatment">Treatment</option>
@@ -779,7 +857,7 @@ export default function RequestLeaveReactPage() {
                     <option value="Flare-up">Flare-up</option>
                     <option value="Appointment">Appointment</option>
                     <option value="Other">Other</option>
-                  </select>
+                  </SelectInput>
                 </div>
               </div>
             ) : null}
@@ -823,7 +901,7 @@ export default function RequestLeaveReactPage() {
             {formState.leaveScenario === 'other' && (
               <div className="form-group" style={{ marginTop: 16 }}>
                 <label>Select a reason</label>
-                <select value={formState.otherLeaveReason} onChange={(event) => { updateField('otherLeaveReason', event.target.value); setOtherReasonError(false); }}>
+                <SelectInput value={formState.otherLeaveReason} onChange={(event) => { updateField('otherLeaveReason', event.target.value); setOtherReasonError(false); }}>
                   <option value="">Select...</option>
                   <option value="Personal">Personal</option>
                   <option value="Court Appearance/Witness Leave">Court Appearance/Witness Leave</option>
@@ -831,7 +909,7 @@ export default function RequestLeaveReactPage() {
                   <option value="Volunteer Emergency Responder">Volunteer Emergency Responder</option>
                   <option value="Organ or Blood Donor">Organ or Blood Donor</option>
                   <option value="Voting">Voting</option>
-                </select>
+                </SelectInput>
                 {otherReasonError && !formState.otherLeaveReason && (
                   <div style={{ color: '#dc2626', fontSize: 13, marginTop: 6 }}>Please select a reason to continue.</div>
                 )}
@@ -859,30 +937,30 @@ export default function RequestLeaveReactPage() {
                 {formState.leaveType === 'continuous' ? (
                   <>
                     <div className="form-row cols-2">
-                      <div className="form-group"><label>Anticipated Start Date <span className="req">*</span></label><input type="date" value={formState.leaveStartDate} onChange={(event) => updateField('leaveStartDate', event.target.value)}/></div>
-                      <div className="form-group"><label>Expected Return to Work Date</label><input type="date" value={formState.expectedReturnDate} onChange={(event) => updateField('expectedReturnDate', event.target.value)}/><div className="helper">Your best estimate of when you expect to return to work.</div></div>
+                      <div className="form-group"><label>Anticipated Start Date <span className="req">*</span></label><DateInput value={formState.leaveStartDate} onChange={(event) => updateField('leaveStartDate', event.target.value)}/></div>
+                      <div className="form-group"><label>Expected Return to Work Date</label><DateInput value={formState.expectedReturnDate} onChange={(event) => updateField('expectedReturnDate', event.target.value)}/><div className="helper">Your best estimate of when you expect to return to work.</div></div>
                     </div>
                     <div className="form-row cols-2" style={{ marginBottom: 0 }}>
-                      <div className="form-group" style={{ marginBottom: 0 }}><label>What was your last day worked?</label><input type="date" value={formState.lastDayWorked} onChange={(event) => updateField('lastDayWorked', event.target.value)}/></div>
+                      <div className="form-group" style={{ marginBottom: 0 }}><label>What was your last day worked?</label><DateInput value={formState.lastDayWorked} onChange={(event) => updateField('lastDayWorked', event.target.value)}/></div>
                       <div className="form-group" style={{ marginBottom: 0 }}><label>Hours missed on last day worked<span className="req">*</span></label><input type="text" value={formState.hoursLastDay} onChange={(event) => updateField('hoursLastDay', event.target.value)}/></div>
                     </div>
                   </>
                 ) : formState.leaveType === 'intermittent' ? (
                   <>
-                    <div className="form-group"><label>Anticipated Start Date <span className="req">*</span></label><input type="date" value={formState.leaveStartDate} onChange={(event) => updateField('leaveStartDate', event.target.value)}/></div>
+                    <div className="form-group"><label>Anticipated Start Date <span className="req">*</span></label><DateInput value={formState.leaveStartDate} onChange={(event) => updateField('leaveStartDate', event.target.value)}/></div>
                     <div className="form-row cols-2" style={{ marginBottom: 0 }}>
-                      <div className="form-group" style={{ marginBottom: 0 }}><label>What was your last day worked?</label><input type="date" value={formState.lastDayWorked} onChange={(event) => updateField('lastDayWorked', event.target.value)}/></div>
+                      <div className="form-group" style={{ marginBottom: 0 }}><label>What was your last day worked?</label><DateInput value={formState.lastDayWorked} onChange={(event) => updateField('lastDayWorked', event.target.value)}/></div>
                       <div className="form-group" style={{ marginBottom: 0 }}><label>Hours missed on last day worked<span className="req">*</span></label><input type="text" value={formState.hoursLastDay} onChange={(event) => updateField('hoursLastDay', event.target.value)}/></div>
                     </div>
                   </>
                 ) : (
                   <>
                     <div className="form-row cols-2">
-                      <div className="form-group"><label>Anticipated Start Date <span className="req">*</span></label><input type="date" value={formState.leaveStartDate} onChange={(event) => updateField('leaveStartDate', event.target.value)}/></div>
+                      <div className="form-group"><label>Anticipated Start Date <span className="req">*</span></label><DateInput value={formState.leaveStartDate} onChange={(event) => updateField('leaveStartDate', event.target.value)}/></div>
                       <div className="form-group"><label>Hours per week you plan to work</label><input type="number" value={formState.reducedHoursPerWeek} onChange={(event) => updateField('reducedHoursPerWeek', event.target.value)}/></div>
                     </div>
                     <div className="form-row cols-2" style={{ marginBottom: 0 }}>
-                      <div className="form-group" style={{ marginBottom: 0 }}><label>What was your last day worked?</label><input type="date" value={formState.lastDayWorked} onChange={(event) => updateField('lastDayWorked', event.target.value)}/></div>
+                      <div className="form-group" style={{ marginBottom: 0 }}><label>What was your last day worked?</label><DateInput value={formState.lastDayWorked} onChange={(event) => updateField('lastDayWorked', event.target.value)}/></div>
                       <div className="form-group" style={{ marginBottom: 0 }}><label>Hours missed on last day worked<span className="req">*</span></label><input type="text" value={formState.hoursLastDay} onChange={(event) => updateField('hoursLastDay', event.target.value)}/></div>
                     </div>
                   </>
@@ -894,16 +972,10 @@ export default function RequestLeaveReactPage() {
       case 'missedTime': {
         const isIntermittentOrReduced = formState.leaveType === 'intermittent' || formState.leaveType === 'reduced';
         const isContinuous = formState.leaveType === 'continuous';
-        const missedSubtitle = isMedicalSelf ? "Log any work days you've already missed due to your illness or injury."
-          : isFamilyCare ? "Log any work days you've already missed to care for your family member."
-          : isBirthingParent ? "Log any work days you've already missed due to pregnancy or delivery."
-          : isChildScenario ? "Log any work days you've already missed for bonding or placement."
-          : isMilitary ? "Log any work days you've already missed for military-related activities."
-          : "Log any work days you've already missed related to your leave reason.";
         return (
           <>
             <h2>Did you miss any work time before starting this leave?</h2>
-            <p className="subtitle">{missedSubtitle}</p>
+            <p className="subtitle">Log any work days you've already missed for this condition.</p>
             <div className="yesno" style={{ marginBottom: 16 }}>
               <button type="button" className={`yesno-btn ${formState.alreadyMissedTime === true ? 'selected' : ''}`} onClick={() => updateField('alreadyMissedTime', true)}>Yes</button>
               <button type="button" className={`yesno-btn ${formState.alreadyMissedTime === false ? 'selected' : ''}`} onClick={() => updateField('alreadyMissedTime', false)}>No</button>
@@ -913,7 +985,7 @@ export default function RequestLeaveReactPage() {
                 <div className="form-row cols-2">
                   <div className="form-group">
                     <label>What was the first day you missed work? <span className="req">*</span></label>
-                    <input type="date" value={formState.missedDateEntries[0]?.date || ''} onChange={(event) => updateMissedDateEntry(0, 'date', event.target.value)} />
+                    <DateInput value={formState.missedDateEntries[0]?.date || ''} onChange={(event) => updateMissedDateEntry(0, 'date', event.target.value)} />
                   </div>
                   <div className="form-group">
                     <label>Hours scheduled to work <span className="req">*</span></label>
@@ -946,15 +1018,15 @@ export default function RequestLeaveReactPage() {
                   <div className="form-group"><label>Last Name <span className="req">*</span></label><input type="text" value={formState.familyLastName} onChange={(event) => updateField('familyLastName', event.target.value)}/></div>
                 </div>
                 <div className="form-row cols-2">
-                  <div className="form-group"><label>Relationship <span className="req">*</span></label><select value={formState.familyRelationship} onChange={(event) => updateField('familyRelationship', event.target.value)}><option value="">Select...</option><option value="spouse">Spouse</option><option value="parent">Parent</option><option value="child">Child</option><option value="sibling">Sibling</option><option value="other">Other</option></select></div>
-                  <div className="form-group"><label>Date of Birth</label><input type="date" value={formState.familyDob} onChange={(event) => updateField('familyDob', event.target.value)}/></div>
+                  <div className="form-group"><label>Relationship <span className="req">*</span></label><SelectInput value={formState.familyRelationship} onChange={(event) => updateField('familyRelationship', event.target.value)}><option value="">Select...</option><option value="spouse">Spouse</option><option value="parent">Parent</option><option value="child">Child</option><option value="sibling">Sibling</option><option value="other">Other</option></SelectInput></div>
+                  <div className="form-group"><label>Date of Birth</label><DateInput value={formState.familyDob} onChange={(event) => updateField('familyDob', event.target.value)}/></div>
                 </div>
               </div>
               <div className="bordered-section">
                 <div className="form-group"><label>Diagnosis / Condition</label><input type="text" value={formState.diagnosis} onChange={(event) => updateField('diagnosis', event.target.value)}/></div>
                 <div className="form-row cols-2" style={{ marginBottom: 0 }}>
-                  <div className="form-group" style={{ marginBottom: 0 }}><label>First Date of Treatment</label><input type="date" value={formState.firstTreatment} onChange={(event) => updateField('firstTreatment', event.target.value)}/></div>
-                  <div className="form-group" style={{ marginBottom: 0 }}><label>Next Scheduled Appointment</label><input type="date" value={formState.nextAppointment} onChange={(event) => updateField('nextAppointment', event.target.value)}/></div>
+                  <div className="form-group" style={{ marginBottom: 0 }}><label>First Date of Treatment</label><DateInput value={formState.firstTreatment} onChange={(event) => updateField('firstTreatment', event.target.value)}/></div>
+                  <div className="form-group" style={{ marginBottom: 0 }}><label>Next Scheduled Appointment</label><DateInput value={formState.nextAppointment} onChange={(event) => updateField('nextAppointment', event.target.value)}/></div>
                 </div>
               </div>
             </>
@@ -979,8 +1051,8 @@ export default function RequestLeaveReactPage() {
             </div>
             </div>
             <div className="form-row cols-2" style={{ marginTop: 24 }}>
-              <div className="form-group"><label>First Date of Treatment</label><input type="date" value={formState.firstTreatment} onChange={(event) => updateField('firstTreatment', event.target.value)}/></div>
-              <div className="form-group"><label>Next Scheduled Appointment</label><input type="date" value={formState.nextAppointment} onChange={(event) => updateField('nextAppointment', event.target.value)}/></div>
+              <div className="form-group"><label>First Date of Treatment</label><DateInput value={formState.firstTreatment} onChange={(event) => updateField('firstTreatment', event.target.value)}/></div>
+              <div className="form-group"><label>Next Scheduled Appointment</label><DateInput value={formState.nextAppointment} onChange={(event) => updateField('nextAppointment', event.target.value)}/></div>
             </div>
             <div className="form-group" style={{ marginBottom: 0 }}><label>Medical Condition (Optional)</label><input type="text" placeholder="e.g., back surgery, chronic condition" value={formState.diagnosis} onChange={(event) => updateField('diagnosis', event.target.value)}/></div>
           </>
@@ -1004,7 +1076,7 @@ export default function RequestLeaveReactPage() {
               <div className="form-group"><label>Street Address</label><input type="text" value={formState.providerStreet} onChange={(event) => updateField('providerStreet', event.target.value)}/></div>
               <div className="form-row cols-3" style={{ marginBottom: 0 }}>
                 <div className="form-group" style={{ marginBottom: 0 }}><label>City</label><input type="text" value={formState.providerCity} onChange={(event) => updateField('providerCity', event.target.value)}/></div>
-                <div className="form-group" style={{ marginBottom: 0 }}><label>State</label><select value={formState.providerState} onChange={(event) => updateField('providerState', event.target.value)}><option value="">Select...</option>{stateOptions.map((option) => <option key={option} value={option}>{option}</option>)}</select></div>
+                <div className="form-group" style={{ marginBottom: 0 }}><label>State</label><SelectInput value={formState.providerState} onChange={(event) => updateField('providerState', event.target.value)}><option value="">Select...</option>{stateOptions.map((option) => <option key={option} value={option}>{option}</option>)}</SelectInput></div>
                 <div className="form-group" style={{ marginBottom: 0 }}><label>ZIP</label><input type="text" value={formState.providerZip} onChange={(event) => updateField('providerZip', event.target.value)}/></div>
               </div>
             </div>
@@ -1026,12 +1098,14 @@ export default function RequestLeaveReactPage() {
             <p className="subtitle">We need a few details about your family member to determine your coverage. Their medical information will be kept confidential.</p>
             <div className="bordered-section">
               <div className="section-title" style={{ display: 'flex', alignItems: 'center', gap: 8 }}><svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2" stroke="#4b5563" strokeWidth="1.5" strokeLinecap="round"/><circle cx="12" cy="7" r="4" stroke="#4b5563" strokeWidth="1.5"/></svg>Family Member Information</div>
-              <div className="form-group"><label>Relationship <span className="req">*</span></label><select value={formState.familyRelationship} onChange={(event) => updateField('familyRelationship', event.target.value)}><option value="">Select...</option><option value="spouse">Spouse</option><option value="parent">Parent</option><option value="child">Child</option><option value="sibling">Sibling</option><option value="other">Other</option></select><div className="helper">Your relationship determines which leave protections and benefits may apply.</div></div>
               <div className="form-row cols-2">
                 <div className="form-group"><label>First Name <span className="req">*</span></label><input type="text" value={formState.familyFirstName} onChange={(event) => updateField('familyFirstName', event.target.value)}/></div>
                 <div className="form-group"><label>Last Name <span className="req">*</span></label><input type="text" value={formState.familyLastName} onChange={(event) => updateField('familyLastName', event.target.value)}/></div>
               </div>
-              <div className="form-group" style={{ marginBottom: 0 }}><label>Date of Birth {formState.familyRelationship === 'child' && <span className="req">*</span>}</label><input type="date" value={formState.familyDob} onChange={(event) => updateField('familyDob', event.target.value)}/></div>
+              <div className="form-row cols-2" style={{ marginBottom: 0 }}>
+                <div className="form-group" style={{ marginBottom: 0 }}><label>Relationship <span className="req">*</span></label><SelectInput value={formState.familyRelationship} onChange={(event) => updateField('familyRelationship', event.target.value)}><option value="">Select...</option><option value="spouse">Spouse</option><option value="parent">Parent</option><option value="child">Child</option><option value="sibling">Sibling</option><option value="other">Other</option></SelectInput></div>
+                <div className="form-group" style={{ marginBottom: 0 }}><label>Date of Birth</label><DateInput value={formState.familyDob} onChange={(event) => updateField('familyDob', event.target.value)}/></div>
+              </div>
             </div>
           </>
         );
@@ -1043,8 +1117,8 @@ export default function RequestLeaveReactPage() {
             <div className="bordered-section">
               <div className="form-group"><label>Medical Condition <span className="req">*</span></label><input type="text" placeholder="e.g., back surgery, chronic condition" value={formState.diagnosis} onChange={(event) => updateField('diagnosis', event.target.value)}/></div>
               <div className="form-row cols-2" style={{ marginBottom: 0 }}>
-                <div className="form-group" style={{ marginBottom: 0 }}><label>First Date of Treatment</label><input type="date" value={formState.firstTreatment} onChange={(event) => updateField('firstTreatment', event.target.value)}/></div>
-                <div className="form-group" style={{ marginBottom: 0 }}><label>Next Scheduled Appointment</label><input type="date" value={formState.nextAppointment} onChange={(event) => updateField('nextAppointment', event.target.value)}/></div>
+                <div className="form-group" style={{ marginBottom: 0 }}><label>First Date of Treatment</label><DateInput value={formState.firstTreatment} onChange={(event) => updateField('firstTreatment', event.target.value)}/></div>
+                <div className="form-group" style={{ marginBottom: 0 }}><label>Next Scheduled Appointment</label><DateInput value={formState.nextAppointment} onChange={(event) => updateField('nextAppointment', event.target.value)}/></div>
               </div>
             </div>
             <div className="bordered-section">
@@ -1075,7 +1149,7 @@ export default function RequestLeaveReactPage() {
               <div className="form-group"><label>Street Address</label><input type="text" value={formState.providerStreet} onChange={(event) => updateField('providerStreet', event.target.value)}/></div>
               <div className="form-row cols-3" style={{ marginBottom: 0 }}>
                 <div className="form-group" style={{ marginBottom: 0 }}><label>City</label><input type="text" value={formState.providerCity} onChange={(event) => updateField('providerCity', event.target.value)}/></div>
-                <div className="form-group" style={{ marginBottom: 0 }}><label>State</label><select value={formState.providerState} onChange={(event) => updateField('providerState', event.target.value)}><option value="">Select...</option>{stateOptions.map((option) => <option key={option} value={option}>{option}</option>)}</select></div>
+                <div className="form-group" style={{ marginBottom: 0 }}><label>State</label><SelectInput value={formState.providerState} onChange={(event) => updateField('providerState', event.target.value)}><option value="">Select...</option>{stateOptions.map((option) => <option key={option} value={option}>{option}</option>)}</SelectInput></div>
                 <div className="form-group" style={{ marginBottom: 0 }}><label>ZIP</label><input type="text" value={formState.providerZip} onChange={(event) => updateField('providerZip', event.target.value)}/></div>
               </div>
             </div>
@@ -1128,7 +1202,7 @@ export default function RequestLeaveReactPage() {
                   <div className="form-group"><label>Street Address</label><input type="text" value={formState.providerStreet} onChange={(event) => updateField('providerStreet', event.target.value)}/></div>
                   <div className="form-row cols-3" style={{ marginBottom: 0 }}>
                     <div className="form-group" style={{ marginBottom: 0 }}><label>City</label><input type="text" value={formState.providerCity} onChange={(event) => updateField('providerCity', event.target.value)}/></div>
-                    <div className="form-group" style={{ marginBottom: 0 }}><label>State</label><select value={formState.providerState} onChange={(event) => updateField('providerState', event.target.value)}><option value="">Select...</option>{stateOptions.map((option) => <option key={option} value={option}>{option}</option>)}</select></div>
+                    <div className="form-group" style={{ marginBottom: 0 }}><label>State</label><SelectInput value={formState.providerState} onChange={(event) => updateField('providerState', event.target.value)}><option value="">Select...</option>{stateOptions.map((option) => <option key={option} value={option}>{option}</option>)}</SelectInput></div>
                     <div className="form-group" style={{ marginBottom: 0 }}><label>ZIP</label><input type="text" value={formState.providerZip} onChange={(event) => updateField('providerZip', event.target.value)}/></div>
                   </div>
                 </div>
@@ -1210,7 +1284,7 @@ export default function RequestLeaveReactPage() {
                 <button type="button" className={`yesno-btn ${formState.childAlreadyExists ? 'selected' : ''}`} onClick={() => updateField('childAlreadyExists', true)}>Yes</button>
                 <button type="button" className={`yesno-btn ${formState.childAlreadyExists === false ? 'selected' : ''}`} onClick={() => updateField('childAlreadyExists', false)}>No</button>
               </div>
-              <div className="form-group" style={{ marginBottom: 0 }}><label>{formState.childAlreadyExists ? 'Date of Birth' : 'Expected Due Date'} <span className="req">*</span></label><input type="date" value={formState.childAlreadyExists ? formState.childDate : formState.expectedDate} onChange={(event) => formState.childAlreadyExists ? updateField('childDate', event.target.value) : updateField('expectedDate', event.target.value)}/></div>
+              <div className="form-group" style={{ marginBottom: 0 }}><label>{formState.childAlreadyExists ? 'Date of Birth' : 'Expected Due Date'} <span className="req">*</span></label><DateInput value={formState.childAlreadyExists ? formState.childDate : formState.expectedDate} onChange={(event) => formState.childAlreadyExists ? updateField('childDate', event.target.value) : updateField('expectedDate', event.target.value)}/></div>
             </>
           );
         }
@@ -1230,7 +1304,7 @@ export default function RequestLeaveReactPage() {
               <p className="lt-context-desc">{formState.childScenario === 'birth' ? 'Includes medical recovery time plus bonding leave.' : 'Includes bonding leave from the date of placement.'}</p>
               <div className="lt-detail-fields">
                 {formState.childScenario === 'foster' ? (
-                  <div className="form-group" style={{ marginBottom: 0 }}><label>Placement Date <span className="req">*</span></label><input type="date" value={formState.childDate} onChange={(event) => updateField('childDate', event.target.value)}/></div>
+                  <div className="form-group" style={{ marginBottom: 0 }}><label>Placement Date <span className="req">*</span></label><DateInput value={formState.childDate} onChange={(event) => updateField('childDate', event.target.value)}/></div>
                 ) : (
                   <>
                     <label>{formState.childScenario === 'birth' ? 'Has the birth already occurred?' : 'Has the child been placed with you yet?'}</label>
@@ -1239,7 +1313,7 @@ export default function RequestLeaveReactPage() {
                       <button type="button" className={`yesno-btn ${formState.childAlreadyExists === false ? 'selected' : ''}`} onClick={() => updateField('childAlreadyExists', false)}>No</button>
                     </div>
                     <div style={{ marginTop: '14px' }}>
-                      <div className="form-group" style={{ marginBottom: 0 }}><label>{formState.childAlreadyExists ? (formState.childScenario === 'birth' ? 'Date of Birth' : 'Placement Date') : (formState.childScenario === 'birth' ? 'Expected Due Date' : 'Expected Placement Date')} <span className="req">*</span></label><input type="date" value={formState.childAlreadyExists ? formState.childDate : formState.expectedDate} onChange={(event) => formState.childAlreadyExists ? updateField('childDate', event.target.value) : updateField('expectedDate', event.target.value)}/></div>
+                      <div className="form-group" style={{ marginBottom: 0 }}><label>{formState.childAlreadyExists ? (formState.childScenario === 'birth' ? 'Date of Birth' : 'Placement Date') : (formState.childScenario === 'birth' ? 'Expected Due Date' : 'Expected Placement Date')} <span className="req">*</span></label><DateInput value={formState.childAlreadyExists ? formState.childDate : formState.expectedDate} onChange={(event) => formState.childAlreadyExists ? updateField('childDate', event.target.value) : updateField('expectedDate', event.target.value)}/></div>
                     </div>
                   </>
                 )}
@@ -1299,9 +1373,9 @@ export default function RequestLeaveReactPage() {
               <div style={{ marginTop: '4px' }}>
                 <label style={{ fontSize: '13px', fontWeight: 600, color: '#374151', display: 'block', marginBottom: '10px' }}>Preferred Communication Method</label>
                 <div style={{ display: 'flex', gap: '16px', flexWrap: 'wrap' }}>
-                  <label className="comm-check"><input type="checkbox" checked={formState.commEmail} onChange={(event) => updateField('commEmail', event.target.checked)}/> Email</label>
-                  <label className="comm-check"><input type="checkbox" checked={formState.commPhone} onChange={(event) => updateField('commPhone', event.target.checked)}/> Phone (Call)</label>
-                  <label className="comm-check"><input type="checkbox" checked={formState.commSMS} onChange={(event) => updateField('commSMS', event.target.checked)}/> SMS</label>
+                  <CommCheckbox checked={formState.commEmail} onChange={(event) => updateField('commEmail', event.target.checked)} label="Email" />
+                  <CommCheckbox checked={formState.commPhone} onChange={(event) => updateField('commPhone', event.target.checked)} label="Phone (Call)" />
+                  <CommCheckbox checked={formState.commSMS} onChange={(event) => updateField('commSMS', event.target.checked)} label="SMS" />
                 </div>
               </div>
             </div>
@@ -1318,12 +1392,12 @@ export default function RequestLeaveReactPage() {
                   <div className="form-group"><label>Street Address</label><input type="text" value={formState.tempStreet} onChange={(event) => updateField('tempStreet', event.target.value)}/></div>
                   <div className="form-row cols-3">
                     <div className="form-group"><label>City</label><input type="text" value={formState.tempCity} onChange={(event) => updateField('tempCity', event.target.value)}/></div>
-                    <div className="form-group"><label>State</label><select value={formState.tempState} onChange={(event) => updateField('tempState', event.target.value)}>{stateOptions.map((option) => <option key={option} value={option}>{option}</option>)}</select></div>
+                    <div className="form-group"><label>State</label><SelectInput value={formState.tempState} onChange={(event) => updateField('tempState', event.target.value)}>{stateOptions.map((option) => <option key={option} value={option}>{option}</option>)}</SelectInput></div>
                     <div className="form-group"><label>ZIP</label><input type="text" value={formState.tempZip} onChange={(event) => updateField('tempZip', event.target.value)}/></div>
                   </div>
                   <div className="form-row cols-2" style={{ marginBottom: 0 }}>
-                    <div className="form-group" style={{ marginBottom: 0 }}><label>Start Date</label><input type="date" value={formState.tempStart} onChange={(event) => updateField('tempStart', event.target.value)}/></div>
-                    <div className="form-group" style={{ marginBottom: 0 }}><label>End Date</label><input type="date" value={formState.tempEnd} onChange={(event) => updateField('tempEnd', event.target.value)}/></div>
+                    <div className="form-group" style={{ marginBottom: 0 }}><label>Start Date</label><DateInput value={formState.tempStart} onChange={(event) => updateField('tempStart', event.target.value)}/></div>
+                    <div className="form-group" style={{ marginBottom: 0 }}><label>End Date</label><DateInput value={formState.tempEnd} onChange={(event) => updateField('tempEnd', event.target.value)}/></div>
                   </div>
                 </div>
               ) : null}
@@ -1331,99 +1405,98 @@ export default function RequestLeaveReactPage() {
           </>
         );
       case 'benefits': {
+        const grayPalette = ['#1e293b', '#475569', '#94a3b8', '#cbd5e1'];
         const startDate = new Date(`${formState.leaveStartDate}T00:00:00`);
+        const endDate = new Date(`${formState.expectedReturnDate}T00:00:00`);
         const addWeeks = (d, w) => { const r = new Date(d); r.setDate(r.getDate() + w * 7); return r; };
 
         const fmlaEnd = addWeeks(startDate, eligibility.fmla.weeks);
         const stdStart = new Date(startDate); stdStart.setDate(stdStart.getDate() + planConfig.std.waitingDays);
         const stdEnd = addWeeks(stdStart, eligibility.std.weeks);
         const pflEnd = addWeeks(startDate, eligibility.statePFL.weeks);
-        const bondStart = eligibility.std.eligible ? stdEnd : startDate;
+        const bondStart = eligibility.std.eligible ? stdEnd : endDate;
         const bondEnd = addWeeks(bondStart, eligibility.companyBonding.weeks);
 
         const benefitBars = [
-          eligibility.fmla.eligible ? { id: 'fmla', label: 'FMLA', segClass: 'full', weeks: eligibility.fmla.weeks, pay: 'Job-protected, unpaid', startDate: startDate, endDate: fmlaEnd, note: 'Runs concurrently with paid benefits' } : null,
-          eligibility.std.eligible ? { id: 'std', label: 'STD', segClass: 'insurance', weeks: eligibility.std.weeks, pay: `${planConfig.std.percentPay}% of salary`, startDate: stdStart, endDate: stdEnd, note: `${planConfig.std.waitingDays}-day waiting period` } : null,
-          eligibility.statePFL.eligible ? { id: 'pfl', label: 'PFL', segClass: 'state', weeks: eligibility.statePFL.weeks, pay: `${planConfig.statePFL.percentPay}% avg weekly wage`, startDate: startDate, endDate: pflEnd, note: 'Concurrent with FMLA' } : null,
-          eligibility.companyBonding.eligible ? { id: 'bonding', label: 'Bonding', segClass: 'none', weeks: eligibility.companyBonding.weeks, pay: `${planConfig.companyBonding.percentPay}% of salary`, startDate: bondStart, endDate: bondEnd, note: 'After medical recovery' } : null,
+          eligibility.fmla.eligible ? { label: 'FMLA', color: grayPalette[0], weeks: eligibility.fmla.weeks, pay: 'Job-protected, unpaid', startDate: startDate, endDate: fmlaEnd, note: 'Runs concurrently with paid benefits' } : null,
+          eligibility.std.eligible ? { label: 'Short-Term Disability', color: grayPalette[1], weeks: eligibility.std.weeks, pay: `${planConfig.std.percentPay}% of salary`, startDate: stdStart, endDate: stdEnd, note: `${planConfig.std.waitingDays}-day waiting period before benefits begin` } : null,
+          eligibility.statePFL.eligible ? { label: `${planConfig.statePFL.state} Paid Family Leave`, color: grayPalette[2], weeks: eligibility.statePFL.weeks, pay: `${planConfig.statePFL.percentPay}% of avg weekly wage`, startDate: startDate, endDate: pflEnd, note: 'Concurrent with FMLA' } : null,
+          eligibility.companyBonding.eligible ? { label: 'Company Bonding', color: grayPalette[3], weeks: eligibility.companyBonding.weeks, pay: `${planConfig.companyBonding.percentPay}% of salary`, startDate: bondStart, endDate: bondEnd, note: 'After medical recovery period' } : null,
         ].filter(Boolean);
 
         const totalWeeks = Math.max(...benefitBars.map((b) => b.weeks), 0);
-        const displayWks = Math.max(totalWeeks, 12);
-        const pct = (wks) => Math.max(0, Math.min(100, (wks / displayWks) * 100));
-        const paidBars = benefitBars.filter((b) => b.id !== 'fmla');
+        const maxSpan = Math.max(totalWeeks, 28);
+        const paidBars = benefitBars.filter((b) => b.label !== 'FMLA');
         const estPaidWeeks = paidBars.length > 0 ? Math.max(...paidBars.map((b) => b.weeks)) : 0;
 
         const monthNames = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
         const startMonth = startDate.getMonth();
-        const estMonths = [];
-        for (let i = 0; i < 7; i++) { estMonths.push(monthNames[(startMonth + i) % 12]); }
+        const months = [];
+        for (let i = 0; i < 8; i++) { months.push(monthNames[(startMonth + i) % 12]); }
 
         return (
           <>
             <h2>Your estimated leave benefits</h2>
-            <p className="subtitle">Based on the information you've provided, here's an estimate of the benefits you may be eligible for. This is not a guarantee \u2014 final determination is made after review.</p>
+            <p className="subtitle">Based on the information you've provided, here's an estimate of the benefits you may be eligible for. This is not a guarantee - final determination is made after review.</p>
 
             {/* Timeline */}
             <div style={{ background: '#fff', border: '1px solid #e2e8f0', borderRadius: 12, padding: 24, marginTop: 8 }}>
               <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 6 }}>
-                <h3 style={{ margin: 0, fontSize: 16, fontWeight: 700, color: '#0f172a' }}>Leave Timeline <span style={{ fontSize: 11, fontWeight: 600, color: '#64748b', background: '#f1f5f9', padding: '2px 8px', borderRadius: 4, marginLeft: 8, verticalAlign: 'middle' }}>ESTIMATE</span></h3>
+                <h3 style={{ margin: 0, fontSize: 16, fontWeight: 700, color: '#0f172a' }}>Leave Timeline <span style={{ fontSize: 12, fontWeight: 600, color: '#4b5563', background: '#f1f5f9', padding: '2px 8px', borderRadius: 4, marginLeft: 8, verticalAlign: 'middle' }}>ESTIMATE</span></h3>
               </div>
-              <p className="eb-hover-hint" style={{ fontSize: 13, color: '#64748b', margin: '0 0 16px', lineHeight: 1.5 }}>Hover over a benefit to see details. All dates and pay are <strong>estimates only</strong>.</p>
-              <p className="eb-tap-hint" style={{ fontSize: 13, color: '#64748b', margin: '0 0 16px', lineHeight: 1.5 }}>Tap a benefit bar to see details. All dates and pay are <strong>estimates only</strong>.</p>
+              <p className="eb-hover-hint" style={{ fontSize: 13, color: '#64748b', margin: '0 0 16px', lineHeight: 1.5 }}>Hover over a benefit to see details. <strong>All dates, durations, and pay figures shown are <em>estimates only</em></strong>.</p>
+              <p className="eb-tap-hint" style={{ fontSize: 13, color: '#64748b', margin: '0 0 16px', lineHeight: 1.5 }}>Tap a benefit bar to see details. <strong>All dates, durations, and pay figures shown are <em>estimates only</em></strong>.</p>
 
-              <div className="dlp-timeline" onMouseLeave={() => setHoveredBenefitBar(null)}>
-                <div style={{ position: 'relative' }}>
-                  <div className="dlp-tl-rows">
-                    {benefitBars.map((bar, idx) => (
-                      <div
-                        key={bar.id}
-                        className={`dlp-tl-row${expandedBenefitBar === idx ? ' active' : ''}`}
-                        onMouseEnter={() => setHoveredBenefitBar(idx)}
-                        onClick={() => setExpandedBenefitBar(expandedBenefitBar === idx ? null : idx)}
-                      >
-                        <div className="dlp-tl-row-label">{bar.label}</div>
-                        <div className="dlp-tl-row-bar">
-                          <div className={`dlp-tl-seg ${bar.segClass}`} style={{ left: '0%', width: `${pct(bar.weeks)}%` }} />
-                        </div>
+              <div className="timeline-body" style={{ padding: 0 }}>
+                <div className="timeline-axis">{months.map((m) => <span key={m}>{m}</span>)}</div>
+                <div className="timeline-bars">
+                  {benefitBars.map((bar, idx) => (
+                    <div key={bar.label} className="timeline-bar-row eb-bar-row" style={{ position: 'relative' }}
+                      onMouseEnter={() => setHoveredBenefitBar(idx)}
+                      onMouseLeave={() => setHoveredBenefitBar(null)}
+                      onClick={() => setExpandedBenefitBar(expandedBenefitBar === idx ? null : idx)}
+                    >
+                      <div className="timeline-bar-label">{bar.label}</div>
+                      <div className="timeline-bar-track" style={{ borderRadius: 999 }}>
+                        <div className="timeline-bar-fill" style={{ width: `${Math.min((bar.weeks / maxSpan) * 100, 100)}%`, borderRadius: 999, background: bar.color }}>{bar.label} {bar.weeks}wk</div>
                       </div>
-                    ))}
-                  </div>
-
-                  {hoveredBenefitBar !== null && benefitBars[hoveredBenefitBar] && (
-                    <div className="eb-tooltip" style={{ top: `${hoveredBenefitBar * 38 + 10}px` }}>
-                      <div className="eb-tooltip-title">{benefitBars[hoveredBenefitBar].label}</div>
-                      <div className="eb-tooltip-row"><span>Duration</span><span>{benefitBars[hoveredBenefitBar].weeks} weeks</span></div>
-                      <div className="eb-tooltip-row"><span>Dates</span><span>{shortDate(benefitBars[hoveredBenefitBar].startDate.toISOString().slice(0, 10))} \u2013 {shortDate(benefitBars[hoveredBenefitBar].endDate.toISOString().slice(0, 10))}</span></div>
-                      <div className="eb-tooltip-row"><span>Pay</span><span>{benefitBars[hoveredBenefitBar].pay}</span></div>
-                      {benefitBars[hoveredBenefitBar].note && <div className="eb-tooltip-note">{benefitBars[hoveredBenefitBar].note}</div>}
+                      {hoveredBenefitBar === idx && (
+                        <div className="eb-tooltip">
+                          <div className="eb-tooltip-title">{bar.label}</div>
+                          <div className="eb-tooltip-row"><span>Duration</span><span>{bar.weeks} weeks</span></div>
+                          <div className="eb-tooltip-row"><span>Dates</span><span>{shortDate(bar.startDate.toISOString().slice(0, 10))} to {shortDate(bar.endDate.toISOString().slice(0, 10))}</span></div>
+                          <div className="eb-tooltip-row"><span>Pay</span><span>{bar.pay}</span></div>
+                          {bar.note && <div className="eb-tooltip-note">{bar.note}</div>}
+                        </div>
+                      )}
                     </div>
-                  )}
-                </div>
-
-                <div className="dlp-tl-months" style={{ paddingLeft: 80, marginTop: 8 }}>
-                  {estMonths.map((m, i) => <span key={i}>{m}</span>)}
-                </div>
-
-                <div className="dlp-legend" style={{ marginTop: 14 }}>
-                  {benefitBars.map((bar) => (
-                    <div key={bar.id} className="dlp-legend-item"><div className={`dlp-legend-dot dlp-tl-seg ${bar.segClass}`} style={{ position: 'static', height: 8, width: 8, borderRadius: 2 }} />{bar.label === 'FMLA' ? 'FMLA (job protection)' : bar.label === 'STD' ? 'Short-Term Disability' : bar.label === 'PFL' ? `${planConfig.statePFL.state} Paid Family Leave` : 'Company Bonding'}</div>
                   ))}
                 </div>
+                <div className="timeline-legend">
+                  {benefitBars.map((bar) => <div key={bar.label} className="timeline-legend-item"><span className="timeline-legend-dot" style={{ background: bar.color }}/>{bar.label}</div>)}
+                </div>
               </div>
 
-              {/* Mobile detail \u2014 shown when a bar is tapped */}
+              {/* Mobile accordion \u2014 shown when a bar is tapped */}
               {expandedBenefitBar !== null && benefitBars[expandedBenefitBar] && (
-                <div className="dlp-tl-mobile-detail" style={{ marginTop: 12 }}>
-                  <div className="dlp-tl-mobile-detail-title">{benefitBars[expandedBenefitBar].label === 'FMLA' ? 'FMLA (Job Protection)' : benefitBars[expandedBenefitBar].label === 'STD' ? 'Short-Term Disability' : benefitBars[expandedBenefitBar].label === 'PFL' ? `${planConfig.statePFL.state} Paid Family Leave` : 'Company Bonding'}</div>
-                  <div className="dlp-tl-mobile-detail-grid">
-                    <div><div className="dlp-tl-mobile-detail-label">Duration</div><div className="dlp-tl-mobile-detail-value">{benefitBars[expandedBenefitBar].weeks} weeks</div></div>
-                    <div><div className="dlp-tl-mobile-detail-label">Dates</div><div className="dlp-tl-mobile-detail-value">{shortDate(benefitBars[expandedBenefitBar].startDate.toISOString().slice(0, 10))} \u2013 {shortDate(benefitBars[expandedBenefitBar].endDate.toISOString().slice(0, 10))}</div></div>
-                    <div><div className="dlp-tl-mobile-detail-label">Pay</div><div className="dlp-tl-mobile-detail-value">{benefitBars[expandedBenefitBar].pay}</div></div>
-                    <div><div className="dlp-tl-mobile-detail-label">Note</div><div className="dlp-tl-mobile-detail-value">{benefitBars[expandedBenefitBar].note}</div></div>
+                <div className="eb-accordion">
+                  <div className="eb-accordion-header">
+                    <span className="eb-accordion-dot" style={{ background: benefitBars[expandedBenefitBar].color }} />
+                    <span className="eb-accordion-title">{benefitBars[expandedBenefitBar].label}</span>
+                    <button className="eb-accordion-close" onClick={(e) => { e.stopPropagation(); setExpandedBenefitBar(null); }} aria-label="Close">
+                      <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M2 2l8 8M10 2l-8 8" stroke="#64748b" strokeWidth="1.5" strokeLinecap="round"/></svg>
+                    </button>
                   </div>
+                  <div className="eb-accordion-grid">
+                    <div className="eb-accordion-field"><span className="eb-accordion-label">Duration</span><span className="eb-accordion-value">{benefitBars[expandedBenefitBar].weeks} weeks</span></div>
+                    <div className="eb-accordion-field"><span className="eb-accordion-label">Start</span><span className="eb-accordion-value">{shortDate(benefitBars[expandedBenefitBar].startDate.toISOString().slice(0, 10))}</span></div>
+                    <div className="eb-accordion-field"><span className="eb-accordion-label">Pay</span><span className="eb-accordion-value">{benefitBars[expandedBenefitBar].pay}</span></div>
+                    <div className="eb-accordion-field"><span className="eb-accordion-label">End</span><span className="eb-accordion-value">{shortDate(benefitBars[expandedBenefitBar].endDate.toISOString().slice(0, 10))}</span></div>
+                  </div>
+                  {benefitBars[expandedBenefitBar].note && <div className="eb-accordion-note">{benefitBars[expandedBenefitBar].note}</div>}
                 </div>
               )}
+
             </div>
 
             {/* Coverage summary */}
@@ -1434,13 +1507,13 @@ export default function RequestLeaveReactPage() {
               </div>
 
               {benefitBars.map((bar) => (
-                <div key={bar.id} style={{ padding: '16px 20px', borderTop: '1px solid #f1f5f9' }}>
+                <div key={bar.label} style={{ padding: '16px 20px', borderTop: '1px solid #f1f5f9' }}>
                   <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 4 }}>
-                    <div style={{ fontSize: 14, fontWeight: 600, color: '#0f172a' }}>{bar.label === 'FMLA' ? 'FMLA (Job Protection)' : bar.label === 'STD' ? 'Short-Term Disability' : bar.label === 'PFL' ? `${planConfig.statePFL.state} Paid Family Leave` : 'Company Bonding'}</div>
+                    <div style={{ fontSize: 14, fontWeight: 600, color: '#0f172a' }}>{bar.label}</div>
                     <div style={{ fontSize: 13, fontWeight: 600, color: '#0f172a' }}>{bar.pay}</div>
                   </div>
                   <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: 12, color: '#64748b' }}>
-                    <span>{shortDate(bar.startDate.toISOString().slice(0, 10))} \u2013 {shortDate(bar.endDate.toISOString().slice(0, 10))}</span>
+                    <span>{shortDate(bar.startDate.toISOString().slice(0, 10))} to {shortDate(bar.endDate.toISOString().slice(0, 10))}</span>
                     <span>{bar.weeks} weeks</span>
                   </div>
                 </div>
@@ -2151,7 +2224,7 @@ export default function RequestLeaveReactPage() {
 
   return (
     <div className="request-leave-shell">
-      <SiteNav />
+      {!hideChrome && <SiteNav />}
       {!started ? (
         <div className="wizard-wrap">
           <div className="req-welcome-card">
@@ -2211,7 +2284,7 @@ export default function RequestLeaveReactPage() {
           </div>
         </div>
       )}
-      <SiteFooter />
+      {!hideChrome && <SiteFooter />}
     </div>
   );
 }
