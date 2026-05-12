@@ -1,132 +1,370 @@
-import { NavLink, Link } from 'react-router-dom';
+import { useState } from 'react';
+import { Link } from 'react-router-dom';
 import useBasePath from './useBasePath';
 
 const leavesData = [
   {
     type: 'Birthing Parent / Pregnancy',
-    id: 'LV-2026-00312',
+    id: 'CLM #12345',
+    lastUpdate: '04 / 28 / 2026',
     status: 'Under Review',
-    statusColor: 'blue',
-    schedule: 'Continuous',
-    startDate: 'Nov 4, 2026',
-    endDate: 'Feb 2, 2026',
-    claims: 'CLM-2026-08941',
-    actions: ['View', 'Edit'],
+    requiredActions: 'Return to Work',
+    actionType: 'view',
   },
   {
     type: 'Illness or Injury (Self)',
-    id: 'LV-2026-00287',
+    id: 'CLM #12290',
+    lastUpdate: '04 / 15 / 2026',
     status: 'Decisioned',
-    statusColor: 'green',
-    schedule: 'Intermittent',
-    startDate: 'Sep 1, 2026',
-    endDate: 'Dec 31, 2026',
-    claims: 'CLM-2026-08832',
-    actions: ['View', 'Log Time'],
+    requiredActions: 'N/A',
+    actionType: 'view',
   },
   {
     type: 'Caring for a Family Member',
-    id: 'LV-2026-00250',
+    id: 'CLM #12188',
+    lastUpdate: '03 / 30 / 2026',
     status: 'Saved',
-    statusColor: 'amber',
-    schedule: 'Reduced Schedule',
-    startDate: '—',
-    endDate: '—',
-    claims: '—',
-    actions: ['Resume', 'Delete'],
+    requiredActions: 'N/A',
+    actionType: 'saved',
   },
   {
     type: 'Military-Related Leave',
-    id: 'LV-2026-00198',
+    id: 'CLM #11950',
+    lastUpdate: '03 / 12 / 2026',
     status: 'Closed',
-    statusColor: 'gray',
-    schedule: 'Continuous',
-    startDate: 'Mar 15, 2026',
-    endDate: 'Jun 14, 2026',
-    claims: 'CLM-2026-05120',
-    actions: ['View'],
+    requiredActions: 'N/A',
+    actionType: 'view',
+  },
+  {
+    type: 'Birthing Parent / Pregnancy',
+    id: 'CLM #11802',
+    lastUpdate: '02 / 28 / 2026',
+    status: 'Under Review',
+    requiredActions: 'Upload Documents',
+    actionType: 'view',
+  },
+  {
+    type: 'Illness or Injury (Self)',
+    id: 'CLM #11750',
+    lastUpdate: '02 / 14 / 2026',
+    status: 'Decisioned',
+    requiredActions: 'N/A',
+    actionType: 'view',
+  },
+  {
+    type: 'Caring for a Family Member',
+    id: 'CLM #11698',
+    lastUpdate: '01 / 30 / 2026',
+    status: 'Closed',
+    requiredActions: 'N/A',
+    actionType: 'view',
+  },
+  {
+    type: 'Military-Related Leave',
+    id: 'CLM #11550',
+    lastUpdate: '01 / 15 / 2026',
+    status: 'Decisioned',
+    requiredActions: 'N/A',
+    actionType: 'view',
+  },
+  {
+    type: 'Birthing Parent / Pregnancy',
+    id: 'CLM #11400',
+    lastUpdate: '12 / 20 / 2025',
+    status: 'Closed',
+    requiredActions: 'N/A',
+    actionType: 'view',
+  },
+  {
+    type: 'Illness or Injury (Self)',
+    id: 'CLM #11320',
+    lastUpdate: '12 / 05 / 2025',
+    status: 'Under Review',
+    requiredActions: 'N/A',
+    actionType: 'view',
+  },
+  {
+    type: 'Caring for a Family Member',
+    id: 'CLM #11200',
+    lastUpdate: '11 / 22 / 2025',
+    status: 'Saved',
+    requiredActions: 'N/A',
+    actionType: 'saved',
+  },
+  {
+    type: 'Military-Related Leave',
+    id: 'CLM #11100',
+    lastUpdate: '11 / 10 / 2025',
+    status: 'Decisioned',
+    requiredActions: 'N/A',
+    actionType: 'view',
+  },
+  {
+    type: 'Birthing Parent / Pregnancy',
+    id: 'CLM #10980',
+    lastUpdate: '10 / 28 / 2025',
+    status: 'Closed',
+    requiredActions: 'N/A',
+    actionType: 'view',
+  },
+  {
+    type: 'Illness or Injury (Self)',
+    id: 'CLM #10850',
+    lastUpdate: '10 / 12 / 2025',
+    status: 'Decisioned',
+    requiredActions: 'N/A',
+    actionType: 'view',
+  },
+  {
+    type: 'Caring for a Family Member',
+    id: 'CLM #10720',
+    lastUpdate: '09 / 28 / 2025',
+    status: 'Closed',
+    requiredActions: 'N/A',
+    actionType: 'view',
+  },
+  {
+    type: 'Military-Related Leave',
+    id: 'CLM #10600',
+    lastUpdate: '09 / 15 / 2025',
+    status: 'Under Review',
+    requiredActions: 'Return to Work',
+    actionType: 'view',
+  },
+  {
+    type: 'Birthing Parent / Pregnancy',
+    id: 'CLM #10480',
+    lastUpdate: '09 / 01 / 2025',
+    status: 'Saved',
+    requiredActions: 'N/A',
+    actionType: 'saved',
+  },
+  {
+    type: 'Illness or Injury (Self)',
+    id: 'CLM #10350',
+    lastUpdate: '08 / 18 / 2025',
+    status: 'Decisioned',
+    requiredActions: 'N/A',
+    actionType: 'view',
+  },
+  {
+    type: 'Caring for a Family Member',
+    id: 'CLM #10220',
+    lastUpdate: '08 / 04 / 2025',
+    status: 'Closed',
+    requiredActions: 'N/A',
+    actionType: 'view',
+  },
+  {
+    type: 'Military-Related Leave',
+    id: 'CLM #10100',
+    lastUpdate: '07 / 20 / 2025',
+    status: 'Decisioned',
+    requiredActions: 'N/A',
+    actionType: 'view',
+  },
+  {
+    type: 'Birthing Parent / Pregnancy',
+    id: 'CLM #09980',
+    lastUpdate: '07 / 05 / 2025',
+    status: 'Under Review',
+    requiredActions: 'Upload Documents',
+    actionType: 'view',
+  },
+  {
+    type: 'Illness or Injury (Self)',
+    id: 'CLM #09850',
+    lastUpdate: '06 / 22 / 2025',
+    status: 'Closed',
+    requiredActions: 'N/A',
+    actionType: 'view',
+  },
+  {
+    type: 'Caring for a Family Member',
+    id: 'CLM #09720',
+    lastUpdate: '06 / 08 / 2025',
+    status: 'Decisioned',
+    requiredActions: 'N/A',
+    actionType: 'view',
+  },
+  {
+    type: 'Military-Related Leave',
+    id: 'CLM #09600',
+    lastUpdate: '05 / 25 / 2025',
+    status: 'Closed',
+    requiredActions: 'N/A',
+    actionType: 'view',
   },
 ];
 
+const PAGE_SIZE = 5;
+
 export default function MyLeavesPage() {
   const base = useBasePath();
+  const [currentPage, setCurrentPage] = useState(1);
+  const [statusFilter, setStatusFilter] = useState('All');
+  const [typeFilter, setTypeFilter] = useState('All');
+
+  // Filter data
+  const filteredData = leavesData.filter((row) => {
+    const statusMatch = statusFilter === 'All' || row.status === statusFilter;
+    const typeMatch = typeFilter === 'All' || row.type === typeFilter;
+    return statusMatch && typeMatch;
+  });
+
+  const totalEntries = filteredData.length;
+  const totalPages = Math.ceil(totalEntries / PAGE_SIZE);
+  const startIdx = (currentPage - 1) * PAGE_SIZE;
+  const endIdx = Math.min(startIdx + PAGE_SIZE, totalEntries);
+  const pageData = filteredData.slice(startIdx, endIdx);
+
+  const handlePageChange = (page) => {
+    if (page >= 1 && page <= totalPages) {
+      setCurrentPage(page);
+    }
+  };
+
+  // Generate page numbers to display
+  const getPageNumbers = () => {
+    const pages = [];
+    for (let i = 1; i <= totalPages; i++) {
+      pages.push(i);
+    }
+    return pages;
+  };
+
   return (
-    <div className="cl-page">
-      <div className="cl-breadcrumb">
-        <Link to={base} className="cl-breadcrumb-link">Claims &amp; Leave</Link>
-        <span className="cl-breadcrumb-sep">&gt;</span>
-        <span>My Leaves</span>
+    <div className="cl-page cl-ml-page">
+      {/* Breadcrumb */}
+      <div className="cl-ml-breadcrumb">
+        <Link to={base} className="cl-ml-breadcrumb-link">Claims &amp; Leave</Link>
+        <span className="cl-ml-breadcrumb-sep">&gt;</span>
+        <span className="cl-ml-breadcrumb-current">My Leave</span>
       </div>
 
-      <div className="cl-page-header">
-        <div>
-          <h1 className="cl-page-title">My Leaves</h1>
-          <p className="cl-page-desc">Manage your active, saved, and historical leave requests.</p>
+      {/* Page Header */}
+      <div className="cl-ml-header">
+        <div className="cl-ml-header-text">
+          <h1 className="cl-ml-title">My Leaves</h1>
+          <p className="cl-ml-subtitle">Manage your active, saved, and historical leave requests.</p>
         </div>
-        <div className="cl-page-header-actions">
-          <NavLink to={`${base}/leave-planning`} className="cl-btn cl-btn--outline">Leave Planning Tool</NavLink>
-          <button className="cl-btn cl-btn--dark">+ Request New Leave</button>
+        <div className="cl-ml-header-action">
+          <div className="cl-ml-gradient-decor" aria-hidden="true"></div>
+          <button className="cl-ml-btn-new">+ Request New Leave</button>
         </div>
       </div>
 
-      {/* Filters */}
-      <div className="cl-filter-bar">
-        <select className="cl-select">
-          <option>Status: All Leaves</option>
-          <option>Under Review</option>
-          <option>Decisioned</option>
-          <option>Saved</option>
-          <option>Closed</option>
-        </select>
-        <select className="cl-select">
-          <option>Leave Type</option>
-          <option>Birthing Parent</option>
-          <option>Illness or Injury</option>
-          <option>Caring for Family</option>
-          <option>Military-Related</option>
-        </select>
-        <span className="cl-filter-count">Showing 4 leaves</span>
-      </div>
+      {/* Table Card */}
+      <div className="cl-ml-table-card">
+        {/* Filter Toolbar */}
+        <div className="cl-ml-filters">
+          <div className="cl-ml-filter-group">
+            <label className="cl-ml-filter-label">STATUS</label>
+            <select
+              className="cl-ml-filter-select"
+              value={statusFilter}
+              onChange={(e) => { setStatusFilter(e.target.value); setCurrentPage(1); }}
+            >
+              <option value="All">All Statuses</option>
+              <option value="Under Review">Under Review</option>
+              <option value="Decisioned">Decisioned</option>
+              <option value="Saved">Saved</option>
+              <option value="Closed">Closed</option>
+            </select>
+          </div>
+          <div className="cl-ml-filter-group">
+            <label className="cl-ml-filter-label">LEAVE TYPE</label>
+            <select
+              className="cl-ml-filter-select"
+              value={typeFilter}
+              onChange={(e) => { setTypeFilter(e.target.value); setCurrentPage(1); }}
+            >
+              <option value="All">All Types</option>
+              <option value="Birthing Parent / Pregnancy">Birthing Parent / Pregnancy</option>
+              <option value="Illness or Injury (Self)">Illness or Injury (Self)</option>
+              <option value="Caring for a Family Member">Caring for a Family Member</option>
+              <option value="Military-Related Leave">Military-Related Leave</option>
+            </select>
+          </div>
+        </div>
 
-      {/* Table */}
-      <div className="cl-table-wrap">
-        <table className="cl-table">
+        {/* Table */}
+        <table className="cl-ml-table">
           <thead>
             <tr>
-              <th>Leave Type &amp; ID</th>
+              <th className="cl-ml-th-first">Leave Type &amp; ID</th>
+              <th>Last Update</th>
               <th>Status</th>
-              <th>Schedule</th>
-              <th>Dates (Start – End)</th>
-              <th>Associated Claims</th>
-              <th>Actions</th>
+              <th>Required Actions</th>
+              <th>Action</th>
             </tr>
           </thead>
           <tbody>
-            {leavesData.map((row, i) => (
-              <tr key={i}>
-                <td>
-                  <div className="cl-cell-stacked">
-                    <span className="cl-cell-primary">{row.type}</span>
-                    <span className="cl-cell-secondary">{row.id}</span>
+            {pageData.map((row, i) => (
+              <tr key={startIdx + i} className="cl-ml-row">
+                <td className="cl-ml-td-first">
+                  <div className="cl-ml-cell-stacked">
+                    <span className="cl-ml-cell-type">{row.type}</span>
+                    <span className="cl-ml-cell-id">{row.id}</span>
                   </div>
                 </td>
-                <td>
-                  <span className={`cl-badge cl-badge--${row.statusColor}`}>{row.status}</span>
+                <td className="cl-ml-td">{row.lastUpdate}</td>
+                <td className="cl-ml-td">
+                  <span className="cl-ml-status-pill">{row.status}</span>
                 </td>
-                <td>{row.schedule}</td>
-                <td>{row.startDate} – {row.endDate}</td>
-                <td className="cl-cell-mono">{row.claims}</td>
-                <td>
-                  <div className="cl-action-links">
-                    {row.actions.map((action, j) => (
-                      <button key={j} className="cl-link-btn">{action}</button>
-                    ))}
-                  </div>
+                <td className="cl-ml-td">{row.requiredActions}</td>
+                <td className="cl-ml-td">
+                  {row.actionType === 'saved' ? (
+                    <div className="cl-ml-action-group">
+                      <button className="cl-ml-action-delete">Delete</button>
+                      <span className="cl-ml-action-link">Resume ›</span>
+                    </div>
+                  ) : (
+                    <span className="cl-ml-action-link">View Details ›</span>
+                  )}
                 </td>
               </tr>
             ))}
           </tbody>
         </table>
+
+        {/* Pagination */}
+        <div className="cl-ml-pagination">
+          <div className="cl-ml-pagination-controls">
+            <button
+              className="cl-ml-page-btn"
+              onClick={() => handlePageChange(currentPage - 1)}
+              disabled={currentPage === 1}
+              aria-label="Previous page"
+            >
+              <svg width="7" height="12" viewBox="0 0 7 12" fill="none">
+                <path d="M6 1L1 6L6 11" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+              </svg>
+            </button>
+            {getPageNumbers().map((page) => (
+              <button
+                key={page}
+                className={`cl-ml-page-btn cl-ml-page-num ${page === currentPage ? 'cl-ml-page-num--active' : ''}`}
+                onClick={() => handlePageChange(page)}
+              >
+                {page}
+              </button>
+            ))}
+            <button
+              className="cl-ml-page-btn"
+              onClick={() => handlePageChange(currentPage + 1)}
+              disabled={currentPage === totalPages}
+              aria-label="Next page"
+            >
+              <svg width="7" height="12" viewBox="0 0 7 12" fill="none">
+                <path d="M1 1L6 6L1 11" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+              </svg>
+            </button>
+          </div>
+          <p className="cl-ml-pagination-info">
+            Showing {startIdx + 1} to {endIdx} of {totalEntries} entries
+          </p>
+        </div>
       </div>
     </div>
   );

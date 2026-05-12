@@ -3814,6 +3814,365 @@
 }
 
 /* ===========================
+   My Leaves Page (cl-ml- prefix)
+   =========================== */
+
+.cl-ml-page {
+  background: #f8fbfd;
+  min-height: 100%;
+}
+
+/* Breadcrumb */
+.cl-ml-breadcrumb {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-bottom: 20px;
+  font-size: 14px;
+  line-height: 20px;
+}
+
+.cl-ml-breadcrumb-link {
+  color: #105fa8;
+  text-decoration: underline;
+  font-weight: 400;
+  font-family: 'Source Sans Pro', sans-serif;
+}
+
+.cl-ml-breadcrumb-link:hover {
+  color: #003a70;
+}
+
+.cl-ml-breadcrumb-sep {
+  color: #5d5d5d;
+  font-size: 12px;
+}
+
+.cl-ml-breadcrumb-current {
+  color: #5d5d5d;
+  font-weight: 400;
+  font-family: 'Source Sans Pro', sans-serif;
+}
+
+/* Page Header */
+.cl-ml-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  margin-bottom: 32px;
+  gap: 24px;
+}
+
+.cl-ml-header-text {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.cl-ml-title {
+  font-family: 'Source Sans Pro', sans-serif;
+  font-size: 40px;
+  font-weight: 700;
+  line-height: 48px;
+  color: #003a70;
+  margin: 0;
+}
+
+.cl-ml-subtitle {
+  font-family: 'Source Sans Pro', sans-serif;
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 24px;
+  color: #222;
+  margin: 0;
+}
+
+.cl-ml-header-action {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.cl-ml-gradient-decor {
+  position: absolute;
+  top: -8px;
+  right: -12px;
+  width: 180px;
+  height: 56px;
+  border-radius: 28px;
+  background: linear-gradient(135deg, #105fa8 0%, #1a8a7d 100%);
+  opacity: 0.12;
+  pointer-events: none;
+}
+
+.cl-ml-btn-new {
+  position: relative;
+  z-index: 1;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 12px 24px;
+  background: #105fa8;
+  color: #ffffff;
+  font-family: 'Source Sans Pro', sans-serif;
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 20px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: background 0.15s;
+}
+
+.cl-ml-btn-new:hover {
+  background: #0a4a85;
+}
+
+/* Table Card */
+.cl-ml-table-card {
+  background: #ffffff;
+  border: 1.5px solid #dfebf6;
+  border-radius: 12px;
+  box-shadow: 0px 1px 8px rgba(0, 0, 0, 0.08);
+  overflow: hidden;
+}
+
+/* Filter Toolbar */
+.cl-ml-filters {
+  display: flex;
+  align-items: flex-end;
+  gap: 24px;
+  padding: 24px 36px;
+  border-bottom: 1px solid #f0f0f0;
+}
+
+.cl-ml-filter-group {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.cl-ml-filter-label {
+  font-family: 'Source Sans Pro', sans-serif;
+  font-size: 12px;
+  font-weight: 600;
+  line-height: 16px;
+  color: #5d5d5d;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.cl-ml-filter-select {
+  padding: 8px 36px 8px 12px;
+  border: 1px solid #e4e4e4;
+  border-radius: 6px;
+  font-family: 'Source Sans Pro', sans-serif;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 20px;
+  color: #222;
+  background: #ffffff url("data:image/svg+xml,%3Csvg width='10' height='6' viewBox='0 0 10 6' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M1 1l4 4 4-4' stroke='%235d5d5d' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") no-repeat right 12px center;
+  appearance: none;
+  cursor: pointer;
+  min-width: 160px;
+}
+
+/* Table */
+.cl-ml-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-family: 'Source Sans Pro', sans-serif;
+}
+
+.cl-ml-table thead {
+  background: #f8fbfd;
+}
+
+.cl-ml-table th {
+  padding: 0 24px;
+  height: 60px;
+  text-align: left;
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 20px;
+  color: #222;
+  border-bottom: 1px solid #f0f0f0;
+  vertical-align: middle;
+}
+
+.cl-ml-th-first {
+  padding-left: 36px !important;
+}
+
+.cl-ml-table tbody tr {
+  border-bottom: 1px solid #f0f0f0;
+}
+
+.cl-ml-table tbody tr:last-child {
+  border-bottom: none;
+}
+
+.cl-ml-row {
+  height: 76px;
+  background: #ffffff;
+  transition: background 0.1s;
+}
+
+.cl-ml-row:hover {
+  background: #fafcfe;
+}
+
+.cl-ml-td-first {
+  padding: 0 24px 0 36px;
+  vertical-align: middle;
+}
+
+.cl-ml-td {
+  padding: 0 24px;
+  vertical-align: middle;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 20px;
+  color: #222;
+}
+
+/* Cell stacked (type + id) */
+.cl-ml-cell-stacked {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.cl-ml-cell-type {
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 20px;
+  color: #222;
+}
+
+.cl-ml-cell-id {
+  font-size: 12px;
+  font-weight: 400;
+  line-height: 16px;
+  color: #5d5d5d;
+}
+
+/* Status pill */
+.cl-ml-status-pill {
+  display: inline-flex;
+  align-items: center;
+  padding: 5.5px 13.5px;
+  background: #ffffff;
+  border: 1.5px solid #e4e4e4;
+  border-radius: 120px;
+  font-family: 'Source Sans Pro', sans-serif;
+  font-size: 12px;
+  font-weight: 600;
+  line-height: 16px;
+  color: #222;
+  white-space: nowrap;
+}
+
+/* Action links */
+.cl-ml-action-link {
+  font-family: 'Source Sans Pro', sans-serif;
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 20px;
+  color: #105fa8;
+  cursor: pointer;
+  background: none;
+  border: none;
+  padding: 0;
+  text-decoration: none;
+}
+
+.cl-ml-action-link:hover {
+  text-decoration: underline;
+}
+
+.cl-ml-action-group {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.cl-ml-action-delete {
+  font-family: 'Source Sans Pro', sans-serif;
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 20px;
+  color: #dc2626;
+  cursor: pointer;
+  background: none;
+  border: none;
+  padding: 0;
+}
+
+.cl-ml-action-delete:hover {
+  text-decoration: underline;
+}
+
+/* Pagination */
+.cl-ml-pagination {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 12px;
+  padding: 24px 36px;
+  border-top: 1px solid #f0f0f0;
+}
+
+.cl-ml-pagination-controls {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.cl-ml-page-btn {
+  width: 40px;
+  height: 40px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: #ffffff;
+  border: 1px solid #e4e4e4;
+  border-radius: 6px;
+  cursor: pointer;
+  color: #222;
+  font-family: 'Source Sans Pro', sans-serif;
+  font-size: 14px;
+  font-weight: 400;
+  transition: background 0.12s, border-color 0.12s;
+}
+
+.cl-ml-page-btn:hover:not(:disabled) {
+  background: #f8fbfd;
+  border-color: #dfebf6;
+}
+
+.cl-ml-page-btn:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+.cl-ml-page-num--active {
+  background: #f0f0f0;
+  border-color: #f0f0f0;
+  font-weight: 600;
+}
+
+.cl-ml-pagination-info {
+  font-family: 'Source Sans Pro', sans-serif;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 20px;
+  color: #222;
+  margin: 0;
+}
+
+/* ===========================
    STD Claim Detail Page
    =========================== */
 
