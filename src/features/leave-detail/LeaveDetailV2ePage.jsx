@@ -955,75 +955,93 @@ export default function LeaveDetailV2ePage() {
             {/* Tab: Activity Log */}
             {detailTab === 'activity' && (
             <div className="ldb-card ldb-activity-log">
+              <div className="ldb-activity-filters">
+                <div className="ldb-activity-filter">
+                  <label>Date</label>
+                  <select defaultValue="">
+                    <option value="">All dates</option>
+                    <option value="7">Last 7 days</option>
+                    <option value="30">Last 30 days</option>
+                    <option value="90">Last 90 days</option>
+                  </select>
+                </div>
+                <div className="ldb-activity-filter">
+                  <label>Person</label>
+                  <select defaultValue="">
+                    <option value="">All</option>
+                    <option value="specialist">Claim Specialist</option>
+                    <option value="employee">Sarah Johnson</option>
+                    <option value="provider">Healthcare Provider</option>
+                  </select>
+                </div>
+                <div className="ldb-activity-filter">
+                  <label>Status</label>
+                  <select defaultValue="">
+                    <option value="">All</option>
+                    <option value="completed">Completed</option>
+                    <option value="pending">Pending</option>
+                    <option value="upcoming">Upcoming</option>
+                  </select>
+                </div>
+              </div>
               <table className="ldb-activity-table ldb-activity-table--compact">
                 <thead>
                   <tr>
                     <th>Date & Time</th>
                     <th>Activity</th>
-                    <th>Status</th>
-                    <th>Next Step</th>
+                    <th>Completed By</th>
                   </tr>
                 </thead>
                 <tbody>
                   <tr>
                     <td className="ldb-activity-td-date">Apr 18, 2026<span className="ldb-activity-td-time">9:42 AM</span></td>
-                    <td><strong>Document Review</strong><br/>Medical certification reviewed by Mutual of Omaha.</td>
-                    <td><span className="ldb-activity-badge ldb-activity-badge--completed">Completed</span></td>
-                    <td className="ldb-activity-td-muted">—</td>
+                    <td>Request packet sent — summary of leave request including notice of eligibility, relevant forms, and instructions.</td>
+                    <td className="ldb-activity-td-person">Lisa Martinez<span className="ldb-activity-td-role">Claim Specialist</span></td>
                   </tr>
-                  <tr className="ldb-activity-row--action">
+                  <tr>
                     <td className="ldb-activity-td-date">Apr 17, 2026<span className="ldb-activity-td-time">2:15 PM</span></td>
-                    <td><strong>Employee Action</strong><br/>Additional medical documentation needed for eligibility review.</td>
-                    <td><span className="ldb-activity-badge ldb-activity-badge--action">Action Required</span></td>
-                    <td>Upload documents by Apr 24.</td>
+                    <td>Reminder of documentation due — notification sent that medical certification is due within 6 days.</td>
+                    <td className="ldb-activity-td-person">Lisa Martinez<span className="ldb-activity-td-role">Claim Specialist</span></td>
                   </tr>
                   <tr>
                     <td className="ldb-activity-td-date">Apr 16, 2026<span className="ldb-activity-td-time">11:08 AM</span></td>
-                    <td><strong>Communication</strong><br/>Message sent to healthcare provider requesting certification forms.</td>
-                    <td><span className="ldb-activity-badge ldb-activity-badge--progress">In Progress</span></td>
-                    <td>Waiting on healthcare provider.</td>
+                    <td>Document received — medical certification paperwork uploaded and logged into system for review.</td>
+                    <td className="ldb-activity-td-person">Sarah Johnson<span className="ldb-activity-td-role">Employee</span></td>
                   </tr>
                   <tr>
                     <td className="ldb-activity-td-date">Apr 15, 2026<span className="ldb-activity-td-time">8:30 AM</span></td>
-                    <td><strong>Eligibility Review</strong><br/>Leave eligibility review has started.</td>
-                    <td><span className="ldb-activity-badge ldb-activity-badge--progress">In Progress</span></td>
-                    <td>Under review by Mutual of Omaha.</td>
+                    <td>Decision packet sent — summary of decision on leave request including approved dates and next steps.</td>
+                    <td className="ldb-activity-td-person">Lisa Martinez<span className="ldb-activity-td-role">Claim Specialist</span></td>
                   </tr>
                   <tr>
                     <td className="ldb-activity-td-date">Apr 14, 2026<span className="ldb-activity-td-time">4:52 PM</span></td>
-                    <td><strong>Employer Update</strong><br/>Manager notified of approved leave dates.</td>
-                    <td><span className="ldb-activity-badge ldb-activity-badge--completed">Completed</span></td>
-                    <td className="ldb-activity-td-muted">—</td>
+                    <td>Employer notified — manager informed of approved leave dates and expected return timeline.</td>
+                    <td className="ldb-activity-td-person">Lisa Martinez<span className="ldb-activity-td-role">Claim Specialist</span></td>
                   </tr>
                   <tr>
                     <td className="ldb-activity-td-date">Apr 14, 2026<span className="ldb-activity-td-time">1:20 PM</span></td>
-                    <td><strong>Payment Scheduled</strong><br/>First disability payment has been scheduled.</td>
-                    <td><span className="ldb-activity-badge ldb-activity-badge--completed">Completed</span></td>
-                    <td>Payment in 2–3 business days.</td>
+                    <td>Payment scheduled — first disability payment initiated, expected within 2–3 business days.</td>
+                    <td className="ldb-activity-td-person">Lisa Martinez<span className="ldb-activity-td-role">Claim Specialist</span></td>
                   </tr>
                   <tr>
                     <td className="ldb-activity-td-date">Apr 13, 2026<span className="ldb-activity-td-time">10:05 AM</span></td>
-                    <td><strong>Return to Work</strong><br/>Confirmation required 7 days before expected return date.</td>
-                    <td><span className="ldb-activity-badge ldb-activity-badge--upcoming">Upcoming</span></td>
-                    <td>Reminder will appear closer to return date.</td>
+                    <td>Return to work confirmation requested — employee asked to confirm return date 7 days before scheduled return.</td>
+                    <td className="ldb-activity-td-person">Lisa Martinez<span className="ldb-activity-td-role">Claim Specialist</span></td>
                   </tr>
                   <tr>
                     <td className="ldb-activity-td-date">Apr 12, 2026<span className="ldb-activity-td-time">3:40 PM</span></td>
-                    <td><strong>Leave Decision</strong><br/>FMLA leave was approved.</td>
-                    <td><span className="ldb-activity-badge ldb-activity-badge--completed">Completed</span></td>
-                    <td className="ldb-activity-td-muted">—</td>
+                    <td>Return to work confirmed — employee confirmed intent to return on scheduled date.</td>
+                    <td className="ldb-activity-td-person">Sarah Johnson<span className="ldb-activity-td-role">Employee</span></td>
                   </tr>
                   <tr>
                     <td className="ldb-activity-td-date">Apr 10, 2026<span className="ldb-activity-td-time">9:14 AM</span></td>
-                    <td><strong>Document Upload</strong><br/>Medical certification documents uploaded.</td>
-                    <td><span className="ldb-activity-badge ldb-activity-badge--completed">Completed</span></td>
-                    <td className="ldb-activity-td-muted">—</td>
+                    <td>Additional documentation requested — supplemental forms sent to healthcare provider via fax.</td>
+                    <td className="ldb-activity-td-person">Lisa Martinez<span className="ldb-activity-td-role">Claim Specialist</span></td>
                   </tr>
                   <tr>
                     <td className="ldb-activity-td-date">Apr 8, 2026<span className="ldb-activity-td-time">1:02 PM</span></td>
-                    <td><strong>Leave Request</strong><br/>Leave request submitted successfully.</td>
-                    <td><span className="ldb-activity-badge ldb-activity-badge--completed">Completed</span></td>
-                    <td>Review process has started.</td>
+                    <td>Leave request submitted — initial request received and eligibility review process started.</td>
+                    <td className="ldb-activity-td-person">Sarah Johnson<span className="ldb-activity-td-role">Employee</span></td>
                   </tr>
                 </tbody>
               </table>
