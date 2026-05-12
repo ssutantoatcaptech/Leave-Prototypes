@@ -2695,7 +2695,7 @@
   display: flex;
   flex-direction: column;
   gap: 16px;
-  margin-bottom: 0;
+  margin-bottom: 16px;
 }
 .ldb-snapshot-date-card {
   border: 1.5px solid #e4e4e4;
