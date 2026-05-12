@@ -1,0 +1,297 @@
+/* ==========================================================================
+   Member Experience Design System — Design Tokens
+   Source: Figma file IE52Pd1nEcinhqOlSy4efj
+   ========================================================================== */
+
+:root {
+  /* -----------------------------------------------------------------------
+     COLOR — Brand
+     ----------------------------------------------------------------------- */
+  --color-brand-primary: #105fa8;
+  --color-brand-primary-hover: #0a4a85;
+  --color-brand-primary-dark: #003a70;
+  --color-brand-navy: #003a70;
+  --color-brand-teal: #007a8a;
+  --color-brand-white: #ffffff;
+
+  /* -----------------------------------------------------------------------
+     COLOR — Semantic / UI
+     ----------------------------------------------------------------------- */
+  --color-text-primary: #1a1a1a;
+  --color-text-secondary: #5d5d5d;
+  --color-text-tertiary: #6b7280;
+  --color-text-placeholder: #9ca3af;
+  --color-text-disabled: #9ca3af;
+  --color-text-link: #105fa8;
+  --color-text-link-hover: #0a4a85;
+  --color-text-error: #dc2626;
+  --color-text-inverse: #ffffff;
+
+  /* -----------------------------------------------------------------------
+     COLOR — Backgrounds
+     ----------------------------------------------------------------------- */
+  --color-bg-page: #f8fbfd;
+  --color-bg-card: #ffffff;
+  --color-bg-muted: #f3f4f6;
+  --color-bg-info: #dcebf9;
+  --color-bg-info-light: #e8f4fd;
+  --color-bg-success: #d1fae5;
+  --color-bg-warning: #fef3c7;
+  --color-bg-error: #fee2e2;
+  --color-bg-hover: #f9fafb;
+  --color-bg-selected: #eff6ff;
+  --color-bg-disabled: #f3f4f6;
+  --color-bg-brand-banner: #003a70;
+
+  /* -----------------------------------------------------------------------
+     COLOR — Borders
+     ----------------------------------------------------------------------- */
+  --color-border-default: #e4e4e4;
+  --color-border-input: #dfebf6;
+  --color-border-focus: #105fa8;
+  --color-border-error: #dc2626;
+  --color-border-card: #e5e7eb;
+  --color-border-selected: #105fa8;
+  --color-border-separator: #e5e7eb;
+
+  /* -----------------------------------------------------------------------
+     COLOR — Status / Semantic
+     ----------------------------------------------------------------------- */
+  --color-status-success: #16a34a;
+  --color-status-success-bg: #dcfce7;
+  --color-status-success-border: #16a34a;
+  --color-status-warning: #f59e0b;
+  --color-status-warning-bg: #fef3c7;
+  --color-status-warning-border: #f59e0b;
+  --color-status-error: #dc2626;
+  --color-status-error-bg: #fee2e2;
+  --color-status-error-border: #dc2626;
+  --color-status-info: #105fa8;
+  --color-status-info-bg: #dcebf9;
+  --color-status-info-border: #105fa8;
+  --color-status-pending: #f59e0b;
+  --color-status-active: #16a34a;
+  --color-status-inactive: #6b7280;
+  --color-status-denied: #dc2626;
+  --color-status-approved: #16a34a;
+
+  /* -----------------------------------------------------------------------
+     COLOR — Notification Message Types (full-bleed banners)
+     ----------------------------------------------------------------------- */
+  --color-notification-success-bg: #147b5c;
+  --color-notification-success-border: #0d5e46;
+  --color-notification-error-bg: #fdecea;
+  --color-notification-error-border: #dc2626;
+  --color-notification-warning-bg: #fff8e6;
+  --color-notification-warning-border: #f59e0b;
+  --color-notification-info-bg: #e8f4fd;
+  --color-notification-info-border: #105fa8;
+
+  /* -----------------------------------------------------------------------
+     COLOR — Components
+     ----------------------------------------------------------------------- */
+  --color-button-primary-bg: #105fa8;
+  --color-button-primary-text: #ffffff;
+  --color-button-primary-hover: #0a4a85;
+  --color-button-outline-border: #105fa8;
+  --color-button-outline-text: #105fa8;
+  --color-button-outline-hover-bg: #eff6ff;
+  --color-button-danger-bg: #dc2626;
+  --color-button-danger-text: #ffffff;
+  --color-button-disabled-bg: #9ca3af;
+  --color-button-disabled-text: #ffffff;
+
+  --color-pill-border: #e4e4e4;
+  --color-pill-text: #1a1a1a;
+  --color-pill-dot-amber: #f59e0b;
+  --color-pill-dot-green: #16a34a;
+  --color-pill-dot-red: #dc2626;
+  --color-pill-dot-gray: #6b7280;
+  --color-pill-dot-blue: #105fa8;
+
+  --color-tag-filled-bg: #003a70;
+  --color-tag-filled-text: #ffffff;
+  --color-tag-outline-border: #e4e4e4;
+  --color-tag-outline-text: #5d5d5d;
+
+  --color-tab-active-text: #1a1a1a;
+  --color-tab-active-border: #105fa8;
+  --color-tab-inactive-text: #5d5d5d;
+  --color-tab-pill-active-bg: #105fa8;
+  --color-tab-pill-active-text: #ffffff;
+  --color-tab-pill-inactive-bg: transparent;
+  --color-tab-pill-inactive-text: #5d5d5d;
+
+  --color-selection-card-border: #e4e4e4;
+  --color-selection-card-selected-border: #105fa8;
+  --color-selection-card-icon-bg: #dcebf9;
+  --color-selection-card-icon-color: #003a70;
+
+  --color-inline-message-border-top: #105fa8;
+  --color-inline-message-bg: #ffffff;
+  --color-inline-message-icon: #105fa8;
+
+  --color-progress-active: #105fa8;
+  --color-progress-track: #e5e7eb;
+  --color-progress-complete: #105fa8;
+
+  --color-nav-bg: #ffffff;
+  --color-nav-text: #003a70;
+  --color-nav-active-text: #105fa8;
+  --color-nav-border: #e5e7eb;
+
+  --color-toggle-active-bg: #105fa8;
+  --color-toggle-active-thumb: #ffffff;
+  --color-toggle-inactive-bg: #d1d5db;
+  --color-toggle-inactive-thumb: #ffffff;
+
+  --color-checkbox-checked-bg: #105fa8;
+  --color-checkbox-checked-icon: #ffffff;
+  --color-checkbox-unchecked-border: #d1d5db;
+
+  --color-radio-selected-bg: #105fa8;
+  --color-radio-selected-ring: #105fa8;
+  --color-radio-unselected-border: #d1d5db;
+
+  --color-icon-primary: #003a70;
+  --color-icon-secondary: #5d5d5d;
+  --color-icon-interactive: #105fa8;
+  --color-icon-success: #16a34a;
+  --color-icon-warning: #f59e0b;
+  --color-icon-error: #dc2626;
+  --color-icon-info: #105fa8;
+
+  /* -----------------------------------------------------------------------
+     TYPOGRAPHY — Font Family
+     ----------------------------------------------------------------------- */
+  --font-family-primary: 'Source Sans Pro', 'Source Sans 3', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  --font-family-mono: 'Source Code Pro', monospace;
+
+  /* -----------------------------------------------------------------------
+     TYPOGRAPHY — Font Sizes
+     ----------------------------------------------------------------------- */
+  --font-size-xs: 11px;
+  --font-size-sm: 12px;
+  --font-size-base: 14px;
+  --font-size-md: 15px;
+  --font-size-lg: 16px;
+  --font-size-xl: 18px;
+  --font-size-2xl: 20px;
+  --font-size-3xl: 22px;
+  --font-size-4xl: 24px;
+  --font-size-5xl: 28px;
+  --font-size-6xl: 32px;
+  --font-size-7xl: 36px;
+  --font-size-display: 48px;
+
+  /* -----------------------------------------------------------------------
+     TYPOGRAPHY — Font Weights
+     ----------------------------------------------------------------------- */
+  --font-weight-regular: 400;
+  --font-weight-medium: 500;
+  --font-weight-semibold: 600;
+  --font-weight-bold: 700;
+
+  /* -----------------------------------------------------------------------
+     TYPOGRAPHY — Line Heights
+     ----------------------------------------------------------------------- */
+  --line-height-tight: 1.2;
+  --line-height-normal: 1.4;
+  --line-height-relaxed: 1.5;
+  --line-height-loose: 1.75;
+
+  /* -----------------------------------------------------------------------
+     TYPOGRAPHY — Letter Spacing
+     ----------------------------------------------------------------------- */
+  --letter-spacing-tight: -0.01em;
+  --letter-spacing-normal: 0;
+  --letter-spacing-wide: 0.02em;
+  --letter-spacing-wider: 0.05em;
+  --letter-spacing-uppercase: 0.08em;
+
+  /* -----------------------------------------------------------------------
+     SPACING
+     ----------------------------------------------------------------------- */
+  --space-0: 0;
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-5: 20px;
+  --space-6: 24px;
+  --space-7: 28px;
+  --space-8: 32px;
+  --space-9: 36px;
+  --space-10: 40px;
+  --space-12: 48px;
+  --space-14: 56px;
+  --space-16: 64px;
+  --space-20: 80px;
+
+  /* -----------------------------------------------------------------------
+     BORDER RADIUS
+     ----------------------------------------------------------------------- */
+  --radius-sm: 4px;
+  --radius-md: 6px;
+  --radius-lg: 8px;
+  --radius-xl: 12px;
+  --radius-2xl: 16px;
+  --radius-full: 9999px;
+
+  /* -----------------------------------------------------------------------
+     SHADOWS
+     ----------------------------------------------------------------------- */
+  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.05);
+  --shadow-md: 0 2px 4px rgba(0, 0, 0, 0.08);
+  --shadow-lg: 0 4px 12px rgba(0, 0, 0, 0.1);
+  --shadow-xl: 0 8px 24px rgba(0, 0, 0, 0.12);
+  --shadow-card: 0 1px 3px rgba(0, 0, 0, 0.08);
+
+  /* -----------------------------------------------------------------------
+     SIZING — Components
+     ----------------------------------------------------------------------- */
+  --size-button-height: 40px;
+  --size-button-height-sm: 32px;
+  --size-button-height-lg: 48px;
+  --size-input-height: 40px;
+  --size-input-height-sm: 32px;
+  --size-checkbox: 18px;
+  --size-radio: 18px;
+  --size-toggle-width: 44px;
+  --size-toggle-height: 24px;
+  --size-toggle-thumb: 20px;
+  --size-icon-sm: 16px;
+  --size-icon-md: 20px;
+  --size-icon-lg: 24px;
+  --size-icon-xl: 32px;
+  --size-icon-2xl: 48px;
+  --size-pill-dot: 8px;
+  --size-avatar-sm: 32px;
+  --size-avatar-md: 40px;
+  --size-avatar-lg: 56px;
+
+  /* -----------------------------------------------------------------------
+     LAYOUT — Widths
+     ----------------------------------------------------------------------- */
+  --width-content-max: 900px;
+  --width-page-max: 1200px;
+  --width-sidebar: 280px;
+  --width-nav-max: 1440px;
+
+  /* -----------------------------------------------------------------------
+     TRANSITIONS
+     ----------------------------------------------------------------------- */
+  --transition-fast: 150ms ease;
+  --transition-normal: 200ms ease;
+  --transition-slow: 300ms ease;
+
+  /* -----------------------------------------------------------------------
+     Z-INDEX
+     ----------------------------------------------------------------------- */
+  --z-dropdown: 100;
+  --z-sticky: 200;
+  --z-modal-backdrop: 300;
+  --z-modal: 400;
+  --z-tooltip: 500;
+  --z-toast: 600;
+}
