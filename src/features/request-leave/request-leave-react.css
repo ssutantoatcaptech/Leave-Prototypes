@@ -22,22 +22,24 @@
   padding: 40px 0 48px;
 }
 
-/* === From-Plan Bar === */
+/* === From-Plan Bar (DS Inline Message) === */
 .rq-from-plan-bar {
   display: flex;
   align-items: center;
   gap: 12px;
   padding: 14px 18px;
-  background: var(--color-bg-info);
-  border: none;
+  background: var(--color-inline-message-bg);
+  border: 1px solid var(--color-border-card);
+  border-top: 3px solid var(--color-inline-message-border-top);
   border-radius: var(--radius-lg);
   margin-bottom: 20px;
   font-size: 14px;
   font-weight: 500;
   color: var(--color-text-primary);
   line-height: 1.5;
+  box-shadow: var(--shadow-sm);
 }
-.rq-from-plan-icon { flex-shrink: 0; color: var(--color-brand-primary); }
+.rq-from-plan-icon { flex-shrink: 0; color: var(--color-inline-message-icon); }
 .rq-from-plan-close {
   margin-left: auto;
   flex-shrink: 0;
@@ -53,7 +55,7 @@
   cursor: pointer;
   transition: var(--transition-fast);
 }
-.rq-from-plan-close:hover { background: var(--color-bg-info); color: var(--color-brand-navy); }
+.rq-from-plan-close:hover { background: var(--color-bg-muted); color: var(--color-brand-navy); }
 
 /* === Step Progress Indicator === */
 .stepper {
@@ -826,7 +828,7 @@
 .yesno-btn {
   padding: 0 28px;
   height: var(--size-button-height);
-  border-radius: var(--radius-md);
+  border-radius: var(--radius-full);
   border: 1.5px solid var(--color-border-default);
   background: var(--color-bg-card);
   font-size: 14px;
@@ -1137,8 +1139,8 @@
 }
 
 .btn {
-  padding: 0 20px;
-  border-radius: var(--radius-md);
+  padding: 0 24px;
+  border-radius: var(--radius-full);
   font-size: 14px;
   font-weight: 600;
   cursor: pointer;
@@ -1196,9 +1198,8 @@
 
 .btn-lg {
   height: var(--size-button-height-lg);
-  padding: 0 32px;
+  padding: 0 36px;
   font-size: 16px;
-  border-radius: var(--radius-lg);
 }
 
 .btn-next:disabled,
@@ -2437,7 +2438,7 @@
   width: 100%;
   height: var(--size-button-height);
   padding: 0 24px;
-  border-radius: var(--radius-md);
+  border-radius: var(--radius-full);
   border: none;
   background: var(--color-button-primary-bg);
   color: var(--color-button-primary-text);
@@ -2456,7 +2457,7 @@
   width: 100%;
   height: var(--size-button-height);
   padding: 0 24px;
-  border-radius: var(--radius-md);
+  border-radius: var(--radius-full);
   border: 1.5px solid var(--color-button-outline-border);
   background: transparent;
   color: var(--color-button-outline-text);
