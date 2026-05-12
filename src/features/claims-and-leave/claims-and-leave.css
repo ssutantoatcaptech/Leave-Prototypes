@@ -369,25 +369,25 @@
 
 /* Breadcrumb */
 .cl-breadcrumb {
-  font-size: 13px;
-  color: #6b7280;
-  margin-bottom: 16px;
+  font-size: 14px;
+  color: #5d5d5d;
+  margin-bottom: 12px;
   display: flex;
   align-items: center;
   gap: 6px;
 }
 
 .cl-breadcrumb-link {
-  color: #0033a0;
-  text-decoration: none;
-  font-weight: 500;
+  color: #105fa8;
+  text-decoration: underline;
+  font-weight: 400;
 }
 .cl-breadcrumb-link:hover {
-  text-decoration: underline;
+  color: #003a70;
 }
 
 .cl-breadcrumb-sep {
-  color: #9ca3af;
+  color: #5d5d5d;
 }
 
 /* Page header */
@@ -395,7 +395,7 @@
   display: flex;
   align-items: flex-start;
   justify-content: space-between;
-  margin-bottom: 24px;
+  margin-bottom: 48px;
   gap: 16px;
 }
 
@@ -406,18 +406,18 @@
 }
 
 .cl-page-title {
-  font-size: 28px;
+  font-size: 40px;
   font-weight: 700;
-  color: #0f0f14;
+  color: #003a70;
   margin: 0;
-  line-height: 1.2;
+  line-height: 48px;
 }
 
 .cl-page-desc {
-  font-size: 15px;
-  color: #4b5563;
-  margin: 6px 0 0;
-  line-height: 1.5;
+  font-size: 16px;
+  color: #5d5d5d;
+  margin: 8px 0 0;
+  line-height: 24px;
 }
 
 .cl-text-center {
@@ -429,8 +429,9 @@
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  padding: 10px 20px;
-  border-radius: 8px;
+  gap: 8px;
+  padding: 10px 24px;
+  border-radius: 6px;
   font-size: 14px;
   font-weight: 600;
   cursor: pointer;
@@ -438,78 +439,84 @@
   text-decoration: none;
   transition: background 0.15s, box-shadow 0.15s;
   white-space: nowrap;
+  font-family: inherit;
 }
 
 .cl-btn--dark {
-  background: #0033a0;
+  background: #105fa8;
   color: #ffffff;
 }
 
 .cl-btn--dark:hover {
-  background: #002580;
+  background: #003a70;
 }
 
 .cl-btn--primary {
-  background: #0033a0;
+  background: #105fa8;
   color: #ffffff;
 }
 
 .cl-btn--primary:hover {
-  background: #002580;
+  background: #003a70;
 }
 
 .cl-btn--outline {
   background: #ffffff;
-  color: #0033a0;
-  border: 1px solid #0033a0;
+  color: #105fa8;
+  border: 1.5px solid #105fa8;
 }
 
 .cl-btn--outline:hover {
-  border-color: #002580;
-  background: #f0f4ff;
+  border-color: #003a70;
+  color: #003a70;
+  background: #f8fbfd;
 }
 
 .cl-btn--ghost {
   background: none;
-  color: #4b5563;
+  color: #5d5d5d;
   border: 1px solid transparent;
 }
 
 .cl-btn--ghost:hover {
-  background: #f3f4f6;
+  background: #f8fbfd;
 }
 
 .cl-btn--lg {
   padding: 14px 32px;
   font-size: 16px;
-  border-radius: 10px;
+  border-radius: 8px;
 }
 
 /* Category tabs */
 .cl-category-tabs {
   display: flex;
   gap: 0;
-  border-bottom: 1px solid #e5e7eb;
-  margin-bottom: 20px;
+  border-bottom: 1.5px solid #dfebf6;
+  margin-bottom: 0;
+  padding: 0 36px;
+  background: #fff;
+  border-radius: 12px 12px 0 0;
 }
 
 .cl-category-tab {
-  padding: 12px 20px;
+  padding: 16px 20px;
   font-size: 14px;
   font-weight: 500;
-  color: #6b7280;
+  color: #5d5d5d;
   text-decoration: none;
-  border-bottom: 2px solid transparent;
+  border-bottom: 2.5px solid transparent;
   transition: color 0.15s, border-color 0.15s;
+  margin-bottom: -1.5px;
 }
 
 .cl-category-tab:hover {
-  color: #0f0f14;
+  color: #003a70;
 }
 
 .cl-category-tab--active {
-  color: #0033a0;
-  border-bottom-color: #0033a0;
+  color: #003a70;
+  border-bottom-color: #003a70;
   font-weight: 600;
 }
 
@@ -517,13 +524,14 @@
 .cl-filter-bar {
   display: flex;
   align-items: center;
-  gap: 12px;
-  margin-bottom: 20px;
+  gap: 16px;
+  margin-bottom: 24px;
   flex-wrap: nowrap;
   background: #ffffff;
-  border: 1px solid #e5e7eb;
+  border: 1.5px solid #dfebf6;
   border-radius: 12px;
-  padding: 16px;
+  padding: 16px 24px;
+  box-shadow: 0 1px 8px rgba(0, 0, 0, 0.08);
 }
 
 .cl-filters-left {
@@ -556,15 +564,16 @@
 
 .cl-select {
   padding: 8px 32px 8px 12px;
-  border: 1px solid #e5e7eb;
+  border: 1.5px solid #e4e4e4;
   border-radius: 6px;
   font-size: 14px;
-  color: #0f0f14;
-  background: #ffffff url("data:image/svg+xml,%3Csvg width='10' height='6' viewBox='0 0 10 6' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M1 1l4 4 4-4' stroke='%236b7280' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") no-repeat right 12px center;
+  color: #222;
+  background: #ffffff url("data:image/svg+xml,%3Csvg width='10' height='6' viewBox='0 0 10 6' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M1 1l4 4 4-4' stroke='%235d5d5d' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") no-repeat right 12px center;
   appearance: none;
   cursor: pointer;
   white-space: nowrap;
   flex-shrink: 0;
+  font-family: inherit;
 }
 
 .cl-select--full {
@@ -594,6 +603,7 @@
   border: 1.5px solid #dfebf6;
   border-radius: 12px;
   overflow: hidden;
+  box-shadow: 0 1px 8px rgba(0, 0, 0, 0.08);
 }
 
 .cl-table {
@@ -611,10 +621,10 @@
   padding: 14px 16px;
   text-align: left;
   font-weight: 600;
-  font-size: 14px;
-  text-transform: none;
-  letter-spacing: 0;
-  color: #222;
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 0.36px;
+  color: #444;
   border-bottom: 1px solid #f0f0f0;
 }
 
@@ -622,6 +632,7 @@
   padding: 18px 16px;
   border-bottom: 1px solid #f0f0f0;
   color: #222;
+  font-size: 14px;
   vertical-align: middle;
 }
 
@@ -646,12 +657,13 @@
 
 .cl-cell-primary {
   font-weight: 600;
-  color: #0f0f14;
+  font-size: 14px;
+  color: #003a70;
 }
 
 .cl-cell-secondary {
-  font-size: 12px;
-  color: #6b7280;
+  font-size: 13px;
+  color: #5d5d5d;
 }
 
 .cl-cell-mono {
@@ -668,46 +680,55 @@
 .cl-badge {
   display: inline-flex;
   align-items: center;
-  padding: 3px 10px;
-  border-radius: 999px;
+  padding: 5.5px 13.5px;
+  border-radius: 120px;
   font-size: 12px;
   font-weight: 600;
   white-space: nowrap;
+  background: #fff;
+  border: 1.5px solid #e4e4e4;
+  color: #222;
 }
 
 .cl-badge--blue {
-  background: #eff6ff;
-  color: #1d4ed8;
+  background: #fff;
+  border-color: #e4e4e4;
+  color: #222;
 }
 
 .cl-badge--green {
-  background: #f0fdf4;
-  color: #15803d;
+  background: #fff;
+  border-color: #1fa668;
+  color: #222;
 }
 
 .cl-badge--amber {
-  background: #fffbeb;
-  color: #b45309;
+  background: #fff;
+  border-color: #e4e4e4;
+  color: #222;
 }
 
 .cl-badge--gray {
-  background: #f3f4f6;
-  color: #4b5563;
+  background: #fff;
+  border-color: #e4e4e4;
+  color: #222;
 }
 
 /* Link button */
 .cl-link-btn {
   background: none;
   border: none;
-  color: #0033a0;
-  font-size: 13px;
+  color: #105fa8;
+  font-size: 14px;
   font-weight: 600;
   cursor: pointer;
   padding: 0;
   text-decoration: none;
+  font-family: inherit;
 }
 
 .cl-link-btn:hover {
+  color: #003a70;
   text-decoration: underline;
 }
 
@@ -1294,8 +1315,8 @@
 
 /* Pagination */
 .cl-pagination-info {
-  font-size: 13px;
-  color: #6b7280;
+  font-size: 14px;
+  color: #5d5d5d;
   margin-bottom: 12px;
 }
 
