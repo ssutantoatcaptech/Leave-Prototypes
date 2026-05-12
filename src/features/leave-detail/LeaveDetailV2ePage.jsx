@@ -480,6 +480,7 @@ export default function LeaveDetailV2ePage() {
             <div className="ldb-detail-tabs">
               <button type="button" className={'ldb-detail-tab' + (detailTab === 'claims' ? ' active' : '')} onClick={function () { setDetailTab('claims'); }}>Claims & Payments</button>
               <button type="button" className={'ldb-detail-tab' + (detailTab === 'about' ? ' active' : '')} onClick={function () { setDetailTab('about'); }}>Leave Details</button>
+              <button type="button" className={'ldb-detail-tab' + (detailTab === 'activity' ? ' active' : '')} onClick={function () { setDetailTab('activity'); }}>Activity Log</button>
             </div>
 
             {/* Tab: Claims & Payments */}
@@ -948,6 +949,21 @@ export default function LeaveDetailV2ePage() {
                       </div>
                     )}
                   </div>
+            </div>
+            )}
+
+            {/* Tab: Activity Log */}
+            {detailTab === 'activity' && (
+            <div className="ldb-card">
+              <div className="ldb-empty-state">
+                <svg width="40" height="40" viewBox="0 0 40 40" fill="none">
+                  <rect x="6" y="8" width="28" height="24" rx="3" stroke="#d4d4d8" strokeWidth="1.5"/>
+                  <path d="M6 14h28" stroke="#d4d4d8" strokeWidth="1.5"/>
+                  <path d="M12 20h10M12 25h16M12 30h8" stroke="#d4d4d8" strokeWidth="1.5" strokeLinecap="round"/>
+                </svg>
+                <h3 className="ldb-empty-title">No activity yet</h3>
+                <p className="ldb-empty-desc">Actions, updates, and status changes for this leave will appear here as they happen.</p>
+              </div>
             </div>
             )}
 
