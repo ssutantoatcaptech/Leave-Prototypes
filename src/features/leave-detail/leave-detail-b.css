@@ -2648,12 +2648,33 @@
 .ldb-activity-log {
   padding: 0;
   overflow-x: auto;
+  scrollbar-width: thin;
+  scrollbar-color: #d4d4d8 transparent;
+}
+
+.ldb-activity-log::-webkit-scrollbar {
+  height: 6px;
+}
+
+.ldb-activity-log::-webkit-scrollbar-track {
+  background: #f3f4f6;
+  border-radius: 3px;
+}
+
+.ldb-activity-log::-webkit-scrollbar-thumb {
+  background: #d4d4d8;
+  border-radius: 3px;
+}
+
+.ldb-activity-log::-webkit-scrollbar-thumb:hover {
+  background: #a3a3a3;
 }
 
 .ldb-activity-table {
   width: 100%;
+  min-width: 820px;
   border-collapse: collapse;
-  font-size: 13px;
+  font-size: 14px;
 }
 
 .ldb-activity-table thead {
@@ -2661,9 +2682,9 @@
 }
 
 .ldb-activity-table th {
-  padding: 10px 14px;
+  padding: 12px 16px;
   text-align: left;
-  font-size: 11px;
+  font-size: 12px;
   font-weight: 600;
   text-transform: uppercase;
   letter-spacing: 0.4px;
@@ -2673,7 +2694,7 @@
 }
 
 .ldb-activity-table td {
-  padding: 12px 14px;
+  padding: 16px 16px;
   vertical-align: top;
   border-bottom: 1px solid #f3f4f6;
   color: #374151;
@@ -2698,7 +2719,7 @@
 
 .ldb-activity-td-date {
   white-space: nowrap;
-  font-size: 12px;
+  font-size: 13px;
   color: #6b7280;
 }
 
