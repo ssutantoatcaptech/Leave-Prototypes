@@ -316,19 +316,35 @@ export default function LeaveDetailV2ePage() {
                   </div>
                 </div>
 
-                <p className="ad-section-helper ad-section-helper--desktop">Hover over a row to see details</p>
+                <p className="ad-section-helper ad-section-helper--desktop">Hover over a benefit to see details.</p>
                 <p className="ad-section-helper ad-section-helper--mobile">Tap a row to see details</p>
 
                 <div className="dlp-timeline">
+                  <div className="dlp-tl-weeks-row">
+                    <div className="dlp-tl-week-label">Week</div>
+                    <div className="dlp-tl-months-above">
+                      <span>Apr</span>
+                      <span>May</span>
+                      <span>Jun</span>
+                      <span>Jul</span>
+                    </div>
+                  </div>
+                  <div className="dlp-tl-weeks-row">
+                    <div className="dlp-tl-week-label"></div>
+                    <div className="dlp-tl-weeks">
+                      {Array.from({ length: 13 }, function (_, i) {
+                        return <div key={i} className="dlp-tl-week-tick"><span className="dlp-tl-week-num">{i + 1}</span></div>;
+                      })}
+                    </div>
+                  </div>
                   <div className="ldb-tl-rows-wrap">
                   <div className="dlp-tl-rows">
                     {(timelineView === 'payment' ? [
-                      { id: 'std', label: 'STD', width: 50, accent: '#2563eb', name: 'Group Disability Claim (STD)', weeks: '4 weeks', range: 'Apr 15 – May 15, 2026', pay: '60% salary after 7-day wait', status: 'Approved', paymentValue: '~$2,308/wk' },
-                      { id: 'njtdi', label: 'NJ TDI', width: 100, accent: '#818cf8', name: 'NJ Temporary Disability Insurance', weeks: '12 weeks', range: 'Apr 15 – Jul 08, 2026', pay: '85% salary (state program)', status: 'Active', paymentValue: '~$1,048/wk' },
+                      { id: 'std', label: 'STD', width: 50, accent: '#105fa8', name: 'Group Disability Claim (STD)', weeks: '4 weeks', range: 'Apr 15 – May 15, 2026', pay: '60% salary after 7-day wait', status: 'Approved', paymentValue: '~$2,308/wk' },
+                      { id: 'njtdi', label: 'NJ TDI', width: 100, accent: '#007a8a', name: 'NJ Temporary Disability Insurance', weeks: '12 weeks', range: 'Apr 15 – Jul 08, 2026', pay: '85% salary (state program)', status: 'Active', paymentValue: '~$1,048/wk' },
                     ] : [
-                      { id: 'fmla', label: 'FMLA', width: 100, accent: '#0033a0', name: 'Leave Case — FMLA (Intermittent)', weeks: '12 weeks', range: 'Apr 15 – Jul 08, 2026', pay: 'Job protection (unpaid)', status: 'Approved' },
-                      { id: 'std', label: 'STD', width: 35, accent: '#2563eb', name: 'Group Disability Claim (STD)', weeks: '4 weeks', range: 'Apr 15 – May 15, 2026', pay: '60% salary after 7-day wait', status: 'Approved' },
-                      { id: 'njtdi', label: 'NJ TDI', width: 100, accent: '#818cf8', name: 'NJ Temporary Disability Insurance', weeks: '12 weeks', range: 'Apr 15 – Jul 08, 2026', pay: '85% salary (state program)', status: 'Active' },
+                      { id: 'fmla', label: 'FMLA', width: 100, accent: '#003a70', name: 'Leave Case — FMLA (Intermittent)', weeks: '13 wk', range: 'Apr 15 – Jul 08, 2026', pay: 'Job protection (unpaid)', status: 'Approved' },
+                      { id: 'std', label: 'STD', width: 42, accent: '#105fa8', name: 'Group Disability Claim (STD)', weeks: '5.5 wk', range: 'Apr 15 – May 15, 2026', pay: '60% salary after 7-day wait', status: 'Approved' },
                     ]).map(function (item) {
                       return (
                         <button
@@ -341,7 +357,7 @@ export default function LeaveDetailV2ePage() {
                         >
                           <div className="dlp-tl-row-label">{item.label}</div>
                           <div className="dlp-tl-row-bar">
-                            <div className="dlp-tl-seg" style={{ left: '0%', width: item.width + '%', background: item.accent }} />
+                            <div className="dlp-tl-seg" style={{ left: '0%', width: item.width + '%', background: item.accent }}>{item.weeks}</div>
                           </div>
                         </button>
                       );
@@ -351,12 +367,11 @@ export default function LeaveDetailV2ePage() {
                   {/* Desktop: tooltip on hover */}
                   {hoveredRow && (function () {
                     var allRows = timelineView === 'payment' ? [
-                      { id: 'std', name: 'Group Disability Claim (STD)', weeks: '4 weeks', range: 'Apr 15 – May 15, 2026', pay: '60% salary after 7-day wait', status: 'Approved', paymentValue: '~$2,308/wk' },
+                      { id: 'std', name: 'Group Disability Claim (STD)', weeks: '5.5 weeks', range: 'Apr 15 – May 15, 2026', pay: '60% salary after 7-day wait', status: 'Approved', paymentValue: '~$2,308/wk' },
                       { id: 'njtdi', name: 'NJ Temporary Disability Insurance', weeks: '12 weeks', range: 'Apr 15 – Jul 08, 2026', pay: '85% salary (state program)', status: 'Active', paymentValue: '~$1,048/wk' },
                     ] : [
-                      { id: 'fmla', name: 'Leave Case — FMLA (Intermittent)', weeks: '12 weeks', range: 'Apr 15 – Jul 08, 2026', pay: 'Job protection (unpaid)', status: 'Approved' },
-                      { id: 'std', name: 'Group Disability Claim (STD)', weeks: '4 weeks', range: 'Apr 15 – May 15, 2026', pay: '60% salary after 7-day wait', status: 'Approved' },
-                      { id: 'njtdi', name: 'NJ Temporary Disability Insurance', weeks: '12 weeks', range: 'Apr 15 – Jul 08, 2026', pay: '85% salary (state program)', status: 'Active' },
+                      { id: 'fmla', name: 'Leave Case — FMLA (Intermittent)', weeks: '13 weeks', range: 'Apr 15 – Jul 08, 2026', pay: 'Job protection (unpaid)', status: 'Approved' },
+                      { id: 'std', name: 'Group Disability Claim (STD)', weeks: '5.5 weeks', range: 'Apr 15 – May 15, 2026', pay: '60% salary after 7-day wait', status: 'Approved' },
                     ];
                     var hovered = allRows.find(function (r) { return r.id === hoveredRow; });
                     if (!hovered) return null;
@@ -391,12 +406,11 @@ export default function LeaveDetailV2ePage() {
                   {/* Mobile: accordion below rows */}
                   {hoveredRow && (function () {
                     var allRows = timelineView === 'payment' ? [
-                      { id: 'std', name: 'Group Disability Claim (STD)', weeks: '4 weeks', range: 'Apr 15 – May 15, 2026', pay: '60% salary after 7-day wait', status: 'Approved', paymentValue: '~$2,308/wk' },
+                      { id: 'std', name: 'Group Disability Claim (STD)', weeks: '5.5 weeks', range: 'Apr 15 – May 15, 2026', pay: '60% salary after 7-day wait', status: 'Approved', paymentValue: '~$2,308/wk' },
                       { id: 'njtdi', name: 'NJ Temporary Disability Insurance', weeks: '12 weeks', range: 'Apr 15 – Jul 08, 2026', pay: '85% salary (state program)', status: 'Active', paymentValue: '~$1,048/wk' },
                     ] : [
-                      { id: 'fmla', name: 'Leave Case — FMLA (Intermittent)', weeks: '12 weeks', range: 'Apr 15 – Jul 08, 2026', pay: 'Job protection (unpaid)', status: 'Approved' },
-                      { id: 'std', name: 'Group Disability Claim (STD)', weeks: '4 weeks', range: 'Apr 15 – May 15, 2026', pay: '60% salary after 7-day wait', status: 'Approved' },
-                      { id: 'njtdi', name: 'NJ Temporary Disability Insurance', weeks: '12 weeks', range: 'Apr 15 – Jul 08, 2026', pay: '85% salary (state program)', status: 'Active' },
+                      { id: 'fmla', name: 'Leave Case — FMLA (Intermittent)', weeks: '13 weeks', range: 'Apr 15 – Jul 08, 2026', pay: 'Job protection (unpaid)', status: 'Approved' },
+                      { id: 'std', name: 'Group Disability Claim (STD)', weeks: '5.5 weeks', range: 'Apr 15 – May 15, 2026', pay: '60% salary after 7-day wait', status: 'Approved' },
                     ];
                     var selected = allRows.find(function (r) { return r.id === hoveredRow; });
                     if (!selected) return null;
@@ -425,31 +439,15 @@ export default function LeaveDetailV2ePage() {
                     );
                   })()}
 
-                  <div className="dlp-tl-weeks-row">
-                    <div className="dlp-tl-week-label">Week</div>
-                    <div className="dlp-tl-weeks">
-                      {Array.from({ length: 13 }, function (_, i) {
-                        return <div key={i} className="dlp-tl-week-tick"><span className="dlp-tl-week-num">{i + 1}</span></div>;
-                      })}
-                    </div>
-                  </div>
-                  <div className="dlp-tl-months">
-                    <span>Apr</span>
-                    <span>May</span>
-                    <span>Jun</span>
-                    <span>Jul</span>
-                  </div>
-
                   <div className="dlp-legend">
                     {(timelineView === 'payment' ? [
-                      { id: 'partial-pay', label: 'STD (60%)', accent: '#2563eb' },
-                      { id: 'state', label: 'NJ TDI (85%)', accent: '#818cf8' },
-                      { id: 'unpaid', label: 'Unpaid', accent: '#cbd5e1' },
+                      { id: 'partial-pay', label: 'STD (60%)', accent: '#105fa8' },
+                      { id: 'state', label: 'NJ TDI (85%)', accent: '#007a8a' },
+                      { id: 'unpaid', label: 'Unpaid', accent: '#e4e4e4' },
                     ] : [
-                      { id: 'fmla', label: 'FMLA Protection', accent: '#0033a0' },
-                      { id: 'std', label: 'STD Income', accent: '#2563eb' },
-                      { id: 'state', label: 'NJ State TDI', accent: '#818cf8' },
-                      { id: 'unpaid', label: 'Unpaid', accent: '#cbd5e1' },
+                      { id: 'fmla', label: 'FMLA', accent: '#003a70' },
+                      { id: 'std', label: 'STD', accent: '#105fa8' },
+                      { id: 'unpaid', label: 'Unpaid', accent: '#e4e4e4' },
                     ]).map(function (item) {
                       return (
                         <div key={item.id} className="dlp-legend-item">

@@ -54,7 +54,7 @@
 .ldb-content {
   max-width: 1440px;
   margin: 0 auto;
-  padding: 48px 60px 60px;
+  padding: 0 0 60px;
   width: 100%;
   box-sizing: border-box;
 }
@@ -291,7 +291,7 @@
 }
 .ldb-card.dt-timeline-wrap .dlp-tl-row-bar {
   background: #e4e4e4;
-  height: 40px;
+  height: 32px;
   border-radius: 4px;
 }
 .ldb-card.dt-timeline-wrap .dlp-tl-seg {
