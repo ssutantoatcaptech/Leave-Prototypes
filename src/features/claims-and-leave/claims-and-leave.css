@@ -338,7 +338,7 @@
 .cl-main {
   max-width: 1440px;
   margin: 0 auto;
-  padding: 32px;
+  padding: 0 32px 32px;
   flex: 1;
   width: 100%;
   box-sizing: border-box;
@@ -353,6 +353,7 @@
 /* Page */
 .cl-page {
   animation: cl-fadeIn 0.2s ease-out;
+  padding-top: 48px;
 }
 
 @keyframes cl-fadeIn {
