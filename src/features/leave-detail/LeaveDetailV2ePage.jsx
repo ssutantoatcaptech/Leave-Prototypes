@@ -497,14 +497,13 @@ export default function LeaveDetailV2ePage() {
                         <span className="ldb-claim-accordion-title">
                           {caseScenario === 'child' ? 'Leave Case — FMLA (Pregnancy & Bonding)' : caseScenario === 'child_nonbirth' ? 'Leave Case — FMLA (Bonding)' : caseScenario === 'medical_family' ? 'Leave Case — FMLA (Family Care)' : caseScenario === 'military' ? 'Leave Case — FMLA (Military Exigency)' : 'Leave Case — FMLA (Intermittent)'}
                         </span>
-                        <span className="ldb-claim-status ldb-claim-status--inline" style={{ background: '#dcfce7', color: '#166534' }}>Approved</span>
                       </div>
                       <div className="ldb-claim-accordion-sub">
                         {caseScenario === 'child' ? 'CLM-12345-ABS · Continuous FMLA — pregnancy/bonding leave' : caseScenario === 'child_nonbirth' ? 'CLM-12345-ABS · Continuous FMLA — bonding leave' : caseScenario === 'medical_family' ? 'CLM-12345-ABS · FMLA — family caregiver leave' : caseScenario === 'military' ? 'CLM-12345-ABS · FMLA — qualifying exigency leave' : 'CLM-12345-ABS · Intermittent FMLA — job protection & RTW tracking'}
                       </div>
                     </div>
                   </div>
-                  <span className="ldb-claim-status ldb-claim-status--end" style={{ background: '#dcfce7', color: '#166534' }}>Approved</span>
+                  <span className="ldb-claim-status approved">Approved</span>
                 </button>
                 {expandedClaims.absence && (
                   <div className="ldb-claim-accordion-body">
@@ -547,12 +546,11 @@ export default function LeaveDetailV2ePage() {
                     <div>
                       <div className="ldb-claim-accordion-title-wrap">
                         <span className="ldb-claim-accordion-title">{caseScenario === 'child' ? 'Maternity Disability Claim' : 'Group Disability Claim'}</span>
-                        <span className="ldb-claim-status ldb-claim-status--inline" style={{ background: '#dcfce7', color: '#166534' }}>Approved</span>
                       </div>
                       <div className="ldb-claim-accordion-sub">{caseScenario === 'child' ? 'CLM-12345-GDC · STD Benefit — maternity disability at 60% of earnings' : 'CLM-12345-GDC · STD Benefit — income replacement at 60% of earnings'}</div>
                     </div>
                   </div>
-                  <span className="ldb-claim-status ldb-claim-status--end" style={{ background: '#dcfce7', color: '#166534' }}>Approved</span>
+                  <span className="ldb-claim-status approved">Approved</span>
                 </button>
                 {expandedClaims.disability && (
                   <div className="ldb-claim-accordion-body">
@@ -591,50 +589,6 @@ export default function LeaveDetailV2ePage() {
               </div>
               )}
 
-              {/* Supplemental Health Claim — only for medical_self */}
-              {caseScenario === 'medical_self' && (
-              <div className="ldb-claim-accordion">
-                <button type="button" className={'ldb-claim-accordion-header' + (expandedClaims.supplemental ? ' expanded' : '')} onClick={function () { toggleClaim('supplemental'); }}>
-                  <div className="ldb-claim-accordion-left">
-                    <svg className="ldb-claim-accordion-chevron" width="10" height="6" viewBox="0 0 10 6" fill="none"><path d="M1 1l4 4 4-4" stroke="currentColor" strokeWidth="1.3" strokeLinecap="round" strokeLinejoin="round"/></svg>
-                    <div>
-                      <div className="ldb-claim-accordion-title-wrap">
-                        <span className="ldb-claim-accordion-title">Supplemental Health Claim</span>
-                        <span className="ldb-claim-status ldb-claim-status--inline" style={{ background: '#fef3c7', color: '#92400e' }}>Under Review</span>
-                      </div>
-                      <div className="ldb-claim-accordion-sub">NTN-9312-SC-82 · Hospital Indemnity — flat cash benefit for inpatient stays</div>
-                    </div>
-                  </div>
-                  <span className="ldb-claim-status ldb-claim-status--end" style={{ background: '#fef3c7', color: '#92400e' }}>Under Review</span>
-                </button>
-                {expandedClaims.supplemental && (
-                  <div className="ldb-claim-accordion-body">
-                    <div className="dt-info-grid">
-                      <div>
-                        <div className="dt-info-field-label">Claim ID</div>
-                        <div className="dt-info-field-value">NTN-9312-SC-82</div>
-                      </div>
-                      <div>
-                        <div className="dt-info-field-label">Benefit Type</div>
-                        <div className="dt-info-field-value">Hospital Indemnity</div>
-                      </div>
-                      <div>
-                        <div className="dt-info-field-label">Daily Benefit</div>
-                        <div className="dt-info-field-value">$200/day</div>
-                      </div>
-                      <div>
-                        <div className="dt-info-field-label">Inpatient Days</div>
-                        <div className="dt-info-field-value">3 days (Apr 15–17)</div>
-                      </div>
-                      <div>
-                        <div className="dt-info-field-label">Expected Payout</div>
-                        <div className="dt-info-field-value" style={{ fontWeight: 700 }}>$600.00</div>
-                      </div>
-                    </div>
-                  </div>
-                )}
-              </div>
-              )}
 
               {/* State Paid Leave — for medical_self and child */}
               {(caseScenario === 'medical_self' || caseScenario === 'child') && (
@@ -645,12 +599,11 @@ export default function LeaveDetailV2ePage() {
                     <div>
                       <div className="ldb-claim-accordion-title-wrap">
                         <span className="ldb-claim-accordion-title">{caseScenario === 'child' ? 'State Paid Leave — NJ FLI' : 'State Paid Leave — NJ TDI'}</span>
-                        <span className="ldb-claim-status ldb-claim-status--inline" style={{ background: '#eef2ff', color: '#6366f1' }}>Active</span>
                       </div>
                       <div className="ldb-claim-accordion-sub">{caseScenario === 'child' ? 'NTN-9312-STL-83 · NJ Family Leave Insurance — state-funded bonding benefit' : 'NTN-9312-STL-83 · NJ Temporary Disability Insurance — state-funded income replacement'}</div>
                     </div>
                   </div>
-                  <span className="ldb-claim-status ldb-claim-status--end" style={{ background: '#eef2ff', color: '#6366f1' }}>Active</span>
+                  <span className="ldb-claim-status approved">Active</span>
                 </button>
                 {expandedClaims.stateleave && (
                   <div className="ldb-claim-accordion-body">
@@ -694,12 +647,11 @@ export default function LeaveDetailV2ePage() {
                     <div>
                       <div className="ldb-claim-accordion-title-wrap">
                         <span className="ldb-claim-accordion-title">State Paid Leave — NJ FLI</span>
-                        <span className="ldb-claim-status ldb-claim-status--inline" style={{ background: '#eef2ff', color: '#6366f1' }}>Active</span>
                       </div>
                       <div className="ldb-claim-accordion-sub">NTN-9312-STL-83 · NJ Family Leave Insurance — state-funded caregiver/bonding benefit</div>
                     </div>
                   </div>
-                  <span className="ldb-claim-status ldb-claim-status--end" style={{ background: '#eef2ff', color: '#6366f1' }}>Active</span>
+                  <span className="ldb-claim-status approved">Active</span>
                 </button>
                 {expandedClaims.stateleave && (
                   <div className="ldb-claim-accordion-body">
