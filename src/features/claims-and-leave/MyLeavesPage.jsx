@@ -243,14 +243,33 @@ export default function MyLeavesPage() {
       </div>
 
       {/* Page Header */}
-      <div className="cl-ml-header">
+      <div className="cl-ml-header" style={{ position: 'relative', overflow: 'hidden' }}>
         <div className="cl-ml-header-text">
           <h1 className="cl-ml-title">My Leaves</h1>
           <p className="cl-ml-subtitle">Manage your active, saved, and historical leave requests.</p>
         </div>
         <div className="cl-ml-header-action">
-          <div className="cl-ml-gradient-decor" aria-hidden="true"></div>
           <button className="cl-ml-btn-new">+ Request New Leave</button>
+        </div>
+        <div className="cl-bg-icon" aria-hidden="true">
+          <svg width="388" height="388" viewBox="0 0 388 388" fill="none">
+            <rect x="20" y="52" width="348" height="316" rx="32" fill="url(#cal-bg-grad-ml)" opacity="0.45"/>
+            <rect x="44" y="120" width="300" height="228" rx="16" fill="white" opacity="0.5"/>
+            <rect x="120" y="8" width="28" height="64" rx="14" fill="url(#cal-bg-grad-ml)" opacity="0.45"/>
+            <rect x="240" y="8" width="28" height="64" rx="14" fill="url(#cal-bg-grad-ml)" opacity="0.45"/>
+            <rect x="80" y="164" width="52" height="44" rx="10" fill="url(#cal-bg-grad-ml)" opacity="0.35"/>
+            <rect x="156" y="164" width="52" height="44" rx="10" fill="url(#cal-bg-grad-ml)" opacity="0.35"/>
+            <rect x="232" y="164" width="52" height="44" rx="10" fill="url(#cal-bg-grad-ml)" opacity="0.35"/>
+            <rect x="80" y="232" width="52" height="44" rx="10" fill="url(#cal-bg-grad-ml)" opacity="0.35"/>
+            <rect x="156" y="232" width="52" height="44" rx="10" fill="url(#cal-bg-grad-ml)" opacity="0.35"/>
+            <rect x="232" y="232" width="52" height="44" rx="10" fill="url(#cal-bg-grad-ml)" opacity="0.35"/>
+            <defs>
+              <linearGradient id="cal-bg-grad-ml" x1="0" y1="0" x2="388" y2="388" gradientUnits="userSpaceOnUse">
+                <stop stopColor="#105fa8" stopOpacity="0.15"/>
+                <stop offset="1" stopColor="#0a9b8c" stopOpacity="0.12"/>
+              </linearGradient>
+            </defs>
+          </svg>
         </div>
       </div>
 
