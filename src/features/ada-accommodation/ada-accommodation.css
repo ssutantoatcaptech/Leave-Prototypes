@@ -18,6 +18,8 @@
 }
 
 .ada-embedded .ada-content {
+  width: 100%;
+  max-width: 100%;
   padding: 24px 0 24px;
 }
 
