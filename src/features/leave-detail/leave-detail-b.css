@@ -179,8 +179,9 @@
   display: inline-flex;
   align-items: center;
   gap: 6px;
-  padding: 10px 20px;
-  background: #0033a0;
+  padding: 0 20px;
+  height: 40px;
+  background: #105fa8;
   color: #fff;
   border: none;
   border-radius: 6px;
@@ -190,24 +191,25 @@
   font-family: inherit;
   transition: background 0.15s;
 }
-.ldb-btn-primary:hover { background: #002580; }
+.ldb-btn-primary:hover { background: #0a4a85; }
 
 .ldb-btn-secondary {
   display: inline-flex;
   align-items: center;
   gap: 6px;
-  padding: 10px 16px;
-  background: #fff;
-  color: #0f0f14;
-  border: 1px solid #d4d4d8;
+  padding: 0 20px;
+  height: 40px;
+  background: transparent;
+  color: #105fa8;
+  border: 1.5px solid #105fa8;
   border-radius: 6px;
   font-size: 14px;
   font-weight: 600;
   cursor: pointer;
   font-family: inherit;
-  transition: background 0.15s;
+  transition: background 0.15s, border-color 0.15s;
 }
-.ldb-btn-secondary:hover { background: #fafafa; }
+.ldb-btn-secondary:hover { background: #eff6ff; border-color: #0a4a85; color: #0a4a85; }
 
 /* ── DETAILS BAR ── */
 .ldb-details-bar {
@@ -629,19 +631,32 @@
 .ldb-claim-status {
   display: inline-flex;
   align-items: center;
-  padding: 5.5px 13.5px;
-  border-radius: 120px;
-  font-size: 12px;
-  font-weight: 600;
+  gap: 8px;
+  padding: 4px 12px;
+  border-radius: 9999px;
+  font-size: 14px;
+  font-weight: 400;
   letter-spacing: 0;
   background: #fff;
   border: 1.5px solid #e4e4e4;
   color: #222;
 }
-.ldb-claim-status.approved { background: #fff; color: #222; border: 1.5px solid #e4e4e4; }
-.ldb-claim-status.not-eligible { background: #fff; color: #222; border: 1.5px solid #e4e4e4; }
-.ldb-claim-status.processed { background: #fff; color: #222; border: 1.5px solid #e4e4e4; }
-.ldb-claim-status.pending-status { background: #fff; color: #222; border: 1.5px solid #e4e4e4; }
+.ldb-claim-status::before {
+  content: '';
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #6b7280;
+  flex-shrink: 0;
+}
+.ldb-claim-status.approved { border-color: #e4e4e4; }
+.ldb-claim-status.approved::before { background: #16a34a; }
+.ldb-claim-status.not-eligible { border-color: #e4e4e4; }
+.ldb-claim-status.not-eligible::before { background: #dc2626; }
+.ldb-claim-status.processed { border-color: #e4e4e4; }
+.ldb-claim-status.processed::before { background: #105fa8; }
+.ldb-claim-status.pending-status { border-color: #e4e4e4; }
+.ldb-claim-status.pending-status::before { background: #f59e0b; }
 .ldb-claim-status--inline { display: inline-flex; margin-left: 8px; }
 .ldb-claim-accordion-title-wrap { display: flex; align-items: center; gap: 8px; }
 .ldb-claim-accordion-title-wrap .ldb-claim-accordion-title { display: block; }
@@ -684,11 +699,12 @@
   justify-content: center;
   gap: 8px;
   margin-top: 20px;
-  margin-bottom: 8px;
-  padding: 10px 24px;
+  margin-bottom: 24px;
+  padding: 0 20px;
+  height: 40px;
   border: 1.5px solid #105fa8;
   border-radius: 6px;
-  background: none;
+  background: transparent;
   font-size: 14px;
   font-weight: 600;
   color: #105fa8;
@@ -698,16 +714,16 @@
   transition: all 0.15s ease;
 }
 .ldb-payments-view-btn:hover {
-  background: #f0f7ff;
-  color: #003a70;
-  border-color: #003a70;
+  background: #eff6ff;
+  color: #0a4a85;
+  border-color: #0a4a85;
 }
 
 /* ── LINKS ── */
 .ldb-link {
-  color: #0072ce;
+  color: #105fa8;
   font-weight: 600;
-  font-size: 13px;
+  font-size: 14px;
   text-decoration: none;
   cursor: pointer;
   background: none;
@@ -715,7 +731,7 @@
   font-family: inherit;
   padding: 0;
 }
-.ldb-link:hover { text-decoration: underline; }
+.ldb-link:hover { color: #003a70; text-decoration: underline; }
 
 /* ── PAYMENT SUMMARY ── */
 .ldb-payment-summary {
@@ -895,21 +911,22 @@
   gap: 8px;
   width: 100%;
   margin-top: 14px;
-  padding: 10px 16px;
-  border: 1px solid #e5e5e7;
-  border-radius: 8px;
-  background: none;
-  font-size: 13px;
+  padding: 0 16px;
+  height: 40px;
+  border: 1.5px solid #105fa8;
+  border-radius: 6px;
+  background: transparent;
+  font-size: 14px;
   font-weight: 600;
-  color: #525252;
+  color: #105fa8;
   cursor: pointer;
   font-family: inherit;
   transition: all 0.15s ease;
 }
 .ldb-btn-upload-full:hover {
-  border-color: #525252;
-  background: #f0f0f2;
-  color: #0f0f14;
+  border-color: #0a4a85;
+  background: #eff6ff;
+  color: #0a4a85;
 }
 
 .ldb-snapshot-link-btn {
@@ -1721,11 +1738,12 @@
 .dt-edit-save {
   display: inline-flex;
   align-items: center;
-  padding: 9px 20px;
-  font-size: 13px;
+  padding: 0 20px;
+  height: 40px;
+  font-size: 14px;
   font-weight: 600;
   color: #fff;
-  background: #0033a0;
+  background: #105fa8;
   border: none;
   border-radius: 6px;
   cursor: pointer;
@@ -1733,25 +1751,27 @@
   transition: background 0.15s;
 }
 .dt-edit-save:hover {
-  background: #002580;
+  background: #0a4a85;
 }
 .dt-edit-cancel {
   display: inline-flex;
   align-items: center;
-  padding: 9px 20px;
-  font-size: 13px;
+  padding: 0 20px;
+  height: 40px;
+  font-size: 14px;
   font-weight: 600;
-  color: #525252;
-  background: #fff;
-  border: 1px solid #d4d4d8;
+  color: #105fa8;
+  background: transparent;
+  border: 1.5px solid #105fa8;
   border-radius: 6px;
   cursor: pointer;
   font-family: inherit;
   transition: background 0.15s, border-color 0.15s;
 }
 .dt-edit-cancel:hover {
-  background: #f5f5f7;
-  border-color: #a3a3a3;
+  background: #eff6ff;
+  border-color: #0a4a85;
+  color: #0a4a85;
 }
 
 .ldb-detail-actions {
@@ -2637,6 +2657,7 @@
 .ldb-side-card--shadow {
   border-color: #dfebf6;
   box-shadow: 0px 1px 8px rgba(0,0,0,0.08);
+  border-top: 4px solid #105fa8;
 }
 .ldb-quick-actions-label {
   font-size: 20px;
@@ -2797,14 +2818,15 @@
 }
 
 .ldb-comms-link {
-  font-size: 16px;
-  font-weight: 500;
-  color: #0033a0;
+  font-size: 14px;
+  font-weight: 600;
+  color: #105fa8;
   text-decoration: none;
   white-space: nowrap;
 }
 
 .ldb-comms-link:hover {
+  color: #003a70;
   text-decoration: underline;
 }
 
@@ -2842,7 +2864,7 @@
 }
 
 .ldb-activity-table thead {
-  background: #f8f9fb;
+  background: #f8fbfd;
 }
 
 .ldb-activity-table th {
@@ -2851,17 +2873,17 @@
   font-size: 12px;
   font-weight: 600;
   text-transform: uppercase;
-  letter-spacing: 0.4px;
-  color: #6b7280;
-  border-bottom: 1px solid #e5e7eb;
+  letter-spacing: 0.36px;
+  color: #444;
+  border-bottom: 1px solid #e4e4e4;
   white-space: nowrap;
 }
 
 .ldb-activity-table td {
   padding: 16px 16px;
   vertical-align: top;
-  border-bottom: 1px solid #f3f4f6;
-  color: #374151;
+  border-bottom: 1px solid #f0f0f0;
+  color: #222;
   line-height: 1.5;
 }
 
@@ -2870,7 +2892,7 @@
 }
 
 .ldb-activity-table tbody tr:hover {
-  background: #fafbfc;
+  background: #f8fbfd;
 }
 
 .ldb-activity-row--action {
@@ -2883,14 +2905,14 @@
 
 .ldb-activity-td-date {
   white-space: nowrap;
-  font-size: 13px;
-  color: #6b7280;
+  font-size: 14px;
+  color: #5d5d5d;
 }
 
 .ldb-activity-td-time {
   display: block;
   font-size: 12px;
-  color: #9ca3af;
+  color: #5d5d5d;
   margin-top: 2px;
 }
 
@@ -2942,11 +2964,11 @@
 }
 
 .ldb-activity-table--striped tbody tr:nth-child(even) {
-  background: #f8f9fb;
+  background: #f8fbfd;
 }
 
 .ldb-activity-table--striped tbody tr:nth-child(even):hover {
-  background: #f1f3f5;
+  background: #f0f7ff;
 }
 
 .ldb-activity-th-sortable {
@@ -2955,7 +2977,7 @@
 }
 
 .ldb-activity-th-sortable:hover {
-  color: #374151;
+  color: #222;
 }
 
 .ldb-sort-icon {
@@ -2969,14 +2991,14 @@
   align-items: center;
   gap: 4px;
   margin-top: 6px;
-  font-size: 12px;
-  font-weight: 500;
-  color: #2563eb;
+  font-size: 13px;
+  font-weight: 600;
+  color: #105fa8;
   text-decoration: none;
 }
 
 .ldb-activity-doc-link:hover {
-  color: #1d4ed8;
+  color: #003a70;
   text-decoration: underline;
 }
 
@@ -2990,40 +3012,40 @@
 
 .ldb-activity-filters {
   display: flex;
-  gap: 16px;
-  padding: 16px 16px 12px;
-  border-bottom: 1px solid #e5e7eb;
+  gap: 24px;
+  padding: 20px 24px;
+  border-bottom: 1px solid #e4e4e4;
 }
 
 .ldb-activity-filter {
   display: flex;
   flex-direction: column;
-  gap: 4px;
+  gap: 6px;
 }
 
 .ldb-activity-filter label {
-  font-size: 11px;
+  font-size: 12px;
   font-weight: 600;
   text-transform: uppercase;
-  letter-spacing: 0.4px;
-  color: #6b7280;
+  letter-spacing: 0.36px;
+  color: #444;
 }
 
 .ldb-filter-select {
   display: flex;
   align-items: center;
   gap: 8px;
-  padding: 6px 10px;
-  font-size: 13px;
-  border: 1px solid #d4d4d8;
+  padding: 8px 12px;
+  font-size: 14px;
+  border: 1.5px solid #e4e4e4;
   border-radius: 6px;
   background: #fff;
-  color: #374151;
+  color: #222;
   cursor: pointer;
 }
 
 .ldb-filter-select:hover {
-  border-color: #a3a3a3;
+  border-color: #105fa8;
 }
 
 .ldb-filter-value {
@@ -3036,15 +3058,15 @@
 
 .ldb-activity-td-person {
   white-space: nowrap;
-  font-size: 13px;
-  color: #374151;
-  font-weight: 500;
+  font-size: 14px;
+  color: #222;
+  font-weight: 600;
 }
 
 .ldb-activity-td-role {
   display: block;
   font-size: 12px;
-  color: #9ca3af;
+  color: #5d5d5d;
   font-weight: 400;
   margin-top: 2px;
 }

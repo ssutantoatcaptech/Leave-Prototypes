@@ -796,12 +796,12 @@
   background: #f5f5f7;
 }
 
-.dt-info-block { padding-top: 24px; border-top: 1px solid #e5e5e5; }
+.dt-info-block { padding-top: 24px; border-top: 1px solid #e4e4e4; }
 .dt-info-block:first-child { padding-top: 0; border-top: none; }
 .dt-info-block-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 16px; }
-.dt-info-block-header h4 { font-size: 16px; font-weight: 600; color: #171717; margin: 0; }
-.dt-info-edit-btn { background: none; border: none; cursor: pointer; color: #737373; padding: 4px; display: flex; align-items: center; justify-content: center; border-radius: 4px; transition: 0.15s; }
-.dt-info-edit-btn:hover { background: #f5f5f7; color: #171717; }
+.dt-info-block-header h4 { font-size: 16px; font-weight: 600; color: #003a70; margin: 0; }
+.dt-info-edit-btn { background: none; border: none; cursor: pointer; color: #105fa8; padding: 4px; display: flex; align-items: center; justify-content: center; border-radius: 4px; transition: 0.15s; }
+.dt-info-edit-btn:hover { background: #f8fbfd; color: #003a70; }
 .dt-info-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 24px 32px; }
 .dt-info-field-label { font-size: 12px; color: #444; font-weight: 600; text-transform: uppercase; letter-spacing: 0.36px; margin-bottom: 4px; line-height: 16px; }
 .dt-info-field-value { font-size: 14px; color: #222; line-height: 20px; }
