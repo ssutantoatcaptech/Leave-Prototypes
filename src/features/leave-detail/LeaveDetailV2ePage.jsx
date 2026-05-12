@@ -253,22 +253,16 @@ export default function LeaveDetailV2ePage() {
           <svg className="ldb-bc-sep" width="12" height="12" viewBox="0 0 16 16" fill="none"><path d="M6 4l4 4-4 4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/></svg>
           <Link to={`${base}/my-cases`}>My Leave</Link>
           <svg className="ldb-bc-sep" width="12" height="12" viewBox="0 0 16 16" fill="none"><path d="M6 4l4 4-4 4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/></svg>
-          <span>CLM #12345</span>
+          <span style={{ fontWeight: 600, color: '#5d5d5d' }}>#CLM #12345</span>
         </div>
 
-        {/* Title Card — Redesigned */}
+        {/* Title */}
         <div className="ldb-title-card">
           <div className="ldb-title-left">
-            <div className="ldb-title-icon">
-              <svg width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2v10z" stroke="#fff" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"/><path d="M8 10h8M8 13h5" stroke="#fff" strokeWidth="1.8" strokeLinecap="round"/></svg>
-            </div>
-            <div className="ldb-title-text">
-              <span className="ldb-status-badge approved-status ldb-title-badge">Approved</span>
-              <h1 className="ldb-title">Illness or Injury — Own Condition</h1>
-              <div className="ldb-title-meta">
-                <span style={{ fontSize: 14, color: '#525252', fontWeight: 600 }}>CLM #12345</span>
-                <span style={{ fontSize: 13, color: '#737373', marginLeft: 12 }}>Apr 15 – Jul 08, 2026 · Intermittent</span>
-              </div>
+            <h1 className="ldb-title">Illness or Injury</h1>
+            <div className="ldb-title-meta">
+              <span style={{ fontWeight: 600 }}>NTN - 2334</span>
+              <span style={{ fontWeight: 400 }}>Apr 15 – May 15, 2026 · Intermittent</span>
             </div>
           </div>
         </div>

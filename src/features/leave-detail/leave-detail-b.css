@@ -6,16 +6,16 @@
 /* ── PAGE SHELL ── */
 .ldb-page {
   min-height: 100vh;
-  background: #f8fafc;
+  background: #f8fbfd;
   font-family: 'Source Sans Pro', system-ui, sans-serif;
-  color: #0f172a;
+  color: #222;
   -webkit-font-smoothing: antialiased;
   display: flex;
   flex-direction: column;
 }
 
 /* ── SITE NAV ── */
-.ldb-top-nav { background: #0033a0; position: sticky; top: 0; z-index: 100; margin-bottom: 40px; }
+.ldb-top-nav { background: #0033a0; position: sticky; top: 0; z-index: 100; margin-bottom: 0; }
 .ldb-nav-main { display: flex; align-items: center; justify-content: space-between; padding: 16px 24px; border-bottom: 1px solid rgba(255,255,255,0.1); }
 .ldb-nav-main-left { display: flex; align-items: center; gap: 32px; }
 .ldb-nav-brand { font-size: 20px; font-weight: 700; color: #fff; letter-spacing: -0.3px; cursor: default; }
@@ -52,9 +52,9 @@
 
 /* ── CONTENT AREA ── */
 .ldb-content {
-  max-width: 1366px;
+  max-width: 1440px;
   margin: 0 auto;
-  padding: 0 32px 40px;
+  padding: 48px 60px 60px;
   width: 100%;
   box-sizing: border-box;
 }
@@ -65,49 +65,41 @@
   align-items: center;
   gap: 8px;
   font-size: 14px;
-  color: #64748b;
-  margin-bottom: 24px;
+  color: #5d5d5d;
+  margin-bottom: 12px;
 }
 .ldb-breadcrumb a {
-  color: #64748b;
-  text-decoration: none;
+  color: #105fa8;
+  text-decoration: underline;
   font-weight: 400;
 }
-.ldb-breadcrumb a:hover { text-decoration: underline; color: #1e293b; }
+.ldb-breadcrumb a:hover { color: #003a70; }
 .ldb-breadcrumb-link {
   display: inline-flex;
   align-items: center;
   gap: 6px;
-  color: #64748b;
+  color: #105fa8;
   font-size: 14px;
   font-weight: 400;
-  text-decoration: none;
+  text-decoration: underline;
 }
-.ldb-breadcrumb-link:hover { color: #1e293b; }
-.ldb-bc-sep { color: #64748b; }
+.ldb-breadcrumb-link:hover { color: #003a70; }
+.ldb-bc-sep { color: #5d5d5d; }
 
 /* ── TITLE CARD ── */
 .ldb-title-card {
   display: flex;
-  align-items: center;
-  justify-content: space-between;
-  margin-bottom: 20px;
+  flex-direction: column;
+  gap: 12px;
+  margin-bottom: 0;
 }
 .ldb-title-left {
   display: flex;
-  align-items: center;
-  gap: 16px;
+  flex-direction: column;
+  gap: 0;
 }
 .ldb-title-icon {
-  width: 52px;
-  height: 52px;
-  border-radius: 14px;
-  background: #0033a0;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-shrink: 0;
-  color: #fff;
+  display: none;
 }
 .ldb-title-icon svg,
 .ldb-title-icon svg path,
@@ -116,20 +108,21 @@
   stroke: #fff !important;
 }
 .ldb-title {
-  font-size: 36px;
-  font-weight: 400;
-  letter-spacing: -0.9px;
-  color: #0f0f14;
+  font-size: 40px;
+  font-weight: 700;
+  letter-spacing: 0;
+  color: #003a70;
   margin: 0;
-  line-height: 1.1;
+  line-height: 48px;
 }
 .ldb-title-meta {
   display: flex;
   align-items: center;
-  gap: 10px;
-  margin-top: 6px;
-  font-size: 14px;
-  color: #525252;
+  gap: 12px;
+  margin-top: 12px;
+  font-size: 16px;
+  color: #222;
+  line-height: 24px;
 }
 .ldb-title-dot {
   width: 8px;
@@ -137,7 +130,7 @@
   border-radius: 50%;
   background: #2d2d2d;
 }
-.ldb-title-id { font-weight: 600; color: #0f0f14; }
+.ldb-title-id { font-weight: 600; color: #222; }
 .ldb-title-sep { color: #a3a3a3; }
 .ldb-title-actions {
   display: flex;
@@ -262,8 +255,8 @@
 /* ── TWO COLUMN LAYOUT ── */
 .ldb-v2-layout {
   display: grid;
-  grid-template-columns: 1fr 360px;
-  gap: 28px;
+  grid-template-columns: 1fr 394px;
+  gap: 24px;
   align-items: start;
 }
 .ldb-v2-main {
@@ -275,15 +268,18 @@
 /* ── CARDS ── */
 .ldb-card {
   background: #fff;
-  border: 1px solid #e2e8f0;
+  border: 1.5px solid #dfebf6;
   border-radius: 12px;
-  padding: 28px;
+  padding: 37.5px;
+  box-shadow: 0px 1px 8px rgba(0,0,0,0.08);
 }
 .ldb-card.dt-timeline-wrap {
   overflow: visible;
+  border-top: 1.5px solid #dfebf6;
+  padding: 36px;
 }
 .ldb-card.dt-timeline-wrap .dt-tl-toggle button.active {
-  background: #0033a0;
+  background: #003a70;
   color: #fff;
   box-shadow: none;
 }
@@ -328,9 +324,9 @@
   margin-bottom: 20px;
 }
 .ldb-card-title {
-  font-size: 18px;
+  font-size: 24px;
   font-weight: 600;
-  color: #0f0f14;
+  color: #003a70;
   margin: 0 0 16px;
   display: flex;
   align-items: center;
@@ -375,15 +371,15 @@
 }
 .ldb-side-card {
   background: #fff;
-  border: 1px solid #e2e8f0;
+  border: 1.5px solid #dfebf6;
   border-radius: 12px;
   padding: 20px;
-  box-shadow: 0 1px 2px rgba(0,0,0,0.05);
+  box-shadow: 0px 1px 8px rgba(0,0,0,0.08);
 }
 .ldb-side-title {
-  font-size: 16px;
+  font-size: 20px;
   font-weight: 600;
-  color: #0f0f14;
+  color: #003a70;
   margin: 0 0 16px;
   display: flex;
   align-items: center;
@@ -586,80 +582,85 @@
 }
 .ldb-card-context {
   font-size: 16px;
-  color: #737373;
+  color: #5d5d5d;
   margin: 0 0 16px;
-  line-height: 1.4;
+  line-height: 24px;
 }
 .ldb-claim-status {
   display: inline-flex;
   align-items: center;
-  padding: 3px 10px;
-  border-radius: 999px;
-  font-size: 11px;
+  padding: 5.5px 13.5px;
+  border-radius: 120px;
+  font-size: 12px;
   font-weight: 600;
-  letter-spacing: 0.3px;
+  letter-spacing: 0;
+  background: #fff;
+  border: 1.5px solid #e4e4e4;
+  color: #222;
 }
-.ldb-claim-status.approved { background: #f0fdf4; color: #28a745; border: 1px solid #dcfce7; }
-.ldb-claim-status.not-eligible { background: #f8fafc; color: #64748b; border: 1px solid #e2e8f0; }
-.ldb-claim-status.processed { background: #dbeafe; color: #0033a0; }
-.ldb-claim-status.pending-status { background: #e8f0fe; color: #0033a0; }
-.ldb-claim-status--inline { display: none; }
-.ldb-claim-accordion-title-wrap { display: block; }
+.ldb-claim-status.approved { background: #fff; color: #222; border: 1.5px solid #e4e4e4; }
+.ldb-claim-status.not-eligible { background: #fff; color: #222; border: 1.5px solid #e4e4e4; }
+.ldb-claim-status.processed { background: #fff; color: #222; border: 1.5px solid #e4e4e4; }
+.ldb-claim-status.pending-status { background: #fff; color: #222; border: 1.5px solid #e4e4e4; }
+.ldb-claim-status--inline { display: inline-flex; margin-left: 8px; }
+.ldb-claim-accordion-title-wrap { display: flex; align-items: center; gap: 8px; }
 .ldb-claim-accordion-title-wrap .ldb-claim-accordion-title { display: block; }
 
 /* ── ASSOCIATED PAYMENTS ── */
 .ldb-payments-grid {
-  display: flex;
-  flex-direction: column;
-  gap: 0;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px 36px;
   margin-bottom: 16px;
 }
 .ldb-payment-item {
   display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 10px 0;
-  border-bottom: 1px solid #f0f0f0;
+  flex-direction: column;
+  gap: 4px;
+  padding: 0;
+  border-bottom: none;
 }
 .ldb-payment-item:last-child {
   border-bottom: none;
 }
 .ldb-payment-label {
-  font-size: 16px;
-  font-weight: 500;
-  color: #4b5563;
+  font-size: 12px;
+  font-weight: 600;
+  color: #444;
+  text-transform: uppercase;
+  letter-spacing: 0.36px;
+  line-height: 16px;
 }
 .ldb-payment-value {
-  font-size: 16px;
-  font-weight: 600;
-  color: #0f0f14;
-  text-align: right;
+  font-size: 18px;
+  font-weight: 400;
+  color: #222;
+  text-align: left;
+  line-height: 28px;
 }
 .ldb-payments-view-btn {
-  display: flex;
+  display: inline-flex;
   align-items: center;
   justify-content: center;
-  gap: 6px;
-  width: 100%;
+  gap: 8px;
   margin-top: 20px;
   margin-bottom: 8px;
-  padding: 10px 0;
-  border: 1px solid #d4d4d8;
+  padding: 10px 24px;
+  border: 1.5px solid #105fa8;
   border-radius: 6px;
   background: none;
-  font-size: 12px;
-  font-weight: 700;
-  color: #525252;
+  font-size: 14px;
+  font-weight: 600;
+  color: #105fa8;
   cursor: pointer;
   font-family: inherit;
-  text-transform: uppercase;
-  letter-spacing: 0.5px;
   text-decoration: none;
   transition: all 0.15s ease;
 }
 .ldb-payments-view-btn:hover {
-  border-color: #0033a0;
-  color: #0033a0;
+  background: #f0f7ff;
+  color: #003a70;
+  border-color: #003a70;
 }
 
 /* ── LINKS ── */
@@ -750,19 +751,21 @@
 .ldb-doc-list {
   display: flex;
   flex-direction: column;
-  gap: 0;
+  gap: 16px;
 }
 .ldb-doc-item {
   display: flex;
   align-items: center;
-  gap: 12px;
-  padding: 14px 0;
-  border-bottom: 1px solid #f0f0f2;
+  gap: 24px;
+  padding: 16px;
+  border: 1.5px solid #e4e4e4;
+  border-radius: 12px;
+  background: #fbfbfb;
 }
-.ldb-doc-item:last-child { border-bottom: none; }
+.ldb-doc-item:last-child { border-bottom: 1.5px solid #e4e4e4; }
 .ldb-doc-info { flex: 1; }
-.ldb-doc-name { font-size: 14px; font-weight: 600; color: #0f0f14; }
-.ldb-doc-meta { font-size: 12px; color: #737373; margin-top: 2px; }
+.ldb-doc-name { font-size: 16px; font-weight: 600; color: #222; line-height: 24px; }
+.ldb-doc-meta { font-size: 14px; color: #5d5d5d; margin-top: 4px; line-height: 20px; }
 .ldb-icon-btn {
   width: 32px;
   height: 32px;
@@ -1024,16 +1027,18 @@
 .ldb-action-list {
   display: flex;
   flex-direction: column;
-  gap: 0;
+  gap: 16px;
 }
 .ldb-action-item {
   display: flex;
   align-items: center;
-  gap: 10px;
-  padding: 12px 0;
-  border-bottom: 1px solid #f0f0f2;
+  gap: 12px;
+  padding: 16px;
+  border: 1.5px solid #e4e4e4;
+  border-radius: 12px;
+  background: #fbfbfb;
 }
-.ldb-action-item:last-child { border-bottom: none; }
+.ldb-action-item:last-child { border-bottom: 1.5px solid #e4e4e4; }
 .ldb-action-dot {
   width: 8px;
   height: 8px;
@@ -1104,11 +1109,13 @@
 .ldb-action-name {
   font-size: 16px;
   font-weight: 600;
-  color: #0f0f14;
+  color: #222;
+  line-height: 24px;
 }
 .ldb-action-due {
   font-size: 14px;
-  color: #737373;
+  color: #5d5d5d;
+  line-height: 20px;
 }
 .ldb-action-item--done .ldb-action-name {
   color: #737373;
@@ -1124,9 +1131,9 @@
   padding: 8px 0;
   border: none;
   background: none;
-  font-size: 13px;
+  font-size: 14px;
   font-weight: 600;
-  color: #0033a0;
+  color: #105fa8;
   cursor: pointer;
   font-family: 'Source Sans Pro', system-ui, sans-serif;
 }
@@ -1140,18 +1147,19 @@
   display: inline-flex;
   align-items: center;
   gap: 6px;
-  padding: 5px 12px;
-  font-size: 12px;
+  padding: 8px 16px;
+  font-size: 14px;
   font-weight: 600;
   color: #fff;
-  background: #0033a0;
+  background: #105fa8;
   border: none;
   border-radius: 6px;
   cursor: pointer;
   font-family: 'Source Sans Pro', system-ui, sans-serif;
   transition: background 0.15s;
+  flex-shrink: 0;
 }
-.ldb-btn-upload-inline:hover { background: #002580; }
+.ldb-btn-upload-inline:hover { background: #003a70; }
 
 /* ── UPLOAD DROPZONE ── */
 .ldb-upload-zone {
@@ -2430,10 +2438,11 @@
 
 /* ── CLAIM ACCORDIONS (V2E) ── */
 .ldb-claim-accordion {
-  border: 1px solid #e2e8f0;
-  border-radius: 10px;
+  border: 1.5px solid #e4e4e4;
+  border-radius: 8px;
   margin-bottom: 12px;
   overflow: hidden;
+  background: #fbfbfb;
   transition: box-shadow 0.15s;
 }
 .ldb-claim-accordion:hover {
@@ -2443,8 +2452,8 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 16px 20px;
-  background: #fff;
+  padding: 24px;
+  background: #fbfbfb;
   border: none;
   width: 100%;
   cursor: pointer;
@@ -2453,10 +2462,10 @@
   transition: background 0.12s;
 }
 .ldb-claim-accordion-header:hover {
-  background: #f8fafc;
+  background: #f5f5f5;
 }
 .ldb-claim-accordion-header.expanded {
-  border-bottom: 1px solid #f1f5f9;
+  border-bottom: 1px solid #e4e4e4;
 }
 .ldb-claim-accordion-left {
   display: flex;
@@ -2465,7 +2474,7 @@
 }
 .ldb-claim-accordion-chevron {
   transition: transform 0.2s;
-  color: #737373;
+  color: #5d5d5d;
   flex-shrink: 0;
 }
 .ldb-claim-accordion-header.expanded .ldb-claim-accordion-chevron {
@@ -2476,17 +2485,18 @@
 }
 .ldb-claim-accordion-title {
   font-size: 16px;
-  font-weight: 700;
-  color: #0f0f14;
+  font-weight: 600;
+  color: #222;
 }
 .ldb-claim-accordion-sub {
-  font-size: 16px;
-  color: #737373;
-  margin-top: 2px;
+  font-size: 14px;
+  color: #5d5d5d;
+  margin-top: 4px;
+  line-height: 20px;
 }
 .ldb-claim-accordion-body {
-  padding: 20px 24px;
-  background: #f8fafc;
+  padding: 24px;
+  background: #fbfbfb;
 }
 
 /* Sidebar link button */
@@ -2558,16 +2568,17 @@
 
 /* ── QUICK ACTIONS CARD (V2E Redesign) ── */
 .ldb-side-card--shadow {
-  border-color: #e2e2e5;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.06);
+  border-color: #dfebf6;
+  box-shadow: 0px 1px 8px rgba(0,0,0,0.08);
 }
 .ldb-quick-actions-label {
-  font-size: 12px;
-  font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: 0.6px;
-  color: #737373;
-  margin-bottom: 12px;
+  font-size: 20px;
+  font-weight: 600;
+  text-transform: none;
+  letter-spacing: 0;
+  color: #003a70;
+  margin-bottom: 16px;
+  line-height: 24px;
 }
 .ldb-quick-actions-list {
   display: flex;
@@ -2577,9 +2588,9 @@
 .ldb-quick-action-item {
   display: flex;
   align-items: center;
-  gap: 10px;
-  padding: 12px 0;
-  border-bottom: 1px solid #f0f0f2;
+  gap: 12px;
+  padding: 14px 0;
+  border-bottom: 1px solid #e4e4e4;
   background: none;
   border-left: none;
   border-right: none;
@@ -2589,7 +2600,7 @@
   font-family: 'Source Sans Pro', system-ui, sans-serif;
   font-size: 16px;
   font-weight: 500;
-  color: #0f0f14;
+  color: #222;
   text-align: left;
   transition: background 0.12s;
 }
@@ -2597,79 +2608,88 @@
   border-bottom: none;
 }
 .ldb-quick-action-item:hover {
-  background: #f5f5f7;
+  background: #f8fbfd;
 }
 .ldb-quick-action-item svg:first-child {
   flex-shrink: 0;
-  color: #525252;
+  color: #105fa8;
 }
 .ldb-quick-action-item span {
   flex: 1;
 }
 .ldb-quick-action-chevron {
   flex-shrink: 0;
-  color: #a3a3a3;
+  color: #105fa8;
   margin-left: auto;
 }
 
 /* ── LEAVE SNAPSHOT DATE CARDS (V2E Redesign) ── */
 .ldb-snapshot-dates-row {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 10px;
-  margin-bottom: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  margin-bottom: 0;
 }
 .ldb-snapshot-date-card {
-  border: 1px solid #e2e8f0;
+  border: 1.5px solid #e4e4e4;
   border-radius: 8px;
-  padding: 18px;
+  padding: 17px;
+  background: #fbfbfb;
+  height: 75px;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
 }
 .ldb-snapshot-date-card--full {
   width: 100%;
 }
 .ldb-snapshot-date-label {
-  font-size: 11px;
+  font-size: 12px;
   font-weight: 600;
   text-transform: uppercase;
-  letter-spacing: 0.3px;
-  color: #737373;
-  margin-bottom: 6px;
+  letter-spacing: 0.36px;
+  color: #444;
+  line-height: 16px;
 }
 .ldb-snapshot-date-value {
   font-size: 16px;
   font-weight: 600;
-  color: #0f0f14;
+  color: #003a70;
+  line-height: 24px;
 }
 
 /* Detail Tabs */
 .ldb-detail-tabs {
   display: flex;
   flex-wrap: wrap;
-  gap: 0;
-  border-bottom: 2px solid #e5e7eb;
-  margin-bottom: 20px;
+  gap: 20px;
+  border-bottom: 1.5px solid #dfebf6;
+  margin-bottom: 0;
+  padding: 0 24px;
+  border-radius: 12px 12px 0 0;
 }
 
 .ldb-detail-tab {
-  padding: 12px 20px;
+  padding: 12px 0;
   font-size: 16px;
   font-weight: 500;
-  color: #6b7280;
+  color: #5d5d5d;
   background: none;
   border: none;
   border-bottom: 2px solid transparent;
-  margin-bottom: -2px;
+  margin-bottom: -1.5px;
   cursor: pointer;
   transition: color 0.15s, border-color 0.15s;
 }
 
 .ldb-detail-tab:hover {
-  color: #374151;
+  color: #222;
 }
 
 .ldb-detail-tab.active {
-  color: #0033a0;
-  border-bottom-color: #0033a0;
+  color: #003a70;
+  border-bottom-color: #003a70;
   font-weight: 600;
 }
 
