@@ -70,19 +70,20 @@ var MONTH_NAMES = ['January','February','March','April','May','June','July','Aug
 
 export default function EnterMyTimePage() {
   const base = useBasePath();
-  var today = new Date();
-  var todayKey = formatDateKey(today.getFullYear(), today.getMonth(), today.getDate());
+  var todayKey = '2026-05-12';
 
   var [selectedCase, setSelectedCase] = useState(LEAVE_CASES[0]);
   var [caseOpen, setCaseOpen] = useState(false);
-  var [calYear, setCalYear] = useState(today.getFullYear());
-  var [calMonth, setCalMonth] = useState(today.getMonth());
+  var [calYear, setCalYear] = useState(2026);
+  var [calMonth, setCalMonth] = useState(4);
   var [selectedDates, setSelectedDates] = useState([]);
   var [startTime, setStartTime] = useState('08:00 AM');
   var [endTime, setEndTime] = useState('12:00 PM');
   var [reason, setReason] = useState('Episode');
   var [reasonOpen, setReasonOpen] = useState(false);
   var [absences, setAbsences] = useState([
+    { date: 'May 9, 2026', dateKey: '2026-05-09', startTime: '8:00 AM', endTime: '11:30 AM', hours: '3.5', reason: 'Episode', reasonColor: 'amber', addedOn: 'May 9, 2026', caseId: 'CL-975542' },
+    { date: 'May 5, 2026', dateKey: '2026-05-05', startTime: '9:00 AM', endTime: '12:00 PM', hours: '3.0', reason: 'Treatment', reasonColor: 'blue', addedOn: 'May 5, 2026', caseId: 'CL-975542' },
     { date: 'May 2, 2026', dateKey: '2026-05-02', startTime: '8:00 AM', endTime: '12:00 PM', hours: '4.0', reason: 'Episode', reasonColor: 'amber', addedOn: 'May 2, 2026', caseId: 'CL-975542' },
     { date: 'Apr 28, 2026', dateKey: '2026-04-28', startTime: '8:00 AM', endTime: '4:00 PM', hours: '8.0', reason: 'Treatment', reasonColor: 'blue', addedOn: 'Apr 28, 2026', caseId: 'CL-975542' },
     { date: 'Apr 21, 2026', dateKey: '2026-04-21', startTime: '1:00 PM', endTime: '3:30 PM', hours: '2.5', reason: 'Episode', reasonColor: 'amber', addedOn: 'Apr 21, 2026', caseId: 'CL-975542' },
