@@ -289,86 +289,8 @@ export default function EnterMyTimePage() {
             </div>
           )}
 
-          {/* Batch Preview */}
-          {showPreview && (
-            <div className="cl-ma-preview-card">
-              <div className="cl-ma-preview-header">
-                <div className="cl-ma-preview-header-left">
-                  <svg width="20" height="20" viewBox="0 0 20 20" fill="none"><rect x="2" y="3" width="16" height="14" rx="2" stroke="#0033a0" strokeWidth="1.5"/><path d="M2 7h16" stroke="#0033a0" strokeWidth="1.5"/><path d="M6 1v4M14 1v4" stroke="#0033a0" strokeWidth="1.5" strokeLinecap="round"/></svg>
-                  <h3 className="cl-ma-preview-title">Review Batch Entry</h3>
-                </div>
-                <span className="cl-ma-preview-count">{selectedDates.length} days · {totalBulkHours.toFixed(1)} hours total</span>
-              </div>
-
-              <div className="cl-ma-preview-table-wrap">
-                <table className="cl-ma-preview-table">
-                  <thead>
-                    <tr>
-                      <th>Date</th>
-                      <th>Start</th>
-                      <th>End</th>
-                      <th>Hours</th>
-                      <th>Reason</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    {selectedDates.map(function (dk) {
-                      var dayData = perDayEdits[dk] || { startTime: startTime, endTime: endTime };
-                      var dayHours = calcHours(dayData.startTime, dayData.endTime);
-                      return (
-                        <tr key={dk}>
-                          <td className="cl-ma-cell-bold">{formatDateKeyToDisplay(dk)}</td>
-                          <td>
-                            <input
-                              type="text"
-                              className="cl-ma-preview-input"
-                              value={dayData.startTime}
-                              onChange={function (e) { updatePerDayTime(dk, 'startTime', e.target.value); }}
-                            />
-                          </td>
-                          <td>
-                            <input
-                              type="text"
-                              className="cl-ma-preview-input"
-                              value={dayData.endTime}
-                              onChange={function (e) { updatePerDayTime(dk, 'endTime', e.target.value); }}
-                            />
-                          </td>
-                          <td className="cl-ma-cell-bold">{dayHours}h</td>
-                          <td><span className={'cl-ma-reason-badge cl-ma-reason-badge--' + getReasonColor(reason)}>{reason}</span></td>
-                        </tr>
-                      );
-                    })}
-                  </tbody>
-                </table>
-              </div>
-
-              <div className="cl-ma-preview-footer">
-                <div className="cl-ma-preview-summary">
-                  <div className="cl-ma-preview-stat">
-                    <span className="cl-ma-preview-stat-label">Total Hours</span>
-                    <span className="cl-ma-preview-stat-value">{totalBulkHours.toFixed(1)}</span>
-                  </div>
-                  <div className="cl-ma-preview-stat">
-                    <span className="cl-ma-preview-stat-label">Remaining Balance</span>
-                    <span className="cl-ma-preview-stat-value">{Math.max(0, balance - totalBulkHours).toFixed(1)}h</span>
-                  </div>
-                </div>
-                <div className="cl-ma-preview-actions">
-                  <button className="cl-ma-btn-submit" type="button" onClick={handleSubmit}>
-                    Confirm &amp; Submit All
-                  </button>
-                  <button className="cl-ma-btn-cancel" type="button" onClick={function () { setShowPreview(false); }}>
-                    Back to Edit
-                  </button>
-                </div>
-              </div>
-            </div>
-          )}
-
           {/* Form card */}
-          {!showPreview && (
-            <div className="cl-ma-form-card">
+          <div className="cl-ma-form-card">
               <div className="cl-ma-form-grid">
                 {/* Left: Case selector + Calendar */}
                 <div className="cl-ma-form-left">
@@ -630,8 +552,7 @@ export default function EnterMyTimePage() {
                   <button className="cl-ma-btn-cancel" type="button" onClick={handleCancel}>Cancel</button>
                 </div>
               </div>
-            </div>
-          )}
+          </div>
 
           {/* Recent Time Entries */}
           <div className="cl-ma-recent-card">
@@ -827,6 +748,88 @@ export default function EnterMyTimePage() {
 
         </div>
       </div>
+
+      {/* Batch Review Modal */}
+      {showPreview && (
+        <div className="cl-ma-modal-overlay" onClick={function () { setShowPreview(false); }}>
+          <div className="cl-ma-modal" onClick={function (e) { e.stopPropagation(); }}>
+            <div className="cl-ma-modal-header">
+              <div className="cl-ma-modal-header-left">
+                <svg width="20" height="20" viewBox="0 0 20 20" fill="none"><rect x="2" y="3" width="16" height="14" rx="2" stroke="#0033a0" strokeWidth="1.5"/><path d="M2 7h16" stroke="#0033a0" strokeWidth="1.5"/><path d="M6 1v4M14 1v4" stroke="#0033a0" strokeWidth="1.5" strokeLinecap="round"/></svg>
+                <h3 className="cl-ma-modal-title">Review Batch Entry</h3>
+                <span className="cl-ma-preview-count">{selectedDates.length} days · {totalBulkHours.toFixed(1)} hours total</span>
+              </div>
+              <button className="cl-ma-modal-close" type="button" onClick={function () { setShowPreview(false); }}>
+                <svg width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M5 5l10 10M15 5L5 15" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"/></svg>
+              </button>
+            </div>
+
+            <div className="cl-ma-modal-body">
+              <table className="cl-ma-preview-table">
+                <thead>
+                  <tr>
+                    <th>Date</th>
+                    <th>Start Time</th>
+                    <th>End Time</th>
+                    <th>Hours</th>
+                    <th>Reason</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {selectedDates.map(function (dk) {
+                    var dayData = perDayEdits[dk] || { startTime: startTime, endTime: endTime };
+                    var dayHours = calcHours(dayData.startTime, dayData.endTime);
+                    return (
+                      <tr key={dk}>
+                        <td className="cl-ma-cell-bold">{formatDateKeyToDisplay(dk)}</td>
+                        <td>
+                          <input
+                            type="text"
+                            className="cl-ma-preview-input"
+                            value={dayData.startTime}
+                            onChange={function (e) { updatePerDayTime(dk, 'startTime', e.target.value); }}
+                          />
+                        </td>
+                        <td>
+                          <input
+                            type="text"
+                            className="cl-ma-preview-input"
+                            value={dayData.endTime}
+                            onChange={function (e) { updatePerDayTime(dk, 'endTime', e.target.value); }}
+                          />
+                        </td>
+                        <td className="cl-ma-cell-bold">{dayHours}h</td>
+                        <td><span className={'cl-ma-reason-badge cl-ma-reason-badge--' + getReasonColor(reason)}>{reason}</span></td>
+                      </tr>
+                    );
+                  })}
+                </tbody>
+              </table>
+            </div>
+
+            <div className="cl-ma-modal-footer">
+              <div className="cl-ma-preview-summary">
+                <div className="cl-ma-preview-stat">
+                  <span className="cl-ma-preview-stat-label">Total Hours</span>
+                  <span className="cl-ma-preview-stat-value">{totalBulkHours.toFixed(1)}</span>
+                </div>
+                <div className="cl-ma-preview-stat">
+                  <span className="cl-ma-preview-stat-label">Remaining Balance</span>
+                  <span className="cl-ma-preview-stat-value">{Math.max(0, balance - totalBulkHours).toFixed(1)}h</span>
+                </div>
+              </div>
+              <div className="cl-ma-preview-actions">
+                <button className="cl-ma-btn-cancel" type="button" onClick={function () { setShowPreview(false); }}>
+                  Back to Edit
+                </button>
+                <button className="cl-ma-btn-submit" type="button" onClick={handleSubmit}>
+                  Confirm &amp; Submit All
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 }
