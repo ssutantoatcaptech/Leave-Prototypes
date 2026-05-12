@@ -958,30 +958,24 @@ export default function LeaveDetailV2ePage() {
               <div className="ldb-activity-filters">
                 <div className="ldb-activity-filter">
                   <label>Date</label>
-                  <select defaultValue="">
-                    <option value="">All dates</option>
-                    <option value="7">Last 7 days</option>
-                    <option value="30">Last 30 days</option>
-                    <option value="90">Last 90 days</option>
-                  </select>
+                  <div className="ldb-filter-select">
+                    <span className="ldb-filter-value">All dates</span>
+                    <svg className="ldb-filter-chevron" width="10" height="6" viewBox="0 0 10 6" fill="none"><path d="M1 1l4 4 4-4" stroke="#6b7280" strokeWidth="1.3" strokeLinecap="round" strokeLinejoin="round"/></svg>
+                  </div>
                 </div>
                 <div className="ldb-activity-filter">
                   <label>Person</label>
-                  <select defaultValue="">
-                    <option value="">All</option>
-                    <option value="specialist">Claim Specialist</option>
-                    <option value="employee">Sarah Johnson</option>
-                    <option value="provider">Healthcare Provider</option>
-                  </select>
+                  <div className="ldb-filter-select">
+                    <span className="ldb-filter-value">All</span>
+                    <svg className="ldb-filter-chevron" width="10" height="6" viewBox="0 0 10 6" fill="none"><path d="M1 1l4 4 4-4" stroke="#6b7280" strokeWidth="1.3" strokeLinecap="round" strokeLinejoin="round"/></svg>
+                  </div>
                 </div>
                 <div className="ldb-activity-filter">
                   <label>Status</label>
-                  <select defaultValue="">
-                    <option value="">All</option>
-                    <option value="completed">Completed</option>
-                    <option value="pending">Pending</option>
-                    <option value="upcoming">Upcoming</option>
-                  </select>
+                  <div className="ldb-filter-select">
+                    <span className="ldb-filter-value">All</span>
+                    <svg className="ldb-filter-chevron" width="10" height="6" viewBox="0 0 10 6" fill="none"><path d="M1 1l4 4 4-4" stroke="#6b7280" strokeWidth="1.3" strokeLinecap="round" strokeLinejoin="round"/></svg>
+                  </div>
                 </div>
               </div>
               <table className="ldb-activity-table ldb-activity-table--striped">
