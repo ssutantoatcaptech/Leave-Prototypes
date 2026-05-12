@@ -984,63 +984,63 @@ export default function LeaveDetailV2ePage() {
                   </select>
                 </div>
               </div>
-              <table className="ldb-activity-table ldb-activity-table--compact">
+              <table className="ldb-activity-table ldb-activity-table--striped">
                 <thead>
                   <tr>
-                    <th>Date & Time</th>
-                    <th>Activity</th>
-                    <th>Completed By</th>
+                    <th className="ldb-activity-th-sortable">Date & Time <svg className="ldb-sort-icon" width="10" height="12" viewBox="0 0 10 12" fill="none"><path d="M5 0L9 4H1L5 0Z" fill="#9ca3af"/><path d="M5 12L1 8H9L5 12Z" fill="#d4d4d8"/></svg></th>
+                    <th className="ldb-activity-th-sortable">Activity <svg className="ldb-sort-icon" width="10" height="12" viewBox="0 0 10 12" fill="none"><path d="M5 0L9 4H1L5 0Z" fill="#d4d4d8"/><path d="M5 12L1 8H9L5 12Z" fill="#d4d4d8"/></svg></th>
+                    <th className="ldb-activity-th-sortable">Completed By <svg className="ldb-sort-icon" width="10" height="12" viewBox="0 0 10 12" fill="none"><path d="M5 0L9 4H1L5 0Z" fill="#d4d4d8"/><path d="M5 12L1 8H9L5 12Z" fill="#d4d4d8"/></svg></th>
                   </tr>
                 </thead>
                 <tbody>
                   <tr>
                     <td className="ldb-activity-td-date">Apr 18, 2026<span className="ldb-activity-td-time">9:42 AM</span></td>
-                    <td>Request packet sent — summary of leave request including notice of eligibility, relevant forms, and instructions.</td>
+                    <td><strong>Request packet sent</strong> — summary of leave request including notice of eligibility, relevant forms, and instructions. <a href="#" className="ldb-activity-doc-link"><svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M7 1v8M4 6l3 3 3-3" stroke="currentColor" strokeWidth="1.3" strokeLinecap="round" strokeLinejoin="round"/><path d="M1 10v2a1 1 0 001 1h10a1 1 0 001-1v-2" stroke="currentColor" strokeWidth="1.3" strokeLinecap="round"/></svg> Request_Packet.pdf</a></td>
                     <td className="ldb-activity-td-person">Lisa Martinez<span className="ldb-activity-td-role">Claim Specialist</span></td>
                   </tr>
                   <tr>
                     <td className="ldb-activity-td-date">Apr 17, 2026<span className="ldb-activity-td-time">2:15 PM</span></td>
-                    <td>Reminder of documentation due — notification sent that medical certification is due within 6 days.</td>
+                    <td><strong>Reminder of documentation due</strong> — notification sent that medical certification is due within 6 days.</td>
                     <td className="ldb-activity-td-person">Lisa Martinez<span className="ldb-activity-td-role">Claim Specialist</span></td>
                   </tr>
                   <tr>
                     <td className="ldb-activity-td-date">Apr 16, 2026<span className="ldb-activity-td-time">11:08 AM</span></td>
-                    <td>Document received — medical certification paperwork uploaded and logged into system for review.</td>
+                    <td><strong>Document received</strong> — medical certification paperwork uploaded and logged into system for review. <a href="#" className="ldb-activity-doc-link"><svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M7 1v8M4 6l3 3 3-3" stroke="currentColor" strokeWidth="1.3" strokeLinecap="round" strokeLinejoin="round"/><path d="M1 10v2a1 1 0 001 1h10a1 1 0 001-1v-2" stroke="currentColor" strokeWidth="1.3" strokeLinecap="round"/></svg> Medical_Certification.pdf</a></td>
                     <td className="ldb-activity-td-person">Sarah Johnson<span className="ldb-activity-td-role">Employee</span></td>
                   </tr>
                   <tr>
                     <td className="ldb-activity-td-date">Apr 15, 2026<span className="ldb-activity-td-time">8:30 AM</span></td>
-                    <td>Decision packet sent — summary of decision on leave request including approved dates and next steps.</td>
+                    <td><strong>Decision packet sent</strong> — summary of decision on leave request including approved dates and next steps. <a href="#" className="ldb-activity-doc-link"><svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M7 1v8M4 6l3 3 3-3" stroke="currentColor" strokeWidth="1.3" strokeLinecap="round" strokeLinejoin="round"/><path d="M1 10v2a1 1 0 001 1h10a1 1 0 001-1v-2" stroke="currentColor" strokeWidth="1.3" strokeLinecap="round"/></svg> Decision_Letter.pdf</a></td>
                     <td className="ldb-activity-td-person">Lisa Martinez<span className="ldb-activity-td-role">Claim Specialist</span></td>
                   </tr>
                   <tr>
                     <td className="ldb-activity-td-date">Apr 14, 2026<span className="ldb-activity-td-time">4:52 PM</span></td>
-                    <td>Employer notified — manager informed of approved leave dates and expected return timeline.</td>
+                    <td><strong>Employer notified</strong> — manager informed of approved leave dates and expected return timeline.</td>
                     <td className="ldb-activity-td-person">Lisa Martinez<span className="ldb-activity-td-role">Claim Specialist</span></td>
                   </tr>
                   <tr>
                     <td className="ldb-activity-td-date">Apr 14, 2026<span className="ldb-activity-td-time">1:20 PM</span></td>
-                    <td>Payment scheduled — first disability payment initiated, expected within 2–3 business days.</td>
+                    <td><strong>Payment scheduled</strong> — first disability payment initiated, expected within 2–3 business days.</td>
                     <td className="ldb-activity-td-person">Lisa Martinez<span className="ldb-activity-td-role">Claim Specialist</span></td>
                   </tr>
                   <tr>
                     <td className="ldb-activity-td-date">Apr 13, 2026<span className="ldb-activity-td-time">10:05 AM</span></td>
-                    <td>Return to work confirmation requested — employee asked to confirm return date 7 days before scheduled return.</td>
+                    <td><strong>Return to work confirmation requested</strong> — employee asked to confirm return date 7 days before scheduled return.</td>
                     <td className="ldb-activity-td-person">Lisa Martinez<span className="ldb-activity-td-role">Claim Specialist</span></td>
                   </tr>
                   <tr>
                     <td className="ldb-activity-td-date">Apr 12, 2026<span className="ldb-activity-td-time">3:40 PM</span></td>
-                    <td>Return to work confirmed — employee confirmed intent to return on scheduled date.</td>
+                    <td><strong>Return to work confirmed</strong> — employee confirmed intent to return on scheduled date.</td>
                     <td className="ldb-activity-td-person">Sarah Johnson<span className="ldb-activity-td-role">Employee</span></td>
                   </tr>
                   <tr>
                     <td className="ldb-activity-td-date">Apr 10, 2026<span className="ldb-activity-td-time">9:14 AM</span></td>
-                    <td>Additional documentation requested — supplemental forms sent to healthcare provider via fax.</td>
+                    <td><strong>Additional documentation requested</strong> — supplemental forms sent to healthcare provider via fax. <a href="#" className="ldb-activity-doc-link"><svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M7 1v8M4 6l3 3 3-3" stroke="currentColor" strokeWidth="1.3" strokeLinecap="round" strokeLinejoin="round"/><path d="M1 10v2a1 1 0 001 1h10a1 1 0 001-1v-2" stroke="currentColor" strokeWidth="1.3" strokeLinecap="round"/></svg> Supplemental_Forms.pdf</a></td>
                     <td className="ldb-activity-td-person">Lisa Martinez<span className="ldb-activity-td-role">Claim Specialist</span></td>
                   </tr>
                   <tr>
                     <td className="ldb-activity-td-date">Apr 8, 2026<span className="ldb-activity-td-time">1:02 PM</span></td>
-                    <td>Leave request submitted — initial request received and eligibility review process started.</td>
+                    <td><strong>Leave request submitted</strong> — initial request received and eligibility review process started.</td>
                     <td className="ldb-activity-td-person">Sarah Johnson<span className="ldb-activity-td-role">Employee</span></td>
                   </tr>
                 </tbody>
