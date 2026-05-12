@@ -122,7 +122,8 @@ function ConfirmView({ adaState, setAdaState, done, setDone, editing, setEditing
              'Questions about the ADA process';
     }
     if (stepKey === 'details') {
-      return adaState.accommodationFor || 'Details provided';
+      const parts = [adaState.accommodationType, adaState.duration === 'ongoing' ? 'Ongoing' : 'Temporary'].filter(Boolean);
+      return parts.join(' · ') || 'Details provided';
     }
     if (stepKey === 'docs') {
       if (adaState.files.length === 0) return 'No documents uploaded';
@@ -258,19 +259,51 @@ function ConfirmView({ adaState, setAdaState, done, setDone, editing, setEditing
                 <label htmlFor="ada-type">What type of accommodation are you requesting?</label>
                 <select id="ada-type" value={adaState.accommodationType} onChange={(e) => setAdaState((s) => ({ ...s, accommodationType: e.target.value }))}>
                   <option value="">Select...</option>
-                  <option value="Modified duties">Modified duties</option>
-                  <option value="Ergonomic adjustments">Ergonomic adjustments</option>
-                  <option value="Flexible schedule">Flexible schedule</option>
                   <option value="Remote work">Remote work</option>
-                  <option value="Reduced mobility and pain">Reduced mobility and pain</option>
-                  <option value="Assistive technology">Assistive technology</option>
+                  <option value="Flexible schedule">Flexible schedule</option>
+                  <option value="Extra breaks">Extra breaks</option>
+                  <option value="Equipment adjustments">Equipment adjustments</option>
+                  <option value="Modified duties">Modified duties</option>
+                  <option value="Workspace changes">Workspace changes</option>
                   <option value="Other">Other</option>
                 </select>
               </div>
 
+              <div className="ada-input-group">
+                <label htmlFor="ada-start-date">When do you need this accommodation to start?</label>
+                <input id="ada-start-date" type="date" value={adaState.startDate} onChange={(e) => setAdaState((s) => ({ ...s, startDate: e.target.value }))} />
+              </div>
+
+              <div className="ada-input-group">
+                <label>Is this accommodation temporary or ongoing?</label>
+                <div className="ada-radio-group" style={{ marginBottom: 0 }}>
+                  <label className={`ada-radio-item ${adaState.duration === 'temporary' ? 'selected' : ''}`}>
+                    <input type="radio" name="duration" checked={adaState.duration === 'temporary'} onChange={() => setAdaState((s) => ({ ...s, duration: 'temporary' }))} />
+                    <div className="ada-radio-label">
+                      <div className="ada-radio-label-text">Temporary</div>
+                      <div className="ada-radio-label-hint">I expect to need this for a limited time</div>
+                    </div>
+                  </label>
+                  <label className={`ada-radio-item ${adaState.duration === 'ongoing' ? 'selected' : ''}`}>
+                    <input type="radio" name="duration" checked={adaState.duration === 'ongoing'} onChange={() => setAdaState((s) => ({ ...s, duration: 'ongoing' }))} />
+                    <div className="ada-radio-label">
+                      <div className="ada-radio-label-text">Ongoing</div>
+                      <div className="ada-radio-label-hint">I need this on a permanent or indefinite basis</div>
+                    </div>
+                  </label>
+                </div>
+              </div>
+
+              {adaState.duration === 'temporary' && (
+                <div className="ada-input-group">
+                  <label htmlFor="ada-end-date">Expected end date (if known)</label>
+                  <input id="ada-end-date" type="date" value={adaState.endDate} onChange={(e) => setAdaState((s) => ({ ...s, endDate: e.target.value }))} />
+                </div>
+              )}
+
               <div className="ada-actions">
                 {editing === 'details' && <button className="ada-btn-discard" type="button" onClick={discardEdit}>Discard</button>}
-                <button className="ada-btn-save" type="button" disabled={!adaState.accommodationFor} onClick={() => saveStep('details')}>Save</button>
+                <button className="ada-btn-save" type="button" disabled={!adaState.accommodationFor || !adaState.duration} onClick={() => saveStep('details')}>Save</button>
               </div>
             </div>
           )}
@@ -356,6 +389,14 @@ function ConfirmView({ adaState, setAdaState, done, setDone, editing, setEditing
                 <div>
                   <div className="ada-review-item-label">Type requested</div>
                   <div className="ada-review-item-value">{adaState.accommodationType || '—'}</div>
+                </div>
+                <div>
+                  <div className="ada-review-item-label">Start date</div>
+                  <div className="ada-review-item-value">{adaState.startDate ? new Date(adaState.startDate + 'T00:00:00').toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' }) : 'Not specified'}</div>
+                </div>
+                <div>
+                  <div className="ada-review-item-label">Duration</div>
+                  <div className="ada-review-item-value">{adaState.duration === 'ongoing' ? 'Ongoing' : adaState.duration === 'temporary' ? 'Temporary' : '—'}{adaState.duration === 'temporary' && adaState.endDate ? ` (until ${new Date(adaState.endDate + 'T00:00:00').toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })})` : ''}</div>
                 </div>
                 <div className="ada-review-full">
                   <div className="ada-review-item-label">Impact at work</div>
@@ -477,6 +518,9 @@ export default function AdaAccommodationPage() {
     accommodationFor: '',
     impact: '',
     accommodationType: '',
+    startDate: '',
+    duration: '',
+    endDate: '',
     files: [],
     confirmed: false,
   });
@@ -510,7 +554,7 @@ export default function AdaAccommodationPage() {
         {view === 'success' && (
           <SuccessView
             adaState={adaState}
-            onGoToRequests={() => navigate(`${base}/my-cases`)}
+            onGoToRequests={() => navigate(`${base}/ada-requests`)}
             onBack={() => navigate(`${base}/file-claim`)}
           />
         )}
