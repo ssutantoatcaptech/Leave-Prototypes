@@ -261,37 +261,39 @@ export default function EnterMyTimePage() {
   var selectedReasonData = REASONS.find(function (r) { return r.value === reason; });
 
   return (
-    <div className="cl-page cl-ml-page">
+    <div className="cl-page cl-ml-page" style={{ position: 'relative', overflow: 'clip' }}>
+      {/* Background decorative icon */}
+      <div className="cl-bg-icon" aria-hidden="true">
+        <svg width="388" height="388" viewBox="0 0 388 388" fill="none">
+          <rect x="20" y="52" width="348" height="316" rx="32" fill="url(#cal-bg-grad)" opacity="0.45"/>
+          <rect x="44" y="120" width="300" height="228" rx="16" fill="white" opacity="0.5"/>
+          <rect x="120" y="8" width="28" height="64" rx="14" fill="url(#cal-bg-grad)" opacity="0.45"/>
+          <rect x="240" y="8" width="28" height="64" rx="14" fill="url(#cal-bg-grad)" opacity="0.45"/>
+          <rect x="80" y="164" width="52" height="44" rx="10" fill="url(#cal-bg-grad)" opacity="0.35"/>
+          <rect x="156" y="164" width="52" height="44" rx="10" fill="url(#cal-bg-grad)" opacity="0.35"/>
+          <rect x="232" y="164" width="52" height="44" rx="10" fill="url(#cal-bg-grad)" opacity="0.35"/>
+          <rect x="80" y="232" width="52" height="44" rx="10" fill="url(#cal-bg-grad)" opacity="0.35"/>
+          <rect x="156" y="232" width="52" height="44" rx="10" fill="url(#cal-bg-grad)" opacity="0.35"/>
+          <rect x="232" y="232" width="52" height="44" rx="10" fill="url(#cal-bg-grad)" opacity="0.35"/>
+          <defs>
+            <linearGradient id="cal-bg-grad" x1="0" y1="0" x2="388" y2="388" gradientUnits="userSpaceOnUse">
+              <stop stopColor="#105fa8" stopOpacity="0.15"/>
+              <stop offset="1" stopColor="#0a9b8c" stopOpacity="0.12"/>
+            </linearGradient>
+          </defs>
+        </svg>
+      </div>
+
       <div className="cl-ml-breadcrumb">
         <Link to={base} className="cl-ml-breadcrumb-link">Claims &amp; Leave</Link>
         <span className="cl-ml-breadcrumb-sep">&gt;</span>
         <span className="cl-ml-breadcrumb-current">Enter My Time</span>
       </div>
 
-      <div className="cl-ml-header" style={{ position: 'relative', overflow: 'hidden' }}>
+      <div className="cl-ml-header">
         <div className="cl-ml-header-text">
           <h1 className="cl-ml-title">Enter My Time</h1>
           <p className="cl-ml-subtitle">Record your intermittent leave hours or days for existing claims.</p>
-        </div>
-        <div className="cl-bg-icon" aria-hidden="true">
-          <svg width="388" height="388" viewBox="0 0 388 388" fill="none">
-            <rect x="20" y="52" width="348" height="316" rx="32" fill="url(#cal-bg-grad)" opacity="0.45"/>
-            <rect x="44" y="120" width="300" height="228" rx="16" fill="white" opacity="0.5"/>
-            <rect x="120" y="8" width="28" height="64" rx="14" fill="url(#cal-bg-grad)" opacity="0.45"/>
-            <rect x="240" y="8" width="28" height="64" rx="14" fill="url(#cal-bg-grad)" opacity="0.45"/>
-            <rect x="80" y="164" width="52" height="44" rx="10" fill="url(#cal-bg-grad)" opacity="0.35"/>
-            <rect x="156" y="164" width="52" height="44" rx="10" fill="url(#cal-bg-grad)" opacity="0.35"/>
-            <rect x="232" y="164" width="52" height="44" rx="10" fill="url(#cal-bg-grad)" opacity="0.35"/>
-            <rect x="80" y="232" width="52" height="44" rx="10" fill="url(#cal-bg-grad)" opacity="0.35"/>
-            <rect x="156" y="232" width="52" height="44" rx="10" fill="url(#cal-bg-grad)" opacity="0.35"/>
-            <rect x="232" y="232" width="52" height="44" rx="10" fill="url(#cal-bg-grad)" opacity="0.35"/>
-            <defs>
-              <linearGradient id="cal-bg-grad" x1="0" y1="0" x2="388" y2="388" gradientUnits="userSpaceOnUse">
-                <stop stopColor="#105fa8" stopOpacity="0.15"/>
-                <stop offset="1" stopColor="#0a9b8c" stopOpacity="0.12"/>
-              </linearGradient>
-            </defs>
-          </svg>
         </div>
       </div>
 
