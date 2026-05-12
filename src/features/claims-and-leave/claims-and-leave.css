@@ -2115,6 +2115,286 @@
   vertical-align: middle;
 }
 
+/* Multi-select calendar enhancements */
+.cl-ma-label-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.cl-ma-clear-dates {
+  font-size: 12px;
+  font-weight: 600;
+  color: #dc2626;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 4px 8px;
+  border-radius: 6px;
+}
+
+.cl-ma-clear-dates:hover {
+  background: #fef2f2;
+}
+
+.cl-ma-cal-hint {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 11px;
+  color: #6b7280;
+  margin-bottom: 10px;
+  padding: 6px 10px;
+  background: #f9fafb;
+  border-radius: 6px;
+}
+
+.cl-ma-cal-day-check {
+  position: absolute;
+  bottom: -2px;
+  right: -2px;
+  width: 12px;
+  height: 12px;
+  background: #0033a0;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1.5px solid #fff;
+}
+
+.cl-ma-cal-legend-dot--selected {
+  background: #0033a0;
+}
+
+/* Selected dates chips */
+.cl-ma-selected-dates {
+  margin-top: 12px;
+  padding-top: 12px;
+  border-top: 1px solid #f3f4f6;
+}
+
+.cl-ma-selected-dates-title {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 12px;
+  font-weight: 600;
+  color: #0033a0;
+  margin-bottom: 8px;
+}
+
+.cl-ma-selected-dates-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.cl-ma-date-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 4px 10px;
+  background: #eff6ff;
+  border: 1px solid #bfdbfe;
+  border-radius: 6px;
+  font-size: 12px;
+  font-weight: 500;
+  color: #1e40af;
+}
+
+.cl-ma-date-chip-remove {
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 700;
+  color: #6b7280;
+  padding: 0 2px;
+  line-height: 1;
+}
+
+.cl-ma-date-chip-remove:hover {
+  color: #dc2626;
+}
+
+/* Bulk mode badge */
+.cl-ma-bulk-badge {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 12px 14px;
+  background: #eff6ff;
+  border: 1px solid #bfdbfe;
+  border-radius: 10px;
+  font-size: 13px;
+  color: #1e40af;
+  font-weight: 500;
+}
+
+.cl-ma-bulk-badge svg {
+  flex-shrink: 0;
+}
+
+.cl-ma-bulk-note {
+  font-size: 12px;
+  color: #6b7280;
+  margin: 0;
+  line-height: 1.5;
+  font-style: italic;
+}
+
+/* Batch Preview Card */
+.cl-ma-preview-card {
+  background: #ffffff;
+  border: 1px solid #e5e7eb;
+  border-radius: 16px;
+  padding: 28px 32px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
+}
+
+.cl-ma-preview-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 20px;
+  padding-bottom: 16px;
+  border-bottom: 1px solid #f3f4f6;
+}
+
+.cl-ma-preview-header-left {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.cl-ma-preview-title {
+  font-size: 18px;
+  font-weight: 700;
+  color: #111827;
+  margin: 0;
+}
+
+.cl-ma-preview-count {
+  font-size: 14px;
+  font-weight: 600;
+  color: #0033a0;
+  background: #eff6ff;
+  padding: 5px 12px;
+  border-radius: 8px;
+}
+
+.cl-ma-preview-table-wrap {
+  overflow-x: auto;
+  margin-bottom: 20px;
+  border: 1px solid #e5e7eb;
+  border-radius: 10px;
+}
+
+.cl-ma-preview-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 14px;
+}
+
+.cl-ma-preview-table thead th {
+  background: #f9fafb;
+  padding: 10px 14px;
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  color: #6b7280;
+  text-align: left;
+  border-bottom: 1px solid #e5e7eb;
+}
+
+.cl-ma-preview-table tbody td {
+  padding: 12px 14px;
+  border-bottom: 1px solid #f3f4f6;
+  vertical-align: middle;
+}
+
+.cl-ma-preview-table tbody tr:last-child td {
+  border-bottom: none;
+}
+
+.cl-ma-preview-table tbody tr:hover {
+  background: #f9fafb;
+}
+
+.cl-ma-preview-input {
+  width: 100%;
+  min-width: 90px;
+  max-width: 110px;
+  padding: 7px 10px;
+  font-size: 13px;
+  border: 1px solid #e5e7eb;
+  border-radius: 6px;
+  font-family: inherit;
+  background: #fff;
+  transition: border-color 0.15s;
+}
+
+.cl-ma-preview-input:focus {
+  outline: none;
+  border-color: #0033a0;
+  box-shadow: 0 0 0 2px rgba(0, 51, 160, 0.08);
+}
+
+.cl-ma-preview-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-top: 20px;
+  border-top: 1px solid #f3f4f6;
+}
+
+.cl-ma-preview-summary {
+  display: flex;
+  gap: 24px;
+}
+
+.cl-ma-preview-stat {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.cl-ma-preview-stat-label {
+  font-size: 11px;
+  font-weight: 600;
+  color: #6b7280;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.cl-ma-preview-stat-value {
+  font-size: 20px;
+  font-weight: 700;
+  color: #111827;
+}
+
+.cl-ma-preview-actions {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+@media (max-width: 768px) {
+  .cl-ma-preview-footer {
+    flex-direction: column;
+    gap: 16px;
+    align-items: flex-start;
+  }
+  .cl-ma-preview-actions {
+    width: 100%;
+  }
+  .cl-ma-preview-actions .cl-ma-btn-submit {
+    flex: 1;
+  }
+}
+
 /* Sidebar */
 .cl-ma-sidebar {
   display: flex;

@@ -40,6 +40,18 @@ function formatDateKey(year, month, day) {
   return year + '-' + String(month + 1).padStart(2, '0') + '-' + String(day).padStart(2, '0');
 }
 
+function formatDateKeyToDisplay(key) {
+  var parts = key.split('-');
+  var d = new Date(parseInt(parts[0]), parseInt(parts[1]) - 1, parseInt(parts[2]));
+  return d.toLocaleDateString('en-US', { weekday: 'short', month: 'short', day: 'numeric' });
+}
+
+function formatDateKeyToShort(key) {
+  var parts = key.split('-');
+  var d = new Date(parseInt(parts[0]), parseInt(parts[1]) - 1, parseInt(parts[2]));
+  return d.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
+}
+
 function buildCalendarDays(year, month) {
   var firstDay = new Date(year, month, 1).getDay();
   var daysInMonth = new Date(year, month + 1, 0).getDate();
@@ -65,7 +77,7 @@ export default function EnterMyTimePage() {
   var [caseOpen, setCaseOpen] = useState(false);
   var [calYear, setCalYear] = useState(today.getFullYear());
   var [calMonth, setCalMonth] = useState(today.getMonth());
-  var [selectedDay, setSelectedDay] = useState(today.getDate());
+  var [selectedDates, setSelectedDates] = useState([]);
   var [startTime, setStartTime] = useState('08:00 AM');
   var [endTime, setEndTime] = useState('12:00 PM');
   var [reason, setReason] = useState('Episode');
@@ -79,13 +91,16 @@ export default function EnterMyTimePage() {
   ]);
   var [balance, setBalance] = useState(selectedCase.balance);
   var [submitted, setSubmitted] = useState(false);
+  var [submittedCount, setSubmittedCount] = useState(0);
+  var [submittedHours, setSubmittedHours] = useState('0');
   var [newEntryKey, setNewEntryKey] = useState(null);
   var [editingIndex, setEditingIndex] = useState(null);
   var [editForm, setEditForm] = useState({ startTime: '', endTime: '', reason: '' });
+  var [showPreview, setShowPreview] = useState(false);
+  var [perDayEdits, setPerDayEdits] = useState({});
 
   var calendarDays = buildCalendarDays(calYear, calMonth);
   var hours = calcHours(startTime, endTime);
-  var displayDate = formatDateDisplay(calYear, calMonth, selectedDay);
 
   var loggedDateKeys = {};
   absences.forEach(function (a) {
@@ -93,6 +108,21 @@ export default function EnterMyTimePage() {
   });
 
   var filteredAbsences = absences.filter(function (a) { return a.caseId === selectedCase.id; });
+
+  var isBulkMode = selectedDates.length > 1;
+
+  var totalBulkHours = (function () {
+    if (!isBulkMode) return parseFloat(hours);
+    var total = 0;
+    selectedDates.forEach(function (dk) {
+      if (perDayEdits[dk]) {
+        total += parseFloat(calcHours(perDayEdits[dk].startTime, perDayEdits[dk].endTime));
+      } else {
+        total += parseFloat(hours);
+      }
+    });
+    return total;
+  })();
 
   function getReasonColor(r) {
     if (r === 'Episode') return 'amber';
@@ -103,13 +133,11 @@ export default function EnterMyTimePage() {
   function handlePrevMonth() {
     if (calMonth === 0) { setCalMonth(11); setCalYear(calYear - 1); }
     else { setCalMonth(calMonth - 1); }
-    setSelectedDay(1);
   }
 
   function handleNextMonth() {
     if (calMonth === 11) { setCalMonth(0); setCalYear(calYear + 1); }
     else { setCalMonth(calMonth + 1); }
-    setSelectedDay(1);
   }
 
   function handleCaseSelect(c) {
@@ -118,28 +146,70 @@ export default function EnterMyTimePage() {
     setCaseOpen(false);
   }
 
+  function handleDayClick(day, overflow) {
+    if (overflow) {
+      handlePrevMonth();
+      return;
+    }
+    var key = formatDateKey(calYear, calMonth, day);
+    if (selectedDates.includes(key)) {
+      setSelectedDates(selectedDates.filter(function (d) { return d !== key; }));
+      var newEdits = Object.assign({}, perDayEdits);
+      delete newEdits[key];
+      setPerDayEdits(newEdits);
+    } else {
+      setSelectedDates(selectedDates.concat([key]).sort());
+    }
+  }
+
+  function clearSelection() {
+    setSelectedDates([]);
+    setPerDayEdits({});
+    setShowPreview(false);
+  }
+
   function handleSubmit() {
     var h = parseFloat(hours);
-    if (h <= 0) return;
+    if (selectedDates.length === 0 || h <= 0) return;
+
+    if (isBulkMode && !showPreview) {
+      setShowPreview(true);
+      return;
+    }
+
     var todayStr = new Date().toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
     var entryKey = Date.now().toString();
-    var newEntry = {
-      date: displayDate,
-      dateKey: formatDateKey(calYear, calMonth, selectedDay),
-      startTime: startTime,
-      endTime: endTime,
-      hours: hours,
-      reason: reason,
-      reasonColor: getReasonColor(reason),
-      addedOn: todayStr,
-      caseId: selectedCase.id,
-      entryKey: entryKey,
-    };
-    setAbsences([newEntry].concat(absences));
-    setBalance(Math.max(0, balance - h));
+    var newEntries = [];
+    var totalH = 0;
+
+    selectedDates.forEach(function (dk, idx) {
+      var dayData = perDayEdits[dk] || { startTime: startTime, endTime: endTime };
+      var dayHours = calcHours(dayData.startTime, dayData.endTime);
+      totalH += parseFloat(dayHours);
+      newEntries.push({
+        date: formatDateKeyToShort(dk),
+        dateKey: dk,
+        startTime: dayData.startTime,
+        endTime: dayData.endTime,
+        hours: dayHours,
+        reason: reason,
+        reasonColor: getReasonColor(reason),
+        addedOn: todayStr,
+        caseId: selectedCase.id,
+        entryKey: entryKey + '-' + idx,
+      });
+    });
+
+    setAbsences(newEntries.concat(absences));
+    setBalance(Math.max(0, balance - totalH));
     setSubmitted(true);
+    setSubmittedCount(selectedDates.length);
+    setSubmittedHours(totalH.toFixed(1));
     setNewEntryKey(entryKey);
-    setTimeout(function () { setSubmitted(false); }, 3000);
+    setSelectedDates([]);
+    setPerDayEdits({});
+    setShowPreview(false);
+    setTimeout(function () { setSubmitted(false); }, 4000);
     setTimeout(function () { setNewEntryKey(null); }, 8000);
   }
 
@@ -147,9 +217,9 @@ export default function EnterMyTimePage() {
     setStartTime('08:00 AM');
     setEndTime('12:00 PM');
     setReason('Episode');
-    setSelectedDay(today.getDate());
-    setCalMonth(today.getMonth());
-    setCalYear(today.getFullYear());
+    setSelectedDates([]);
+    setPerDayEdits({});
+    setShowPreview(false);
   }
 
   function startEdit(idx) {
@@ -179,6 +249,13 @@ export default function EnterMyTimePage() {
     setEditingIndex(null);
   }
 
+  function updatePerDayTime(dk, field, value) {
+    var existing = perDayEdits[dk] || { startTime: startTime, endTime: endTime };
+    var updated = Object.assign({}, existing);
+    updated[field] = value;
+    setPerDayEdits(Object.assign({}, perDayEdits, { [dk]: updated }));
+  }
+
   var selectedReasonData = REASONS.find(function (r) { return r.value === reason; });
 
   return (
@@ -203,213 +280,358 @@ export default function EnterMyTimePage() {
           {submitted && (
             <div className="cl-ma-success-banner">
               <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><circle cx="8" cy="8" r="7" fill="#10b981"/><path d="M5 8l2 2 4-4" stroke="#fff" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/></svg>
-              <span>Absence submitted successfully — {hours} hours logged for {displayDate}.</span>
+              <span>
+                {submittedCount > 1
+                  ? submittedCount + ' entries submitted — ' + submittedHours + ' hours logged across ' + submittedCount + ' days.'
+                  : 'Absence submitted successfully — ' + submittedHours + ' hours logged.'
+                }
+              </span>
+            </div>
+          )}
+
+          {/* Batch Preview */}
+          {showPreview && (
+            <div className="cl-ma-preview-card">
+              <div className="cl-ma-preview-header">
+                <div className="cl-ma-preview-header-left">
+                  <svg width="20" height="20" viewBox="0 0 20 20" fill="none"><rect x="2" y="3" width="16" height="14" rx="2" stroke="#0033a0" strokeWidth="1.5"/><path d="M2 7h16" stroke="#0033a0" strokeWidth="1.5"/><path d="M6 1v4M14 1v4" stroke="#0033a0" strokeWidth="1.5" strokeLinecap="round"/></svg>
+                  <h3 className="cl-ma-preview-title">Review Batch Entry</h3>
+                </div>
+                <span className="cl-ma-preview-count">{selectedDates.length} days · {totalBulkHours.toFixed(1)} hours total</span>
+              </div>
+
+              <div className="cl-ma-preview-table-wrap">
+                <table className="cl-ma-preview-table">
+                  <thead>
+                    <tr>
+                      <th>Date</th>
+                      <th>Start</th>
+                      <th>End</th>
+                      <th>Hours</th>
+                      <th>Reason</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {selectedDates.map(function (dk) {
+                      var dayData = perDayEdits[dk] || { startTime: startTime, endTime: endTime };
+                      var dayHours = calcHours(dayData.startTime, dayData.endTime);
+                      return (
+                        <tr key={dk}>
+                          <td className="cl-ma-cell-bold">{formatDateKeyToDisplay(dk)}</td>
+                          <td>
+                            <input
+                              type="text"
+                              className="cl-ma-preview-input"
+                              value={dayData.startTime}
+                              onChange={function (e) { updatePerDayTime(dk, 'startTime', e.target.value); }}
+                            />
+                          </td>
+                          <td>
+                            <input
+                              type="text"
+                              className="cl-ma-preview-input"
+                              value={dayData.endTime}
+                              onChange={function (e) { updatePerDayTime(dk, 'endTime', e.target.value); }}
+                            />
+                          </td>
+                          <td className="cl-ma-cell-bold">{dayHours}h</td>
+                          <td><span className={'cl-ma-reason-badge cl-ma-reason-badge--' + getReasonColor(reason)}>{reason}</span></td>
+                        </tr>
+                      );
+                    })}
+                  </tbody>
+                </table>
+              </div>
+
+              <div className="cl-ma-preview-footer">
+                <div className="cl-ma-preview-summary">
+                  <div className="cl-ma-preview-stat">
+                    <span className="cl-ma-preview-stat-label">Total Hours</span>
+                    <span className="cl-ma-preview-stat-value">{totalBulkHours.toFixed(1)}</span>
+                  </div>
+                  <div className="cl-ma-preview-stat">
+                    <span className="cl-ma-preview-stat-label">Remaining Balance</span>
+                    <span className="cl-ma-preview-stat-value">{Math.max(0, balance - totalBulkHours).toFixed(1)}h</span>
+                  </div>
+                </div>
+                <div className="cl-ma-preview-actions">
+                  <button className="cl-ma-btn-submit" type="button" onClick={handleSubmit}>
+                    Confirm &amp; Submit All
+                  </button>
+                  <button className="cl-ma-btn-cancel" type="button" onClick={function () { setShowPreview(false); }}>
+                    Back to Edit
+                  </button>
+                </div>
+              </div>
             </div>
           )}
 
           {/* Form card */}
-          <div className="cl-ma-form-card">
-            <div className="cl-ma-form-grid">
-              {/* Left: Case selector + Calendar */}
-              <div className="cl-ma-form-left">
-                <div className="cl-ma-field" style={{ position: 'relative' }}>
-                  <label className="cl-ma-label">Select Approved Leave Case</label>
-                  <button
-                    type="button"
-                    className="cl-ma-case-select"
-                    onClick={function () { setCaseOpen(!caseOpen); }}
-                  >
-                    <span>{selectedCase.label}</span>
-                    <svg width="14" height="8" viewBox="0 0 14 8" fill="none"><path d="M1 1l6 6 6-6" stroke="#6b7280" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/></svg>
-                  </button>
-                  {caseOpen && (
-                    <div className="cl-ma-dropdown-menu cl-ma-case-menu">
-                      {LEAVE_CASES.map(function (c) {
-                        return (
-                          <button
-                            key={c.id}
-                            type="button"
-                            className={'cl-ma-dropdown-item' + (c.id === selectedCase.id ? ' cl-ma-dropdown-item--active' : '')}
-                            onClick={function () { handleCaseSelect(c); }}
-                          >
-                            <span>{c.label}</span>
-                            <span className="cl-ma-case-balance">{c.balance}h remaining</span>
-                          </button>
-                        );
-                      })}
-                    </div>
-                  )}
-                </div>
+          {!showPreview && (
+            <div className="cl-ma-form-card">
+              <div className="cl-ma-form-grid">
+                {/* Left: Case selector + Calendar */}
+                <div className="cl-ma-form-left">
+                  <div className="cl-ma-field" style={{ position: 'relative' }}>
+                    <label className="cl-ma-label">Select Approved Leave Case</label>
+                    <button
+                      type="button"
+                      className="cl-ma-case-select"
+                      onClick={function () { setCaseOpen(!caseOpen); }}
+                    >
+                      <span>{selectedCase.label}</span>
+                      <svg width="14" height="8" viewBox="0 0 14 8" fill="none"><path d="M1 1l6 6 6-6" stroke="#6b7280" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/></svg>
+                    </button>
+                    {caseOpen && (
+                      <div className="cl-ma-dropdown-menu cl-ma-case-menu">
+                        {LEAVE_CASES.map(function (c) {
+                          return (
+                            <button
+                              key={c.id}
+                              type="button"
+                              className={'cl-ma-dropdown-item' + (c.id === selectedCase.id ? ' cl-ma-dropdown-item--active' : '')}
+                              onClick={function () { handleCaseSelect(c); }}
+                            >
+                              <span>{c.label}</span>
+                              <span className="cl-ma-case-balance">{c.balance}h remaining</span>
+                            </button>
+                          );
+                        })}
+                      </div>
+                    )}
+                  </div>
 
-                <div className="cl-ma-field">
-                  <label className="cl-ma-label">Select Date</label>
-                  <div className="cl-ma-calendar">
-                    <div className="cl-ma-cal-header">
-                      <button className="cl-ma-cal-nav" type="button" onClick={handlePrevMonth}>&lsaquo;</button>
-                      <span className="cl-ma-cal-month">{MONTH_NAMES[calMonth]} {calYear}</span>
-                      <button className="cl-ma-cal-nav" type="button" onClick={handleNextMonth}>&rsaquo;</button>
+                  <div className="cl-ma-field">
+                    <div className="cl-ma-label-row">
+                      <label className="cl-ma-label">Select Date{isBulkMode ? 's' : ''}</label>
+                      {selectedDates.length > 0 && (
+                        <button className="cl-ma-clear-dates" type="button" onClick={clearSelection}>
+                          Clear ({selectedDates.length})
+                        </button>
+                      )}
                     </div>
-                    <div className="cl-ma-cal-grid">
-                      <span className="cl-ma-cal-dow">Su</span>
-                      <span className="cl-ma-cal-dow">Mo</span>
-                      <span className="cl-ma-cal-dow">Tu</span>
-                      <span className="cl-ma-cal-dow">We</span>
-                      <span className="cl-ma-cal-dow">Th</span>
-                      <span className="cl-ma-cal-dow">Fr</span>
-                      <span className="cl-ma-cal-dow">Sa</span>
-                      {calendarDays.map(function (d, i) {
-                        var isSelected = d.day === selectedDay && !d.overflow;
-                        var dayKey = !d.overflow ? formatDateKey(calYear, calMonth, d.day) : '';
-                        var isToday = dayKey === todayKey;
-                        var isLogged = !d.overflow && loggedDateKeys[dayKey];
-                        var loggedReason = isLogged ? loggedDateKeys[dayKey] : null;
-                        return (
-                          <button
-                            key={i}
-                            type="button"
-                            className={
-                              'cl-ma-cal-day'
-                              + (d.overflow ? ' cl-ma-cal-day--overflow' : '')
-                              + (isSelected ? ' cl-ma-cal-day--selected' : '')
-                              + (isToday && !isSelected ? ' cl-ma-cal-day--today' : '')
-                              + (isLogged ? ' cl-ma-cal-day--logged' : '')
-                              + (loggedReason === 'Episode' ? ' cl-ma-cal-day--episode' : '')
-                              + (loggedReason === 'Treatment' ? ' cl-ma-cal-day--treatment' : '')
-                            }
-                            onClick={function () {
-                              if (d.overflow) {
-                                handlePrevMonth();
-                              } else {
-                                setSelectedDay(d.day);
+                    <div className="cl-ma-calendar">
+                      <div className="cl-ma-cal-header">
+                        <button className="cl-ma-cal-nav" type="button" onClick={handlePrevMonth}>&lsaquo;</button>
+                        <span className="cl-ma-cal-month">{MONTH_NAMES[calMonth]} {calYear}</span>
+                        <button className="cl-ma-cal-nav" type="button" onClick={handleNextMonth}>&rsaquo;</button>
+                      </div>
+
+                      {/* Multi-select hint */}
+                      <div className="cl-ma-cal-hint">
+                        <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><circle cx="7" cy="7" r="6" stroke="#6b7280" strokeWidth="1"/><path d="M7 4v3M7 9h.01" stroke="#6b7280" strokeWidth="1.2" strokeLinecap="round"/></svg>
+                        Click multiple dates to log the same hours across several days
+                      </div>
+
+                      <div className="cl-ma-cal-grid">
+                        <span className="cl-ma-cal-dow">Su</span>
+                        <span className="cl-ma-cal-dow">Mo</span>
+                        <span className="cl-ma-cal-dow">Tu</span>
+                        <span className="cl-ma-cal-dow">We</span>
+                        <span className="cl-ma-cal-dow">Th</span>
+                        <span className="cl-ma-cal-dow">Fr</span>
+                        <span className="cl-ma-cal-dow">Sa</span>
+                        {calendarDays.map(function (d, i) {
+                          var dayKey = !d.overflow ? formatDateKey(calYear, calMonth, d.day) : '';
+                          var isSelected = selectedDates.includes(dayKey);
+                          var isToday = dayKey === todayKey;
+                          var isLogged = !d.overflow && loggedDateKeys[dayKey];
+                          var loggedReason = isLogged ? loggedDateKeys[dayKey] : null;
+                          return (
+                            <button
+                              key={i}
+                              type="button"
+                              className={
+                                'cl-ma-cal-day'
+                                + (d.overflow ? ' cl-ma-cal-day--overflow' : '')
+                                + (isSelected ? ' cl-ma-cal-day--selected' : '')
+                                + (isToday && !isSelected ? ' cl-ma-cal-day--today' : '')
+                                + (isLogged && !isSelected ? ' cl-ma-cal-day--logged' : '')
+                                + (loggedReason === 'Episode' && !isSelected ? ' cl-ma-cal-day--episode' : '')
+                                + (loggedReason === 'Treatment' && !isSelected ? ' cl-ma-cal-day--treatment' : '')
                               }
-                            }}
-                          >
-                            {d.day}
-                          </button>
-                        );
-                      })}
-                    </div>
-                    <div className="cl-ma-cal-legend">
-                      <span className="cl-ma-cal-legend-item"><span className="cl-ma-cal-legend-dot cl-ma-cal-legend-dot--today" />Today</span>
-                      <span className="cl-ma-cal-legend-item"><span className="cl-ma-cal-legend-dot cl-ma-cal-legend-dot--episode" />Episode</span>
-                      <span className="cl-ma-cal-legend-item"><span className="cl-ma-cal-legend-dot cl-ma-cal-legend-dot--treatment" />Treatment</span>
-                    </div>
+                              onClick={function () { handleDayClick(d.day, d.overflow); }}
+                            >
+                              {d.day}
+                              {isSelected && selectedDates.length > 1 && (
+                                <span className="cl-ma-cal-day-check">
+                                  <svg width="10" height="10" viewBox="0 0 10 10" fill="none"><path d="M2 5l2.5 2.5L8 3" stroke="#fff" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/></svg>
+                                </span>
+                              )}
+                            </button>
+                          );
+                        })}
+                      </div>
+                      <div className="cl-ma-cal-legend">
+                        <span className="cl-ma-cal-legend-item"><span className="cl-ma-cal-legend-dot cl-ma-cal-legend-dot--today" />Today</span>
+                        <span className="cl-ma-cal-legend-item"><span className="cl-ma-cal-legend-dot cl-ma-cal-legend-dot--selected" />Selected</span>
+                        <span className="cl-ma-cal-legend-item"><span className="cl-ma-cal-legend-dot cl-ma-cal-legend-dot--episode" />Episode</span>
+                        <span className="cl-ma-cal-legend-item"><span className="cl-ma-cal-legend-dot cl-ma-cal-legend-dot--treatment" />Treatment</span>
+                      </div>
 
-                    {/* Logged absences for current month */}
-                    {(function () {
-                      var monthAbsences = filteredAbsences.filter(function (a) {
-                        var prefix = calYear + '-' + String(calMonth + 1).padStart(2, '0');
-                        return a.dateKey && a.dateKey.startsWith(prefix);
-                      });
-                      if (monthAbsences.length === 0) return null;
-                      return (
-                        <div className="cl-ma-cal-logged">
-                          <div className="cl-ma-cal-logged-title">Logged this month ({monthAbsences.length})</div>
-                          <div className="cl-ma-cal-logged-list">
-                            {monthAbsences.map(function (a, idx) {
+                      {/* Selected dates summary (when multi) */}
+                      {isBulkMode && (
+                        <div className="cl-ma-selected-dates">
+                          <div className="cl-ma-selected-dates-title">
+                            <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><rect x="1.5" y="2.5" width="11" height="9" rx="1.5" stroke="#0033a0" strokeWidth="1.2"/><path d="M1.5 5h11" stroke="#0033a0" strokeWidth="1.2"/><path d="M4.5 1v3M9.5 1v3" stroke="#0033a0" strokeWidth="1.2" strokeLinecap="round"/></svg>
+                            {selectedDates.length} days selected
+                          </div>
+                          <div className="cl-ma-selected-dates-chips">
+                            {selectedDates.map(function (dk) {
                               return (
-                                <div key={idx} className="cl-ma-cal-logged-row">
-                                  <span className={'cl-ma-cal-logged-dot cl-ma-cal-logged-dot--' + a.reasonColor} />
-                                  <span className="cl-ma-cal-logged-date">{a.date}</span>
-                                  <span className="cl-ma-cal-logged-hours">{a.hours}h</span>
-                                  <span className={'cl-ma-reason-badge cl-ma-reason-badge--' + a.reasonColor}>{a.reason}</span>
-                                </div>
+                                <span className="cl-ma-date-chip" key={dk}>
+                                  {formatDateKeyToDisplay(dk)}
+                                  <button type="button" className="cl-ma-date-chip-remove" onClick={function () {
+                                    setSelectedDates(selectedDates.filter(function (d) { return d !== dk; }));
+                                    var newEdits = Object.assign({}, perDayEdits);
+                                    delete newEdits[dk];
+                                    setPerDayEdits(newEdits);
+                                  }}>×</button>
+                                </span>
                               );
                             })}
                           </div>
                         </div>
-                      );
-                    })()}
-                  </div>
-                </div>
-              </div>
+                      )}
 
-              {/* Right: Hours, warning, date, times, reason */}
-              <div className="cl-ma-form-right">
-                <div className="cl-ma-field">
-                  <label className="cl-ma-label cl-ma-label--upper">Hours Logged</label>
-                  <div className={'cl-ma-hours-input' + (parseFloat(hours) > 0 ? '' : ' cl-ma-hours-input--zero')}>
-                    <span className="cl-ma-hours-value">{hours}</span>
-                    <span className="cl-ma-hours-unit">Hours</span>
-                  </div>
-                </div>
-
-                <div className="cl-ma-warning">
-                  <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
-                    <path d="M8 1l7 14H1L8 1z" fill="#f59e0b"/>
-                    <path d="M8 6v4M8 12h.01" stroke="white" strokeWidth="1.5" strokeLinecap="round"/>
-                  </svg>
-                  <span>Intermittent leave must be reported within 48 hours of the absence occurring to ensure timely payment.</span>
-                </div>
-
-                <div className="cl-ma-field">
-                  <label className="cl-ma-label">Date</label>
-                  <div className="cl-ma-readonly-field">{displayDate}</div>
-                </div>
-
-                <div className="cl-ma-time-row">
-                  <div className="cl-ma-field cl-ma-field--half">
-                    <label className="cl-ma-label">Start Time</label>
-                    <input
-                      type="text"
-                      className="cl-ma-time-input"
-                      value={startTime}
-                      onChange={function (e) { setStartTime(e.target.value); }}
-                    />
-                  </div>
-                  <div className="cl-ma-field cl-ma-field--half">
-                    <label className="cl-ma-label">End Time</label>
-                    <input
-                      type="text"
-                      className="cl-ma-time-input"
-                      value={endTime}
-                      onChange={function (e) { setEndTime(e.target.value); }}
-                    />
-                  </div>
-                </div>
-
-                <div className="cl-ma-field" style={{ position: 'relative' }}>
-                  <label className="cl-ma-label">Reason</label>
-                  <button
-                    type="button"
-                    className="cl-ma-dropdown"
-                    onClick={function () { setReasonOpen(!reasonOpen); }}
-                  >
-                    <span>{reason}</span>
-                    <svg width="10" height="6" viewBox="0 0 10 6" fill="none"><path d="M1 1l4 4 4-4" stroke="#6b7280" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/></svg>
-                  </button>
-                  {reasonOpen && (
-                    <div className="cl-ma-dropdown-menu">
-                      {REASONS.map(function (r) {
+                      {/* Logged absences for current month */}
+                      {(function () {
+                        var monthAbsences = filteredAbsences.filter(function (a) {
+                          var prefix = calYear + '-' + String(calMonth + 1).padStart(2, '0');
+                          return a.dateKey && a.dateKey.startsWith(prefix);
+                        });
+                        if (monthAbsences.length === 0) return null;
                         return (
-                          <button
-                            key={r.value}
-                            type="button"
-                            className={'cl-ma-dropdown-item' + (r.value === reason ? ' cl-ma-dropdown-item--active' : '')}
-                            onClick={function () { setReason(r.value); setReasonOpen(false); }}
-                          >
-                            {r.value}
-                          </button>
+                          <div className="cl-ma-cal-logged">
+                            <div className="cl-ma-cal-logged-title">Logged this month ({monthAbsences.length})</div>
+                            <div className="cl-ma-cal-logged-list">
+                              {monthAbsences.map(function (a, idx) {
+                                return (
+                                  <div key={idx} className="cl-ma-cal-logged-row">
+                                    <span className={'cl-ma-cal-logged-dot cl-ma-cal-logged-dot--' + a.reasonColor} />
+                                    <span className="cl-ma-cal-logged-date">{a.date}</span>
+                                    <span className="cl-ma-cal-logged-hours">{a.hours}h</span>
+                                    <span className={'cl-ma-reason-badge cl-ma-reason-badge--' + a.reasonColor}>{a.reason}</span>
+                                  </div>
+                                );
+                              })}
+                            </div>
+                          </div>
                         );
-                      })}
+                      })()}
+                    </div>
+                  </div>
+                </div>
+
+                {/* Right: Hours, warning, times, reason */}
+                <div className="cl-ma-form-right">
+                  <div className="cl-ma-field">
+                    <label className="cl-ma-label cl-ma-label--upper">
+                      {isBulkMode ? 'Total Hours (' + selectedDates.length + ' days)' : 'Hours Logged'}
+                    </label>
+                    <div className={'cl-ma-hours-input' + (totalBulkHours > 0 ? '' : ' cl-ma-hours-input--zero')}>
+                      <span className="cl-ma-hours-value">{isBulkMode ? totalBulkHours.toFixed(1) : hours}</span>
+                      <span className="cl-ma-hours-unit">Hours</span>
+                    </div>
+                  </div>
+
+                  {isBulkMode && (
+                    <div className="cl-ma-bulk-badge">
+                      <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><rect x="2" y="3" width="12" height="10" rx="2" stroke="#0033a0" strokeWidth="1.2"/><path d="M2 6h12" stroke="#0033a0" strokeWidth="1.2"/><path d="M5 1v4M11 1v4" stroke="#0033a0" strokeWidth="1.2" strokeLinecap="round"/></svg>
+                      <span>Bulk entry mode — same hours applied to all {selectedDates.length} selected dates</span>
                     </div>
                   )}
-                  {selectedReasonData && (
-                    <p className="cl-ma-reason-helper">{selectedReasonData.description}</p>
+
+                  <div className="cl-ma-warning">
+                    <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                      <path d="M8 1l7 14H1L8 1z" fill="#f59e0b"/>
+                      <path d="M8 6v4M8 12h.01" stroke="white" strokeWidth="1.5" strokeLinecap="round"/>
+                    </svg>
+                    <span>Intermittent leave must be reported within 48 hours of the absence occurring to ensure timely payment.</span>
+                  </div>
+
+                  {selectedDates.length === 1 && (
+                    <div className="cl-ma-field">
+                      <label className="cl-ma-label">Date</label>
+                      <div className="cl-ma-readonly-field">{formatDateKeyToShort(selectedDates[0])}</div>
+                    </div>
                   )}
+
+                  <div className="cl-ma-time-row">
+                    <div className="cl-ma-field cl-ma-field--half">
+                      <label className="cl-ma-label">Start Time</label>
+                      <input
+                        type="text"
+                        className="cl-ma-time-input"
+                        value={startTime}
+                        onChange={function (e) { setStartTime(e.target.value); }}
+                      />
+                    </div>
+                    <div className="cl-ma-field cl-ma-field--half">
+                      <label className="cl-ma-label">End Time</label>
+                      <input
+                        type="text"
+                        className="cl-ma-time-input"
+                        value={endTime}
+                        onChange={function (e) { setEndTime(e.target.value); }}
+                      />
+                    </div>
+                  </div>
+
+                  {isBulkMode && (
+                    <p className="cl-ma-bulk-note">These times will apply to all selected dates. You can adjust individual days in the review step.</p>
+                  )}
+
+                  <div className="cl-ma-field" style={{ position: 'relative' }}>
+                    <label className="cl-ma-label">Reason</label>
+                    <button
+                      type="button"
+                      className="cl-ma-dropdown"
+                      onClick={function () { setReasonOpen(!reasonOpen); }}
+                    >
+                      <span>{reason}</span>
+                      <svg width="10" height="6" viewBox="0 0 10 6" fill="none"><path d="M1 1l4 4 4-4" stroke="#6b7280" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/></svg>
+                    </button>
+                    {reasonOpen && (
+                      <div className="cl-ma-dropdown-menu">
+                        {REASONS.map(function (r) {
+                          return (
+                            <button
+                              key={r.value}
+                              type="button"
+                              className={'cl-ma-dropdown-item' + (r.value === reason ? ' cl-ma-dropdown-item--active' : '')}
+                              onClick={function () { setReason(r.value); setReasonOpen(false); }}
+                            >
+                              {r.value}
+                            </button>
+                          );
+                        })}
+                      </div>
+                    )}
+                    {selectedReasonData && (
+                      <p className="cl-ma-reason-helper">{selectedReasonData.description}</p>
+                    )}
+                  </div>
+                </div>
+              </div>
+
+              {/* Footer */}
+              <div className="cl-ma-form-footer">
+                <p className="cl-ma-disclaimer">By submitting, you certify that {isBulkMode ? 'these absences are' : 'this absence is'} related to your approved claim.</p>
+                <div className="cl-ma-form-actions">
+                  <button
+                    className="cl-ma-btn-submit"
+                    type="button"
+                    onClick={handleSubmit}
+                    disabled={selectedDates.length === 0 || parseFloat(hours) <= 0}
+                  >
+                    {isBulkMode ? 'Review ' + selectedDates.length + ' Entries' : 'Submit Time Entry'}
+                  </button>
+                  <button className="cl-ma-btn-cancel" type="button" onClick={handleCancel}>Cancel</button>
                 </div>
               </div>
             </div>
-
-            {/* Footer */}
-            <div className="cl-ma-form-footer">
-              <p className="cl-ma-disclaimer">By submitting, you certify that this absence is related to your approved claim.</p>
-              <div className="cl-ma-form-actions">
-                <button className="cl-ma-btn-submit" type="button" onClick={handleSubmit} disabled={parseFloat(hours) <= 0}>Submit Time Entry</button>
-                <button className="cl-ma-btn-cancel" type="button" onClick={handleCancel}>Cancel</button>
-              </div>
-            </div>
-          </div>
+          )}
 
           {/* Recent Time Entries */}
           <div className="cl-ma-recent-card">
@@ -435,7 +657,7 @@ export default function EnterMyTimePage() {
                     <tr><td colSpan="7" style={{ textAlign: 'center', padding: 24, color: '#9ca3af' }}>No absences logged for this case yet.</td></tr>
                   )}
                   {filteredAbsences.map(function (row, i) {
-                    var isNew = row.entryKey && row.entryKey === newEntryKey;
+                    var isNew = row.entryKey && newEntryKey && row.entryKey.startsWith(newEntryKey);
                     if (editingIndex === i) {
                       return (
                         <tr key={i} className="cl-ma-row--editing">
@@ -564,11 +786,15 @@ export default function EnterMyTimePage() {
             <ul className="cl-ma-guidance-list">
               <li>
                 <span className="cl-ma-guidance-dot"></span>
-                <span>Ensure you log each day separately if your absence spans multiple dates.</span>
+                <span>Select multiple dates on the calendar to log the same hours across several days at once.</span>
               </li>
               <li>
                 <span className="cl-ma-guidance-dot"></span>
                 <span>Partial days should be reported in 15-minute or 0.25 hour increments.</span>
+              </li>
+              <li>
+                <span className="cl-ma-guidance-dot"></span>
+                <span>You can adjust individual day times in the review step before confirming.</span>
               </li>
               <li>
                 <span className="cl-ma-guidance-dot"></span>
