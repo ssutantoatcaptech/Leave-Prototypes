@@ -141,7 +141,7 @@ export default function App() {
 
         {/* Claims & Leave section */}
         <Route path="/claims-and-leave" element={<ClaimsAndLeaveLayout />}>
-          <Route index element={<DentalClaimsPage />} />
+          <Route index element={<ClaimCenterPage />} />
           <Route path="claims" element={<ClaimCenterPage />} />
           <Route path="file-claim" element={<FileClaimPage />} />
           <Route path="file-claim/request-leave" element={<RequestLeaveReactPage />} />
