@@ -8,6 +8,7 @@
 .ada-page.ada-embedded {
   background: transparent;
   min-height: auto;
+  width: 100%;
 }
 
 .ada-content {
@@ -20,7 +21,9 @@
 .ada-embedded .ada-content {
   width: 100%;
   max-width: 100%;
+  margin: 0 auto;
   padding: 0;
+  box-sizing: border-box;
 }
 
 .ada-back {
