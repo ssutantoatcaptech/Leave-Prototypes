@@ -852,7 +852,7 @@ export default function PlanAbsenceReactPage() {
                   <div className="sim-card" style={{ padding: '28px 32px' }}>
                     <h2 style={{ fontSize: 22, fontWeight: 700, margin: '0 0 12px', letterSpacing: '-0.02em' }}>Your Leave Scenario</h2>
                     <div className="dlp-estimate-banner" style={{ background: '#f0f4f8', border: '1px solid #e0e7ef', borderRadius: 8, padding: '12px 16px', marginBottom: 12, display: 'flex', alignItems: 'flex-start', gap: 10 }}>
-                      <svg width="16" height="16" viewBox="0 0 16 16" fill="none" style={{ flexShrink: 0, marginTop: 2 }}><circle cx="8" cy="8" r="7" stroke="#0033a0" strokeWidth="1.3"/><path d="M8 7.5V11" stroke="#0033a0" strokeWidth="1.3" strokeLinecap="round"/><circle cx="8" cy="5.5" r="0.75" fill="#0033a0"/></svg>
+                      <svg width="16" height="16" viewBox="0 0 16 16" fill="none" style={{ flexShrink: 0, marginTop: 2 }}><circle cx="8" cy="8" r="7" stroke="#105fa8" strokeWidth="1.3"/><path d="M8 7.5V11" stroke="#105fa8" strokeWidth="1.3" strokeLinecap="round"/><circle cx="8" cy="5.5" r="0.75" fill="#105fa8"/></svg>
                       <p style={{ fontSize: 13, color: '#374151', lineHeight: 1.6, margin: 0 }}>
                         <strong>This is an estimate.</strong> Actual eligibility, coverage dates, and payment amounts will be determined after you submit your request and documentation is reviewed.
                       </p>
@@ -1843,7 +1843,7 @@ export default function PlanAbsenceReactPage() {
                 <div className="sim-card" style={{ padding: '28px 32px' }}>
                   <h2 style={{ fontSize: 22, fontWeight: 700, margin: '0 0 12px', letterSpacing: '-0.02em' }}>Your Leave Scenario</h2>
                   <div className="dlp-estimate-banner" style={{ background: '#f0f4f8', border: '1px solid #e0e7ef', borderRadius: 8, padding: '12px 16px', marginBottom: 12, display: 'flex', alignItems: 'flex-start', gap: 10 }}>
-                    <svg width="16" height="16" viewBox="0 0 16 16" fill="none" style={{ flexShrink: 0, marginTop: 2 }}><circle cx="8" cy="8" r="7" stroke="#0033a0" strokeWidth="1.3"/><path d="M8 7.5V11" stroke="#0033a0" strokeWidth="1.3" strokeLinecap="round"/><circle cx="8" cy="5.5" r="0.75" fill="#0033a0"/></svg>
+                    <svg width="16" height="16" viewBox="0 0 16 16" fill="none" style={{ flexShrink: 0, marginTop: 2 }}><circle cx="8" cy="8" r="7" stroke="#105fa8" strokeWidth="1.3"/><path d="M8 7.5V11" stroke="#105fa8" strokeWidth="1.3" strokeLinecap="round"/><circle cx="8" cy="5.5" r="0.75" fill="#105fa8"/></svg>
                     <p style={{ fontSize: 13, color: '#374151', lineHeight: 1.6, margin: 0 }}>
                       <strong>This is an estimate.</strong> Actual eligibility, coverage dates, and payment amounts will be determined after you submit your request and documentation is reviewed.
                     </p>
