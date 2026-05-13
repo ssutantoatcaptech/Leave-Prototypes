@@ -191,13 +191,6 @@
   padding: 16px;
 }
 
-.mobile-frame-screen .cl-ml-table-card {
-  border-radius: 12px;
-  border: none;
-  box-shadow: none;
-  overflow: visible;
-}
-
 .mobile-frame-screen .cl-ml-table-card .cl-ml-pagination {
   padding: 12px 0;
 }
@@ -219,7 +212,7 @@
   flex-direction: column;
   align-items: stretch;
   gap: 12px;
-  padding: 16px 0;
+  padding: 12px 0 0;
 }
 
 .mobile-frame-screen .cl-ml-filter-select {
@@ -277,19 +270,15 @@
   display: none !important;
 }
 
-/* Remove white background from table card on mobile */
+/* Table card container on mobile — subtle card with padding */
 .mobile-frame-screen .cl-ml-table-card {
-  background: transparent;
-  border: none;
+  background: #ffffff;
+  border: 1px solid #e5e7eb;
+  border-radius: 12px;
   box-shadow: none;
+  padding: 16px;
 }
 
-/* Remove white background from filters on mobile */
-.mobile-frame-screen .cl-ml-filters {
-  background: transparent;
-  border-bottom: none;
-  padding: 12px 0;
-}
 
 /* File a claim cards stack */
 .mobile-frame-screen .cl-card-row {
