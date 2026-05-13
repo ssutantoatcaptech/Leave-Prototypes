@@ -879,18 +879,18 @@
 }
 
 .cldb-v2-card {
-  padding: 20px;
+  padding: 16px;
 }
 
 .cldb-v2-card-header--padded,
 .cldb-v2-card-header--border-bottom {
-  padding: 20px 20px 16px;
+  padding: 14px 16px 10px;
 }
 
 .cldb-v2-action-item {
   flex-direction: column;
   align-items: flex-start;
-  padding: 20px;
+  padding: 16px;
 }
 
 .cldb-v2-action-cta {
@@ -903,15 +903,15 @@
 }
 
 .cldb-v2-activity-row {
-  padding: 16px 20px;
+  padding: 12px 16px;
 }
 
 .cldb-v2-activity-footer {
-  padding: 16px 20px;
+  padding: 12px 16px;
 }
 
 .cldb-v2-leave-body {
-  padding: 20px;
+  padding: 16px;
 }
 
 .cldb-v2-leave-dates {
@@ -924,11 +924,11 @@
 }
 
 .cldb-v2-ql-row {
-  padding: 16px 20px;
+  padding: 12px 16px;
 }
 
 .cldb-v2-eb-body {
-  padding: 16px;
+  padding: 12px;
 }
 
 @media (min-width: 769px) {
@@ -959,12 +959,12 @@
   }
 
   .cldb-v2-card {
-    padding: 24px;
+    padding: 20px;
   }
 
   .cldb-v2-card-header--padded,
   .cldb-v2-card-header--border-bottom {
-    padding: 20px 24px 16px;
+    padding: 16px 20px 12px;
   }
 
   .cldb-v2-action-item {
@@ -982,15 +982,15 @@
   }
 
   .cldb-v2-activity-row {
-    padding: 16px 24px;
+    padding: 14px 20px;
   }
 
   .cldb-v2-activity-footer {
-    padding: 16px 24px;
+    padding: 14px 20px;
   }
 
   .cldb-v2-leave-body {
-    padding: 20px 24px 24px;
+    padding: 16px 20px 20px;
   }
 
   .cldb-v2-leave-dates {
@@ -1003,11 +1003,11 @@
   }
 
   .cldb-v2-ql-row {
-    padding: 18px 24px;
+    padding: 14px 20px;
   }
 
   .cldb-v2-eb-body {
-    padding: 20px;
+    padding: 16px;
   }
 }
 
