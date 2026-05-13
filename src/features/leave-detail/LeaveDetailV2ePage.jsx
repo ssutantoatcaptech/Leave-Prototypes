@@ -97,6 +97,7 @@ export default function LeaveDetailV2ePage() {
   var [showAllTasks, setShowAllTasks] = useState(false);
   var [editingSection, setEditingSection] = useState(null);
   var [detailTab, setDetailTab] = useState('claims');
+  var [addlBenefitsOpen, setAddlBenefitsOpen] = useState(true);
 
   var viewingCase = (function () {
     try { return JSON.parse(sessionStorage.getItem('viewingCase') || 'null'); } catch (e) { return null; }
@@ -590,13 +591,14 @@ export default function LeaveDetailV2ePage() {
 
             {/* Additional Benefits */}
             <div className="ldb-card ldb-additional-benefits">
-              <div className="ldb-additional-benefits-header">
+              <button type="button" className="ldb-additional-benefits-header" onClick={function () { setAddlBenefitsOpen(!addlBenefitsOpen); }}>
                 <h2 className="ldb-card-title" style={{ marginBottom: 0 }}>
                   <svg width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M8 1l2 3h3.5l-2.5 2.5 1 3.5L8 8 4 10l1-3.5L2.5 4H6L8 1z" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round" strokeLinejoin="round"/><path d="M4 13h8" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round"/></svg>
                   Additional Benefits
                 </h2>
-                <svg width="12" height="7" viewBox="0 0 12 7" fill="none" style={{ transform: 'rotate(180deg)' }}><path d="M1 1l5 5 5-5" stroke="#525252" strokeWidth="1.3" strokeLinecap="round" strokeLinejoin="round"/></svg>
-              </div>
+                <svg className={'ldb-card-collapse-chevron' + (addlBenefitsOpen ? ' open' : '')} width="12" height="7" viewBox="0 0 12 7" fill="none"><path d="M1 1l5 5 5-5" stroke="#525252" strokeWidth="1.3" strokeLinecap="round" strokeLinejoin="round"/></svg>
+              </button>
+              {addlBenefitsOpen && (<>
               <p className="ldb-additional-benefits-subtext">Some claims must be filed directly on your state's website. Use the links below to apply.</p>
               <div className="ldb-additional-benefits-list">
                 <div className="ldb-additional-benefit-row">
@@ -620,6 +622,7 @@ export default function LeaveDetailV2ePage() {
                   </div>
                 </div>
               </div>
+              </>)}
             </div>
             </>
             )}
