@@ -373,104 +373,157 @@
 
 /* ─── V2 Dashboard Mobile Overrides ────────────────────────────────────────── */
 .mobile-frame-screen .cldb-v2-main {
-  padding: 0 16px 40px;
-  margin-top: -40px;
+  padding: 0 16px 40px !important;
+  margin-top: -40px !important;
+  text-align: left !important;
 }
 
 .mobile-frame-screen .cldb-v2-grid {
-  flex-direction: column;
+  flex-direction: column !important;
 }
 
 .mobile-frame-screen .cldb-v2-right {
-  width: 100%;
+  width: 100% !important;
 }
 
 .mobile-frame-screen .cldb-v2-card {
-  padding: 16px;
+  padding: 24px !important;
+  text-align: left !important;
 }
 
 .mobile-frame-screen .cldb-v2-card--flush {
-  padding: 0;
+  padding: 0 !important;
 }
 
 .mobile-frame-screen .cldb-v2-card-header--padded,
 .mobile-frame-screen .cldb-v2-card-header--border-bottom {
-  padding: 14px 16px 10px;
-}
-
-.mobile-frame-screen .cldb-v2-action-item {
-  flex-direction: column;
-  align-items: flex-start;
-  padding: 16px;
-}
-
-.mobile-frame-screen .cldb-v2-action-cta {
-  width: 100%;
-}
-
-.mobile-frame-screen .cldb-v2-action-cta .cldb-v2-btn-outline {
-  flex: 1;
-  text-align: center;
-}
-
-.mobile-frame-screen .cldb-v2-main {
-  text-align: left;
-}
-
-.mobile-frame-screen .cldb-v2-card {
-  text-align: left;
+  padding: 14px 16px 10px !important;
+  justify-content: space-between !important;
+  text-align: left !important;
 }
 
 .mobile-frame-screen .cldb-v2-section-title {
-  text-align: left;
+  text-align: left !important;
+}
+
+.mobile-frame-screen .cldb-v2-action-item {
+  flex-direction: column !important;
+  align-items: flex-start !important;
+  text-align: left !important;
+  padding: 16px !important;
 }
 
 .mobile-frame-screen .cldb-v2-action-body {
-  text-align: left;
+  align-items: flex-start !important;
+  text-align: left !important;
+}
+
+.mobile-frame-screen .cldb-v2-action-title-row {
+  flex-direction: row !important;
+  align-items: center !important;
+  justify-content: flex-start !important;
+  gap: 10px !important;
+}
+
+.mobile-frame-screen .cldb-v2-action-tag {
+  justify-content: flex-start !important;
 }
 
 .mobile-frame-screen .cldb-v2-action-title,
 .mobile-frame-screen .cldb-v2-action-desc,
 .mobile-frame-screen .cldb-v2-action-meta {
-  text-align: left;
+  text-align: left !important;
+}
+
+.mobile-frame-screen .cldb-v2-action-cta {
+  width: 100% !important;
+  justify-content: flex-start !important;
+}
+
+.mobile-frame-screen .cldb-v2-action-cta .cldb-v2-btn-outline,
+.mobile-frame-screen .cldb-v2-action-cta .cldb-v2-btn-primary {
+  flex: 1;
+  text-align: center !important;
+}
+
+.mobile-frame-screen .cldb-v2-btn-primary {
+  text-align: center !important;
 }
 
 .mobile-frame-screen .cldb-v2-activity-row {
-  padding: 12px 16px;
-  text-align: left;
+  padding: 12px 16px !important;
+  flex-direction: row !important;
+  align-items: flex-start !important;
+  text-align: left !important;
+}
+
+.mobile-frame-screen .cldb-v2-activity-content {
+  text-align: left !important;
+  align-items: flex-start !important;
 }
 
 .mobile-frame-screen .cldb-v2-activity-title,
-.mobile-frame-screen .cldb-v2-activity-desc {
-  text-align: left;
+.mobile-frame-screen .cldb-v2-activity-desc,
+.mobile-frame-screen .cldb-v2-activity-date {
+  text-align: left !important;
 }
 
 .mobile-frame-screen .cldb-v2-activity-footer {
-  padding: 12px 16px;
+  padding: 12px 16px !important;
 }
 
 .mobile-frame-screen .cldb-v2-leave-body {
-  padding: 16px;
-  text-align: left;
+  padding: 16px !important;
+  text-align: left !important;
 }
 
-.mobile-frame-screen .cldb-v2-leave-label,
-.mobile-frame-screen .cldb-v2-leave-status {
-  text-align: left;
+.mobile-frame-screen .cldb-v2-leave-plan-header {
+  flex-direction: row !important;
+  align-items: flex-start !important;
+}
+
+.mobile-frame-screen .cldb-v2-leave-plan-info {
+  align-items: flex-start !important;
+  text-align: left !important;
+}
+
+.mobile-frame-screen .cldb-v2-leave-plan-title-row {
+  flex-direction: row !important;
+  align-items: center !important;
+  gap: 10px !important;
+}
+
+.mobile-frame-screen .cldb-v2-leave-plan-title,
+.mobile-frame-screen .cldb-v2-leave-plan-case {
+  text-align: left !important;
+}
+
+.mobile-frame-screen .cldb-v2-leave-dates {
+  justify-content: flex-start !important;
+}
+
+.mobile-frame-screen .cldb-v2-leave-date-card {
+  text-align: left !important;
+}
+
+.mobile-frame-screen .cldb-v2-leave-date-label,
+.mobile-frame-screen .cldb-v2-leave-date-value {
+  text-align: left !important;
 }
 
 .mobile-frame-screen .cldb-v2-ql-row {
-  padding: 12px 16px;
-  text-align: left;
+  padding: 12px 16px !important;
+  justify-content: flex-start !important;
+  text-align: left !important;
 }
 
 .mobile-frame-screen .cldb-v2-eb-body {
-  padding: 12px;
-  text-align: left;
+  padding: 12px !important;
+  text-align: left !important;
 }
 
 .mobile-frame-screen .cldb-hero-v2-content {
-  text-align: left;
+  text-align: left !important;
 }
 
 /* Cards: tighter padding */
