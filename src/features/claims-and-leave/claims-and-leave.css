@@ -844,12 +844,12 @@
 }
 
 .fc-bg-decoration--bottom-left {
-  left: calc(-250px + max(0px, (100vw - 1440px) / 2));
+  left: -250px;
   top: 425px;
 }
 
 .fc-bg-decoration--top-right {
-  right: calc(-367px + max(0px, (100vw - 1440px) / 2));
+  right: -367px;
   top: -115px;
 }
 
