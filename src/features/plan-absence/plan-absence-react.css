@@ -2519,6 +2519,23 @@
   border-color: #f87171;
 }
 
+.btn-outline-blue {
+  padding: 10px 20px;
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: 600;
+  font-family: inherit;
+  cursor: pointer;
+  border: 1px solid #105fa8;
+  background: #fff;
+  color: #105fa8;
+  transition: 0.15s;
+}
+.btn-outline-blue:hover {
+  background: #f0f4ff;
+  border-color: #0a4a85;
+}
+
 /* ─── Cancel Confirmation Modal ─────────────────────────────────────────────── */
 .cancel-confirm-modal {
   background: #fff;

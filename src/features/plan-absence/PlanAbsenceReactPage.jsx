@@ -784,7 +784,7 @@ export default function PlanAbsenceReactPage() {
                 </div>
               )}
               <div className="sim-btn-row">
-                <button className="btn btn-cancel-leave" type="button" onClick={handleSaveAndExit}>Save &amp; Exit</button>
+                <button className="btn-outline-blue" type="button" onClick={handleSaveAndExit}>Save &amp; Exit</button>
                 <div style={{ display: 'flex', gap: 12 }}>
                   <button className="sim-btn-back" type="button" onClick={goIllnessBack}>&larr; Back</button>
                   <button className="sim-btn-primary" type="button" onClick={goIllnessNext}>Continue &#8594;</button>
@@ -840,7 +840,7 @@ export default function PlanAbsenceReactPage() {
               </div>
 
               <div className="sim-btn-row">
-                <button className="btn btn-cancel-leave" type="button" onClick={handleSaveAndExit}>Save &amp; Exit</button>
+                <button className="btn-outline-blue" type="button" onClick={handleSaveAndExit}>Save &amp; Exit</button>
                 <div style={{ display: 'flex', gap: 12 }}>
                   <button className="sim-btn-back" type="button" onClick={goIllnessBack}>&larr; Back</button>
                   <button className="sim-btn-primary" type="button" onClick={goIllnessNext}>See My Coverage &#8594;</button>
@@ -1118,7 +1118,7 @@ export default function PlanAbsenceReactPage() {
                         <svg width="13" height="13" viewBox="0 0 16 16" fill="none"><path d="M2 3h12v10H2V3z" stroke="currentColor" strokeWidth="1.3" strokeLinecap="round" strokeLinejoin="round"/><path d="M2 3l6 5 6-5" stroke="currentColor" strokeWidth="1.3" strokeLinecap="round" strokeLinejoin="round"/></svg>
                         Email Plan
                       </button>
-                      <button type="button" className="btn btn-cancel-leave" onClick={handleSaveAndExit}>Save &amp; Exit</button>
+                      <button type="button" className="btn-outline-blue" onClick={handleSaveAndExit}>Save &amp; Exit</button>
                     </div>
                   </div>
                 </div>
@@ -1781,7 +1781,7 @@ export default function PlanAbsenceReactPage() {
                 </div>
               )}
               <div className="sim-btn-row">
-                <button className="btn btn-cancel-leave" type="button" onClick={handleSaveAndExit}>Save &amp; Exit</button>
+                <button className="btn-outline-blue" type="button" onClick={handleSaveAndExit}>Save &amp; Exit</button>
                 <div style={{ display: 'flex', gap: 12 }}>
                   <button className="sim-btn-back" type="button" onClick={goBack}>&larr; Back</button>
                   <button className="sim-btn-primary" type="button" onClick={goNext}>Continue &#8594;</button>
@@ -1842,7 +1842,7 @@ export default function PlanAbsenceReactPage() {
                 </div>
               </div>
               <div className="sim-btn-row">
-                <button className="btn btn-cancel-leave" type="button" onClick={handleSaveAndExit}>Save &amp; Exit</button>
+                <button className="btn-outline-blue" type="button" onClick={handleSaveAndExit}>Save &amp; Exit</button>
                 <div style={{ display: 'flex', gap: 12 }}>
                   <button className="sim-btn-back" type="button" onClick={goBack}>&larr; Back</button>
                   <button className="sim-btn-primary" type="button" onClick={goNext}>See My Coverage &#8594;</button>
@@ -2121,7 +2121,7 @@ export default function PlanAbsenceReactPage() {
                       <svg width="13" height="13" viewBox="0 0 16 16" fill="none"><path d="M2 3h12v10H2V3z" stroke="currentColor" strokeWidth="1.3" strokeLinecap="round" strokeLinejoin="round"/><path d="M2 3l6 5 6-5" stroke="currentColor" strokeWidth="1.3" strokeLinecap="round" strokeLinejoin="round"/></svg>
                       Email Plan
                     </button>
-                    <button type="button" className="btn btn-cancel-leave" onClick={handleSaveAndExit}>Save &amp; Exit</button>
+                    <button type="button" className="btn-outline-blue" onClick={handleSaveAndExit}>Save &amp; Exit</button>
                   </div>
                 </div>
               </div>
@@ -2306,7 +2306,7 @@ export default function PlanAbsenceReactPage() {
               <div className="wizard-footer">
                 <button className="btn btn-back" type="button" onClick={goBack}>&larr; Back</button>
                 <div style={{ display: 'flex', gap: 12 }}>
-                  <button className="btn btn-cancel-leave" type="button" onClick={handleSaveAndExit}>Save &amp; Exit</button>
+                  <button className="btn-outline-blue" type="button" onClick={handleSaveAndExit}>Save &amp; Exit</button>
                   <button className="btn btn-next" type="button" onClick={goNext}>Continue &rarr;</button>
                 </div>
               </div>
@@ -2383,7 +2383,7 @@ export default function PlanAbsenceReactPage() {
               <div className="wizard-footer">
                 <button className="btn btn-back" type="button" onClick={goBack}>&larr; Back</button>
                 <div style={{ display: 'flex', gap: 12 }}>
-                  <button className="btn btn-cancel-leave" type="button" onClick={handleSaveAndExit}>Save &amp; Exit</button>
+                  <button className="btn-outline-blue" type="button" onClick={handleSaveAndExit}>Save &amp; Exit</button>
                   <button className="btn btn-next" type="button" onClick={goNext}>Continue &rarr;</button>
                 </div>
               </div>
@@ -2436,7 +2436,7 @@ export default function PlanAbsenceReactPage() {
               <div className="wizard-footer">
                 <button className="btn btn-back" type="button" onClick={goBack}>&larr; Back</button>
                 <div style={{ display: 'flex', gap: 12 }}>
-                  <button className="btn btn-cancel-leave" type="button" onClick={handleSaveAndExit}>Save &amp; Exit</button>
+                  <button className="btn-outline-blue" type="button" onClick={handleSaveAndExit}>Save &amp; Exit</button>
                   <button className="btn btn-next" type="button" onClick={goNext}>Continue &rarr;</button>
                 </div>
               </div>
@@ -2469,7 +2469,7 @@ export default function PlanAbsenceReactPage() {
               <div className="wizard-footer">
                 <button className="btn btn-back" type="button" onClick={goBack}>&larr; Back</button>
                 <div style={{ display: 'flex', gap: 12 }}>
-                  <button className="btn btn-cancel-leave" type="button" onClick={handleSaveAndExit}>Save &amp; Exit</button>
+                  <button className="btn-outline-blue" type="button" onClick={handleSaveAndExit}>Save &amp; Exit</button>
                   <button className="btn btn-next" type="button" onClick={goNext}>Continue &rarr;</button>
                 </div>
               </div>
@@ -2556,7 +2556,7 @@ export default function PlanAbsenceReactPage() {
               <div className="wizard-footer">
                 <button className="btn btn-back" type="button" onClick={goBack}>&larr; Back</button>
                 <div style={{ display: 'flex', gap: 12 }}>
-                  <button className="btn btn-cancel-leave" type="button" onClick={handleSaveAndExit}>Save &amp; Exit</button>
+                  <button className="btn-outline-blue" type="button" onClick={handleSaveAndExit}>Save &amp; Exit</button>
                   <button className="btn btn-next" type="button" onClick={goNext}>Continue &rarr;</button>
                 </div>
               </div>
@@ -2636,7 +2636,7 @@ export default function PlanAbsenceReactPage() {
                 <div className="wizard-footer">
                   <button className="btn btn-back" type="button" onClick={goBack}>&larr; Back</button>
                   <div style={{ display: 'flex', gap: 12 }}>
-                    <button className="btn btn-cancel-leave" type="button" onClick={handleSaveAndExit}>Save &amp; Exit</button>
+                    <button className="btn-outline-blue" type="button" onClick={handleSaveAndExit}>Save &amp; Exit</button>
                     <button className="btn btn-next" type="button" style={{ background: '#105fa8' }}>Submit Request</button>
                   </div>
                 </div>
