@@ -132,9 +132,9 @@ export default function LeaveDetailPregnancyPage() {
             </div>
             <div className="ldb-title-text">
               <span className="ldb-status-badge ldb-title-badge" style={{ background: '#f0fdf4', color: '#166534', border: '1px solid #bbf7d0' }}>Approved</span>
-              <h1 className="ldb-title">Birthing Parent — Pregnancy</h1>
+              <h1 className="ldb-title">Birthing Parent</h1>
               <div className="ldb-title-meta">
-                <span style={{ fontSize: 14, color: '#525252', fontWeight: 600 }}>NTN - 4501</span>
+                <span style={{ fontSize: 14, color: '#525252', fontWeight: 600 }}>CLM #12345</span>
                 <span style={{ fontSize: 13, color: '#737373', marginLeft: 12 }}>Jun 16 – Nov 3, 2026 · Continuous</span>
               </div>
             </div>

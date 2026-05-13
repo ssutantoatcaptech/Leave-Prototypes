@@ -102,7 +102,7 @@ export default function LeaveDetailV2ePage() {
   var viewingCase = (function () {
     try { return JSON.parse(sessionStorage.getItem('viewingCase') || 'null'); } catch (e) { return null; }
   })();
-  var caseScenario = viewingCase && viewingCase.leaveScenario ? viewingCase.leaveScenario : 'medical_self';
+  var caseScenario = viewingCase && viewingCase.leaveScenario ? viewingCase.leaveScenario : 'child_nonbirth';
   var caseSentCert = viewingCase ? viewingCase.sendCertToPhysician : false;
   var [detailsForm, setDetailsForm] = useState({
     email: 'sarah.johnson@company.com',
@@ -110,20 +110,20 @@ export default function LeaveDetailV2ePage() {
     address: '8827 SW 8th Street, Lee Summit, MO 64086',
     addressDuration: 'May 1, 2026 - Aug 15, 2026',
     absenceType: 'Continuous',
-    absenceStart: '2026-03-16',
-    absenceEnd: '2026-06-30',
-    expectedReturn: '2026-07-01',
-    duration: '107 days',
-    reason: 'Pregnancy, birth, and bonding',
+    absenceStart: '2026-04-15',
+    absenceEnd: '2026-07-08',
+    expectedReturn: '2026-07-09',
+    duration: '84 days',
+    reason: 'Bonding with newborn child',
     weeklyHours: '40 hours / week',
     scheduleType: 'Fixed',
     workDays: 'Mon, Tue, Wed, Thu, Fri',
     hoursPerDay: '8 hours',
-    provider: 'Dr. Dempsey (OB-GYN)',
-    facility: "St. Luke's Medical Center",
-    providerAddress: '123 Main Street, Unit 404, Lee Summit, MO 64064',
-    providerPhone: '(816) 457-2934',
-    providerEmail: 'dempsey.herbett@stlukes.com',
+    provider: 'Dr. Martinez (Pediatrician)',
+    facility: "Children's Mercy Hospital",
+    providerAddress: '2401 Gillham Rd, Kansas City, MO 64108',
+    providerPhone: '(816) 234-3000',
+    providerEmail: 'martinez.r@childrensmercy.org',
   });
 
   var [scheduleHours, setScheduleHours] = useState({ sun: 0, mon: 8, tue: 8, wed: 8, thu: 8, fri: 8, sat: 0 });
@@ -292,10 +292,10 @@ export default function LeaveDetailV2ePage() {
         {/* Title */}
         <div className="ldb-title-card">
           <div className="ldb-title-left">
-            <h1 className="ldb-title">Illness or Injury</h1>
+            <h1 className="ldb-title">Non-Birthing Parent</h1>
             <div className="ldb-title-meta">
-              <span style={{ fontWeight: 600 }}>NTN - 2334</span>
-              <span style={{ fontWeight: 400 }}>Apr 15 – May 15, 2026 · Intermittent</span>
+              <span style={{ fontWeight: 600 }}>CLM #12290</span>
+              <span style={{ fontWeight: 400 }}>Apr 15 – Jul 8, 2026 · Continuous</span>
             </div>
           </div>
         </div>
@@ -343,11 +343,10 @@ export default function LeaveDetailV2ePage() {
                   <div className="ldb-tl-rows-wrap">
                   <div className="dlp-tl-rows">
                     {(timelineView === 'payment' ? [
-                      { id: 'std', label: 'STD', width: 50, accent: '#105fa8', name: 'Short-Term Disability Claim (STD)', weeks: '4 weeks', range: 'Apr 15 – May 15, 2026', pay: '60% salary after 7-day wait', status: 'Approved', paymentValue: '~$2,308/wk' },
-                      { id: 'njtdi', label: 'NJ TDI', width: 100, accent: '#007a8a', name: 'NJ Temporary Disability Insurance', weeks: '12 weeks', range: 'Apr 15 – Jul 08, 2026', pay: '85% salary (state program)', status: 'Active', paymentValue: '~$1,048/wk' },
+                      { id: 'njfli', label: 'NJ FLI', width: 100, accent: '#0d9488', name: 'NJ Family Leave Insurance (Bonding)', weeks: '12 weeks', range: 'Apr 15 – Jul 08, 2026', pay: '85% AWW up to max', status: 'Approved', paymentValue: '~$1,048/wk' },
                     ] : [
-                      { id: 'fmla', label: 'FMLA', width: 100, accent: '#003a70', name: 'Leave Case — FMLA (Intermittent)', weeks: '13 wk', range: 'Apr 15 – Jul 08, 2026', pay: 'Job protection (unpaid)', status: 'Approved' },
-                      { id: 'std', label: 'STD', width: 42, accent: '#105fa8', name: 'Short-Term Disability Claim (STD)', weeks: '5.5 wk', range: 'Apr 15 – May 15, 2026', pay: '60% salary after 7-day wait', status: 'Approved' },
+                      { id: 'fmla', label: 'FMLA', width: 100, accent: '#003a70', name: 'Leave Case — FMLA (Bonding)', weeks: '12 wk', range: 'Apr 15 – Jul 08, 2026', pay: 'Job protection (unpaid)', status: 'Approved' },
+                      { id: 'njfli', label: 'NJ FLI', width: 100, accent: '#0d9488', name: 'NJ Family Leave Insurance (Bonding)', weeks: '12 wk', range: 'Apr 15 – Jul 08, 2026', pay: '85% AWW up to max', status: 'Approved' },
                     ]).map(function (item) {
                       return (
                         <button
@@ -370,11 +369,10 @@ export default function LeaveDetailV2ePage() {
                   {/* Desktop: tooltip on hover */}
                   {hoveredRow && (function () {
                     var allRows = timelineView === 'payment' ? [
-                      { id: 'std', name: 'Short-Term Disability Claim (STD)', weeks: '5.5 weeks', range: 'Apr 15 – May 15, 2026', pay: '60% salary after 7-day wait', status: 'Approved', paymentValue: '~$2,308/wk' },
-                      { id: 'njtdi', name: 'NJ Temporary Disability Insurance', weeks: '12 weeks', range: 'Apr 15 – Jul 08, 2026', pay: '85% salary (state program)', status: 'Active', paymentValue: '~$1,048/wk' },
+                      { id: 'njfli', name: 'NJ Family Leave Insurance (Bonding)', weeks: '12 weeks', range: 'Apr 15 – Jul 08, 2026', pay: '85% AWW up to max', status: 'Approved', paymentValue: '~$1,048/wk' },
                     ] : [
-                      { id: 'fmla', name: 'Leave Case — FMLA (Intermittent)', weeks: '13 weeks', range: 'Apr 15 – Jul 08, 2026', pay: 'Job protection (unpaid)', status: 'Approved' },
-                      { id: 'std', name: 'Short-Term Disability Claim (STD)', weeks: '5.5 weeks', range: 'Apr 15 – May 15, 2026', pay: '60% salary after 7-day wait', status: 'Approved' },
+                      { id: 'fmla', name: 'Leave Case — FMLA (Bonding)', weeks: '12 weeks', range: 'Apr 15 – Jul 08, 2026', pay: 'Job protection (unpaid)', status: 'Approved' },
+                      { id: 'njfli', name: 'NJ Family Leave Insurance (Bonding)', weeks: '12 weeks', range: 'Apr 15 – Jul 08, 2026', pay: '85% AWW up to max', status: 'Approved' },
                     ];
                     var hovered = allRows.find(function (r) { return r.id === hoveredRow; });
                     if (!hovered) return null;
@@ -409,11 +407,10 @@ export default function LeaveDetailV2ePage() {
                   {/* Mobile: accordion below rows */}
                   {hoveredRow && (function () {
                     var allRows = timelineView === 'payment' ? [
-                      { id: 'std', name: 'Short-Term Disability Claim (STD)', weeks: '5.5 weeks', range: 'Apr 15 – May 15, 2026', pay: '60% salary after 7-day wait', status: 'Approved', paymentValue: '~$2,308/wk' },
-                      { id: 'njtdi', name: 'NJ Temporary Disability Insurance', weeks: '12 weeks', range: 'Apr 15 – Jul 08, 2026', pay: '85% salary (state program)', status: 'Active', paymentValue: '~$1,048/wk' },
+                      { id: 'njfli', name: 'NJ Family Leave Insurance (Bonding)', weeks: '12 weeks', range: 'Apr 15 – Jul 08, 2026', pay: '85% AWW up to max', status: 'Approved', paymentValue: '~$1,048/wk' },
                     ] : [
-                      { id: 'fmla', name: 'Leave Case — FMLA (Intermittent)', weeks: '13 weeks', range: 'Apr 15 – Jul 08, 2026', pay: 'Job protection (unpaid)', status: 'Approved' },
-                      { id: 'std', name: 'Short-Term Disability Claim (STD)', weeks: '5.5 weeks', range: 'Apr 15 – May 15, 2026', pay: '60% salary after 7-day wait', status: 'Approved' },
+                      { id: 'fmla', name: 'Leave Case — FMLA (Bonding)', weeks: '12 weeks', range: 'Apr 15 – Jul 08, 2026', pay: 'Job protection (unpaid)', status: 'Approved' },
+                      { id: 'njfli', name: 'NJ Family Leave Insurance (Bonding)', weeks: '12 weeks', range: 'Apr 15 – Jul 08, 2026', pay: '85% AWW up to max', status: 'Approved' },
                     ];
                     var selected = allRows.find(function (r) { return r.id === hoveredRow; });
                     if (!selected) return null;

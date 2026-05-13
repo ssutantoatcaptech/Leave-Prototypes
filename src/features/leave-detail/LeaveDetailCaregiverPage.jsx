@@ -127,10 +127,10 @@ export default function LeaveDetailCaregiverPage() {
             </div>
             <div className="ldb-title-text">
               <span className="ldb-status-badge ldb-title-badge" style={{ background: '#f0fdf4', color: '#166534', border: '1px solid #bbf7d0' }}>Approved</span>
-              <h1 className="ldb-title">Caring for Family Member</h1>
+              <h1 className="ldb-title">Cared for Sick Family</h1>
               <div className="ldb-title-meta">
-                <span style={{ fontSize: 14, color: '#525252', fontWeight: 600 }}>NTN - 5220</span>
-                <span style={{ fontSize: 13, color: '#737373', marginLeft: 12 }}>May 5 – Jul 28, 2026 · Intermittent</span>
+                <span style={{ fontSize: 14, color: '#525252', fontWeight: 600 }}>CLM #12188</span>
+                <span style={{ fontSize: 13, color: '#737373', marginLeft: 12 }}>May 5 – Jul 28, 2026 · Reduced Hours</span>
               </div>
             </div>
           </div>
