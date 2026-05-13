@@ -84,7 +84,7 @@ export default function ClaimsAndLeaveLayout() {
                 </svg>
               )}
             </button>
-            <NavLink to={`${base}/dashboard`} className="cl-brand">Benefit Hub</NavLink>
+            <NavLink to={`${base}/dashboard`} className="cl-brand">my<strong>Mutual</strong></NavLink>
             {/* Desktop nav */}
             <nav className="cl-main-nav">
               {navLinks.map((link) => (
@@ -170,7 +170,7 @@ export default function ClaimsAndLeaveLayout() {
 
           {/* Brand header */}
           <div className="cl-mobile-nav-brand">
-            <span className="cl-mobile-nav-brand-name">Benefits Hub</span>
+            <span className="cl-mobile-nav-brand-name">my<strong>Mutual</strong></span>
           </div>
 
           {/* Primary navigation */}
@@ -292,7 +292,7 @@ export default function ClaimsAndLeaveLayout() {
       {/* Footer */}
       <footer className="cl-footer">
         <div className="cl-footer-inner">
-          <h2 className="cl-footer-brand">Benefit Hub</h2>
+          <h2 className="cl-footer-brand">my<strong>Mutual</strong></h2>
           <div className="cl-footer-grid">
             <div className="cl-footer-col">
               <h4 className="cl-footer-heading">Benefits</h4>

@@ -61,7 +61,7 @@ export default function DashboardPage() {
                 </svg>
               )}
             </button>
-            <NavLink to="/" className="cl-brand">Benefits Hub</NavLink>
+            <NavLink to="/" className="cl-brand">my<strong>Mutual</strong></NavLink>
             <nav className="cl-main-nav">
               {navLinks.map((link) => (
                 link.dropdown ? (
@@ -135,7 +135,7 @@ export default function DashboardPage() {
             </svg>
           </button>
           <div className="cl-mobile-nav-brand">
-            <span className="cl-mobile-nav-brand-name">Benefits Hub</span>
+            <span className="cl-mobile-nav-brand-name">my<strong>Mutual</strong></span>
           </div>
           <div className="cl-mobile-nav-primary">
             <NavLink to={`${base}/dashboard`} className="cl-mobile-nav-item" onClick={() => setMobileNavOpen(false)}>
