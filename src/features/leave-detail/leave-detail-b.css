@@ -300,7 +300,7 @@
   border-right: none;
 }
 .ldb-card.dt-timeline-wrap .dt-tl-toggle button.active {
-  background: #003a70;
+  background: #0033a0;
   color: #ffffff;
   box-shadow: none;
 }
@@ -1228,7 +1228,7 @@
   font-size: 14px;
   font-weight: 600;
   color: #fff;
-  background: #105fa8;
+  background: #0033a0;
   border: none;
   border-radius: 6px;
   cursor: pointer;
@@ -1236,7 +1236,7 @@
   transition: background 0.15s;
   flex-shrink: 0;
 }
-.ldb-btn-upload-inline:hover { background: #003a70; }
+.ldb-btn-upload-inline:hover { background: #002880; }
 
 /* ── UPLOAD DROPZONE ── */
 .ldb-upload-zone {

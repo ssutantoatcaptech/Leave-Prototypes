@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import useBasePath from './useBasePath';
 
 const leavesData = [
@@ -10,6 +10,7 @@ const leavesData = [
     status: 'Under Review',
     requiredActions: 'Return to Work',
     actionType: 'view',
+
   },
   {
     type: 'Illness or Injury (Self)',
@@ -18,6 +19,7 @@ const leavesData = [
     status: 'Decisioned',
     requiredActions: 'N/A',
     actionType: 'view',
+
   },
   {
     type: 'Caring for a Family Member',
@@ -26,6 +28,7 @@ const leavesData = [
     status: 'Saved',
     requiredActions: 'N/A',
     actionType: 'saved',
+
   },
   {
     type: 'Military-Related Leave',
@@ -34,6 +37,7 @@ const leavesData = [
     status: 'Closed',
     requiredActions: 'N/A',
     actionType: 'view',
+
   },
   {
     type: 'Birthing Parent / Pregnancy',
@@ -42,6 +46,7 @@ const leavesData = [
     status: 'Under Review',
     requiredActions: 'Upload Documents',
     actionType: 'view',
+
   },
   {
     type: 'Illness or Injury (Self)',
@@ -50,6 +55,7 @@ const leavesData = [
     status: 'Decisioned',
     requiredActions: 'N/A',
     actionType: 'view',
+
   },
   {
     type: 'Caring for a Family Member',
@@ -58,6 +64,7 @@ const leavesData = [
     status: 'Closed',
     requiredActions: 'N/A',
     actionType: 'view',
+
   },
   {
     type: 'Military-Related Leave',
@@ -199,8 +206,15 @@ const leavesData = [
 
 const PAGE_SIZE = 5;
 
+function getDetailPath(type) {
+  if (type === 'Birthing Parent / Pregnancy') return '/case-detail-pregnancy';
+  if (type === 'Caring for a Family Member') return '/case-detail-caregiver';
+  return '/case-detail';
+}
+
 export default function MyLeavesPage() {
   const base = useBasePath();
+  const navigate = useNavigate();
   const [currentPage, setCurrentPage] = useState(1);
   const [statusFilter, setStatusFilter] = useState('All');
   const [typeFilter, setTypeFilter] = useState('All');
@@ -338,10 +352,10 @@ export default function MyLeavesPage() {
                   {row.actionType === 'saved' ? (
                     <div className="cl-ml-action-group">
                       <button className="cl-ml-action-delete">Delete</button>
-                      <span className="cl-ml-action-link">Resume ›</span>
+                      <span className="cl-ml-action-link" onClick={() => navigate(base + getDetailPath(row.type))}>Resume ›</span>
                     </div>
                   ) : (
-                    <span className="cl-ml-action-link">View Details ›</span>
+                    <span className="cl-ml-action-link" onClick={() => navigate(base + getDetailPath(row.type))}>View Details ›</span>
                   )}
                 </td>
               </tr>
@@ -414,10 +428,10 @@ export default function MyLeavesPage() {
               {row.actionType === 'saved' ? (
                 <>
                   <button className="cl-ml-card-mobile__action-delete">Delete</button>
-                  <button className="cl-ml-card-mobile__action-link">Resume ›</button>
+                  <button className="cl-ml-card-mobile__action-link" onClick={() => navigate(base + getDetailPath(row.type))}>Resume ›</button>
                 </>
               ) : (
-                <button className="cl-ml-card-mobile__action-link">View Details ›</button>
+                <button className="cl-ml-card-mobile__action-link" onClick={() => navigate(base + getDetailPath(row.type))}>View Details ›</button>
               )}
             </div>
           </div>
