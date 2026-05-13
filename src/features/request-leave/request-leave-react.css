@@ -39,7 +39,7 @@
   line-height: 1.5;
   box-shadow: var(--shadow-sm);
 }
-.rq-from-plan-icon { flex-shrink: 0; color: var(--color-inline-message-icon); }
+.rq-from-plan-icon { flex-shrink: 0; }
 .rq-from-plan-close {
   margin-left: auto;
   flex-shrink: 0;
@@ -2580,7 +2580,7 @@
 
 .ds-info-callout {
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   gap: 12px;
   padding: 16px 20px;
   background: var(--color-bg-card);
@@ -2588,7 +2588,7 @@
   border-top: 3px solid var(--color-brand-primary);
   border-radius: var(--radius-lg);
   font-size: 14px;
-  font-weight: 600;
+  font-weight: 400;
   color: var(--color-text-primary);
   line-height: 1.5;
   margin-top: 16px;
@@ -2605,27 +2605,37 @@
   color: var(--color-text-inverse);
 }
 
+.ds-info-callout strong {
+  font-weight: 600;
+}
+
 .ds-review-callout {
-  background: var(--color-bg-info-light);
+  background: var(--color-bg-card);
   margin-top: 16px;
-  padding: 14px 18px;
+  padding: 16px 20px;
   border-radius: var(--radius-lg);
-  border: 1px solid var(--color-status-info-border);
+  border: 1px solid var(--color-border-card);
+  border-top: 3px solid var(--color-brand-primary);
   display: flex;
   align-items: flex-start;
-  gap: 10px;
+  gap: 12px;
+  box-shadow: var(--shadow-sm);
 }
 
 .ds-review-callout svg {
   flex-shrink: 0;
-  margin-top: 1px;
-  color: var(--color-status-info);
+  width: 28px;
+  height: 28px;
+  padding: 6px;
+  border-radius: 50%;
+  background: var(--color-brand-primary);
+  color: var(--color-text-inverse);
 }
 
 .ds-review-callout p {
-  font-size: 13px;
-  color: var(--color-brand-primary);
-  line-height: 1.6;
+  font-size: 14px;
+  color: var(--color-text-primary);
+  line-height: 1.5;
   margin: 0;
 }
 

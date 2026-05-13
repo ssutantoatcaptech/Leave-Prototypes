@@ -2155,7 +2155,7 @@ function PaymentPanel({ caseData, onTabChange }) {
                 </div>
               </div>
               <div className="pmt-recipient-callout pmt-header-callout">
-                <svg width="18" height="18" viewBox="0 0 18 18" fill="none" aria-hidden="true"><circle cx="9" cy="9" r="8" stroke="#067ac1" strokeWidth="1.3"/><path d="M9 8v5" stroke="#067ac1" strokeWidth="1.3" strokeLinecap="round"/><circle cx="9" cy="5.5" r="0.85" fill="#067ac1"/></svg>
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden="true"><circle cx="12" cy="12" r="10" fill="#105fa8"/><path d="M12 8v4" stroke="#fff" strokeWidth="2" strokeLinecap="round"/><circle cx="12" cy="16" r="1" fill="#fff"/></svg>
                 <div><strong>Your payments may come from multiple sources.</strong> Depending on your benefits, some payments may be issued by Benefits Hub, your employer, or your state. Amounts shown here may reflect adjustments.</div>
               </div>
             </div>

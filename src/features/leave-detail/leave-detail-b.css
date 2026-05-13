@@ -1317,14 +1317,16 @@
   display: flex;
   align-items: flex-start;
   gap: 12px;
-  background: #f5f5f7;
-  border: 1px solid #d4d4d8;
-  border-radius: 12px;
-  padding: 20px 24px;
+  background: #ffffff;
+  border: 1px solid #e5e7eb;
+  border-top: 3px solid #105fa8;
+  border-radius: 8px;
+  padding: 16px 20px;
   margin-bottom: 24px;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
 }
 .ldb-v3-alert svg { flex-shrink: 0; margin-top: 2px; }
-.ldb-v3-alert-text { font-size: 14px; color: #525252; line-height: 1.5; }
+.ldb-v3-alert-text { font-size: 14px; color: #222; line-height: 1.5; }
 .ldb-alert-warning { background: #737373; border-color: #737373; color: #fff; }
 .ldb-alert-warning .ldb-v3-alert-text { color: #fff; }
 .ldb-alert-warning svg path,

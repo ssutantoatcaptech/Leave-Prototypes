@@ -1170,8 +1170,8 @@ export default function RequestLeaveReactPage() {
               </div>
             </div>
             <div className="ds-info-callout">
-              <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><circle cx="8" cy="8" r="7" stroke="currentColor" strokeWidth="1.2"/><path d="M8 7v4" stroke="currentColor" strokeWidth="1.3" strokeLinecap="round"/><circle cx="8" cy="5" r="0.75" fill="currentColor"/></svg>
-              <span>By providing this information you're authorizing Mutual of Omaha to send paperwork to your health care provider.</span>
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="10" fill="currentColor"/><path d="M12 8v4" stroke="#fff" strokeWidth="2" strokeLinecap="round"/><circle cx="12" cy="16" r="1" fill="#fff"/></svg>
+              <span><strong>This is an estimate.</strong> By providing this information you're authorizing Mutual of Omaha to send paperwork to your health care provider.</span>
             </div>
             <button type="button" className="rotation-add"><svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M8 3v10M3 8h10" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"/></svg>Add Another Provider</button>
           </>
@@ -1713,8 +1713,8 @@ export default function RequestLeaveReactPage() {
               </>
             ) : null}
             <div className="ds-review-callout">
-              <svg width="18" height="18" viewBox="0 0 18 18" fill="none"><circle cx="9" cy="9" r="8" stroke="#3b82f6" strokeWidth="1.2"/><path d="M9 8v4" stroke="#3b82f6" strokeWidth="1.2" strokeLinecap="round"/><circle cx="9" cy="5.5" r="0.75" fill="#3b82f6"/></svg>
-              <p>By continuing, you confirm that the information above is accurate to the best of your knowledge. Your case manager may follow up if additional details are needed, and your manager may be notified as part of this process.</p>
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="10" fill="#105fa8"/><path d="M12 8v4" stroke="#fff" strokeWidth="2" strokeLinecap="round"/><circle cx="12" cy="16" r="1" fill="#fff"/></svg>
+              <p><strong>This is an estimate.</strong> By continuing, you confirm that the information above is accurate to the best of your knowledge. Your case manager may follow up if additional details are needed, and your manager may be notified as part of this process.</p>
             </div>
           </>
         );
@@ -2303,7 +2303,7 @@ export default function RequestLeaveReactPage() {
         <div className="wizard-wrap">
           {fromPlan && !hidePlanBar && (
             <div className="rq-from-plan-bar">
-              <svg className="rq-from-plan-icon" width="18" height="18" viewBox="0 0 18 18" fill="none"><circle cx="9" cy="9" r="8" stroke="currentColor" strokeWidth="1.2"/><path d="M9 5.5v4" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round"/><circle cx="9" cy="12.5" r="0.75" fill="currentColor"/></svg>
+              <svg className="rq-from-plan-icon" width="24" height="24" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="10" fill="#105fa8"/><path d="M12 8v4" stroke="#fff" strokeWidth="2" strokeLinecap="round"/><circle cx="12" cy="16" r="1" fill="#fff"/></svg>
               <span>Pre-filled from your leave plan. Review and adjust as needed.</span>
               <button type="button" className="rq-from-plan-close" onClick={() => setHidePlanBar(true)} aria-label="Dismiss">
                 <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M3 3l8 8M11 3l-8 8" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"/></svg>

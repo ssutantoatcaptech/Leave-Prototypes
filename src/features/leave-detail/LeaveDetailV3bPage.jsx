@@ -104,10 +104,10 @@ export default function LeaveDetailV3bPage() {
         </div>
 
         {/* Employer Absence Alert */}
-        <div className="ldb-v3-alert ldb-alert-warning">
-          <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><circle cx="8" cy="8" r="6.5" stroke="#525252" strokeWidth="1.2"/><path d="M8 7v4" stroke="#525252" strokeWidth="1.2" strokeLinecap="round"/><circle cx="8" cy="5" r="0.7" fill="#525252"/></svg>
+        <div className="ldb-v3-alert">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="10" fill="#105fa8"/><path d="M12 8v4" stroke="#fff" strokeWidth="2" strokeLinecap="round"/><circle cx="12" cy="16" r="1" fill="#fff"/></svg>
           <div className="ldb-v3-alert-content">
-            <span className="ldb-v3-alert-text">Your employer manages absence and return-to-work scheduling. To request time off or report schedule changes, visit your employer's HR portal.</span>
+            <span className="ldb-v3-alert-text"><strong>Important.</strong> Your employer manages absence and return-to-work scheduling. To request time off or report schedule changes, visit your employer's HR portal.</span>
           </div>
         </div>
 

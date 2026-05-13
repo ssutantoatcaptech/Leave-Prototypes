@@ -102,7 +102,7 @@ function RequestDetail({ request, onBack, onUpload, onRespond }) {
 
         {request.status === 'info-needed' && request.message && (
           <div className="ada-detail-alert">
-            <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><circle cx="8" cy="8" r="7" stroke="#b45309" strokeWidth="1.2"/><path d="M8 5v3" stroke="#b45309" strokeWidth="1.2" strokeLinecap="round"/><circle cx="8" cy="11" r="0.6" fill="#b45309"/></svg>
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="10" fill="#105fa8"/><path d="M12 8v4" stroke="#fff" strokeWidth="2" strokeLinecap="round"/><circle cx="12" cy="16" r="1" fill="#fff"/></svg>
             <div>
               <div className="ada-detail-alert-title">Action needed</div>
               <p className="ada-detail-alert-text">{request.message}</p>
