@@ -2506,6 +2506,18 @@
     flex-direction: column;
     gap: 8px;
   }
+
+  /* Hide week ticks, show only months */
+  .eb-tl-weeks-row:has(.eb-tl-weeks) {
+    display: none;
+  }
+  .eb-tl-months {
+    margin-bottom: 8px;
+  }
+  .eb-tl-months span {
+    font-size: 12px;
+    font-weight: 700;
+  }
 }
 
 /* Mobile frame: same as mobile */
@@ -2513,6 +2525,9 @@
 .mobile-frame-screen .eb-tap-hint { display: block; }
 .mobile-frame-screen .eb-coverage-tooltip { display: none !important; }
 .mobile-frame-screen .eb-accordion { display: block; }
+.mobile-frame-screen .eb-tl-weeks-row:has(.eb-tl-weeks) { display: none; }
+.mobile-frame-screen .eb-tl-months { margin-bottom: 8px; }
+.mobile-frame-screen .eb-tl-months span { font-size: 12px; font-weight: 700; }
 
 .mobile-frame-screen .missed-entry-row1 {
   flex-wrap: wrap;

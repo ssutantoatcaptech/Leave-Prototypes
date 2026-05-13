@@ -1669,6 +1669,38 @@
   .ldb-comms-meta {
     font-size: 14px;
   }
+
+  /* Coverage timeline: hide week ticks, show only rolling months */
+  .dlp-tl-weeks-row:has(.dlp-tl-weeks) {
+    display: none;
+  }
+  .dlp-tl-week-label {
+    display: none;
+  }
+  .dlp-tl-months-above {
+    padding: 0;
+    margin-bottom: 8px;
+    font-weight: 600;
+    font-size: 12px;
+  }
+  .dlp-tl-row-label {
+    width: 55px;
+    font-size: 12px;
+  }
+
+  /* Mobile detail accordion (visible on mobile) */
+  .dlp-tl-mobile-detail {
+    display: block;
+  }
+  .ad-coverage-tooltip {
+    display: none !important;
+  }
+  .ad-section-helper--desktop {
+    display: none;
+  }
+  .ad-section-helper--mobile {
+    display: block;
+  }
 }
 
 /* ── EMPTY STATE ── */
