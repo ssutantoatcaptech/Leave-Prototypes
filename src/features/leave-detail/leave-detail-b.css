@@ -1564,7 +1564,7 @@
   .ldb-details-bar { grid-template-columns: 1fr; }
   .ldb-title-card { flex-direction: column; align-items: flex-start; gap: 16px; }
   .ldb-title-left { align-items: flex-start; }
-  .ldb-title { font-size: 22px; }
+  .ldb-title { font-size: 28px; line-height: 34px; }
   .ldb-title-meta { flex-wrap: wrap; gap: 4px; margin-top: 4px; }
   .ldb-title-meta span { margin-left: 0 !important; }
   .ldb-title-badge { display: inline-flex; order: -1; }
