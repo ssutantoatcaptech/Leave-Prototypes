@@ -5,6 +5,58 @@ import '../request-leave/request-leave-react.css';
 import '../absence-details/absence-details-react.css';
 import './plan-absence-react.css';
 
+// ─── DS Components ───────────────────────────────────────────────────────────
+
+function CalendarIcon() {
+  return (
+    <svg className="input-icon input-icon--calendar" width="16" height="16" viewBox="0 0 16 16" fill="none">
+      <rect x="2" y="3" width="12" height="11" rx="1.5" stroke="currentColor" strokeWidth="1.2"/>
+      <path d="M2 6.5h12M5.5 1.5v3M10.5 1.5v3" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round"/>
+    </svg>
+  );
+}
+
+function ChevronIcon() {
+  return (
+    <svg className="input-icon input-icon--chevron" width="12" height="8" viewBox="0 0 12 8" fill="none">
+      <path d="M1 1.5L6 6.5L11 1.5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+    </svg>
+  );
+}
+
+function PaDateInput({ value, onChange, ...props }) {
+  const displayValue = value ? new Date(`${value}T00:00:00`).toLocaleDateString('en-US', { month: '2-digit', day: '2-digit', year: 'numeric' }) : '';
+  return (
+    <div className="date-input-wrapper">
+      <input type="text" value={displayValue} readOnly placeholder="mm/dd/yyyy" onClick={(e) => { const hidden = e.target.nextSibling; if (hidden) hidden.showPicker?.(); }} {...props} />
+      <input type="date" className="date-input-hidden" value={value} onChange={onChange} tabIndex={-1} />
+      <CalendarIcon />
+    </div>
+  );
+}
+
+function PaSelectInput({ value, onChange, children }) {
+  const options = [];
+  const extractOptions = (nodes) => {
+    (Array.isArray(nodes) ? nodes : [nodes]).forEach((child) => {
+      if (!child) return;
+      if (Array.isArray(child)) { extractOptions(child); return; }
+      if (child.props && child.type === 'option') {
+        options.push({ value: child.props.value ?? child.props.children, label: child.props.children });
+      }
+    });
+  };
+  extractOptions(children);
+  const selectedLabel = options.find((o) => String(o.value) === String(value))?.label || value || 'Select...';
+  return (
+    <div className="select-input-wrapper">
+      <div className="select-display" onClick={(e) => { const sel = e.currentTarget.nextSibling; if (sel) sel.click(); }}>{selectedLabel}</div>
+      <select className="select-hidden" value={value} onChange={onChange}>{children}</select>
+      <ChevronIcon />
+    </div>
+  );
+}
+
 // ─── Constants ────────────────────────────────────────────────────────────────
 
 const STEP_LABELS = ['Reason', 'Employment & Details', 'Design Your Plan', 'Plan Review', 'Details', 'Provider', 'Schedule', 'Verify', 'Contact', 'Review & Submit'];
@@ -748,19 +800,19 @@ export default function PlanAbsenceReactPage() {
               <p className="sim-desc">We use this to determine your eligibility for FMLA, Short-Term Disability, and state-specific benefits.</p>
 
               <div className="pa-grid">
-                <div className="sim-field">
-                  <label>Work State <span style={{ color: '#dc2626' }}>*</span></label>
-                  <select value={workState} onChange={(e) => setWorkState(e.target.value)}>
+                <div className="form-group">
+                  <label>Work State <span className="req">*</span></label>
+                  <PaSelectInput value={workState} onChange={(e) => setWorkState(e.target.value)}>
                     {US_STATES.map((s) => <option key={s} value={s}>{s}</option>)}
-                  </select>
+                  </PaSelectInput>
                 </div>
-                <div className="sim-field">
-                  <label>Hired Date <span style={{ color: '#dc2626' }}>*</span></label>
-                  <input type="date" value={hireDate} onChange={(e) => setHireDate(e.target.value)} />
+                <div className="form-group">
+                  <label>Hired Date <span className="req">*</span></label>
+                  <PaDateInput value={hireDate} onChange={(e) => setHireDate(e.target.value)} />
                 </div>
               </div>
 
-              <div style={{ borderTop: '1px solid #e8e8ec', paddingTop: 20 }}>
+              <div style={{ borderTop: '1px solid #e5e7eb', paddingTop: 20 }}>
                 <label style={{ display: 'block', fontSize: 14, fontWeight: 600, color: '#0f0f14', marginBottom: 10 }}>How will you take your leave? <span style={{ color: '#dc2626' }}>*</span></label>
                 <div className="lt-picker">
                   {['continuous', 'intermittent', 'reduced'].map((type) => (
@@ -776,14 +828,14 @@ export default function PlanAbsenceReactPage() {
                 </div>
                 <p style={{ fontSize: 13, color: '#525252', margin: '12px 0 16px' }}>{leaveType === 'continuous' ? "You'll be fully away from work for the duration of your leave." : leaveType === 'intermittent' ? "You'll take time off periodically — for flare-ups, treatments, or appointments." : "You'll continue working but with fewer hours per day or days per week."}</p>
                 {leaveType === 'reduced' && (
-                  <div className="sim-field" style={{ marginBottom: 16 }}>
-                    <label>Hours per week you plan to work <span style={{ color: '#dc2626' }}>*</span></label>
+                  <div className="form-group" style={{ marginBottom: 16 }}>
+                    <label>Hours per week you plan to work <span className="req">*</span></label>
                     <input type="number" placeholder="e.g. 20" value={reducedProposedHrs} onChange={(e) => setReducedProposedHrs(e.target.value)} />
                   </div>
                 )}
                 <div className="pa-grid">
-                  <div className="sim-field"><label>Anticipated Start Date <span style={{ color: '#dc2626' }}>*</span></label><input type="date" value={leaveStart} onChange={(e) => setLeaveStart(e.target.value)} /></div>
-                  <div className="sim-field"><label>Expected End Date</label><input type="date" value={leaveReturn} onChange={(e) => setLeaveReturn(e.target.value)} /></div>
+                  <div className="form-group"><label>Anticipated Start Date <span className="req">*</span></label><PaDateInput value={leaveStart} onChange={(e) => setLeaveStart(e.target.value)} /></div>
+                  <div className="form-group"><label>Expected End Date</label><PaDateInput value={leaveReturn} onChange={(e) => setLeaveReturn(e.target.value)} /></div>
                 </div>
               </div>
 
@@ -1177,22 +1229,22 @@ export default function PlanAbsenceReactPage() {
                   {leaveType === 'continuous' ? (
                     <>
                       <div className="form-row cols-2">
-                        <div className="form-group"><label>Anticipated Start Date <span className="req">*</span></label><input type="date" value={leaveStart} onChange={(e) => setLeaveStart(e.target.value)} /></div>
-                        <div className="form-group"><label>Expected End Date</label><input type="date" value={leaveReturn} onChange={(e) => setLeaveReturn(e.target.value)} /><div className="helper">Your best estimate of when you expect to return to work.</div></div>
+                        <div className="form-group"><label>Anticipated Start Date <span className="req">*</span></label><PaDateInput value={leaveStart} onChange={(e) => setLeaveStart(e.target.value)} /></div>
+                        <div className="form-group"><label>Expected End Date</label><PaDateInput value={leaveReturn} onChange={(e) => setLeaveReturn(e.target.value)} /><div className="helper">Your best estimate of when you expect to return to work.</div></div>
                       </div>
                       <div className="form-row cols-2" style={{ marginTop: 16 }}>
-                        <div className="form-group"><label>What was your last day worked?</label><input type="date" value={lastDayWorked} onChange={(e) => setLastDayWorked(e.target.value)} /></div>
+                        <div className="form-group"><label>What was your last day worked?</label><PaDateInput value={lastDayWorked} onChange={(e) => setLastDayWorked(e.target.value)} /></div>
                         <div className="form-group"><label>Hours worked on last day<span className="req">*</span></label><input type="text" value={hoursLastDay} onChange={(e) => setHoursLastDay(e.target.value)} placeholder="08:00" /></div>
                       </div>
                     </>
                   ) : leaveType === 'intermittent' ? (
                     <div className="form-row cols-2">
-                      <div className="form-group"><label>Anticipated Start Date <span className="req">*</span></label><input type="date" value={leaveStart} onChange={(e) => setLeaveStart(e.target.value)} /></div>
+                      <div className="form-group"><label>Anticipated Start Date <span className="req">*</span></label><PaDateInput value={leaveStart} onChange={(e) => setLeaveStart(e.target.value)} /></div>
                       <div className="form-group"><label>How often do you need time off?</label><input type="text" placeholder="e.g. 1-2 times per week" value={intermittentFreq} onChange={(e) => setIntermittentFreq(e.target.value)} /></div>
                     </div>
                   ) : (
                     <div className="form-row cols-2">
-                      <div className="form-group"><label>Anticipated Start Date <span className="req">*</span></label><input type="date" value={leaveStart} onChange={(e) => setLeaveStart(e.target.value)} /></div>
+                      <div className="form-group"><label>Anticipated Start Date <span className="req">*</span></label><PaDateInput value={leaveStart} onChange={(e) => setLeaveStart(e.target.value)} /></div>
                       <div className="form-group"><label>Hours per week you plan to work</label><input type="number" value={reducedProposedHrs} onChange={(e) => setReducedProposedHrs(e.target.value)} /></div>
                     </div>
                   )}
@@ -1746,9 +1798,9 @@ export default function PlanAbsenceReactPage() {
               <p className="sim-desc">We use this to determine your eligibility for FMLA, Short-Term Disability, and state-specific benefits.</p>
 
               <div className="pa-grid">
-                <div className="sim-field">
-                  <label>Work State <span style={{ color: '#dc2626' }}>*</span></label>
-                  <select value={workState} onChange={(e) => setWorkState(e.target.value)}>
+                <div className="form-group">
+                  <label>Work State <span className="req">*</span></label>
+                  <PaSelectInput value={workState} onChange={(e) => setWorkState(e.target.value)}>
                     <option value="MO">Missouri (MO)</option>
                     <option value="CA">California (CA)</option>
                     <option value="NY">New York (NY)</option>
@@ -1756,15 +1808,15 @@ export default function PlanAbsenceReactPage() {
                     <option value="WA">Washington (WA)</option>
                     <option value="TX">Texas (TX)</option>
                     <option value="FL">Florida (FL)</option>
-                  </select>
+                  </PaSelectInput>
                 </div>
-                <div className="sim-field">
-                  <label>Hired Date <span style={{ color: '#dc2626' }}>*</span></label>
-                  <input type="date" value={hireDate} onChange={(e) => setHireDate(e.target.value)} />
+                <div className="form-group">
+                  <label>Hired Date <span className="req">*</span></label>
+                  <PaDateInput value={hireDate} onChange={(e) => setHireDate(e.target.value)} />
                 </div>
               </div>
 
-              <div style={{ borderTop: '1px solid #e8e8ec', paddingTop: 20 }}>
+              <div style={{ borderTop: '1px solid #e5e7eb', paddingTop: 20 }}>
                 <label style={{ display: 'block', fontSize: 14, fontWeight: 600, color: '#0f0f14', marginBottom: 10 }}>How will you take your leave? <span style={{ color: '#dc2626' }}>*</span></label>
                 <div className="lt-picker">
                   {['continuous', 'intermittent', 'reduced'].map((type) => (
@@ -1780,14 +1832,14 @@ export default function PlanAbsenceReactPage() {
                 </div>
                 <p style={{ fontSize: 13, color: '#525252', margin: '12px 0 16px' }}>{leaveType === 'continuous' ? "You'll be fully away from work for the duration of your leave." : leaveType === 'intermittent' ? "You'll take time off periodically — for flare-ups, treatments, or appointments." : "You'll continue working but with fewer hours per day or days per week."}</p>
                 {leaveType === 'reduced' && (
-                  <div className="sim-field" style={{ marginBottom: 16 }}>
-                    <label>Hours per week you plan to work <span style={{ color: '#dc2626' }}>*</span></label>
+                  <div className="form-group" style={{ marginBottom: 16 }}>
+                    <label>Hours per week you plan to work <span className="req">*</span></label>
                     <input type="number" placeholder="e.g. 20" value={reducedProposedHrs} onChange={(e) => setReducedProposedHrs(e.target.value)} />
                   </div>
                 )}
                 <div className="pa-grid">
-                  <div className="sim-field"><label>{isBirth ? 'Expected Due Date' : 'Anticipated Start Date'} <span style={{ color: '#dc2626' }}>*</span></label><input type="date" value={leaveStart} onChange={(e) => setLeaveStart(e.target.value)} /></div>
-                  <div className="sim-field"><label>Expected End Date</label><input type="date" value={leaveReturn} onChange={(e) => setLeaveReturn(e.target.value)} /></div>
+                  <div className="form-group"><label>{isBirth ? 'Expected Due Date' : 'Anticipated Start Date'} <span className="req">*</span></label><PaDateInput value={leaveStart} onChange={(e) => setLeaveStart(e.target.value)} /></div>
+                  <div className="form-group"><label>Expected End Date</label><PaDateInput value={leaveReturn} onChange={(e) => setLeaveReturn(e.target.value)} /></div>
                 </div>
               </div>
               <div className="sim-btn-row">
