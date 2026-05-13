@@ -1078,6 +1078,7 @@
   box-shadow: none;
   overflow: visible;
   background: #ffffff;
+  margin-bottom: 16px;
 }
 
 .cl-ml-table-card .cl-ml-table {
