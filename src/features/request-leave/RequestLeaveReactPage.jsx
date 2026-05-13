@@ -351,6 +351,7 @@ export default function RequestLeaveReactPage() {
   });
   const [hidePlanBar, setHidePlanBar] = useState(false);
   const [showCancelModal, setShowCancelModal] = useState(false);
+  const [showSaveToast, setShowSaveToast] = useState(false);
   const [hoveredBenefitBar, setHoveredBenefitBar] = useState(null);
   const [expandedBenefitBar, setExpandedBenefitBar] = useState(null);
   const [otherReasonError, setOtherReasonError] = useState(false);
@@ -1722,12 +1723,17 @@ export default function RequestLeaveReactPage() {
     }
   }
 
+  function handleSaveAndExit() {
+    setShowSaveToast(true);
+    setTimeout(() => setShowSaveToast(false), 5000);
+  }
+
   function renderFooter() {
     if (currentStep.id === 'review') {
       return (
         <div className="wizard-footer">
           <div className="footer-left">
-            <button type="button" className="btn btn-cancel-leave" onClick={() => setShowCancelModal(true)}>Cancel</button>
+            <button type="button" className="btn btn-cancel-leave" onClick={handleSaveAndExit}>Save & Exit</button>
           </div>
           <div className="footer-right">
             <button type="button" className="btn btn-back" onClick={goBack}>Back</button>
@@ -1739,7 +1745,7 @@ export default function RequestLeaveReactPage() {
     return (
       <div className="wizard-footer">
         <div className="footer-left">
-          <button type="button" className="btn btn-cancel-leave" onClick={() => setShowCancelModal(true)}>Cancel</button>
+          <button type="button" className="btn btn-cancel-leave" onClick={handleSaveAndExit}>Save & Exit</button>
         </div>
         <div className="footer-right">
           {currentStepIndex > 0 ? <button type="button" className="btn btn-back" onClick={goBack}>Back</button> : null}
@@ -2327,6 +2333,17 @@ export default function RequestLeaveReactPage() {
         </div>
       )}
       {!hideChrome && <SiteFooter />}
+      {showSaveToast && (
+        <div className="rl-toast">
+          <div className="rl-toast-icon">
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M13.5 4.5l-6.5 7-3.5-3.5" stroke="#fff" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/></svg>
+          </div>
+          <span className="rl-toast-text">Your progress has been saved. You can resume this request anytime from <a href={`${rlBase}/my-leaves`} className="rl-toast-link">My Leaves</a>.</span>
+          <button className="rl-toast-close" onClick={() => setShowSaveToast(false)} aria-label="Dismiss">
+            <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M3 3l8 8M11 3l-8 8" stroke="#fff" strokeWidth="1.5" strokeLinecap="round"/></svg>
+          </button>
+        </div>
+      )}
     </div>
   );
 }
