@@ -2071,17 +2071,15 @@
   color: #5d5d5d;
 }
 
-/* Inline Message component — white bg, 3px blue top border, blue circle icon */
+/* Inline Message component — Information variant (blue) */
 .cl-ma-inline-message {
   display: flex;
   align-items: flex-start;
   gap: 12px;
   padding: 16px 20px;
-  background: #ffffff;
-  border: 1px solid #dfebf6;
-  border-top: 3px solid #105fa8;
+  background: var(--color-notification-info-bg);
+  border: 1px solid var(--color-notification-info-border);
   border-radius: 8px;
-  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
   font-family: 'Source Sans Pro', sans-serif;
   font-size: 14px;
   line-height: 1.5;
