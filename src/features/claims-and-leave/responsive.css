@@ -959,18 +959,18 @@
   }
 
   .cldb-v2-card {
-    padding: 36px;
+    padding: 24px;
   }
 
   .cldb-v2-card-header--padded,
   .cldb-v2-card-header--border-bottom {
-    padding: 24px 36px 20px;
+    padding: 20px 24px 16px;
   }
 
   .cldb-v2-action-item {
     flex-direction: row;
     align-items: center;
-    padding: 24px;
+    padding: 20px;
   }
 
   .cldb-v2-action-cta {
@@ -982,15 +982,15 @@
   }
 
   .cldb-v2-activity-row {
-    padding: 20px 36px;
+    padding: 16px 24px;
   }
 
   .cldb-v2-activity-footer {
-    padding: 20px 36px;
+    padding: 16px 24px;
   }
 
   .cldb-v2-leave-body {
-    padding: 24px 36px 36px;
+    padding: 20px 24px 24px;
   }
 
   .cldb-v2-leave-dates {
