@@ -349,6 +349,8 @@ export default function RequestLeaveReactPage() {
     }
     return null;
   });
+  const [submitting, setSubmitting] = useState(false);
+  const [submittingText, setSubmittingText] = useState('Submitting your request');
   const [hidePlanBar, setHidePlanBar] = useState(false);
   const [showCancelModal, setShowCancelModal] = useState(false);
   const [showSaveToast, setShowSaveToast] = useState(false);
@@ -799,18 +801,27 @@ export default function RequestLeaveReactPage() {
     const existing = JSON.parse(localStorage.getItem('submittedLeaves') || '[]');
     existing.unshift(caseEntry);
     localStorage.setItem('submittedLeaves', JSON.stringify(existing));
-    setSubmittedCase({
-      id: reference,
-      startDate: formState.leaveStartDate,
-      endDate: formState.expectedReturnDate,
-      durationDays,
-      leaveType: formState.leaveType,
-      reason,
-      provider: formState.providerName,
-      facility: formState.providerFacility,
-      submittedOn: new Date().toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' }),
-    });
+
+    setSubmitting(true);
+    setSubmittingText('Submitting your request');
     scrollToTop();
+
+    setTimeout(() => { setSubmittingText('Almost there…'); }, 2500);
+    setTimeout(() => {
+      setSubmitting(false);
+      setSubmittedCase({
+        id: reference,
+        startDate: formState.leaveStartDate,
+        endDate: formState.expectedReturnDate,
+        durationDays,
+        leaveType: formState.leaveType,
+        reason,
+        provider: formState.providerName,
+        facility: formState.providerFacility,
+        submittedOn: new Date().toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' }),
+      });
+      scrollToTop();
+    }, 4000);
   }
 
   function renderMissedEntries() {
@@ -1754,6 +1765,28 @@ export default function RequestLeaveReactPage() {
           <button type="button" className="btn btn-next" onClick={goNext}>Continue</button>
         </div>
         <div className="footer-save-note"><svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M7 1v6l3 3" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round"/><circle cx="7" cy="7" r="6" stroke="currentColor" strokeWidth="1.2"/></svg> All updates saved</div>
+      </div>
+    );
+  }
+
+  if (submitting) {
+    return (
+      <div className="request-leave-shell">
+        <SiteNav />
+        <div className="wizard-wrap">
+          <div className="wizard-card" style={{ marginTop: 32 }}>
+            <div className="rl-submit-loading">
+              <div className="rl-arcs-wrap">
+                <div className="rl-arc rl-arc-1"></div>
+                <div className="rl-arc rl-arc-2"></div>
+                <div className="rl-arc rl-arc-3"></div>
+                <div className="rl-arc-dot"></div>
+              </div>
+              <div className="rl-submit-text">{submittingText}</div>
+              <div className="rl-submit-sub">Please wait while we process your information</div>
+            </div>
+          </div>
+        </div>
       </div>
     );
   }

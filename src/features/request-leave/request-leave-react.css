@@ -3227,3 +3227,80 @@
 .rl-toast-close:hover {
   background: var(--color-bg-muted);
 }
+
+/* === Submit Loading Animation === */
+@keyframes rl-spin1 { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+@keyframes rl-spin2 { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+@keyframes rl-spin3 { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+@keyframes rl-dot-pulse { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.15); } }
+@keyframes rl-fade-in { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
+
+.rl-submit-loading {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 440px;
+  padding: 60px 20px;
+  background: #fff;
+  animation: rl-fade-in 500ms ease forwards;
+}
+
+.rl-arcs-wrap {
+  position: relative;
+  width: 100px;
+  height: 100px;
+}
+
+.rl-arc {
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  border: 3.5px solid transparent;
+}
+
+.rl-arc-1 {
+  inset: 0;
+  border-top-color: #105fa8;
+  border-right-color: #105fa8;
+  animation: rl-spin1 2.4s ease-in-out infinite;
+}
+
+.rl-arc-2 {
+  inset: 12px;
+  border-top-color: #3b82f6;
+  border-left-color: #3b82f6;
+  animation: rl-spin2 1.8s ease-in-out infinite;
+}
+
+.rl-arc-3 {
+  inset: 24px;
+  border-bottom-color: #93c5fd;
+  animation: rl-spin3 1.4s ease-in-out infinite;
+}
+
+.rl-arc-dot {
+  position: absolute;
+  inset: 0;
+  margin: auto;
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background: #105fa8;
+  animation: rl-dot-pulse 1.6s ease-in-out infinite;
+}
+
+.rl-submit-text {
+  margin-top: 32px;
+  font-size: 16px;
+  font-weight: 600;
+  color: #222;
+  animation: rl-fade-in 500ms ease 300ms both;
+}
+
+.rl-submit-sub {
+  font-size: 14px;
+  color: #838383;
+  margin-top: 8px;
+  animation: rl-fade-in 500ms ease 500ms both;
+}
