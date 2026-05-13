@@ -392,6 +392,91 @@
 
 .sim-field select { appearance: auto; }
 
+/* ─── DS Date Picker & Select components ───────────────────────────────────── */
+.plan-absence-shell .date-input-wrapper input[type='text'] {
+  width: 100%;
+  padding: 12px 14px;
+  padding-right: 36px;
+  height: 44px;
+  background: #fff;
+  border: 1px solid var(--color-border-input);
+  border-radius: 7px;
+  color: #0f0f14;
+  font-size: 14px;
+  font-family: inherit;
+  cursor: pointer;
+  box-sizing: border-box;
+  outline: none;
+  transition: border-color 0.15s;
+}
+.plan-absence-shell .date-input-wrapper:hover input[type='text'] {
+  border-color: var(--color-brand-primary);
+}
+.plan-absence-shell .select-input-wrapper .select-display {
+  width: 100%;
+  padding: 12px 14px;
+  padding-right: 36px;
+  height: 44px;
+  background: #fff;
+  border: 1px solid var(--color-border-input);
+  border-radius: 7px;
+  color: #0f0f14;
+  font-size: 14px;
+  font-family: inherit;
+  cursor: pointer;
+  box-sizing: border-box;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  line-height: 1.3;
+}
+.plan-absence-shell .select-input-wrapper:hover .select-display {
+  border-color: var(--color-brand-primary);
+}
+.plan-absence-shell .date-input-wrapper .input-icon--calendar {
+  position: absolute;
+  right: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  pointer-events: none;
+  color: var(--color-brand-primary);
+}
+.plan-absence-shell .select-input-wrapper .input-icon--chevron {
+  position: absolute;
+  right: 14px;
+  top: 50%;
+  transform: translateY(-50%);
+  pointer-events: none;
+  color: var(--color-brand-primary);
+}
+.plan-absence-shell .date-input-wrapper .date-input-hidden {
+  position: absolute;
+  opacity: 0;
+  width: 0;
+  height: 0;
+  overflow: hidden;
+  pointer-events: none;
+}
+.plan-absence-shell .select-input-wrapper .select-hidden {
+  position: absolute;
+  opacity: 0;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  cursor: pointer;
+}
+.plan-absence-shell .date-input-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+.plan-absence-shell .select-input-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
 /* Bordered-section form inputs within plan-absence */
 .plan-absence-shell .bordered-section label {
   display: block;
@@ -1111,6 +1196,27 @@
   background-repeat: no-repeat;
   background-position: right 10px center;
   padding-right: 28px;
+}
+
+.dlp-side-field .date-input-wrapper input[type='text'] {
+  height: 36px;
+  padding: 8px 11px;
+  padding-right: 30px;
+  font-size: 13px;
+  border-radius: 6px;
+}
+.dlp-side-field .select-input-wrapper .select-display {
+  height: 36px;
+  padding: 8px 11px;
+  padding-right: 30px;
+  font-size: 13px;
+  border-radius: 6px;
+}
+.dlp-side-field .date-input-wrapper .input-icon--calendar {
+  right: 8px;
+}
+.dlp-side-field .select-input-wrapper .input-icon--chevron {
+  right: 8px;
 }
 
 /* Date range display */
@@ -2519,5 +2625,155 @@
 }
 .cancel-confirm-actions-stack .btn-cancel-confirm-discard:hover {
   background: #f0f4ff;
+}
+
+/* ─── Inline Message Component ─────────────────────────────────────────────── */
+.pa-inline-message {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  padding: 16px 20px;
+  background: #ffffff;
+  border: 1px solid #e5e7eb;
+  border-top: 3px solid #105fa8;
+  border-radius: 8px;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+  margin-bottom: 16px;
+}
+.pa-inline-message-icon {
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 2px;
+}
+.pa-inline-message-body {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+.pa-inline-message-title {
+  font-weight: 600;
+  font-size: 16px;
+  line-height: 24px;
+  color: #222;
+}
+.pa-inline-message-text {
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 20px;
+  color: #222;
+}
+
+/* ─── Leave Timeline Card (DS component from Leave Detail) ─────────────────── */
+.plan-absence-shell .ldb-card {
+  background: #fff;
+  border: 1.5px solid #dfebf6;
+  border-radius: 12px;
+  padding: 36px;
+  box-shadow: 0px 1px 8px rgba(0,0,0,0.08);
+  margin-bottom: 28px;
+}
+.plan-absence-shell .ldb-card.dt-timeline-wrap {
+  overflow: visible;
+}
+.plan-absence-shell .ldb-card.dt-timeline-wrap .dt-tl-toggle {
+  display: inline-flex;
+  border: 1px solid #d6d6dc;
+  border-radius: 4px;
+  background: #ffffff;
+  overflow: hidden;
+  padding: 3px;
+  gap: 2px;
+}
+.plan-absence-shell .ldb-card.dt-timeline-wrap .dt-tl-toggle button {
+  border-radius: 3px;
+  border: none;
+  color: #424242;
+  font-size: 13px;
+  font-weight: 600;
+  padding: 8px 18px;
+  cursor: pointer;
+  font-family: inherit;
+  background: none;
+}
+.plan-absence-shell .ldb-card.dt-timeline-wrap .dt-tl-toggle button.active {
+  background: #105fa8;
+  color: #ffffff;
+  box-shadow: none;
+}
+.plan-absence-shell .ldb-card.dt-timeline-wrap .dlp-tl-row.active {
+  background: #f0f7ff;
+}
+.plan-absence-shell .ldb-card.dt-timeline-wrap .dlp-tl-row:hover {
+  background: #f8fbfd;
+}
+.plan-absence-shell .ldb-card.dt-timeline-wrap .dlp-tl-row-bar {
+  background: #e4e4e4;
+  height: 32px;
+  border-radius: 4px;
+}
+.plan-absence-shell .ldb-card.dt-timeline-wrap .dlp-tl-seg {
+  opacity: 1;
+  border-radius: 4px;
+}
+.plan-absence-shell .ldb-card.dt-timeline-wrap .dlp-tl-row-label {
+  color: #222;
+  font-size: 14px;
+  font-weight: 600;
+  width: 75px;
+  min-width: 75px;
+  text-align: left;
+  text-transform: none;
+  letter-spacing: 0;
+  padding-right: 12px;
+}
+.plan-absence-shell .ldb-card.dt-timeline-wrap .dlp-tl-rows {
+  gap: 12px;
+}
+.plan-absence-shell .ldb-card.dt-timeline-wrap .dlp-tl-row {
+  padding: 0;
+  gap: 12px;
+}
+.plan-absence-shell .ldb-card.dt-timeline-wrap .dlp-legend {
+  margin-top: 12px;
+  padding-top: 12px;
+  border-top: 1px solid #e4e4e4;
+  gap: 24px;
+}
+.plan-absence-shell .ldb-card.dt-timeline-wrap .dlp-legend-item {
+  font-size: 12px;
+  color: #222;
+  gap: 6px;
+}
+.plan-absence-shell .ldb-card.dt-timeline-wrap .dlp-legend-dot {
+  width: 12px;
+  height: 12px;
+  border-radius: 2.4px;
+}
+.plan-absence-shell .ad-section-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 16px;
+  margin-bottom: 12px;
+}
+.plan-absence-shell .ad-section-header h3 {
+  font-size: 20px;
+  font-weight: 600;
+  color: #003a70;
+  margin: 0;
+  line-height: 24px;
+}
+.plan-absence-shell .ad-section-header p {
+  font-size: 14px;
+  color: #222;
+  margin: 4px 0 0;
+  line-height: 24px;
+}
+.plan-absence-shell .ad-section-helper {
+  font-size: 12px;
+  color: #94a3b8;
+  margin: 0 0 16px;
 }
 

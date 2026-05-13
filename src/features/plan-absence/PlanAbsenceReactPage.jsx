@@ -769,7 +769,7 @@ export default function PlanAbsenceReactPage() {
               {reason === 'other' && (
                 <div className="sim-field" style={{ marginBottom: 16 }}>
                   <label>Select a reason</label>
-                  <select value={otherLeaveReason} onChange={(e) => { setOtherLeaveReason(e.target.value); setOtherReasonError(false); }}>
+                  <PaSelectInput value={otherLeaveReason} onChange={(e) => { setOtherLeaveReason(e.target.value); setOtherReasonError(false); }}>
                     <option value="">Select...</option>
                     <option value="Personal">Personal</option>
                     <option value="Court Appearance/Witness Leave">Court Appearance/Witness Leave</option>
@@ -777,7 +777,7 @@ export default function PlanAbsenceReactPage() {
                     <option value="Volunteer Emergency Responder">Volunteer Emergency Responder</option>
                     <option value="Organ or Blood Donor">Organ or Blood Donor</option>
                     <option value="Voting">Voting</option>
-                  </select>
+                  </PaSelectInput>
                   {otherReasonError && !otherLeaveReason && (
                     <div style={{ color: '#dc2626', fontSize: 13, marginTop: 6 }}>Please select a reason to continue.</div>
                   )}
@@ -881,21 +881,21 @@ export default function PlanAbsenceReactPage() {
                     <div className="dlp-mobile-filter-fields">
                       <div className="dlp-mobile-filter-field">
                         <label>Work State</label>
-                        <select value={sideWorkState} onChange={(e) => setSideWorkState(e.target.value)}>
+                        <PaSelectInput value={sideWorkState} onChange={(e) => setSideWorkState(e.target.value)}>
                           {US_STATES.map((s) => <option key={s} value={s}>{s}</option>)}
-                        </select>
+                        </PaSelectInput>
                       </div>
                       <div className="dlp-mobile-filter-field">
                         <label>Hire Date</label>
-                        <input type="date" value={sideHireDate} onChange={(e) => setSideHireDate(e.target.value)} />
+                        <PaDateInput value={sideHireDate} onChange={(e) => setSideHireDate(e.target.value)} />
                       </div>
                       <div className="dlp-mobile-filter-field">
                         <label>Start Date</label>
-                        <input type="date" value={leaveStart} onChange={(e) => setLeaveStart(e.target.value)} />
+                        <PaDateInput value={leaveStart} onChange={(e) => setLeaveStart(e.target.value)} />
                       </div>
                       <div className="dlp-mobile-filter-field">
                         <label>End Date</label>
-                        <input type="date" value={leaveReturn} onChange={(e) => setLeaveReturn(e.target.value)} />
+                        <PaDateInput value={leaveReturn} onChange={(e) => setLeaveReturn(e.target.value)} />
                       </div>
                     </div>
                   </div>
@@ -906,33 +906,32 @@ export default function PlanAbsenceReactPage() {
                 <div className="sim-split-main">
                   <div className="sim-card" style={{ padding: '28px 32px' }}>
                     <h2 style={{ fontSize: 22, fontWeight: 700, margin: '0 0 12px', letterSpacing: '-0.02em' }}>Your Leave Scenario</h2>
-                    <div className="dlp-estimate-banner" style={{ background: '#f0f4f8', border: '1px solid #e0e7ef', borderRadius: 8, padding: '12px 16px', marginBottom: 12, display: 'flex', alignItems: 'flex-start', gap: 10 }}>
-                      <svg width="16" height="16" viewBox="0 0 16 16" fill="none" style={{ flexShrink: 0, marginTop: 2 }}><circle cx="8" cy="8" r="7" stroke="#105fa8" strokeWidth="1.3"/><path d="M8 7.5V11" stroke="#105fa8" strokeWidth="1.3" strokeLinecap="round"/><circle cx="8" cy="5.5" r="0.75" fill="#105fa8"/></svg>
-                      <p style={{ fontSize: 13, color: '#374151', lineHeight: 1.6, margin: 0 }}>
-                        <strong>This is an estimate.</strong> Actual eligibility, coverage dates, and payment amounts will be determined after you submit your request and documentation is reviewed.
-                      </p>
+                    <div className="pa-inline-message">
+                      <span className="pa-inline-message-icon">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="10" fill="#105fa8"/><path d="M12 8v4M12 16h.01" stroke="#fff" strokeWidth="2" strokeLinecap="round"/></svg>
+                      </span>
+                      <div className="pa-inline-message-body">
+                        <span className="pa-inline-message-title">This is an estimate</span>
+                        <span className="pa-inline-message-text">Actual eligibility, coverage dates, and payment amounts will be determined after you submit your request and documentation is reviewed.</span>
+                      </div>
                     </div>
                     <div className="dlp-sidepanel-hint" style={{ background: '#f9fafb', border: '1px solid #e8e8ec', borderRadius: 8, padding: '10px 16px', marginBottom: 28, display: 'flex', alignItems: 'center', gap: 8 }}>
                       <svg width="14" height="14" viewBox="0 0 16 16" fill="none" style={{ flexShrink: 0 }}><path d="M2 4h12v8H2V4z" stroke="#525252" strokeWidth="1.3" strokeLinecap="round" strokeLinejoin="round"/><path d="M5 4V2M11 4V2M2 7h12" stroke="#525252" strokeWidth="1.3" strokeLinecap="round"/></svg>
                       <p style={{ fontSize: 12, color: '#525252', margin: 0, lineHeight: 1.5 }}>Use the <strong>side panel</strong> to adjust your dates and employment details — the timeline will update instantly.</p>
                     </div>
 
-                    <div style={{ background: '#fff', border: '1px solid #e8e8ec', borderRadius: 12, padding: 24, marginBottom: 28 }}>
-                      <div className="dlp-section-head" style={{ marginBottom: 6 }}>
-                        <h3 style={{ margin: 0, fontSize: 16, fontWeight: 700 }}>Leave Timeline <span style={{ fontSize: 12, fontWeight: 600, color: '#525252', background: '#f0f0f2', padding: '2px 8px', borderRadius: 4, marginLeft: 8, verticalAlign: 'middle' }}>ESTIMATE</span></h3>
-                        <div className="dlp-view-tabs">
-                          {['pay', 'coverage'].map((v) => (
-                            <button
-                              key={v}
-                              className={`dlp-view-tab${activeView === v ? ' active' : ''}`}
-                              type="button"
-                              onClick={() => setActiveView(v)}
-                            >
-                              {v.charAt(0).toUpperCase() + v.slice(1)}
-                            </button>
-                          ))}
+                    <div className="ldb-card dt-timeline-wrap">
+                      <div className="ad-section-header">
+                        <div>
+                          <h3>Leave Timeline</h3>
+                          <p>Estimated coverage · <em><strong>Estimates</strong> subject to final approval</em></p>
+                        </div>
+                        <div className="dt-tl-toggle">
+                          <button type="button" className={activeView === 'pay' ? 'active' : ''} onClick={() => setActiveView('pay')}>Pay</button>
+                          <button type="button" className={activeView === 'coverage' ? 'active' : ''} onClick={() => setActiveView('coverage')}>Coverage</button>
                         </div>
                       </div>
+                      <p className="ad-section-helper">Hover over a row to see details</p>
 
                       {/* Timeline rows with hover tooltip (desktop) + tap accordion (mobile) */}
                       {(() => {
@@ -1119,7 +1118,7 @@ export default function PlanAbsenceReactPage() {
                         <svg width="13" height="13" viewBox="0 0 16 16" fill="none"><path d="M2 3h12v10H2V3z" stroke="currentColor" strokeWidth="1.3" strokeLinecap="round" strokeLinejoin="round"/><path d="M2 3l6 5 6-5" stroke="currentColor" strokeWidth="1.3" strokeLinecap="round" strokeLinejoin="round"/></svg>
                         Email Plan
                       </button>
-                      <button type="button" className="dlp-cancel-link" onClick={handleSaveAndExit}>Save &amp; Exit</button>
+                      <button type="button" className="btn btn-cancel-leave" onClick={handleSaveAndExit}>Save &amp; Exit</button>
                     </div>
                   </div>
                 </div>
@@ -1131,13 +1130,13 @@ export default function PlanAbsenceReactPage() {
                       <div className="dlp-sidebar-group-body">
                         <div className="dlp-side-field">
                           <label>Work State</label>
-                          <select value={sideWorkState} onChange={(e) => setSideWorkState(e.target.value)}>
+                          <PaSelectInput value={sideWorkState} onChange={(e) => setSideWorkState(e.target.value)}>
                             {US_STATES.map((s) => <option key={s} value={s}>{s}</option>)}
-                          </select>
+                          </PaSelectInput>
                         </div>
                         <div className="dlp-side-field" style={{ marginBottom: 0 }}>
                           <label>Hired Date</label>
-                          <input type="date" value={sideHireDate} onChange={(e) => setSideHireDate(e.target.value)} />
+                          <PaDateInput value={sideHireDate} onChange={(e) => setSideHireDate(e.target.value)} />
                         </div>
                       </div>
                     </div>
@@ -1147,11 +1146,11 @@ export default function PlanAbsenceReactPage() {
                       <div className="dlp-sidebar-group-body">
                         <div className="dlp-side-field">
                           <label>Anticipated Start Date</label>
-                          <input type="date" value={leaveStart} onChange={(e) => setLeaveStart(e.target.value)} />
+                          <PaDateInput value={leaveStart} onChange={(e) => setLeaveStart(e.target.value)} />
                         </div>
                         <div className="dlp-side-field" style={{ marginBottom: 0 }}>
                           <label>Estimated End Date</label>
-                          <input type="date" value={leaveReturn} onChange={(e) => setLeaveReturn(e.target.value)} />
+                          <PaDateInput value={leaveReturn} onChange={(e) => setLeaveReturn(e.target.value)} />
                         </div>
                       </div>
                     </div>
@@ -1767,7 +1766,7 @@ export default function PlanAbsenceReactPage() {
               {reason === 'other' && (
                 <div className="sim-field" style={{ marginBottom: 16 }}>
                   <label>Select a reason</label>
-                  <select value={otherLeaveReason} onChange={(e) => { setOtherLeaveReason(e.target.value); setOtherReasonError(false); }}>
+                  <PaSelectInput value={otherLeaveReason} onChange={(e) => { setOtherLeaveReason(e.target.value); setOtherReasonError(false); }}>
                     <option value="">Select...</option>
                     <option value="Personal">Personal</option>
                     <option value="Court Appearance/Witness Leave">Court Appearance/Witness Leave</option>
@@ -1775,7 +1774,7 @@ export default function PlanAbsenceReactPage() {
                     <option value="Volunteer Emergency Responder">Volunteer Emergency Responder</option>
                     <option value="Organ or Blood Donor">Organ or Blood Donor</option>
                     <option value="Voting">Voting</option>
-                  </select>
+                  </PaSelectInput>
                   {otherReasonError && !otherLeaveReason && (
                     <div style={{ color: '#dc2626', fontSize: 13, marginTop: 6 }}>Please select a reason to continue.</div>
                   )}
@@ -1866,22 +1865,22 @@ export default function PlanAbsenceReactPage() {
                   <div className="dlp-mobile-filter-fields">
                     <div className="dlp-mobile-filter-field">
                       <label>Work State</label>
-                      <select value={sideWorkState} onChange={(e) => setSideWorkState(e.target.value)}>
+                      <PaSelectInput value={sideWorkState} onChange={(e) => setSideWorkState(e.target.value)}>
                         {US_STATES.map((s) => <option key={s} value={s}>{s}</option>)}
-                      </select>
+                      </PaSelectInput>
                     </div>
                     <div className="dlp-mobile-filter-field">
                       <label>Hire Date</label>
-                      <input type="date" value={sideHireDate} onChange={(e) => setSideHireDate(e.target.value)} />
+                      <PaDateInput value={sideHireDate} onChange={(e) => setSideHireDate(e.target.value)} />
                     </div>
                     <div className="dlp-mobile-filter-field">
                       <label>{isBirth ? 'Due Date' : 'Start Date'}</label>
-                      <input type="date" value={isBirth ? sideDueDate : sideStart} onChange={(e) => isBirth ? setSideDueDate(e.target.value) : setSideStart(e.target.value)} />
+                      <PaDateInput value={isBirth ? sideDueDate : sideStart} onChange={(e) => isBirth ? setSideDueDate(e.target.value) : setSideStart(e.target.value)} />
                     </div>
                     {!isBirth && (
                       <div className="dlp-mobile-filter-field">
                         <label>End Date</label>
-                        <input type="date" value={leaveReturn} onChange={(e) => setLeaveReturn(e.target.value)} />
+                        <PaDateInput value={leaveReturn} onChange={(e) => setLeaveReturn(e.target.value)} />
                       </div>
                     )}
                   </div>
@@ -1894,11 +1893,14 @@ export default function PlanAbsenceReactPage() {
               <div className="sim-split-main">
                 <div className="sim-card" style={{ padding: '28px 32px' }}>
                   <h2 style={{ fontSize: 22, fontWeight: 700, margin: '0 0 12px', letterSpacing: '-0.02em' }}>Your Leave Scenario</h2>
-                  <div className="dlp-estimate-banner" style={{ background: '#f0f4f8', border: '1px solid #e0e7ef', borderRadius: 8, padding: '12px 16px', marginBottom: 12, display: 'flex', alignItems: 'flex-start', gap: 10 }}>
-                    <svg width="16" height="16" viewBox="0 0 16 16" fill="none" style={{ flexShrink: 0, marginTop: 2 }}><circle cx="8" cy="8" r="7" stroke="#105fa8" strokeWidth="1.3"/><path d="M8 7.5V11" stroke="#105fa8" strokeWidth="1.3" strokeLinecap="round"/><circle cx="8" cy="5.5" r="0.75" fill="#105fa8"/></svg>
-                    <p style={{ fontSize: 13, color: '#374151', lineHeight: 1.6, margin: 0 }}>
-                      <strong>This is an estimate.</strong> Actual eligibility, coverage dates, and payment amounts will be determined after you submit your request and documentation is reviewed.
-                    </p>
+                  <div className="pa-inline-message">
+                    <span className="pa-inline-message-icon">
+                      <svg width="20" height="20" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="10" fill="#105fa8"/><path d="M12 8v4M12 16h.01" stroke="#fff" strokeWidth="2" strokeLinecap="round"/></svg>
+                    </span>
+                    <div className="pa-inline-message-body">
+                      <span className="pa-inline-message-title">This is an estimate</span>
+                      <span className="pa-inline-message-text">Actual eligibility, coverage dates, and payment amounts will be determined after you submit your request and documentation is reviewed.</span>
+                    </div>
                   </div>
                   <div className="dlp-sidepanel-hint" style={{ background: '#f9fafb', border: '1px solid #e8e8ec', borderRadius: 8, padding: '10px 16px', marginBottom: 28, display: 'flex', alignItems: 'center', gap: 8 }}>
                     <svg width="14" height="14" viewBox="0 0 16 16" fill="none" style={{ flexShrink: 0 }}><path d="M2 4h12v8H2V4z" stroke="#525252" strokeWidth="1.3" strokeLinecap="round" strokeLinejoin="round"/><path d="M5 4V2M11 4V2M2 7h12" stroke="#525252" strokeWidth="1.3" strokeLinecap="round"/></svg>
@@ -1906,22 +1908,18 @@ export default function PlanAbsenceReactPage() {
                   </div>
 
                   {/* Timeline section */}
-                  <div style={{ background: '#fff', border: '1px solid #e8e8ec', borderRadius: 12, padding: 24, marginBottom: 28 }}>
-                    <div className="dlp-section-head" style={{ marginBottom: 6 }}>
-                      <h3 style={{ margin: 0, fontSize: 16, fontWeight: 700 }}>Leave Timeline <span style={{ fontSize: 12, fontWeight: 600, color: '#525252', background: '#f0f0f2', padding: '2px 8px', borderRadius: 4, marginLeft: 8, verticalAlign: 'middle' }}>ESTIMATE</span></h3>
-                      <div className="dlp-view-tabs">
-                        {['pay', 'coverage'].map((v) => (
-                          <button
-                            key={v}
-                            className={`dlp-view-tab${activeView === v ? ' active' : ''}`}
-                            type="button"
-                            onClick={() => { setActiveView(v); setOpenDetail(null); }}
-                          >
-                            {v.charAt(0).toUpperCase() + v.slice(1)}
-                          </button>
-                        ))}
+                  <div className="ldb-card dt-timeline-wrap">
+                    <div className="ad-section-header">
+                      <div>
+                        <h3>Leave Timeline</h3>
+                        <p>Estimated coverage · <em><strong>Estimates</strong> subject to final approval</em></p>
+                      </div>
+                      <div className="dt-tl-toggle">
+                        <button type="button" className={activeView === 'pay' ? 'active' : ''} onClick={() => { setActiveView('pay'); setOpenDetail(null); }}>Pay</button>
+                        <button type="button" className={activeView === 'coverage' ? 'active' : ''} onClick={() => { setActiveView('coverage'); setOpenDetail(null); }}>Coverage</button>
                       </div>
                     </div>
+                    <p className="ad-section-helper">Hover over a row to see details</p>
 
                     <div className="dlp-timeline" ref={timelineRef} onMouseLeave={() => setOpenDetail(null)}>
                       <div style={{ position: 'relative' }}>
@@ -2123,7 +2121,7 @@ export default function PlanAbsenceReactPage() {
                       <svg width="13" height="13" viewBox="0 0 16 16" fill="none"><path d="M2 3h12v10H2V3z" stroke="currentColor" strokeWidth="1.3" strokeLinecap="round" strokeLinejoin="round"/><path d="M2 3l6 5 6-5" stroke="currentColor" strokeWidth="1.3" strokeLinecap="round" strokeLinejoin="round"/></svg>
                       Email Plan
                     </button>
-                    <button type="button" className="dlp-cancel-link" onClick={handleSaveAndExit}>Save &amp; Exit</button>
+                    <button type="button" className="btn btn-cancel-leave" onClick={handleSaveAndExit}>Save &amp; Exit</button>
                   </div>
                 </div>
               </div>
@@ -2139,13 +2137,13 @@ export default function PlanAbsenceReactPage() {
                         <div className="dlp-sidebar-group-body">
                           <div className="dlp-side-field">
                             <label>Work State</label>
-                            <select value={sideWorkState} onChange={(e) => setSideWorkState(e.target.value)}>
+                            <PaSelectInput value={sideWorkState} onChange={(e) => setSideWorkState(e.target.value)}>
                               {US_STATES.map((s) => <option key={s} value={s}>{s}</option>)}
-                            </select>
+                            </PaSelectInput>
                           </div>
                           <div className="dlp-side-field" style={{ marginBottom: 0 }}>
                             <label>Hired Date</label>
-                            <input type="date" value={sideHireDate} onChange={(e) => setSideHireDate(e.target.value)} />
+                            <PaDateInput value={sideHireDate} onChange={(e) => setSideHireDate(e.target.value)} />
                           </div>
                         </div>
                       </div>
@@ -2154,7 +2152,7 @@ export default function PlanAbsenceReactPage() {
                         <div className="dlp-sidebar-group-body">
                           <div className="dlp-side-field" style={{ marginBottom: 0 }}>
                             <label>Due Date</label>
-                            <input type="date" value={sideDueDate} onChange={(e) => setSideDueDate(e.target.value)} />
+                            <PaDateInput value={sideDueDate} onChange={(e) => setSideDueDate(e.target.value)} />
                           </div>
                         </div>
                       </div>
@@ -2172,13 +2170,13 @@ export default function PlanAbsenceReactPage() {
                         <div className="dlp-sidebar-group-body">
                           <div className="dlp-side-field">
                             <label>Work State</label>
-                            <select value={sideWorkState} onChange={(e) => setSideWorkState(e.target.value)}>
+                            <PaSelectInput value={sideWorkState} onChange={(e) => setSideWorkState(e.target.value)}>
                               {US_STATES.map((s) => <option key={s} value={s}>{s}</option>)}
-                            </select>
+                            </PaSelectInput>
                           </div>
                           <div className="dlp-side-field" style={{ marginBottom: 0 }}>
                             <label>Hired Date</label>
-                            <input type="date" value={sideHireDate} onChange={(e) => setSideHireDate(e.target.value)} />
+                            <PaDateInput value={sideHireDate} onChange={(e) => setSideHireDate(e.target.value)} />
                           </div>
                         </div>
                       </div>
@@ -2188,11 +2186,11 @@ export default function PlanAbsenceReactPage() {
                         <div className="dlp-sidebar-group-body">
                           <div className="dlp-side-field">
                             <label>Anticipated Start Date</label>
-                            <input type="date" value={sideStart} onChange={(e) => setSideStart(e.target.value)} />
+                            <PaDateInput value={sideStart} onChange={(e) => setSideStart(e.target.value)} />
                           </div>
                           <div className="dlp-side-field" style={{ marginBottom: 0 }}>
                             <label>Estimated End Date</label>
-                            <input type="date" value={leaveReturn} onChange={(e) => setLeaveReturn(e.target.value)} />
+                            <PaDateInput value={leaveReturn} onChange={(e) => setLeaveReturn(e.target.value)} />
                           </div>
                         </div>
                       </div>
