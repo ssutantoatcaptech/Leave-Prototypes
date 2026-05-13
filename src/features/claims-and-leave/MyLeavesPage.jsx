@@ -4,7 +4,7 @@ import useBasePath from './useBasePath';
 
 const leavesData = [
   {
-    type: 'Birthing Parent / Pregnancy',
+    type: 'Birthing Parent (Continuous)',
     id: 'CLM #12345',
     lastUpdate: '04 / 28 / 2026',
     status: 'Under Review',
@@ -13,7 +13,7 @@ const leavesData = [
 
   },
   {
-    type: 'Illness or Injury (Self)',
+    type: 'Non-Birthing Parent (Continuous)',
     id: 'CLM #12290',
     lastUpdate: '04 / 15 / 2026',
     status: 'Decisioned',
@@ -22,7 +22,7 @@ const leavesData = [
 
   },
   {
-    type: 'Caring for a Family Member',
+    type: 'Cared for Sick Family (Reduced Hours)',
     id: 'CLM #12188',
     lastUpdate: '03 / 30 / 2026',
     status: 'Saved',
@@ -31,7 +31,7 @@ const leavesData = [
 
   },
   {
-    type: 'Military-Related Leave',
+    type: 'Birthing Parent (Continuous)',
     id: 'CLM #11950',
     lastUpdate: '03 / 12 / 2026',
     status: 'Closed',
@@ -40,7 +40,7 @@ const leavesData = [
 
   },
   {
-    type: 'Birthing Parent / Pregnancy',
+    type: 'Birthing Parent (Continuous)',
     id: 'CLM #11802',
     lastUpdate: '02 / 28 / 2026',
     status: 'Under Review',
@@ -49,7 +49,7 @@ const leavesData = [
 
   },
   {
-    type: 'Illness or Injury (Self)',
+    type: 'Non-Birthing Parent (Continuous)',
     id: 'CLM #11750',
     lastUpdate: '02 / 14 / 2026',
     status: 'Decisioned',
@@ -58,7 +58,7 @@ const leavesData = [
 
   },
   {
-    type: 'Caring for a Family Member',
+    type: 'Cared for Sick Family (Reduced Hours)',
     id: 'CLM #11698',
     lastUpdate: '01 / 30 / 2026',
     status: 'Closed',
@@ -67,7 +67,7 @@ const leavesData = [
 
   },
   {
-    type: 'Military-Related Leave',
+    type: 'Cared for Sick Family (Reduced Hours)',
     id: 'CLM #11550',
     lastUpdate: '01 / 15 / 2026',
     status: 'Decisioned',
@@ -75,7 +75,7 @@ const leavesData = [
     actionType: 'view',
   },
   {
-    type: 'Birthing Parent / Pregnancy',
+    type: 'Birthing Parent (Continuous)',
     id: 'CLM #11400',
     lastUpdate: '12 / 20 / 2025',
     status: 'Closed',
@@ -83,7 +83,7 @@ const leavesData = [
     actionType: 'view',
   },
   {
-    type: 'Illness or Injury (Self)',
+    type: 'Non-Birthing Parent (Continuous)',
     id: 'CLM #11320',
     lastUpdate: '12 / 05 / 2025',
     status: 'Under Review',
@@ -91,7 +91,7 @@ const leavesData = [
     actionType: 'view',
   },
   {
-    type: 'Caring for a Family Member',
+    type: 'Cared for Sick Family (Reduced Hours)',
     id: 'CLM #11200',
     lastUpdate: '11 / 22 / 2025',
     status: 'Saved',
@@ -99,7 +99,7 @@ const leavesData = [
     actionType: 'saved',
   },
   {
-    type: 'Military-Related Leave',
+    type: 'Birthing Parent (Continuous)',
     id: 'CLM #11100',
     lastUpdate: '11 / 10 / 2025',
     status: 'Decisioned',
@@ -107,7 +107,7 @@ const leavesData = [
     actionType: 'view',
   },
   {
-    type: 'Birthing Parent / Pregnancy',
+    type: 'Birthing Parent (Continuous)',
     id: 'CLM #10980',
     lastUpdate: '10 / 28 / 2025',
     status: 'Closed',
@@ -115,7 +115,7 @@ const leavesData = [
     actionType: 'view',
   },
   {
-    type: 'Illness or Injury (Self)',
+    type: 'Non-Birthing Parent (Continuous)',
     id: 'CLM #10850',
     lastUpdate: '10 / 12 / 2025',
     status: 'Decisioned',
@@ -123,7 +123,7 @@ const leavesData = [
     actionType: 'view',
   },
   {
-    type: 'Caring for a Family Member',
+    type: 'Cared for Sick Family (Reduced Hours)',
     id: 'CLM #10720',
     lastUpdate: '09 / 28 / 2025',
     status: 'Closed',
@@ -131,7 +131,7 @@ const leavesData = [
     actionType: 'view',
   },
   {
-    type: 'Military-Related Leave',
+    type: 'Cared for Sick Family (Reduced Hours)',
     id: 'CLM #10600',
     lastUpdate: '09 / 15 / 2025',
     status: 'Under Review',
@@ -139,7 +139,7 @@ const leavesData = [
     actionType: 'view',
   },
   {
-    type: 'Birthing Parent / Pregnancy',
+    type: 'Birthing Parent (Continuous)',
     id: 'CLM #10480',
     lastUpdate: '09 / 01 / 2025',
     status: 'Saved',
@@ -147,7 +147,7 @@ const leavesData = [
     actionType: 'saved',
   },
   {
-    type: 'Illness or Injury (Self)',
+    type: 'Non-Birthing Parent (Continuous)',
     id: 'CLM #10350',
     lastUpdate: '08 / 18 / 2025',
     status: 'Decisioned',
@@ -155,7 +155,7 @@ const leavesData = [
     actionType: 'view',
   },
   {
-    type: 'Caring for a Family Member',
+    type: 'Cared for Sick Family (Reduced Hours)',
     id: 'CLM #10220',
     lastUpdate: '08 / 04 / 2025',
     status: 'Closed',
@@ -163,7 +163,7 @@ const leavesData = [
     actionType: 'view',
   },
   {
-    type: 'Military-Related Leave',
+    type: 'Birthing Parent (Continuous)',
     id: 'CLM #10100',
     lastUpdate: '07 / 20 / 2025',
     status: 'Decisioned',
@@ -171,7 +171,7 @@ const leavesData = [
     actionType: 'view',
   },
   {
-    type: 'Birthing Parent / Pregnancy',
+    type: 'Birthing Parent (Continuous)',
     id: 'CLM #09980',
     lastUpdate: '07 / 05 / 2025',
     status: 'Under Review',
@@ -179,7 +179,7 @@ const leavesData = [
     actionType: 'view',
   },
   {
-    type: 'Illness or Injury (Self)',
+    type: 'Non-Birthing Parent (Continuous)',
     id: 'CLM #09850',
     lastUpdate: '06 / 22 / 2025',
     status: 'Closed',
@@ -187,7 +187,7 @@ const leavesData = [
     actionType: 'view',
   },
   {
-    type: 'Caring for a Family Member',
+    type: 'Cared for Sick Family (Reduced Hours)',
     id: 'CLM #09720',
     lastUpdate: '06 / 08 / 2025',
     status: 'Decisioned',
@@ -195,7 +195,7 @@ const leavesData = [
     actionType: 'view',
   },
   {
-    type: 'Military-Related Leave',
+    type: 'Cared for Sick Family (Reduced Hours)',
     id: 'CLM #09600',
     lastUpdate: '05 / 25 / 2025',
     status: 'Closed',
@@ -207,8 +207,8 @@ const leavesData = [
 const PAGE_SIZE = 5;
 
 function getDetailPath(type) {
-  if (type === 'Birthing Parent / Pregnancy') return '/case-detail-pregnancy';
-  if (type === 'Caring for a Family Member') return '/case-detail-caregiver';
+  if (type === 'Birthing Parent (Continuous)') return '/case-detail-pregnancy';
+  if (type === 'Cared for Sick Family (Reduced Hours)') return '/case-detail-caregiver';
   return '/case-detail';
 }
 
@@ -315,10 +315,9 @@ export default function MyLeavesPage() {
               onChange={(e) => { setTypeFilter(e.target.value); setCurrentPage(1); }}
             >
               <option value="All">All Types</option>
-              <option value="Birthing Parent / Pregnancy">Birthing Parent / Pregnancy</option>
-              <option value="Illness or Injury (Self)">Illness or Injury (Self)</option>
-              <option value="Caring for a Family Member">Caring for a Family Member</option>
-              <option value="Military-Related Leave">Military-Related Leave</option>
+              <option value="Birthing Parent (Continuous)">Birthing Parent (Continuous)</option>
+              <option value="Cared for Sick Family (Reduced Hours)">Cared for Sick Family (Reduced Hours)</option>
+              <option value="Non-Birthing Parent (Continuous)">Non-Birthing Parent (Continuous)</option>
             </select>
           </div>
         </div>
