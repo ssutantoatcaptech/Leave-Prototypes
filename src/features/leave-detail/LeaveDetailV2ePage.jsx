@@ -94,7 +94,6 @@ export default function LeaveDetailV2ePage() {
   var [timelineView, setTimelineView] = useState('protection');
   var [hoveredRow, setHoveredRow] = useState(null);
   var [expandedClaims, setExpandedClaims] = useState({ absence: false, stateleave: false });
-  var [paymentsOpen, setPaymentsOpen] = useState(false);
   var [showAllTasks, setShowAllTasks] = useState(false);
   var [editingSection, setEditingSection] = useState(null);
   var [detailTab, setDetailTab] = useState('claims');
@@ -683,43 +682,6 @@ export default function LeaveDetailV2ePage() {
               )}
             </div>
 
-            {/* Associated Payments */}
-            <div className="ldb-card">
-              <button type="button" className="ldb-card-collapse-header" onClick={function () { setPaymentsOpen(!paymentsOpen); }}>
-                <h2 className="ldb-card-title" style={{ marginBottom: 0 }}>
-                  <svg width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M2 4a2 2 0 012-2h8a2 2 0 012 2v8a2 2 0 01-2 2H4a2 2 0 01-2-2V4z" stroke="currentColor" strokeWidth="1.2"/><path d="M5 8h6M8 5v6" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round"/></svg>
-                  Associated Payments
-                </h2>
-                <svg className={'ldb-card-collapse-chevron' + (paymentsOpen ? ' open' : '')} width="12" height="7" viewBox="0 0 12 7" fill="none"><path d="M1 1l5 5 5-5" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round"/></svg>
-              </button>
-              {paymentsOpen && (
-                <>
-                  <div className="ldb-payments-grid">
-                    <div className="ldb-payment-item">
-                      <span className="ldb-payment-label">Total Paid to Date</span>
-                      <span className="ldb-payment-value">$7,893.00</span>
-                    </div>
-                    <div className="ldb-payment-item">
-                      <span className="ldb-payment-label">Most Recent Payment</span>
-                      <span className="ldb-payment-value">$2,308.00</span>
-                    </div>
-                    <div className="ldb-payment-item">
-                      <span className="ldb-payment-label">Expected Next Payment</span>
-                      <span className="ldb-payment-value">May 19, 2026</span>
-                    </div>
-                    <div className="ldb-payment-item">
-                      <span className="ldb-payment-label">Payment Method</span>
-                      <span className="ldb-payment-value">Direct Deposit ****4872</span>
-                    </div>
-                  </div>
-                  <p className="ldb-card-context">Payments from your Group Disability Claim (STD). Paid weekly via direct deposit.</p>
-                  <Link to={`${base}/payments?claim=NTN-9312-GDC-81&case=NTN-9312`} className="ldb-payments-view-btn" style={{ textDecoration: 'none' }}>
-                    VIEW ALL PAYMENTS
-                    <svg width="12" height="12" viewBox="0 0 16 16" fill="none"><path d="M6 4l4 4-4 4" stroke="currentColor" strokeWidth="1.3" strokeLinecap="round" strokeLinejoin="round"/></svg>
-                  </Link>
-                </>
-              )}
-            </div>
 
             {/* Additional Benefits */}
             <div className="ldb-card ldb-additional-benefits">
