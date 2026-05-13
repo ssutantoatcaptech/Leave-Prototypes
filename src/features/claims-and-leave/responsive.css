@@ -882,6 +882,10 @@
   padding: 16px;
 }
 
+.cldb-v2-card--flush {
+  padding: 0;
+}
+
 .cldb-v2-card-header--padded,
 .cldb-v2-card-header--border-bottom {
   padding: 14px 16px 10px;
@@ -960,6 +964,10 @@
 
   .cldb-v2-card {
     padding: 20px;
+  }
+
+  .cldb-v2-card--flush {
+    padding: 0;
   }
 
   .cldb-v2-card-header--padded,
