@@ -1,4 +1,4 @@
-import { useState, useMemo } from 'react';
+import React, { useState, useMemo } from 'react';
 import { NavLink, Link, useNavigate } from 'react-router-dom';
 import useBasePath from './useBasePath';
 
@@ -78,149 +78,184 @@ export default function DentalClaimsPage() {
   }, [statusFilter, dateFilter]);
 
   return (
-    <div className="cl-page">
-      <div className="cl-breadcrumb">
-        <Link to={base} className="cl-breadcrumb-link">Claims &amp; Leave</Link>
-        <span className="cl-breadcrumb-sep">&gt;</span>
-        <span>Dental Claims</span>
+    <div className="cl-ml-page" style={{ position: 'relative', overflow: 'clip' }}>
+      {/* Background decorative icon */}
+      <div className="cl-bg-icon" aria-hidden="true">
+        <svg width="388" height="388" viewBox="0 0 388 388" fill="none">
+          <rect x="20" y="52" width="348" height="316" rx="32" fill="url(#cal-bg-grad-dn)" opacity="0.45"/>
+          <rect x="44" y="120" width="300" height="228" rx="16" fill="white" opacity="0.5"/>
+          <rect x="120" y="8" width="28" height="64" rx="14" fill="url(#cal-bg-grad-dn)" opacity="0.45"/>
+          <rect x="240" y="8" width="28" height="64" rx="14" fill="url(#cal-bg-grad-dn)" opacity="0.45"/>
+          <rect x="80" y="164" width="52" height="44" rx="10" fill="url(#cal-bg-grad-dn)" opacity="0.35"/>
+          <rect x="156" y="164" width="52" height="44" rx="10" fill="url(#cal-bg-grad-dn)" opacity="0.35"/>
+          <rect x="232" y="164" width="52" height="44" rx="10" fill="url(#cal-bg-grad-dn)" opacity="0.35"/>
+          <rect x="80" y="232" width="52" height="44" rx="10" fill="url(#cal-bg-grad-dn)" opacity="0.35"/>
+          <rect x="156" y="232" width="52" height="44" rx="10" fill="url(#cal-bg-grad-dn)" opacity="0.35"/>
+          <rect x="232" y="232" width="52" height="44" rx="10" fill="url(#cal-bg-grad-dn)" opacity="0.35"/>
+          <defs>
+            <linearGradient id="cal-bg-grad-dn" x1="0" y1="0" x2="388" y2="388" gradientUnits="userSpaceOnUse">
+              <stop stopColor="#105fa8" stopOpacity="0.15"/>
+              <stop offset="1" stopColor="#0a9b8c" stopOpacity="0.12"/>
+            </linearGradient>
+          </defs>
+        </svg>
       </div>
 
-      <div className="cl-page-header">
-        <div>
-          <h1 className="cl-page-title">Claims Center</h1>
-          <p className="cl-page-desc">Track and manage your dental claims.</p>
+      {/* Breadcrumb */}
+      <div className="cl-ml-breadcrumb">
+        <Link to={base} className="cl-ml-breadcrumb-link">Claims &amp; Leave</Link>
+        <span className="cl-ml-breadcrumb-sep">&gt;</span>
+        <span className="cl-ml-breadcrumb-current">Claims Center</span>
+      </div>
+
+      {/* Page Header */}
+      <div className="cl-ml-header">
+        <div className="cl-ml-header-text">
+          <h1 className="cl-ml-title">Claims Center</h1>
+          <p className="cl-ml-subtitle">Track and manage your dental claims.</p>
         </div>
-        <button className="cl-btn cl-btn--dark">+ Start a New Claim</button>
+        <div className="cl-ml-header-action">
+          <button className="cl-ml-btn-new">+ Start a New Claim</button>
+        </div>
       </div>
 
-      {/* Category dropdown (mobile) */}
-      <div className="cl-category-dropdown-wrap">
-        <select
-          className="cl-category-dropdown"
-          value="Dental"
-          onChange={(e) => {
-            if (e.target.value === 'Leave and Disability') navigate(`${base}/claims`);
-          }}
-        >
+      {/* Table Card */}
+      <div className="cl-ml-table-card">
+        {/* Category tabs */}
+        <div className="cl-category-tabs">
           {categoryTabs.map((tab) => (
-            <option key={tab} value={tab}>{tab}</option>
+            <NavLink
+              key={tab}
+              to={tab === 'Leave and Disability' ? `${base}/claims` : tab === 'Dental' ? `${base}/dental` : '#'}
+              className={`cl-category-tab${tab === 'Dental' ? ' cl-category-tab--active' : ''}`}
+              onClick={(e) => { if (tab !== 'Leave and Disability' && tab !== 'Dental') e.preventDefault(); }}
+            >
+              {tab}
+            </NavLink>
           ))}
-        </select>
-      </div>
+        </div>
 
-      {/* Category tabs (desktop) */}
-      <div className="cl-category-tabs">
-        {categoryTabs.map((tab) => (
-          <NavLink
-            key={tab}
-            to={tab === 'Leave and Disability' ? `${base}/claims` : tab === 'Dental' ? base : '#'}
-            className={`cl-category-tab${tab === 'Dental' ? ' cl-category-tab--active' : ''}`}
-          >
-            {tab}
-          </NavLink>
-        ))}
-      </div>
+        {/* Filter Toolbar */}
+        <div className="cl-ml-filters">
+          <div className="cl-ml-filter-group">
+            <label className="cl-ml-filter-label">STATUS</label>
+            <select
+              className="cl-ml-filter-select"
+              value={statusFilter}
+              onChange={(e) => { setStatusFilter(e.target.value); setExpandedRow(-1); }}
+            >
+              <option value="All">All Statuses</option>
+              <option value="Approved">Approved</option>
+              <option value="Pending">Pending</option>
+            </select>
+          </div>
+          <div className="cl-ml-filter-group">
+            <label className="cl-ml-filter-label">DATE RANGE</label>
+            <select
+              className="cl-ml-filter-select"
+              value={dateFilter}
+              onChange={(e) => { setDateFilter(e.target.value); setExpandedRow(-1); }}
+            >
+              <option value="All">All Dates</option>
+              <option value="Last 30 Days">Last 30 Days</option>
+              <option value="Last 90 Days">Last 90 Days</option>
+              <option value="Last Year">Last Year</option>
+            </select>
+          </div>
+        </div>
 
-      {/* Filter bar */}
-      <div className="cl-filter-bar">
-        <select className="cl-select" value={statusFilter} onChange={(e) => { setStatusFilter(e.target.value); setExpandedRow(-1); }}>
-          <option value="All">All Statuses</option>
-          <option value="Approved">Approved</option>
-          <option value="Pending">Pending</option>
-        </select>
-        <select className="cl-select" value={dateFilter} onChange={(e) => { setDateFilter(e.target.value); setExpandedRow(-1); }}>
-          <option value="All">Date Range</option>
-          <option value="Last 30 Days">Last 30 Days</option>
-          <option value="Last 90 Days">Last 90 Days</option>
-          <option value="Last Year">Last Year</option>
-        </select>
-        <button className="cl-btn cl-btn--outline">Export History (CSV)</button>
-      </div>
-
-      <div className="cl-pagination-info">Showing {filtered.length} of {dentalData.length} claims</div>
-
-      {/* Dental claims table */}
-      <div className="cl-table-wrap">
-        <table className="cl-table">
+        {/* Dental claims table */}
+        <table className="cl-ml-table">
           <thead>
             <tr>
-              <th>Submission Date</th>
-              <th>Claim #</th>
+              <th className="cl-ml-th-first">Submission Date</th>
+              <th>Claim # &amp; Provider</th>
               <th>Member Name</th>
-              <th>Provider</th>
               <th>Billed Amount</th>
               <th>Member Pays</th>
               <th>Status</th>
-              <th>Actions</th>
+              <th>Action</th>
             </tr>
           </thead>
           <tbody>
             {filtered.length === 0 && (
-              <tr><td colSpan="8" style={{ textAlign: 'center', padding: '32px 16px', color: '#6b7280' }}>No claims match your filters.</td></tr>
+              <tr><td colSpan="7" style={{ textAlign: 'center', padding: '32px 16px', color: '#5d5d5d' }}>No claims match your filters.</td></tr>
             )}
             {filtered.map((row, i) => (
-              <>
-                <tr key={i} className={expandedRow === i ? 'cl-table-row--expanded' : ''}>
-                  <td>{row.date}</td>
-                  <td className="cl-cell-mono">{row.claimNum}</td>
-                  <td>{row.member}</td>
-                  <td>{row.provider}</td>
-                  <td>{row.billed}</td>
-                  <td>{row.memberPays}</td>
-                  <td>
-                    <span className={`cl-badge cl-badge--${row.statusColor}`}>{row.status}</span>
+              <React.Fragment key={i}>
+                <tr className="cl-ml-row">
+                  <td className="cl-ml-td-first">
+                    <span style={{ fontSize: '14px', color: '#222' }}>{row.date}</span>
                   </td>
-                  <td>
-                    <button className="cl-link-btn" onClick={() => setExpandedRow(expandedRow === i ? -1 : i)}>
-                      {expandedRow === i ? 'Hide Details' : 'View Details'}
-                    </button>
+                  <td className="cl-ml-td">
+                    <div className="cl-ml-cell-stacked">
+                      <span className="cl-ml-cell-type">{row.claimNum}</span>
+                      <span className="cl-ml-cell-id">{row.provider}</span>
+                    </div>
+                  </td>
+                  <td className="cl-ml-td">{row.member}</td>
+                  <td className="cl-ml-td">{row.billed}</td>
+                  <td className="cl-ml-td">{row.memberPays}</td>
+                  <td className="cl-ml-td">
+                    <span className="cl-ml-status-pill">{row.status}</span>
+                  </td>
+                  <td className="cl-ml-td">
+                    <span
+                      className="cl-ml-action-link"
+                      onClick={() => setExpandedRow(expandedRow === i ? -1 : i)}
+                    >{expandedRow === i ? 'Hide Details' : 'View Details'} ›</span>
                   </td>
                 </tr>
                 {expandedRow === i && (
-                  <tr key={`${i}-detail`} className="cl-detail-row">
-                    <td colSpan="8">
-                      <div className="cl-payment-detail">
-                        <h4 className="cl-detail-title">Claim Line Items</h4>
-                        <div className="cl-payment-breakdown">
-                          <table className="cl-detail-table">
-                            <thead>
-                              <tr>
-                                <th>Code</th>
-                                <th>Service</th>
-                                <th>Billed</th>
-                                <th>Plan Pays</th>
-                                <th>You Pay</th>
+                  <tr className="cl-dental-detail-row">
+                    <td colSpan="7">
+                      <div className="cl-dental-detail-content">
+                        <h4 className="cl-dental-detail-title">Claim Line Items</h4>
+                        <table className="cl-dental-detail-table">
+                          <thead>
+                            <tr>
+                              <th>Code</th>
+                              <th>Service</th>
+                              <th>Billed</th>
+                              <th>Plan Pays</th>
+                              <th>You Pay</th>
+                            </tr>
+                          </thead>
+                          <tbody>
+                            {row.details.map((d, j) => (
+                              <tr key={j}>
+                                <td className="cl-dental-cell-mono">{d.code}</td>
+                                <td>{d.service}</td>
+                                <td>{d.billed}</td>
+                                <td>{d.planPays}</td>
+                                <td>{d.youPay}</td>
                               </tr>
-                            </thead>
-                            <tbody>
-                              {row.details.map((d, j) => (
-                                <tr key={j}>
-                                  <td className="cl-cell-mono">{d.code}</td>
-                                  <td>{d.service}</td>
-                                  <td>{d.billed}</td>
-                                  <td>{d.planPays}</td>
-                                  <td>{d.youPay}</td>
-                                </tr>
-                              ))}
-                              <tr className="cl-detail-totals">
-                                <td></td>
-                                <td><strong>Total</strong></td>
-                                <td><strong>{row.billed}</strong></td>
-                                <td><strong>${(row.details.reduce((acc, d) => acc + parseFloat(d.planPays.replace(/[$,]/g, '')), 0)).toLocaleString('en-US', { minimumFractionDigits: 2 })}</strong></td>
-                                <td><strong>{row.memberPays}</strong></td>
-                              </tr>
-                            </tbody>
-                          </table>
-                          <a href="#" className="cl-eob-link">View Explanation of Benefits (PDF)</a>
-                        </div>
+                            ))}
+                            <tr className="cl-dental-detail-totals">
+                              <td></td>
+                              <td><strong>Total</strong></td>
+                              <td><strong>{row.billed}</strong></td>
+                              <td><strong>${(row.details.reduce((acc, d) => acc + parseFloat(d.planPays.replace(/[$,]/g, '')), 0)).toLocaleString('en-US', { minimumFractionDigits: 2 })}</strong></td>
+                              <td><strong>{row.memberPays}</strong></td>
+                            </tr>
+                          </tbody>
+                        </table>
+                        <a href="#" className="cl-dental-eob-link" onClick={(e) => e.preventDefault()}>View Explanation of Benefits (PDF)</a>
                       </div>
                     </td>
                   </tr>
                 )}
-              </>
+              </React.Fragment>
             ))}
           </tbody>
         </table>
+
+        {/* Pagination info */}
+        <div className="cl-ml-pagination">
+          <p className="cl-ml-pagination-info">
+            Showing {filtered.length} of {dentalData.length} claims
+          </p>
+        </div>
       </div>
 
       {/* Mobile card view */}
@@ -232,7 +267,7 @@ export default function DentalClaimsPage() {
           <div key={i} className="cl-card-mobile">
             <div className="cl-card-mobile-header">
               <span className="cl-card-mobile-primary">{row.claimNum}</span>
-              <span className={`cl-badge cl-badge--${row.statusColor}`}>{row.status}</span>
+              <span className="cl-ml-status-pill">{row.status}</span>
             </div>
             <span className="cl-card-mobile-type">{row.member} — {row.provider}</span>
             <div className="cl-card-mobile-details">

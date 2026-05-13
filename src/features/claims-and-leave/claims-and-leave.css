@@ -4452,6 +4452,82 @@
 }
 
 /* ===========================
+   Dental Claims Detail Expansion
+   =========================== */
+
+.cl-dental-detail-row td {
+  padding: 0;
+  border-top: none;
+  background: #f8fbfd;
+}
+
+.cl-dental-detail-content {
+  padding: 20px 24px 24px;
+  border-top: 1px solid #e4e4e4;
+}
+
+.cl-dental-detail-title {
+  font-family: 'Source Sans Pro', sans-serif;
+  font-size: 15px;
+  font-weight: 600;
+  color: #003a70;
+  margin: 0 0 12px;
+}
+
+.cl-dental-detail-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 13px;
+}
+
+.cl-dental-detail-table th {
+  font-family: 'Source Sans Pro', sans-serif;
+  font-size: 11px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.36px;
+  color: #444;
+  padding: 8px 12px;
+  text-align: left;
+  background: #f0f4f8;
+  border-bottom: 1px solid #e4e4e4;
+}
+
+.cl-dental-detail-table td {
+  font-family: 'Source Sans Pro', sans-serif;
+  font-size: 14px;
+  color: #222;
+  padding: 8px 12px;
+  border-bottom: 1px solid #f0f0f0;
+}
+
+.cl-dental-cell-mono {
+  font-family: 'Source Sans Pro', monospace;
+  font-size: 13px;
+  color: #5d5d5d;
+}
+
+.cl-dental-detail-totals td {
+  border-top: 1.5px solid #e4e4e4;
+  border-bottom: none;
+  padding-top: 10px;
+}
+
+.cl-dental-eob-link {
+  display: inline-block;
+  margin-top: 14px;
+  font-family: 'Source Sans Pro', sans-serif;
+  font-size: 14px;
+  font-weight: 600;
+  color: #105fa8;
+  text-decoration: none;
+}
+
+.cl-dental-eob-link:hover {
+  text-decoration: underline;
+}
+
+/* ===========================
    STD Claim Detail Page
    =========================== */
 
