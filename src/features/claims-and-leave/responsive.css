@@ -889,34 +889,22 @@
 .cldb-v2-card-header--padded,
 .cldb-v2-card-header--border-bottom {
   padding: 14px 16px 10px;
-  justify-content: center;
-  text-align: center;
 }
 
 .cldb-v2-action-item {
   flex-direction: column;
-  align-items: center;
-  text-align: center;
+  align-items: flex-start;
   padding: 16px;
-}
-
-.cldb-v2-action-body {
-  align-items: center;
 }
 
 .cldb-v2-action-title-row {
   flex-direction: column;
-  align-items: center;
+  align-items: flex-start;
   gap: 8px;
-}
-
-.cldb-v2-action-tag {
-  justify-content: center;
 }
 
 .cldb-v2-action-cta {
   width: 100%;
-  justify-content: center;
 }
 
 .cldb-v2-action-cta .cldb-v2-btn-outline,
@@ -928,36 +916,26 @@
 
 .cldb-v2-leave-plan-header {
   flex-direction: column;
-  align-items: center;
+  align-items: flex-start;
 }
 
 .cldb-v2-leave-plan-title-row {
   flex-direction: column;
-  align-items: center;
+  align-items: flex-start;
   gap: 8px;
 }
 
-.cldb-v2-leave-plan-info {
-  align-items: center;
-}
-
 .cldb-v2-leave-dates {
-  justify-content: center;
   flex-wrap: wrap;
 }
 
 .cldb-v2-leave-date-card {
-  text-align: center;
   flex: 1 1 calc(50% - 8px);
   min-width: 130px;
 }
 
 .cldb-v2-activity-row {
   padding: 12px 16px;
-  flex-direction: column;
-  align-items: center;
-  text-align: center;
-  gap: 8px;
 }
 
 .cldb-v2-activity-footer {
@@ -966,13 +944,10 @@
 
 .cldb-v2-leave-body {
   padding: 16px;
-  text-align: center;
 }
 
 .cldb-v2-ql-row {
   padding: 12px 16px;
-  justify-content: center;
-  text-align: center;
 }
 
 .cldb-v2-eb-body {
