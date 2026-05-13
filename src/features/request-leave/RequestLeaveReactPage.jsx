@@ -822,33 +822,36 @@ export default function RequestLeaveReactPage() {
       <>
         {formState.missedDateEntries.map((entry, index) => (
           <div key={`${index}-${entry.date}`} className="missed-entry">
+            <div className="missed-entry-top">
+              <strong className="missed-entry-title">Missed Day {index + 1}</strong>
+              {formState.missedDateEntries.length > 1 ? <button type="button" className="missed-entry-remove-text" onClick={() => removeMissedDateEntry(index)}>—</button> : null}
+            </div>
             <div className="missed-entry-row1">
               <div className="form-group missed-entry-date">
-                <label>{index === 0 ? (showReason ? 'Day(s) you missed work' : 'Date') : ' '}</label>
+                <label>{showReason ? 'Day(s) you missed work' : 'Date'}</label>
                 <DateInput value={entry.date} onChange={(event) => updateMissedDateEntry(index, 'date', event.target.value)}/>
               </div>
               {showReason && (
                 <div className="form-group missed-entry-time">
-                  <label>{index === 0 ? 'Start Time' : ' '}</label>
+                  <label>Start Time</label>
                   <input type="text" placeholder="8:00 AM" value={entry.startTime || ''} onChange={(event) => updateMissedDateEntry(index, 'startTime', event.target.value)}/>
                 </div>
               )}
               {showReason && (
                 <div className="form-group missed-entry-time">
-                  <label>{index === 0 ? 'End Time' : ' '}</label>
+                  <label>End Time</label>
                   <input type="text" placeholder="4:00 PM" value={entry.endTime || ''} onChange={(event) => updateMissedDateEntry(index, 'endTime', event.target.value)}/>
                 </div>
               )}
               <div className="form-group missed-entry-hours">
-                <label>{index === 0 ? (showReason ? 'Total Hrs | Min' : 'Hrs | Min') : ' '}</label>
+                <label>{showReason ? 'Total Hrs/Min' : 'Hrs/Min'}</label>
                 <input type="text" value={entry.hours} onChange={(event) => updateMissedDateEntry(index, 'hours', event.target.value)}/>
               </div>
-              {formState.missedDateEntries.length > 1 ? <button type="button" className="missed-entry-remove" onClick={() => removeMissedDateEntry(index)}>—</button> : null}
             </div>
             {showReason ? (
               <div className="missed-entry-row2">
                 <div className="form-group missed-entry-reason">
-                  <label>{index === 0 ? 'Reason' : ' '}</label>
+                  <label>Reason</label>
                   <SelectInput value={entry.reason || ''} onChange={(event) => updateMissedDateEntry(index, 'reason', event.target.value)}>
                     <option value="">Select reason</option>
                     <option value="Episode">Episode</option>
@@ -863,7 +866,7 @@ export default function RequestLeaveReactPage() {
             ) : null}
           </div>
         ))}
-        <button type="button" className="rotation-add" onClick={addMissedDateEntry}>Add another date</button>
+        <button type="button" className="rotation-add" onClick={addMissedDateEntry}><svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M8 3v10M3 8h10" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"/></svg>Add Date</button>
         {showReason && totalHours > 0 ? (
           <div className="ds-total-hours">{totalHours} total hours missed</div>
         ) : null}
@@ -977,9 +980,9 @@ export default function RequestLeaveReactPage() {
           <>
             <h2>Did you miss any work time before starting this leave?</h2>
             <p className="subtitle">Log any work days you've already missed for this condition.</p>
-            <div className="yesno" style={{ marginBottom: 16 }}>
-              <button type="button" className={`yesno-btn ${formState.alreadyMissedTime === true ? 'selected' : ''}`} onClick={() => updateField('alreadyMissedTime', true)}>Yes</button>
-              <button type="button" className={`yesno-btn ${formState.alreadyMissedTime === false ? 'selected' : ''}`} onClick={() => updateField('alreadyMissedTime', false)}>No</button>
+            <div className="radio-list" style={{ marginBottom: 16 }}>
+              <label className="radio-option" onClick={() => updateField('alreadyMissedTime', false)}><span className={`radio-circle${formState.alreadyMissedTime === false ? ' selected' : ''}`}/> No</label>
+              <label className="radio-option" onClick={() => updateField('alreadyMissedTime', true)}><span className={`radio-circle${formState.alreadyMissedTime === true ? ' selected' : ''}`}/> Yes</label>
             </div>
             {formState.alreadyMissedTime && isContinuous ? (
               <div className="bordered-section">
@@ -1038,42 +1041,53 @@ export default function RequestLeaveReactPage() {
             <h2>Tell us about your condition</h2>
             <p className="subtitle">Your provider will handle the clinical certification. This helps us start the right process.</p>
             <div className="bordered-section">
-            <label>Will the person being cared for (you or a family member) be hospitalized or need ongoing treatment?</label>
-            <div className="yesno" style={{ marginBottom: 0 }}>
-              <button type="button" className={`yesno-btn ${formState.seriousHealthCondition ? 'selected' : ''}`} onClick={() => updateField('seriousHealthCondition', true)}>Yes</button>
-              <button type="button" className={`yesno-btn ${formState.seriousHealthCondition === false ? 'selected' : ''}`} onClick={() => updateField('seriousHealthCondition', false)}>No</button>
+            <label style={{ textTransform: 'none', fontSize: 14, fontWeight: 500, letterSpacing: 0, color: 'var(--color-text-primary)' }}>Will you be hospitalized or need ongoing treatment? <span className="req">*</span></label>
+            <div className="radio-list">
+              <label className="radio-option" onClick={() => updateField('seriousHealthCondition', false)}><span className={`radio-circle${formState.seriousHealthCondition === false ? ' selected' : ''}`}/> No</label>
+              <label className="radio-option" onClick={() => updateField('seriousHealthCondition', true)}><span className={`radio-circle${formState.seriousHealthCondition === true ? ' selected' : ''}`}/> Yes</label>
             </div>
             </div>
+            {formState.seriousHealthCondition && (
             <div className="bordered-section">
-            <label>Is your injury/illness related to your job or workplace?<span className="req">*</span></label>
-            <div className="yesno" style={{ marginBottom: 0 }}>
-              <button type="button" className={`yesno-btn ${formState.workersComp === 'yes' ? 'selected' : ''}`} onClick={() => updateField('workersComp', 'yes')}>Yes</button>
-              <button type="button" className={`yesno-btn ${formState.workersComp === 'no' ? 'selected' : ''}`} onClick={() => updateField('workersComp', 'no')}>No</button>
+            <label style={{ textTransform: 'none', fontSize: 14, fontWeight: 500, letterSpacing: 0, color: 'var(--color-text-primary)' }}>Is your injury/illness related to your job or workplace? <span className="req">*</span></label>
+            <div className="radio-list">
+              <label className="radio-option" onClick={() => updateField('workersComp', 'no')}><span className={`radio-circle${formState.workersComp === 'no' ? ' selected' : ''}`}/> No</label>
+              <label className="radio-option" onClick={() => updateField('workersComp', 'yes')}><span className={`radio-circle${formState.workersComp === 'yes' ? ' selected' : ''}`}/> Yes</label>
             </div>
             </div>
-            <div className="form-row cols-2" style={{ marginTop: 24 }}>
-              <div className="form-group"><label>First Date of Treatment</label><DateInput value={formState.firstTreatment} onChange={(event) => updateField('firstTreatment', event.target.value)}/></div>
-              <div className="form-group"><label>Next Scheduled Appointment</label><DateInput value={formState.nextAppointment} onChange={(event) => updateField('nextAppointment', event.target.value)}/></div>
+            )}
+            <div className="bordered-section">
+              <h3 className="section-title">Your Condition Details</h3>
+              <div className="form-group"><label>Medical Condition (Optional)</label><input type="text" placeholder="e.g., back surgery, chronic condition" value={formState.diagnosis} onChange={(event) => updateField('diagnosis', event.target.value)}/></div>
+              <div className="form-row cols-2" style={{ marginBottom: 0 }}>
+                <div className="form-group" style={{ marginBottom: 0 }}><label>First Date of Treatment (Optional)</label><DateInput value={formState.firstTreatment} onChange={(event) => updateField('firstTreatment', event.target.value)}/></div>
+                <div className="form-group" style={{ marginBottom: 0 }}><label>Next Scheduled Appointment (Optional)</label><DateInput value={formState.nextAppointment} onChange={(event) => updateField('nextAppointment', event.target.value)}/></div>
+              </div>
             </div>
-            <div className="form-group" style={{ marginBottom: 0 }}><label>Medical Condition (Optional)</label><input type="text" placeholder="e.g., back surgery, chronic condition" value={formState.diagnosis} onChange={(event) => updateField('diagnosis', event.target.value)}/></div>
           </>
         );
       case 'provider':
         return (
           <>
-            <h2>Who is your healthcare provider?</h2>
-            <p className="subtitle">We'll need to send them a form to certify your leave.</p>
+            <h2>Provider details</h2>
+            <p className="subtitle">Tell us more about your medical provider.</p>
             <div className="bordered-section">
+              <h3 className="section-title">Basic Provider Info</h3>
               <div className="form-group"><label>Facility / Practice Name</label><input type="text" value={formState.providerFacility} onChange={(event) => updateField('providerFacility', event.target.value)}/></div>
-              <div className="provider-name-row">
-                <div className="form-group" style={{ marginBottom: 0 }}><label>Provider Name <span className="req">*</span></label><input type="text" value={formState.providerName} onChange={(event) => updateField('providerName', event.target.value)}/></div>
-                <div className="form-group" style={{ marginBottom: 0 }}><label>Suffix</label><input type="text" value={formState.providerSuffix} onChange={(event) => updateField('providerSuffix', event.target.value)}/></div>
+              <div className="form-group"><label>Provider Name</label>
+                <div className="provider-name-row" style={{ marginBottom: 0 }}>
+                  <SelectInput value={formState.providerSuffix || 'Dr'} onChange={(event) => updateField('providerSuffix', event.target.value)}><option value="Dr">Dr</option><option value="NP">NP</option><option value="PA">PA</option></SelectInput>
+                  <input type="text" value={formState.providerName} onChange={(event) => updateField('providerName', event.target.value)}/>
+                </div>
               </div>
               <div className="form-row cols-2">
                 <div className="form-group"><label>Phone</label><input type="tel" value={formState.providerPhone} onChange={(event) => updateField('providerPhone', event.target.value)}/></div>
                 <div className="form-group"><label>Fax</label><input type="tel" value={formState.providerFax} onChange={(event) => updateField('providerFax', event.target.value)}/></div>
               </div>
               <div className="form-group"><label>Email</label><input type="email" value={formState.providerEmail} onChange={(event) => updateField('providerEmail', event.target.value)}/></div>
+            </div>
+            <div className="bordered-section">
+              <h3 className="section-title">Address</h3>
               <div className="form-group"><label>Street Address</label><input type="text" value={formState.providerStreet} onChange={(event) => updateField('providerStreet', event.target.value)}/></div>
               <div className="form-row cols-3" style={{ marginBottom: 0 }}>
                 <div className="form-group" style={{ marginBottom: 0 }}><label>City</label><input type="text" value={formState.providerCity} onChange={(event) => updateField('providerCity', event.target.value)}/></div>
@@ -1123,10 +1137,10 @@ export default function RequestLeaveReactPage() {
               </div>
             </div>
             <div className="bordered-section">
-              <label>Will the person being cared for (you or a family member) be hospitalized or need ongoing treatment? <span className="req">*</span></label>
-              <div className="yesno" style={{ marginTop: 8, marginBottom: 0 }}>
-                <button type="button" className={`yesno-btn ${formState.seriousHealthCondition ? 'selected' : ''}`} onClick={() => updateField('seriousHealthCondition', true)}>Yes</button>
-                <button type="button" className={`yesno-btn ${formState.seriousHealthCondition === false ? 'selected' : ''}`} onClick={() => updateField('seriousHealthCondition', false)}>No</button>
+              <label style={{ textTransform: 'none', fontSize: 14, fontWeight: 500, letterSpacing: 0, color: 'var(--color-text-primary)' }}>Will the person being cared for be hospitalized or need ongoing treatment? <span className="req">*</span></label>
+              <div className="radio-list" style={{ marginTop: 8 }}>
+                <label className="radio-option" onClick={() => updateField('seriousHealthCondition', false)}><span className={`radio-circle${formState.seriousHealthCondition === false ? ' selected' : ''}`}/> No</label>
+                <label className="radio-option" onClick={() => updateField('seriousHealthCondition', true)}><span className={`radio-circle${formState.seriousHealthCondition === true ? ' selected' : ''}`}/> Yes</label>
               </div>
             </div>
           </>
@@ -1158,19 +1172,19 @@ export default function RequestLeaveReactPage() {
               <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><circle cx="8" cy="8" r="7" stroke="currentColor" strokeWidth="1.2"/><path d="M8 7v4" stroke="currentColor" strokeWidth="1.3" strokeLinecap="round"/><circle cx="8" cy="5" r="0.75" fill="currentColor"/></svg>
               <span>By providing this information you're authorizing Mutual of Omaha to send paperwork to your health care provider.</span>
             </div>
-            <button type="button" className="rotation-add"><svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M8 3v10M3 8h10" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"/></svg>Add another provider</button>
+            <button type="button" className="rotation-add"><svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M8 3v10M3 8h10" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"/></svg>Add Another Provider</button>
           </>
         );
       case 'medicalCertConsent':
         return (
           <>
-            <h2>Medical Certification Consent</h2>
+            <h2>Medical certification consent</h2>
             <p className="subtitle" style={{ lineHeight: 1.7 }}>You are responsible for ensuring the healthcare provider receives and completes the certification and for providing the form to Mutual of Omaha on time. Mutual of Omaha can send the certifications to your provider to help expedite processing.</p>
             <div className="bordered-section">
-              <label style={{ fontWeight: 600 }}>Would you like to authorize Mutual of Omaha to send any required certifications directly to the healthcare provider for completion or clarification?</label>
-              <div className="yesno" style={{ marginTop: 12, marginBottom: 0 }}>
-                <button type="button" className={`yesno-btn ${formState.authorizeMedCert ? 'selected' : ''}`} onClick={() => updateField('authorizeMedCert', true)}>Yes</button>
-                <button type="button" className={`yesno-btn ${formState.authorizeMedCert === false ? 'selected' : ''}`} onClick={() => updateField('authorizeMedCert', false)}>No</button>
+              <label style={{ textTransform: 'none', fontSize: 14, fontWeight: 400, letterSpacing: 0, color: 'var(--color-text-primary)', lineHeight: 1.6 }}>Would you like to authorize Mutual of Omaha to send any required certifications directly to the healthcare provider for completion or clarification?</label>
+              <div className="radio-list" style={{ marginTop: 12 }}>
+                <label className="radio-option" onClick={() => updateField('authorizeMedCert', false)}><span className={`radio-circle${formState.authorizeMedCert === false ? ' selected' : ''}`}/> No</label>
+                <label className="radio-option" onClick={() => updateField('authorizeMedCert', true)}><span className={`radio-circle${formState.authorizeMedCert === true ? ' selected' : ''}`}/> Yes</label>
               </div>
             </div>
           </>
@@ -1178,13 +1192,13 @@ export default function RequestLeaveReactPage() {
       case 'medicalCert':
         return (
           <>
-            <h2>Medical Certifications</h2>
+            <h2>Medical certification consent</h2>
             <p className="subtitle" style={{ lineHeight: 1.7 }}>You are responsible for ensuring the healthcare provider receives and completes the certification and for providing the form to Mutual of Omaha on time. Mutual of Omaha can send the certifications to your provider to help expedite processing.</p>
             <div className="bordered-section">
-              <label style={{ fontWeight: 600 }}>Would you like to authorize Mutual of Omaha to send any required certifications directly to the healthcare provider for completion or clarification?</label>
-              <div className="yesno" style={{ marginTop: 8 }}>
-                <button type="button" className={`yesno-btn ${formState.sendCertToPhysician ? 'selected' : ''}`} onClick={() => updateField('sendCertToPhysician', true)}>Yes</button>
-                <button type="button" className={`yesno-btn ${formState.sendCertToPhysician === false ? 'selected' : ''}`} onClick={() => updateField('sendCertToPhysician', false)}>No</button>
+              <label style={{ textTransform: 'none', fontSize: 14, fontWeight: 400, letterSpacing: 0, color: 'var(--color-text-primary)', lineHeight: 1.6 }}>Would you like to authorize Mutual of Omaha to send any required certifications directly to the healthcare provider for completion or clarification?</label>
+              <div className="radio-list" style={{ marginTop: 12 }}>
+                <label className="radio-option" onClick={() => updateField('sendCertToPhysician', false)}><span className={`radio-circle${formState.sendCertToPhysician === false ? ' selected' : ''}`}/> No</label>
+                <label className="radio-option" onClick={() => updateField('sendCertToPhysician', true)}><span className={`radio-circle${formState.sendCertToPhysician === true ? ' selected' : ''}`}/> Yes</label>
               </div>
             </div>
             {formState.sendCertToPhysician ? (
@@ -1223,15 +1237,10 @@ export default function RequestLeaveReactPage() {
       case 'leaveDetails':
         return (
           <>
-            <h2>Tell us about your typical work schedule</h2>
+            <h2>What does your typical week look like?</h2>
+            <p className="subtitle">This helps us calculate your leave accurately. Most full-time employees work about 40 hours a week — just adjust the numbers if yours is different.</p>
             <div className="bordered-section">
-              <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 4 }}>
-                <div className="section-title" style={{ display: 'flex', alignItems: 'center', gap: 8, marginBottom: 0 }}>
-                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><rect x="3" y="6" width="18" height="13" rx="2" stroke="currentColor" strokeWidth="1.5"/><path d="M3 10h18" stroke="currentColor" strokeWidth="1.5"/><path d="M8 3v4M16 3v4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"/></svg>
-                  {formState.extraWeeks.length > 0 ? 'Regular Week' : 'Your Work Week'}
-                </div>
-                <div className="ds-field-note">{Object.values(formState.scheduleHours).reduce((sum, h) => sum + Number(h || 0), 0)} hrs / week</div>
-              </div>
+              <h3 className="section-title">Weekly Hours</h3>
               <div className="helper" style={{ marginBottom: 12 }}>Click each day to enter hours. Default is 8 hours/day for weekdays.</div>
               <div className="schedule-grid">
                 {['sun', 'mon', 'tue', 'wed', 'thu', 'fri', 'sat'].map((day, index) => (
@@ -1246,6 +1255,7 @@ export default function RequestLeaveReactPage() {
                   </div>
                 ))}
               </div>
+              <div className="schedule-total-badge">Weekly total <strong>{Object.values(formState.scheduleHours).reduce((sum, h) => sum + Number(h || 0), 0)}</strong> hrs / week</div>
             </div>
             {formState.extraWeeks.map((week, weekIndex) => (
               <div key={`week-${weekIndex}`} className="bordered-section">
@@ -1365,8 +1375,9 @@ export default function RequestLeaveReactPage() {
         return (
           <>
             <h2>How should we reach you?</h2>
-            <p className="subtitle">Please review and update anything that's changed, including an email address you'll have access to during the leave (such as a personal email).</p>
+            <p className="subtitle">Tell us more about your medical provider.</p>
             <div className="bordered-section">
+              <h3 className="section-title">Contact Details</h3>
               <div className="form-row cols-2">
                 <div className="form-group"><label>Email Address <span className="req">*</span></label><input type="email" value={formState.email} onChange={(event) => updateField('email', event.target.value)}/></div>
                 <div className="form-group"><label>Phone (Call) <span className="req">*</span></label><input type="tel" value={formState.phone} onChange={(event) => updateField('phone', event.target.value)}/></div>
@@ -1777,7 +1788,7 @@ export default function RequestLeaveReactPage() {
                 </div>
                 <div className="success-footer">
                   <button type="button" className="btn btn-next" onClick={() => navigate(`${rlBase}/case-detail-new`, { state: submittedCase })}>View Leave Details</button>
-                  {!isMobileRequest && <button type="button" className="btn btn-back" onClick={() => navigate('/overview-react')}>Back to Leave</button>}
+                  {!isMobileRequest && <button type="button" className="btn btn-back" onClick={() => navigate('/overview-react')}>Back to Leave Overview</button>}
                 </div>
               </div>
             </div>
@@ -1854,7 +1865,7 @@ export default function RequestLeaveReactPage() {
                 </div>
                 <div className="success-footer">
                   <button type="button" className="btn btn-next" onClick={() => navigate(`${rlBase}/case-detail-new`, { state: submittedCase })}>View Leave Details</button>
-                  {!isMobileRequest && <button type="button" className="btn btn-back" onClick={() => navigate('/overview-react')}>Back to Leave</button>}
+                  {!isMobileRequest && <button type="button" className="btn btn-back" onClick={() => navigate('/overview-react')}>Back to Leave Overview</button>}
                 </div>
               </div>
             </div>
@@ -1931,7 +1942,7 @@ export default function RequestLeaveReactPage() {
                 </div>
                 <div className="success-footer">
                   <button type="button" className="btn btn-next" onClick={() => navigate(`${rlBase}/case-detail-new`, { state: submittedCase })}>View Leave Details</button>
-                  {!isMobileRequest && <button type="button" className="btn btn-back" onClick={() => navigate('/overview-react')}>Back to Leave</button>}
+                  {!isMobileRequest && <button type="button" className="btn btn-back" onClick={() => navigate('/overview-react')}>Back to Leave Overview</button>}
                 </div>
               </div>
             </div>
@@ -2008,7 +2019,7 @@ export default function RequestLeaveReactPage() {
                 </div>
                 <div className="success-footer">
                   <button type="button" className="btn btn-next" onClick={() => navigate(`${rlBase}/case-detail-new`, { state: submittedCase })}>View Leave Details</button>
-                  {!isMobileRequest && <button type="button" className="btn btn-back" onClick={() => navigate('/overview-react')}>Back to Leave</button>}
+                  {!isMobileRequest && <button type="button" className="btn btn-back" onClick={() => navigate('/overview-react')}>Back to Leave Overview</button>}
                 </div>
               </div>
             </div>
@@ -2078,7 +2089,7 @@ export default function RequestLeaveReactPage() {
                 </div>
                 <div className="success-footer">
                   <button type="button" className="btn btn-next" onClick={() => navigate(`${rlBase}/case-detail-new`, { state: submittedCase })}>View Leave Details</button>
-                  {!isMobileRequest && <button type="button" className="btn btn-back" onClick={() => navigate('/overview-react')}>Back to Leave</button>}
+                  {!isMobileRequest && <button type="button" className="btn btn-back" onClick={() => navigate('/overview-react')}>Back to Leave Overview</button>}
                 </div>
               </div>
             </div>
@@ -2148,7 +2159,7 @@ export default function RequestLeaveReactPage() {
                 </div>
                 <div className="success-footer">
                   <button type="button" className="btn btn-next" onClick={() => navigate(`${rlBase}/case-detail-new`, { state: submittedCase })}>View Leave Details</button>
-                  {!isMobileRequest && <button type="button" className="btn btn-back" onClick={() => navigate('/overview-react')}>Back to Leave</button>}
+                  {!isMobileRequest && <button type="button" className="btn btn-back" onClick={() => navigate('/overview-react')}>Back to Leave Overview</button>}
                 </div>
               </div>
             </div>
