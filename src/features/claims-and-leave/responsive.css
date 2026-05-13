@@ -889,16 +889,20 @@
 .cldb-v2-card-header--padded,
 .cldb-v2-card-header--border-bottom {
   padding: 14px 16px 10px;
+  justify-content: center;
+  text-align: center;
 }
 
 .cldb-v2-action-item {
   flex-direction: column;
-  align-items: flex-start;
+  align-items: center;
+  text-align: center;
   padding: 16px;
 }
 
 .cldb-v2-action-cta {
   width: 100%;
+  justify-content: center;
 }
 
 .cldb-v2-action-cta .cldb-v2-btn-outline {
@@ -908,6 +912,10 @@
 
 .cldb-v2-activity-row {
   padding: 12px 16px;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 8px;
 }
 
 .cldb-v2-activity-footer {
@@ -916,6 +924,7 @@
 
 .cldb-v2-leave-body {
   padding: 16px;
+  text-align: center;
 }
 
 .cldb-v2-leave-dates {
@@ -929,6 +938,8 @@
 
 .cldb-v2-ql-row {
   padding: 12px 16px;
+  justify-content: center;
+  text-align: center;
 }
 
 .cldb-v2-eb-body {
