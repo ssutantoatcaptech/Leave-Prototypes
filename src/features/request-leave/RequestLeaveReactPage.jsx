@@ -910,17 +910,16 @@ export default function RequestLeaveReactPage() {
             </div>
             {formState.leaveScenario && reasonDescriptions[formState.leaveScenario] ? (
               <div className="rl-inline-message" style={{ marginTop: 16 }}>
-                <div className="rl-inline-message-icon">
-                  <svg width="22" height="22" viewBox="0 0 22 22" fill="none"><circle cx="11" cy="11" r="11" fill="#105fa8"/><path d="M11 10v5" stroke="#fff" strokeWidth="1.5" strokeLinecap="round"/><circle cx="11" cy="7" r="1" fill="#fff"/></svg>
+                <div className="rl-inline-message-bar">
+                  <div className="rl-inline-message-icon">
+                    <svg width="22" height="22" viewBox="0 0 22 22" fill="none"><circle cx="11" cy="11" r="10" fill="#fff"/><path d="M11 10v5" stroke="#105fa8" strokeWidth="1.6" strokeLinecap="round"/><circle cx="11" cy="7" r="1" fill="#105fa8"/></svg>
+                  </div>
                 </div>
                 <div className="rl-inline-message-body">
                   <span className="rl-inline-message-date">{new Date().toLocaleDateString('en-US', { month: '2-digit', day: '2-digit', year: '2-digit' }).replace(/\//g, '/')}</span>
                   <strong className="rl-inline-message-title">{({ medical_self: "Illness or Injury Selected", medical_family: "Family Care Selected", child: "Birthing Parent Selected", child_nonbirth: "Bonding Leave Selected", military: "Military Leave Selected", other: "Other Leave Selected" })[formState.leaveScenario] || "Selection Made"}</strong>
                   <p className="rl-inline-message-text">{reasonDescriptions[formState.leaveScenario]}</p>
                 </div>
-                <button type="button" className="rl-inline-message-close" aria-label="Dismiss">
-                  <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M2 2l10 10M12 2L2 12" stroke="#5d5d5d" strokeWidth="1.4" strokeLinecap="round"/></svg>
-                </button>
               </div>
             ) : null}
             {formState.leaveScenario === 'other' && (
