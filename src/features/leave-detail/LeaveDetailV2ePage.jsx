@@ -465,7 +465,8 @@ export default function LeaveDetailV2ePage() {
 
             {/* Detail Tabs */}
             <div className="ldb-detail-tabs">
-              <button type="button" className={'ldb-detail-tab' + (detailTab === 'claims' ? ' active' : '')} onClick={function () { setDetailTab('claims'); }}>Claims & Payments</button>
+              <button type="button" className={'ldb-detail-tab' + (detailTab === 'claims' ? ' active' : '')} onClick={function () { setDetailTab('claims'); }}>Claims & Benefits</button>
+              <button type="button" className={'ldb-detail-tab' + (detailTab === 'payments' ? ' active' : '')} onClick={function () { setDetailTab('payments'); }}>Payments</button>
               <button type="button" className={'ldb-detail-tab' + (detailTab === 'about' ? ' active' : '')} onClick={function () { setDetailTab('about'); }}>Leave Details</button>
               <button type="button" className={'ldb-detail-tab' + (detailTab === 'activity' ? ' active' : '')} onClick={function () { setDetailTab('activity'); }}>Activity Log (10)</button>
             </div>
@@ -719,7 +720,89 @@ export default function LeaveDetailV2ePage() {
                 </>
               )}
             </div>
+
+            {/* Additional Benefits */}
+            <div className="ldb-card ldb-additional-benefits">
+              <div className="ldb-additional-benefits-header">
+                <h2 className="ldb-card-title" style={{ marginBottom: 0 }}>Additional Benefits</h2>
+                <svg width="12" height="7" viewBox="0 0 12 7" fill="none" style={{ transform: 'rotate(180deg)' }}><path d="M1 1l5 5 5-5" stroke="#525252" strokeWidth="1.3" strokeLinecap="round" strokeLinejoin="round"/></svg>
+              </div>
+              <div className="ldb-additional-benefits-notice">
+                <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><circle cx="8" cy="8" r="7" fill="#525252"/><path d="M8 7v4M8 5h.01" stroke="#fff" strokeWidth="1.2" strokeLinecap="round"/></svg>
+                <span>You may still need to apply for state benefits on your state site.</span>
+              </div>
+              <div className="ldb-additional-benefits-list">
+                <div className="ldb-additional-benefit-row">
+                  <div className="ldb-additional-benefit-info">
+                    <div className="ldb-additional-benefit-name">CA State Disability Insurance</div>
+                    <div className="ldb-additional-benefit-desc">Apply through your state benefits portal to determine eligibility.</div>
+                  </div>
+                  <div className="ldb-additional-benefit-action">
+                    <span className="ldb-additional-benefit-tag">Potential Payment Source</span>
+                    <button type="button" className="ldb-additional-benefit-btn">Learn More</button>
+                  </div>
+                </div>
+                <div className="ldb-additional-benefit-row">
+                  <div className="ldb-additional-benefit-info">
+                    <div className="ldb-additional-benefit-name">CA Paid Family Leave</div>
+                    <div className="ldb-additional-benefit-desc">May provide wage replacement during family care or bonding time.</div>
+                  </div>
+                  <div className="ldb-additional-benefit-action">
+                    <span className="ldb-additional-benefit-tag">Potential Payment Source</span>
+                    <button type="button" className="ldb-additional-benefit-btn">Learn More</button>
+                  </div>
+                </div>
+              </div>
+            </div>
             </>
+            )}
+
+            {/* Tab: Payments */}
+            {detailTab === 'payments' && (
+            <div className="ldb-card">
+              <h2 className="ldb-card-title">
+                <svg width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M2 4a2 2 0 012-2h8a2 2 0 012 2v8a2 2 0 01-2 2H4a2 2 0 01-2-2V4z" stroke="currentColor" strokeWidth="1.2"/><path d="M5 8h6M8 5v6" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round"/></svg>
+                Payment Summary
+              </h2>
+              <div className="ldb-payments-grid">
+                <div className="ldb-payment-item">
+                  <span className="ldb-payment-label">Total Paid to Date</span>
+                  <span className="ldb-payment-value">$7,893.00</span>
+                </div>
+                <div className="ldb-payment-item">
+                  <span className="ldb-payment-label">Most Recent Payment</span>
+                  <span className="ldb-payment-value">$2,308.00</span>
+                </div>
+                <div className="ldb-payment-item">
+                  <span className="ldb-payment-label">Expected Next Payment</span>
+                  <span className="ldb-payment-value">May 19, 2026</span>
+                </div>
+                <div className="ldb-payment-item">
+                  <span className="ldb-payment-label">Payment Method</span>
+                  <span className="ldb-payment-value">Direct Deposit ****4872</span>
+                </div>
+              </div>
+              <p className="ldb-card-context" style={{ marginTop: 16 }}>Payments from your Group Disability Claim (STD). Paid weekly via direct deposit.</p>
+
+              <h3 style={{ fontSize: 15, fontWeight: 600, color: '#222', marginTop: 28, marginBottom: 12 }}>Payment History</h3>
+              <table className="ldb-activity-table ldb-activity-table--striped" style={{ fontSize: 13 }}>
+                <thead>
+                  <tr>
+                    <th>Date</th>
+                    <th>Amount</th>
+                    <th>Source</th>
+                    <th>Status</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr><td>May 12, 2026</td><td>$2,308.00</td><td>STD (Group Disability)</td><td><span className="ldb-status-pill ldb-status-pill--approved">Paid</span></td></tr>
+                  <tr><td>May 5, 2026</td><td>$2,308.00</td><td>STD (Group Disability)</td><td><span className="ldb-status-pill ldb-status-pill--approved">Paid</span></td></tr>
+                  <tr><td>Apr 28, 2026</td><td>$2,308.00</td><td>STD (Group Disability)</td><td><span className="ldb-status-pill ldb-status-pill--approved">Paid</span></td></tr>
+                  <tr><td>Apr 21, 2026</td><td>$969.00</td><td>STD (Group Disability)</td><td><span className="ldb-status-pill ldb-status-pill--approved">Paid</span></td></tr>
+                  <tr><td>May 19, 2026</td><td>$2,308.00</td><td>STD (Group Disability)</td><td><span className="ldb-status-pill ldb-status-pill--pending">Scheduled</span></td></tr>
+                </tbody>
+              </table>
+            </div>
             )}
 
             {/* Tab: About This Leave */}
