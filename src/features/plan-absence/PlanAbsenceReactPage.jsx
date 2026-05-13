@@ -362,8 +362,14 @@ export default function PlanAbsenceReactPage() {
   const [openAccordion, setOpenAccordion] = useState(null);
   const [showTransitionModal, setShowTransitionModal] = useState(() => searchParams.get('modal') === '1');
   const [showCancelModal, setShowCancelModal] = useState(false);
+  const [showSaveToast, setShowSaveToast] = useState(false);
   const [mobileFilterOpen, setMobileFilterOpen] = useState(false);
   const navigate = useNavigate();
+
+  function handleSaveAndExit() {
+    setShowSaveToast(true);
+    setTimeout(() => setShowSaveToast(false), 5000);
+  }
 
   const timelineRef = useRef(null);
 
@@ -726,7 +732,7 @@ export default function PlanAbsenceReactPage() {
                 </div>
               )}
               <div className="sim-btn-row">
-                <button className="btn btn-cancel-leave" type="button" onClick={() => setShowCancelModal(true)}>Cancel</button>
+                <button className="btn btn-cancel-leave" type="button" onClick={handleSaveAndExit}>Save &amp; Exit</button>
                 <div style={{ display: 'flex', gap: 12 }}>
                   <button className="sim-btn-back" type="button" onClick={goIllnessBack}>&larr; Back</button>
                   <button className="sim-btn-primary" type="button" onClick={goIllnessNext}>Continue &#8594;</button>
@@ -782,7 +788,7 @@ export default function PlanAbsenceReactPage() {
               </div>
 
               <div className="sim-btn-row">
-                <button className="btn btn-cancel-leave" type="button" onClick={() => setShowCancelModal(true)}>Cancel</button>
+                <button className="btn btn-cancel-leave" type="button" onClick={handleSaveAndExit}>Save &amp; Exit</button>
                 <div style={{ display: 'flex', gap: 12 }}>
                   <button className="sim-btn-back" type="button" onClick={goIllnessBack}>&larr; Back</button>
                   <button className="sim-btn-primary" type="button" onClick={goIllnessNext}>See My Coverage &#8594;</button>
@@ -1061,7 +1067,7 @@ export default function PlanAbsenceReactPage() {
                         <svg width="13" height="13" viewBox="0 0 16 16" fill="none"><path d="M2 3h12v10H2V3z" stroke="currentColor" strokeWidth="1.3" strokeLinecap="round" strokeLinejoin="round"/><path d="M2 3l6 5 6-5" stroke="currentColor" strokeWidth="1.3" strokeLinecap="round" strokeLinejoin="round"/></svg>
                         Email Plan
                       </button>
-                      <button type="button" className="dlp-cancel-link" onClick={() => setShowCancelModal(true)}>Cancel</button>
+                      <button type="button" className="dlp-cancel-link" onClick={handleSaveAndExit}>Save &amp; Exit</button>
                     </div>
                   </div>
                 </div>
@@ -1724,7 +1730,7 @@ export default function PlanAbsenceReactPage() {
                 </div>
               )}
               <div className="sim-btn-row">
-                <button className="btn btn-cancel-leave" type="button" onClick={() => setShowCancelModal(true)}>Cancel</button>
+                <button className="btn btn-cancel-leave" type="button" onClick={handleSaveAndExit}>Save &amp; Exit</button>
                 <div style={{ display: 'flex', gap: 12 }}>
                   <button className="sim-btn-back" type="button" onClick={goBack}>&larr; Back</button>
                   <button className="sim-btn-primary" type="button" onClick={goNext}>Continue &#8594;</button>
@@ -1785,7 +1791,7 @@ export default function PlanAbsenceReactPage() {
                 </div>
               </div>
               <div className="sim-btn-row">
-                <button className="btn btn-cancel-leave" type="button" onClick={() => setShowCancelModal(true)}>Cancel</button>
+                <button className="btn btn-cancel-leave" type="button" onClick={handleSaveAndExit}>Save &amp; Exit</button>
                 <div style={{ display: 'flex', gap: 12 }}>
                   <button className="sim-btn-back" type="button" onClick={goBack}>&larr; Back</button>
                   <button className="sim-btn-primary" type="button" onClick={goNext}>See My Coverage &#8594;</button>
@@ -2065,7 +2071,7 @@ export default function PlanAbsenceReactPage() {
                       <svg width="13" height="13" viewBox="0 0 16 16" fill="none"><path d="M2 3h12v10H2V3z" stroke="currentColor" strokeWidth="1.3" strokeLinecap="round" strokeLinejoin="round"/><path d="M2 3l6 5 6-5" stroke="currentColor" strokeWidth="1.3" strokeLinecap="round" strokeLinejoin="round"/></svg>
                       Email Plan
                     </button>
-                    <button type="button" className="dlp-cancel-link" onClick={() => setShowCancelModal(true)}>Cancel</button>
+                    <button type="button" className="dlp-cancel-link" onClick={handleSaveAndExit}>Save &amp; Exit</button>
                   </div>
                 </div>
               </div>
@@ -2250,7 +2256,7 @@ export default function PlanAbsenceReactPage() {
               <div className="wizard-footer">
                 <button className="btn btn-back" type="button" onClick={goBack}>&larr; Back</button>
                 <div style={{ display: 'flex', gap: 12 }}>
-                  <button className="btn btn-cancel-leave" type="button" onClick={() => setShowCancelModal(true)}>Cancel</button>
+                  <button className="btn btn-cancel-leave" type="button" onClick={handleSaveAndExit}>Save &amp; Exit</button>
                   <button className="btn btn-next" type="button" onClick={goNext}>Continue &rarr;</button>
                 </div>
               </div>
@@ -2327,7 +2333,7 @@ export default function PlanAbsenceReactPage() {
               <div className="wizard-footer">
                 <button className="btn btn-back" type="button" onClick={goBack}>&larr; Back</button>
                 <div style={{ display: 'flex', gap: 12 }}>
-                  <button className="btn btn-cancel-leave" type="button" onClick={() => setShowCancelModal(true)}>Cancel</button>
+                  <button className="btn btn-cancel-leave" type="button" onClick={handleSaveAndExit}>Save &amp; Exit</button>
                   <button className="btn btn-next" type="button" onClick={goNext}>Continue &rarr;</button>
                 </div>
               </div>
@@ -2380,7 +2386,7 @@ export default function PlanAbsenceReactPage() {
               <div className="wizard-footer">
                 <button className="btn btn-back" type="button" onClick={goBack}>&larr; Back</button>
                 <div style={{ display: 'flex', gap: 12 }}>
-                  <button className="btn btn-cancel-leave" type="button" onClick={() => setShowCancelModal(true)}>Cancel</button>
+                  <button className="btn btn-cancel-leave" type="button" onClick={handleSaveAndExit}>Save &amp; Exit</button>
                   <button className="btn btn-next" type="button" onClick={goNext}>Continue &rarr;</button>
                 </div>
               </div>
@@ -2413,7 +2419,7 @@ export default function PlanAbsenceReactPage() {
               <div className="wizard-footer">
                 <button className="btn btn-back" type="button" onClick={goBack}>&larr; Back</button>
                 <div style={{ display: 'flex', gap: 12 }}>
-                  <button className="btn btn-cancel-leave" type="button" onClick={() => setShowCancelModal(true)}>Cancel</button>
+                  <button className="btn btn-cancel-leave" type="button" onClick={handleSaveAndExit}>Save &amp; Exit</button>
                   <button className="btn btn-next" type="button" onClick={goNext}>Continue &rarr;</button>
                 </div>
               </div>
@@ -2500,7 +2506,7 @@ export default function PlanAbsenceReactPage() {
               <div className="wizard-footer">
                 <button className="btn btn-back" type="button" onClick={goBack}>&larr; Back</button>
                 <div style={{ display: 'flex', gap: 12 }}>
-                  <button className="btn btn-cancel-leave" type="button" onClick={() => setShowCancelModal(true)}>Cancel</button>
+                  <button className="btn btn-cancel-leave" type="button" onClick={handleSaveAndExit}>Save &amp; Exit</button>
                   <button className="btn btn-next" type="button" onClick={goNext}>Continue &rarr;</button>
                 </div>
               </div>
@@ -2580,7 +2586,7 @@ export default function PlanAbsenceReactPage() {
                 <div className="wizard-footer">
                   <button className="btn btn-back" type="button" onClick={goBack}>&larr; Back</button>
                   <div style={{ display: 'flex', gap: 12 }}>
-                    <button className="btn btn-cancel-leave" type="button" onClick={() => setShowCancelModal(true)}>Cancel</button>
+                    <button className="btn btn-cancel-leave" type="button" onClick={handleSaveAndExit}>Save &amp; Exit</button>
                     <button className="btn btn-next" type="button" style={{ background: '#105fa8' }}>Submit Request</button>
                   </div>
                 </div>
@@ -2700,19 +2706,13 @@ export default function PlanAbsenceReactPage() {
         </div>
       )}
 
-      {showCancelModal && (
-        <div className="pr-modal-backdrop" onClick={() => setShowCancelModal(false)}>
-          <div className="cancel-confirm-modal" onClick={(e) => e.stopPropagation()}>
-            <div className="cancel-confirm-icon">
-              <svg width="28" height="28" viewBox="0 0 24 24" fill="none"><path d="M12 9v4" stroke="#dc2626" strokeWidth="2" strokeLinecap="round"/><circle cx="12" cy="16" r="1" fill="#dc2626"/><path d="M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z" stroke="#dc2626" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/></svg>
-            </div>
-            <h3 className="cancel-confirm-title">Cancel leave plan?</h3>
-            <p className="cancel-confirm-desc">Your progress will not be saved. Are you sure you want to leave?</p>
-            <div className="cancel-confirm-actions-stack">
-              <button type="button" className="btn-cancel-confirm-continue" onClick={() => setShowCancelModal(false)}>Continue Process</button>
-              <button type="button" className="btn-cancel-confirm-discard" onClick={() => navigate('..')}>Discard</button>
-            </div>
-          </div>
+      {showSaveToast && (
+        <div className="rl-toast">
+          <svg width="18" height="18" viewBox="0 0 18 18" fill="none"><circle cx="9" cy="9" r="8" fill="#16a34a"/><path d="M5.5 9l2.5 2.5 4.5-4.5" stroke="#fff" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/></svg>
+          <span>Your progress has been saved. You can resume anytime.</span>
+          <button type="button" className="rl-toast-close" onClick={() => setShowSaveToast(false)}>
+            <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M3 3l8 8M11 3l-8 8" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"/></svg>
+          </button>
         </div>
       )}
 
