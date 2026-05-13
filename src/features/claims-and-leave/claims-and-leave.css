@@ -3995,7 +3995,7 @@
   border: 1.5px solid #dfebf6;
   border-radius: 12px;
   box-shadow: 0 1px 8px rgba(0,0,0,0.08);
-  padding: 20px;
+  padding: 24px;
   overflow: hidden;
 }
 
@@ -4011,11 +4011,11 @@
 }
 
 .cldb-v2-card-header--padded {
-  padding: 16px 20px 12px;
+  padding: 16px 24px 12px;
 }
 
 .cldb-v2-card-header--border-bottom {
-  padding: 16px 20px 12px;
+  padding: 16px 24px 12px;
   border-bottom: 1px solid #f0f0f0;
 }
 
@@ -4048,7 +4048,7 @@
 }
 
 .cldb-v2-actions--padded {
-  padding: 0 20px 20px;
+  padding: 0 24px 24px;
 }
 
 .cldb-v2-action-item {
@@ -4195,7 +4195,7 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 14px 20px;
+  padding: 14px 24px;
   border-bottom: 1px solid #f0f0f0;
   gap: 16px;
 }
@@ -4243,7 +4243,7 @@
 }
 
 .cldb-v2-activity-footer {
-  padding: 14px 20px;
+  padding: 14px 24px;
 }
 
 /* Member filter */
@@ -4276,7 +4276,7 @@
 
 /* Leave request card */
 .cldb-v2-leave-body {
-  padding: 16px 20px 20px;
+  padding: 16px 24px 24px;
 }
 
 .cldb-v2-leave-plan-card {
@@ -4394,7 +4394,7 @@
 }
 
 .cldb-v2-ql-header {
-  padding: 16px 20px;
+  padding: 16px 24px;
   border-bottom: 1px solid #f0f0f0;
 }
 
@@ -4407,7 +4407,7 @@
   display: flex;
   align-items: center;
   gap: 14px;
-  padding: 14px 20px;
+  padding: 14px 24px;
   border: none;
   border-bottom: 1px solid #f0f0f0;
   background: #fff;
@@ -4439,7 +4439,7 @@
 
 /* Enrolled Benefits sidebar */
 .cldb-v2-eb-header {
-  padding: 16px 20px;
+  padding: 16px 24px;
   border-bottom: 1px solid #f0f0f0;
 }
 
