@@ -854,7 +854,7 @@ export default function LeaveDetailV2ePage() {
                         <span style={{ fontSize: 11, fontWeight: 600, color: '#525252', background: '#f0f0f2', padding: '2px 8px', borderRadius: 4 }}>Editing</span>
                       )}
                     </div>
-                    {editingSection === 'schedule' && (
+                    {editingSection === 'schedule' ? (
                       <>
                         <div className="schedule-header-row" style={{ marginBottom: 12 }}>
                           <span className="dt-info-field-label" style={{ marginBottom: 0 }}>Weekly Hours</span>
@@ -882,6 +882,17 @@ export default function LeaveDetailV2ePage() {
                           <button type="button" className="dt-edit-cancel" onClick={function () { setEditingSection(null); }}>Cancel</button>
                         </div>
                       </>
+                    ) : (
+                      <div className="dt-info-grid">
+                        <div>
+                          <div className="dt-info-field-label">Weekly Hours</div>
+                          <div className="dt-info-field-value">{Object.values(scheduleHours).reduce(function (sum, h) { return sum + Number(h || 0); }, 0)} hrs / week</div>
+                        </div>
+                        <div>
+                          <div className="dt-info-field-label">Schedule</div>
+                          <div className="dt-info-field-value">Mon–Fri, 8 hrs/day</div>
+                        </div>
+                      </div>
                     )}
                   </div>
 
