@@ -1688,7 +1688,7 @@ export default function RequestLeaveReactPage() {
             <button type="button" className="btn btn-cancel-leave" onClick={() => setShowCancelModal(true)}>Cancel</button>
           </div>
           <div className="footer-right">
-            <button type="button" className="btn btn-back" onClick={goBack}>← Back</button>
+            <button type="button" className="btn btn-back" onClick={goBack}>Back</button>
             <button type="button" className="btn btn-submit" onClick={submitRequest}>Submit</button>
           </div>
         </div>
@@ -1700,8 +1700,8 @@ export default function RequestLeaveReactPage() {
           <button type="button" className="btn btn-cancel-leave" onClick={() => setShowCancelModal(true)}>Cancel</button>
         </div>
         <div className="footer-right">
-          {currentStepIndex > 0 ? <button type="button" className="btn btn-back" onClick={goBack}>← Back</button> : null}
-          <button type="button" className="btn btn-next" onClick={goNext}>Continue →</button>
+          {currentStepIndex > 0 ? <button type="button" className="btn btn-back" onClick={goBack}>Back</button> : null}
+          <button type="button" className="btn btn-next" onClick={goNext}>Continue</button>
         </div>
         <div className="footer-save-note"><svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M7 1v6l3 3" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round"/><circle cx="7" cy="7" r="6" stroke="currentColor" strokeWidth="1.2"/></svg> All updates saved</div>
       </div>
