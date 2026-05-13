@@ -1598,6 +1598,10 @@
   padding-bottom: 20px;
 }
 
+.mobile-frame-screen .cl-std-sidebar-card--docs .cl-std-sidebar-title {
+  margin-bottom: 12px;
+}
+
 .mobile-frame-screen .cl-std-doc-item {
   flex-direction: column;
   align-items: flex-start;
