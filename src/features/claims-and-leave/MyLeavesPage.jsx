@@ -349,43 +349,7 @@ export default function MyLeavesPage() {
           </tbody>
         </table>
 
-        {/* Mobile card view */}
-        <div className="cl-ml-cards-mobile">
-          {pageData.map((row, i) => (
-            <div key={startIdx + i} className="cl-ml-card-mobile">
-              <div>
-                <div className="cl-ml-card-mobile__type">{row.type}</div>
-                <div className="cl-ml-card-mobile__id">{row.id}</div>
-              </div>
-              <div className="cl-ml-card-mobile__row">
-                <span className="cl-ml-card-mobile__label">Last Update</span>
-                <span className="cl-ml-card-mobile__value">{row.lastUpdate}</span>
-              </div>
-              <div className="cl-ml-card-mobile__row">
-                <span className="cl-ml-card-mobile__label">Status</span>
-                <span className="cl-ml-card-mobile__value">
-                  <span className="cl-ml-status-pill">{row.status}</span>
-                </span>
-              </div>
-              <div className="cl-ml-card-mobile__row">
-                <span className="cl-ml-card-mobile__label">Required Actions</span>
-                <span className="cl-ml-card-mobile__value">{row.requiredActions}</span>
-              </div>
-              <div className="cl-ml-card-mobile__actions">
-                {row.actionType === 'saved' ? (
-                  <>
-                    <button className="cl-ml-card-mobile__action-delete">Delete</button>
-                    <button className="cl-ml-card-mobile__action-link">Resume ›</button>
-                  </>
-                ) : (
-                  <button className="cl-ml-card-mobile__action-link">View Details ›</button>
-                )}
-              </div>
-            </div>
-          ))}
-        </div>
-
-        {/* Pagination */}
+        {/* Pagination (desktop) */}
         <div className="cl-ml-pagination">
           <div className="cl-ml-pagination-controls">
             <button
@@ -422,6 +386,42 @@ export default function MyLeavesPage() {
             Showing {startIdx + 1} to {endIdx} of {totalEntries} entries
           </p>
         </div>
+      </div>
+
+      {/* Mobile card view — outside table card */}
+      <div className="cl-ml-cards-mobile">
+        {pageData.map((row, i) => (
+          <div key={startIdx + i} className="cl-ml-card-mobile">
+            <div>
+              <div className="cl-ml-card-mobile__type">{row.type}</div>
+              <div className="cl-ml-card-mobile__id">{row.id}</div>
+            </div>
+            <div className="cl-ml-card-mobile__row">
+              <span className="cl-ml-card-mobile__label">Last Update</span>
+              <span className="cl-ml-card-mobile__value">{row.lastUpdate}</span>
+            </div>
+            <div className="cl-ml-card-mobile__row">
+              <span className="cl-ml-card-mobile__label">Status</span>
+              <span className="cl-ml-card-mobile__value">
+                <span className="cl-ml-status-pill">{row.status}</span>
+              </span>
+            </div>
+            <div className="cl-ml-card-mobile__row">
+              <span className="cl-ml-card-mobile__label">Required Actions</span>
+              <span className="cl-ml-card-mobile__value">{row.requiredActions}</span>
+            </div>
+            <div className="cl-ml-card-mobile__actions">
+              {row.actionType === 'saved' ? (
+                <>
+                  <button className="cl-ml-card-mobile__action-delete">Delete</button>
+                  <button className="cl-ml-card-mobile__action-link">Resume ›</button>
+                </>
+              ) : (
+                <button className="cl-ml-card-mobile__action-link">View Details ›</button>
+              )}
+            </div>
+          </div>
+        ))}
       </div>
     </div>
   );
