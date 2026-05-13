@@ -1369,6 +1369,10 @@
    STD Claim Detail — Mobile Frame Overrides
    =========================== */
 
+.mobile-frame-screen .cl-std-page {
+  padding: 16px 8px;
+}
+
 .mobile-frame-screen .cl-std-header {
   flex-direction: column;
   gap: 12px;
