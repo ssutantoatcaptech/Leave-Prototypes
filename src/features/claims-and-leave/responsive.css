@@ -1019,8 +1019,14 @@
 }
 
 .cl-ml-btn-new {
-  width: 100%;
-  justify-content: center;
+  background: none;
+  border: none;
+  color: #105fa8;
+  font-size: 14px;
+  font-weight: 600;
+  padding: 0;
+  width: auto;
+  justify-content: flex-start;
 }
 
 /* Enter Time form card */
