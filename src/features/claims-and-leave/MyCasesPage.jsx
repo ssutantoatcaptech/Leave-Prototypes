@@ -173,7 +173,7 @@ export default function MyCasesPage() {
           </div>
         </div>
 
-        {/* Table */}
+        {/* Table — hidden on mobile */}
         <table className="cl-ml-table">
           <thead>
             <tr>
@@ -233,6 +233,63 @@ export default function MyCasesPage() {
             })}
           </tbody>
         </table>
+
+        {/* Mobile card view */}
+        <div className="cl-ml-cards-mobile">
+          {pageData.length === 0 && (
+            <div style={{ textAlign: 'center', padding: '32px 16px', color: '#5d5d5d' }}>No cases match your filters.</div>
+          )}
+          {pageData.map(function (row, i) {
+            return (
+              <div key={startIdx + i} className="cl-ml-card-mobile">
+                <div>
+                  <div className="cl-ml-card-mobile__type">{row.type}</div>
+                  <div className="cl-ml-card-mobile__id">{row.id}</div>
+                </div>
+                <div className="cl-ml-card-mobile__row">
+                  <span className="cl-ml-card-mobile__label">Last Update</span>
+                  <span className="cl-ml-card-mobile__value">{row.lastUpdate}</span>
+                </div>
+                <div className="cl-ml-card-mobile__row">
+                  <span className="cl-ml-card-mobile__label">Status</span>
+                  <span className="cl-ml-card-mobile__value">
+                    <span className="cl-ml-status-pill">{row.status}</span>
+                  </span>
+                </div>
+                <div className="cl-ml-card-mobile__row">
+                  <span className="cl-ml-card-mobile__label">Required Actions</span>
+                  <span className="cl-ml-card-mobile__value">{row.requiredActions || 'N/A'}</span>
+                </div>
+                <div className="cl-ml-card-mobile__actions">
+                  {row.status === 'Saved' ? (
+                    <>
+                      <button className="cl-ml-card-mobile__action-delete" onClick={function () { setDeleteTarget(row); }}>Delete</button>
+                      <button
+                        className="cl-ml-card-mobile__action-link"
+                        onClick={function () {
+                          if (row.linkPath) {
+                            sessionStorage.setItem('viewingCase', JSON.stringify(row));
+                            navigate(base + row.linkPath);
+                          }
+                        }}
+                      >Resume ›</button>
+                    </>
+                  ) : (
+                    <button
+                      className="cl-ml-card-mobile__action-link"
+                      onClick={function () {
+                        if (row.linkPath) {
+                          sessionStorage.setItem('viewingCase', JSON.stringify(row));
+                          navigate(base + row.linkPath);
+                        }
+                      }}
+                    >View Details ›</button>
+                  )}
+                </div>
+              </div>
+            );
+          })}
+        </div>
 
         {/* Pagination */}
         <div className="cl-ml-pagination">
