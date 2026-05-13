@@ -844,12 +844,12 @@
 }
 
 .fc-bg-decoration--bottom-left {
-  left: -120px;
+  left: 0;
   top: 425px;
 }
 
 .fc-bg-decoration--top-right {
-  right: -120px;
+  right: 0;
   top: -115px;
 }
 
