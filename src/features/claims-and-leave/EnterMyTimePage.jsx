@@ -469,11 +469,14 @@ export default function EnterMyTimePage() {
                   <div className="cl-ma-inline-message">
                     <span className="cl-ma-inline-message-icon">
                       <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
-                        <circle cx="12" cy="12" r="10" stroke="#105fa8" strokeWidth="2"/>
-                        <path d="M12 8v4M12 16h.01" stroke="#105fa8" strokeWidth="2" strokeLinecap="round"/>
+                        <circle cx="12" cy="12" r="10" fill="#105fa8"/>
+                        <path d="M12 8v4M12 16h.01" stroke="#fff" strokeWidth="2" strokeLinecap="round"/>
                       </svg>
                     </span>
-                    <span className="cl-ma-inline-message-text">Intermittent leave must be reported within 48 hours of the absence occurring to ensure timely payment.</span>
+                    <div className="cl-ma-inline-message-body">
+                      <span className="cl-ma-inline-message-title">Important</span>
+                      <span className="cl-ma-inline-message-text">Intermittent leave must be reported within 48 hours of the absence occurring to ensure timely payment.</span>
+                    </div>
                   </div>
 
                   {selectedDates.length === 1 && (

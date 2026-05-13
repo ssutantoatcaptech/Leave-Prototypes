@@ -2071,15 +2071,17 @@
   color: #5d5d5d;
 }
 
-/* Inline Message component — Information variant (blue) */
+/* Inline Message component — Information variant (Figma 4304:27969) */
 .cl-ma-inline-message {
   display: flex;
   align-items: flex-start;
   gap: 12px;
   padding: 16px 20px;
-  background: var(--color-notification-info-bg);
-  border: 1px solid var(--color-notification-info-border);
-  border-radius: 8px;
+  background: #ffffff;
+  border: 1px solid #dfebf6;
+  border-left: 4px solid #105fa8;
+  border-radius: 4px;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.08);
   font-family: 'Source Sans Pro', sans-serif;
   font-size: 14px;
   line-height: 1.5;
@@ -2091,7 +2093,21 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  margin-top: 1px;
+  margin-top: 2px;
+}
+
+.cl-ma-inline-message-body {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.cl-ma-inline-message-title {
+  font-family: 'Source Sans Pro', sans-serif;
+  font-weight: 600;
+  font-size: 16px;
+  line-height: 24px;
+  color: #222;
 }
 
 .cl-ma-inline-message-text {
