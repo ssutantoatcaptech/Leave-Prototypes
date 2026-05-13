@@ -918,3 +918,304 @@
     flex-direction: row;
   }
 }
+
+/* =============================================================
+   11. My Leaves / Enter Time Page — Mobile
+   ============================================================= */
+
+.cl-ml-page {
+  padding: 0 16px 40px;
+}
+
+.cl-ml-title {
+  font-size: 28px;
+  line-height: 36px;
+}
+
+.cl-ml-header {
+  flex-direction: column;
+  gap: 16px;
+  margin-bottom: 24px;
+}
+
+.cl-bg-icon {
+  display: none;
+}
+
+.cl-ml-btn-new {
+  width: 100%;
+  justify-content: center;
+}
+
+/* Enter Time form card */
+.cl-ma-form-card {
+  padding: 20px;
+}
+
+.cl-ma-form-actions {
+  flex-direction: column;
+  gap: 10px;
+}
+
+.cl-ma-form-actions button {
+  width: 100%;
+}
+
+.cl-ma-btn-submit,
+.cl-ma-btn-cancel {
+  width: 100%;
+  justify-content: center;
+}
+
+/* Hours display */
+.cl-ma-hours-input {
+  padding: 14px;
+}
+
+.cl-ma-hours-value {
+  font-size: 28px;
+}
+
+/* Calendar */
+.cl-ma-calendar {
+  padding: 12px;
+}
+
+.cl-ma-cal-grid {
+  gap: 2px;
+}
+
+.cl-ma-cal-day {
+  width: 36px;
+  height: 36px;
+  font-size: 13px;
+}
+
+/* Table hidden on mobile — use card view */
+.cl-table-wrap {
+  display: none;
+}
+
+.cl-ma-recent-cards-mobile {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 16px;
+}
+
+/* Sidebar cards */
+.cl-ma-guidance-card,
+.cl-ma-help-card {
+  padding: 20px;
+}
+
+@media (min-width: 769px) {
+  .cl-ml-page {
+    padding: 0 60px 60px;
+  }
+
+  .cl-ml-title {
+    font-size: 40px;
+    line-height: 48px;
+  }
+
+  .cl-ml-header {
+    flex-direction: row;
+    align-items: flex-start;
+    justify-content: space-between;
+    margin-bottom: 48px;
+  }
+
+  .cl-bg-icon {
+    display: block;
+  }
+
+  .cl-ml-btn-new {
+    width: auto;
+  }
+
+  .cl-ma-form-card {
+    padding: 32px;
+  }
+
+  .cl-ma-form-actions {
+    flex-direction: row;
+  }
+
+  .cl-ma-form-actions button {
+    width: auto;
+  }
+
+  .cl-ma-btn-submit,
+  .cl-ma-btn-cancel {
+    width: auto;
+  }
+
+  .cl-ma-hours-input {
+    padding: 17.5px;
+  }
+
+  .cl-ma-hours-value {
+    font-size: 36px;
+  }
+
+  .cl-ma-calendar {
+    padding: 16px;
+  }
+
+  .cl-ma-cal-day {
+    width: 40px;
+    height: 40px;
+    font-size: 14px;
+  }
+
+  .cl-table-wrap {
+    display: block;
+  }
+
+  .cl-ma-recent-cards-mobile {
+    display: none;
+  }
+
+  .cl-ma-guidance-card,
+  .cl-ma-help-card {
+    padding: 24px;
+  }
+}
+
+/* =============================================================
+   12. File Claim Page — Extra Mobile Refinements
+   ============================================================= */
+
+.fc-card {
+  padding: 24px 20px;
+}
+
+.fc-card-title {
+  font-size: 20px;
+}
+
+.fc-card-desc {
+  font-size: 14px;
+}
+
+.fc-subtitle {
+  font-size: 14px;
+}
+
+.fc-content {
+  gap: 32px;
+}
+
+@media (min-width: 769px) {
+  .fc-card {
+    padding: 36px;
+  }
+
+  .fc-card-title {
+    font-size: 24px;
+  }
+
+  .fc-card-desc {
+    font-size: 16px;
+  }
+
+  .fc-subtitle {
+    font-size: 16px;
+  }
+
+  .fc-content {
+    gap: 48px;
+  }
+}
+
+/* =============================================================
+   13. Footer — Mobile
+   ============================================================= */
+
+.cl-footer-inner {
+  padding: 32px 16px;
+}
+
+.cl-footer-grid {
+  grid-template-columns: 1fr;
+  gap: 24px;
+}
+
+.cl-footer-brand {
+  font-size: 20px;
+}
+
+.cl-footer-support-row {
+  flex-direction: column;
+  gap: 12px;
+}
+
+@media (min-width: 769px) {
+  .cl-footer-inner {
+    padding: 48px 60px 40px;
+  }
+
+  .cl-footer-grid {
+    grid-template-columns: 1fr 1fr 1fr 2fr;
+    gap: 40px;
+  }
+
+  .cl-footer-brand {
+    font-size: 24px;
+  }
+
+  .cl-footer-support-row {
+    flex-direction: row;
+    gap: 24px;
+  }
+}
+
+/* =============================================================
+   14. Request Leave — Mobile Refinements
+   ============================================================= */
+
+.request-leave-shell .wizard-card {
+  padding: 20px 16px;
+}
+
+.request-leave-shell .wizard-footer {
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.request-leave-shell .footer-right {
+  width: 100%;
+  justify-content: stretch;
+}
+
+.request-leave-shell .footer-right .btn {
+  flex: 1;
+}
+
+.request-leave-shell .footer-left .btn {
+  width: 100%;
+}
+
+@media (min-width: 769px) {
+  .request-leave-shell .wizard-card {
+    padding: 40px;
+  }
+
+  .request-leave-shell .wizard-footer {
+    flex-wrap: nowrap;
+  }
+
+  .request-leave-shell .footer-right {
+    width: auto;
+    justify-content: flex-end;
+  }
+
+  .request-leave-shell .footer-right .btn {
+    flex: unset;
+  }
+
+  .request-leave-shell .footer-left .btn {
+    width: auto;
+  }
+}
