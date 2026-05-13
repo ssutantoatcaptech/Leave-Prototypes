@@ -72,7 +72,8 @@
   background: #ffffff;
   border-bottom: 1px solid #f0f0f0;
   z-index: 100;
-  position: relative;
+  position: sticky;
+  top: 0;
   overflow: visible;
 }
 
@@ -839,6 +840,7 @@
   height: 1044px;
   opacity: 0.75;
   pointer-events: none;
+  z-index: 0;
 }
 
 .fc-bg-decoration--bottom-left {
@@ -3118,6 +3120,8 @@
   color: #222;
   margin-top: auto;
   border-top: 1.5px solid #dfebf6;
+  position: relative;
+  z-index: 1;
 }
 
 .cl-footer-inner {
