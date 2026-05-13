@@ -23,7 +23,7 @@
   width: 430px;
   height: 900px;
   max-height: 900px;
-  background: #fff;
+  background: #f8fbfd;
   border-radius: 40px;
   box-shadow: 0 0 0 12px #1a1a1a, 0 24px 80px rgba(0, 0, 0, 0.4);
   overflow: hidden;
@@ -163,7 +163,7 @@
 }
 
 .mobile-frame-screen .cl-main {
-  padding: 16px;
+  padding: 16px 8px;
 }
 
 .mobile-frame-screen .cl-footer {

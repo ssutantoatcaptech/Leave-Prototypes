@@ -301,7 +301,7 @@
 /* ----- 4. Page Content Responsive ----- */
 
 .cl-main {
-  padding: 16px;
+  padding: 16px 8px;
   width: 100%;
 }
 
