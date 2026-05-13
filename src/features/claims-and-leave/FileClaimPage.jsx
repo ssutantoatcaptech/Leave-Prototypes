@@ -1,75 +1,108 @@
 import { useNavigate } from 'react-router-dom';
 import useBasePath from './useBasePath';
 
+function EllipseGroup() {
+  return (
+    <>
+      <svg className="fc-ellipse" viewBox="0 0 517 517" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <circle cx="258.1" cy="258.1" r="249.4" stroke="url(#grad1)" strokeWidth="17.56" opacity="0.1"/>
+        <defs>
+          <linearGradient id="grad1" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" stopColor="#105FA6"/>
+            <stop offset="100%" stopColor="#03A0AD"/>
+          </linearGradient>
+        </defs>
+      </svg>
+      <svg className="fc-ellipse" viewBox="0 0 517 517" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <circle cx="258.1" cy="258.1" r="249.4" stroke="url(#grad2)" strokeWidth="17.56" opacity="0.1"/>
+        <defs>
+          <linearGradient id="grad2" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" stopColor="#105FA6"/>
+            <stop offset="100%" stopColor="#03A0AD"/>
+          </linearGradient>
+        </defs>
+      </svg>
+      <svg className="fc-ellipse fc-ellipse--teal" viewBox="0 0 517 517" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <circle cx="258.1" cy="258.1" r="249.4" stroke="url(#grad3)" strokeWidth="17.56" opacity="0.1"/>
+        <defs>
+          <linearGradient id="grad3" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" stopColor="#105FA6"/>
+            <stop offset="100%" stopColor="#03A0AD"/>
+          </linearGradient>
+        </defs>
+      </svg>
+    </>
+  );
+}
+
 export default function FileClaimPage() {
   const navigate = useNavigate();
   const base = useBasePath();
 
   return (
-    <div className="cl-page cl-page--centered">
-      <div className="cl-file-claim-wrap">
-        <h1 className="cl-page-title cl-text-center">How Can We Help You Today?</h1>
-        <p className="cl-page-desc cl-text-center">
-          Choose one of the options below to get started. We'll guide you through each step.
-        </p>
+    <div className="fc-page">
+      {/* Background decorative ellipses - bottom left */}
+      <div className="fc-bg-decoration fc-bg-decoration--bottom-left">
+        <EllipseGroup />
+      </div>
+      {/* Background decorative ellipses - top right */}
+      <div className="fc-bg-decoration fc-bg-decoration--top-right">
+        <EllipseGroup />
+      </div>
 
-        <div className="cl-card-row">
+      <div className="fc-content">
+        <div className="fc-header">
+          <h1 className="fc-title">Get Started Filing a Claim or Requesting a Leave</h1>
+          <p className="fc-subtitle">
+            Select the option that best describes your situation. We'll guide you through the process step-by-step.
+          </p>
+        </div>
+
+        <div className="fc-cards">
           {/* Request a Leave card */}
-          <div className="cl-intro-card">
-            <div className="cl-intro-card-icon">
-              <svg width="32" height="32" viewBox="0 0 32 32" fill="none">
-                <circle cx="16" cy="16" r="16" fill="#0033a0" opacity="0.12"/>
-                <rect x="9" y="10" width="14" height="14" rx="2" stroke="#0033a0" strokeWidth="1.5" fill="none"/>
-                <path d="M12 8v4M20 8v4M9 15h14" stroke="#0033a0" strokeWidth="1.5" strokeLinecap="round"/>
+          <div className="fc-card">
+            <div className="fc-card-icon">
+              <svg width="28" height="28" viewBox="0 0 24 24" fill="var(--color-brand-navy)">
+                <path d="M20 3h-1V1h-2v2H7V1H5v2H4c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 18H4V8h16v13z"/>
               </svg>
             </div>
-            <h2 className="cl-intro-card-title">Request a Leave</h2>
-            <p className="cl-intro-card-desc">
-              Taking time away from work? Start here — whether it's for the birth of a child, your own illness or injury, caring for a family member, military service, or any other job-protected leave.
-            </p>
-            <div className="cl-intro-card-footer">
-              <button className="cl-btn cl-btn--primary" onClick={() => { sessionStorage.removeItem('planTransfer'); sessionStorage.removeItem('requestLeaveReactDraft'); navigate(`${base}/file-claim/request-leave?step=1`); }}>Request Leave</button>
-              <span className="cl-intro-card-meta">Takes about 5-8 minutes</span>
+            <div className="fc-card-body">
+              <h2 className="fc-card-title">Request a Leave</h2>
+              <p className="fc-card-desc">
+                Choose this if you need to request time off work for FMLA, state-mandated leave, or company-sponsored leave programs.
+              </p>
+            </div>
+            <div className="fc-card-footer">
+              <button
+                className="fc-btn-primary"
+                onClick={() => {
+                  sessionStorage.removeItem('planTransfer');
+                  sessionStorage.removeItem('requestLeaveReactDraft');
+                  navigate(`${base}/file-claim/request-leave?step=1`);
+                }}
+              >
+                Start a Leave
+              </button>
+              <span className="fc-card-meta">Takes about 5-8 minutes</span>
             </div>
           </div>
 
           {/* File a Claim card */}
-          <div className="cl-intro-card">
-            <div className="cl-intro-card-icon">
-              <svg width="32" height="32" viewBox="0 0 32 32" fill="none">
-                <circle cx="16" cy="16" r="16" fill="#0033a0" opacity="0.12"/>
-                <path d="M10 8h8l4 4v12a2 2 0 01-2 2H10a2 2 0 01-2-2V10a2 2 0 012-2z" stroke="#0033a0" strokeWidth="1.5" fill="none"/>
-                <path d="M18 8v4h4" stroke="#0033a0" strokeWidth="1.5" fill="none"/>
-                <path d="M12 18h8M12 14h4" stroke="#0033a0" strokeWidth="1.5" strokeLinecap="round"/>
+          <div className="fc-card">
+            <div className="fc-card-icon">
+              <svg width="28" height="28" viewBox="0 0 24 24" fill="var(--color-brand-navy)">
+                <path d="M14 2H6c-1.1 0-1.99.9-1.99 2L4 20c0 1.1.89 2 1.99 2H18c1.1 0 2-.9 2-2V8l-6-6zm2 16H8v-2h8v2zm0-4H8v-2h8v2zm-3-5V3.5L18.5 9H13z"/>
               </svg>
             </div>
-            <h2 className="cl-intro-card-title">File a Claim</h2>
-            <p className="cl-intro-card-desc">
-              Already back at work or not taking time off? Use this to submit a claim for supplemental benefits like accident, critical illness, or hospital indemnity.
-            </p>
-            <div className="cl-intro-card-footer">
-              <button className="cl-btn cl-btn--primary">Start a Claim</button>
-              <span className="cl-intro-card-meta">Takes about 10-15 minutes</span>
+            <div className="fc-card-body">
+              <h2 className="fc-card-title">File a Claim</h2>
+              <p className="fc-card-desc">
+                Choose this if you need to submit a claim for disability, accidental death, critical illness, or hospital indemnity.
+              </p>
             </div>
-          </div>
-
-          {/* Workplace Accommodation card */}
-          <div className="cl-intro-card">
-            <div className="cl-intro-card-icon">
-              <svg width="32" height="32" viewBox="0 0 32 32" fill="none">
-                <circle cx="16" cy="16" r="16" fill="#0033a0" opacity="0.12"/>
-                <path d="M20 21v-1a4 4 0 00-4-4h-2a4 4 0 00-4 4v1" stroke="#0033a0" strokeWidth="1.5" strokeLinecap="round"/>
-                <circle cx="15" cy="11" r="3" stroke="#0033a0" strokeWidth="1.5"/>
-                <path d="M21 14l2 2 3-3" stroke="#0033a0" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
-              </svg>
-            </div>
-            <h2 className="cl-intro-card-title">Workplace Accommodation</h2>
-            <p className="cl-intro-card-desc">
-              Request workplace adjustments or support related to a medical condition or disability. We'll work with you to find the right solution.
-            </p>
-            <div className="cl-intro-card-footer">
-              <button className="cl-btn cl-btn--primary" onClick={() => navigate(`${base}/file-claim/ada-accommodation`)}>Request Accommodation</button>
-              <span className="cl-intro-card-meta">Takes about 10-15 minutes</span>
+            <div className="fc-card-footer">
+              <button className="fc-btn-primary">Start a Claim</button>
+              <span className="fc-card-meta">Takes about 10-15 minutes</span>
             </div>
           </div>
         </div>

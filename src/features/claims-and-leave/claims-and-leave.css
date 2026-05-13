@@ -818,7 +818,212 @@
   text-decoration: underline;
 }
 
-/* File Claim page cards */
+/* File Claim page — redesigned to match Figma node 3742:8319 */
+.fc-page {
+  background: #f8fbfd;
+  min-height: 100vh;
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  padding-top: 100px;
+  padding-bottom: 80px;
+}
+
+.fc-bg-decoration {
+  position: absolute;
+  width: 998px;
+  height: 1044px;
+  opacity: 0.75;
+  pointer-events: none;
+}
+
+.fc-bg-decoration--bottom-left {
+  left: -250px;
+  top: 425px;
+}
+
+.fc-bg-decoration--top-right {
+  right: -250px;
+  top: -115px;
+}
+
+.fc-bg-decoration .fc-ellipse {
+  position: absolute;
+  width: 516px;
+  height: 516px;
+  mix-blend-mode: multiply;
+}
+
+.fc-bg-decoration--bottom-left .fc-ellipse:nth-child(1) {
+  top: 130px;
+  left: 354px;
+  transform: rotate(-14.12deg);
+}
+
+.fc-bg-decoration--bottom-left .fc-ellipse:nth-child(2) {
+  top: 0;
+  left: 0;
+  transform: rotate(-14.12deg);
+}
+
+.fc-bg-decoration--bottom-left .fc-ellipse:nth-child(3) {
+  top: 399px;
+  left: 50px;
+  transform: rotate(-14.12deg);
+}
+
+.fc-bg-decoration--top-right .fc-ellipse:nth-child(1) {
+  top: 130px;
+  left: 354px;
+  transform: rotate(-14.12deg);
+}
+
+.fc-bg-decoration--top-right .fc-ellipse:nth-child(2) {
+  top: 0;
+  left: 0;
+  transform: rotate(-14.12deg);
+}
+
+.fc-bg-decoration--top-right .fc-ellipse:nth-child(3) {
+  top: 399px;
+  left: 50px;
+  transform: rotate(-14.12deg);
+}
+
+.fc-content {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 48px;
+  width: 900px;
+  max-width: 100%;
+  padding: 0 24px;
+}
+
+.fc-header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+  text-align: center;
+}
+
+.fc-title {
+  font-family: var(--font-family-primary);
+  font-size: 40px;
+  font-weight: 700;
+  line-height: 48px;
+  color: var(--color-brand-navy);
+  margin: 0;
+  max-width: 500px;
+}
+
+.fc-subtitle {
+  font-family: var(--font-family-primary);
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 24px;
+  color: #222222;
+  margin: 0;
+  max-width: 637px;
+}
+
+.fc-cards {
+  display: flex;
+  gap: 36px;
+  width: 100%;
+}
+
+.fc-card {
+  flex: 1;
+  background: #ffffff;
+  border: 1px solid #dfebf6;
+  border-radius: 16px;
+  padding: 36px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 24px;
+  box-shadow: 0px 8px 40px rgba(0, 58, 112, 0.1);
+}
+
+.fc-card-icon {
+  width: 64px;
+  height: 64px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  background: #ebf3fa;
+  flex-shrink: 0;
+}
+
+.fc-card-body {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+}
+
+.fc-card-title {
+  font-family: var(--font-family-primary);
+  font-size: 24px;
+  font-weight: 600;
+  line-height: 32px;
+  color: var(--color-brand-navy);
+  margin: 0;
+}
+
+.fc-card-desc {
+  font-family: var(--font-family-primary);
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 24px;
+  color: #5d5d5d;
+  margin: 0;
+  max-width: 390px;
+}
+
+.fc-card-footer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  margin-top: auto;
+}
+
+.fc-btn-primary {
+  font-family: var(--font-family-primary);
+  font-size: 16px;
+  font-weight: 600;
+  line-height: 24px;
+  color: #ffffff;
+  background: var(--color-brand-primary);
+  border: none;
+  border-radius: var(--radius-md);
+  padding: 10px 24px;
+  cursor: pointer;
+  transition: background var(--transition-fast);
+}
+
+.fc-btn-primary:hover {
+  background: var(--color-brand-primary-hover);
+}
+
+.fc-card-meta {
+  font-family: var(--font-family-primary);
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 20px;
+  color: #5d5d5d;
+}
+
+/* Legacy classes kept for other references */
 .cl-file-claim-wrap {
   max-width: 1280px;
   width: 100%;

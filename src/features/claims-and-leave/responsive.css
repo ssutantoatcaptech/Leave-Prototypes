@@ -270,6 +270,24 @@
   justify-content: center;
 }
 
+/* File Claim page responsive */
+.fc-cards {
+  flex-direction: column;
+}
+
+.fc-title {
+  font-size: 28px;
+  line-height: 36px;
+}
+
+.fc-page {
+  padding-top: 48px;
+}
+
+.fc-bg-decoration {
+  display: none;
+}
+
 /* Card rows single column on mobile */
 .cl-card-row {
   grid-template-columns: 1fr;
@@ -332,6 +350,23 @@
 
   .cl-btn--lg {
     width: auto;
+  }
+
+  .fc-cards {
+    flex-direction: row;
+  }
+
+  .fc-title {
+    font-size: 40px;
+    line-height: 48px;
+  }
+
+  .fc-page {
+    padding-top: 100px;
+  }
+
+  .fc-bg-decoration {
+    display: block;
   }
 
   .cl-card-row {
