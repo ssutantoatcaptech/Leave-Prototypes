@@ -1819,7 +1819,7 @@ export default function RequestLeaveReactPage() {
                   </div>
                 </div>
                 <div className="success-enrollment-banner">
-                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="10" stroke="#0369a1" strokeWidth="1.5"/><path d="M12 8v4" stroke="#0369a1" strokeWidth="1.5" strokeLinecap="round"/><circle cx="12" cy="16" r="0.75" fill="#0369a1"/></svg>
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="10" stroke="#105fa8" strokeWidth="1.5"/><path d="M12 8v4" stroke="#105fa8" strokeWidth="1.5" strokeLinecap="round"/><circle cx="12" cy="16" r="0.75" fill="#105fa8"/></svg>
                   <div className="success-enrollment-text">
                     <span>You're enrolled in Hospital Indemnity and may be eligible for additional benefits.</span>
                     <a href="#" className="success-enrollment-link">Learn more →</a>
@@ -1896,7 +1896,7 @@ export default function RequestLeaveReactPage() {
                   </div>
                 </div>
                 <div className="success-enrollment-banner">
-                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="10" stroke="#0369a1" strokeWidth="1.5"/><path d="M12 8v4" stroke="#0369a1" strokeWidth="1.5" strokeLinecap="round"/><circle cx="12" cy="16" r="0.75" fill="#0369a1"/></svg>
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="10" stroke="#105fa8" strokeWidth="1.5"/><path d="M12 8v4" stroke="#105fa8" strokeWidth="1.5" strokeLinecap="round"/><circle cx="12" cy="16" r="0.75" fill="#105fa8"/></svg>
                   <div className="success-enrollment-text">
                     <span>You're enrolled in Hospital Indemnity and may be eligible for additional benefits.</span>
                     <a href="#" className="success-enrollment-link">Learn more →</a>
@@ -1973,7 +1973,7 @@ export default function RequestLeaveReactPage() {
                   </div>
                 </div>
                 <div className="success-enrollment-banner">
-                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="10" stroke="#0369a1" strokeWidth="1.5"/><path d="M12 8v4" stroke="#0369a1" strokeWidth="1.5" strokeLinecap="round"/><circle cx="12" cy="16" r="0.75" fill="#0369a1"/></svg>
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="10" stroke="#105fa8" strokeWidth="1.5"/><path d="M12 8v4" stroke="#105fa8" strokeWidth="1.5" strokeLinecap="round"/><circle cx="12" cy="16" r="0.75" fill="#105fa8"/></svg>
                   <div className="success-enrollment-text">
                     <span>You're enrolled in Hospital Indemnity and may be eligible for additional benefits.</span>
                     <a href="#" className="success-enrollment-link">Learn more →</a>
@@ -2050,7 +2050,7 @@ export default function RequestLeaveReactPage() {
                   </div>
                 </div>
                 <div className="success-enrollment-banner">
-                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="10" stroke="#0369a1" strokeWidth="1.5"/><path d="M12 8v4" stroke="#0369a1" strokeWidth="1.5" strokeLinecap="round"/><circle cx="12" cy="16" r="0.75" fill="#0369a1"/></svg>
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="10" stroke="#105fa8" strokeWidth="1.5"/><path d="M12 8v4" stroke="#105fa8" strokeWidth="1.5" strokeLinecap="round"/><circle cx="12" cy="16" r="0.75" fill="#105fa8"/></svg>
                   <div className="success-enrollment-text">
                     <span>You're enrolled in Hospital Indemnity and may be eligible for additional benefits.</span>
                     <a href="#" className="success-enrollment-link">Learn more →</a>
