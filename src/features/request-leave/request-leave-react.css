@@ -893,11 +893,37 @@
 
 /* === Bordered Section === */
 .bordered-section {
-  border: 1px solid var(--color-border-input);
+  border: 1px solid var(--color-border-card);
   border-radius: 10px;
   padding: 24px;
   margin-top: 20px;
   background: var(--color-bg-card-fill-dark);
+}
+
+.bordered-section input[type='text'],
+.bordered-section input[type='email'],
+.bordered-section input[type='tel'],
+.bordered-section input[type='date'],
+.bordered-section input[type='time'],
+.bordered-section input[type='number'],
+.bordered-section select,
+.bordered-section textarea,
+.bordered-section .select-display,
+.bordered-section .date-input-wrapper input[type='text'] {
+  border-color: #d1d5db;
+}
+
+.bordered-section .date-input-wrapper:hover input[type='text'],
+.bordered-section .select-input-wrapper:hover .select-display {
+  border-color: var(--color-brand-primary);
+}
+
+.bordered-section .schedule-day-box {
+  border-color: #d1d5db;
+}
+
+.bordered-section .schedule-day-box.has-hours {
+  border-color: var(--color-brand-primary);
 }
 
 .section-title {
@@ -1039,7 +1065,7 @@
   align-items: center;
   gap: 4px;
   padding: 6px 14px;
-  border: 1px solid var(--color-border-input);
+  border: 1px solid #d1d5db;
   border-radius: var(--radius-lg);
   font-size: 13px;
   color: var(--color-text-primary);
