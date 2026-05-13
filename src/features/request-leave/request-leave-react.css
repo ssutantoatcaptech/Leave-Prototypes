@@ -1113,7 +1113,7 @@
   color: var(--color-text-tertiary);
 }
 
-.btn {
+.request-leave-shell .btn {
   padding: 0 24px;
   border-radius: var(--radius-full);
   font-size: 14px;
@@ -1129,56 +1129,56 @@
   line-height: 1;
 }
 
-.btn-back,
-.btn-save {
+.request-leave-shell .btn-back,
+.request-leave-shell .btn-save {
   border: 1.5px solid var(--color-button-outline-border);
   background: transparent;
   color: var(--color-button-outline-text);
 }
 
-.btn-back:hover,
-.btn-save:hover {
+.request-leave-shell .btn-back:hover,
+.request-leave-shell .btn-save:hover {
   background: var(--color-button-outline-hover-bg);
 }
 
-.btn-cancel-leave {
+.request-leave-shell .btn-cancel-leave {
   border: 1.5px solid var(--color-button-outline-border);
   background: transparent;
   color: var(--color-button-outline-text);
 }
 
-.btn-cancel-leave:hover {
+.request-leave-shell .btn-cancel-leave:hover {
   background: var(--color-button-outline-hover-bg);
 }
 
-.btn-next,
-.btn-submit {
+.request-leave-shell .btn-next,
+.request-leave-shell .btn-submit {
   border: none;
   background: var(--color-button-primary-bg);
   color: var(--color-button-primary-text);
 }
 
-.btn-next:hover,
-.btn-submit:hover {
+.request-leave-shell .btn-next:hover,
+.request-leave-shell .btn-submit:hover {
   background: var(--color-button-primary-hover);
 }
 
-.btn-next {
+.request-leave-shell .btn-next {
   padding: 0 24px;
 }
 
-.btn-submit {
+.request-leave-shell .btn-submit {
   padding: 0 28px;
 }
 
-.btn-lg {
+.request-leave-shell .btn-lg {
   height: var(--size-button-height-lg);
   padding: 0 36px;
   font-size: 16px;
 }
 
-.btn-next:disabled,
-.btn-submit:disabled {
+.request-leave-shell .btn-next:disabled,
+.request-leave-shell .btn-submit:disabled {
   background: var(--color-border-separator);
   color: var(--color-text-secondary);
   cursor: not-allowed;
