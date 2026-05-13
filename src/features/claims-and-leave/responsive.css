@@ -898,8 +898,7 @@
 }
 
 .cldb-v2-action-title-row {
-  flex-direction: column;
-  align-items: flex-start;
+  flex-wrap: wrap;
   gap: 8px;
 }
 
@@ -920,8 +919,7 @@
 }
 
 .cldb-v2-leave-plan-title-row {
-  flex-direction: column;
-  align-items: flex-start;
+  flex-wrap: wrap;
   gap: 8px;
 }
 

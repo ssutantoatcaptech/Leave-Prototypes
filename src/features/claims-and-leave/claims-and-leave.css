@@ -3122,6 +3122,7 @@
   border-top: 1.5px solid #dfebf6;
   position: relative;
   z-index: 1;
+  text-align: left;
 }
 
 .cl-footer-inner {
