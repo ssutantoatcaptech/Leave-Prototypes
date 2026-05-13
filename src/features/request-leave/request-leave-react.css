@@ -689,6 +689,53 @@
   background-position: center;
 }
 
+/* === Inline Message (left-border variant) === */
+.rl-inline-message {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  background: #fff;
+  border: 1px solid #dfebf6;
+  border-left: 4px solid #105fa8;
+  border-radius: 8px;
+  padding: 16px 20px;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.06);
+}
+
+.rl-inline-message-icon {
+  flex-shrink: 0;
+  margin-top: 1px;
+}
+
+.rl-inline-message-body {
+  flex: 1;
+  min-width: 0;
+}
+
+.rl-inline-message-text {
+  font-size: 14px;
+  font-weight: 500;
+  color: #222;
+  line-height: 1.5;
+  margin: 0;
+}
+
+.rl-inline-message-close {
+  flex-shrink: 0;
+  background: none;
+  border: none;
+  padding: 2px;
+  cursor: pointer;
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.rl-inline-message-close:hover {
+  background: #f0f0f0;
+}
+
 .lt-detail-req-label {
   font-size: 11px;
   font-weight: 600;

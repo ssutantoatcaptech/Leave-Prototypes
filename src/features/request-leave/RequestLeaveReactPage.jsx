@@ -909,8 +909,16 @@ export default function RequestLeaveReactPage() {
               {renderOptionCard('leaveScenario', 'other', 'Other', '', true)}
             </div>
             {formState.leaveScenario && reasonDescriptions[formState.leaveScenario] ? (
-              <div className="lt-context" style={{ marginTop: 16 }}>
-                <p className="lt-context-desc">{reasonDescriptions[formState.leaveScenario]}</p>
+              <div className="rl-inline-message" style={{ marginTop: 16 }}>
+                <div className="rl-inline-message-icon">
+                  <svg width="20" height="20" viewBox="0 0 20 20" fill="none"><circle cx="10" cy="10" r="9" stroke="#105fa8" strokeWidth="1.5"/><path d="M10 9v5" stroke="#105fa8" strokeWidth="1.5" strokeLinecap="round"/><circle cx="10" cy="6.5" r="0.85" fill="#105fa8"/></svg>
+                </div>
+                <div className="rl-inline-message-body">
+                  <p className="rl-inline-message-text">{reasonDescriptions[formState.leaveScenario]}</p>
+                </div>
+                <button type="button" className="rl-inline-message-close" aria-label="Dismiss">
+                  <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M2 2l10 10M12 2L2 12" stroke="#5d5d5d" strokeWidth="1.4" strokeLinecap="round"/></svg>
+                </button>
               </div>
             ) : null}
             {formState.leaveScenario === 'other' && (
