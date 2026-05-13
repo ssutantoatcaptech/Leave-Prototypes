@@ -1417,7 +1417,7 @@ export default function RequestLeaveReactPage() {
           </>
         );
       case 'benefits': {
-        const grayPalette = ['#1e293b', '#475569', '#94a3b8', '#cbd5e1'];
+        const barColors = ['#003a70', '#105fa8', '#007a8a', '#16a34a'];
         const startDate = new Date(`${formState.leaveStartDate}T00:00:00`);
         const endDate = new Date(`${formState.expectedReturnDate}T00:00:00`);
         const addWeeks = (d, w) => { const r = new Date(d); r.setDate(r.getDate() + w * 7); return r; };
@@ -1430,10 +1430,10 @@ export default function RequestLeaveReactPage() {
         const bondEnd = addWeeks(bondStart, eligibility.companyBonding.weeks);
 
         const benefitBars = [
-          eligibility.fmla.eligible ? { label: 'FMLA', color: grayPalette[0], weeks: eligibility.fmla.weeks, pay: 'Job-protected, unpaid', startDate: startDate, endDate: fmlaEnd, note: 'Runs concurrently with paid benefits' } : null,
-          eligibility.std.eligible ? { label: 'Short-Term Disability', color: grayPalette[1], weeks: eligibility.std.weeks, pay: `${planConfig.std.percentPay}% of salary`, startDate: stdStart, endDate: stdEnd, note: `${planConfig.std.waitingDays}-day waiting period before benefits begin` } : null,
-          eligibility.statePFL.eligible ? { label: `${planConfig.statePFL.state} Paid Family Leave`, color: grayPalette[2], weeks: eligibility.statePFL.weeks, pay: `${planConfig.statePFL.percentPay}% of avg weekly wage`, startDate: startDate, endDate: pflEnd, note: 'Concurrent with FMLA' } : null,
-          eligibility.companyBonding.eligible ? { label: 'Company Bonding', color: grayPalette[3], weeks: eligibility.companyBonding.weeks, pay: `${planConfig.companyBonding.percentPay}% of salary`, startDate: bondStart, endDate: bondEnd, note: 'After medical recovery period' } : null,
+          eligibility.fmla.eligible ? { label: 'FMLA', color: barColors[0], weeks: eligibility.fmla.weeks, pay: 'Job-protected, unpaid', startDate: startDate, endDate: fmlaEnd, note: 'Runs concurrently with paid benefits' } : null,
+          eligibility.std.eligible ? { label: 'Short-Term Disability', color: barColors[1], weeks: eligibility.std.weeks, pay: `${planConfig.std.percentPay}% of salary`, startDate: stdStart, endDate: stdEnd, note: `${planConfig.std.waitingDays}-day waiting period before benefits begin` } : null,
+          eligibility.statePFL.eligible ? { label: `${planConfig.statePFL.state} Paid Family Leave`, color: barColors[2], weeks: eligibility.statePFL.weeks, pay: `${planConfig.statePFL.percentPay}% of avg weekly wage`, startDate: startDate, endDate: pflEnd, note: 'Concurrent with FMLA' } : null,
+          eligibility.companyBonding.eligible ? { label: 'Company Bonding', color: barColors[3], weeks: eligibility.companyBonding.weeks, pay: `${planConfig.companyBonding.percentPay}% of salary`, startDate: bondStart, endDate: bondEnd, note: 'After medical recovery period' } : null,
         ].filter(Boolean);
 
         const totalWeeks = Math.max(...benefitBars.map((b) => b.weeks), 0);
@@ -1446,50 +1446,82 @@ export default function RequestLeaveReactPage() {
         const months = [];
         for (let i = 0; i < 8; i++) { months.push(monthNames[(startMonth + i) % 12]); }
 
+        const weekCount = Math.ceil(totalWeeks) + 2;
+        const weeksArr = Array.from({ length: weekCount }, (_, i) => i + 1);
+
         return (
           <>
             <h2>Your estimated leave benefits</h2>
             <p className="subtitle">Based on the information you've provided, here's an estimate of the benefits you may be eligible for. This is not a guarantee - final determination is made after review.</p>
 
-            {/* Timeline */}
-            <div className="eb-card">
-              <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 6 }}>
-                <h3 className="eb-card-title">Leave Timeline <span className="eb-card-badge">ESTIMATE</span></h3>
+            {/* Coverage Timeline \u2014 matches leave detail pattern */}
+            <div className="eb-card eb-timeline-wrap">
+              <div className="eb-section-header">
+                <div>
+                  <h3>Coverage Timeline</h3>
+                  <p>How your benefits provide protection and income over time</p>
+                </div>
+                <span className="eb-card-badge">ESTIMATE</span>
               </div>
-              <p className="eb-hover-hint eb-card-subtitle">Hover over a benefit to see details. <strong>All dates, durations, and pay figures shown are <em>estimates only</em></strong>.</p>
-              <p className="eb-tap-hint eb-card-subtitle">Tap a benefit bar to see details. <strong>All dates, durations, and pay figures shown are <em>estimates only</em></strong>.</p>
 
-              <div className="timeline-body" style={{ padding: 0 }}>
-                <div className="timeline-axis">{months.map((m) => <span key={m}>{m}</span>)}</div>
-                <div className="timeline-bars">
-                  {benefitBars.map((bar, idx) => (
-                    <div key={bar.label} className="timeline-bar-row eb-bar-row" style={{ position: 'relative' }}
-                      onMouseEnter={() => setHoveredBenefitBar(idx)}
-                      onMouseLeave={() => setHoveredBenefitBar(null)}
-                      onClick={() => setExpandedBenefitBar(expandedBenefitBar === idx ? null : idx)}
-                    >
-                      <div className="timeline-bar-label">{bar.label}</div>
-                      <div className="timeline-bar-track" style={{ borderRadius: 999 }}>
-                        <div className="timeline-bar-fill" style={{ width: `${Math.min((bar.weeks / maxSpan) * 100, 100)}%`, borderRadius: 999, background: bar.color }}>{bar.label} {bar.weeks}wk</div>
-                      </div>
-                      {hoveredBenefitBar === idx && (
-                        <div className="eb-tooltip">
-                          <div className="eb-tooltip-title">{bar.label}</div>
-                          <div className="eb-tooltip-row"><span>Duration</span><span>{bar.weeks} weeks</span></div>
-                          <div className="eb-tooltip-row"><span>Dates</span><span>{shortDate(bar.startDate.toISOString().slice(0, 10))} to {shortDate(bar.endDate.toISOString().slice(0, 10))}</span></div>
-                          <div className="eb-tooltip-row"><span>Pay</span><span>{bar.pay}</span></div>
-                          {bar.note && <div className="eb-tooltip-note">{bar.note}</div>}
+              <p className="eb-hover-hint eb-helper">Hover over a benefit to see details.</p>
+              <p className="eb-tap-hint eb-helper">Tap a row to see details</p>
+
+              <div className="eb-tl-chart">
+                <div className="eb-tl-weeks-row">
+                  <div className="eb-tl-label-spacer"></div>
+                  <div className="eb-tl-months">
+                    {months.slice(0, Math.ceil(weekCount / 4) + 1).map((m) => <span key={m}>{m}</span>)}
+                  </div>
+                </div>
+                <div className="eb-tl-weeks-row">
+                  <div className="eb-tl-label-spacer"></div>
+                  <div className="eb-tl-weeks">
+                    {weeksArr.map((w) => <div key={w} className="eb-tl-week-tick"><span>{w}</span></div>)}
+                  </div>
+                </div>
+                <div className="eb-tl-rows-wrap">
+                  <div className="eb-tl-rows">
+                    {benefitBars.map((bar, idx) => (
+                      <button
+                        key={bar.label}
+                        type="button"
+                        className={`eb-tl-row${hoveredBenefitBar === idx ? ' active' : ''}`}
+                        onMouseEnter={() => setHoveredBenefitBar(idx)}
+                        onMouseLeave={() => setHoveredBenefitBar(null)}
+                        onClick={() => setExpandedBenefitBar(expandedBenefitBar === idx ? null : idx)}
+                      >
+                        <div className="eb-tl-row-label">{bar.label}</div>
+                        <div className="eb-tl-row-bar">
+                          <div className="eb-tl-seg" style={{ left: '0%', width: `${Math.min((bar.weeks / weekCount) * 100, 100)}%`, background: bar.color }}>{bar.weeks} wk</div>
                         </div>
-                      )}
+                      </button>
+                    ))}
+                  </div>
+
+                  {/* Desktop tooltip on hover */}
+                  {hoveredBenefitBar !== null && benefitBars[hoveredBenefitBar] && (
+                    <div className="eb-coverage-tooltip">
+                      <div className="eb-coverage-tooltip-head">
+                        <div className="title">{benefitBars[hoveredBenefitBar].label}</div>
+                      </div>
+                      <div className="eb-coverage-tooltip-grid">
+                        <div><div className="label">DURATION</div><div className="value">{benefitBars[hoveredBenefitBar].weeks} weeks</div></div>
+                        <div><div className="label">DATES</div><div className="value">{shortDate(benefitBars[hoveredBenefitBar].startDate.toISOString().slice(0, 10))} \u2013 {shortDate(benefitBars[hoveredBenefitBar].endDate.toISOString().slice(0, 10))}</div></div>
+                        <div><div className="label">PAY</div><div className="value">{benefitBars[hoveredBenefitBar].pay}</div></div>
+                        <div><div className="label">STATUS</div><div className="value">Estimated</div></div>
+                      </div>
+                      {benefitBars[hoveredBenefitBar].note && <div className="eb-coverage-tooltip-note">{benefitBars[hoveredBenefitBar].note}</div>}
                     </div>
-                  ))}
+                  )}
                 </div>
-                <div className="timeline-legend">
-                  {benefitBars.map((bar) => <div key={bar.label} className="timeline-legend-item"><span className="timeline-legend-dot" style={{ background: bar.color }}/>{bar.label}</div>)}
+
+                <div className="eb-tl-legend">
+                  {benefitBars.map((bar) => <div key={bar.label} className="eb-tl-legend-item"><span className="eb-tl-legend-dot" style={{ background: bar.color }}/>{bar.label}</div>)}
                 </div>
               </div>
 
-              {/* Mobile accordion \u2014 shown when a bar is tapped */}
+              {/* Mobile accordion */}
               {expandedBenefitBar !== null && benefitBars[expandedBenefitBar] && (
                 <div className="eb-accordion">
                   <div className="eb-accordion-header">
@@ -1508,7 +1540,6 @@ export default function RequestLeaveReactPage() {
                   {benefitBars[expandedBenefitBar].note && <div className="eb-accordion-note">{benefitBars[expandedBenefitBar].note}</div>}
                 </div>
               )}
-
             </div>
 
             {/* Coverage summary */}
