@@ -466,23 +466,14 @@ export default function EnterMyTimePage() {
                     </div>
                   )}
 
-                  <div className="cl-ma-warning">
-                    <span className="cl-ma-warning-icon">
-                      <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
-                        <path d="M12 3L2 21h20L12 3z" fill="#c4710e" stroke="#c4710e" strokeWidth="1" strokeLinejoin="round"/>
-                        <path d="M12 10v4" stroke="#fff" strokeWidth="2" strokeLinecap="round"/>
-                        <circle cx="12" cy="17" r="1" fill="#fff"/>
+                  <div className="cl-ma-inline-message">
+                    <span className="cl-ma-inline-message-icon">
+                      <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+                        <circle cx="12" cy="12" r="10" stroke="#105fa8" strokeWidth="2"/>
+                        <path d="M12 8v4M12 16h.01" stroke="#105fa8" strokeWidth="2" strokeLinecap="round"/>
                       </svg>
                     </span>
-                    <div style={{ flex: 1, paddingRight: '20px' }}>
-                      <p className="cl-ma-warning-title">Important</p>
-                      <span className="cl-ma-warning-body">Intermittent leave must be reported within 48 hours of the absence occurring to ensure timely payment.</span>
-                    </div>
-                    <button type="button" className="cl-ma-warning-close" aria-label="Dismiss">
-                      <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
-                        <path d="M4 4l8 8M12 4l-8 8" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"/>
-                      </svg>
-                    </button>
+                    <span className="cl-ma-inline-message-text">Intermittent leave must be reported within 48 hours of the absence occurring to ensure timely payment.</span>
                   </div>
 
                   {selectedDates.length === 1 && (
