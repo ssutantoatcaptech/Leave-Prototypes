@@ -2336,11 +2336,11 @@ export default function RequestLeaveReactPage() {
       {showSaveToast && (
         <div className="rl-toast">
           <div className="rl-toast-icon">
-            <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M13.5 4.5l-6.5 7-3.5-3.5" stroke="#fff" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/></svg>
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="10" stroke="var(--color-brand-primary)" strokeWidth="2"/><path d="M12 8v4M12 16h.01" stroke="var(--color-brand-primary)" strokeWidth="2" strokeLinecap="round"/></svg>
           </div>
           <span className="rl-toast-text">Your progress has been saved. You can resume this request anytime from <a href={`${rlBase}/my-leaves`} className="rl-toast-link">My Leaves</a>.</span>
           <button className="rl-toast-close" onClick={() => setShowSaveToast(false)} aria-label="Dismiss">
-            <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M3 3l8 8M11 3l-8 8" stroke="#fff" strokeWidth="1.5" strokeLinecap="round"/></svg>
+            <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M3 3l8 8M11 3l-8 8" stroke="var(--color-text-secondary)" strokeWidth="1.5" strokeLinecap="round"/></svg>
           </button>
         </div>
       )}

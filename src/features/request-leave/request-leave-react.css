@@ -3098,7 +3098,7 @@
   border-top: 1px solid var(--color-border-input);
 }
 
-/* Save & Exit Toast — DS Notification Success */
+/* Save & Exit Toast — DS Inline Message */
 .rl-toast {
   position: fixed;
   bottom: 24px;
@@ -3108,12 +3108,13 @@
   display: flex;
   align-items: center;
   gap: 12px;
-  padding: 14px 20px;
-  background: var(--color-notification-success-bg);
-  border: 1px solid var(--color-notification-success-border);
+  padding: 16px 20px;
+  background: var(--color-bg-card);
+  border: 1px solid var(--color-border-input);
+  border-top: 3px solid var(--color-brand-primary);
   border-radius: var(--radius-lg);
   box-shadow: var(--shadow-xl);
-  color: #ffffff;
+  color: var(--color-text-primary);
   font-size: 14px;
   font-family: var(--font-family-primary);
   line-height: 1.4;
@@ -3132,23 +3133,22 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  background: rgba(255, 255, 255, 0.2);
-  border-radius: 50%;
   flex-shrink: 0;
 }
 
 .rl-toast-text {
   flex: 1;
+  color: var(--color-text-primary);
 }
 
 .rl-toast-link {
-  color: #ffffff;
+  color: var(--color-text-link);
   text-decoration: underline;
   font-weight: 600;
 }
 
 .rl-toast-link:hover {
-  opacity: 0.9;
+  color: var(--color-text-link-hover);
 }
 
 .rl-toast-close {
@@ -3160,12 +3160,10 @@
   border: none;
   background: none;
   cursor: pointer;
-  opacity: 0.7;
   border-radius: var(--radius-sm);
   flex-shrink: 0;
 }
 
 .rl-toast-close:hover {
-  opacity: 1;
-  background: rgba(255, 255, 255, 0.15);
+  background: var(--color-bg-muted);
 }
