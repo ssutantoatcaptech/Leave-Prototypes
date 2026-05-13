@@ -325,8 +325,11 @@ export default function EnterMyTimePage() {
                       className="cl-ma-case-select"
                       onClick={function () { setCaseOpen(!caseOpen); }}
                     >
-                      <span>{selectedCase.label}</span>
-                      <svg width="14" height="8" viewBox="0 0 14 8" fill="none"><path d="M1 1l6 6 6-6" stroke="#6b7280" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/></svg>
+                      <span style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                        <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M2 7l3.5 3.5L12 4" stroke="#10b981" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/></svg>
+                        <span>{selectedCase.label}</span>
+                      </span>
+                      <svg width="8" height="12" viewBox="0 0 8 12" fill="none"><path d="M1.5 1l5 5-5 5" stroke="#6b7280" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/></svg>
                     </button>
                     {caseOpen && (
                       <div className="cl-ma-dropdown-menu cl-ma-case-menu">
@@ -521,8 +524,11 @@ export default function EnterMyTimePage() {
                       className="cl-ma-dropdown"
                       onClick={function () { setReasonOpen(!reasonOpen); }}
                     >
-                      <span>{reason}</span>
-                      <svg width="10" height="6" viewBox="0 0 10 6" fill="none"><path d="M1 1l4 4 4-4" stroke="#6b7280" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/></svg>
+                      <span style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                        <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M2 7l3.5 3.5L12 4" stroke="#10b981" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/></svg>
+                        <span>{reason}</span>
+                      </span>
+                      <svg width="8" height="12" viewBox="0 0 8 12" fill="none"><path d="M1.5 1l5 5-5 5" stroke="#6b7280" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/></svg>
                     </button>
                     {reasonOpen && (
                       <div className="cl-ma-dropdown-menu">
@@ -575,12 +581,12 @@ export default function EnterMyTimePage() {
                 <thead>
                   <tr>
                     <th>Date</th>
-                    <th>Start Time</th>
-                    <th>End Time</th>
+                    <th>Start</th>
+                    <th>End</th>
                     <th>Hours</th>
                     <th>Reason</th>
-                    <th>Added On</th>
-                    <th></th>
+                    <th>Status</th>
+                    <th>Action</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -589,6 +595,7 @@ export default function EnterMyTimePage() {
                   )}
                   {filteredAbsences.map(function (row, i) {
                     var isNew = row.entryKey && newEntryKey && row.entryKey.startsWith(newEntryKey);
+                    var rowStatus = isNew ? 'Submitted' : 'Approved';
                     if (editingIndex === i) {
                       return (
                         <tr key={i} className="cl-ma-row--editing">
@@ -601,7 +608,7 @@ export default function EnterMyTimePage() {
                               {REASONS.map(function (r) { return <option key={r.value} value={r.value}>{r.value}</option>; })}
                             </select>
                           </td>
-                          <td>{row.addedOn}</td>
+                          <td>{rowStatus}</td>
                           <td>
                             <div className="cl-ma-inline-actions">
                               <button type="button" className="cl-ma-inline-save" onClick={function () { saveEdit(i); }}>Save</button>
@@ -620,17 +627,11 @@ export default function EnterMyTimePage() {
                         <td>{row.startTime}</td>
                         <td>{row.endTime}</td>
                         <td className="cl-ma-cell-bold">{row.hours}</td>
+                        <td>{row.reason}</td>
+                        <td>{rowStatus}</td>
                         <td>
-                          <span className={'cl-ma-reason-badge cl-ma-reason-badge--' + (row.reason === 'Episode' ? 'active' : 'inactive')}>
-                            {row.reason}
-                          </span>
-                        </td>
-                        <td>{row.addedOn}</td>
-                        <td>
-                          <button className="cl-ma-edit-btn" aria-label="Edit" onClick={function () { startEdit(i); }}>
-                            <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
-                              <path d="M10.5 1.5l2 2-8 8H2.5v-2l8-8z" stroke="#6b7280" strokeWidth="1.2" strokeLinecap="round" strokeLinejoin="round"/>
-                            </svg>
+                          <button className="cl-ma-edit-btn" onClick={function () { startEdit(i); }} style={{ background: 'none', border: 'none', cursor: 'pointer', fontFamily: "'Source Sans Pro', sans-serif", fontSize: '14px', color: '#222' }}>
+                            {isNew ? 'Edit' : 'View'}
                           </button>
                         </td>
                       </tr>

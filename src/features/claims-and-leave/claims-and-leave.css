@@ -616,21 +616,22 @@
 
 .cl-table thead {
   background: #f8fbfd;
+  height: 60px;
 }
 
 .cl-table th {
-  padding: 14px 16px;
+  padding: 20px 24px;
   text-align: left;
   font-weight: 600;
-  font-size: 12px;
-  text-transform: uppercase;
-  letter-spacing: 0.36px;
-  color: #444;
+  font-size: 14px;
+  text-transform: none;
+  letter-spacing: 0;
+  color: #222;
   border-bottom: 1px solid #f0f0f0;
 }
 
 .cl-table td {
-  padding: 18px 16px;
+  padding: 20px 24px;
   border-bottom: 1px solid #f0f0f0;
   color: #222;
   font-size: 14px;
@@ -1724,11 +1725,11 @@
 }
 
 .cl-ma-form-card {
-  background: #ffffff;
+  background: #fbfbfb;
   border: 1.5px solid #dfebf6;
   border-radius: 12px;
   padding: 32px;
-  box-shadow: 0px 1px 8px rgba(0, 0, 0, 0.08);
+  box-shadow: 0px 1px 4px rgba(0, 0, 0, 0.08);
 }
 
 .cl-ma-form-grid {
@@ -1770,21 +1771,9 @@
   letter-spacing: 0.36px;
 }
 
-.cl-ma-case-select {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 16px;
-  background: #f8faf9;
-  border: 1px solid #e5e7eb;
-  border-radius: 12px;
-  font-size: 16px;
-  color: #111827;
-  cursor: pointer;
-}
 
 .cl-ma-calendar {
-  background: #ffffff;
+  background: #fbfbfb;
   border: 1.5px solid #dfebf6;
   border-radius: 12px;
   padding: 16px;
@@ -1800,8 +1789,8 @@
 .cl-ma-cal-nav {
   width: 32px;
   height: 32px;
-  border: 1px solid #e4e4e4;
-  background: #ffffff;
+  border: 1px solid #dfebf6;
+  background: #fbfbfb;
   cursor: pointer;
   font-size: 18px;
   color: #222;
@@ -2017,10 +2006,11 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 12px 16px;
+  padding: 8px 12px;
   background: #ffffff;
-  border: 1.5px solid #dfebf6;
-  border-radius: 8px;
+  border: none;
+  border-bottom: 1px solid #f0f0f0;
+  border-radius: 0;
   font-family: 'Source Sans Pro', sans-serif;
   font-size: 14px;
   font-weight: 400;
@@ -2028,6 +2018,7 @@
   cursor: pointer;
   width: 100%;
   text-align: left;
+  height: 45px;
 }
 
 .cl-ma-case-menu {
@@ -2059,8 +2050,8 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 16px;
-  background: #f8fbfd;
+  padding: 17.5px;
+  background: #f5f5f5;
   border: 1.5px solid #dfebf6;
   border-radius: 8px;
   height: 65px;
@@ -2086,7 +2077,7 @@
   gap: 14px;
   padding: 16px 20px;
   background: #fdf8ef;
-  border: 1px solid #f5e6cc;
+  border: 1px solid #e4e4e4;
   border-left: 5px solid #c4710e;
   border-radius: 8px;
   font-family: 'Source Sans Pro', sans-serif;
@@ -2160,7 +2151,7 @@
 }
 
 .cl-ma-time-input {
-  padding: 12px 16px;
+  padding: 8px 12px;
   background: #ffffff;
   border: 1.5px solid #dfebf6;
   border-radius: 8px;
@@ -2171,6 +2162,7 @@
   width: 100%;
   box-sizing: border-box;
   outline: none;
+  height: 45px;
 }
 
 .cl-ma-time-input:focus {
@@ -2183,16 +2175,18 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 12px 16px;
+  padding: 8px 12px;
   background: #ffffff;
-  border: 1.5px solid #dfebf6;
-  border-radius: 8px;
+  border: none;
+  border-bottom: 1px solid #f0f0f0;
+  border-radius: 0;
   font-family: 'Source Sans Pro', sans-serif;
   font-size: 14px;
   font-weight: 400;
   color: #222;
   cursor: pointer;
   width: 100%;
+  height: 45px;
 }
 
 .cl-ma-dropdown-menu {
@@ -2323,7 +2317,7 @@
 
 /* Recent Logged Absences card */
 .cl-ma-recent-card {
-  background: #ffffff;
+  background: #fbfbfb;
   border: 1.5px solid #dfebf6;
   border-radius: 12px;
   overflow: hidden;
@@ -2530,7 +2524,7 @@
   color: #5d5d5d;
   margin-bottom: 10px;
   padding: 6px 10px;
-  background: #f8fbfd;
+  background: #f5f5f5;
   border-radius: 6px;
 }
 
@@ -2879,7 +2873,7 @@
 
 /* Reporting Guidance card */
 .cl-ma-guidance-card {
-  background: #f8fbfd;
+  background: #f5f5f5;
   border: 1.5px solid #dfebf6;
   border-radius: 12px;
   padding: 24px;
@@ -2933,8 +2927,8 @@
   content: '';
   width: 6px;
   height: 6px;
-  border-radius: 50%;
-  background: #105fa8;
+  border-radius: 3px;
+  background: #dfebf6;
   display: block;
 }
 
@@ -2959,11 +2953,11 @@
 
 /* Need Help card */
 .cl-ma-help-card {
-  background: #ffffff;
+  background: #fbfbfb;
   border: 1.5px solid #dfebf6;
   border-radius: 12px;
   padding: 24px;
-  box-shadow: 0px 1px 8px rgba(0, 0, 0, 0.08);
+  box-shadow: 0px 1px 4px rgba(0, 0, 0, 0.08);
 }
 
 .cl-ma-help-title {
@@ -2984,7 +2978,7 @@
 .cl-ma-help-icon {
   width: 40px;
   height: 40px;
-  background: #f8fbfd;
+  background: #f5f5f5;
   border: 1.5px solid #dfebf6;
   border-radius: 50%;
   display: flex;
@@ -3016,7 +3010,7 @@
 .cl-ma-message-btn {
   width: 100%;
   padding: 10px;
-  background: #ffffff;
+  background: #fbfbfb;
   border: 1.5px solid #dfebf6;
   border-radius: 8px;
   font-family: 'Source Sans Pro', sans-serif;
