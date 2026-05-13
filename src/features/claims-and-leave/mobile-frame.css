@@ -235,7 +235,9 @@
 }
 
 .mobile-frame-screen .cl-ml-header {
-  flex-direction: column;
+  flex-direction: row;
+  align-items: flex-start;
+  justify-content: space-between;
   gap: 16px;
   margin-bottom: 24px;
 }
