@@ -94,6 +94,14 @@
   display: none;
 }
 
+.mobile-frame-screen .cl-header-lang {
+  display: none;
+}
+
+.mobile-frame-screen .cl-header-icon-label {
+  display: none;
+}
+
 .mobile-frame-screen .cl-hamburger {
   display: flex;
   color: #003a70;
@@ -149,6 +157,10 @@
   border-bottom: none;
 }
 
+.mobile-frame-screen .cl-brand-bar {
+  display: none;
+}
+
 .mobile-frame-screen .cl-subnav {
   display: none;
 }
@@ -170,6 +182,29 @@
   display: flex;
 }
 
+/* My Leaves / My Cases: hide table, show mobile cards */
+.mobile-frame-screen .cl-ml-table-card .cl-ml-table {
+  display: none;
+}
+
+.mobile-frame-screen .cl-ml-cards-mobile {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding: 16px;
+}
+
+.mobile-frame-screen .cl-ml-table-card {
+  border-radius: 12px;
+  border: none;
+  box-shadow: none;
+  overflow: visible;
+}
+
+.mobile-frame-screen .cl-ml-table-card .cl-ml-pagination {
+  padding: 12px 0;
+}
+
 /* Filter bar stacks */
 .mobile-frame-screen .cl-filter-bar {
   flex-direction: column;
@@ -182,6 +217,21 @@
   width: 100%;
 }
 
+/* My Leaves / Claims Center filters stack */
+.mobile-frame-screen .cl-ml-filters {
+  flex-direction: column;
+  align-items: stretch;
+  gap: 12px;
+  padding: 16px 0;
+}
+
+.mobile-frame-screen .cl-ml-filter-select {
+  width: 100%;
+  min-width: unset;
+  min-height: 44px;
+  padding: 12px 36px 12px 12px;
+}
+
 /* Page header stacks */
 .mobile-frame-screen .cl-page-header {
   flex-direction: column;
@@ -189,18 +239,79 @@
   gap: 12px;
 }
 
-/* Category tabs: show dropdown, hide tabs in mobile frame */
+/* My Leaves page header stacks */
+.mobile-frame-screen .cl-ml-page {
+  padding: 0 16px 40px;
+}
+
+.mobile-frame-screen .cl-ml-header {
+  flex-direction: column;
+  gap: 16px;
+  margin-bottom: 24px;
+}
+
+.mobile-frame-screen .cl-ml-title {
+  font-size: 28px;
+  line-height: 36px;
+}
+
+.mobile-frame-screen .cl-ml-btn-new {
+  width: 100%;
+  justify-content: center;
+}
+
+.mobile-frame-screen .cl-bg-icon {
+  display: none;
+}
+
+/* Category tabs: horizontal scroll in mobile frame */
 .mobile-frame-screen .cl-category-tabs {
-  display: none !important;
+  display: flex !important;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+  padding: 0 16px;
+}
+
+.mobile-frame-screen .cl-category-tabs::-webkit-scrollbar {
+  display: none;
+}
+
+.mobile-frame-screen .cl-category-tab {
+  white-space: nowrap;
+  font-size: 13px;
+  padding: 12px 16px;
 }
 
 .mobile-frame-screen .cl-category-dropdown-wrap {
-  display: block !important;
+  display: none !important;
 }
 
 /* File a claim cards stack */
 .mobile-frame-screen .cl-card-row {
   grid-template-columns: 1fr;
+}
+
+.mobile-frame-screen .fc-cards {
+  flex-direction: column;
+}
+
+.mobile-frame-screen .fc-page {
+  padding-top: 48px;
+}
+
+.mobile-frame-screen .fc-content {
+  gap: 32px;
+  padding: 0 16px;
+}
+
+.mobile-frame-screen .fc-title {
+  font-size: 28px;
+  line-height: 36px;
+}
+
+.mobile-frame-screen .fc-bg-decoration {
+  display: none;
 }
 
 /* Dashboard — mobile frame overrides (counteract @media 769px desktop rules) */
