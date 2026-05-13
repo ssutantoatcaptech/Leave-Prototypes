@@ -713,19 +713,9 @@
   left: 0;
   right: 0;
   bottom: 0;
-  overflow: hidden;
+  overflow-y: auto;
   display: flex;
   flex-direction: column;
-}
-
-.mobile-frame-screen .cl-mobile-nav-primary {
-  flex: 1;
-  overflow-y: auto;
-  min-height: 0;
-}
-
-.mobile-frame-screen .cl-mobile-nav-utility {
-  flex-shrink: 0;
 }
 
 /* Native mobile: lock nav to viewport so it doesn't scroll with page */
@@ -735,19 +725,9 @@
   left: 0;
   right: 0;
   bottom: 0;
-  overflow: hidden;
+  overflow-y: auto;
   display: flex;
   flex-direction: column;
-}
-
-.mobile-frame-native .cl-mobile-nav-primary {
-  flex: 1;
-  overflow-y: auto;
-  min-height: 0;
-}
-
-.mobile-frame-native .cl-mobile-nav-utility {
-  flex-shrink: 0;
 }
 
 /* ===========================
