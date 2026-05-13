@@ -105,18 +105,26 @@ export default function LeaveDetailV2ePage() {
   var caseScenario = viewingCase && viewingCase.leaveScenario ? viewingCase.leaveScenario : 'medical_self';
   var caseSentCert = viewingCase ? viewingCase.sendCertToPhysician : false;
   var [detailsForm, setDetailsForm] = useState({
-    reason: 'Chronic lower back condition — intermittent flare-ups requiring treatment',
-    duration: '12 weeks intermittent (FMLA approved)',
-    provider: 'Dr. Patel (Orthopedic Surgery)',
-    facility: 'Hackensack University Medical Center',
-    providerPhone: '(201) 555-8200',
-    providerFax: '(201) 555-8201',
-    providerAddress: '30 Prospect Ave, Hackensack, NJ 07601',
-    email: 'marcus.thompson@company.com',
-    phone: '(201) 555-0187',
-    address: '142 Park Ave, Hoboken, NJ 07030',
+    email: 'sarah.johnson@company.com',
+    phone: '(555) 123-4567',
+    address: '8827 SW 8th Street, Lee Summit, MO 64086',
+    addressDuration: 'May 1, 2026 - Aug 15, 2026',
+    absenceType: 'Continuous',
+    absenceStart: 'Mar 16, 2026',
+    absenceEnd: 'Jun 30, 2026',
+    expectedReturn: 'Jul 1, 2026',
+    duration: '107 days',
+    reason: 'Pregnancy, birth, and bonding',
+    weeklyHours: '40 hours / week',
+    scheduleType: 'Fixed',
+    workDays: 'Mon, Tue, Wed, Thu, Fri',
+    hoursPerDay: '8 hours',
+    provider: 'Dr. Dempsey (OB-GYN)',
+    facility: "St. Luke's Medical Center",
+    providerAddress: '123 Main Street, Unit 404, Lee Summit, MO 64064',
+    providerPhone: '(816) 457-2934',
+    providerEmail: 'dempsey.herbett@stlukes.com',
   });
-  var [aboutLeaveOpen, setAboutLeaveOpen] = useState(false);
 
   function handleDetailsChange(field, value) {
     setDetailsForm(function (prev) {
@@ -717,29 +725,37 @@ export default function LeaveDetailV2ePage() {
             {/* Tab: About This Leave */}
             {detailTab === 'about' && (
             <div className="ldb-card">
-                  {/* Leave Reason */}
+                  {/* Contact Information */}
                   <div className="dt-info-block">
                     <div className="dt-info-block-header">
-                      <h4>Leave Reason</h4>
-                      {editingSection !== 'reason' && (
-                        <button className="dt-info-edit-btn" type="button" onClick={function () { setEditingSection('reason'); }}>
+                      <h4>Contact Information</h4>
+                      {editingSection !== 'contact' && (
+                        <button className="dt-info-edit-btn" type="button" onClick={function () { setEditingSection('contact'); }}>
                           <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M11.5 1.5l3 3L5 14H2v-3L11.5 1.5z" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round" strokeLinejoin="round"/></svg>
                         </button>
                       )}
-                      {editingSection === 'reason' && (
+                      {editingSection === 'contact' && (
                         <span style={{ fontSize: 11, fontWeight: 600, color: '#525252', background: '#f0f0f2', padding: '2px 8px', borderRadius: 4 }}>Editing</span>
                       )}
                     </div>
-                    {editingSection === 'reason' ? (
+                    {editingSection === 'contact' ? (
                       <>
                         <div className="dt-info-grid">
                           <div>
-                            <div className="dt-info-field-label">Reason</div>
-                            <input type="text" className="ldb-detail-input" value={detailsForm.reason} onChange={function (e) { handleDetailsChange('reason', e.target.value); }} />
+                            <div className="dt-info-field-label">Primary Email Address</div>
+                            <input type="email" className="ldb-detail-input" value={detailsForm.email} onChange={function (e) { handleDetailsChange('email', e.target.value); }} />
                           </div>
                           <div>
-                            <div className="dt-info-field-label">Duration</div>
-                            <input type="text" className="ldb-detail-input" value={detailsForm.duration} onChange={function (e) { handleDetailsChange('duration', e.target.value); }} />
+                            <div className="dt-info-field-label">Phone Number</div>
+                            <input type="tel" className="ldb-detail-input" value={detailsForm.phone} onChange={function (e) { handleDetailsChange('phone', e.target.value); }} />
+                          </div>
+                          <div>
+                            <div className="dt-info-field-label">Temporary Mailing Address</div>
+                            <input type="text" className="ldb-detail-input" value={detailsForm.address} onChange={function (e) { handleDetailsChange('address', e.target.value); }} />
+                          </div>
+                          <div>
+                            <div className="dt-info-field-label">Duration at Temporary Address</div>
+                            <input type="text" className="ldb-detail-input" value={detailsForm.addressDuration} onChange={function (e) { handleDetailsChange('addressDuration', e.target.value); }} />
                           </div>
                         </div>
                         <div className="dt-edit-actions">
@@ -750,12 +766,156 @@ export default function LeaveDetailV2ePage() {
                     ) : (
                       <div className="dt-info-grid">
                         <div>
-                          <div className="dt-info-field-label">Reason</div>
-                          <div className="dt-info-field-value">{detailsForm.reason}</div>
+                          <div className="dt-info-field-label">Primary Email Address</div>
+                          <div className="dt-info-field-value">{detailsForm.email}</div>
+                        </div>
+                        <div>
+                          <div className="dt-info-field-label">Phone Number</div>
+                          <div className="dt-info-field-value">{detailsForm.phone}</div>
+                        </div>
+                        <div>
+                          <div className="dt-info-field-label">Temporary Mailing Address</div>
+                          <div className="dt-info-field-value">{detailsForm.address}</div>
+                        </div>
+                        <div>
+                          <div className="dt-info-field-label">Duration at Temporary Address</div>
+                          <div className="dt-info-field-value">{detailsForm.addressDuration}</div>
+                        </div>
+                      </div>
+                    )}
+                  </div>
+
+                  {/* Absence Details */}
+                  <div className="dt-info-block">
+                    <div className="dt-info-block-header">
+                      <h4>Absence Details</h4>
+                      {editingSection !== 'absence' && (
+                        <button className="dt-info-edit-btn" type="button" onClick={function () { setEditingSection('absence'); }}>
+                          <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M11.5 1.5l3 3L5 14H2v-3L11.5 1.5z" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round" strokeLinejoin="round"/></svg>
+                        </button>
+                      )}
+                      {editingSection === 'absence' && (
+                        <span style={{ fontSize: 11, fontWeight: 600, color: '#525252', background: '#f0f0f2', padding: '2px 8px', borderRadius: 4 }}>Editing</span>
+                      )}
+                    </div>
+                    {editingSection === 'absence' ? (
+                      <>
+                        <div className="dt-info-grid">
+                          <div>
+                            <div className="dt-info-field-label">Absence Type</div>
+                            <input type="text" className="ldb-detail-input" value={detailsForm.absenceType} onChange={function (e) { handleDetailsChange('absenceType', e.target.value); }} />
+                          </div>
+                          <div>
+                            <div className="dt-info-field-label">Absence Start Date</div>
+                            <input type="text" className="ldb-detail-input" value={detailsForm.absenceStart} onChange={function (e) { handleDetailsChange('absenceStart', e.target.value); }} />
+                          </div>
+                          <div>
+                            <div className="dt-info-field-label">Absence End Date</div>
+                            <input type="text" className="ldb-detail-input" value={detailsForm.absenceEnd} onChange={function (e) { handleDetailsChange('absenceEnd', e.target.value); }} />
+                          </div>
+                          <div>
+                            <div className="dt-info-field-label">Expected Return Date</div>
+                            <input type="text" className="ldb-detail-input" value={detailsForm.expectedReturn} onChange={function (e) { handleDetailsChange('expectedReturn', e.target.value); }} />
+                          </div>
+                          <div>
+                            <div className="dt-info-field-label">Duration</div>
+                            <input type="text" className="ldb-detail-input" value={detailsForm.duration} onChange={function (e) { handleDetailsChange('duration', e.target.value); }} />
+                          </div>
+                          <div>
+                            <div className="dt-info-field-label">Reason</div>
+                            <input type="text" className="ldb-detail-input" value={detailsForm.reason} onChange={function (e) { handleDetailsChange('reason', e.target.value); }} />
+                          </div>
+                        </div>
+                        <div className="dt-edit-actions">
+                          <button type="button" className="dt-edit-save" onClick={function () { setEditingSection(null); }}>Save Changes</button>
+                          <button type="button" className="dt-edit-cancel" onClick={function () { setEditingSection(null); }}>Cancel</button>
+                        </div>
+                      </>
+                    ) : (
+                      <div className="dt-info-grid">
+                        <div>
+                          <div className="dt-info-field-label">Absence Type</div>
+                          <div className="dt-info-field-value">{detailsForm.absenceType}</div>
+                        </div>
+                        <div>
+                          <div className="dt-info-field-label">Absence Start Date</div>
+                          <div className="dt-info-field-value">{detailsForm.absenceStart}</div>
+                        </div>
+                        <div>
+                          <div className="dt-info-field-label">Absence End Date</div>
+                          <div className="dt-info-field-value">{detailsForm.absenceEnd}</div>
+                        </div>
+                        <div>
+                          <div className="dt-info-field-label">Expected Return Date</div>
+                          <div className="dt-info-field-value">{detailsForm.expectedReturn}</div>
                         </div>
                         <div>
                           <div className="dt-info-field-label">Duration</div>
                           <div className="dt-info-field-value">{detailsForm.duration}</div>
+                        </div>
+                        <div>
+                          <div className="dt-info-field-label">Reason</div>
+                          <div className="dt-info-field-value">{detailsForm.reason}</div>
+                        </div>
+                      </div>
+                    )}
+                  </div>
+
+                  {/* Work Schedule */}
+                  <div className="dt-info-block">
+                    <div className="dt-info-block-header">
+                      <h4>Work Schedule</h4>
+                      {editingSection !== 'schedule' && (
+                        <button className="dt-info-edit-btn" type="button" onClick={function () { setEditingSection('schedule'); }}>
+                          <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M11.5 1.5l3 3L5 14H2v-3L11.5 1.5z" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round" strokeLinejoin="round"/></svg>
+                        </button>
+                      )}
+                      {editingSection === 'schedule' && (
+                        <span style={{ fontSize: 11, fontWeight: 600, color: '#525252', background: '#f0f0f2', padding: '2px 8px', borderRadius: 4 }}>Editing</span>
+                      )}
+                    </div>
+                    {editingSection === 'schedule' ? (
+                      <>
+                        <div className="dt-info-grid">
+                          <div>
+                            <div className="dt-info-field-label">Weekly Hours</div>
+                            <input type="text" className="ldb-detail-input" value={detailsForm.weeklyHours} onChange={function (e) { handleDetailsChange('weeklyHours', e.target.value); }} />
+                          </div>
+                          <div>
+                            <div className="dt-info-field-label">Schedule Type</div>
+                            <input type="text" className="ldb-detail-input" value={detailsForm.scheduleType} onChange={function (e) { handleDetailsChange('scheduleType', e.target.value); }} />
+                          </div>
+                          <div>
+                            <div className="dt-info-field-label">Work Days</div>
+                            <input type="text" className="ldb-detail-input" value={detailsForm.workDays} onChange={function (e) { handleDetailsChange('workDays', e.target.value); }} />
+                          </div>
+                          <div>
+                            <div className="dt-info-field-label">Hours per Day</div>
+                            <input type="text" className="ldb-detail-input" value={detailsForm.hoursPerDay} onChange={function (e) { handleDetailsChange('hoursPerDay', e.target.value); }} />
+                          </div>
+                        </div>
+                        <div className="dt-edit-actions">
+                          <button type="button" className="dt-edit-save" onClick={function () { setEditingSection(null); }}>Save Changes</button>
+                          <button type="button" className="dt-edit-cancel" onClick={function () { setEditingSection(null); }}>Cancel</button>
+                        </div>
+                      </>
+                    ) : (
+                      <div className="dt-info-grid">
+                        <div>
+                          <div className="dt-info-field-label">Weekly Hours</div>
+                          <div className="dt-info-field-value">{detailsForm.weeklyHours}</div>
+                        </div>
+                        <div>
+                          <div className="dt-info-field-label">Schedule Type</div>
+                          <div className="dt-info-field-value">{detailsForm.scheduleType}</div>
+                        </div>
+                        <div>
+                          <div className="dt-info-field-label">Work Days</div>
+                          <div className="dt-info-field-value">{detailsForm.workDays}</div>
+                        </div>
+                        <div>
+                          <div className="dt-info-field-label">Hours per Day</div>
+                          <div className="dt-info-field-value">{detailsForm.hoursPerDay}</div>
                         </div>
                       </div>
                     )}
@@ -786,16 +946,16 @@ export default function LeaveDetailV2ePage() {
                             <input type="text" className="ldb-detail-input" value={detailsForm.facility} onChange={function (e) { handleDetailsChange('facility', e.target.value); }} />
                           </div>
                           <div>
-                            <div className="dt-info-field-label">Phone</div>
+                            <div className="dt-info-field-label">Address</div>
+                            <input type="text" className="ldb-detail-input" value={detailsForm.providerAddress} onChange={function (e) { handleDetailsChange('providerAddress', e.target.value); }} />
+                          </div>
+                          <div>
+                            <div className="dt-info-field-label">Phone Number</div>
                             <input type="tel" className="ldb-detail-input" value={detailsForm.providerPhone} onChange={function (e) { handleDetailsChange('providerPhone', e.target.value); }} />
                           </div>
                           <div>
-                            <div className="dt-info-field-label">Fax</div>
-                            <input type="tel" className="ldb-detail-input" value={detailsForm.providerFax} onChange={function (e) { handleDetailsChange('providerFax', e.target.value); }} />
-                          </div>
-                          <div>
-                            <div className="dt-info-field-label">Address</div>
-                            <input type="text" className="ldb-detail-input" value={detailsForm.providerAddress} onChange={function (e) { handleDetailsChange('providerAddress', e.target.value); }} />
+                            <div className="dt-info-field-label">Email</div>
+                            <input type="email" className="ldb-detail-input" value={detailsForm.providerEmail} onChange={function (e) { handleDetailsChange('providerEmail', e.target.value); }} />
                           </div>
                         </div>
                         <div className="dt-edit-actions">
@@ -814,68 +974,16 @@ export default function LeaveDetailV2ePage() {
                           <div className="dt-info-field-value">{detailsForm.facility}</div>
                         </div>
                         <div>
-                          <div className="dt-info-field-label">Phone</div>
-                          <div className="dt-info-field-value">{detailsForm.providerPhone}</div>
-                        </div>
-                        <div>
-                          <div className="dt-info-field-label">Fax</div>
-                          <div className="dt-info-field-value">{detailsForm.providerFax}</div>
-                        </div>
-                        <div>
                           <div className="dt-info-field-label">Address</div>
                           <div className="dt-info-field-value">{detailsForm.providerAddress}</div>
                         </div>
-                      </div>
-                    )}
-                  </div>
-
-                  {/* Contact Information */}
-                  <div className="dt-info-block">
-                    <div className="dt-info-block-header">
-                      <h4>Contact Information</h4>
-                      {editingSection !== 'contact' && (
-                        <button className="dt-info-edit-btn" type="button" onClick={function () { setEditingSection('contact'); }}>
-                          <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M11.5 1.5l3 3L5 14H2v-3L11.5 1.5z" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round" strokeLinejoin="round"/></svg>
-                        </button>
-                      )}
-                      {editingSection === 'contact' && (
-                        <span style={{ fontSize: 11, fontWeight: 600, color: '#525252', background: '#f0f0f2', padding: '2px 8px', borderRadius: 4 }}>Editing</span>
-                      )}
-                    </div>
-                    {editingSection === 'contact' ? (
-                      <>
-                        <div className="dt-info-grid">
-                          <div>
-                            <div className="dt-info-field-label">Email Address</div>
-                            <input type="email" className="ldb-detail-input" value={detailsForm.email} onChange={function (e) { handleDetailsChange('email', e.target.value); }} />
-                          </div>
-                          <div>
-                            <div className="dt-info-field-label">Phone Number</div>
-                            <input type="tel" className="ldb-detail-input" value={detailsForm.phone} onChange={function (e) { handleDetailsChange('phone', e.target.value); }} />
-                          </div>
-                          <div>
-                            <div className="dt-info-field-label">Mailing Address</div>
-                            <input type="text" className="ldb-detail-input" value={detailsForm.address} onChange={function (e) { handleDetailsChange('address', e.target.value); }} />
-                          </div>
-                        </div>
-                        <div className="dt-edit-actions">
-                          <button type="button" className="dt-edit-save" onClick={function () { setEditingSection(null); }}>Save Changes</button>
-                          <button type="button" className="dt-edit-cancel" onClick={function () { setEditingSection(null); }}>Cancel</button>
-                        </div>
-                      </>
-                    ) : (
-                      <div className="dt-info-grid">
-                        <div>
-                          <div className="dt-info-field-label">Email Address</div>
-                          <div className="dt-info-field-value">{detailsForm.email}</div>
-                        </div>
                         <div>
                           <div className="dt-info-field-label">Phone Number</div>
-                          <div className="dt-info-field-value">{detailsForm.phone}</div>
+                          <div className="dt-info-field-value">{detailsForm.providerPhone}</div>
                         </div>
                         <div>
-                          <div className="dt-info-field-label">Mailing Address</div>
-                          <div className="dt-info-field-value">{detailsForm.address}</div>
+                          <div className="dt-info-field-label">Email</div>
+                          <div className="dt-info-field-value">{detailsForm.providerEmail}</div>
                         </div>
                       </div>
                     )}
