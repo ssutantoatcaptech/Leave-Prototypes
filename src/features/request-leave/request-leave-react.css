@@ -886,7 +886,7 @@
   border-radius: 10px;
   padding: 24px;
   margin-top: 20px;
-  background: var(--color-bg-card);
+  background: var(--color-bg-card-fill-dark);
 }
 
 .section-title {
