@@ -242,12 +242,12 @@ export default function DashboardPage() {
           {/* Left column */}
           <div className="cldb-v2-left">
             {/* Items Requiring Action */}
-            <div className="cldb-v2-card">
-              <div className="cldb-v2-card-header">
+            <div className="cldb-v2-card cldb-v2-card--flush">
+              <div className="cldb-v2-card-header cldb-v2-card-header--padded">
                 <h2 className="cldb-v2-section-title">Items Requiring Action</h2>
                 <button className="cldb-v2-link-btn">View all <svg width="6" height="10" viewBox="0 0 6 10" fill="none"><path d="M1 1l4 4-4 4" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round"/></svg></button>
               </div>
-              <div className="cldb-v2-actions">
+              <div className="cldb-v2-actions cldb-v2-actions--padded">
                 {/* Action 1 */}
                 <div className="cldb-v2-action-item">
                   <div className="cldb-v2-action-body">
