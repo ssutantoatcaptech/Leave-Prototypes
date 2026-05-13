@@ -130,21 +130,26 @@ export default function DashboardPage() {
       {mobileNavOpen && (
         <div className="cl-mobile-nav-overlay" aria-label="Mobile navigation">
           <button className="cl-mobile-nav-close" aria-label="Close menu" onClick={() => setMobileNavOpen(false)}>
-            <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
-              <path d="M2 2l12 12M14 2L2 14" stroke="#0f0f14" strokeWidth="2" strokeLinecap="round"/>
+            <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+              <path d="M4 4l12 12M16 4L4 16" stroke="#0f0f14" strokeWidth="2" strokeLinecap="round"/>
             </svg>
           </button>
           <div className="cl-mobile-nav-brand">
-            <span className="cl-mobile-nav-brand-name">my<strong>Mutual</strong></span>
+            <div className="cl-mobile-nav-brand-logos">
+              <span className="cl-mobile-nav-brand-moo">Mutual<em>of</em>Omaha</span>
+              <span className="cl-mobile-nav-brand-divider"></span>
+              <span className="cl-mobile-nav-brand-partner">CapTech</span>
+            </div>
+            <span className="cl-mobile-nav-brand-group">GROUP ID: G000CSM5</span>
           </div>
           <div className="cl-mobile-nav-primary">
             <NavLink to={`${base}/dashboard`} className="cl-mobile-nav-item" onClick={() => setMobileNavOpen(false)}>
               <span>Dashboard</span>
             </NavLink>
-            <div className="cl-mobile-nav-item cl-mobile-nav-item--disabled">
+            <button type="button" className="cl-mobile-nav-item cl-mobile-nav-item--expandable">
               <span>Benefits</span>
               <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M4 6l4 4 4-4" stroke="#003a70" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/></svg>
-            </div>
+            </button>
             <button
               type="button"
               className={`cl-mobile-nav-item cl-mobile-nav-item--expandable${claimsExpanded ? ' cl-mobile-nav-item--expanded' : ''}`}
@@ -167,14 +172,14 @@ export default function DashboardPage() {
                 ))}
               </div>
             )}
-            <div className="cl-mobile-nav-item cl-mobile-nav-item--disabled">
+            <button type="button" className="cl-mobile-nav-item cl-mobile-nav-item--expandable">
               <span>Documents</span>
               <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M4 6l4 4 4-4" stroke="#003a70" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/></svg>
-            </div>
-            <div className="cl-mobile-nav-item cl-mobile-nav-item--disabled">
+            </button>
+            <button type="button" className="cl-mobile-nav-item cl-mobile-nav-item--expandable">
               <span>Support</span>
               <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M4 6l4 4 4-4" stroke="#003a70" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/></svg>
-            </div>
+            </button>
           </div>
           <div className="cl-mobile-nav-utility">
             <button className="cl-mobile-nav-utility-item" onClick={() => setMobileNavOpen(false)}>
