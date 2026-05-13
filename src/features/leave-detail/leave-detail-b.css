@@ -285,6 +285,8 @@
   border-radius: 4px;
   background: #ffffff;
   overflow: hidden;
+  padding: 3px;
+  gap: 2px;
 }
 .ldb-card.dt-timeline-wrap .dt-tl-toggle button {
   border-radius: 3px;
