@@ -392,7 +392,7 @@
 }
 
 .mobile-frame-screen .cldb-v2-card--flush {
-  padding: 0 !important;
+  padding: 0 16px !important;
 }
 
 .mobile-frame-screen .cldb-v2-card-header--padded,
