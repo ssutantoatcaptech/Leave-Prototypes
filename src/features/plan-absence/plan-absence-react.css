@@ -767,13 +767,13 @@
   max-width: none;
 }
 
-.dlp-tl-seg.full      { background: #1f1f1f; }
-.dlp-tl-seg.partial   { background: #4b4b4b; }
+.dlp-tl-seg.full      { background: #105fa8; }
+.dlp-tl-seg.partial   { background: #2563eb; }
 .dlp-tl-seg.none      { background: #cbd5e1; }
-.dlp-tl-seg.employer  { background: #1f1f1f; }
+.dlp-tl-seg.employer  { background: #105fa8; }
 .dlp-tl-seg.state     { background: #0d9488; }
-.dlp-tl-seg.insurance { background: #4b4b4b; }
-.dlp-tl-seg.prebirth  { background: #64748b; }
+.dlp-tl-seg.insurance { background: #2563eb; }
+.dlp-tl-seg.prebirth  { background: #2563eb; }
 
 /* Hover tooltip for timeline rows */
 .dlp-tl-hover-tooltip {

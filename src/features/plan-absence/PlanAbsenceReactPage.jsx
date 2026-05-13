@@ -1013,15 +1013,15 @@ export default function PlanAbsenceReactPage() {
                             <div className="dlp-legend" style={{ marginTop: 16 }}>
                               {activeView === 'pay' ? (
                                 <>
-                                  <div className="dlp-legend-item"><div className="dlp-legend-dot" style={{ background: '#1f1f1f' }} />Job-protected (FMLA)</div>
-                                  <div className="dlp-legend-item"><div className="dlp-legend-dot" style={{ background: '#4b4b4b' }} />Paid (STD 60%)</div>
+                                  <div className="dlp-legend-item"><div className="dlp-legend-dot" style={{ background: '#105fa8' }} />Job-protected (FMLA)</div>
+                                  <div className="dlp-legend-item"><div className="dlp-legend-dot" style={{ background: '#2563eb' }} />Paid (STD 60%)</div>
                                   {stBenefit && <div className="dlp-legend-item"><div className="dlp-legend-dot" style={{ background: '#0d9488' }} />State Paid Leave</div>}
                                   <div className="dlp-legend-item"><div className="dlp-legend-dot" style={{ background: '#d4d4d4' }} />Unpaid</div>
                                 </>
                               ) : (
                                 <>
-                                  <div className="dlp-legend-item"><div className="dlp-legend-dot" style={{ background: '#1f1f1f' }} />FMLA (federal protection)</div>
-                                  <div className="dlp-legend-item"><div className="dlp-legend-dot" style={{ background: '#4b4b4b' }} />Insurance (STD)</div>
+                                  <div className="dlp-legend-item"><div className="dlp-legend-dot" style={{ background: '#105fa8' }} />FMLA (federal protection)</div>
+                                  <div className="dlp-legend-item"><div className="dlp-legend-dot" style={{ background: '#2563eb' }} />Insurance (STD)</div>
                                   {stBenefit && <div className="dlp-legend-item"><div className="dlp-legend-dot" style={{ background: '#0d9488' }} />State Paid Leave</div>}
                                   <div className="dlp-legend-item"><div className="dlp-legend-dot" style={{ background: '#d4d4d4' }} />No coverage</div>
                                 </>
@@ -2025,15 +2025,15 @@ export default function PlanAbsenceReactPage() {
                       {!isBirth ? (
                         activeView === 'pay' ? (
                           <div className="dlp-legend">
-                            <div className="dlp-legend-item"><div className="dlp-legend-dot" style={{ background: '#1f1f1f' }} />Job-protected (FMLA)</div>
-                            <div className="dlp-legend-item"><div className="dlp-legend-dot" style={{ background: '#4b4b4b' }} />Paid (STD 60%)</div>
+                            <div className="dlp-legend-item"><div className="dlp-legend-dot" style={{ background: '#105fa8' }} />Job-protected (FMLA)</div>
+                            <div className="dlp-legend-item"><div className="dlp-legend-dot" style={{ background: '#2563eb' }} />Paid (STD 60%)</div>
                             {tlData.stateBenefit && <div className="dlp-legend-item"><div className="dlp-legend-dot" style={{ background: '#0d9488' }} />State Paid Leave</div>}
                             <div className="dlp-legend-item"><div className="dlp-legend-dot" style={{ background: '#d4d4d4' }} />Unpaid</div>
                           </div>
                         ) : (
                           <div className="dlp-legend">
-                            <div className="dlp-legend-item"><div className="dlp-legend-dot" style={{ background: '#1f1f1f' }} />FMLA (federal job protection)</div>
-                            <div className="dlp-legend-item"><div className="dlp-legend-dot" style={{ background: '#4b4b4b' }} />Insurance (STD)</div>
+                            <div className="dlp-legend-item"><div className="dlp-legend-dot" style={{ background: '#105fa8' }} />FMLA (federal job protection)</div>
+                            <div className="dlp-legend-item"><div className="dlp-legend-dot" style={{ background: '#2563eb' }} />Insurance (STD)</div>
                             {tlData.stateBenefit && <div className="dlp-legend-item"><div className="dlp-legend-dot" style={{ background: '#0d9488' }} />State Paid Leave</div>}
                             <div className="dlp-legend-item"><div className="dlp-legend-dot" style={{ background: '#d4d4d4' }} />No coverage</div>
                           </div>
@@ -2041,8 +2041,8 @@ export default function PlanAbsenceReactPage() {
                       ) : (
                         <div className="dlp-legend">
                           <div className="dlp-legend-item"><div className="dlp-legend-dot dlp-legend-dot-marker" />Due date</div>
-                          <div className="dlp-legend-item"><div className="dlp-legend-dot" style={{ background: '#4b4b4b' }} />Partial pay (60% STD)</div>
-                          <div className="dlp-legend-item"><div className="dlp-legend-dot" style={{ background: '#1f1f1f' }} />FMLA job protection</div>
+                          <div className="dlp-legend-item"><div className="dlp-legend-dot" style={{ background: '#2563eb' }} />Partial pay (60% STD)</div>
+                          <div className="dlp-legend-item"><div className="dlp-legend-dot" style={{ background: '#105fa8' }} />FMLA job protection</div>
                           <div className="dlp-legend-item"><div className="dlp-legend-dot" style={{ background: '#d4d4d4' }} />Unpaid</div>
                         </div>
                       )}
