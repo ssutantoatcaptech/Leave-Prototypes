@@ -689,10 +689,7 @@ export default function LeaveDetailV2ePage() {
                 <h2 className="ldb-card-title" style={{ marginBottom: 0 }}>Additional Benefits</h2>
                 <svg width="12" height="7" viewBox="0 0 12 7" fill="none" style={{ transform: 'rotate(180deg)' }}><path d="M1 1l5 5 5-5" stroke="#525252" strokeWidth="1.3" strokeLinecap="round" strokeLinejoin="round"/></svg>
               </div>
-              <div className="ldb-additional-benefits-notice">
-                <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><circle cx="8" cy="8" r="7" fill="#525252"/><path d="M8 7v4M8 5h.01" stroke="#fff" strokeWidth="1.2" strokeLinecap="round"/></svg>
-                <span>You may still need to apply for state benefits on your state site.</span>
-              </div>
+              <p className="ldb-additional-benefits-subtext">Some claims must be filed directly on your state's website. Use the links below to apply.</p>
               <div className="ldb-additional-benefits-list">
                 <div className="ldb-additional-benefit-row">
                   <div className="ldb-additional-benefit-info">
