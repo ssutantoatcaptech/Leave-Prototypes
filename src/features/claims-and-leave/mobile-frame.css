@@ -413,6 +413,14 @@
   text-align: center;
 }
 
+.mobile-frame-screen .cldb-v2-main {
+  text-align: left;
+}
+
+.mobile-frame-screen .cldb-v2-card {
+  text-align: left;
+}
+
 .mobile-frame-screen .cldb-v2-section-title {
   text-align: left;
 }
@@ -421,8 +429,19 @@
   text-align: left;
 }
 
+.mobile-frame-screen .cldb-v2-action-title,
+.mobile-frame-screen .cldb-v2-action-desc,
+.mobile-frame-screen .cldb-v2-action-meta {
+  text-align: left;
+}
+
 .mobile-frame-screen .cldb-v2-activity-row {
   padding: 12px 16px;
+  text-align: left;
+}
+
+.mobile-frame-screen .cldb-v2-activity-title,
+.mobile-frame-screen .cldb-v2-activity-desc {
   text-align: left;
 }
 
@@ -435,6 +454,11 @@
   text-align: left;
 }
 
+.mobile-frame-screen .cldb-v2-leave-label,
+.mobile-frame-screen .cldb-v2-leave-status {
+  text-align: left;
+}
+
 .mobile-frame-screen .cldb-v2-ql-row {
   padding: 12px 16px;
   text-align: left;
@@ -442,6 +466,10 @@
 
 .mobile-frame-screen .cldb-v2-eb-body {
   padding: 12px;
+  text-align: left;
+}
+
+.mobile-frame-screen .cldb-hero-v2-content {
   text-align: left;
 }
 
