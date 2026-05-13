@@ -261,27 +261,34 @@
   display: none;
 }
 
-/* Category tabs: horizontal scroll in mobile frame */
+/* Category tabs: hide on mobile, show dropdown instead */
 .mobile-frame-screen .cl-category-tabs {
-  display: flex !important;
-  overflow-x: auto;
-  -webkit-overflow-scrolling: touch;
-  scrollbar-width: none;
-  padding: 0 16px;
+  display: none !important;
 }
 
-.mobile-frame-screen .cl-category-tabs::-webkit-scrollbar {
-  display: none;
-}
-
-.mobile-frame-screen .cl-category-tab {
-  white-space: nowrap;
-  font-size: 13px;
+.mobile-frame-screen .cl-category-dropdown-mobile {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
   padding: 12px 16px;
 }
 
 .mobile-frame-screen .cl-category-dropdown-wrap {
   display: none !important;
+}
+
+/* Remove white background from table card on mobile */
+.mobile-frame-screen .cl-ml-table-card {
+  background: transparent;
+  border: none;
+  box-shadow: none;
+}
+
+/* Remove white background from filters on mobile */
+.mobile-frame-screen .cl-ml-filters {
+  background: transparent;
+  border-bottom: none;
+  padding: 12px 0;
 }
 
 /* File a claim cards stack */

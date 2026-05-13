@@ -121,7 +121,7 @@ export default function ClaimCenterPage() {
 
       {/* Table Card */}
       <div className="cl-ml-table-card">
-        {/* Category tabs */}
+        {/* Category tabs (desktop) */}
         <div className="cl-category-tabs">
           {categoryTabs.map((tab) => (
             <NavLink
@@ -133,6 +133,20 @@ export default function ClaimCenterPage() {
               {tab}
             </NavLink>
           ))}
+        </div>
+
+        {/* Category dropdown (mobile) */}
+        <div className="cl-category-dropdown-mobile">
+          <label className="cl-ml-filter-label">CATEGORY</label>
+          <select
+            className="cl-ml-filter-select"
+            value={activeCategory}
+            onChange={(e) => { setActiveCategory(e.target.value); if (e.target.value === 'Dental') navigate(`${base}/dental`); }}
+          >
+            {categoryTabs.map((tab) => (
+              <option key={tab} value={tab}>{tab}</option>
+            ))}
+          </select>
         </div>
 
         {/* Filter Toolbar */}
