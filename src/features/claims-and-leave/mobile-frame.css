@@ -79,7 +79,7 @@
 }
 
 .mobile-frame-native .cl-layout {
-  padding-top: calc(56px + env(safe-area-inset-top, 0px));
+  padding-top: calc(64px + env(safe-area-inset-top, 0px));
 }
 
 .mobile-frame-screen .cl-main-nav {
@@ -96,20 +96,57 @@
 
 .mobile-frame-screen .cl-hamburger {
   display: flex;
-  color: #002547;
+  color: #003a70;
 }
 
 .mobile-frame-screen .cl-header-inner {
-  padding: 0 12px;
-  height: 56px;
+  padding: 0 16px;
+  height: 64px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.mobile-frame-screen .cl-header-left {
+  display: flex;
+  align-items: center;
+  gap: 12px;
 }
 
 .mobile-frame-screen .cl-brand {
-  font-size: 15px;
+  font-size: 18px;
+  font-weight: 400;
+  color: #003a70;
+}
+
+.mobile-frame-screen .cl-brand strong {
+  font-weight: 700;
 }
 
 .mobile-frame-screen .cl-header-right {
-  gap: 8px;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.mobile-frame-screen .cl-header-icon-btn {
+  width: 32px;
+  height: 32px;
+  color: #003a70;
+}
+
+.mobile-frame-screen .cl-avatar-circle {
+  width: 36px;
+  height: 36px;
+  background: linear-gradient(135deg, #105fa8, #007a8a);
+  border: none;
+  font-size: 14px;
+  font-weight: 700;
+}
+
+.mobile-frame-screen .cl-header {
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.08);
+  border-bottom: none;
 }
 
 .mobile-frame-screen .cl-subnav {
@@ -559,17 +596,25 @@
   display: flex;
 }
 
-.mobile-frame-screen .cl-mobile-nav-utility {
-  display: none;
-}
-
 .mobile-frame-screen .cl-mobile-nav-overlay {
   position: absolute;
   top: 0;
   left: 0;
   right: 0;
   bottom: 0;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+.mobile-frame-screen .cl-mobile-nav-primary {
+  flex: 1;
   overflow-y: auto;
+  min-height: 0;
+}
+
+.mobile-frame-screen .cl-mobile-nav-utility {
+  flex-shrink: 0;
 }
 
 /* Native mobile: lock nav to viewport so it doesn't scroll with page */
@@ -579,7 +624,19 @@
   left: 0;
   right: 0;
   bottom: 0;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+.mobile-frame-native .cl-mobile-nav-primary {
+  flex: 1;
   overflow-y: auto;
+  min-height: 0;
+}
+
+.mobile-frame-native .cl-mobile-nav-utility {
+  flex-shrink: 0;
 }
 
 /* ===========================

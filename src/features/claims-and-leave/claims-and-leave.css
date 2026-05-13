@@ -3847,7 +3847,7 @@
   z-index: 200;
   display: flex;
   flex-direction: column;
-  overflow-y: auto;
+  overflow: hidden;
 }
 
 .cl-mobile-nav-close {
@@ -3860,6 +3860,7 @@
   background: #fff;
   cursor: pointer;
   padding: 16px 20px;
+  flex-shrink: 0;
 }
 
 .cl-mobile-nav-brand {
@@ -3869,6 +3870,7 @@
   padding: 16px 20px;
   border-bottom: 1px solid #e4e4e4;
   gap: 12px;
+  flex-shrink: 0;
 }
 
 .cl-mobile-nav-brand-logos {
@@ -3924,6 +3926,7 @@
   display: flex;
   flex-direction: column;
   flex: 1;
+  min-height: 0;
   overflow-y: auto;
   scrollbar-width: none;
 }
@@ -3997,6 +4000,7 @@
   background: #003a70;
   display: flex;
   flex-direction: column;
+  flex-shrink: 0;
 }
 
 .cl-mobile-nav-utility-item {
