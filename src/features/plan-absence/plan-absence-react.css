@@ -2509,14 +2509,14 @@
   font-weight: 600;
   font-family: inherit;
   cursor: pointer;
-  border: 1px solid #fca5a5;
+  border: 1px solid #105fa8;
   background: #fff;
-  color: #dc2626;
+  color: #105fa8;
   transition: 0.15s;
 }
 .btn-cancel-leave:hover {
-  background: #fef2f2;
-  border-color: #f87171;
+  background: #eff6ff;
+  border-color: #0a4a85;
 }
 
 .btn-outline-blue {
