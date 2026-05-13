@@ -1437,6 +1437,13 @@
   display: contents;
 }
 
+.mobile-frame-screen .cl-std-sidebar-card {
+  width: 100%;
+  box-sizing: border-box;
+  padding: 16px;
+  border-radius: 10px;
+}
+
 .mobile-frame-screen .cl-std-sidebar-card--action {
   order: 1;
 }
