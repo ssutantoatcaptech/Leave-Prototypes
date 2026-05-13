@@ -855,42 +855,62 @@
   width: 516px;
   height: 516px;
   mix-blend-mode: multiply;
+  animation: fc-drift 18s ease-in-out infinite;
+}
+
+@keyframes fc-drift {
+  0%, 100% { transform: rotate(-14.12deg) translate(0, 0) scale(1); }
+  33% { transform: rotate(-11deg) translate(6px, -8px) scale(1.015); }
+  66% { transform: rotate(-17deg) translate(-5px, 6px) scale(0.985); }
 }
 
 .fc-bg-decoration--bottom-left .fc-ellipse:nth-child(1) {
   top: 130px;
   left: 354px;
-  transform: rotate(-14.12deg);
+  animation-delay: 0s;
+  animation-duration: 20s;
 }
 
 .fc-bg-decoration--bottom-left .fc-ellipse:nth-child(2) {
   top: 0;
   left: 0;
-  transform: rotate(-14.12deg);
+  animation-delay: -6s;
+  animation-duration: 24s;
 }
 
 .fc-bg-decoration--bottom-left .fc-ellipse:nth-child(3) {
   top: 399px;
   left: 50px;
-  transform: rotate(-14.12deg);
+  animation-delay: -12s;
+  animation-duration: 22s;
 }
 
 .fc-bg-decoration--top-right .fc-ellipse:nth-child(1) {
   top: 130px;
   left: 354px;
-  transform: rotate(-14.12deg);
+  animation-delay: -3s;
+  animation-duration: 22s;
 }
 
 .fc-bg-decoration--top-right .fc-ellipse:nth-child(2) {
   top: 0;
   left: 0;
-  transform: rotate(-14.12deg);
+  animation-delay: -9s;
+  animation-duration: 26s;
 }
 
 .fc-bg-decoration--top-right .fc-ellipse:nth-child(3) {
   top: 399px;
   left: 50px;
-  transform: rotate(-14.12deg);
+  animation-delay: -15s;
+  animation-duration: 20s;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .fc-bg-decoration .fc-ellipse {
+    animation: none;
+    transform: rotate(-14.12deg);
+  }
 }
 
 .fc-content {
