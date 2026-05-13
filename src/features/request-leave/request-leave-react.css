@@ -2025,6 +2025,18 @@
   margin: 0 auto;
 }
 
+@keyframes rl-success-icon-in {
+  0% { transform: scale(0); opacity: 0; }
+  20% { transform: scale(0.6); opacity: 1; }
+  50% { transform: scale(1.8); opacity: 1; }
+  75% { transform: scale(0.95); opacity: 1; }
+  100% { transform: scale(1); opacity: 1; }
+}
+@keyframes rl-check-draw {
+  from { stroke-dashoffset: 36; }
+  to { stroke-dashoffset: 0; }
+}
+
 .success-icon {
   width: 64px;
   height: 64px;
@@ -2034,6 +2046,13 @@
   align-items: center;
   justify-content: center;
   margin: 0 auto 24px;
+  animation: rl-success-icon-in 800ms ease-in-out forwards;
+}
+
+.success-icon svg path {
+  stroke-dasharray: 36;
+  stroke-dashoffset: 36;
+  animation: rl-check-draw 500ms ease-in-out 400ms forwards;
 }
 
 .success-header {
