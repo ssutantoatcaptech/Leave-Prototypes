@@ -692,6 +692,9 @@ export default function LeaveDetailV2ePage() {
               <p className="ldb-additional-benefits-subtext">Some claims must be filed directly on your state's website. Use the links below to apply.</p>
               <div className="ldb-additional-benefits-list">
                 <div className="ldb-additional-benefit-row">
+                  <div className="ldb-additional-benefit-icon">
+                    <svg width="20" height="20" viewBox="0 0 20 20" fill="none"><rect x="2" y="4" width="16" height="12" rx="2" stroke="#525252" strokeWidth="1.3"/><path d="M2 8h16" stroke="#525252" strokeWidth="1.3"/><path d="M5 12h4" stroke="#525252" strokeWidth="1.3" strokeLinecap="round"/></svg>
+                  </div>
                   <div className="ldb-additional-benefit-info">
                     <div className="ldb-additional-benefit-name">CA State Disability Insurance</div>
                     <div className="ldb-additional-benefit-desc">Apply through your state benefits portal to determine eligibility.</div>
@@ -702,6 +705,9 @@ export default function LeaveDetailV2ePage() {
                   </div>
                 </div>
                 <div className="ldb-additional-benefit-row">
+                  <div className="ldb-additional-benefit-icon">
+                    <svg width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M10 2a8 8 0 100 16 8 8 0 000-16z" stroke="#525252" strokeWidth="1.3"/><path d="M7 10h6M10 7v6" stroke="#525252" strokeWidth="1.3" strokeLinecap="round"/></svg>
+                  </div>
                   <div className="ldb-additional-benefit-info">
                     <div className="ldb-additional-benefit-name">CA Paid Family Leave</div>
                     <div className="ldb-additional-benefit-desc">May provide wage replacement during family care or bonding time.</div>
