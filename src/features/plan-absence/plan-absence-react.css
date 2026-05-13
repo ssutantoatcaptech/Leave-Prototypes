@@ -3,13 +3,13 @@
   min-height: 100vh;
   display: flex;
   flex-direction: column;
-  background: #f5f5f7;
-  color: #0f0f14;
+  background: var(--color-bg-page);
+  color: var(--color-text-primary);
   font-family: 'Source Sans Pro', system-ui, sans-serif;
 }
 
 .rlv2-page {
-  width: 696px;
+  width: 900px;
   max-width: calc(100% - 64px);
   margin: 0 auto;
   padding: 40px 0 48px;
@@ -22,24 +22,26 @@
 
 /* ─── Sim card ───────────────────────────────────────────────────────────────── */
 .sim-card {
-  background: #fff;
-  border: 1px solid #e5e5e5;
-  border-radius: 10px;
-  padding: 48px;
+  background: var(--color-bg-card);
+  border: 1px solid var(--color-border-card);
+  border-radius: var(--radius-xl);
+  padding: 40px;
   margin-bottom: 24px;
+  box-shadow: var(--shadow-card);
 }
 
 .sim-card h2 {
-  font-size: 24px;
+  font-size: 23px;
   font-weight: 700;
-  color: #171717;
+  color: var(--color-brand-primary);
+  letter-spacing: -0.01em;
   margin-bottom: 8px;
 }
 
 .sim-desc {
-  font-size: 14px;
-  color: #525252;
-  line-height: 1.5;
+  font-size: 15px;
+  color: var(--color-text-secondary);
+  line-height: 1.6;
   margin-bottom: 24px;
 }
 
