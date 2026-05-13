@@ -857,33 +857,34 @@ export default function LeaveDetailV2ePage() {
                         <span style={{ fontSize: 11, fontWeight: 600, color: '#525252', background: '#f0f0f2', padding: '2px 8px', borderRadius: 4 }}>Editing</span>
                       )}
                     </div>
-                    <div className="schedule-header-row" style={{ marginBottom: 12 }}>
-                      <span className="dt-info-field-label" style={{ marginBottom: 0 }}>Weekly Hours</span>
-                      <div className="schedule-total-badge">Weekly total <strong>{Object.values(scheduleHours).reduce(function (sum, h) { return sum + Number(h || 0); }, 0)}</strong> hrs / week</div>
-                    </div>
-                    <div className="schedule-grid">
-                      {['sun', 'mon', 'tue', 'wed', 'thu', 'fri', 'sat'].map(function (day, index) {
-                        return (
-                          <div key={day} className="schedule-day">
-                            <div className="schedule-day-label">{['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'][index]}</div>
-                            <div className="schedule-day-wrap">
-                              <div className={'schedule-day-box' + (Number(scheduleHours[day]) > 0 ? ' has-hours' : '') + (day === 'sun' || day === 'sat' ? ' weekend' : '')}>
-                                <input className="schedule-day-input" type="number" value={scheduleHours[day]}
-                                  disabled={editingSection !== 'schedule'}
-                                  onChange={function (e) { setScheduleHours(function (prev) { var next = Object.assign({}, prev); next[day] = e.target.value; return next; }); }}
-                                />
-                              </div>
-                              <div className="schedule-day-unit">hrs</div>
-                            </div>
-                          </div>
-                        );
-                      })}
-                    </div>
                     {editingSection === 'schedule' && (
-                      <div className="dt-edit-actions" style={{ marginTop: 16 }}>
-                        <button type="button" className="dt-edit-save" onClick={function () { setEditingSection(null); }}>Save Changes</button>
-                        <button type="button" className="dt-edit-cancel" onClick={function () { setEditingSection(null); }}>Cancel</button>
-                      </div>
+                      <>
+                        <div className="schedule-header-row" style={{ marginBottom: 12 }}>
+                          <span className="dt-info-field-label" style={{ marginBottom: 0 }}>Weekly Hours</span>
+                          <div className="schedule-total-badge">Weekly total <strong>{Object.values(scheduleHours).reduce(function (sum, h) { return sum + Number(h || 0); }, 0)}</strong> hrs / week</div>
+                        </div>
+                        <div className="schedule-grid">
+                          {['sun', 'mon', 'tue', 'wed', 'thu', 'fri', 'sat'].map(function (day, index) {
+                            return (
+                              <div key={day} className="schedule-day">
+                                <div className="schedule-day-label">{['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'][index]}</div>
+                                <div className="schedule-day-wrap">
+                                  <div className={'schedule-day-box' + (Number(scheduleHours[day]) > 0 ? ' has-hours' : '') + (day === 'sun' || day === 'sat' ? ' weekend' : '')}>
+                                    <input className="schedule-day-input" type="number" value={scheduleHours[day]}
+                                      onChange={function (e) { setScheduleHours(function (prev) { var next = Object.assign({}, prev); next[day] = e.target.value; return next; }); }}
+                                    />
+                                  </div>
+                                  <div className="schedule-day-unit">hrs</div>
+                                </div>
+                              </div>
+                            );
+                          })}
+                        </div>
+                        <div className="dt-edit-actions" style={{ marginTop: 16 }}>
+                          <button type="button" className="dt-edit-save" onClick={function () { setEditingSection(null); }}>Save Changes</button>
+                          <button type="button" className="dt-edit-cancel" onClick={function () { setEditingSection(null); }}>Cancel</button>
+                        </div>
+                      </>
                     )}
                   </div>
 

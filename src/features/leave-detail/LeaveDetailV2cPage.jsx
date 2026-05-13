@@ -505,7 +505,7 @@ export default function LeaveDetailV2cPage() {
                     <span style={{ fontSize: 11, fontWeight: 600, color: '#525252', background: '#f0f0f2', padding: '2px 8px', borderRadius: 4 }}>Editing</span>
                   )}
                 </div>
-                {editingSection === 'schedule' ? (
+                {editingSection === 'schedule' && (
                   <>
                     <div className="dt-info-grid">
                       <div>
@@ -522,17 +522,6 @@ export default function LeaveDetailV2cPage() {
                       <button type="button" className="dt-edit-cancel" onClick={function () { setEditingSection(null); }}>Cancel</button>
                     </div>
                   </>
-                ) : (
-                  <div className="dt-info-grid">
-                    <div>
-                      <div className="dt-info-field-label">Schedule</div>
-                      <div className="dt-info-field-value">{detailsForm.schedule}</div>
-                    </div>
-                    <div>
-                      <div className="dt-info-field-label">Manager</div>
-                      <div className="dt-info-field-value">{detailsForm.manager}</div>
-                    </div>
-                  </div>
                 )}
               </div>
 
