@@ -263,22 +263,26 @@
   display: flex;
   flex-direction: column;
   gap: 6px;
-  padding: 12px 16px;
+  padding: 16px 16px 12px;
 }
 
 .mobile-frame-screen .cl-category-dropdown-wrap {
   display: none !important;
 }
 
-/* Table card container on mobile — subtle card with padding */
+/* Table card container on mobile */
 .mobile-frame-screen .cl-ml-table-card {
   background: #ffffff;
-  border: 1px solid #e5e7eb;
+  border: 1px solid #dfebf6;
   border-radius: 12px;
   box-shadow: none;
   padding: 16px;
 }
 
+/* Filters inside card on mobile */
+.mobile-frame-screen .cl-ml-filters {
+  padding: 12px 0;
+}
 
 /* File a claim cards stack */
 .mobile-frame-screen .cl-card-row {
