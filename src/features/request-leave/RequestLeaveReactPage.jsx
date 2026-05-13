@@ -911,9 +911,11 @@ export default function RequestLeaveReactPage() {
             {formState.leaveScenario && reasonDescriptions[formState.leaveScenario] ? (
               <div className="rl-inline-message" style={{ marginTop: 16 }}>
                 <div className="rl-inline-message-icon">
-                  <svg width="20" height="20" viewBox="0 0 20 20" fill="none"><circle cx="10" cy="10" r="9" stroke="#105fa8" strokeWidth="1.5"/><path d="M10 9v5" stroke="#105fa8" strokeWidth="1.5" strokeLinecap="round"/><circle cx="10" cy="6.5" r="0.85" fill="#105fa8"/></svg>
+                  <svg width="22" height="22" viewBox="0 0 22 22" fill="none"><circle cx="11" cy="11" r="11" fill="#105fa8"/><path d="M11 10v5" stroke="#fff" strokeWidth="1.5" strokeLinecap="round"/><circle cx="11" cy="7" r="1" fill="#fff"/></svg>
                 </div>
                 <div className="rl-inline-message-body">
+                  <span className="rl-inline-message-date">{new Date().toLocaleDateString('en-US', { month: '2-digit', day: '2-digit', year: '2-digit' }).replace(/\//g, '/')}</span>
+                  <strong className="rl-inline-message-title">{({ medical_self: "Illness or Injury Selected", medical_family: "Family Care Selected", child: "Birthing Parent Selected", child_nonbirth: "Bonding Leave Selected", military: "Military Leave Selected", other: "Other Leave Selected" })[formState.leaveScenario] || "Selection Made"}</strong>
                   <p className="rl-inline-message-text">{reasonDescriptions[formState.leaveScenario]}</p>
                 </div>
                 <button type="button" className="rl-inline-message-close" aria-label="Dismiss">
