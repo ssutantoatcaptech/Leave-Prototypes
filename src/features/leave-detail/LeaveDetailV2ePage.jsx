@@ -316,11 +316,11 @@ export default function LeaveDetailV2ePage() {
                   <div className="ldb-tl-rows-wrap">
                   <div className="dlp-tl-rows">
                     {(timelineView === 'payment' ? [
-                      { id: 'std', label: 'STD', width: 50, accent: '#105fa8', name: 'Group Disability Claim (STD)', weeks: '4 weeks', range: 'Apr 15 – May 15, 2026', pay: '60% salary after 7-day wait', status: 'Approved', paymentValue: '~$2,308/wk' },
+                      { id: 'std', label: 'STD', width: 50, accent: '#105fa8', name: 'Short-Term Disability Claim (STD)', weeks: '4 weeks', range: 'Apr 15 – May 15, 2026', pay: '60% salary after 7-day wait', status: 'Approved', paymentValue: '~$2,308/wk' },
                       { id: 'njtdi', label: 'NJ TDI', width: 100, accent: '#007a8a', name: 'NJ Temporary Disability Insurance', weeks: '12 weeks', range: 'Apr 15 – Jul 08, 2026', pay: '85% salary (state program)', status: 'Active', paymentValue: '~$1,048/wk' },
                     ] : [
                       { id: 'fmla', label: 'FMLA', width: 100, accent: '#003a70', name: 'Leave Case — FMLA (Intermittent)', weeks: '13 wk', range: 'Apr 15 – Jul 08, 2026', pay: 'Job protection (unpaid)', status: 'Approved' },
-                      { id: 'std', label: 'STD', width: 42, accent: '#105fa8', name: 'Group Disability Claim (STD)', weeks: '5.5 wk', range: 'Apr 15 – May 15, 2026', pay: '60% salary after 7-day wait', status: 'Approved' },
+                      { id: 'std', label: 'STD', width: 42, accent: '#105fa8', name: 'Short-Term Disability Claim (STD)', weeks: '5.5 wk', range: 'Apr 15 – May 15, 2026', pay: '60% salary after 7-day wait', status: 'Approved' },
                     ]).map(function (item) {
                       return (
                         <button
@@ -343,11 +343,11 @@ export default function LeaveDetailV2ePage() {
                   {/* Desktop: tooltip on hover */}
                   {hoveredRow && (function () {
                     var allRows = timelineView === 'payment' ? [
-                      { id: 'std', name: 'Group Disability Claim (STD)', weeks: '5.5 weeks', range: 'Apr 15 – May 15, 2026', pay: '60% salary after 7-day wait', status: 'Approved', paymentValue: '~$2,308/wk' },
+                      { id: 'std', name: 'Short-Term Disability Claim (STD)', weeks: '5.5 weeks', range: 'Apr 15 – May 15, 2026', pay: '60% salary after 7-day wait', status: 'Approved', paymentValue: '~$2,308/wk' },
                       { id: 'njtdi', name: 'NJ Temporary Disability Insurance', weeks: '12 weeks', range: 'Apr 15 – Jul 08, 2026', pay: '85% salary (state program)', status: 'Active', paymentValue: '~$1,048/wk' },
                     ] : [
                       { id: 'fmla', name: 'Leave Case — FMLA (Intermittent)', weeks: '13 weeks', range: 'Apr 15 – Jul 08, 2026', pay: 'Job protection (unpaid)', status: 'Approved' },
-                      { id: 'std', name: 'Group Disability Claim (STD)', weeks: '5.5 weeks', range: 'Apr 15 – May 15, 2026', pay: '60% salary after 7-day wait', status: 'Approved' },
+                      { id: 'std', name: 'Short-Term Disability Claim (STD)', weeks: '5.5 weeks', range: 'Apr 15 – May 15, 2026', pay: '60% salary after 7-day wait', status: 'Approved' },
                     ];
                     var hovered = allRows.find(function (r) { return r.id === hoveredRow; });
                     if (!hovered) return null;
@@ -382,11 +382,11 @@ export default function LeaveDetailV2ePage() {
                   {/* Mobile: accordion below rows */}
                   {hoveredRow && (function () {
                     var allRows = timelineView === 'payment' ? [
-                      { id: 'std', name: 'Group Disability Claim (STD)', weeks: '5.5 weeks', range: 'Apr 15 – May 15, 2026', pay: '60% salary after 7-day wait', status: 'Approved', paymentValue: '~$2,308/wk' },
+                      { id: 'std', name: 'Short-Term Disability Claim (STD)', weeks: '5.5 weeks', range: 'Apr 15 – May 15, 2026', pay: '60% salary after 7-day wait', status: 'Approved', paymentValue: '~$2,308/wk' },
                       { id: 'njtdi', name: 'NJ Temporary Disability Insurance', weeks: '12 weeks', range: 'Apr 15 – Jul 08, 2026', pay: '85% salary (state program)', status: 'Active', paymentValue: '~$1,048/wk' },
                     ] : [
                       { id: 'fmla', name: 'Leave Case — FMLA (Intermittent)', weeks: '13 weeks', range: 'Apr 15 – Jul 08, 2026', pay: 'Job protection (unpaid)', status: 'Approved' },
-                      { id: 'std', name: 'Group Disability Claim (STD)', weeks: '5.5 weeks', range: 'Apr 15 – May 15, 2026', pay: '60% salary after 7-day wait', status: 'Approved' },
+                      { id: 'std', name: 'Short-Term Disability Claim (STD)', weeks: '5.5 weeks', range: 'Apr 15 – May 15, 2026', pay: '60% salary after 7-day wait', status: 'Approved' },
                     ];
                     var selected = allRows.find(function (r) { return r.id === hoveredRow; });
                     if (!selected) return null;
@@ -532,7 +532,7 @@ export default function LeaveDetailV2ePage() {
                 )}
               </div>
 
-              {/* Group Disability Claim — only for medical_self and child (birthing parent) */}
+              {/* Short-Term Disability Claim — only for medical_self and child (birthing parent) */}
               {(caseScenario === 'medical_self' || caseScenario === 'child') && (
               <div className="ldb-claim-accordion">
                 <button type="button" className={'ldb-claim-accordion-header' + (expandedClaims.disability ? ' expanded' : '')} onClick={function () { toggleClaim('disability'); }}>
@@ -540,7 +540,7 @@ export default function LeaveDetailV2ePage() {
                     <svg className="ldb-claim-accordion-chevron" width="10" height="6" viewBox="0 0 10 6" fill="none"><path d="M1 1l4 4 4-4" stroke="currentColor" strokeWidth="1.3" strokeLinecap="round" strokeLinejoin="round"/></svg>
                     <div>
                       <div className="ldb-claim-accordion-title-wrap">
-                        <span className="ldb-claim-accordion-title">{caseScenario === 'child' ? 'Maternity Disability Claim' : 'Group Disability Claim'}</span>
+                        <span className="ldb-claim-accordion-title">{caseScenario === 'child' ? 'Maternity Disability Claim' : 'Short-Term Disability Claim'}</span>
                       </div>
                       <div className="ldb-claim-accordion-sub">{caseScenario === 'child' ? 'CLM-12345-GDC · STD Benefit — maternity disability at 60% of earnings' : 'CLM-12345-GDC · STD Benefit — income replacement at 60% of earnings'}</div>
                     </div>
@@ -585,101 +585,6 @@ export default function LeaveDetailV2ePage() {
               )}
 
 
-              {/* State Paid Leave — for medical_self and child */}
-              {(caseScenario === 'medical_self' || caseScenario === 'child') && (
-              <div className="ldb-claim-accordion">
-                <button type="button" className={'ldb-claim-accordion-header' + (expandedClaims.stateleave ? ' expanded' : '')} onClick={function () { toggleClaim('stateleave'); }}>
-                  <div className="ldb-claim-accordion-left">
-                    <svg className="ldb-claim-accordion-chevron" width="10" height="6" viewBox="0 0 10 6" fill="none"><path d="M1 1l4 4 4-4" stroke="currentColor" strokeWidth="1.3" strokeLinecap="round" strokeLinejoin="round"/></svg>
-                    <div>
-                      <div className="ldb-claim-accordion-title-wrap">
-                        <span className="ldb-claim-accordion-title">{caseScenario === 'child' ? 'State Paid Leave — NJ FLI' : 'State Paid Leave — NJ TDI'}</span>
-                      </div>
-                      <div className="ldb-claim-accordion-sub">{caseScenario === 'child' ? 'NTN-9312-STL-83 · NJ Family Leave Insurance — state-funded bonding benefit' : 'NTN-9312-STL-83 · NJ Temporary Disability Insurance — state-funded income replacement'}</div>
-                    </div>
-                  </div>
-                  <span className="ldb-claim-status approved">Active</span>
-                </button>
-                {expandedClaims.stateleave && (
-                  <div className="ldb-claim-accordion-body">
-                    <div className="dt-info-grid">
-                      <div>
-                        <div className="dt-info-field-label">Claim ID</div>
-                        <div className="dt-info-field-value">NTN-9312-STL-83</div>
-                      </div>
-                      <div>
-                        <div className="dt-info-field-label">Program</div>
-                        <div className="dt-info-field-value">{caseScenario === 'child' ? 'NJ Family Leave Insurance (FLI)' : 'NJ Temporary Disability Insurance (TDI)'}</div>
-                      </div>
-                      <div>
-                        <div className="dt-info-field-label">Benefit %</div>
-                        <div className="dt-info-field-value">85% of average weekly wage</div>
-                      </div>
-                      <div>
-                        <div className="dt-info-field-label">Weekly Benefit</div>
-                        <div className="dt-info-field-value" style={{ fontWeight: 700 }}>$1,048.00</div>
-                      </div>
-                      <div>
-                        <div className="dt-info-field-label">Max Duration</div>
-                        <div className="dt-info-field-value">{caseScenario === 'child' ? '12 weeks' : '26 weeks'}</div>
-                      </div>
-                      <div>
-                        <div className="dt-info-field-label">Payment Method</div>
-                        <div className="dt-info-field-value">Direct Deposit ****4872</div>
-                      </div>
-                    </div>
-                  </div>
-                )}
-              </div>
-              )}
-
-              {/* NJ Family Leave — for medical_family and child_nonbirth */}
-              {(caseScenario === 'medical_family' || caseScenario === 'child_nonbirth') && (
-              <div className="ldb-claim-accordion">
-                <button type="button" className={'ldb-claim-accordion-header' + (expandedClaims.stateleave ? ' expanded' : '')} onClick={function () { toggleClaim('stateleave'); }}>
-                  <div className="ldb-claim-accordion-left">
-                    <svg className="ldb-claim-accordion-chevron" width="10" height="6" viewBox="0 0 10 6" fill="none"><path d="M1 1l4 4 4-4" stroke="currentColor" strokeWidth="1.3" strokeLinecap="round" strokeLinejoin="round"/></svg>
-                    <div>
-                      <div className="ldb-claim-accordion-title-wrap">
-                        <span className="ldb-claim-accordion-title">State Paid Leave — NJ FLI</span>
-                      </div>
-                      <div className="ldb-claim-accordion-sub">NTN-9312-STL-83 · NJ Family Leave Insurance — state-funded caregiver/bonding benefit</div>
-                    </div>
-                  </div>
-                  <span className="ldb-claim-status approved">Active</span>
-                </button>
-                {expandedClaims.stateleave && (
-                  <div className="ldb-claim-accordion-body">
-                    <div className="dt-info-grid">
-                      <div>
-                        <div className="dt-info-field-label">Claim ID</div>
-                        <div className="dt-info-field-value">NTN-9312-STL-83</div>
-                      </div>
-                      <div>
-                        <div className="dt-info-field-label">Program</div>
-                        <div className="dt-info-field-value">NJ Family Leave Insurance (FLI)</div>
-                      </div>
-                      <div>
-                        <div className="dt-info-field-label">Benefit %</div>
-                        <div className="dt-info-field-value">85% of average weekly wage</div>
-                      </div>
-                      <div>
-                        <div className="dt-info-field-label">Weekly Benefit</div>
-                        <div className="dt-info-field-value" style={{ fontWeight: 700 }}>$1,048.00</div>
-                      </div>
-                      <div>
-                        <div className="dt-info-field-label">Max Duration</div>
-                        <div className="dt-info-field-value">12 weeks</div>
-                      </div>
-                      <div>
-                        <div className="dt-info-field-label">Payment Method</div>
-                        <div className="dt-info-field-value">Direct Deposit ****4872</div>
-                      </div>
-                    </div>
-                  </div>
-                )}
-              </div>
-              )}
             </div>
 
 
@@ -747,7 +652,7 @@ export default function LeaveDetailV2ePage() {
                   <span className="ldb-payment-value">Direct Deposit ****4872</span>
                 </div>
               </div>
-              <p className="ldb-card-context" style={{ marginTop: 16 }}>Payments from your Group Disability Claim (STD). Paid weekly via direct deposit.</p>
+              <p className="ldb-card-context" style={{ marginTop: 16 }}>Payments from your Short-Term Disability Claim (STD). Paid weekly via direct deposit.</p>
 
               <h3 style={{ fontSize: 15, fontWeight: 600, color: '#222', marginTop: 28, marginBottom: 12 }}>Payment History</h3>
               <table className="ldb-activity-table ldb-activity-table--striped" style={{ fontSize: 13 }}>
@@ -760,11 +665,11 @@ export default function LeaveDetailV2ePage() {
                   </tr>
                 </thead>
                 <tbody>
-                  <tr><td>May 12, 2026</td><td>$2,308.00</td><td>STD (Group Disability)</td><td><span className="ldb-status-pill ldb-status-pill--approved">Paid</span></td></tr>
-                  <tr><td>May 5, 2026</td><td>$2,308.00</td><td>STD (Group Disability)</td><td><span className="ldb-status-pill ldb-status-pill--approved">Paid</span></td></tr>
-                  <tr><td>Apr 28, 2026</td><td>$2,308.00</td><td>STD (Group Disability)</td><td><span className="ldb-status-pill ldb-status-pill--approved">Paid</span></td></tr>
-                  <tr><td>Apr 21, 2026</td><td>$969.00</td><td>STD (Group Disability)</td><td><span className="ldb-status-pill ldb-status-pill--approved">Paid</span></td></tr>
-                  <tr><td>May 19, 2026</td><td>$2,308.00</td><td>STD (Group Disability)</td><td><span className="ldb-status-pill ldb-status-pill--pending">Scheduled</span></td></tr>
+                  <tr><td>May 12, 2026</td><td>$2,308.00</td><td>STD (Short-Term Disability)</td><td><span className="ldb-status-pill ldb-status-pill--approved">Paid</span></td></tr>
+                  <tr><td>May 5, 2026</td><td>$2,308.00</td><td>STD (Short-Term Disability)</td><td><span className="ldb-status-pill ldb-status-pill--approved">Paid</span></td></tr>
+                  <tr><td>Apr 28, 2026</td><td>$2,308.00</td><td>STD (Short-Term Disability)</td><td><span className="ldb-status-pill ldb-status-pill--approved">Paid</span></td></tr>
+                  <tr><td>Apr 21, 2026</td><td>$969.00</td><td>STD (Short-Term Disability)</td><td><span className="ldb-status-pill ldb-status-pill--approved">Paid</span></td></tr>
+                  <tr><td>May 19, 2026</td><td>$2,308.00</td><td>STD (Short-Term Disability)</td><td><span className="ldb-status-pill ldb-status-pill--pending">Scheduled</span></td></tr>
                 </tbody>
               </table>
             </div>
