@@ -282,13 +282,17 @@
 }
 .ldb-card.dt-timeline-wrap .dt-tl-toggle {
   border: 1px solid #d6d6dc;
-  border-radius: 20px;
+  border-radius: 4px;
   background: #ffffff;
+  overflow: hidden;
 }
 .ldb-card.dt-timeline-wrap .dt-tl-toggle button {
-  border-radius: 20px;
+  border-radius: 3px;
   border: none;
   color: #424242;
+  font-size: 13px;
+  font-weight: 600;
+  padding: 8px 18px;
 }
 .ldb-card.dt-timeline-wrap .dt-tl-toggle button:first-child {
   border-right: none;
@@ -297,7 +301,6 @@
   background: #003a70;
   color: #ffffff;
   box-shadow: none;
-  border-radius: 20px;
 }
 .ldb-card.dt-timeline-wrap .dlp-tl-row.active {
   background: #f0f7ff;
