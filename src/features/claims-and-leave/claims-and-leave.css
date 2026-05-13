@@ -5579,7 +5579,7 @@
   background: #f8fbfd;
   max-width: 1440px;
   margin: 0 auto;
-  padding: 0 60px 48px;
+  padding: 48px 60px;
   animation: cl-fadeIn 0.2s ease-out;
 }
 
@@ -5587,7 +5587,7 @@
 .cl-payments-breadcrumb {
   font-size: 13px;
   color: #5d5d5d;
-  margin-bottom: 16px;
+  margin-bottom: 8px;
   display: flex;
   align-items: center;
   gap: 6px;
