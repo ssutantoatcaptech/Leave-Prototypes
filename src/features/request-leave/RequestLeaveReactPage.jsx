@@ -1379,9 +1379,9 @@ export default function RequestLeaveReactPage() {
             <h2>When would you like to bond with your child?</h2>
             <p className="subtitle">Bonding time is time set aside for you to be with your new child. You don't have to decide everything now.</p>
             <div className="option-cards">
-              {renderOptionCard('bondingIntent', 'immediate', 'Right away', 'I want to go straight from recovery into bonding time.')}
-              {renderOptionCard('bondingIntent', 'later', "I'll come back first", "I'd like to return to work and take bonding time later.")}
-              {renderOptionCard('bondingIntent', 'unsure', 'Not sure yet', "I'll figure it out later — that's totally fine.")}
+              {renderOptionCard('bondingIntent', 'immediate', 'Right away', 'I want to go straight from recovery into bonding time.', true)}
+              {renderOptionCard('bondingIntent', 'later', "I'll come back first", "I'd like to return to work and take bonding time later.", true)}
+              {renderOptionCard('bondingIntent', 'unsure', 'Not sure yet', "I'll figure it out later — that's totally fine.", true)}
             </div>
           </>
         );
