@@ -1424,16 +1424,37 @@
 }
 
 .mobile-frame-screen .cl-std-grid {
-  grid-template-columns: 1fr;
+  display: flex;
+  flex-direction: column;
   gap: 16px;
 }
 
-.mobile-frame-screen .cl-std-sidebar {
-  order: -1;
+.mobile-frame-screen .cl-std-main {
+  display: contents;
 }
 
-.mobile-frame-screen .cl-std-main {
+.mobile-frame-screen .cl-std-sidebar {
+  display: contents;
+}
+
+.mobile-frame-screen .cl-std-sidebar-card--action {
   order: 1;
+}
+
+.mobile-frame-screen .cl-std-main .cl-std-card:first-child {
+  order: 2;
+}
+
+.mobile-frame-screen .cl-std-main .cl-std-card:nth-child(2) {
+  order: 3;
+}
+
+.mobile-frame-screen .cl-std-sidebar-card:not(.cl-std-sidebar-card--action):not(.cl-std-sidebar-card--docs) {
+  order: 4;
+}
+
+.mobile-frame-screen .cl-std-sidebar-card--docs {
+  order: 5;
 }
 
 .mobile-frame-screen .cl-std-card {
@@ -1480,6 +1501,17 @@
 
 .mobile-frame-screen .cl-std-payments-grid {
   grid-template-columns: 1fr;
+}
+
+.mobile-frame-screen .cl-std-payments-grid .cl-std-field {
+  border-bottom: 1px solid #e5e7eb;
+  padding-bottom: 12px;
+  margin-bottom: 4px;
+}
+
+.mobile-frame-screen .cl-std-payments-grid .cl-std-field:last-child {
+  border-bottom: none;
+  margin-bottom: 0;
 }
 
 .mobile-frame-screen .cl-std-usage-header {
@@ -1553,6 +1585,10 @@
 
 .mobile-frame-screen .cl-std-timeline-note {
   font-size: 12px;
+}
+
+.mobile-frame-screen .cl-std-sidebar-card--docs {
+  padding-bottom: 20px;
 }
 
 .mobile-frame-screen .cl-std-doc-item {
