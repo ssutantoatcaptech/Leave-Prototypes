@@ -745,13 +745,18 @@ export default function PlanAbsenceReactPage() {
           {/* ─── Illness Step 1: Reason ─── */}
           {illnessStep === 1 && (
             <div className="sim-card">
-              <h2 style={{ marginBottom: 20 }}>
-                Why are you taking leave?{' '}
-                <span className="wiz-tooltip-wrap">
-                  <svg className="wiz-tooltip-icon" width="16" height="16" viewBox="0 0 16 16" fill="none"><circle cx="8" cy="8" r="7" stroke="#737373" strokeWidth="1.3"/><path d="M8 7.5V11" stroke="#737373" strokeWidth="1.3" strokeLinecap="round"/><circle cx="8" cy="5.5" r="0.75" fill="#737373"/></svg>
-                  <span className="wiz-tooltip-text">Select the primary reason for your leave. Don&rsquo;t worry if you&rsquo;re not sure about the details yet &mdash; we&rsquo;ll walk through everything together.</span>
-                </span>
-              </h2>
+              <h2 style={{ marginBottom: 20 }}>Why are you taking leave?</h2>
+              <div className="rl-inline-message" style={{ marginBottom: 20 }}>
+                <div className="rl-inline-message-bar">
+                  <div className="rl-inline-message-icon">
+                    <svg width="22" height="22" viewBox="0 0 22 22" fill="none"><circle cx="11" cy="11" r="10" fill="#fff"/><path d="M11 10v5" stroke="#105fa8" strokeWidth="1.6" strokeLinecap="round"/><circle cx="11" cy="7" r="1" fill="#105fa8"/></svg>
+                  </div>
+                </div>
+                <div className="rl-inline-message-body">
+                  <strong className="rl-inline-message-title">Getting Started</strong>
+                  <p className="rl-inline-message-text">Select the primary reason for your leave. Don&rsquo;t worry if you&rsquo;re not sure about the details yet &mdash; we&rsquo;ll walk through everything together.</p>
+                </div>
+              </div>
               <div className="option-cards">
                 {REASON_OPTIONS.map((opt) => (
                   <div
@@ -1742,13 +1747,18 @@ export default function PlanAbsenceReactPage() {
           {/* ─── Step 1: Reason ─── */}
           {step === 1 && (
             <div className="sim-card">
-              <h2 style={{ marginBottom: 20 }}>
-                Why are you taking leave?{' '}
-                <span className="wiz-tooltip-wrap">
-                  <svg className="wiz-tooltip-icon" width="16" height="16" viewBox="0 0 16 16" fill="none"><circle cx="8" cy="8" r="7" stroke="#737373" strokeWidth="1.3"/><path d="M8 7.5V11" stroke="#737373" strokeWidth="1.3" strokeLinecap="round"/><circle cx="8" cy="5.5" r="0.75" fill="#737373"/></svg>
-                  <span className="wiz-tooltip-text">Select the primary reason for your leave. Don&rsquo;t worry if you&rsquo;re not sure about the details yet &mdash; we&rsquo;ll walk through everything together.</span>
-                </span>
-              </h2>
+              <h2 style={{ marginBottom: 20 }}>Why are you taking leave?</h2>
+              <div className="rl-inline-message" style={{ marginBottom: 20 }}>
+                <div className="rl-inline-message-bar">
+                  <div className="rl-inline-message-icon">
+                    <svg width="22" height="22" viewBox="0 0 22 22" fill="none"><circle cx="11" cy="11" r="10" fill="#fff"/><path d="M11 10v5" stroke="#105fa8" strokeWidth="1.6" strokeLinecap="round"/><circle cx="11" cy="7" r="1" fill="#105fa8"/></svg>
+                  </div>
+                </div>
+                <div className="rl-inline-message-body">
+                  <strong className="rl-inline-message-title">Getting Started</strong>
+                  <p className="rl-inline-message-text">Select the primary reason for your leave. Don&rsquo;t worry if you&rsquo;re not sure about the details yet &mdash; we&rsquo;ll walk through everything together.</p>
+                </div>
+              </div>
               <div className="option-cards">
                 {REASON_OPTIONS.map((opt) => (
                   <div
