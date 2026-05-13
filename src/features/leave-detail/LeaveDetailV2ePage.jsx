@@ -96,7 +96,6 @@ export default function LeaveDetailV2ePage() {
   var [expandedClaims, setExpandedClaims] = useState({ absence: false, stateleave: false });
   var [paymentsOpen, setPaymentsOpen] = useState(false);
   var [showAllTasks, setShowAllTasks] = useState(false);
-  var [snapshotOpen, setSnapshotOpen] = useState(true);
   var [editingSection, setEditingSection] = useState(null);
   var [detailTab, setDetailTab] = useState('claims');
 
@@ -273,36 +272,6 @@ export default function LeaveDetailV2ePage() {
 
             {isMobile && renderItemsRequiringAction()}
 
-            {isMobile && (
-              <div className="ldb-side-card ldb-mobile-snapshot-accordion">
-                <button type="button" className="ldb-accordion-toggle" onClick={function () { setSnapshotOpen(!snapshotOpen); }}>
-                  <h3 className="ldb-side-title" style={{ marginBottom: 0 }}>
-                    <svg width="14" height="14" viewBox="0 0 16 16" fill="none"><rect x="2" y="3" width="12" height="11" rx="1.5" stroke="currentColor" strokeWidth="1.2"/><path d="M2 6h12" stroke="currentColor" strokeWidth="1.2"/><path d="M5 2v2M11 2v2" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round"/></svg>
-                    Leave Snapshot
-                  </h3>
-                  <svg className={`ldb-accordion-chevron ${snapshotOpen ? 'open' : ''}`} width="12" height="12" viewBox="0 0 16 16" fill="none"><path d="M4 6l4 4 4-4" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round"/></svg>
-                </button>
-                {snapshotOpen && (
-                  <div className="ldb-accordion-body">
-                    <div className="ldb-snapshot-dates-row">
-                      <div className="ldb-snapshot-date-card">
-                        <div className="ldb-snapshot-date-label">Start Date</div>
-                        <div className="ldb-snapshot-date-value">April 15, 2026</div>
-                      </div>
-                      <div className="ldb-snapshot-date-card">
-                        <div className="ldb-snapshot-date-label">End Date</div>
-                        <div className="ldb-snapshot-date-value">July 8, 2026</div>
-                      </div>
-                    </div>
-                    <div className="ldb-snapshot-date-card ldb-snapshot-date-card--full">
-                      <div className="ldb-snapshot-date-label">Return Work Date</div>
-                      <div className="ldb-snapshot-date-value">July 9, 2026</div>
-                    </div>
-                  </div>
-                )}
-              </div>
-            )}
-
             {/* Leave Timeline */}
             <div className="ldb-card dt-timeline-wrap">
                 <div className="ad-section-header">
@@ -465,6 +434,24 @@ export default function LeaveDetailV2ePage() {
                       <div className="dt-payment-summary-note">STD ($9,232) + NJ TDI ($12,576) · Based on current salary · Actual amounts may vary</div>
                     </div>
                   )}
+                </div>
+
+                {/* Leave Snapshot — inline below timeline */}
+                <div className="ldb-timeline-snapshot">
+                  <div className="ldb-timeline-snapshot-item">
+                    <div className="ldb-timeline-snapshot-label">Start Date</div>
+                    <div className="ldb-timeline-snapshot-value">April 15, 2026</div>
+                  </div>
+                  <div className="ldb-timeline-snapshot-divider" />
+                  <div className="ldb-timeline-snapshot-item">
+                    <div className="ldb-timeline-snapshot-label">End Date</div>
+                    <div className="ldb-timeline-snapshot-value">July 8, 2026</div>
+                  </div>
+                  <div className="ldb-timeline-snapshot-divider" />
+                  <div className="ldb-timeline-snapshot-item">
+                    <div className="ldb-timeline-snapshot-label">Return to Work</div>
+                    <div className="ldb-timeline-snapshot-value">July 9, 2026</div>
+                  </div>
                 </div>
             </div>
 
@@ -1114,27 +1101,6 @@ export default function LeaveDetailV2ePage() {
             {/* 1. Items Requiring Action (sidebar on desktop) */}
             {!isMobile && renderItemsRequiringAction()}
 
-            {/* 2. Leave Snapshot */}
-            <div className="ldb-side-card">
-              <h3 className="ldb-side-title">
-                <svg width="14" height="14" viewBox="0 0 16 16" fill="none"><rect x="2" y="3" width="12" height="11" rx="1.5" stroke="currentColor" strokeWidth="1.2"/><path d="M2 6h12" stroke="currentColor" strokeWidth="1.2"/><path d="M5 2v2M11 2v2" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round"/></svg>
-                Leave Snapshot
-              </h3>
-              <div className="ldb-snapshot-dates-row">
-                <div className="ldb-snapshot-date-card">
-                  <div className="ldb-snapshot-date-label">Start Date</div>
-                  <div className="ldb-snapshot-date-value">April 15, 2026</div>
-                </div>
-                <div className="ldb-snapshot-date-card">
-                  <div className="ldb-snapshot-date-label">End Date</div>
-                  <div className="ldb-snapshot-date-value">July 8, 2026</div>
-                </div>
-              </div>
-              <div className="ldb-snapshot-date-card ldb-snapshot-date-card--full">
-                <div className="ldb-snapshot-date-label">Return Work Date</div>
-                <div className="ldb-snapshot-date-value">July 9, 2026</div>
-              </div>
-            </div>
 
             {/* 3. Quick Actions */}
             <div className="ldb-side-card ldb-side-card--shadow">
