@@ -177,7 +177,7 @@ export default function LeaveDetailNewCasePage() {
                     {(timelineView === 'payment' ? [
                       { id: 'std', label: 'STD', width: 50, accent: '#2563eb', name: 'Group Disability Claim (STD)', weeks: 'Up to 26 wks', range: startFormatted + ' – TBD', pay: '60% of earnings', status: 'Pending', paymentValue: 'TBD' },
                     ] : [
-                      { id: 'fmla', label: 'FMLA', width: 100, accent: '#0033a0', name: 'FMLA Job Protection', weeks: 'Up to 12 wks', range: startFormatted + ' – ' + endFormatted, pay: 'Job protection (unpaid)', status: 'Pending' },
+                      { id: 'fmla', label: 'FMLA', width: 100, accent: '#105fa8', name: 'FMLA Job Protection', weeks: 'Up to 12 wks', range: startFormatted + ' – ' + endFormatted, pay: 'Job protection (unpaid)', status: 'Pending' },
                       { id: 'std', label: 'STD', width: 50, accent: '#2563eb', name: 'Group Disability Claim (STD)', weeks: 'Up to 26 wks', range: startFormatted + ' – TBD', pay: '60% of earnings', status: 'Pending' },
                     ]).map(function (item) {
                       return (
@@ -291,7 +291,7 @@ export default function LeaveDetailNewCasePage() {
                     { id: 'std', label: 'STD (60%)', accent: '#2563eb' },
                     { id: 'unpaid', label: 'Unpaid/TBD', accent: '#cbd5e1' },
                   ] : [
-                    { id: 'fmla', label: 'FMLA Protection', accent: '#0033a0' },
+                    { id: 'fmla', label: 'FMLA Protection', accent: '#105fa8' },
                     { id: 'std', label: 'STD Income', accent: '#2563eb' },
                   ]).map(function (item) {
                     return (
@@ -323,12 +323,12 @@ export default function LeaveDetailNewCasePage() {
                     <div>
                       <div className="ldb-claim-accordion-title-wrap">
                         <span className="ldb-claim-accordion-title">Leave Case</span>
-                        <span className="ldb-claim-status ldb-claim-status--inline" style={{ background: '#e8f0fe', color: '#0033a0' }}>Pending</span>
+                        <span className="ldb-claim-status ldb-claim-status--inline" style={{ background: '#e8f0fe', color: '#105fa8' }}>Pending</span>
                       </div>
                       <div className="ldb-claim-accordion-sub">{caseId}-ABC-01 · FMLA designation pending review</div>
                     </div>
                   </div>
-                  <span className="ldb-claim-status ldb-claim-status--end" style={{ background: '#e8f0fe', color: '#0033a0' }}>Pending</span>
+                  <span className="ldb-claim-status ldb-claim-status--end" style={{ background: '#e8f0fe', color: '#105fa8' }}>Pending</span>
                 </button>
                 {expandedClaims.absence && (
                   <div className="ldb-claim-accordion-body">
@@ -362,12 +362,12 @@ export default function LeaveDetailNewCasePage() {
                     <div>
                       <div className="ldb-claim-accordion-title-wrap">
                         <span className="ldb-claim-accordion-title">Group Disability Claim</span>
-                        <span className="ldb-claim-status ldb-claim-status--inline" style={{ background: '#e8f0fe', color: '#0033a0' }}>Pending</span>
+                        <span className="ldb-claim-status ldb-claim-status--inline" style={{ background: '#e8f0fe', color: '#105fa8' }}>Pending</span>
                       </div>
                       <div className="ldb-claim-accordion-sub">{caseId}-GDC-02 · STD benefit — pending eligibility review</div>
                     </div>
                   </div>
-                  <span className="ldb-claim-status ldb-claim-status--end" style={{ background: '#e8f0fe', color: '#0033a0' }}>Pending</span>
+                  <span className="ldb-claim-status ldb-claim-status--end" style={{ background: '#e8f0fe', color: '#105fa8' }}>Pending</span>
                 </button>
                 {expandedClaims.disability && (
                   <div className="ldb-claim-accordion-body">

@@ -205,7 +205,7 @@
 
 .cl-nav-dropdown-item.active {
   background: #f0f4ff;
-  color: #0033a0;
+  color: #105fa8;
   font-weight: 500;
 }
 
@@ -809,7 +809,7 @@
 .cl-eob-link {
   display: inline-block;
   margin-top: 12px;
-  color: #0033a0;
+  color: #105fa8;
   font-size: 13px;
   font-weight: 600;
   text-decoration: none;
@@ -1144,7 +1144,7 @@
 }
 
 .cl-text-link {
-  color: #0033a0;
+  color: #105fa8;
   text-decoration: none;
   font-weight: 600;
 }
@@ -1251,7 +1251,7 @@
 }
 
 .cl-cal-day--selected {
-  background: #0033a0;
+  background: #105fa8;
   color: #ffffff;
   font-weight: 600;
 }
@@ -1262,7 +1262,7 @@
 
 .cl-cal-day--logged {
   background: #eff6ff;
-  color: #0033a0;
+  color: #105fa8;
   font-weight: 600;
 }
 
@@ -1351,7 +1351,7 @@
 .cl-sidebar-card-phone {
   font-size: 15px;
   font-weight: 700;
-  color: #0033a0;
+  color: #105fa8;
   margin: 8px 0 0;
 }
 
@@ -1366,7 +1366,7 @@
 
 .cl-sidebar-links a {
   font-size: 13px;
-  color: #0033a0;
+  color: #105fa8;
   text-decoration: none;
   font-weight: 500;
 }
@@ -1410,7 +1410,7 @@
 .cl-balance-value {
   font-size: 18px;
   font-weight: 700;
-  color: #0033a0;
+  color: #105fa8;
 }
 
 /* Payment badges */
@@ -1549,7 +1549,7 @@
   height: 40px;
   border-radius: 10px;
   background: #e8f0fe;
-  color: #0033a0;
+  color: #105fa8;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -1577,9 +1577,9 @@
   padding: 10px 16px;
   font-size: 13px;
   font-weight: 600;
-  color: #0033a0;
+  color: #105fa8;
   background: none;
-  border: 1px solid #0033a0;
+  border: 1px solid #105fa8;
   border-radius: 6px;
   cursor: pointer;
   font-family: inherit;
@@ -1588,7 +1588,7 @@
 }
 
 .cl-info-card-btn:hover {
-  background: #0033a0;
+  background: #105fa8;
   color: #ffffff;
 }
 
@@ -3481,7 +3481,7 @@
 
 /* Buttons */
 .cldb-btn-dark {
-  background: #0033a0;
+  background: #105fa8;
   color: #fff;
   border: none;
   border-radius: 4px;
@@ -3493,7 +3493,7 @@
 }
 
 .cldb-btn-dark:hover {
-  background: #002880;
+  background: #0a4a85;
 }
 
 .cldb-btn-outline {
@@ -4124,8 +4124,8 @@
   min-height: 44px;
   padding: 10px 16px;
   background: #ffffff;
-  color: #0033a0;
-  border: 1px solid #0033a0;
+  color: #105fa8;
+  border: 1px solid #105fa8;
   border-radius: 8px;
   font-size: 14px;
   font-weight: 500;
@@ -4141,8 +4141,8 @@
 
 .cl-card-mobile-action--outline {
   background: #fff;
-  color: #0033a0;
-  border: 1px solid #0033a0;
+  color: #105fa8;
+  border: 1px solid #105fa8;
 }
 
 .cl-card-mobile-action--outline:hover {
@@ -4260,12 +4260,12 @@
 }
 
 .cl-delete-modal-btn--keep {
-  background: #0033a0;
+  background: #105fa8;
   color: #fff;
 }
 
 .cl-delete-modal-btn--keep:hover {
-  background: #002880;
+  background: #0a4a85;
 }
 
 .cl-delete-modal-btn--discard {
@@ -5020,7 +5020,7 @@
   align-items: center;
   justify-content: center;
   padding: 10px 20px;
-  background: #0033a0;
+  background: #105fa8;
   color: #fff;
   border: none;
   border-radius: 4px;
@@ -5033,7 +5033,7 @@
 }
 
 .cl-std-btn-primary:hover {
-  background: #002880;
+  background: #0a4a85;
   color: #fff;
 }
 
@@ -5120,7 +5120,7 @@
   align-items: center;
   justify-content: center;
   padding: 8px 16px;
-  background: #0033a0;
+  background: #105fa8;
   color: #fff;
   border: none;
   border-radius: 6px;
@@ -5134,7 +5134,7 @@
 }
 
 .cl-std-btn-upload:hover {
-  background: #002880;
+  background: #0a4a85;
 }
 
 .cl-std-completed-toggle {

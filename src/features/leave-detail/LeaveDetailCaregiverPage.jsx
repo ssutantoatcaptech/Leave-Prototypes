@@ -164,7 +164,7 @@ export default function LeaveDetailCaregiverPage() {
                     {(timelineView === 'payment' ? [
                       { id: 'njfli', label: 'NJ FLI', width: 100, accent: '#0d9488', name: 'NJ Family Leave Insurance (Caregiving)', weeks: '12 weeks', range: 'May 5 – Jul 28, 2026', pay: '85% AWW up to max', status: 'Approved', paymentValue: '~$1,048/wk' },
                     ] : [
-                      { id: 'fmla', label: 'FMLA', width: 100, accent: '#0033a0', name: 'Leave Case — FMLA Protection', weeks: '12 weeks', range: 'May 5 – Jul 28, 2026', pay: 'Job protection (unpaid)', status: 'Approved' },
+                      { id: 'fmla', label: 'FMLA', width: 100, accent: '#105fa8', name: 'Leave Case — FMLA Protection', weeks: '12 weeks', range: 'May 5 – Jul 28, 2026', pay: 'Job protection (unpaid)', status: 'Approved' },
                       { id: 'njfli', label: 'NJ FLI', width: 100, accent: '#0d9488', name: 'NJ Family Leave Insurance (Caregiving)', weeks: '12 weeks', range: 'May 5 – Jul 28, 2026', pay: '85% AWW up to max', status: 'Approved' },
                     ]).map(function (item) {
                       return (
@@ -275,7 +275,7 @@ export default function LeaveDetailCaregiverPage() {
                       { id: 'fli-pay', label: 'NJ FLI (85%)', accent: '#0d9488' },
                       { id: 'unpaid', label: 'Unpaid Gap Days', accent: '#cbd5e1' },
                     ] : [
-                      { id: 'fmla', label: 'FMLA Protection', accent: '#0033a0' },
+                      { id: 'fmla', label: 'FMLA Protection', accent: '#105fa8' },
                       { id: 'njfli', label: 'NJ FLI (Caregiving)', accent: '#0d9488' },
                     ]).map(function (item) {
                       return (

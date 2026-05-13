@@ -15,7 +15,7 @@
 }
 
 /* ── SITE NAV ── */
-.ldb-top-nav { background: #0033a0; position: sticky; top: 0; z-index: 100; margin-bottom: 0; }
+.ldb-top-nav { background: #105fa8; position: sticky; top: 0; z-index: 100; margin-bottom: 0; }
 .ldb-nav-main { display: flex; align-items: center; justify-content: space-between; padding: 16px 24px; border-bottom: 1px solid rgba(255,255,255,0.1); }
 .ldb-nav-main-left { display: flex; align-items: center; gap: 32px; }
 .ldb-nav-brand { font-size: 20px; font-weight: 700; color: #fff; letter-spacing: -0.3px; cursor: default; }
@@ -35,7 +35,7 @@
 .ldb-nav-secondary { display: flex; gap: 8px; padding: 0 24px; background: #fff; border-bottom: 1px solid #e2e8f0; }
 .ldb-nav-tab { padding: 12px 12px 15px; font-size: 14px; font-weight: 400; color: #64748b; border: none; background: none; cursor: pointer; border-bottom: 3px solid transparent; font-family: inherit; transition: 0.15s; text-decoration: none; }
 .ldb-nav-tab:hover { background: #f8fafc; color: #1e293b; }
-.ldb-nav-tab.active { border-bottom-color: #0033a0; color: #1e293b; }
+.ldb-nav-tab.active { border-bottom-color: #105fa8; color: #1e293b; }
 
 /* ── SITE FOOTER ── */
 .ldb-site-footer { background: #fff; border-top: 1px solid #e2e8f0; padding: 48px 80px; margin-top: auto; }
@@ -155,7 +155,7 @@
 }
 .ldb-status-badge.pending-status {
   background: #e8f0fe;
-  color: #0033a0;
+  color: #105fa8;
 }
 .ldb-status-badge.approved-status {
   background: #f0fdf4;
@@ -181,7 +181,7 @@
   gap: 6px;
   padding: 0 20px;
   height: 40px;
-  background: #0033a0;
+  background: #105fa8;
   color: #fff;
   border: none;
   border-radius: 6px;
@@ -191,7 +191,7 @@
   font-family: inherit;
   transition: background 0.15s;
 }
-.ldb-btn-primary:hover { background: #002880; }
+.ldb-btn-primary:hover { background: #0a4a85; }
 
 .ldb-btn-secondary {
   display: inline-flex;
@@ -200,8 +200,8 @@
   padding: 0 20px;
   height: 40px;
   background: transparent;
-  color: #0033a0;
-  border: 1.5px solid #0033a0;
+  color: #105fa8;
+  border: 1.5px solid #105fa8;
   border-radius: 6px;
   font-size: 14px;
   font-weight: 600;
@@ -209,7 +209,7 @@
   font-family: inherit;
   transition: background 0.15s, border-color 0.15s;
 }
-.ldb-btn-secondary:hover { background: #eff6ff; border-color: #002880; color: #002880; }
+.ldb-btn-secondary:hover { background: #eff6ff; border-color: #0a4a85; color: #0a4a85; }
 
 /* ── DETAILS BAR ── */
 .ldb-details-bar {
@@ -300,7 +300,7 @@
   border-right: none;
 }
 .ldb-card.dt-timeline-wrap .dt-tl-toggle button.active {
-  background: #0033a0;
+  background: #105fa8;
   color: #ffffff;
   box-shadow: none;
 }
@@ -491,7 +491,7 @@
   height: 100%;
   border-radius: 5px;
 }
-.ldb-v2-bar.fmla { background: #0033a0; }
+.ldb-v2-bar.fmla { background: #105fa8; }
 .ldb-v2-bar.std { background: #2563eb; }
 .ldb-v2-bar.pfml { background: #818cf8; }
 .ldb-v2-bar-tooltip {
@@ -541,7 +541,7 @@
   height: 10px;
   border-radius: 3px;
 }
-.ldb-legend-dot.fmla { background: #0033a0; }
+.ldb-legend-dot.fmla { background: #105fa8; }
 .ldb-legend-dot.std { background: #2563eb; }
 .ldb-legend-dot.pfml { background: #818cf8; }
 .ldb-legend-dot.unpaid { background: #e2e8f0; }
@@ -784,7 +784,7 @@
   color: #1e293b;
 }
 .ldb-payment-box.highlight .ldb-payment-box-value {
-  color: #0033a0;
+  color: #105fa8;
 }
 
 /* ── PAYMENT EXPAND ── */
@@ -995,7 +995,7 @@
   height: 10px;
   border-radius: 3px;
 }
-.ldb-task-group-dot.fmla { background: #0033a0; }
+.ldb-task-group-dot.fmla { background: #105fa8; }
 .ldb-task-group-dot.std { background: #2563eb; }
 .ldb-task-group-dot.pfml { background: #818cf8; }
 .ldb-task-group-label {
@@ -1083,7 +1083,7 @@
 .ldb-task-tl-badge.done { background: #ecfdf5; color: #059669; }
 .ldb-task-tl-badge.urgent { background: #fff7ed; color: #fd7e14; }
 .ldb-task-tl-badge.pending { background: #f8fafc; color: #64748b; }
-.ldb-task-tl-badge.in-progress { background: #dbeafe; color: #0033a0; }
+.ldb-task-tl-badge.in-progress { background: #dbeafe; color: #105fa8; }
 
 /* ── ACTION LIST (Simplified Tasks) ── */
 .ldb-tasks-header {
@@ -1120,7 +1120,7 @@
   width: 8px;
   height: 8px;
   border-radius: 50%;
-  background: #0033a0;
+  background: #105fa8;
   flex-shrink: 0;
 }
 .ldb-action-dot.done { background: #d4d4d4; }
@@ -1228,7 +1228,7 @@
   font-size: 14px;
   font-weight: 600;
   color: #fff;
-  background: #0033a0;
+  background: #105fa8;
   border: none;
   border-radius: 6px;
   cursor: pointer;
@@ -1236,7 +1236,7 @@
   transition: background 0.15s;
   flex-shrink: 0;
 }
-.ldb-btn-upload-inline:hover { background: #002880; }
+.ldb-btn-upload-inline:hover { background: #0a4a85; }
 
 /* ── UPLOAD DROPZONE ── */
 .ldb-upload-zone {
@@ -1255,7 +1255,7 @@
 
 
 /* ── PENDING BAR ── */
-.ldb-bar-pending { opacity: 0.4; background: repeating-linear-gradient(45deg, #0033a0, #0033a0 4px, #2563eb 4px, #2563eb 8px) !important; }
+.ldb-bar-pending { opacity: 0.4; background: repeating-linear-gradient(45deg, #105fa8, #105fa8 4px, #2563eb 4px, #2563eb 8px) !important; }
 
 /* ── LEAVE SNAPSHOT (Sidebar) ── */
 .ldb-v2-snapshot-section { margin-top: 4px; }
@@ -1275,7 +1275,7 @@
 }
 .ldb-v2-snapshot-bar-fill {
   height: 100%;
-  background: #0033a0;
+  background: #105fa8;
   border-radius: 4px;
 }
 .ldb-v2-snapshot-stats {
@@ -1424,7 +1424,7 @@
 }
 .ldb-v3-duration-fill {
   height: 100%;
-  background: #0033a0;
+  background: #105fa8;
   border-radius: 5px;
 }
 .ldb-v3-duration-dates {
@@ -1484,7 +1484,7 @@
   width: 1px;
   background: #e5e5e7;
 }
-.ldb-v3-step.done:not(:last-child)::before { background: #0033a0; }
+.ldb-v3-step.done:not(:last-child)::before { background: #105fa8; }
 .ldb-v3-step-dot {
   width: 11px;
   height: 11px;
@@ -1492,7 +1492,7 @@
   flex-shrink: 0;
   margin-top: 4px;
 }
-.ldb-v3-step.done .ldb-v3-step-dot { background: #0033a0; }
+.ldb-v3-step.done .ldb-v3-step-dot { background: #105fa8; }
 .ldb-v3-step.current .ldb-v3-step-dot { background: #3b82f6; box-shadow: 0 0 0 3px rgba(59,130,246,0.2); }
 .ldb-v3-step.upcoming .ldb-v3-step-dot { background: #e5e5e7; }
 .ldb-v3-step-content { flex: 1; }
@@ -1747,8 +1747,8 @@
 }
 .ldb-detail-input:focus {
   outline: none;
-  border-color: #0033a0;
-  box-shadow: 0 0 0 3px rgba(0, 51, 160, 0.1);
+  border-color: #105fa8;
+  box-shadow: 0 0 0 3px rgba(16, 95, 168, 0.1);
 }
 select.ldb-detail-input {
   appearance: auto;

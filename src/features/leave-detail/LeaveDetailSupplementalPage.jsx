@@ -194,7 +194,7 @@ export default function LeaveDetailSupplementalPage() {
                   <div style={{ fontSize: 13, color: '#737373', marginTop: 2 }}>Back Surgery Recovery · Apr 15 – May 15, 2026</div>
                 </div>
                 <span className="ldb-status-badge pending-status" style={{ fontSize: 11 }}>Pending</span>
-                <Link to="/leave-detail-v2e" style={{ fontSize: 13, fontWeight: 600, color: '#0033a0', textDecoration: 'none' }}>
+                <Link to="/leave-detail-v2e" style={{ fontSize: 13, fontWeight: 600, color: '#105fa8', textDecoration: 'none' }}>
                   View Case &rarr;
                 </Link>
               </div>

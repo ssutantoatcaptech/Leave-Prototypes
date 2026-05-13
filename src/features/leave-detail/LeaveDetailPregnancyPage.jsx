@@ -171,7 +171,7 @@ export default function LeaveDetailPregnancyPage() {
                       { id: 'njtdi', label: 'NJ TDI', width: 36, accent: '#818cf8', name: 'NJ Temporary Disability Insurance', weeks: '8 weeks', range: 'Jun 16 – Aug 11, 2026', pay: '85% salary (state program)', status: 'Approved', paymentValue: '~$1,048/wk' },
                       { id: 'njfli', label: 'NJ FLI', width: 54, accent: '#0d9488', name: 'NJ Family Leave Insurance (Bonding)', weeks: '12 weeks', range: 'Aug 11 – Nov 3, 2026', pay: '85% AWW up to max', status: 'Approved', paymentValue: '~$1,048/wk' },
                     ] : [
-                      { id: 'fmla', label: 'FMLA', width: 100, accent: '#0033a0', name: 'Leave Case — FMLA Protection', weeks: '12 weeks', range: 'Jun 16 – Sep 8, 2026', pay: 'Job protection (unpaid)', status: 'Approved' },
+                      { id: 'fmla', label: 'FMLA', width: 100, accent: '#105fa8', name: 'Leave Case — FMLA Protection', weeks: '12 weeks', range: 'Jun 16 – Sep 8, 2026', pay: 'Job protection (unpaid)', status: 'Approved' },
                       { id: 'std', label: 'STD', width: 36, accent: '#2563eb', name: 'Group Disability Claim (STD)', weeks: '8 weeks', range: 'Jun 16 – Aug 11, 2026', pay: '60% salary (delivery recovery)', status: 'Approved' },
                       { id: 'njtdi', label: 'NJ TDI', width: 36, accent: '#818cf8', name: 'NJ Temporary Disability Insurance', weeks: '8 weeks', range: 'Jun 16 – Aug 11, 2026', pay: '85% salary (state program)', status: 'Approved' },
                       { id: 'njfli', label: 'NJ FLI', width: 54, accent: '#0d9488', name: 'NJ Family Leave Insurance (Bonding)', weeks: '12 weeks', range: 'Aug 11 – Nov 3, 2026', pay: '85% AWW up to max', status: 'Approved' },
@@ -300,7 +300,7 @@ export default function LeaveDetailPregnancyPage() {
                       { id: 'state-fli', label: 'NJ FLI Bonding (85%)', accent: '#0d9488' },
                       { id: 'unpaid', label: 'Unpaid', accent: '#cbd5e1' },
                     ] : [
-                      { id: 'fmla', label: 'FMLA Protection', accent: '#0033a0' },
+                      { id: 'fmla', label: 'FMLA Protection', accent: '#105fa8' },
                       { id: 'std', label: 'STD Recovery', accent: '#2563eb' },
                       { id: 'state-tdi', label: 'NJ TDI (Disability)', accent: '#818cf8' },
                       { id: 'state-fli', label: 'NJ FLI (Bonding)', accent: '#0d9488' },
