@@ -181,7 +181,7 @@
   gap: 6px;
   padding: 0 20px;
   height: 40px;
-  background: #105fa8;
+  background: #0033a0;
   color: #fff;
   border: none;
   border-radius: 6px;
@@ -191,7 +191,7 @@
   font-family: inherit;
   transition: background 0.15s;
 }
-.ldb-btn-primary:hover { background: #0a4a85; }
+.ldb-btn-primary:hover { background: #002880; }
 
 .ldb-btn-secondary {
   display: inline-flex;
@@ -200,8 +200,8 @@
   padding: 0 20px;
   height: 40px;
   background: transparent;
-  color: #105fa8;
-  border: 1.5px solid #105fa8;
+  color: #0033a0;
+  border: 1.5px solid #0033a0;
   border-radius: 6px;
   font-size: 14px;
   font-weight: 600;
@@ -209,7 +209,7 @@
   font-family: inherit;
   transition: background 0.15s, border-color 0.15s;
 }
-.ldb-btn-secondary:hover { background: #eff6ff; border-color: #0a4a85; color: #0a4a85; }
+.ldb-btn-secondary:hover { background: #eff6ff; border-color: #002880; color: #002880; }
 
 /* ── DETAILS BAR ── */
 .ldb-details-bar {
