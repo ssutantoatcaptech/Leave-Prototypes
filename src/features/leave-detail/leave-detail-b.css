@@ -3255,6 +3255,39 @@ select.ldb-detail-input {
   }
 }
 
+/* === Schedule Container === */
+.ldb-schedule-container {
+  border: 1px solid #e2e8f0;
+  border-radius: 10px;
+  padding: 16px 20px;
+  background: #f8fbfd;
+}
+
+.ldb-schedule-add-week {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  height: 40px;
+  padding: 0 20px;
+  border: 1.5px dashed #d4d4d8;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 600;
+  color: #105fa8;
+  background: transparent;
+  width: 100%;
+  margin-top: 12px;
+  font-family: inherit;
+  transition: background 0.15s;
+}
+
+.ldb-schedule-add-week:hover {
+  background: #eff6ff;
+  border-color: #105fa8;
+}
+
 /* === Schedule Grid (reused from request-leave) === */
 .dt-info-block .schedule-grid {
   display: grid;

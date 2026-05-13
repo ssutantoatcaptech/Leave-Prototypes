@@ -856,27 +856,33 @@ export default function LeaveDetailV2ePage() {
                     </div>
                     {editingSection === 'schedule' ? (
                       <>
-                        <div className="schedule-header-row" style={{ marginBottom: 12 }}>
-                          <span className="dt-info-field-label" style={{ marginBottom: 0 }}>Weekly Hours</span>
-                          <div className="schedule-total-badge">Weekly total <strong>{Object.values(scheduleHours).reduce(function (sum, h) { return sum + Number(h || 0); }, 0)}</strong> hrs / week</div>
-                        </div>
-                        <div className="schedule-grid">
-                          {['sun', 'mon', 'tue', 'wed', 'thu', 'fri', 'sat'].map(function (day, index) {
-                            return (
-                              <div key={day} className="schedule-day">
-                                <div className="schedule-day-label">{['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'][index]}</div>
-                                <div className="schedule-day-wrap">
-                                  <div className={'schedule-day-box' + (Number(scheduleHours[day]) > 0 ? ' has-hours' : '') + (day === 'sun' || day === 'sat' ? ' weekend' : '')}>
-                                    <input className="schedule-day-input" type="number" value={scheduleHours[day]}
-                                      onChange={function (e) { setScheduleHours(function (prev) { var next = Object.assign({}, prev); next[day] = e.target.value; return next; }); }}
-                                    />
+                        <div className="ldb-schedule-container">
+                          <div className="schedule-header-row" style={{ marginBottom: 12 }}>
+                            <span className="dt-info-field-label" style={{ marginBottom: 0 }}>Weekly Hours</span>
+                            <div className="schedule-total-badge">Weekly total <strong>{Object.values(scheduleHours).reduce(function (sum, h) { return sum + Number(h || 0); }, 0)}</strong> hrs / week</div>
+                          </div>
+                          <div className="schedule-grid">
+                            {['sun', 'mon', 'tue', 'wed', 'thu', 'fri', 'sat'].map(function (day, index) {
+                              return (
+                                <div key={day} className="schedule-day">
+                                  <div className="schedule-day-label">{['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'][index]}</div>
+                                  <div className="schedule-day-wrap">
+                                    <div className={'schedule-day-box' + (Number(scheduleHours[day]) > 0 ? ' has-hours' : '') + (day === 'sun' || day === 'sat' ? ' weekend' : '')}>
+                                      <input className="schedule-day-input" type="number" value={scheduleHours[day]}
+                                        onChange={function (e) { setScheduleHours(function (prev) { var next = Object.assign({}, prev); next[day] = e.target.value; return next; }); }}
+                                      />
+                                    </div>
+                                    <div className="schedule-day-unit">hrs</div>
                                   </div>
-                                  <div className="schedule-day-unit">hrs</div>
                                 </div>
-                              </div>
-                            );
-                          })}
+                              );
+                            })}
+                          </div>
                         </div>
+                        <button type="button" className="ldb-schedule-add-week">
+                          <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M8 3v10M3 8h10" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"/></svg>
+                          Add Week
+                        </button>
                         <div className="dt-edit-actions" style={{ marginTop: 16 }}>
                           <button type="button" className="dt-edit-save" onClick={function () { setEditingSection(null); }}>Save Changes</button>
                           <button type="button" className="dt-edit-cancel" onClick={function () { setEditingSection(null); }}>Cancel</button>
