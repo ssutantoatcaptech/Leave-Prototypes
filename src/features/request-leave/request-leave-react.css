@@ -969,12 +969,12 @@
 
 .schedule-day-box.has-hours {
   border-color: var(--color-brand-primary);
-  background: var(--color-bg-selected);
+  background: var(--color-bg-card);
 }
 
 .schedule-day-box.weekend {
   border-color: var(--color-border-default);
-  background: var(--color-bg-page);
+  background: var(--color-bg-card);
 }
 
 .schedule-day-input {
@@ -1016,18 +1016,23 @@
   margin-top: 4px;
 }
 
+.schedule-header-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 12px;
+}
+
 .schedule-total-badge {
   display: inline-flex;
   align-items: center;
   gap: 4px;
-  padding: 8px 16px;
+  padding: 6px 14px;
   border: 1px solid var(--color-border-input);
   border-radius: var(--radius-lg);
   font-size: 13px;
   color: var(--color-text-primary);
   font-weight: 400;
-  margin-top: 16px;
-  float: right;
 }
 
 .schedule-total-badge strong {
@@ -1144,7 +1149,7 @@
   gap: 8px;
   height: var(--size-button-height);
   padding: 0 20px;
-  border: 1.5px solid var(--color-button-outline-border);
+  border: 1.5px dashed var(--color-button-outline-border);
   border-radius: var(--radius-md);
   cursor: pointer;
   font-size: 14px;

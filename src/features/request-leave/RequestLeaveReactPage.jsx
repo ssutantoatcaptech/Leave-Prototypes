@@ -1241,7 +1241,10 @@ export default function RequestLeaveReactPage() {
             <h2>What does your typical week look like?</h2>
             <p className="subtitle">This helps us calculate your leave accurately. Most full-time employees work about 40 hours a week — just adjust the numbers if yours is different.</p>
             <div className="bordered-section">
-              <h3 className="section-title">Weekly Hours</h3>
+              <div className="schedule-header-row">
+                <h3 className="section-title" style={{ marginBottom: 0 }}>Weekly Hours</h3>
+                <div className="schedule-total-badge">Weekly total <strong>{Object.values(formState.scheduleHours).reduce((sum, h) => sum + Number(h || 0), 0)}</strong> hrs / week</div>
+              </div>
               <div className="helper" style={{ marginBottom: 12 }}>Click each day to enter hours. Default is 8 hours/day for weekdays.</div>
               <div className="schedule-grid">
                 {['sun', 'mon', 'tue', 'wed', 'thu', 'fri', 'sat'].map((day, index) => (
@@ -1256,7 +1259,6 @@ export default function RequestLeaveReactPage() {
                   </div>
                 ))}
               </div>
-              <div className="schedule-total-badge">Weekly total <strong>{Object.values(formState.scheduleHours).reduce((sum, h) => sum + Number(h || 0), 0)}</strong> hrs / week</div>
             </div>
             {formState.extraWeeks.map((week, weekIndex) => (
               <div key={`week-${weekIndex}`} className="bordered-section">
@@ -1825,7 +1827,7 @@ export default function RequestLeaveReactPage() {
                 </div>
                 <div className="success-footer">
                   <button type="button" className="btn btn-next" onClick={() => navigate(`${rlBase}/case-detail-new`, { state: submittedCase })}>View Leave Details</button>
-                  {!isMobileRequest && <button type="button" className="btn btn-back" onClick={() => navigate('/overview-react')}>Back to Leave Overview</button>}
+                  {!isMobileRequest && <button type="button" className="btn btn-back" onClick={() => navigate(`${rlBase}/my-cases`)}>Back to My Leaves</button>}
                 </div>
               </div>
             </div>
@@ -1902,7 +1904,7 @@ export default function RequestLeaveReactPage() {
                 </div>
                 <div className="success-footer">
                   <button type="button" className="btn btn-next" onClick={() => navigate(`${rlBase}/case-detail-new`, { state: submittedCase })}>View Leave Details</button>
-                  {!isMobileRequest && <button type="button" className="btn btn-back" onClick={() => navigate('/overview-react')}>Back to Leave Overview</button>}
+                  {!isMobileRequest && <button type="button" className="btn btn-back" onClick={() => navigate(`${rlBase}/my-cases`)}>Back to My Leaves</button>}
                 </div>
               </div>
             </div>
@@ -1979,7 +1981,7 @@ export default function RequestLeaveReactPage() {
                 </div>
                 <div className="success-footer">
                   <button type="button" className="btn btn-next" onClick={() => navigate(`${rlBase}/case-detail-new`, { state: submittedCase })}>View Leave Details</button>
-                  {!isMobileRequest && <button type="button" className="btn btn-back" onClick={() => navigate('/overview-react')}>Back to Leave Overview</button>}
+                  {!isMobileRequest && <button type="button" className="btn btn-back" onClick={() => navigate(`${rlBase}/my-cases`)}>Back to My Leaves</button>}
                 </div>
               </div>
             </div>
@@ -2056,7 +2058,7 @@ export default function RequestLeaveReactPage() {
                 </div>
                 <div className="success-footer">
                   <button type="button" className="btn btn-next" onClick={() => navigate(`${rlBase}/case-detail-new`, { state: submittedCase })}>View Leave Details</button>
-                  {!isMobileRequest && <button type="button" className="btn btn-back" onClick={() => navigate('/overview-react')}>Back to Leave Overview</button>}
+                  {!isMobileRequest && <button type="button" className="btn btn-back" onClick={() => navigate(`${rlBase}/my-cases`)}>Back to My Leaves</button>}
                 </div>
               </div>
             </div>
@@ -2126,7 +2128,7 @@ export default function RequestLeaveReactPage() {
                 </div>
                 <div className="success-footer">
                   <button type="button" className="btn btn-next" onClick={() => navigate(`${rlBase}/case-detail-new`, { state: submittedCase })}>View Leave Details</button>
-                  {!isMobileRequest && <button type="button" className="btn btn-back" onClick={() => navigate('/overview-react')}>Back to Leave Overview</button>}
+                  {!isMobileRequest && <button type="button" className="btn btn-back" onClick={() => navigate(`${rlBase}/my-cases`)}>Back to My Leaves</button>}
                 </div>
               </div>
             </div>
@@ -2196,7 +2198,7 @@ export default function RequestLeaveReactPage() {
                 </div>
                 <div className="success-footer">
                   <button type="button" className="btn btn-next" onClick={() => navigate(`${rlBase}/case-detail-new`, { state: submittedCase })}>View Leave Details</button>
-                  {!isMobileRequest && <button type="button" className="btn btn-back" onClick={() => navigate('/overview-react')}>Back to Leave Overview</button>}
+                  {!isMobileRequest && <button type="button" className="btn btn-back" onClick={() => navigate(`${rlBase}/my-cases`)}>Back to My Leaves</button>}
                 </div>
               </div>
             </div>
