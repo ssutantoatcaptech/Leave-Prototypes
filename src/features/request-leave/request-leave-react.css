@@ -652,10 +652,10 @@
   display: flex;
   align-items: center;
   gap: 12px;
-  background: var(--color-bg-info);
+  background: var(--color-brand-navy);
   border: none;
   border-radius: var(--radius-lg);
-  color: var(--color-text-primary);
+  color: var(--color-text-inverse);
   font-size: 14px;
   font-weight: 500;
   line-height: 1.5;
@@ -2564,12 +2564,12 @@
   align-items: center;
   gap: 12px;
   padding: 16px 20px;
-  background: var(--color-bg-info);
+  background: var(--color-brand-navy);
   border: none;
   border-radius: var(--radius-lg);
   font-size: 14px;
   font-weight: 600;
-  color: var(--color-text-primary);
+  color: var(--color-text-inverse);
   line-height: 1.5;
   margin-top: 16px;
 }
