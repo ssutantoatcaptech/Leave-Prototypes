@@ -591,15 +591,15 @@ export default function LeaveDetailV2ePage() {
             {/* Additional Benefits */}
             <div className="ldb-card ldb-additional-benefits">
               <div className="ldb-additional-benefits-header">
-                <h2 className="ldb-card-title" style={{ marginBottom: 0 }}>Additional Benefits</h2>
+                <h2 className="ldb-card-title" style={{ marginBottom: 0 }}>
+                  <svg width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M8 1l2 3h3.5l-2.5 2.5 1 3.5L8 8 4 10l1-3.5L2.5 4H6L8 1z" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round" strokeLinejoin="round"/><path d="M4 13h8" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round"/></svg>
+                  Additional Benefits
+                </h2>
                 <svg width="12" height="7" viewBox="0 0 12 7" fill="none" style={{ transform: 'rotate(180deg)' }}><path d="M1 1l5 5 5-5" stroke="#525252" strokeWidth="1.3" strokeLinecap="round" strokeLinejoin="round"/></svg>
               </div>
               <p className="ldb-additional-benefits-subtext">Some claims must be filed directly on your state's website. Use the links below to apply.</p>
               <div className="ldb-additional-benefits-list">
                 <div className="ldb-additional-benefit-row">
-                  <div className="ldb-additional-benefit-icon">
-                    <svg width="20" height="20" viewBox="0 0 20 20" fill="none"><rect x="2" y="4" width="16" height="12" rx="2" stroke="#525252" strokeWidth="1.3"/><path d="M2 8h16" stroke="#525252" strokeWidth="1.3"/><path d="M5 12h4" stroke="#525252" strokeWidth="1.3" strokeLinecap="round"/></svg>
-                  </div>
                   <div className="ldb-additional-benefit-info">
                     <div className="ldb-additional-benefit-name">CA State Disability Insurance</div>
                     <div className="ldb-additional-benefit-desc">Apply through your state benefits portal to determine eligibility.</div>
@@ -610,9 +610,6 @@ export default function LeaveDetailV2ePage() {
                   </div>
                 </div>
                 <div className="ldb-additional-benefit-row">
-                  <div className="ldb-additional-benefit-icon">
-                    <svg width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M10 2a8 8 0 100 16 8 8 0 000-16z" stroke="#525252" strokeWidth="1.3"/><path d="M7 10h6M10 7v6" stroke="#525252" strokeWidth="1.3" strokeLinecap="round"/></svg>
-                  </div>
                   <div className="ldb-additional-benefit-info">
                     <div className="ldb-additional-benefit-name">CA Paid Family Leave</div>
                     <div className="ldb-additional-benefit-desc">May provide wage replacement during family care or bonding time.</div>
