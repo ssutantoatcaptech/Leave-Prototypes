@@ -110,9 +110,9 @@ export default function LeaveDetailV2ePage() {
     address: '8827 SW 8th Street, Lee Summit, MO 64086',
     addressDuration: 'May 1, 2026 - Aug 15, 2026',
     absenceType: 'Continuous',
-    absenceStart: 'Mar 16, 2026',
-    absenceEnd: 'Jun 30, 2026',
-    expectedReturn: 'Jul 1, 2026',
+    absenceStart: '2026-03-16',
+    absenceEnd: '2026-06-30',
+    expectedReturn: '2026-07-01',
     duration: '107 days',
     reason: 'Pregnancy, birth, and bonding',
     weeklyHours: '40 hours / week',
@@ -126,10 +126,36 @@ export default function LeaveDetailV2ePage() {
     providerEmail: 'dempsey.herbett@stlukes.com',
   });
 
+  var [scheduleHours, setScheduleHours] = useState({ sun: 0, mon: 8, tue: 8, wed: 8, thu: 8, fri: 8, sat: 0 });
+
+  function calcDuration(start, end) {
+    if (!start || !end) return '';
+    var s = new Date(start);
+    var e = new Date(end);
+    var diff = Math.round((e - s) / (1000 * 60 * 60 * 24));
+    return diff > 0 ? diff + ' days' : '';
+  }
+
+  function formatDateDisplay(dateStr) {
+    if (!dateStr) return '';
+    var d = new Date(dateStr + 'T00:00:00');
+    return d.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
+  }
+
   function handleDetailsChange(field, value) {
     setDetailsForm(function (prev) {
       var next = Object.assign({}, prev);
       next[field] = value;
+      if (field === 'absenceStart' || field === 'absenceEnd') {
+        var start = field === 'absenceStart' ? value : prev.absenceStart;
+        var end = field === 'absenceEnd' ? value : prev.absenceEnd;
+        next.duration = calcDuration(start, end);
+        if (field === 'absenceEnd' && value) {
+          var returnDate = new Date(value + 'T00:00:00');
+          returnDate.setDate(returnDate.getDate() + 1);
+          next.expectedReturn = returnDate.toISOString().split('T')[0];
+        }
+      }
       return next;
     });
   }
@@ -756,27 +782,31 @@ export default function LeaveDetailV2ePage() {
                         <div className="dt-info-grid">
                           <div>
                             <div className="dt-info-field-label">Absence Type</div>
-                            <input type="text" className="ldb-detail-input" value={detailsForm.absenceType} onChange={function (e) { handleDetailsChange('absenceType', e.target.value); }} />
+                            <select className="ldb-detail-input" value={detailsForm.absenceType} onChange={function (e) { handleDetailsChange('absenceType', e.target.value); }}>
+                              <option value="Continuous">Continuous</option>
+                              <option value="Intermittent">Intermittent</option>
+                              <option value="Reduced Schedule">Reduced Schedule</option>
+                            </select>
                           </div>
                           <div>
                             <div className="dt-info-field-label">Absence Start Date</div>
-                            <input type="text" className="ldb-detail-input" value={detailsForm.absenceStart} onChange={function (e) { handleDetailsChange('absenceStart', e.target.value); }} />
+                            <input type="date" className="ldb-detail-input" value={detailsForm.absenceStart} onChange={function (e) { handleDetailsChange('absenceStart', e.target.value); }} />
                           </div>
                           <div>
                             <div className="dt-info-field-label">Absence End Date</div>
-                            <input type="text" className="ldb-detail-input" value={detailsForm.absenceEnd} onChange={function (e) { handleDetailsChange('absenceEnd', e.target.value); }} />
+                            <input type="date" className="ldb-detail-input" value={detailsForm.absenceEnd} onChange={function (e) { handleDetailsChange('absenceEnd', e.target.value); }} />
                           </div>
                           <div>
                             <div className="dt-info-field-label">Expected Return Date</div>
-                            <input type="text" className="ldb-detail-input" value={detailsForm.expectedReturn} onChange={function (e) { handleDetailsChange('expectedReturn', e.target.value); }} />
+                            <input type="date" className="ldb-detail-input" value={detailsForm.expectedReturn} onChange={function (e) { handleDetailsChange('expectedReturn', e.target.value); }} />
                           </div>
                           <div>
                             <div className="dt-info-field-label">Duration</div>
-                            <input type="text" className="ldb-detail-input" value={detailsForm.duration} onChange={function (e) { handleDetailsChange('duration', e.target.value); }} />
+                            <input type="text" className="ldb-detail-input" value={detailsForm.duration} readOnly style={{ background: '#f5f5f7', cursor: 'default' }} />
                           </div>
                           <div>
                             <div className="dt-info-field-label">Reason</div>
-                            <input type="text" className="ldb-detail-input" value={detailsForm.reason} onChange={function (e) { handleDetailsChange('reason', e.target.value); }} />
+                            <input type="text" className="ldb-detail-input" value={detailsForm.reason} disabled style={{ background: '#f5f5f7', cursor: 'not-allowed', opacity: 0.7 }} />
                           </div>
                         </div>
                         <div className="dt-edit-actions">
@@ -792,15 +822,15 @@ export default function LeaveDetailV2ePage() {
                         </div>
                         <div>
                           <div className="dt-info-field-label">Absence Start Date</div>
-                          <div className="dt-info-field-value">{detailsForm.absenceStart}</div>
+                          <div className="dt-info-field-value">{formatDateDisplay(detailsForm.absenceStart)}</div>
                         </div>
                         <div>
                           <div className="dt-info-field-label">Absence End Date</div>
-                          <div className="dt-info-field-value">{detailsForm.absenceEnd}</div>
+                          <div className="dt-info-field-value">{formatDateDisplay(detailsForm.absenceEnd)}</div>
                         </div>
                         <div>
                           <div className="dt-info-field-label">Expected Return Date</div>
-                          <div className="dt-info-field-value">{detailsForm.expectedReturn}</div>
+                          <div className="dt-info-field-value">{formatDateDisplay(detailsForm.expectedReturn)}</div>
                         </div>
                         <div>
                           <div className="dt-info-field-label">Duration</div>
@@ -827,49 +857,32 @@ export default function LeaveDetailV2ePage() {
                         <span style={{ fontSize: 11, fontWeight: 600, color: '#525252', background: '#f0f0f2', padding: '2px 8px', borderRadius: 4 }}>Editing</span>
                       )}
                     </div>
-                    {editingSection === 'schedule' ? (
-                      <>
-                        <div className="dt-info-grid">
-                          <div>
-                            <div className="dt-info-field-label">Weekly Hours</div>
-                            <input type="text" className="ldb-detail-input" value={detailsForm.weeklyHours} onChange={function (e) { handleDetailsChange('weeklyHours', e.target.value); }} />
+                    <div className="schedule-header-row" style={{ marginBottom: 12 }}>
+                      <span className="dt-info-field-label" style={{ marginBottom: 0 }}>Weekly Hours</span>
+                      <div className="schedule-total-badge">Weekly total <strong>{Object.values(scheduleHours).reduce(function (sum, h) { return sum + Number(h || 0); }, 0)}</strong> hrs / week</div>
+                    </div>
+                    <div className="schedule-grid">
+                      {['sun', 'mon', 'tue', 'wed', 'thu', 'fri', 'sat'].map(function (day, index) {
+                        return (
+                          <div key={day} className="schedule-day">
+                            <div className="schedule-day-label">{['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'][index]}</div>
+                            <div className="schedule-day-wrap">
+                              <div className={'schedule-day-box' + (Number(scheduleHours[day]) > 0 ? ' has-hours' : '') + (day === 'sun' || day === 'sat' ? ' weekend' : '')}>
+                                <input className="schedule-day-input" type="number" value={scheduleHours[day]}
+                                  disabled={editingSection !== 'schedule'}
+                                  onChange={function (e) { setScheduleHours(function (prev) { var next = Object.assign({}, prev); next[day] = e.target.value; return next; }); }}
+                                />
+                              </div>
+                              <div className="schedule-day-unit">hrs</div>
+                            </div>
                           </div>
-                          <div>
-                            <div className="dt-info-field-label">Schedule Type</div>
-                            <input type="text" className="ldb-detail-input" value={detailsForm.scheduleType} onChange={function (e) { handleDetailsChange('scheduleType', e.target.value); }} />
-                          </div>
-                          <div>
-                            <div className="dt-info-field-label">Work Days</div>
-                            <input type="text" className="ldb-detail-input" value={detailsForm.workDays} onChange={function (e) { handleDetailsChange('workDays', e.target.value); }} />
-                          </div>
-                          <div>
-                            <div className="dt-info-field-label">Hours per Day</div>
-                            <input type="text" className="ldb-detail-input" value={detailsForm.hoursPerDay} onChange={function (e) { handleDetailsChange('hoursPerDay', e.target.value); }} />
-                          </div>
-                        </div>
-                        <div className="dt-edit-actions">
-                          <button type="button" className="dt-edit-save" onClick={function () { setEditingSection(null); }}>Save Changes</button>
-                          <button type="button" className="dt-edit-cancel" onClick={function () { setEditingSection(null); }}>Cancel</button>
-                        </div>
-                      </>
-                    ) : (
-                      <div className="dt-info-grid">
-                        <div>
-                          <div className="dt-info-field-label">Weekly Hours</div>
-                          <div className="dt-info-field-value">{detailsForm.weeklyHours}</div>
-                        </div>
-                        <div>
-                          <div className="dt-info-field-label">Schedule Type</div>
-                          <div className="dt-info-field-value">{detailsForm.scheduleType}</div>
-                        </div>
-                        <div>
-                          <div className="dt-info-field-label">Work Days</div>
-                          <div className="dt-info-field-value">{detailsForm.workDays}</div>
-                        </div>
-                        <div>
-                          <div className="dt-info-field-label">Hours per Day</div>
-                          <div className="dt-info-field-value">{detailsForm.hoursPerDay}</div>
-                        </div>
+                        );
+                      })}
+                    </div>
+                    {editingSection === 'schedule' && (
+                      <div className="dt-edit-actions" style={{ marginTop: 16 }}>
+                        <button type="button" className="dt-edit-save" onClick={function () { setEditingSection(null); }}>Save Changes</button>
+                        <button type="button" className="dt-edit-cancel" onClick={function () { setEditingSection(null); }}>Cancel</button>
                       </div>
                     )}
                   </div>

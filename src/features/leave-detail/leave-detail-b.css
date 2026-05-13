@@ -1750,6 +1750,10 @@
   border-color: #0033a0;
   box-shadow: 0 0 0 3px rgba(0, 51, 160, 0.1);
 }
+select.ldb-detail-input {
+  appearance: auto;
+  cursor: pointer;
+}
 
 .dt-edit-actions {
   display: flex;
@@ -3216,5 +3220,120 @@
   }
   .ldb-timeline-snapshot-item {
     padding: 6px 12px;
+  }
+}
+
+/* === Schedule Grid (reused from request-leave) === */
+.dt-info-block .schedule-grid {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 12px;
+  margin-bottom: 8px;
+}
+.dt-info-block .schedule-day {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+}
+.dt-info-block .schedule-day-label {
+  font-size: 11px;
+  font-weight: 700;
+  color: #6b6b6b;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+.dt-info-block .schedule-day-wrap {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.dt-info-block .schedule-day-box {
+  width: 64px;
+  height: 56px;
+  border-radius: 6px;
+  border: 1.5px solid #d1d5db;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #ffffff;
+  transition: border-color 0.15s;
+}
+.dt-info-block .schedule-day-box.has-hours {
+  border-color: #105fa8;
+  background: #ffffff;
+}
+.dt-info-block .schedule-day-box.weekend {
+  border-color: #e5e7eb;
+  background: #ffffff;
+}
+.dt-info-block .schedule-day-input {
+  width: 100%;
+  height: 100%;
+  border: none !important;
+  background: transparent !important;
+  box-shadow: none !important;
+  text-align: center;
+  font-size: 18px;
+  font-weight: 700;
+  color: #222;
+  outline: none;
+  padding: 0 !important;
+  margin: 0 !important;
+  line-height: 56px;
+  border-radius: 0 !important;
+  -webkit-appearance: none !important;
+  -moz-appearance: textfield !important;
+  appearance: none !important;
+}
+.dt-info-block .schedule-day-input:disabled {
+  color: #222;
+  opacity: 1;
+  cursor: default;
+}
+.dt-info-block .schedule-day-input:focus {
+  border: none !important;
+  box-shadow: none !important;
+}
+.dt-info-block .schedule-day-input::-webkit-outer-spin-button,
+.dt-info-block .schedule-day-input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+.dt-info-block .schedule-day-unit {
+  font-size: 10px;
+  color: #6b6b6b;
+  font-weight: 500;
+  margin-top: 4px;
+}
+.dt-info-block .schedule-header-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.dt-info-block .schedule-total-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 6px 14px;
+  border: 1px solid #d1d5db;
+  border-radius: 20px;
+  font-size: 13px;
+  color: #222;
+  font-weight: 400;
+}
+.dt-info-block .schedule-total-badge strong {
+  font-weight: 700;
+  font-size: 15px;
+}
+
+@media (max-width: 600px) {
+  .dt-info-block .schedule-grid {
+    grid-template-columns: repeat(7, 1fr);
+    gap: 6px;
+  }
+  .dt-info-block .schedule-day-box {
+    width: 100%;
+    height: 48px;
   }
 }
