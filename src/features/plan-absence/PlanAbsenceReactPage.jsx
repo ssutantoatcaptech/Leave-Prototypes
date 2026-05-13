@@ -708,9 +708,6 @@ export default function PlanAbsenceReactPage() {
                   </div>
                 ))}
               </div>
-              <div style={{ fontSize: 13, color: '#737373', marginBottom: 16, lineHeight: 1.5 }}>
-                This helps us identify which benefits and protections may apply to you.
-              </div>
               {reason === 'other' && (
                 <div className="sim-field" style={{ marginBottom: 16 }}>
                   <label>Select a reason</label>
@@ -1708,9 +1705,6 @@ export default function PlanAbsenceReactPage() {
                     <span className={`oc-tooltip${opt.tooltipRight ? ' oc-tooltip-right' : ''}`}>{opt.tooltip}</span>
                   </div>
                 ))}
-              </div>
-              <div style={{ fontSize: 13, color: '#737373', marginBottom: 16, lineHeight: 1.5 }}>
-                This helps us identify which benefits and protections may apply to you.
               </div>
               {reason === 'other' && (
                 <div className="sim-field" style={{ marginBottom: 16 }}>
