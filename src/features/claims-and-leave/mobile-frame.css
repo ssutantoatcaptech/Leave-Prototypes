@@ -310,6 +310,14 @@
   padding: 12px 0;
 }
 
+.mobile-frame-screen .cl-ml-filter-group--export {
+  display: none;
+}
+
+.mobile-frame-screen .cl-ml-table-card .cl-ml-load-more {
+  display: none;
+}
+
 /* File a claim cards stack */
 .mobile-frame-screen .cl-card-row {
   grid-template-columns: 1fr;
