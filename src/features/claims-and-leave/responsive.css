@@ -1445,8 +1445,8 @@
     background: #105fa8;
     color: #ffffff;
     border: none;
-    border-radius: 24px;
-    padding: 12px 28px;
+    border-radius: 4px;
+    padding: 12px 24px;
     font-size: 14px;
     font-weight: 600;
   }

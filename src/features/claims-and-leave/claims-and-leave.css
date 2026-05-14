@@ -5151,7 +5151,7 @@
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  padding: 12px 28px;
+  padding: 12px 24px;
   background: #105fa8;
   color: #ffffff;
   font-family: 'Source Sans Pro', sans-serif;
@@ -5159,7 +5159,7 @@
   font-weight: 600;
   line-height: 20px;
   border: none;
-  border-radius: 24px;
+  border-radius: 4px;
   cursor: pointer;
   white-space: nowrap;
   transition: background 0.15s;
