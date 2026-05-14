@@ -1215,6 +1215,30 @@
   justify-content: flex-start;
 }
 
+.cl-ml-header-action {
+  display: none;
+}
+
+.cl-ml-btn-new--mobile {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 12px 24px;
+  background: #105fa8;
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  margin-top: 12px;
+}
+
+.cl-export-history-mobile {
+  display: flex;
+  margin-bottom: 16px;
+}
+
 /* Enter Time form card */
 .cl-ma-form-card {
   padding: 20px;
@@ -1449,6 +1473,18 @@
     padding: 12px 24px;
     font-size: 14px;
     font-weight: 600;
+  }
+
+  .cl-ml-header-action {
+    display: block;
+  }
+
+  .cl-ml-btn-new--mobile {
+    display: none;
+  }
+
+  .cl-export-history-mobile {
+    display: none;
   }
 
   .cl-ma-form-card {

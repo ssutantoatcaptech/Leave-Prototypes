@@ -143,10 +143,16 @@ export default function ClaimCenterPage() {
         <div className="cl-ml-header-text">
           <h1 className="cl-ml-title">Claims Center</h1>
           <p className="cl-ml-subtitle">Track and manage your insurance claims.</p>
+          <button className="cl-ml-btn-new cl-ml-btn-new--mobile">+ Start a New Claim</button>
         </div>
         <div className="cl-ml-header-action">
           <button className="cl-ml-btn-new">Start a New Claim</button>
         </div>
+      </div>
+
+      {/* Export History (mobile) */}
+      <div className="cl-export-history-mobile">
+        <button className="cl-ml-action-link">Export History <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M6 1v8M3 6l3 3 3-3" stroke="currentColor" strokeWidth="1.3" strokeLinecap="round" strokeLinejoin="round"/></svg></button>
       </div>
 
       {/* Table Card */}
@@ -308,7 +314,7 @@ export default function ClaimCenterPage() {
                 <span className="cl-card-mobile-value">{row.memberPays}</span>
               </div>
             </div>
-            <button className="cl-card-mobile-action" onClick={() => { if (row.link) navigate(`${base}/${row.link}`); }}>View Details</button>
+            <span className="cl-ml-action-link" onClick={() => { if (row.link) navigate(`${base}/${row.link}`); }}>{row.actions} ›</span>
           </div>
         ))}
       </div>
