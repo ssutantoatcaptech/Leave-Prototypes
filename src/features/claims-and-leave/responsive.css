@@ -1343,10 +1343,6 @@
   width: 100%;
 }
 
-.cl-ml-table-card .cl-ml-filter-group--export {
-  display: none;
-}
-
 .cl-ml-table-card .cl-ml-load-more {
   display: none;
 }

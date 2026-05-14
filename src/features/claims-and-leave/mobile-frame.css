@@ -310,10 +310,6 @@
   padding: 12px 0;
 }
 
-.mobile-frame-screen .cl-ml-filter-group--export {
-  display: none;
-}
-
 .mobile-frame-screen .cl-ml-table-card .cl-ml-load-more {
   display: none;
 }
