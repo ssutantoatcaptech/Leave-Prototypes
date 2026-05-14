@@ -9,7 +9,7 @@ var initialCases = [
     lastUpdate: '04 / 28 / 2026',
     status: 'Pending',
     requiredActions: 'Return to Work',
-    linkPath: '/case-detail',
+    linkPath: '/case-detail-pregnancy',
   },
   {
     type: 'Illness or Injury',
@@ -17,7 +17,7 @@ var initialCases = [
     lastUpdate: '05 / 01 / 2026',
     status: 'Decisioned',
     requiredActions: 'N/A',
-    linkPath: '/case-detail-pregnancy',
+    linkPath: '/case-detail',
   },
   {
     type: 'Caring for family member',

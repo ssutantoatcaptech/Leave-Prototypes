@@ -208,6 +208,7 @@ const PAGE_SIZE = 5;
 
 function getDetailPath(type) {
   if (type === 'Birthing Parent (Continuous)') return '/case-detail-pregnancy';
+  if (type === 'Non-Birthing Parent (Continuous)') return '/case-detail';
   if (type === 'Cared for Sick Family (Reduced Hours)') return '/case-detail-caregiver';
   return '/case-detail';
 }
