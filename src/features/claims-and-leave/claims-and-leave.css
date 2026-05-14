@@ -494,23 +494,27 @@
 /* Category tabs */
 .cl-category-tabs {
   display: flex;
-  gap: 0;
-  border-bottom: 1.5px solid #dfebf6;
+  gap: 20px;
+  border-bottom: 1px solid #f0f0f0;
   margin-bottom: 0;
-  padding: 0 36px;
+  padding: 0 24px;
   background: #fff;
   border-radius: 12px 12px 0 0;
+  height: 44px;
+  align-items: stretch;
 }
 
 .cl-category-tab {
-  padding: 16px 20px;
+  padding: 0;
   font-size: 14px;
   font-weight: 500;
   color: #5d5d5d;
   text-decoration: none;
   border-bottom: 2.5px solid transparent;
   transition: color 0.15s, border-color 0.15s;
-  margin-bottom: -1.5px;
+  margin-bottom: -1px;
+  display: flex;
+  align-items: center;
 }
 
 .cl-category-tab:hover {
@@ -5179,8 +5183,8 @@
   display: flex;
   align-items: flex-end;
   gap: 24px;
-  padding: 24px 36px;
-  border-bottom: 1px solid #f0f0f0;
+  padding: 21px 24px 20px;
+  border-bottom: none;
 }
 
 .cl-ml-filter-group {
@@ -5238,7 +5242,7 @@
 }
 
 .cl-ml-th-first {
-  padding-left: 36px !important;
+  padding-left: 24px !important;
 }
 
 .cl-ml-table tbody tr {
@@ -5260,7 +5264,7 @@
 }
 
 .cl-ml-td-first {
-  padding: 0 24px 0 36px;
+  padding: 0 24px;
   vertical-align: middle;
 }
 
@@ -5356,7 +5360,7 @@
   flex-direction: column;
   align-items: flex-start;
   gap: 12px;
-  padding: 24px 36px;
+  padding: 17px 24px 16px;
   border-top: 1px solid #f0f0f0;
 }
 
@@ -7106,6 +7110,145 @@
   }
 
   .cl-payments-download-btn {
+    width: 100%;
+    justify-content: center;
+  }
+}
+
+/* ===========================
+   Claims Center Figma Updates
+   =========================== */
+
+/* Export button */
+.cl-ml-filter-group--export {
+  margin-left: auto;
+}
+
+.cl-ml-btn-export {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 16px;
+  background: #ffffff;
+  border: 1.5px solid #e4e4e4;
+  border-radius: 6px;
+  font-family: 'Source Sans Pro', sans-serif;
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 20px;
+  color: #222;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: background 0.12s, border-color 0.12s;
+}
+
+.cl-ml-btn-export:hover {
+  background: #f8fbfd;
+  border-color: #dfebf6;
+}
+
+/* Sortable header */
+.cl-ml-th-sortable {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+/* Pagination ellipsis */
+.cl-ml-page-ellipsis {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  font-family: 'Source Sans Pro', sans-serif;
+  font-size: 14px;
+  color: #222;
+  letter-spacing: 1px;
+}
+
+/* Mobile category dropdown */
+.cl-category-dropdown-mobile {
+  display: none;
+  flex-direction: column;
+  gap: 6px;
+  padding: 16px 24px;
+  border-bottom: 1px solid #f0f0f0;
+}
+
+/* Filter label – sentence case for Figma redesign */
+.cl-ml-filters .cl-ml-filter-label {
+  text-transform: none;
+  letter-spacing: 0;
+  font-size: 12px;
+  font-weight: 600;
+  color: #5d5d5d;
+}
+
+/* Responsive: Claims Center */
+@media (max-width: 1024px) {
+  .cl-ml-page {
+    padding: 0 0 40px;
+  }
+
+  .cl-ml-filters {
+    flex-wrap: wrap;
+    padding: 16px 24px;
+  }
+
+  .cl-ml-table th,
+  .cl-ml-table td {
+    padding: 16px 16px;
+  }
+
+  .cl-ml-th-first {
+    padding-left: 16px !important;
+  }
+
+  .cl-ml-td-first {
+    padding: 0 16px;
+  }
+}
+
+@media (max-width: 768px) {
+  .cl-ml-header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .cl-ml-title {
+    font-size: 28px;
+    line-height: 34px;
+  }
+
+  .cl-ml-table-card {
+    display: none;
+  }
+
+  .cl-cards-mobile {
+    display: flex;
+  }
+
+  .cl-category-tabs {
+    display: none;
+  }
+
+  .cl-category-dropdown-mobile {
+    display: flex;
+  }
+
+  .cl-ml-filters {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 12px;
+    padding: 16px;
+  }
+
+  .cl-ml-filter-group--export {
+    margin-left: 0;
+  }
+
+  .cl-ml-btn-export {
     width: 100%;
     justify-content: center;
   }
