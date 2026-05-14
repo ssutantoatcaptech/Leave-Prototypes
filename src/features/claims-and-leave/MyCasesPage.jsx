@@ -140,6 +140,9 @@ export default function MyCasesPage() {
         </div>
       </div>
 
+      {/* Request New Leave button (mobile) */}
+      <button className="cl-ml-btn-new cl-ml-btn-new--mobile" onClick={function () { navigate(base + '/file-claim'); }}>+ Request New Leave</button>
+
       {/* Table Card */}
       <div className="cl-ml-table-card">
         {/* Filter Toolbar */}
@@ -332,8 +335,8 @@ export default function MyCasesPage() {
           );
         })}
         {mobileVisibleCount < filtered.length && (
-          <div className="cl-ml-load-more-wrap">
-            <button className="cl-ml-btn-load-more" onClick={function () { setMobileVisibleCount(function (c) { return c + 5; }); }}>
+          <div className="cl-ml-load-more">
+            <button className="cl-ml-load-more-btn" onClick={function () { setMobileVisibleCount(function (c) { return c + 5; }); }}>
               Load More
             </button>
           </div>

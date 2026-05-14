@@ -199,33 +199,6 @@
   display: none;
 }
 
-.mobile-frame-screen .cl-ml-load-more-wrap {
-  display: flex;
-  justify-content: center;
-  padding: 16px 0 8px;
-}
-
-.mobile-frame-screen .cl-ml-btn-load-more {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  width: 100%;
-  padding: 12px 24px;
-  font-size: 14px;
-  font-weight: 600;
-  font-family: inherit;
-  color: #105fa8;
-  background: #fff;
-  border: 1.5px solid #105fa8;
-  border-radius: 4px;
-  cursor: pointer;
-  transition: background 0.15s;
-}
-
-.mobile-frame-screen .cl-ml-btn-load-more:hover {
-  background: #f0f7ff;
-}
-
 /* Filter bar stacks */
 .mobile-frame-screen .cl-filter-bar {
   flex-direction: column;

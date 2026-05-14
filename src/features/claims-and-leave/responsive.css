@@ -1445,34 +1445,6 @@
   align-items: center;
 }
 
-/* Load More button (mobile only) */
-.cl-ml-load-more-wrap {
-  display: flex;
-  justify-content: center;
-  padding: 16px 0 8px;
-}
-
-.cl-ml-btn-load-more {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  width: 100%;
-  padding: 12px 24px;
-  font-size: 14px;
-  font-weight: 600;
-  font-family: inherit;
-  color: #105fa8;
-  background: #fff;
-  border: 1.5px solid #105fa8;
-  border-radius: 4px;
-  cursor: pointer;
-  transition: background 0.15s;
-}
-
-.cl-ml-btn-load-more:hover {
-  background: #f0f7ff;
-}
-
 /* Filter toolbar mobile adjustments */
 .cl-ml-filters {
   flex-direction: column;
@@ -1591,9 +1563,6 @@
     padding: 16px 24px;
   }
 
-  .cl-ml-load-more-wrap {
-    display: none;
-  }
 
   .cl-ml-table-card .cl-category-tabs {
     display: flex;
