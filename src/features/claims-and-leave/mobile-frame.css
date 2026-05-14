@@ -170,6 +170,10 @@
   display: none;
 }
 
+.mobile-frame-screen .cl-footer.cl-footer--mobile {
+  display: flex;
+}
+
 /* Table to cards inside mobile frame */
 .mobile-frame-screen .cl-table-wrap {
   display: none;
