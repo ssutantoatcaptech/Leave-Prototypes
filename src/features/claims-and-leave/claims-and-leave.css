@@ -18,7 +18,7 @@
 .cl-brand-bar {
   background: #105fa8;
   height: 51px;
-  display: flex;
+  display: none;
   align-items: center;
 }
 
