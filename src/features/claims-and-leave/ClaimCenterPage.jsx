@@ -314,7 +314,7 @@ export default function ClaimCenterPage() {
                 <span className="cl-card-mobile-value">{row.memberPays}</span>
               </div>
             </div>
-            <span className="cl-ml-action-link" onClick={() => { if (row.link) navigate(`${base}/${row.link}`); }}>{row.actions} ›</span>
+            <span className="cl-ml-action-link" onClick={() => { if (row.link) navigate(`${base}/${row.link}`); }}>View Details ›</span>
           </div>
         ))}
       </div>
