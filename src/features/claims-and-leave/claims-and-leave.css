@@ -5537,6 +5537,36 @@
   margin: 0;
 }
 
+/* Load More */
+.cl-ml-load-more {
+  display: flex;
+  justify-content: center;
+  padding: 20px 24px;
+  border-top: 1px solid #f0f0f0;
+}
+
+.cl-ml-load-more-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 10px 32px;
+  background: #ffffff;
+  color: #105fa8;
+  font-family: 'Source Sans Pro', sans-serif;
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 20px;
+  border: 1.5px solid #105fa8;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background 0.15s, color 0.15s;
+}
+
+.cl-ml-load-more-btn:hover {
+  background: #105fa8;
+  color: #ffffff;
+}
+
 /* ===========================
    Dental Claims Detail Expansion
    =========================== */
