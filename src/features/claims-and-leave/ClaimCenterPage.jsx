@@ -149,11 +149,6 @@ export default function ClaimCenterPage() {
         </div>
       </div>
 
-      {/* Export History (mobile) */}
-      <div className="cl-export-history-mobile">
-        <button className="cl-ml-action-link">Export History <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M6 1v8M3 6l3 3 3-3" stroke="currentColor" strokeWidth="1.3" strokeLinecap="round" strokeLinejoin="round"/></svg></button>
-      </div>
-
       {/* Start a New Claim button (mobile) */}
       <button className="cl-ml-btn-new cl-ml-btn-new--mobile">+ Start a New Claim</button>
 
