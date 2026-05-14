@@ -55,6 +55,7 @@ export default function MyCasesPage() {
   var [typeFilter, setTypeFilter] = useState('All');
   var [hiddenIds, setHiddenIds] = useState([]);
   var [deleteTarget, setDeleteTarget] = useState(null);
+  var [mobileVisibleCount, setMobileVisibleCount] = useState(5);
 
   var submittedLeaves = useMemo(function () {
     try { return JSON.parse(localStorage.getItem('submittedLeaves') || '[]'); } catch (e) { return []; }
@@ -277,12 +278,12 @@ export default function MyCasesPage() {
 
       {/* Mobile card view — outside table card */}
       <div className="cl-ml-cards-mobile">
-        {pageData.length === 0 && (
+        {filtered.length === 0 && (
           <div style={{ textAlign: 'center', padding: '32px 16px', color: '#5d5d5d' }}>No cases match your filters.</div>
         )}
-        {pageData.map(function (row, i) {
+        {filtered.slice(0, mobileVisibleCount).map(function (row, i) {
           return (
-            <div key={startIdx + i} className="cl-ml-card-mobile">
+            <div key={i} className="cl-ml-card-mobile">
               <div>
                 <div className="cl-ml-card-mobile__type">{row.type}</div>
                 <div className="cl-ml-card-mobile__id">{row.id}</div>
@@ -330,6 +331,13 @@ export default function MyCasesPage() {
             </div>
           );
         })}
+        {mobileVisibleCount < filtered.length && (
+          <div className="cl-ml-load-more-wrap">
+            <button className="cl-ml-btn-load-more" onClick={function () { setMobileVisibleCount(function (c) { return c + 5; }); }}>
+              Load More
+            </button>
+          </div>
+        )}
       </div>
 
       {/* Delete confirmation modal */}
