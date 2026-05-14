@@ -682,6 +682,14 @@
 
 /* ----- 7. Footer Responsive ----- */
 
+.cl-footer--desktop {
+  display: none;
+}
+
+.cl-footer--mobile {
+  display: flex;
+}
+
 .cl-footer-inner {
   padding: 32px 16px 24px;
 }
@@ -704,6 +712,14 @@
 }
 
 @media (min-width: 769px) {
+  .cl-footer--desktop {
+    display: block;
+  }
+
+  .cl-footer--mobile {
+    display: none;
+  }
+
   .cl-footer-inner {
     padding: 48px 32px 32px;
   }

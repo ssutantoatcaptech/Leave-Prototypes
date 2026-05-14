@@ -483,7 +483,8 @@ export default function DashboardPage() {
         </div>
       </main>
 
-      <footer className="cl-footer">
+      {/* Desktop Footer */}
+      <footer className="cl-footer cl-footer--desktop">
         <div className="cl-footer-inner">
           <div className="cl-footer-brand">
             <span className="cl-footer-mymutual">my<strong>Mutual</strong></span>
@@ -518,6 +519,52 @@ export default function DashboardPage() {
             </div>
             <span>&copy; 2026 Mutual of Omaha Insurance Company. All rights reserved.</span>
           </div>
+        </div>
+      </footer>
+
+      {/* Mobile Footer */}
+      <footer className="cl-footer cl-footer--mobile">
+        <h2 className="cl-mfooter-brand">Benefit Hub</h2>
+        <div className="cl-mfooter-sections">
+          <div className="cl-mfooter-section">
+            <h4 className="cl-mfooter-heading">Support</h4>
+            <div className="cl-mfooter-link-row">
+              <a href="#" className="cl-mfooter-link">Send a Message</a>
+              <a href="#" className="cl-mfooter-link">Live Chat</a>
+            </div>
+          </div>
+          <div className="cl-mfooter-section">
+            <h4 className="cl-mfooter-heading">Quick Links</h4>
+            <div className="cl-mfooter-link-grid">
+              <div className="cl-mfooter-link-row">
+                <a href="#" className="cl-mfooter-link">File a Claim</a>
+                <a href="#" className="cl-mfooter-link">ID Cards</a>
+              </div>
+              <div className="cl-mfooter-link-row">
+                <a href="#" className="cl-mfooter-link">Documents &amp; Forms</a>
+                <a href="#" className="cl-mfooter-link">Request a Leave</a>
+              </div>
+            </div>
+          </div>
+          <div className="cl-mfooter-section">
+            <h4 className="cl-mfooter-heading">Language Preference</h4>
+            <div className="cl-mfooter-lang">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="10" stroke="#105fa8" strokeWidth="1.5"/><path d="M2 12h20M12 2c2.5 2.5 4 5.5 4 10s-1.5 7.5-4 10M12 2c-2.5 2.5-4 5.5-4 10s1.5 7.5 4 10" stroke="#105fa8" strokeWidth="1.5"/></svg>
+              <span className="cl-mfooter-lang-text">English</span>
+              <svg width="12" height="8" viewBox="0 0 12 8" fill="none"><path d="M1 1.5l5 5 5-5" stroke="#222" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/></svg>
+            </div>
+          </div>
+        </div>
+        <div className="cl-mfooter-legal">
+          <div className="cl-mfooter-legal-row">
+            <a href="#" className="cl-mfooter-legal-link">Privacy Policy</a>
+            <a href="#" className="cl-mfooter-legal-link">Manage Cookie Preferences</a>
+          </div>
+          <div className="cl-mfooter-legal-row">
+            <a href="#" className="cl-mfooter-legal-link">Terms of Use</a>
+            <a href="#" className="cl-mfooter-legal-link">Accessibility Services</a>
+          </div>
+          <span className="cl-mfooter-copyright">&copy; 2026 Mutual of Omaha Insurance Company. All rights reserved.</span>
         </div>
       </footer>
     </div>

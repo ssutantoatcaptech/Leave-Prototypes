@@ -3244,6 +3244,131 @@
 }
 
 /* ===========================
+   Mobile Footer
+   =========================== */
+.cl-footer--mobile {
+  display: none;
+  border-top: 4px solid #105fa8;
+  padding: 28px 16px 24px;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.cl-mfooter-brand {
+  font-family: 'Source Sans Pro', sans-serif;
+  font-size: 30px;
+  font-weight: 600;
+  line-height: 36px;
+  margin: 0;
+  background: linear-gradient(90deg, #105fa6, #03a0ad);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.cl-mfooter-sections {
+  display: flex;
+  flex-direction: column;
+  gap: 48px;
+  width: 100%;
+}
+
+.cl-mfooter-section {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.cl-mfooter-section:nth-child(2) {
+  gap: 20px;
+}
+
+.cl-mfooter-heading {
+  font-family: 'Source Sans Pro', sans-serif;
+  font-size: 18px;
+  font-weight: 600;
+  line-height: 24px;
+  color: #838383;
+  margin: 0;
+}
+
+.cl-mfooter-link-row {
+  display: flex;
+  gap: 12px;
+}
+
+.cl-mfooter-link-row > * {
+  flex: 1;
+  min-width: 0;
+}
+
+.cl-mfooter-link-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.cl-mfooter-link {
+  font-family: 'Source Sans Pro', sans-serif;
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 20px;
+  color: #105fa8;
+  text-decoration: underline;
+}
+
+.cl-mfooter-lang {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.cl-mfooter-lang-text {
+  font-family: 'Source Sans Pro', sans-serif;
+  font-size: 14px;
+  font-weight: 600;
+  color: #222;
+}
+
+.cl-mfooter-legal {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  padding-top: 25px;
+  border-top: 1px solid #f0f0f0;
+  width: 100%;
+}
+
+.cl-mfooter-legal-row {
+  display: flex;
+  gap: 24px;
+  align-items: center;
+  height: 15px;
+}
+
+.cl-mfooter-legal-row > a:first-child {
+  width: 101px;
+  flex-shrink: 0;
+}
+
+.cl-mfooter-legal-link {
+  font-family: 'Source Sans Pro', sans-serif;
+  font-size: 12px;
+  font-weight: 600;
+  color: #105fa8;
+  text-decoration: underline;
+  line-height: normal;
+}
+
+.cl-mfooter-copyright {
+  font-family: 'Source Sans Pro', sans-serif;
+  font-size: 12px;
+  font-weight: 400;
+  color: #5d5d5d;
+  line-height: normal;
+}
+
+/* ===========================
    Dashboard Page (cldb- prefix)
    =========================== */
 
