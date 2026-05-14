@@ -250,28 +250,6 @@ export default function MyLeavesPage() {
 
   return (
     <div className="cl-page cl-ml-page" style={{ position: 'relative', overflow: 'clip' }}>
-      {/* Background decorative icon */}
-      <div className="cl-bg-icon" aria-hidden="true">
-        <svg width="388" height="388" viewBox="0 0 388 388" fill="none">
-          <rect x="20" y="52" width="348" height="316" rx="32" fill="url(#cal-bg-grad-ml)" opacity="0.45"/>
-          <rect x="44" y="120" width="300" height="228" rx="16" fill="white" opacity="0.5"/>
-          <rect x="120" y="8" width="28" height="64" rx="14" fill="url(#cal-bg-grad-ml)" opacity="0.45"/>
-          <rect x="240" y="8" width="28" height="64" rx="14" fill="url(#cal-bg-grad-ml)" opacity="0.45"/>
-          <rect x="80" y="164" width="52" height="44" rx="10" fill="url(#cal-bg-grad-ml)" opacity="0.35"/>
-          <rect x="156" y="164" width="52" height="44" rx="10" fill="url(#cal-bg-grad-ml)" opacity="0.35"/>
-          <rect x="232" y="164" width="52" height="44" rx="10" fill="url(#cal-bg-grad-ml)" opacity="0.35"/>
-          <rect x="80" y="232" width="52" height="44" rx="10" fill="url(#cal-bg-grad-ml)" opacity="0.35"/>
-          <rect x="156" y="232" width="52" height="44" rx="10" fill="url(#cal-bg-grad-ml)" opacity="0.35"/>
-          <rect x="232" y="232" width="52" height="44" rx="10" fill="url(#cal-bg-grad-ml)" opacity="0.35"/>
-          <defs>
-            <linearGradient id="cal-bg-grad-ml" x1="0" y1="0" x2="388" y2="388" gradientUnits="userSpaceOnUse">
-              <stop stopColor="#105fa8" stopOpacity="0.15"/>
-              <stop offset="1" stopColor="#0a9b8c" stopOpacity="0.12"/>
-            </linearGradient>
-          </defs>
-        </svg>
-      </div>
-
       {/* Breadcrumb */}
       <div className="cl-ml-breadcrumb">
         <Link to={base} className="cl-ml-breadcrumb-link">Claims &amp; Leave</Link>
@@ -286,7 +264,7 @@ export default function MyLeavesPage() {
           <p className="cl-ml-subtitle">Manage your active, saved, and historical leave requests.</p>
         </div>
         <div className="cl-ml-header-action">
-          <button className="cl-ml-btn-new">+ Request New Leave</button>
+          <button className="cl-ml-btn-new">Request New Leave</button>
         </div>
       </div>
 
@@ -295,7 +273,7 @@ export default function MyLeavesPage() {
         {/* Filter Toolbar */}
         <div className="cl-ml-filters">
           <div className="cl-ml-filter-group">
-            <label className="cl-ml-filter-label">STATUS</label>
+            <label className="cl-ml-filter-label">Status</label>
             <select
               className="cl-ml-filter-select"
               value={statusFilter}
@@ -309,7 +287,7 @@ export default function MyLeavesPage() {
             </select>
           </div>
           <div className="cl-ml-filter-group">
-            <label className="cl-ml-filter-label">LEAVE TYPE</label>
+            <label className="cl-ml-filter-label">Leave Type</label>
             <select
               className="cl-ml-filter-select"
               value={typeFilter}
@@ -321,13 +299,26 @@ export default function MyLeavesPage() {
               <option value="Non-Birthing Parent (Continuous)">Non-Birthing Parent (Continuous)</option>
             </select>
           </div>
+          <div className="cl-ml-filter-group cl-ml-filter-group--export">
+            <button className="cl-ml-btn-export">
+              <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+                <path d="M2 10v3a1 1 0 001 1h10a1 1 0 001-1v-3M8 2v8M5 7l3 3 3-3" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+              </svg>
+              Export History (CSV)
+            </button>
+          </div>
         </div>
 
         {/* Table — hidden on mobile */}
         <table className="cl-ml-table">
           <thead>
             <tr>
-              <th className="cl-ml-th-first">Leave Type &amp; ID</th>
+              <th className="cl-ml-th-first">
+                <span className="cl-ml-th-sortable">
+                  Leave Type &amp; ID
+                  <svg width="10" height="6" viewBox="0 0 10 6" fill="none" aria-hidden="true"><path d="M1 1l4 4 4-4" stroke="#222" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/></svg>
+                </span>
+              </th>
               <th>Last Update</th>
               <th>Status</th>
               <th>Required Actions</th>
@@ -352,10 +343,16 @@ export default function MyLeavesPage() {
                   {row.actionType === 'saved' ? (
                     <div className="cl-ml-action-group">
                       <button className="cl-ml-action-delete">Delete</button>
-                      <span className="cl-ml-action-link" onClick={() => navigate(base + getDetailPath(row.type))}>Resume ›</span>
+                      <span className="cl-ml-action-link" onClick={() => navigate(base + getDetailPath(row.type))}>
+                        Resume
+                        <svg width="10" height="6" viewBox="0 0 10 6" fill="none" aria-hidden="true" style={{ marginLeft: '4px' }}><path d="M1 1l4 4 4-4" stroke="#105fa8" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/></svg>
+                      </span>
                     </div>
                   ) : (
-                    <span className="cl-ml-action-link" onClick={() => navigate(base + getDetailPath(row.type))}>View Details ›</span>
+                    <span className="cl-ml-action-link" onClick={() => navigate(base + getDetailPath(row.type))}>
+                      View Details
+                      <svg width="10" height="6" viewBox="0 0 10 6" fill="none" aria-hidden="true" style={{ marginLeft: '4px' }}><path d="M1 1l4 4 4-4" stroke="#105fa8" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/></svg>
+                    </span>
                   )}
                 </td>
               </tr>
@@ -363,7 +360,7 @@ export default function MyLeavesPage() {
           </tbody>
         </table>
 
-        {/* Pagination (desktop) */}
+        {/* Pagination */}
         <div className="cl-ml-pagination">
           <div className="cl-ml-pagination-controls">
             <button
@@ -376,15 +373,22 @@ export default function MyLeavesPage() {
                 <path d="M6 1L1 6L6 11" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
               </svg>
             </button>
-            {getPageNumbers().map((page) => (
-              <button
-                key={page}
-                className={`cl-ml-page-btn cl-ml-page-num ${page === currentPage ? 'cl-ml-page-num--active' : ''}`}
-                onClick={() => handlePageChange(page)}
-              >
-                {page}
-              </button>
-            ))}
+            {getPageNumbers().map((page) => {
+              if (page <= 3 || page === totalPages) {
+                return (
+                  <button
+                    key={page}
+                    className={`cl-ml-page-btn${page === currentPage ? ' cl-ml-page-num--active' : ''}`}
+                    onClick={() => handlePageChange(page)}
+                  >
+                    {page}
+                  </button>
+                );
+              } else if (page === 4) {
+                return <span key="ellipsis" className="cl-ml-page-ellipsis">...</span>;
+              }
+              return null;
+            })}
             <button
               className="cl-ml-page-btn"
               onClick={() => handlePageChange(currentPage + 1)}
