@@ -508,7 +508,7 @@
   padding: 0;
   font-size: 14px;
   font-weight: 500;
-  color: #5d5d5d;
+  color: #105fa8;
   text-decoration: none;
   border-bottom: 2.5px solid transparent;
   transition: color 0.15s, border-color 0.15s;
@@ -518,12 +518,12 @@
 }
 
 .cl-category-tab:hover {
-  color: #003a70;
+  color: #0a4a85;
 }
 
 .cl-category-tab--active {
-  color: #003a70;
-  border-bottom-color: #003a70;
+  color: #105fa8;
+  border-bottom-color: #105fa8;
   font-weight: 600;
 }
 
