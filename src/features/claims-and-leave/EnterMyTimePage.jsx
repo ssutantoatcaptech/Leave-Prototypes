@@ -100,6 +100,8 @@ export default function EnterMyTimePage() {
   var [showPreview, setShowPreview] = useState(false);
   var [perDayEdits, setPerDayEdits] = useState({});
   var [pageVersion, setPageVersion] = useState(2);
+  var [showEntryModal, setShowEntryModal] = useState(false);
+  var [modalEntries, setModalEntries] = useState([]);
 
   var calendarDays = buildCalendarDays(calYear, calMonth);
   var hours = calcHours(startTime, endTime);
@@ -259,6 +261,69 @@ export default function EnterMyTimePage() {
     setPerDayEdits(Object.assign({}, perDayEdits, { [dk]: updated }));
   }
 
+  function openEntryModal() {
+    var dates = selectedDates.length > 0 ? selectedDates : [todayKey];
+    var entries = dates.map(function (dk) {
+      return { dateKey: dk, startTime: '08:00 AM', endTime: '12:00 PM', reason: 'Episode' };
+    });
+    setModalEntries(entries);
+    setShowEntryModal(true);
+  }
+
+  function updateModalEntry(idx, field, value) {
+    var updated = modalEntries.slice();
+    updated[idx] = Object.assign({}, updated[idx], { [field]: value });
+    setModalEntries(updated);
+  }
+
+  function addModalEntry() {
+    setModalEntries(modalEntries.concat([{ dateKey: '', startTime: '08:00 AM', endTime: '12:00 PM', reason: 'Episode' }]));
+  }
+
+  function removeModalEntry(idx) {
+    if (modalEntries.length <= 1) return;
+    setModalEntries(modalEntries.filter(function (_, i) { return i !== idx; }));
+  }
+
+  function submitModal() {
+    var todayStr = new Date().toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
+    var entryKey = Date.now().toString();
+    var newEntries = [];
+    var totalH = 0;
+    modalEntries.forEach(function (entry, idx) {
+      if (!entry.dateKey) return;
+      var dayHours = calcHours(entry.startTime, entry.endTime);
+      totalH += parseFloat(dayHours);
+      newEntries.push({
+        date: formatDateKeyToShort(entry.dateKey),
+        dateKey: entry.dateKey,
+        startTime: entry.startTime,
+        endTime: entry.endTime,
+        hours: dayHours,
+        reason: entry.reason,
+        reasonColor: getReasonColor(entry.reason),
+        addedOn: todayStr,
+        caseId: selectedCase.id,
+        entryKey: entryKey + '-' + idx,
+      });
+    });
+    if (newEntries.length === 0) return;
+    setAbsences(newEntries.concat(absences));
+    setBalance(Math.max(0, balance - totalH));
+    setSubmitted(true);
+    setSubmittedCount(newEntries.length);
+    setSubmittedHours(totalH.toFixed(1));
+    setNewEntryKey(entryKey);
+    setSelectedDates([]);
+    setShowEntryModal(false);
+    setTimeout(function () { setSubmitted(false); }, 4000);
+    setTimeout(function () { setNewEntryKey(null); }, 8000);
+  }
+
+  var modalTotalHours = modalEntries.reduce(function (sum, e) {
+    return sum + parseFloat(calcHours(e.startTime, e.endTime));
+  }, 0);
+
   var selectedReasonData = REASONS.find(function (r) { return r.value === reason; });
 
   return (
@@ -353,6 +418,38 @@ export default function EnterMyTimePage() {
                   </div>
                   )}
 
+                  {/* V2: pill case selector above calendar */}
+                  {pageVersion === 2 && (
+                    <div className="cl-ma-field" style={{ position: 'relative' }}>
+                      <button
+                        type="button"
+                        className="cl-ma-case-pill"
+                        onClick={function () { setCaseOpen(!caseOpen); }}
+                      >
+                        <span className="cl-ma-case-pill__id">{selectedCase.id}</span>
+                        <span className="cl-ma-case-pill__label">Paid Family &amp; Medical Leave</span>
+                        <svg className="cl-ma-case-pill__chevron" width="10" height="6" viewBox="0 0 10 6" fill="none"><path d="M1 1l4 4 4-4" stroke="currentColor" strokeWidth="1.3" strokeLinecap="round" strokeLinejoin="round"/></svg>
+                      </button>
+                      {caseOpen && (
+                        <div className="cl-ma-dropdown-menu cl-ma-case-menu">
+                          {LEAVE_CASES.map(function (c) {
+                            return (
+                              <button
+                                key={c.id}
+                                type="button"
+                                className={'cl-ma-dropdown-item' + (c.id === selectedCase.id ? ' cl-ma-dropdown-item--active' : '')}
+                                onClick={function () { handleCaseSelect(c); }}
+                              >
+                                <span>{c.label}</span>
+                                <span className="cl-ma-case-balance">{c.balance}h remaining</span>
+                              </button>
+                            );
+                          })}
+                        </div>
+                      )}
+                    </div>
+                  )}
+
                   <div className="cl-ma-field">
                     {pageVersion !== 2 && (
                     <div className="cl-ma-label-row">
@@ -365,37 +462,6 @@ export default function EnterMyTimePage() {
                     </div>
                     )}
                     <div className="cl-ma-calendar">
-                      {/* V2: case selector integrated into calendar header */}
-                      {pageVersion === 2 && (
-                        <div className="cl-ma-cal-case-bar" style={{ position: 'relative' }}>
-                          <button
-                            type="button"
-                            className="cl-ma-cal-case-btn"
-                            onClick={function () { setCaseOpen(!caseOpen); }}
-                          >
-                            <span className="cl-ma-cal-case-id">{selectedCase.id}</span>
-                            <span className="cl-ma-cal-case-label">Paid Family &amp; Medical Leave</span>
-                            <svg width="10" height="6" viewBox="0 0 10 6" fill="none"><path d="M1 1l4 4 4-4" stroke="#6b7280" strokeWidth="1.3" strokeLinecap="round" strokeLinejoin="round"/></svg>
-                          </button>
-                          {caseOpen && (
-                            <div className="cl-ma-dropdown-menu cl-ma-case-menu">
-                              {LEAVE_CASES.map(function (c) {
-                                return (
-                                  <button
-                                    key={c.id}
-                                    type="button"
-                                    className={'cl-ma-dropdown-item' + (c.id === selectedCase.id ? ' cl-ma-dropdown-item--active' : '')}
-                                    onClick={function () { handleCaseSelect(c); }}
-                                  >
-                                    <span>{c.label}</span>
-                                    <span className="cl-ma-case-balance">{c.balance}h remaining</span>
-                                  </button>
-                                );
-                              })}
-                            </div>
-                          )}
-                        </div>
-                      )}
                       <div className="cl-ma-cal-header">
                         <button className="cl-ma-cal-nav" type="button" onClick={handlePrevMonth}>&lsaquo;</button>
                         <span className="cl-ma-cal-month">{MONTH_NAMES[calMonth]} {calYear}</span>
@@ -743,83 +809,25 @@ export default function EnterMyTimePage() {
         <div className="cl-ma-sidebar">
           {/* V2: Form fields in sidebar */}
           {pageVersion === 2 && (
-            <div className="cl-ma-sidebar-form">
-              <div className="cl-ma-field">
-                <label className="cl-ma-label cl-ma-label--upper">
-                  {isBulkMode ? 'Total Hours (' + selectedDates.length + ' days)' : 'Missed Hours Logged'}
-                </label>
-                <div className={'cl-ma-hours-input' + (totalBulkHours > 0 ? '' : ' cl-ma-hours-input--zero')}>
-                  <span className="cl-ma-hours-value">{isBulkMode ? totalBulkHours.toFixed(1) : hours}</span>
-                  <span className="cl-ma-hours-unit">Hours</span>
+            <div className="cl-ma-sidebar-cta">
+              <div className="cl-ma-sidebar-cta__hours">
+                <span className="cl-ma-sidebar-cta__hours-label">Balance Remaining</span>
+                <span className="cl-ma-sidebar-cta__hours-value">{balance}h</span>
+              </div>
+              {selectedDates.length > 0 && (
+                <div className="cl-ma-sidebar-cta__dates">
+                  {selectedDates.length} date{selectedDates.length > 1 ? 's' : ''} selected
                 </div>
-              </div>
-
-              <div className="cl-ma-time-row">
-                <div className="cl-ma-field cl-ma-field--half">
-                  <label className="cl-ma-label">Start of Missed Time</label>
-                  <input
-                    type="text"
-                    className="cl-ma-time-input"
-                    value={startTime}
-                    onChange={function (e) { setStartTime(e.target.value); }}
-                  />
-                </div>
-                <div className="cl-ma-field cl-ma-field--half">
-                  <label className="cl-ma-label">End of Missed Time</label>
-                  <input
-                    type="text"
-                    className="cl-ma-time-input"
-                    value={endTime}
-                    onChange={function (e) { setEndTime(e.target.value); }}
-                  />
-                </div>
-              </div>
-
-              <div className="cl-ma-field" style={{ position: 'relative' }}>
-                <label className="cl-ma-label">Reason</label>
-                <button
-                  type="button"
-                  className="cl-ma-dropdown"
-                  onClick={function () { setReasonOpen(!reasonOpen); }}
-                >
-                  <span style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-                    <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M2 7l3.5 3.5L12 4" stroke="#10b981" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/></svg>
-                    <span>{reason}</span>
-                  </span>
-                  <svg width="8" height="12" viewBox="0 0 8 12" fill="none"><path d="M1.5 1l5 5-5 5" stroke="#6b7280" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/></svg>
-                </button>
-                {reasonOpen && (
-                  <div className="cl-ma-dropdown-menu">
-                    {REASONS.map(function (r) {
-                      return (
-                        <button
-                          key={r.value}
-                          type="button"
-                          className={'cl-ma-dropdown-item' + (r.value === reason ? ' cl-ma-dropdown-item--active' : '')}
-                          onClick={function () { setReason(r.value); setReasonOpen(false); }}
-                        >
-                          {r.value}
-                        </button>
-                      );
-                    })}
-                  </div>
-                )}
-                {selectedReasonData && (
-                  <p className="cl-ma-reason-helper">{selectedReasonData.description}</p>
-                )}
-              </div>
-
-              <div className="cl-ma-form-actions">
-                <button
-                  className="cl-ma-btn-submit"
-                  type="button"
-                  onClick={handleSubmit}
-                  disabled={selectedDates.length === 0 || parseFloat(hours) <= 0}
-                >
-                  {isBulkMode ? 'Review ' + selectedDates.length + ' Entries' : 'Submit Time Entry'}
-                </button>
-                <button className="cl-ma-btn-cancel" type="button" onClick={handleCancel}>Cancel</button>
-              </div>
+              )}
+              <button
+                className="cl-ma-btn-submit-lg"
+                type="button"
+                onClick={openEntryModal}
+                disabled={selectedDates.length === 0}
+              >
+                <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M8 3v10M3 8h10" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round"/></svg>
+                Submit Missed Time
+              </button>
             </div>
           )}
 
@@ -966,6 +974,82 @@ export default function EnterMyTimePage() {
                 <button className="cl-ma-btn-submit" type="button" onClick={handleSubmit}>
                   Confirm &amp; Submit All
                 </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* V2 Entry Modal */}
+      {showEntryModal && (
+        <div className="cl-ma-entry-modal-overlay" onClick={function () { setShowEntryModal(false); }}>
+          <div className="cl-ma-entry-modal" onClick={function (e) { e.stopPropagation(); }}>
+            <div className="cl-ma-entry-modal__header">
+              <div>
+                <h3 className="cl-ma-entry-modal__title">Submit Missed Time</h3>
+                <p className="cl-ma-entry-modal__subtitle">{selectedCase.id} — {modalEntries.length} {modalEntries.length === 1 ? 'entry' : 'entries'}</p>
+              </div>
+              <button className="cl-ma-entry-modal__close" type="button" onClick={function () { setShowEntryModal(false); }}>
+                <svg width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M5 5l10 10M15 5L5 15" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"/></svg>
+              </button>
+            </div>
+
+            <div className="cl-ma-entry-modal__body">
+              {modalEntries.map(function (entry, idx) {
+                var entryHours = calcHours(entry.startTime, entry.endTime);
+                return (
+                  <div key={idx} className="cl-ma-entry-modal__row">
+                    <div className="cl-ma-entry-modal__row-date">
+                      {entry.dateKey ? formatDateKeyToDisplay(entry.dateKey) : 'Select date'}
+                      {modalEntries.length > 1 && (
+                        <button type="button" style={{ float: 'right', background: 'none', border: 'none', cursor: 'pointer', color: '#9ca3af', fontSize: '16px' }} onClick={function () { removeModalEntry(idx); }}>×</button>
+                      )}
+                    </div>
+                    <div className="cl-ma-entry-modal__field">
+                      <span className="cl-ma-entry-modal__field-label">Start</span>
+                      <input
+                        type="text"
+                        className="cl-ma-entry-modal__field-input"
+                        value={entry.startTime}
+                        onChange={function (e) { updateModalEntry(idx, 'startTime', e.target.value); }}
+                      />
+                    </div>
+                    <div className="cl-ma-entry-modal__field">
+                      <span className="cl-ma-entry-modal__field-label">End</span>
+                      <input
+                        type="text"
+                        className="cl-ma-entry-modal__field-input"
+                        value={entry.endTime}
+                        onChange={function (e) { updateModalEntry(idx, 'endTime', e.target.value); }}
+                      />
+                    </div>
+                    <div className="cl-ma-entry-modal__field">
+                      <span className="cl-ma-entry-modal__field-label">Reason</span>
+                      <select
+                        className="cl-ma-entry-modal__field-input"
+                        value={entry.reason}
+                        onChange={function (e) { updateModalEntry(idx, 'reason', e.target.value); }}
+                      >
+                        {REASONS.map(function (r) { return <option key={r.value} value={r.value}>{r.value}</option>; })}
+                      </select>
+                    </div>
+                    <div className="cl-ma-entry-modal__hours-display">{entryHours}h</div>
+                  </div>
+                );
+              })}
+              <button type="button" style={{ alignSelf: 'flex-start', background: 'none', border: '1px dashed #c8ddf2', borderRadius: '8px', padding: '10px 16px', color: '#105fa8', fontFamily: "'Source Sans Pro', sans-serif", fontSize: '13px', fontWeight: 600, cursor: 'pointer' }} onClick={addModalEntry}>
+                + Add Another Entry
+              </button>
+            </div>
+
+            <div className="cl-ma-entry-modal__footer">
+              <div className="cl-ma-entry-modal__total">
+                <span className="cl-ma-entry-modal__total-label">Total Hours</span>
+                <span className="cl-ma-entry-modal__total-value">{modalTotalHours.toFixed(1)}h</span>
+              </div>
+              <div className="cl-ma-entry-modal__actions">
+                <button className="cl-ma-btn-cancel" type="button" onClick={function () { setShowEntryModal(false); }}>Cancel</button>
+                <button className="cl-ma-btn-submit" type="button" onClick={submitModal}>Submit {modalEntries.length > 1 ? 'All' : 'Entry'}</button>
               </div>
             </div>
           </div>
