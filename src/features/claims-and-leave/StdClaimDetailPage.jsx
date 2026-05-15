@@ -1,11 +1,69 @@
 import { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import useBasePath from './useBasePath';
 import '../leave-detail/leave-detail-b.css';
 import '../absence-details/absence-details-react.css';
 
+var CLAIM_VARIANTS = {
+  std: {
+    title: 'Short-Term Disability (STD) Claim',
+    status: 'Approved',
+    statusClass: 'cl-std-pill--approved',
+    claimId: 'CL-954412',
+    filedDate: 'May 4, 2024',
+    claimNumber: 'CLM-94820',
+    policy: 'Group STD — Employer Paid',
+    diagnosis: 'Lumbar disc herniation',
+    leaveStart: 'May 4, 2024',
+    benefitsBegin: 'May 11, 2024',
+    expectedRTW: 'Aug 5, 2024',
+    maxDuration: '12 weeks',
+    weeksRemaining: '4 of 12 weeks',
+    totalPaid: '$6,219.51',
+    timelineRows: [
+      { id: 'std', label: 'STD', width: 67, accent: '#2563eb', name: 'Group Short-Term Disability', weeks: '8 weeks', range: 'May 11 – Jul 6, 2024', pay: '60% of pre-disability earnings', paymentValue: '~$1,037/wk' },
+      { id: 'ltd', label: 'LTD', width: 33, accent: '#818cf8', name: 'Long-Term Disability', weeks: '4 weeks', range: 'Jul 6 – Aug 3, 2024', pay: '60% salary (if approved)', paymentValue: '$0/wk' },
+    ],
+    legend: [
+      { id: 'std-pay', label: 'STD (60%)', accent: '#2563eb' },
+      { id: 'ltd-pay', label: 'LTD (Pending)', accent: '#818cf8' },
+    ],
+    weekCount: 12,
+    months: ['May', 'Jun', 'Jul', 'Aug'],
+  },
+  ltd: {
+    title: 'Long-Term Disability (LTD) Claim',
+    status: 'Denied',
+    statusClass: 'cl-std-pill--denied',
+    claimId: 'CL-967201',
+    filedDate: 'Jul 8, 2024',
+    claimNumber: 'CLM-96720',
+    policy: 'Group LTD — Employer Paid',
+    diagnosis: 'Lumbar disc herniation',
+    leaveStart: 'Jul 6, 2024',
+    benefitsBegin: 'Jul 6, 2024',
+    expectedRTW: 'N/A',
+    maxDuration: '24 months',
+    weeksRemaining: '0 of 24 months (Denied)',
+    totalPaid: '$0.00',
+    timelineRows: [
+      { id: 'std', label: 'STD', width: 33, accent: '#2563eb', name: 'Group Short-Term Disability (ended)', weeks: '8 weeks', range: 'May 11 – Jul 6, 2024', pay: '60% of pre-disability earnings', paymentValue: '~$1,037/wk' },
+      { id: 'ltd', label: 'LTD', width: 67, accent: '#818cf8', name: 'Long-Term Disability', weeks: '16 weeks (denied)', range: 'Jul 6 – Oct 26, 2024', pay: 'Denied — no payment', paymentValue: '$0/wk' },
+    ],
+    legend: [
+      { id: 'std-pay', label: 'STD (ended)', accent: '#2563eb' },
+      { id: 'ltd-pay', label: 'LTD (Denied)', accent: '#818cf8' },
+    ],
+    weekCount: 24,
+    months: ['May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct'],
+  },
+};
+
 export default function StdClaimDetailPage() {
   const base = useBasePath();
+  const location = useLocation();
+  const isLtd = location.pathname.includes('ltd-claim-detail');
+  const variant = isLtd ? CLAIM_VARIANTS.ltd : CLAIM_VARIANTS.std;
   const [completedExpanded, setCompletedExpanded] = useState(false);
   const [hoveredRow, setHoveredRow] = useState(null);
 
@@ -25,18 +83,18 @@ export default function StdClaimDetailPage() {
             <path d="M1 1l4 4-4 4" stroke="#9ca3af" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
           </svg>
         </span>
-        <span className="cl-std-breadcrumb-current">CL-954412</span>
+        <span className="cl-std-breadcrumb-current">{variant.claimId}</span>
       </div>
 
       {/* Page Header */}
       <div className="cl-std-header">
         <div className="cl-std-header-title-row">
-          <h1 className="cl-std-title">Long-Term Disability (LTD) Claim</h1>
-          <span className="cl-std-pill cl-std-pill--denied">Denied</span>
+          <h1 className="cl-std-title">{variant.title}</h1>
+          <span className={'cl-std-pill ' + variant.statusClass}>{variant.status}</span>
         </div>
         <div className="cl-std-header-meta">
-          <span className="cl-std-meta-id">CL-954412</span>
-          <span className="cl-std-meta-date">Filed May 4, 2024</span>
+          <span className="cl-std-meta-id">{variant.claimId}</span>
+          <span className="cl-std-meta-date">Filed {variant.filedDate}</span>
         </div>
       </div>
 
@@ -44,49 +102,6 @@ export default function StdClaimDetailPage() {
       <div className="cl-std-grid">
         {/* Main column */}
         <div className="cl-std-main">
-          {/* Claim Details Card */}
-          <div className="cl-std-card">
-            <h2 className="cl-std-card-title">Claim Details</h2>
-
-            <div className="cl-std-details-subcard">
-              <div className="cl-std-details-grid">
-                <div className="cl-std-field">
-                  <span className="cl-std-field-label">Claim Number</span>
-                  <span className="cl-std-field-value">CLM-94820</span>
-                </div>
-                <div className="cl-std-field">
-                  <span className="cl-std-field-label">Policy</span>
-                  <span className="cl-std-field-value">Group STD — Employer Paid</span>
-                </div>
-                <div className="cl-std-field">
-                  <span className="cl-std-field-label">Diagnosis</span>
-                  <span className="cl-std-field-value">Lumbar disc herniation</span>
-                </div>
-                <div className="cl-std-field">
-                  <span className="cl-std-field-label">Leave Start</span>
-                  <span className="cl-std-field-value">May 4, 2024</span>
-                </div>
-                <div className="cl-std-field">
-                  <span className="cl-std-field-label">Benefits Begin</span>
-                  <span className="cl-std-field-value">May 11, 2024</span>
-                </div>
-                <div className="cl-std-field">
-                  <span className="cl-std-field-label">Expected RTW</span>
-                  <span className="cl-std-field-value">Aug 5, 2024</span>
-                </div>
-                <div className="cl-std-field cl-std-field--border-bottom">
-                  <span className="cl-std-field-label">Max Benefit Duration</span>
-                  <span className="cl-std-field-value">12 weeks</span>
-                </div>
-                <div className="cl-std-field cl-std-field--border-bottom">
-                  <span className="cl-std-field-label">Weeks Remaining</span>
-                  <span className="cl-std-field-value">4 of 12 weeks</span>
-                </div>
-              </div>
-            </div>
-
-          </div>
-
           {/* Payment Timeline */}
           <div className="ldb-card dt-timeline-wrap">
             <div className="ad-section-header">
@@ -96,7 +111,7 @@ export default function StdClaimDetailPage() {
               </div>
               <div className="cl-std-paid-total">
                 <span className="cl-std-paid-total-label">Total paid to date</span>
-                <span className="cl-std-paid-total-value">$6,219.51</span>
+                <span className="cl-std-paid-total-value">{variant.totalPaid}</span>
               </div>
             </div>
 
@@ -106,11 +121,8 @@ export default function StdClaimDetailPage() {
             <div className="dlp-timeline">
               <div className="ldb-tl-rows-wrap">
               <div className="dlp-tl-rows">
-                {[
-                  { id: 'std', label: 'STD', width: 67, accent: '#2563eb', name: 'Group Short-Term Disability', weeks: '8 weeks', range: 'May 11 – Jul 6, 2024', pay: '60% of pre-disability earnings', paymentValue: '~$1,037/wk' },
-                  { id: 'ltd', label: 'LTD', width: 33, accent: '#818cf8', name: 'Long-Term Disability', weeks: '4 weeks', range: 'Jul 6 – Aug 3, 2024', pay: '60% salary (if approved)', paymentValue: '$0/wk' },
-                ].map(function (item) {
-                  var left = item.id === 'ltd' ? '67%' : '0%';
+                {variant.timelineRows.map(function (item) {
+                  var left = item.id === 'ltd' ? (variant.timelineRows[0].width + '%') : '0%';
                   return (
                     <button
                       key={item.id}
@@ -131,10 +143,7 @@ export default function StdClaimDetailPage() {
 
               {/* Desktop: tooltip on hover */}
               {hoveredRow && (function () {
-                var allRows = [
-                  { id: 'std', name: 'Group Short-Term Disability', weeks: '8 weeks', range: 'May 11 – Jul 6, 2024', pay: '60% of pre-disability earnings', paymentValue: '~$1,037/wk' },
-                  { id: 'ltd', name: 'Long-Term Disability', weeks: '4 weeks', range: 'Jul 6 – Aug 3, 2024', pay: '60% salary (if approved)', paymentValue: '$0/wk' },
-                ];
+                var allRows = variant.timelineRows;
                 var hovered = allRows.find(function (r) { return r.id === hoveredRow; });
                 if (!hovered) return null;
                 return (
@@ -167,10 +176,7 @@ export default function StdClaimDetailPage() {
 
               {/* Mobile: detail below rows */}
               {hoveredRow && (function () {
-                var allRows = [
-                  { id: 'std', name: 'Group Short-Term Disability', weeks: '8 weeks', range: 'May 11 – Jul 6, 2024', pay: '60% of pre-disability earnings', paymentValue: '~$1,037/wk' },
-                  { id: 'ltd', name: 'Long-Term Disability', weeks: '4 weeks', range: 'Jul 6 – Aug 3, 2024', pay: '60% salary (if approved)', paymentValue: '$0/wk' },
-                ];
+                var allRows = variant.timelineRows;
                 var selected = allRows.find(function (r) { return r.id === hoveredRow; });
                 if (!selected) return null;
                 return (
@@ -201,23 +207,17 @@ export default function StdClaimDetailPage() {
               <div className="dlp-tl-weeks-row">
                 <div className="dlp-tl-week-label">Week</div>
                 <div className="dlp-tl-weeks">
-                  {Array.from({ length: 12 }, function (_, i) {
+                  {Array.from({ length: variant.weekCount }, function (_, i) {
                     return <div key={i} className="dlp-tl-week-tick"><span className="dlp-tl-week-num">{i + 1}</span></div>;
                   })}
                 </div>
               </div>
               <div className="dlp-tl-months">
-                <span>May</span>
-                <span>Jun</span>
-                <span>Jul</span>
-                <span>Aug</span>
+                {variant.months.map(function (m) { return <span key={m}>{m}</span>; })}
               </div>
 
               <div className="dlp-legend">
-                {[
-                  { id: 'std-pay', label: 'STD (60%)', accent: '#2563eb' },
-                  { id: 'ltd-pay', label: 'LTD (Denied)', accent: '#818cf8' },
-                ].map(function (item) {
+                {variant.legend.map(function (item) {
                   return (
                     <div key={item.id} className="dlp-legend-item">
                       <div className="dlp-legend-dot" style={{ background: item.accent }} />
@@ -227,6 +227,48 @@ export default function StdClaimDetailPage() {
                 })}
               </div>
 
+            </div>
+          </div>
+
+          {/* Claim Details Card */}
+          <div className="cl-std-card">
+            <h2 className="cl-std-card-title">Claim Details</h2>
+
+            <div className="cl-std-details-subcard">
+              <div className="cl-std-details-grid">
+                <div className="cl-std-field">
+                  <span className="cl-std-field-label">Claim Number</span>
+                  <span className="cl-std-field-value">{variant.claimNumber}</span>
+                </div>
+                <div className="cl-std-field">
+                  <span className="cl-std-field-label">Policy</span>
+                  <span className="cl-std-field-value">{variant.policy}</span>
+                </div>
+                <div className="cl-std-field">
+                  <span className="cl-std-field-label">Diagnosis</span>
+                  <span className="cl-std-field-value">{variant.diagnosis}</span>
+                </div>
+                <div className="cl-std-field">
+                  <span className="cl-std-field-label">Leave Start</span>
+                  <span className="cl-std-field-value">{variant.leaveStart}</span>
+                </div>
+                <div className="cl-std-field">
+                  <span className="cl-std-field-label">Benefits Begin</span>
+                  <span className="cl-std-field-value">{variant.benefitsBegin}</span>
+                </div>
+                <div className="cl-std-field">
+                  <span className="cl-std-field-label">Expected RTW</span>
+                  <span className="cl-std-field-value">{variant.expectedRTW}</span>
+                </div>
+                <div className="cl-std-field cl-std-field--border-bottom">
+                  <span className="cl-std-field-label">Max Benefit Duration</span>
+                  <span className="cl-std-field-value">{variant.maxDuration}</span>
+                </div>
+                <div className="cl-std-field cl-std-field--border-bottom">
+                  <span className="cl-std-field-label">Weeks Remaining</span>
+                  <span className="cl-std-field-value">{variant.weeksRemaining}</span>
+                </div>
+              </div>
             </div>
           </div>
 

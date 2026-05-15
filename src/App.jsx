@@ -134,6 +134,7 @@ export default function App() {
           <Route path="case-detail-caregiver" element={<LeaveDetailCaregiverPage />} />
           <Route path="case-detail-caregiver/return-to-work" element={<ReturnToWorkCaregiverEmbeddedPage />} />
           <Route path="std-claim-detail" element={<StdClaimDetailPage />} />
+          <Route path="ltd-claim-detail" element={<StdClaimDetailPage />} />
         </Route>
 
         {/* Claims & Leave Dashboard (standalone, no subnav) */}
@@ -162,6 +163,7 @@ export default function App() {
           <Route path="case-detail-caregiver" element={<LeaveDetailCaregiverPage />} />
           <Route path="case-detail-caregiver/return-to-work" element={<ReturnToWorkCaregiverEmbeddedPage />} />
           <Route path="std-claim-detail" element={<StdClaimDetailPage />} />
+          <Route path="ltd-claim-detail" element={<StdClaimDetailPage />} />
         </Route>
 
         <Route path="*" element={<Navigate to="/claims-and-leave/file-claim" replace />} />

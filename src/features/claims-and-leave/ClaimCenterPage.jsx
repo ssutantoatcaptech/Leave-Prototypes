@@ -31,7 +31,7 @@ const claimsData = [
     billedAmount: '$145.00',
     memberPays: 'Pending',
     status: 'Pending',
-    link: 'std-claim-detail',
+    link: 'ltd-claim-detail',
   },
   {
     date: 'May 02, 2025',
@@ -51,7 +51,7 @@ const claimsData = [
     billedAmount: '$324.00',
     memberPays: '$162.00',
     status: 'Processed',
-    link: 'std-claim-detail',
+    link: 'ltd-claim-detail',
   },
   {
     date: 'Sep 22, 2024',
@@ -71,7 +71,7 @@ const claimsData = [
     billedAmount: '$175.00',
     memberPays: '$52.00',
     status: 'Processed',
-    link: 'std-claim-detail',
+    link: 'ltd-claim-detail',
   },
   {
     date: 'Jun 03, 2024',
