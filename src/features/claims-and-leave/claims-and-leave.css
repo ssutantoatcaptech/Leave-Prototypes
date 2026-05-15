@@ -1863,9 +1863,8 @@
 
 .cl-ma-cal-day {
   aspect-ratio: 1 / 1;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  display: grid;
+  place-items: center;
   margin: 0;
   border-radius: 0;
   font-family: 'Source Sans Pro', sans-serif;
