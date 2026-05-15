@@ -705,50 +705,43 @@ export default function EnterMyTimePage() {
         <div className="cl-ma-sidebar">
           {/* Reporting Guidance */}
           <div className="cl-ma-guidance-card">
-            <div className="cl-ma-guidance-header">
-              <svg width="12" height="16" viewBox="0 0 12 16" fill="none">
-                <circle cx="6" cy="6" r="5.5" stroke="#002b7f" strokeWidth="1"/>
-                <path d="M6 4v4M6 10h.01" stroke="#002b7f" strokeWidth="1.5" strokeLinecap="round"/>
-              </svg>
-              <h3 className="cl-ma-guidance-title">Reporting Guidance</h3>
-            </div>
-            <ul className="cl-ma-guidance-list">
-              <li>
-                <span className="cl-ma-guidance-dot"></span>
+            <h3 className="cl-ma-guidance-title">Reporting Guidance</h3>
+            <div className="cl-ma-guidance-list">
+              <div className="cl-ma-guidance-item">
+                <svg width="20" height="20" viewBox="0 0 20 20" fill="none"><circle cx="10" cy="10" r="9" stroke="#003a70" strokeWidth="1.5"/><path d="M6 10l3 3 5-5" stroke="#003a70" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/></svg>
                 <span>Select multiple dates on the calendar to log the same hours across several days at once.</span>
-              </li>
-              <li>
-                <span className="cl-ma-guidance-dot"></span>
+              </div>
+              <div className="cl-ma-guidance-divider"></div>
+              <div className="cl-ma-guidance-item">
+                <svg width="20" height="20" viewBox="0 0 20 20" fill="none"><circle cx="10" cy="10" r="9" stroke="#003a70" strokeWidth="1.5"/><path d="M6 10l3 3 5-5" stroke="#003a70" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/></svg>
                 <span>Partial days should be reported in 15-minute or 0.25 hour increments.</span>
-              </li>
-              <li>
-                <span className="cl-ma-guidance-dot"></span>
+              </div>
+              <div className="cl-ma-guidance-divider"></div>
+              <div className="cl-ma-guidance-item">
+                <svg width="20" height="20" viewBox="0 0 20 20" fill="none"><circle cx="10" cy="10" r="9" stroke="#003a70" strokeWidth="1.5"/><path d="M6 10l3 3 5-5" stroke="#003a70" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/></svg>
                 <span>You can adjust individual day times in the review step before confirming.</span>
-              </li>
-              <li>
-                <span className="cl-ma-guidance-dot"></span>
+              </div>
+              <div className="cl-ma-guidance-divider"></div>
+              <div className="cl-ma-guidance-item">
+                <svg width="20" height="20" viewBox="0 0 20 20" fill="none"><circle cx="10" cy="10" r="9" stroke="#003a70" strokeWidth="1.5"/><path d="M6 10l3 3 5-5" stroke="#003a70" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/></svg>
                 <span>Keep any related medical notes as you may be asked to provide them for audit.</span>
-              </li>
-            </ul>
+              </div>
+            </div>
           </div>
 
           {/* Need Help */}
           <div className="cl-ma-help-card">
-            <h3 className="cl-ma-help-title">Need Help Logging?</h3>
+            <div className="cl-ma-help-header">
+              <svg width="20" height="20" viewBox="0 0 20 20" fill="none"><circle cx="10" cy="10" r="9" stroke="#003a70" strokeWidth="1.5"/><path d="M7.5 7.5a2.5 2.5 0 014.87.83c0 1.67-2.5 2.5-2.5 2.5M10 14h.01" stroke="#003a70" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/></svg>
+              <h3 className="cl-ma-help-title">Need Help Logging?</h3>
+            </div>
             <div className="cl-ma-help-contact">
-              <div className="cl-ma-help-icon">
-                <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
-                  <path d="M3.5 1.5h3l1.5 3.5-2 1.5a8 8 0 003.5 3.5l1.5-2 3.5 1.5v3a1 1 0 01-1 1A12 12 0 012.5 2.5a1 1 0 011-1z" stroke="#4b5563" strokeWidth="1.2" strokeLinecap="round" strokeLinejoin="round"/>
-                </svg>
-              </div>
-              <div className="cl-ma-help-info">
-                <span className="cl-ma-help-label">LEAVE SPECIALIST</span>
-                <span className="cl-ma-help-phone">1-800-555-0199</span>
-              </div>
+              <span className="cl-ma-help-label">LEAVE SPECIALIST</span>
+              <span className="cl-ma-help-phone">1-800-555-0199</span>
             </div>
             <button className="cl-ma-message-btn">
               <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
-                <path d="M10.5 1.5l2 2-8 8H2.5v-2l8-8z" stroke="#1a1a1a" strokeWidth="1.2" strokeLinecap="round" strokeLinejoin="round"/>
+                <path d="M13 1L6.5 7.5M13 1l-4 12-2.5-5.5L1 9l12-4v-4z" stroke="#fff" strokeWidth="1.2" strokeLinecap="round" strokeLinejoin="round"/>
               </svg>
               Message Specialist
             </button>

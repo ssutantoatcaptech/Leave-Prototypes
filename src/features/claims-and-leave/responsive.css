@@ -1124,7 +1124,7 @@
   }
 
   .cl-ma-layout {
-    grid-template-columns: 1fr 340px;
+    grid-template-columns: 1fr 394px;
     gap: 24px;
   }
 }
