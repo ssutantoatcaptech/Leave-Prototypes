@@ -7369,6 +7369,12 @@
   }
 }
 
+/* Stacked form variant (v2) */
+.cl-ma-form-card--stacked .cl-ma-form-grid {
+  grid-template-columns: 1fr;
+  gap: 24px;
+}
+
 /* Version control toolbar */
 .cl-version-toolbar {
   position: fixed;

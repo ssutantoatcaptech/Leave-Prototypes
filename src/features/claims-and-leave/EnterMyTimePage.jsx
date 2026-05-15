@@ -99,6 +99,7 @@ export default function EnterMyTimePage() {
   var [editForm, setEditForm] = useState({ startTime: '', endTime: '', reason: '' });
   var [showPreview, setShowPreview] = useState(false);
   var [perDayEdits, setPerDayEdits] = useState({});
+  var [pageVersion, setPageVersion] = useState(2);
 
   var calendarDays = buildCalendarDays(calYear, calMonth);
   var hours = calcHours(startTime, endTime);
@@ -314,7 +315,7 @@ export default function EnterMyTimePage() {
           )}
 
           {/* Form card */}
-          <div className="cl-ma-form-card">
+          <div className={'cl-ma-form-card' + (pageVersion === 2 ? ' cl-ma-form-card--stacked' : '')}>
               <div className="cl-ma-form-grid">
                 {/* Left: Case selector + Calendar */}
                 <div className="cl-ma-form-left">
@@ -451,7 +452,7 @@ export default function EnterMyTimePage() {
                 <div className="cl-ma-form-right">
                   <div className="cl-ma-field">
                     <label className="cl-ma-label cl-ma-label--upper">
-                      {isBulkMode ? 'Total Hours (' + selectedDates.length + ' days)' : 'Hours Logged'}
+                      {isBulkMode ? 'Total Hours (' + selectedDates.length + ' days)' : (pageVersion === 2 ? 'Missed Hours Logged' : 'Hours Logged')}
                     </label>
                     <div className={'cl-ma-hours-input' + (totalBulkHours > 0 ? '' : ' cl-ma-hours-input--zero')}>
                       <span className="cl-ma-hours-value">{isBulkMode ? totalBulkHours.toFixed(1) : hours}</span>
@@ -466,6 +467,7 @@ export default function EnterMyTimePage() {
                     </div>
                   )}
 
+                  {pageVersion !== 2 && (
                   <div className="cl-ma-inline-message">
                     <span className="cl-ma-inline-message-icon">
                       <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
@@ -478,6 +480,7 @@ export default function EnterMyTimePage() {
                       <span className="cl-ma-inline-message-text">Intermittent leave must be reported within 48 hours of the absence occurring to ensure timely payment.</span>
                     </div>
                   </div>
+                  )}
 
                   {selectedDates.length === 1 && (
                     <div className="cl-ma-field">
@@ -753,11 +756,11 @@ export default function EnterMyTimePage() {
       {/* Batch Review Modal */}
       {/* Version control toolbar */}
       <div className="cl-version-toolbar">
-        <button className="cl-version-btn" disabled>
+        <button className="cl-version-btn" disabled={pageVersion <= 1} onClick={function () { setPageVersion(pageVersion - 1); }}>
           <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M9 2L4 7l5 5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/></svg>
         </button>
-        <span className="cl-version-label">v1</span>
-        <button className="cl-version-btn" disabled>
+        <span className="cl-version-label">v{pageVersion}</span>
+        <button className="cl-version-btn" disabled={pageVersion >= 2} onClick={function () { setPageVersion(pageVersion + 1); }}>
           <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M5 2l5 5-5 5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/></svg>
         </button>
       </div>
