@@ -1914,11 +1914,11 @@
 .cl-ma-cal-day--logged::after {
   content: '';
   position: absolute;
-  bottom: 2px;
+  bottom: 6px;
   left: 50%;
   transform: translateX(-50%);
-  width: 6px;
-  height: 6px;
+  width: 7px;
+  height: 7px;
   border-radius: 50%;
 }
 
@@ -1939,8 +1939,7 @@
   align-items: center;
   gap: 16px;
   margin-top: 12px;
-  padding-top: 10px;
-  border-top: 1px solid #f0f0f0;
+  padding-bottom: 8px;
 }
 
 .cl-ma-cal-legend-item {
@@ -1952,15 +1951,15 @@
 }
 
 .cl-ma-cal-legend-dot {
-  width: 8px;
-  height: 8px;
+  width: 9px;
+  height: 9px;
   border-radius: 50%;
 }
 
 .cl-ma-cal-legend-dot--today {
-  border: 2px solid #105fa8;
-  width: 6px;
-  height: 6px;
+  border: 2.5px solid #105fa8;
+  width: 8px;
+  height: 8px;
 }
 
 .cl-ma-cal-legend-dot--episode {
