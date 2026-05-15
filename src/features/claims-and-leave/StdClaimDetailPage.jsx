@@ -94,6 +94,10 @@ export default function StdClaimDetailPage() {
                 <h3>Payment Timeline</h3>
                 <p>How your disability claim provides income during your leave</p>
               </div>
+              <div className="cl-std-paid-total">
+                <span className="cl-std-paid-total-label">Total paid to date</span>
+                <span className="cl-std-paid-total-value">$6,219.51</span>
+              </div>
             </div>
 
             <p className="ad-section-helper ad-section-helper--desktop">Hover over a row to see details</p>
@@ -219,11 +223,6 @@ export default function StdClaimDetailPage() {
                 })}
               </div>
 
-              <div className="dt-payment-summary">
-                <div className="dt-payment-summary-title">Total paid to date</div>
-                <div className="dt-payment-summary-value">$6,219.51</div>
-                <div className="dt-payment-summary-note">STD bi-weekly payments via direct deposit · Net of federal &amp; state withholding</div>
-              </div>
             </div>
           </div>
 

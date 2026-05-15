@@ -5858,6 +5858,28 @@
   margin-top: 8px;
 }
 
+/* Total paid badge (top-right of payment timeline) */
+.cl-std-paid-total {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 2px;
+}
+
+.cl-std-paid-total-label {
+  font-family: 'Source Sans Pro', sans-serif;
+  font-size: 12px;
+  color: #6b7280;
+  font-weight: 500;
+}
+
+.cl-std-paid-total-value {
+  font-family: 'Source Sans Pro', sans-serif;
+  font-size: 20px;
+  font-weight: 700;
+  color: #111827;
+}
+
 /* Payments grid */
 .cl-std-payments-grid {
   display: grid;
