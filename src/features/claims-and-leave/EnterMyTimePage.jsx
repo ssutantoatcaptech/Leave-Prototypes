@@ -298,7 +298,7 @@ export default function EnterMyTimePage() {
         </div>
       </div>
 
-      <div className={'cl-ma-layout' + (pageVersion === 2 ? ' cl-ma-layout--full' : '')}>
+      <div className="cl-ma-layout">
         {/* Main content column */}
         <div className="cl-ma-main">
           {/* Success banner */}
@@ -448,8 +448,8 @@ export default function EnterMyTimePage() {
                   </div>
                 </div>
 
-                {/* Right: Hours, warning, times, reason */}
-                <div className="cl-ma-form-right">
+                {/* Right: Hours, warning, times, reason (hidden in v2 — moved to sidebar) */}
+                {pageVersion !== 2 && <div className="cl-ma-form-right">
                   <div className="cl-ma-field">
                     <label className="cl-ma-label cl-ma-label--upper">
                       {isBulkMode ? 'Total Hours (' + selectedDates.length + ' days)' : (pageVersion === 2 ? 'Missed Hours Logged' : 'Hours Logged')}
@@ -563,7 +563,7 @@ export default function EnterMyTimePage() {
                       <button className="cl-ma-btn-cancel" type="button" onClick={handleCancel}>Cancel</button>
                     </div>
                   </div>
-                </div>
+                </div>}
               </div>
           </div>
 
@@ -705,7 +705,89 @@ export default function EnterMyTimePage() {
         </div>
 
         {/* Right sidebar */}
-        <div className={'cl-ma-sidebar' + (pageVersion === 2 ? ' cl-ma-sidebar--hidden' : '')}>
+        <div className="cl-ma-sidebar">
+          {/* V2: Form fields in sidebar */}
+          {pageVersion === 2 && (
+            <div className="cl-ma-sidebar-form">
+              <div className="cl-ma-field">
+                <label className="cl-ma-label cl-ma-label--upper">
+                  {isBulkMode ? 'Total Hours (' + selectedDates.length + ' days)' : 'Missed Hours Logged'}
+                </label>
+                <div className={'cl-ma-hours-input' + (totalBulkHours > 0 ? '' : ' cl-ma-hours-input--zero')}>
+                  <span className="cl-ma-hours-value">{isBulkMode ? totalBulkHours.toFixed(1) : hours}</span>
+                  <span className="cl-ma-hours-unit">Hours</span>
+                </div>
+              </div>
+
+              <div className="cl-ma-time-row">
+                <div className="cl-ma-field cl-ma-field--half">
+                  <label className="cl-ma-label">Start of Missed Time</label>
+                  <input
+                    type="text"
+                    className="cl-ma-time-input"
+                    value={startTime}
+                    onChange={function (e) { setStartTime(e.target.value); }}
+                  />
+                </div>
+                <div className="cl-ma-field cl-ma-field--half">
+                  <label className="cl-ma-label">End of Missed Time</label>
+                  <input
+                    type="text"
+                    className="cl-ma-time-input"
+                    value={endTime}
+                    onChange={function (e) { setEndTime(e.target.value); }}
+                  />
+                </div>
+              </div>
+
+              <div className="cl-ma-field" style={{ position: 'relative' }}>
+                <label className="cl-ma-label">Reason</label>
+                <button
+                  type="button"
+                  className="cl-ma-dropdown"
+                  onClick={function () { setReasonOpen(!reasonOpen); }}
+                >
+                  <span style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                    <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M2 7l3.5 3.5L12 4" stroke="#10b981" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/></svg>
+                    <span>{reason}</span>
+                  </span>
+                  <svg width="8" height="12" viewBox="0 0 8 12" fill="none"><path d="M1.5 1l5 5-5 5" stroke="#6b7280" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/></svg>
+                </button>
+                {reasonOpen && (
+                  <div className="cl-ma-dropdown-menu">
+                    {REASONS.map(function (r) {
+                      return (
+                        <button
+                          key={r.value}
+                          type="button"
+                          className={'cl-ma-dropdown-item' + (r.value === reason ? ' cl-ma-dropdown-item--active' : '')}
+                          onClick={function () { setReason(r.value); setReasonOpen(false); }}
+                        >
+                          {r.value}
+                        </button>
+                      );
+                    })}
+                  </div>
+                )}
+                {selectedReasonData && (
+                  <p className="cl-ma-reason-helper">{selectedReasonData.description}</p>
+                )}
+              </div>
+
+              <div className="cl-ma-form-actions">
+                <button
+                  className="cl-ma-btn-submit"
+                  type="button"
+                  onClick={handleSubmit}
+                  disabled={selectedDates.length === 0 || parseFloat(hours) <= 0}
+                >
+                  {isBulkMode ? 'Review ' + selectedDates.length + ' Entries' : 'Submit Time Entry'}
+                </button>
+                <button className="cl-ma-btn-cancel" type="button" onClick={handleCancel}>Cancel</button>
+              </div>
+            </div>
+          )}
+
           {/* Reporting Guidance */}
           <div className="cl-ma-guidance-card">
             <h3 className="cl-ma-guidance-title">Reporting Guidance</h3>

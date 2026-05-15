@@ -7400,18 +7400,21 @@
   }
 }
 
-/* V2 layout: calendar left, form right (side by side) — no sidebar */
+/* V2 layout: form fields moved to sidebar, main is just calendar */
 .cl-ma-form-card--v2 .cl-ma-form-grid {
-  grid-template-columns: 1fr 1fr;
-  gap: 32px;
-}
-
-.cl-ma-sidebar--hidden {
-  display: none;
-}
-
-.cl-ma-layout--full {
   grid-template-columns: 1fr;
+  gap: 24px;
+}
+
+.cl-ma-sidebar-form {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  background: #ffffff;
+  border: 1.5px solid #dfebf6;
+  border-radius: 12px;
+  padding: 24px;
+  box-shadow: 0px 1px 4px rgba(0, 0, 0, 0.08);
 }
 
 /* Version control toolbar */
