@@ -3090,8 +3090,8 @@
   flex-shrink: 0;
 }
 
-/* Responsive */
-@media (max-width: 1024px) {
+/* Responsive — sidebar stacks below on mobile only */
+@media (max-width: 768px) {
   .cl-ma-layout {
     grid-template-columns: 1fr;
   }
