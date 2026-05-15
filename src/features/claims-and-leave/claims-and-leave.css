@@ -1862,7 +1862,7 @@
 }
 
 .cl-ma-cal-day {
-  aspect-ratio: 1.6 / 1;
+  height: 48px;
   display: flex;
   align-items: center;
   justify-content: center;
