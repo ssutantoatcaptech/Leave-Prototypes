@@ -1427,7 +1427,7 @@
   background: #fff;
 }
 
-.cl-ma-entry-card {
+.cl-ma-recent-cards-mobile .cl-ma-entry-card {
   background: #f9fafb;
   border: 1px solid #e5e7eb;
   border-radius: 10px;
@@ -1435,20 +1435,20 @@
   position: relative;
 }
 
-.cl-ma-entry-card-top {
+.cl-ma-recent-cards-mobile .cl-ma-entry-card-top {
   display: flex;
   justify-content: space-between;
   align-items: center;
   margin-bottom: 10px;
 }
 
-.cl-ma-entry-card-date {
+.cl-ma-recent-cards-mobile .cl-ma-entry-card-date {
   font-size: 14px;
   font-weight: 700;
   color: #111827;
 }
 
-.cl-ma-status-badge {
+.cl-ma-recent-cards-mobile .cl-ma-status-badge {
   font-size: 11px;
   font-weight: 600;
   padding: 3px 10px;
@@ -1456,45 +1456,45 @@
   white-space: nowrap;
 }
 
-.cl-ma-status-badge--approved {
+.cl-ma-recent-cards-mobile .cl-ma-status-badge--approved {
   background: #e6f4ea;
   color: #1a7431;
 }
 
-.cl-ma-status-badge--submitted {
+.cl-ma-recent-cards-mobile .cl-ma-status-badge--submitted {
   background: #fff3e0;
   color: #b45309;
 }
 
-.cl-ma-entry-card-details {
+.cl-ma-recent-cards-mobile .cl-ma-entry-card-details {
   display: flex;
   gap: 24px;
 }
 
-.cl-ma-entry-card-field {
+.cl-ma-recent-cards-mobile .cl-ma-entry-card-field {
   display: flex;
   flex-direction: column;
   gap: 2px;
 }
 
-.cl-ma-entry-card-label {
+.cl-ma-recent-cards-mobile .cl-ma-entry-card-label {
   font-size: 10px;
   font-weight: 600;
   color: #6b7280;
   text-transform: uppercase;
 }
 
-.cl-ma-entry-card-value {
+.cl-ma-recent-cards-mobile .cl-ma-entry-card-value {
   font-size: 13px;
   color: #374151;
 }
 
-.cl-ma-entry-card-value--bold {
+.cl-ma-recent-cards-mobile .cl-ma-entry-card-value--bold {
   font-weight: 700;
   color: #111827;
 }
 
-.cl-ma-entry-edit-btn {
+.cl-ma-recent-cards-mobile .cl-ma-entry-edit-btn {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -1511,7 +1511,7 @@
   right: 8px;
 }
 
-.cl-ma-entry-edit-btn:hover {
+.cl-ma-recent-cards-mobile .cl-ma-entry-edit-btn:hover {
   background: #f3f4f6;
   color: #105fa8;
 }
