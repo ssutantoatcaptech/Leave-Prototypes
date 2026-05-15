@@ -575,8 +575,8 @@ export default function EnterMyTimePage() {
                 <thead>
                   <tr>
                     <th>Date</th>
-                    <th>Start of Missed Time</th>
-                    <th>End of Missed Time</th>
+                    <th>Start</th>
+                    <th>End</th>
                     <th>Hours</th>
                     <th>Reason</th>
                     <th>Status</th>
