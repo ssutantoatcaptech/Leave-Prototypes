@@ -3,9 +3,9 @@ import { Link } from 'react-router-dom';
 import useBasePath from './useBasePath';
 
 var LEAVE_CASES = [
-  { id: 'CL-975542', label: 'CL-975542 — Paid Family & Medical Leave (Intermittent)', balance: 112 },
-  { id: 'CL-981204', label: 'CL-981204 — FMLA Caregiving (Intermittent)', balance: 84 },
-  { id: 'CL-990017', label: 'CL-990017 — NJ FLI Bonding Leave (Continuous)', balance: 480 },
+  { id: 'CL-975542', label: 'CL-975542 — Paid Family & Medical Leave (Intermittent)', balance: 87 },
+  { id: 'CL-981204', label: 'CL-981204 — FMLA Caregiving (Intermittent)', balance: 38 },
+  { id: 'CL-990017', label: 'CL-990017 — NJ FLI Bonding Leave (Continuous)', balance: 320 },
 ];
 
 var REASONS = [
@@ -642,10 +642,10 @@ export default function EnterMyTimePage() {
               <table className="cl-table">
                 <thead>
                   <tr>
-                    <th>Date</th>
-                    <th>Start</th>
-                    <th>End</th>
-                    <th>Hours</th>
+                    <th>Submitted Date</th>
+                    <th>Start of Missed Time</th>
+                    <th>End of Missed Time</th>
+                    <th>Missed Hours</th>
                     <th>Reason</th>
                     <th>Status</th>
                     <th>Action</th>
@@ -748,16 +748,16 @@ export default function EnterMyTimePage() {
                       <span className="cl-ml-status-pill">{isNew ? 'Submitted' : 'Approved'}</span>
                     </div>
                     <div className="cl-ml-card-mobile__row">
-                      <span className="cl-ml-card-mobile__label">Missed time</span>
-                      <span className="cl-ml-card-mobile__value">{row.startTime} – {row.endTime}</span>
+                      <span className="cl-ml-card-mobile__label">Start of missed time</span>
+                      <span className="cl-ml-card-mobile__value">{row.startTime}</span>
                     </div>
                     <div className="cl-ml-card-mobile__row">
-                      <span className="cl-ml-card-mobile__label">Hours</span>
+                      <span className="cl-ml-card-mobile__label">End of missed time</span>
+                      <span className="cl-ml-card-mobile__value">{row.endTime}</span>
+                    </div>
+                    <div className="cl-ml-card-mobile__row">
+                      <span className="cl-ml-card-mobile__label">Missed hours</span>
                       <span className="cl-ml-card-mobile__value">{row.hours}h</span>
-                    </div>
-                    <div className="cl-ml-card-mobile__row">
-                      <span className="cl-ml-card-mobile__label">Reason</span>
-                      <span className="cl-ml-card-mobile__value">{row.reason}</span>
                     </div>
                     <div className="cl-ml-card-mobile__actions">
                       <button className="cl-ml-card-mobile__action-link" type="button" onClick={function () { startEdit(i); }}>{isNew ? 'Edit' : 'View'} ›</button>
