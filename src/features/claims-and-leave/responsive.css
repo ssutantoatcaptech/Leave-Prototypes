@@ -1758,8 +1758,8 @@
   }
 
   .cl-ma-cal-day {
-    width: 40px;
-    height: 40px;
+    width: auto;
+    height: 48px;
     font-size: 14px;
   }
 

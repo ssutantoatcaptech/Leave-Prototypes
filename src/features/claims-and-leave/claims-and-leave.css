@@ -1843,8 +1843,11 @@
 .cl-ma-cal-grid {
   display: grid;
   grid-template-columns: repeat(7, 1fr);
-  gap: 4px;
+  gap: 0;
   text-align: center;
+  border: 1px solid #e5e7eb;
+  border-radius: 8px;
+  overflow: hidden;
 }
 
 .cl-ma-cal-dow {
@@ -1853,30 +1856,34 @@
   font-weight: 600;
   color: #5d5d5d;
   text-transform: uppercase;
-  padding: 8px 0;
+  padding: 10px 0;
+  border-bottom: 1px solid #e5e7eb;
+  background: #f9fafb;
 }
 
 .cl-ma-cal-day {
-  width: 36px;
-  height: 36px;
+  width: auto;
+  height: 44px;
   display: flex;
   align-items: center;
   justify-content: center;
-  margin: 0 auto;
-  border-radius: 8px;
+  margin: 0;
+  border-radius: 0;
   font-family: 'Source Sans Pro', sans-serif;
   font-size: 14px;
-  font-weight: 400;
+  font-weight: 500;
   color: #222;
   cursor: pointer;
   position: relative;
-  border: 2px solid transparent;
+  border: none;
+  border-right: 1px solid #f0f0f0;
+  border-bottom: 1px solid #f0f0f0;
   background: none;
   padding: 0;
 }
 
 .cl-ma-cal-day:hover {
-  background: #f8fbfd;
+  background: #eef4fb;
 }
 
 .cl-ma-cal-day--overflow {
@@ -1892,6 +1899,7 @@
   background: #105fa8;
   color: #ffffff;
   font-weight: 600;
+  border-color: #105fa8;
 }
 
 .cl-ma-cal-day--selected:hover {
@@ -1899,8 +1907,9 @@
 }
 
 .cl-ma-cal-day--today {
-  border: 2px solid #105fa8;
-  font-weight: 600;
+  background: #f0f7ff;
+  font-weight: 700;
+  color: #105fa8;
 }
 
 .cl-ma-cal-day--logged::after {
