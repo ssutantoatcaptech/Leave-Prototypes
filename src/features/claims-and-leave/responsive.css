@@ -1067,31 +1067,6 @@
   flex-direction: column;
 }
 
-/* Form fields full width on mobile */
-.cl-ma-form-grid {
-  grid-template-columns: 1fr;
-}
-
-.cl-ma-form-footer {
-  flex-direction: column;
-  gap: 12px;
-  align-items: stretch;
-}
-
-.cl-ma-form-footer .cl-btn {
-  width: 100%;
-  justify-content: center;
-}
-
-/* Manage Absences layout */
-.cl-ma-layout {
-  grid-template-columns: 1fr;
-  gap: 16px;
-}
-
-.cl-ma-sidebar {
-  flex-direction: column;
-}
 
 @media (min-width: 769px) {
   .cl-time-layout {
@@ -1257,7 +1232,31 @@
 
 /* Enter Time form card */
 .cl-ma-form-card {
-  padding: 20px;
+  padding: 16px;
+}
+
+.cl-ma-form-grid {
+  grid-template-columns: 1fr;
+  gap: 20px;
+}
+
+.cl-ma-layout {
+  grid-template-columns: 1fr;
+  gap: 16px;
+}
+
+.cl-ma-sidebar {
+  flex-direction: column;
+  gap: 16px;
+}
+
+.cl-ma-form-footer {
+  flex-direction: column;
+  gap: 12px;
+  align-items: stretch;
+  margin-top: 20px;
+  padding-top: 16px;
+  border-top: 1px solid #e5e7eb;
 }
 
 .cl-ma-form-actions {
@@ -1273,6 +1272,7 @@
 .cl-ma-btn-cancel {
   width: 100%;
   justify-content: center;
+  text-align: center;
 }
 
 /* Hours display */
@@ -1294,9 +1294,35 @@
 }
 
 .cl-ma-cal-day {
-  width: 36px;
+  width: auto;
   height: 36px;
   font-size: 13px;
+  min-width: 32px;
+}
+
+.cl-ma-time-row {
+  flex-direction: column;
+  gap: 12px;
+}
+
+.cl-ma-case-select,
+.cl-ma-dropdown {
+  font-size: 13px;
+}
+
+.cl-ma-inline-message {
+  flex-direction: row;
+  gap: 10px;
+}
+
+/* Recent entries: hide table, show cards */
+.cl-ma-recent-card .cl-table-wrap {
+  display: none;
+}
+
+.cl-ma-guidance-card,
+.cl-ma-help-card {
+  padding: 16px;
 }
 
 /* Table hidden on mobile — use card view */
@@ -1458,11 +1484,6 @@
   min-height: 44px;
 }
 
-/* Sidebar cards */
-.cl-ma-guidance-card,
-.cl-ma-help-card {
-  padding: 20px;
-}
 
 @media (min-width: 769px) {
   .cl-ml-page {
@@ -1543,6 +1564,41 @@
     font-size: 14px;
   }
 
+  .cl-ma-time-row {
+    flex-direction: row;
+  }
+
+  .cl-ma-case-select,
+  .cl-ma-dropdown {
+    font-size: 14px;
+  }
+
+  .cl-ma-form-footer {
+    flex-direction: row;
+    gap: 16px;
+    align-items: center;
+    margin-top: 0;
+    padding-top: 0;
+    border-top: none;
+  }
+
+  .cl-ma-sidebar {
+    gap: 24px;
+  }
+
+  .cl-ma-recent-card .cl-table-wrap {
+    display: block;
+  }
+
+  .cl-ma-recent-cards-mobile {
+    display: none;
+  }
+
+  .cl-ma-guidance-card,
+  .cl-ma-help-card {
+    padding: 24px;
+  }
+
   .cl-table-wrap {
     display: block;
   }
@@ -1596,10 +1652,6 @@
     padding: 8px 36px 8px 12px;
   }
 
-  .cl-ma-recent-cards-mobile {
-    display: none;
-  }
-
   .cl-ml-cards-mobile {
     display: none;
   }
@@ -1617,11 +1669,6 @@
   .cl-ml-filter-select {
     width: auto;
     min-height: unset;
-  }
-
-  .cl-ma-guidance-card,
-  .cl-ma-help-card {
-    padding: 24px;
   }
 }
 
