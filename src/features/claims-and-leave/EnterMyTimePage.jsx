@@ -680,7 +680,7 @@ export default function EnterMyTimePage() {
                       <span className="cl-ml-status-pill">{isNew ? 'Submitted' : 'Approved'}</span>
                     </div>
                     <div className="cl-ml-card-mobile__row">
-                      <span className="cl-ml-card-mobile__label">Missed Time</span>
+                      <span className="cl-ml-card-mobile__label">Missed time</span>
                       <span className="cl-ml-card-mobile__value">{row.startTime} – {row.endTime}</span>
                     </div>
                     <div className="cl-ml-card-mobile__row">
