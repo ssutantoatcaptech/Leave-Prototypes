@@ -7400,10 +7400,18 @@
   }
 }
 
-/* Stacked form variant (v2) */
-.cl-ma-form-card--stacked .cl-ma-form-grid {
+/* V2 layout: calendar left, form right (side by side) — no sidebar */
+.cl-ma-form-card--v2 .cl-ma-form-grid {
+  grid-template-columns: 1fr 1fr;
+  gap: 32px;
+}
+
+.cl-ma-sidebar--hidden {
+  display: none;
+}
+
+.cl-ma-layout--full {
   grid-template-columns: 1fr;
-  gap: 24px;
 }
 
 /* Version control toolbar */

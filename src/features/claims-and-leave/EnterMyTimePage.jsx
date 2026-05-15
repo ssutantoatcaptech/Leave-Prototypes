@@ -298,7 +298,7 @@ export default function EnterMyTimePage() {
         </div>
       </div>
 
-      <div className="cl-ma-layout">
+      <div className={'cl-ma-layout' + (pageVersion === 2 ? ' cl-ma-layout--full' : '')}>
         {/* Main content column */}
         <div className="cl-ma-main">
           {/* Success banner */}
@@ -315,7 +315,7 @@ export default function EnterMyTimePage() {
           )}
 
           {/* Form card */}
-          <div className={'cl-ma-form-card' + (pageVersion === 2 ? ' cl-ma-form-card--stacked' : '')}>
+          <div className={'cl-ma-form-card' + (pageVersion === 2 ? ' cl-ma-form-card--v2' : '')}>
               <div className="cl-ma-form-grid">
                 {/* Left: Case selector + Calendar */}
                 <div className="cl-ma-form-left">
@@ -705,7 +705,7 @@ export default function EnterMyTimePage() {
         </div>
 
         {/* Right sidebar */}
-        <div className="cl-ma-sidebar">
+        <div className={'cl-ma-sidebar' + (pageVersion === 2 ? ' cl-ma-sidebar--hidden' : '')}>
           {/* Reporting Guidance */}
           <div className="cl-ma-guidance-card">
             <h3 className="cl-ma-guidance-title">Reporting Guidance</h3>
