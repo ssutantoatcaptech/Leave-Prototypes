@@ -803,12 +803,6 @@ export default function EnterMyTimePage() {
                   </div>
                 )}
               </div>
-              {selectedDates.length > 0 && (
-                <div className="cl-ma-sidebar-cta__selection">
-                  <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><rect x="2" y="3" width="12" height="10" rx="2" stroke="#105fa8" strokeWidth="1.3"/><path d="M2 6h12" stroke="#105fa8" strokeWidth="1.3"/><path d="M5 1v4M11 1v4" stroke="#105fa8" strokeWidth="1.3" strokeLinecap="round"/></svg>
-                  <span className="cl-ma-sidebar-cta__selection-text">{selectedDates.length} date{selectedDates.length > 1 ? 's' : ''} selected</span>
-                </div>
-              )}
               <div className="cl-ma-sidebar-cta__hours">
                 <span className="cl-ma-sidebar-cta__hours-label">Balance Remaining</span>
                 <span className="cl-ma-sidebar-cta__hours-value">{balance}h</span>
