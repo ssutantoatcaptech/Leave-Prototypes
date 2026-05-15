@@ -7401,9 +7401,52 @@
 }
 
 /* V2 layout: form fields moved to sidebar, main is just calendar */
+.cl-ma-form-card--v2 {
+  background: transparent;
+  border: none;
+  box-shadow: none;
+  padding: 0;
+}
+
 .cl-ma-form-card--v2 .cl-ma-form-grid {
   grid-template-columns: 1fr;
-  gap: 24px;
+  gap: 0;
+}
+
+.cl-ma-form-card--v2 .cl-ma-form-left {
+  gap: 0;
+}
+
+/* V2 case selector bar inside calendar */
+.cl-ma-cal-case-bar {
+  display: flex;
+  align-items: center;
+  padding: 10px 16px;
+  border-bottom: 1px solid #e5e7eb;
+  background: #f9fafb;
+  border-radius: 12px 12px 0 0;
+}
+
+.cl-ma-cal-case-btn {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-family: 'Source Sans Pro', sans-serif;
+  font-size: 13px;
+  color: #374151;
+  padding: 0;
+}
+
+.cl-ma-cal-case-id {
+  font-weight: 700;
+  color: #105fa8;
+}
+
+.cl-ma-cal-case-label {
+  color: #6b7280;
 }
 
 .cl-ma-sidebar-form {

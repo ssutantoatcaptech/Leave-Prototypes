@@ -319,6 +319,7 @@ export default function EnterMyTimePage() {
               <div className="cl-ma-form-grid">
                 {/* Left: Case selector + Calendar */}
                 <div className="cl-ma-form-left">
+                  {pageVersion !== 2 && (
                   <div className="cl-ma-field" style={{ position: 'relative' }}>
                     <label className="cl-ma-label">Select Approved Leave Case</label>
                     <button
@@ -350,8 +351,10 @@ export default function EnterMyTimePage() {
                       </div>
                     )}
                   </div>
+                  )}
 
                   <div className="cl-ma-field">
+                    {pageVersion !== 2 && (
                     <div className="cl-ma-label-row">
                       <label className="cl-ma-label">Select Date{isBulkMode ? 's' : ''}</label>
                       {selectedDates.length > 0 && (
@@ -360,7 +363,39 @@ export default function EnterMyTimePage() {
                         </button>
                       )}
                     </div>
+                    )}
                     <div className="cl-ma-calendar">
+                      {/* V2: case selector integrated into calendar header */}
+                      {pageVersion === 2 && (
+                        <div className="cl-ma-cal-case-bar" style={{ position: 'relative' }}>
+                          <button
+                            type="button"
+                            className="cl-ma-cal-case-btn"
+                            onClick={function () { setCaseOpen(!caseOpen); }}
+                          >
+                            <span className="cl-ma-cal-case-id">{selectedCase.id}</span>
+                            <span className="cl-ma-cal-case-label">Paid Family &amp; Medical Leave</span>
+                            <svg width="10" height="6" viewBox="0 0 10 6" fill="none"><path d="M1 1l4 4 4-4" stroke="#6b7280" strokeWidth="1.3" strokeLinecap="round" strokeLinejoin="round"/></svg>
+                          </button>
+                          {caseOpen && (
+                            <div className="cl-ma-dropdown-menu cl-ma-case-menu">
+                              {LEAVE_CASES.map(function (c) {
+                                return (
+                                  <button
+                                    key={c.id}
+                                    type="button"
+                                    className={'cl-ma-dropdown-item' + (c.id === selectedCase.id ? ' cl-ma-dropdown-item--active' : '')}
+                                    onClick={function () { handleCaseSelect(c); }}
+                                  >
+                                    <span>{c.label}</span>
+                                    <span className="cl-ma-case-balance">{c.balance}h remaining</span>
+                                  </button>
+                                );
+                              })}
+                            </div>
+                          )}
+                        </div>
+                      )}
                       <div className="cl-ma-cal-header">
                         <button className="cl-ma-cal-nav" type="button" onClick={handlePrevMonth}>&lsaquo;</button>
                         <span className="cl-ma-cal-month">{MONTH_NAMES[calMonth]} {calYear}</span>
