@@ -420,38 +420,6 @@ export default function EnterMyTimePage() {
                   </div>
                   )}
 
-                  {/* V2: pill case selector above calendar */}
-                  {pageVersion === 2 && (
-                    <div className="cl-ma-field" style={{ position: 'relative' }}>
-                      <button
-                        type="button"
-                        className="cl-ma-case-pill"
-                        onClick={function () { setCaseOpen(!caseOpen); }}
-                      >
-                        <span className="cl-ma-case-pill__id">{selectedCase.id}</span>
-                        <span className="cl-ma-case-pill__label">Paid Family &amp; Medical Leave</span>
-                        <svg className="cl-ma-case-pill__chevron" width="10" height="6" viewBox="0 0 10 6" fill="none"><path d="M1 1l4 4 4-4" stroke="currentColor" strokeWidth="1.3" strokeLinecap="round" strokeLinejoin="round"/></svg>
-                      </button>
-                      {caseOpen && (
-                        <div className="cl-ma-dropdown-menu cl-ma-case-menu">
-                          {LEAVE_CASES.map(function (c) {
-                            return (
-                              <button
-                                key={c.id}
-                                type="button"
-                                className={'cl-ma-dropdown-item' + (c.id === selectedCase.id ? ' cl-ma-dropdown-item--active' : '')}
-                                onClick={function () { handleCaseSelect(c); }}
-                              >
-                                <span>{c.label}</span>
-                                <span className="cl-ma-case-balance">{c.balance}h remaining</span>
-                              </button>
-                            );
-                          })}
-                        </div>
-                      )}
-                    </div>
-                  )}
-
                   <div className="cl-ma-field">
                     {pageVersion !== 2 && (
                     <div className="cl-ma-label-row">
@@ -812,6 +780,35 @@ export default function EnterMyTimePage() {
           {/* V2: Form fields in sidebar */}
           {pageVersion === 2 && (
             <div className="cl-ma-sidebar-cta">
+              <div className="cl-ma-field" style={{ position: 'relative' }}>
+                <label className="cl-ma-sidebar-cta__hours-label">Approved Leave Case</label>
+                <button
+                  type="button"
+                  className="cl-ma-case-pill cl-ma-case-pill--sidebar"
+                  onClick={function () { setCaseOpen(!caseOpen); }}
+                >
+                  <span className="cl-ma-case-pill__id">{selectedCase.id}</span>
+                  <span className="cl-ma-case-pill__label">Paid Family &amp; Medical Leave</span>
+                  <svg className="cl-ma-case-pill__chevron" width="10" height="6" viewBox="0 0 10 6" fill="none"><path d="M1 1l4 4 4-4" stroke="currentColor" strokeWidth="1.3" strokeLinecap="round" strokeLinejoin="round"/></svg>
+                </button>
+                {caseOpen && (
+                  <div className="cl-ma-dropdown-menu cl-ma-case-menu">
+                    {LEAVE_CASES.map(function (c) {
+                      return (
+                        <button
+                          key={c.id}
+                          type="button"
+                          className={'cl-ma-dropdown-item' + (c.id === selectedCase.id ? ' cl-ma-dropdown-item--active' : '')}
+                          onClick={function () { handleCaseSelect(c); }}
+                        >
+                          <span>{c.label}</span>
+                          <span className="cl-ma-case-balance">{c.balance}h remaining</span>
+                        </button>
+                      );
+                    })}
+                  </div>
+                )}
+              </div>
               {selectedDates.length > 0 && (
                 <div className="cl-ma-sidebar-cta__selection">
                   <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><rect x="2" y="3" width="12" height="10" rx="2" stroke="#105fa8" strokeWidth="1.3"/><path d="M2 6h12" stroke="#105fa8" strokeWidth="1.3"/><path d="M5 1v4M11 1v4" stroke="#105fa8" strokeWidth="1.3" strokeLinecap="round"/></svg>

@@ -7470,6 +7470,13 @@
   margin-left: 2px;
 }
 
+.cl-ma-case-pill--sidebar {
+  width: 100%;
+  justify-content: flex-start;
+  border-radius: 8px;
+  padding: 10px 14px;
+}
+
 /* V2 case selector bar inside calendar (legacy, kept for mobile) */
 .cl-ma-cal-case-bar {
   display: flex;
