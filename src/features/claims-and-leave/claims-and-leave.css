@@ -1862,9 +1862,6 @@
 }
 
 .cl-ma-cal-day {
-  width: auto;
-  height: 0;
-  padding-bottom: calc(100% / 7);
   aspect-ratio: 1 / 1;
   display: flex;
   align-items: center;
