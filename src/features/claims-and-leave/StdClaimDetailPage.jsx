@@ -104,7 +104,7 @@ export default function StdClaimDetailPage() {
           <div className="ldb-card dt-timeline-wrap">
             <div className="ad-section-header">
               <div>
-                <h3>Payment Timeline</h3>
+                <h3>Payment Schedule</h3>
                 <p>How your disability claim provides income during your leave</p>
               </div>
               <div className="cl-std-paid-total">
