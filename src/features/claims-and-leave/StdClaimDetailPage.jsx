@@ -21,15 +21,13 @@ var CLAIM_VARIANTS = {
     weeksRemaining: '4 of 12 weeks',
     totalPaid: '$6,219.51',
     timelineRows: [
-      { id: 'std', label: 'STD', width: 67, accent: '#2563eb', name: 'Group Short-Term Disability', weeks: '8 weeks', range: 'May 11 – Jul 6, 2024', pay: '60% of pre-disability earnings', paymentValue: '~$1,037/wk' },
-      { id: 'ltd', label: 'LTD', width: 33, accent: '#818cf8', name: 'Long-Term Disability', weeks: '4 weeks', range: 'Jul 6 – Aug 3, 2024', pay: '60% salary (if approved)', paymentValue: '$0/wk' },
+      { id: 'std', label: 'STD', width: 100, accent: '#2563eb', name: 'Group Short-Term Disability', weeks: '8 weeks', range: 'May 11 – Jul 6, 2024', pay: '60% of pre-disability earnings', paymentValue: '~$1,037/wk' },
     ],
     legend: [
-      { id: 'std-pay', label: 'STD (60%)', accent: '#2563eb' },
-      { id: 'ltd-pay', label: 'LTD (Pending)', accent: '#818cf8' },
+      { id: 'std-pay', label: 'STD (60% salary)', accent: '#2563eb' },
     ],
-    weekCount: 12,
-    months: ['May', 'Jun', 'Jul', 'Aug'],
+    weekCount: 8,
+    months: ['May', 'Jun', 'Jul'],
   },
   ltd: {
     title: 'Long-Term Disability (LTD) Claim',
@@ -47,15 +45,13 @@ var CLAIM_VARIANTS = {
     weeksRemaining: '0 of 24 months (Denied)',
     totalPaid: '$0.00',
     timelineRows: [
-      { id: 'std', label: 'STD', width: 33, accent: '#2563eb', name: 'Group Short-Term Disability (ended)', weeks: '8 weeks', range: 'May 11 – Jul 6, 2024', pay: '60% of pre-disability earnings', paymentValue: '~$1,037/wk' },
-      { id: 'ltd', label: 'LTD', width: 67, accent: '#818cf8', name: 'Long-Term Disability', weeks: '16 weeks (denied)', range: 'Jul 6 – Oct 26, 2024', pay: 'Denied — no payment', paymentValue: '$0/wk' },
+      { id: 'ltd', label: 'LTD', width: 100, accent: '#818cf8', name: 'Long-Term Disability', weeks: '24 months max', range: 'Jul 6, 2024 – Jul 6, 2026', pay: 'Denied — no payment', paymentValue: '$0/wk' },
     ],
     legend: [
-      { id: 'std-pay', label: 'STD (ended)', accent: '#2563eb' },
       { id: 'ltd-pay', label: 'LTD (Denied)', accent: '#818cf8' },
     ],
-    weekCount: 24,
-    months: ['May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct'],
+    weekCount: 12,
+    months: ['Jul', 'Aug', 'Sep', 'Oct'],
   },
 };
 
