@@ -635,17 +635,18 @@ export default function EnterMyTimePage() {
               </table>
             </div>
             {/* Mobile card view */}
-            <div className="cl-ma-recent-cards-mobile">
+            <div className="cl-ml-cards-mobile">
               {filteredAbsences.length === 0 && (
-                <div className="cl-ma-recent-card-empty">No absences logged for this case yet.</div>
+                <div style={{ textAlign: 'center', padding: '32px 16px', color: '#5d5d5d' }}>No absences logged for this case yet.</div>
               )}
               {filteredAbsences.map(function (row, i) {
+                var isNew = row.entryKey && newEntryKey && row.entryKey.startsWith(newEntryKey);
                 if (editingIndex === i) {
                   return (
-                    <div key={i} className="cl-ma-entry-card cl-ma-entry-card--editing">
-                      <div className="cl-ma-entry-card-top">
-                        <span className="cl-ma-entry-card-date">{row.date}</span>
-                        <span className="cl-ma-entry-editing-label">Editing</span>
+                    <div key={i} className="cl-ml-card-mobile" style={{ borderColor: '#105fa8', background: '#f8faff' }}>
+                      <div>
+                        <div className="cl-ml-card-mobile__type">{row.date}</div>
+                        <div className="cl-ml-card-mobile__id" style={{ color: '#105fa8', fontWeight: 600 }}>Editing</div>
                       </div>
                       <div className="cl-ma-entry-edit-fields">
                         <div className="cl-ma-entry-edit-row">
@@ -663,33 +664,35 @@ export default function EnterMyTimePage() {
                           </select>
                         </div>
                       </div>
-                      <div className="cl-ma-entry-edit-actions">
-                        <button type="button" className="cl-ma-entry-edit-save" onClick={function () { saveEdit(i); }}>Save</button>
-                        <button type="button" className="cl-ma-entry-edit-cancel" onClick={cancelEdit}>Cancel</button>
+                      <div className="cl-ml-card-mobile__actions">
+                        <button className="cl-ml-card-mobile__action-link" type="button" onClick={function () { saveEdit(i); }}>Save</button>
+                        <button className="cl-ml-card-mobile__action-delete" type="button" onClick={cancelEdit}>Cancel</button>
                       </div>
                     </div>
                   );
                 }
                 return (
-                  <div key={i} className="cl-ma-entry-card">
-                    <div className="cl-ma-entry-card-top">
-                      <span className="cl-ma-entry-card-date">{row.date}</span>
-                      <div className="cl-ma-entry-card-top-right">
-                        <span className={'cl-ma-reason-badge cl-ma-reason-badge--' + (row.reason === 'Episode' ? 'active' : 'inactive')}>{row.reason}</span>
-                        <button className="cl-ma-entry-edit-btn" type="button" aria-label="Edit entry" onClick={function () { startEdit(i); }}>
-                          <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M10.08 1.92a1.5 1.5 0 012.12 0l.88.88a1.5 1.5 0 010 2.12L5.5 12.5 2 13l.5-3.5 7.58-7.58z" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round" strokeLinejoin="round"/><path d="M9 3l2 2" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round"/></svg>
-                        </button>
-                      </div>
+                  <div key={i} className="cl-ml-card-mobile">
+                    <div>
+                      <div className="cl-ml-card-mobile__type">{row.date}{isNew ? ' — New' : ''}</div>
+                      <div className="cl-ml-card-mobile__id">{row.reason}</div>
                     </div>
-                    <div className="cl-ma-entry-card-details">
-                      <div className="cl-ma-entry-card-field">
-                        <span className="cl-ma-entry-card-label">Time</span>
-                        <span className="cl-ma-entry-card-value">{row.startTime} – {row.endTime}</span>
-                      </div>
-                      <div className="cl-ma-entry-card-field">
-                        <span className="cl-ma-entry-card-label">Hours</span>
-                        <span className="cl-ma-entry-card-value cl-ma-entry-card-value--bold">{row.hours}h</span>
-                      </div>
+                    <div className="cl-ml-card-mobile__row">
+                      <span className="cl-ml-card-mobile__label">Time</span>
+                      <span className="cl-ml-card-mobile__value">{row.startTime} – {row.endTime}</span>
+                    </div>
+                    <div className="cl-ml-card-mobile__row">
+                      <span className="cl-ml-card-mobile__label">Hours</span>
+                      <span className="cl-ml-card-mobile__value">{row.hours}h</span>
+                    </div>
+                    <div className="cl-ml-card-mobile__row">
+                      <span className="cl-ml-card-mobile__label">Status</span>
+                      <span className="cl-ml-card-mobile__value">
+                        <span className="cl-ml-status-pill">{isNew ? 'Submitted' : 'Approved'}</span>
+                      </span>
+                    </div>
+                    <div className="cl-ml-card-mobile__actions">
+                      <button className="cl-ml-card-mobile__action-link" type="button" onClick={function () { startEdit(i); }}>{isNew ? 'Edit' : 'View'} ›</button>
                     </div>
                   </div>
                 );
