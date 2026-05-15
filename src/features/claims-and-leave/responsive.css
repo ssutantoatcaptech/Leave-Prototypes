@@ -1067,24 +1067,23 @@
   flex-direction: column;
 }
 
-/* Form fields full width on mobile */
-.cl-ma-form-grid {
-  grid-template-columns: 1fr;
-}
-
-.cl-ma-form-footer {
-  flex-direction: column;
-  gap: 12px;
-  align-items: stretch;
-}
-
-.cl-ma-form-footer .cl-btn {
-  width: 100%;
-  justify-content: center;
-}
-
 /* Manage Absences layout */
 @media (max-width: 768px) {
+  .cl-ma-form-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .cl-ma-form-footer {
+    flex-direction: column;
+    gap: 12px;
+    align-items: stretch;
+  }
+
+  .cl-ma-form-footer .cl-btn {
+    width: 100%;
+    justify-content: center;
+  }
+
   .cl-ma-layout {
     grid-template-columns: 1fr;
     gap: 16px;
@@ -1257,50 +1256,6 @@
   margin-bottom: 16px;
 }
 
-/* Enter Time form card */
-.cl-ma-form-card {
-  padding: 16px;
-}
-
-.cl-ma-form-grid {
-  grid-template-columns: 1fr;
-  gap: 20px;
-}
-
-.cl-ma-layout {
-  grid-template-columns: 1fr;
-  gap: 16px;
-}
-
-.cl-ma-sidebar {
-  flex-direction: column;
-  gap: 16px;
-}
-
-.cl-ma-form-footer {
-  flex-direction: column;
-  gap: 12px;
-  align-items: stretch;
-  margin-top: 20px;
-  padding-top: 16px;
-  border-top: 1px solid #e5e7eb;
-}
-
-.cl-ma-form-actions {
-  flex-direction: column;
-  gap: 10px;
-}
-
-.cl-ma-form-actions button {
-  width: 100%;
-}
-
-.cl-ma-btn-submit,
-.cl-ma-btn-cancel {
-  width: 100%;
-  justify-content: center;
-  text-align: center;
-}
 
 /* Hours display */
 .cl-ma-hours-input {
