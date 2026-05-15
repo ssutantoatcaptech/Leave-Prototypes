@@ -1364,6 +1364,20 @@
   font-size: 16px;
 }
 
+.cl-ma-recent-title-desktop {
+  display: none;
+}
+
+.cl-ma-recent-title-mobile {
+  display: inline;
+}
+
+.cl-ml-card-mobile__top-row {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+}
+
 .cl-ma-guidance-card,
 .cl-ma-help-card {
   padding: 16px;
@@ -1783,6 +1797,14 @@
     padding: 24px 32px;
     flex-direction: row;
     align-items: center;
+  }
+
+  .cl-ma-recent-title-desktop {
+    display: inline;
+  }
+
+  .cl-ma-recent-title-mobile {
+    display: none;
   }
 
   .cl-ma-guidance-card,

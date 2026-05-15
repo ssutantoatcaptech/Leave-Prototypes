@@ -567,7 +567,7 @@ export default function EnterMyTimePage() {
           {/* Recent Time Entries */}
           <div className="cl-ma-recent-card">
             <div className="cl-ma-recent-header">
-              <h2 className="cl-ma-recent-title">Recent Time Entries</h2>
+              <h2 className="cl-ma-recent-title"><span className="cl-ma-recent-title-desktop">Recent Time Entries</span><span className="cl-ma-recent-title-mobile">Recent time entries</span></h2>
               <span className="cl-ma-recent-count">{filteredAbsences.length} entries for {selectedCase.id}</span>
             </div>
             <div className="cl-table-wrap" style={{ border: 'none', borderRadius: 0 }}>
@@ -673,9 +673,11 @@ export default function EnterMyTimePage() {
                 }
                 return (
                   <div key={i} className="cl-ml-card-mobile">
-                    <div>
-                      <div className="cl-ml-card-mobile__type">{row.date}{isNew ? ' — New' : ''}</div>
-                      <div className="cl-ml-card-mobile__id">{row.reason}</div>
+                    <div className="cl-ml-card-mobile__top-row">
+                      <div>
+                        <div className="cl-ml-card-mobile__type">{row.date}{isNew ? ' — New' : ''}</div>
+                      </div>
+                      <span className="cl-ml-status-pill">{isNew ? 'Submitted' : 'Approved'}</span>
                     </div>
                     <div className="cl-ml-card-mobile__row">
                       <span className="cl-ml-card-mobile__label">Missed Time</span>
@@ -686,10 +688,8 @@ export default function EnterMyTimePage() {
                       <span className="cl-ml-card-mobile__value">{row.hours}h</span>
                     </div>
                     <div className="cl-ml-card-mobile__row">
-                      <span className="cl-ml-card-mobile__label">Status</span>
-                      <span className="cl-ml-card-mobile__value">
-                        <span className="cl-ml-status-pill">{isNew ? 'Submitted' : 'Approved'}</span>
-                      </span>
+                      <span className="cl-ml-card-mobile__label">Reason</span>
+                      <span className="cl-ml-card-mobile__value">{row.reason}</span>
                     </div>
                     <div className="cl-ml-card-mobile__actions">
                       <button className="cl-ml-card-mobile__action-link" type="button" onClick={function () { startEdit(i); }}>{isNew ? 'Edit' : 'View'} ›</button>
