@@ -1277,8 +1277,8 @@
 
 .cl-ma-cal-day {
   width: auto;
-  height: 36px;
-  aspect-ratio: unset;
+  height: auto;
+  aspect-ratio: 1 / 1;
   font-size: 13px;
   min-width: 32px;
 }
@@ -1760,8 +1760,8 @@
 
   .cl-ma-cal-day {
     width: auto;
-    height: 56px;
-    aspect-ratio: unset;
+    height: auto;
+    aspect-ratio: 1 / 1;
     font-size: 14px;
   }
 
