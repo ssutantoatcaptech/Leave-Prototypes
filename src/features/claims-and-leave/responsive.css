@@ -1336,13 +1336,13 @@
 }
 
 .cl-ma-form-footer {
-  background: #ffffff;
-  border: 1.5px solid #dfebf6;
-  border-radius: 12px;
-  padding: 16px;
-  box-shadow: 0px 1px 4px rgba(0, 0, 0, 0.06);
-  margin-top: 0;
-  border-top: none;
+  background: transparent;
+  border: none;
+  border-radius: 0;
+  padding: 16px 0 0;
+  box-shadow: none;
+  margin-top: 16px;
+  border-top: 1px solid #f0f0f0;
 }
 
 .cl-ma-recent-card {

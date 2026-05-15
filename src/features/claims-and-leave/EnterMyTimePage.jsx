@@ -544,22 +544,22 @@ export default function EnterMyTimePage() {
                       <p className="cl-ma-reason-helper">{selectedReasonData.description}</p>
                     )}
                   </div>
-                </div>
-              </div>
 
-              {/* Footer */}
-              <div className="cl-ma-form-footer">
-                <p className="cl-ma-disclaimer">By submitting, you certify that {isBulkMode ? 'these absences are' : 'this absence is'} related to your approved claim.</p>
-                <div className="cl-ma-form-actions">
-                  <button
-                    className="cl-ma-btn-submit"
-                    type="button"
-                    onClick={handleSubmit}
-                    disabled={selectedDates.length === 0 || parseFloat(hours) <= 0}
-                  >
-                    {isBulkMode ? 'Review ' + selectedDates.length + ' Entries' : 'Submit Time Entry'}
-                  </button>
-                  <button className="cl-ma-btn-cancel" type="button" onClick={handleCancel}>Cancel</button>
+                  {/* Footer */}
+                  <div className="cl-ma-form-footer">
+                    <p className="cl-ma-disclaimer">By submitting, you certify that {isBulkMode ? 'these absences are' : 'this absence is'} related to your approved claim.</p>
+                    <div className="cl-ma-form-actions">
+                      <button
+                        className="cl-ma-btn-submit"
+                        type="button"
+                        onClick={handleSubmit}
+                        disabled={selectedDates.length === 0 || parseFloat(hours) <= 0}
+                      >
+                        {isBulkMode ? 'Review ' + selectedDates.length + ' Entries' : 'Submit Time Entry'}
+                      </button>
+                      <button className="cl-ma-btn-cancel" type="button" onClick={handleCancel}>Cancel</button>
+                    </div>
+                  </div>
                 </div>
               </div>
           </div>
