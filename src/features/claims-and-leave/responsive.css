@@ -1427,6 +1427,95 @@
   background: #fff;
 }
 
+.cl-ma-entry-card {
+  background: #f9fafb;
+  border: 1px solid #e5e7eb;
+  border-radius: 10px;
+  padding: 14px 16px;
+  position: relative;
+}
+
+.cl-ma-entry-card-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.cl-ma-entry-card-date {
+  font-size: 14px;
+  font-weight: 700;
+  color: #111827;
+}
+
+.cl-ma-status-badge {
+  font-size: 11px;
+  font-weight: 600;
+  padding: 3px 10px;
+  border-radius: 12px;
+  white-space: nowrap;
+}
+
+.cl-ma-status-badge--approved {
+  background: #e6f4ea;
+  color: #1a7431;
+}
+
+.cl-ma-status-badge--submitted {
+  background: #fff3e0;
+  color: #b45309;
+}
+
+.cl-ma-entry-card-details {
+  display: flex;
+  gap: 24px;
+}
+
+.cl-ma-entry-card-field {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.cl-ma-entry-card-label {
+  font-size: 10px;
+  font-weight: 600;
+  color: #6b7280;
+  text-transform: uppercase;
+}
+
+.cl-ma-entry-card-value {
+  font-size: 13px;
+  color: #374151;
+}
+
+.cl-ma-entry-card-value--bold {
+  font-weight: 700;
+  color: #111827;
+}
+
+.cl-ma-entry-edit-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  border: none;
+  background: none;
+  color: #6b7280;
+  cursor: pointer;
+  border-radius: 6px;
+  padding: 0;
+  position: absolute;
+  top: 14px;
+  right: 8px;
+}
+
+.cl-ma-entry-edit-btn:hover {
+  background: #f3f4f6;
+  color: #105fa8;
+}
+
 /* My Leaves / My Cases mobile card view */
 .cl-ml-cards-mobile {
   display: flex;
