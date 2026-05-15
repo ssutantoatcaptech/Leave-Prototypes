@@ -287,12 +287,12 @@ export default function EnterMyTimePage() {
       <div className="cl-ml-breadcrumb">
         <Link to={base} className="cl-ml-breadcrumb-link">Claims &amp; Leave</Link>
         <span className="cl-ml-breadcrumb-sep">&gt;</span>
-        <span className="cl-ml-breadcrumb-current">Enter My Time</span>
+        <span className="cl-ml-breadcrumb-current">Enter Missed Time</span>
       </div>
 
       <div className="cl-ml-header">
         <div className="cl-ml-header-text">
-          <h1 className="cl-ml-title">Enter My Time</h1>
+          <h1 className="cl-ml-title">Enter Missed Time</h1>
           <p className="cl-ml-subtitle">Record your intermittent leave hours or days for existing claims.</p>
         </div>
       </div>
@@ -488,7 +488,7 @@ export default function EnterMyTimePage() {
 
                   <div className="cl-ma-time-row">
                     <div className="cl-ma-field cl-ma-field--half">
-                      <label className="cl-ma-label">Start Time</label>
+                      <label className="cl-ma-label">Start of Missed Time</label>
                       <input
                         type="text"
                         className="cl-ma-time-input"
@@ -497,7 +497,7 @@ export default function EnterMyTimePage() {
                       />
                     </div>
                     <div className="cl-ma-field cl-ma-field--half">
-                      <label className="cl-ma-label">End Time</label>
+                      <label className="cl-ma-label">End of Missed Time</label>
                       <input
                         type="text"
                         className="cl-ma-time-input"
@@ -575,8 +575,8 @@ export default function EnterMyTimePage() {
                 <thead>
                   <tr>
                     <th>Date</th>
-                    <th>Start</th>
-                    <th>End</th>
+                    <th>Start of Missed Time</th>
+                    <th>End of Missed Time</th>
                     <th>Hours</th>
                     <th>Reason</th>
                     <th>Status</th>
@@ -678,7 +678,7 @@ export default function EnterMyTimePage() {
                       <div className="cl-ml-card-mobile__id">{row.reason}</div>
                     </div>
                     <div className="cl-ml-card-mobile__row">
-                      <span className="cl-ml-card-mobile__label">Time</span>
+                      <span className="cl-ml-card-mobile__label">Missed Time</span>
                       <span className="cl-ml-card-mobile__value">{row.startTime} – {row.endTime}</span>
                     </div>
                     <div className="cl-ml-card-mobile__row">
