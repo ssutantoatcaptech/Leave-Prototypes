@@ -7,27 +7,29 @@ import '../absence-details/absence-details-react.css';
 var CLAIM_VARIANTS = {
   std: {
     title: 'Short-Term Disability (STD) Claim',
-    status: 'Approved',
+    status: 'In Payment',
     statusClass: 'cl-std-pill--approved',
     claimId: 'CL-954412',
-    filedDate: 'May 4, 2024',
+    filedDate: 'Apr 7, 2026',
     claimNumber: 'CLM-94820',
     policy: 'Group STD — Employer Paid',
     diagnosis: 'Lumbar disc herniation',
-    leaveStart: 'May 4, 2024',
-    benefitsBegin: 'May 11, 2024',
-    expectedRTW: 'Aug 5, 2024',
+    leaveStart: 'Apr 7, 2026',
+    benefitsBegin: 'Apr 14, 2026',
+    expectedRTW: 'Jun 30, 2026',
     maxDuration: '12 weeks',
-    weeksRemaining: '4 of 12 weeks',
-    totalPaid: '$6,219.51',
+    weeksRemaining: '7 of 12 weeks',
+    totalPaid: '$5,185.00',
     timelineRows: [
-      { id: 'std', label: 'STD', width: 100, accent: '#2563eb', name: 'Group Short-Term Disability', weeks: '8 weeks', range: 'May 11 – Jul 6, 2024', pay: '60% of pre-disability earnings', paymentValue: '~$1,037/wk' },
+      { id: 'std', label: 'STD', width: 58, accent: '#2563eb', name: 'Group Short-Term Disability (In Progress)', weeks: '5 of 12 weeks paid', range: 'Apr 14 – May 18, 2026', pay: '60% of pre-disability earnings', paymentValue: '~$1,037/wk' },
+      { id: 'std-remaining', label: 'Remaining', width: 42, accent: '#bfdbfe', name: 'Remaining STD Benefits', weeks: '7 weeks remaining', range: 'May 19 – Jul 6, 2026', pay: '60% of pre-disability earnings', paymentValue: '~$1,037/wk' },
     ],
     legend: [
-      { id: 'std-pay', label: 'STD (60% salary)', accent: '#2563eb' },
+      { id: 'std-paid', label: 'STD paid (5 wks)', accent: '#2563eb' },
+      { id: 'std-remaining', label: 'Remaining (7 wks)', accent: '#bfdbfe' },
     ],
-    weekCount: 8,
-    months: ['May', 'Jun', 'Jul'],
+    weekCount: 12,
+    months: ['Apr', 'May', 'Jun', 'Jul'],
   },
   ltd: {
     title: 'Long-Term Disability (LTD) Claim',
@@ -120,7 +122,7 @@ export default function StdClaimDetailPage() {
               <div className="ldb-tl-rows-wrap">
               <div className="dlp-tl-rows">
                 {variant.timelineRows.map(function (item) {
-                  var left = item.id === 'ltd' ? (variant.timelineRows[0].width + '%') : '0%';
+                  var left = (item.id === 'ltd' || item.id === 'std-remaining') ? (variant.timelineRows[0].width + '%') : '0%';
                   return (
                     <button
                       key={item.id}
