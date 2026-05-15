@@ -1606,6 +1606,11 @@
   color: #6b7280;
 }
 
+.cl-ma-recent-card .cl-ml-card-mobile__label {
+  text-transform: none;
+  letter-spacing: normal;
+}
+
 .cl-ml-card-mobile__value {
   font-size: 14px;
   color: #0f0f14;
