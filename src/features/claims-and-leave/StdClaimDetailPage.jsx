@@ -103,10 +103,9 @@ export default function StdClaimDetailPage() {
               <div className="ldb-tl-rows-wrap">
               <div className="dlp-tl-rows">
                 {[
-                  { id: 'std', label: 'STD', width: 67, accent: '#2563eb', name: 'Group Short-Term Disability', weeks: '8 weeks', range: 'May 11 – Jul 6, 2024', pay: '60% of pre-disability earnings', paymentValue: '~$1,037/wk' },
-                  { id: 'ltd', label: 'LTD', width: 33, accent: '#818cf8', name: 'Long-Term Disability', weeks: '4 weeks', range: 'Jul 6 – Aug 3, 2024', pay: '60% salary (if approved)', paymentValue: '$0/wk' },
+                  { id: 'std', label: 'STD', width: 100, accent: '#2563eb', name: 'Group Short-Term Disability', weeks: '8 weeks', range: 'May 11 – Jul 6, 2024', pay: '60% of pre-disability earnings', paymentValue: '~$1,037/wk' },
                 ].map(function (item) {
-                  var left = item.id === 'ltd' ? '67%' : '0%';
+                  var left = '0%';
                   return (
                     <button
                       key={item.id}
@@ -129,7 +128,6 @@ export default function StdClaimDetailPage() {
               {hoveredRow && (function () {
                 var allRows = [
                   { id: 'std', name: 'Group Short-Term Disability', weeks: '8 weeks', range: 'May 11 – Jul 6, 2024', pay: '60% of pre-disability earnings', paymentValue: '~$1,037/wk' },
-                  { id: 'ltd', name: 'Long-Term Disability', weeks: '4 weeks', range: 'Jul 6 – Aug 3, 2024', pay: '60% salary (if approved)', paymentValue: '$0/wk' },
                 ];
                 var hovered = allRows.find(function (r) { return r.id === hoveredRow; });
                 if (!hovered) return null;
@@ -165,7 +163,6 @@ export default function StdClaimDetailPage() {
               {hoveredRow && (function () {
                 var allRows = [
                   { id: 'std', name: 'Group Short-Term Disability', weeks: '8 weeks', range: 'May 11 – Jul 6, 2024', pay: '60% of pre-disability earnings', paymentValue: '~$1,037/wk' },
-                  { id: 'ltd', name: 'Long-Term Disability', weeks: '4 weeks', range: 'Jul 6 – Aug 3, 2024', pay: '60% salary (if approved)', paymentValue: '$0/wk' },
                 ];
                 var selected = allRows.find(function (r) { return r.id === hoveredRow; });
                 if (!selected) return null;
@@ -212,7 +209,6 @@ export default function StdClaimDetailPage() {
               <div className="dlp-legend">
                 {[
                   { id: 'std-pay', label: 'STD (60%)', accent: '#2563eb' },
-                  { id: 'ltd-pay', label: 'LTD (Denied)', accent: '#818cf8' },
                 ].map(function (item) {
                   return (
                     <div key={item.id} className="dlp-legend-item">
