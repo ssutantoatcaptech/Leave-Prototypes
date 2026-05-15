@@ -1302,6 +1302,7 @@
   border: none;
   box-shadow: none;
   border-radius: 0;
+  overflow: visible;
 }
 
 .cl-ma-recent-header {
