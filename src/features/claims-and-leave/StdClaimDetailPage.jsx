@@ -1,10 +1,14 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import useBasePath from './useBasePath';
+import '../leave-detail/leave-detail-b.css';
+import '../absence-details/absence-details-react.css';
 
 export default function StdClaimDetailPage() {
   const base = useBasePath();
   const [completedExpanded, setCompletedExpanded] = useState(false);
+  const [timelineView, setTimelineView] = useState('payment');
+  const [hoveredRow, setHoveredRow] = useState(null);
 
   return (
     <div className="cl-std-page">
@@ -82,19 +86,171 @@ export default function StdClaimDetailPage() {
               </div>
             </div>
 
-            {/* Benefits Usage */}
-            <div className="cl-std-usage-subcard">
-              <div className="cl-std-usage-header">
-                <span className="cl-std-usage-label">Benefits Usage</span>
-                <span className="cl-std-usage-value">$100 of $150 used</span>
+          </div>
+
+          {/* Payment Timeline */}
+          <div className="ldb-card dt-timeline-wrap">
+            <div className="ad-section-header">
+              <div>
+                <h3>Payment Timeline</h3>
+                <p>How your disability claim provides income during your leave</p>
               </div>
-              <div className="cl-std-progress">
-                <div className="cl-std-progress-bar" style={{ width: '66.6%' }} />
+              <div className="dt-tl-toggle">
+                <button type="button" className={timelineView === 'protection' ? 'active' : ''} onClick={function () { setTimelineView('protection'); }}>Protection</button>
+                <button type="button" className={timelineView === 'payment' ? 'active' : ''} onClick={function () { setTimelineView('payment'); }}>Payment</button>
               </div>
-              <div className="cl-std-usage-dates">
-                <span>May 11, 2024</span>
-                <span>Aug 3, 2024</span>
+            </div>
+
+            <p className="ad-section-helper ad-section-helper--desktop">Hover over a row to see details</p>
+            <p className="ad-section-helper ad-section-helper--mobile">Tap a row to see details</p>
+
+            <div className="dlp-timeline">
+              <div className="ldb-tl-rows-wrap">
+              <div className="dlp-tl-rows">
+                {(timelineView === 'payment' ? [
+                  { id: 'std', label: 'STD', width: 67, accent: '#2563eb', name: 'Group Short-Term Disability', weeks: '8 weeks', range: 'May 11 – Jul 6, 2024', pay: '60% of pre-disability earnings', status: 'In Payment', paymentValue: '~$1,037/wk' },
+                  { id: 'ltd', label: 'LTD', width: 33, accent: '#818cf8', name: 'Long-Term Disability', weeks: '4 weeks', range: 'Jul 6 – Aug 3, 2024', pay: '60% salary (if approved)', status: 'Denied', paymentValue: '$0/wk' },
+                ] : [
+                  { id: 'fmla', label: 'FMLA', width: 100, accent: '#105fa8', name: 'FMLA Job Protection', weeks: '12 weeks', range: 'May 4 – Aug 3, 2024', pay: 'Job protection (unpaid)', status: 'Active' },
+                  { id: 'std', label: 'STD', width: 67, accent: '#2563eb', name: 'Group Short-Term Disability', weeks: '8 weeks', range: 'May 11 – Jul 6, 2024', pay: '60% of pre-disability earnings', status: 'In Payment' },
+                  { id: 'ltd', label: 'LTD', width: 33, accent: '#818cf8', name: 'Long-Term Disability', weeks: '4 weeks', range: 'Jul 6 – Aug 3, 2024', pay: '60% salary (if approved)', status: 'Denied' },
+                ]).map(function (item) {
+                  var left = item.id === 'ltd' ? '67%' : '0%';
+                  return (
+                    <button
+                      key={item.id}
+                      className={'dlp-tl-row' + (hoveredRow === item.id ? ' active' : '')}
+                      type="button"
+                      onMouseEnter={function () { setHoveredRow(item.id); }}
+                      onMouseLeave={function () { setHoveredRow(null); }}
+                      onClick={function () { setHoveredRow(hoveredRow === item.id ? null : item.id); }}
+                    >
+                      <div className="dlp-tl-row-label">{item.label}</div>
+                      <div className="dlp-tl-row-bar">
+                        <div className="dlp-tl-seg" style={{ left: left, width: item.width + '%', background: item.accent }} />
+                      </div>
+                    </button>
+                  );
+                })}
               </div>
+
+              {/* Desktop: tooltip on hover */}
+              {hoveredRow && (function () {
+                var allRows = timelineView === 'payment' ? [
+                  { id: 'std', name: 'Group Short-Term Disability', weeks: '8 weeks', range: 'May 11 – Jul 6, 2024', pay: '60% of pre-disability earnings', status: 'In Payment', paymentValue: '~$1,037/wk' },
+                  { id: 'ltd', name: 'Long-Term Disability', weeks: '4 weeks', range: 'Jul 6 – Aug 3, 2024', pay: '60% salary (if approved)', status: 'Denied', paymentValue: '$0/wk' },
+                ] : [
+                  { id: 'fmla', name: 'FMLA Job Protection', weeks: '12 weeks', range: 'May 4 – Aug 3, 2024', pay: 'Job protection (unpaid)', status: 'Active' },
+                  { id: 'std', name: 'Group Short-Term Disability', weeks: '8 weeks', range: 'May 11 – Jul 6, 2024', pay: '60% of pre-disability earnings', status: 'In Payment' },
+                  { id: 'ltd', name: 'Long-Term Disability', weeks: '4 weeks', range: 'Jul 6 – Aug 3, 2024', pay: '60% salary (if approved)', status: 'Denied' },
+                ];
+                var hovered = allRows.find(function (r) { return r.id === hoveredRow; });
+                if (!hovered) return null;
+                return (
+                  <div className="ad-coverage-tooltip">
+                    <div className="ad-coverage-tooltip-head">
+                      <div className="title">{hovered.name}</div>
+                    </div>
+                    <div className="ad-coverage-tooltip-grid">
+                      <div>
+                        <div className="label">{timelineView === 'payment' ? 'Est. Weekly' : 'Status'}</div>
+                        <div className="value">{timelineView === 'payment' ? hovered.paymentValue : hovered.status}</div>
+                      </div>
+                      <div>
+                        <div className="label">Duration</div>
+                        <div className="value">{hovered.weeks}</div>
+                      </div>
+                      <div>
+                        <div className="label">Dates</div>
+                        <div className="value">{hovered.range}</div>
+                      </div>
+                      <div>
+                        <div className="label">Pay</div>
+                        <div className="value">{hovered.pay}</div>
+                      </div>
+                    </div>
+                  </div>
+                );
+              })()}
+              </div>
+
+              {/* Mobile: detail below rows */}
+              {hoveredRow && (function () {
+                var allRows = timelineView === 'payment' ? [
+                  { id: 'std', name: 'Group Short-Term Disability', weeks: '8 weeks', range: 'May 11 – Jul 6, 2024', pay: '60% of pre-disability earnings', status: 'In Payment', paymentValue: '~$1,037/wk' },
+                  { id: 'ltd', name: 'Long-Term Disability', weeks: '4 weeks', range: 'Jul 6 – Aug 3, 2024', pay: '60% salary (if approved)', status: 'Denied', paymentValue: '$0/wk' },
+                ] : [
+                  { id: 'fmla', name: 'FMLA Job Protection', weeks: '12 weeks', range: 'May 4 – Aug 3, 2024', pay: 'Job protection (unpaid)', status: 'Active' },
+                  { id: 'std', name: 'Group Short-Term Disability', weeks: '8 weeks', range: 'May 11 – Jul 6, 2024', pay: '60% of pre-disability earnings', status: 'In Payment' },
+                  { id: 'ltd', name: 'Long-Term Disability', weeks: '4 weeks', range: 'Jul 6 – Aug 3, 2024', pay: '60% salary (if approved)', status: 'Denied' },
+                ];
+                var selected = allRows.find(function (r) { return r.id === hoveredRow; });
+                if (!selected) return null;
+                return (
+                  <div className="dlp-tl-mobile-detail">
+                    <div className="dlp-tl-mobile-detail-title">{selected.name}</div>
+                    <div className="dlp-tl-mobile-detail-grid">
+                      <div>
+                        <div className="dlp-tl-mobile-detail-label">{timelineView === 'payment' ? 'Est. Weekly' : 'Status'}</div>
+                        <div className="dlp-tl-mobile-detail-value">{timelineView === 'payment' ? selected.paymentValue : selected.status}</div>
+                      </div>
+                      <div>
+                        <div className="dlp-tl-mobile-detail-label">Duration</div>
+                        <div className="dlp-tl-mobile-detail-value">{selected.weeks}</div>
+                      </div>
+                      <div>
+                        <div className="dlp-tl-mobile-detail-label">Dates</div>
+                        <div className="dlp-tl-mobile-detail-value">{selected.range}</div>
+                      </div>
+                      <div>
+                        <div className="dlp-tl-mobile-detail-label">Pay</div>
+                        <div className="dlp-tl-mobile-detail-value">{selected.pay}</div>
+                      </div>
+                    </div>
+                  </div>
+                );
+              })()}
+
+              <div className="dlp-tl-weeks-row">
+                <div className="dlp-tl-week-label">Week</div>
+                <div className="dlp-tl-weeks">
+                  {Array.from({ length: 12 }, function (_, i) {
+                    return <div key={i} className="dlp-tl-week-tick"><span className="dlp-tl-week-num">{i + 1}</span></div>;
+                  })}
+                </div>
+              </div>
+              <div className="dlp-tl-months">
+                <span>May</span>
+                <span>Jun</span>
+                <span>Jul</span>
+                <span>Aug</span>
+              </div>
+
+              <div className="dlp-legend">
+                {(timelineView === 'payment' ? [
+                  { id: 'std-pay', label: 'STD (60%)', accent: '#2563eb' },
+                  { id: 'ltd-pay', label: 'LTD (Denied)', accent: '#818cf8' },
+                ] : [
+                  { id: 'fmla', label: 'FMLA Protection', accent: '#105fa8' },
+                  { id: 'std', label: 'STD Recovery', accent: '#2563eb' },
+                  { id: 'ltd', label: 'LTD (Denied)', accent: '#818cf8' },
+                ]).map(function (item) {
+                  return (
+                    <div key={item.id} className="dlp-legend-item">
+                      <div className="dlp-legend-dot" style={{ background: item.accent }} />
+                      {item.label}
+                    </div>
+                  );
+                })}
+              </div>
+
+              {timelineView === 'payment' && (
+                <div className="dt-payment-summary">
+                  <div className="dt-payment-summary-title">Total paid to date</div>
+                  <div className="dt-payment-summary-value">$6,219.51</div>
+                  <div className="dt-payment-summary-note">STD bi-weekly payments via direct deposit · Net of federal &amp; state withholding</div>
+                </div>
+              )}
             </div>
           </div>
 
