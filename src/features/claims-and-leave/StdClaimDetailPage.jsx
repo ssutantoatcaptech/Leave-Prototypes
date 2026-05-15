@@ -43,15 +43,17 @@ var CLAIM_VARIANTS = {
     expectedRTW: 'N/A',
     maxDuration: '24 months',
     weeksRemaining: '0 of 24 months (Denied)',
-    totalPaid: '$0.00',
+    totalPaid: '$8,292.72',
     timelineRows: [
-      { id: 'ltd', label: 'LTD', width: 100, accent: '#818cf8', name: 'Long-Term Disability', weeks: '24 months max', range: 'Jul 6, 2024 – Jul 6, 2026', pay: 'Denied — no payment', paymentValue: '$0/wk' },
+      { id: 'std', label: 'STD', width: 40, accent: '#2563eb', name: 'Group Short-Term Disability', weeks: '8 weeks', range: 'May 11 – Jul 6, 2024', pay: '60% of pre-disability earnings', paymentValue: '~$1,037/wk' },
+      { id: 'ltd', label: 'LTD', width: 60, accent: '#818cf8', name: 'Long-Term Disability (Denied)', weeks: '12 weeks (denied)', range: 'Jul 6 – Sep 28, 2024', pay: 'Denied — no payment', paymentValue: '$0/wk' },
     ],
     legend: [
+      { id: 'std-pay', label: 'STD (60% — ended)', accent: '#2563eb' },
       { id: 'ltd-pay', label: 'LTD (Denied)', accent: '#818cf8' },
     ],
-    weekCount: 12,
-    months: ['Jul', 'Aug', 'Sep', 'Oct'],
+    weekCount: 20,
+    months: ['May', 'Jun', 'Jul', 'Aug', 'Sep'],
   },
 };
 
