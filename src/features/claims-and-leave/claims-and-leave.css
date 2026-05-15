@@ -7369,3 +7369,52 @@
   }
 }
 
+/* Version control toolbar */
+.cl-version-toolbar {
+  position: fixed;
+  bottom: 24px;
+  right: 24px;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  background: #1e293b;
+  border-radius: 10px;
+  padding: 6px 10px;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2), 0 2px 6px rgba(0, 0, 0, 0.12);
+  z-index: 9999;
+}
+
+.cl-version-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  border: none;
+  background: transparent;
+  color: #94a3b8;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background 0.15s, color 0.15s;
+}
+
+.cl-version-btn:hover:not(:disabled) {
+  background: #334155;
+  color: #fff;
+}
+
+.cl-version-btn:disabled {
+  color: #475569;
+  cursor: default;
+}
+
+.cl-version-label {
+  font-family: 'Source Sans Pro', sans-serif;
+  font-size: 13px;
+  font-weight: 600;
+  color: #fff;
+  padding: 0 8px;
+  min-width: 28px;
+  text-align: center;
+}
+

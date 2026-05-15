@@ -751,6 +751,17 @@ export default function EnterMyTimePage() {
       </div>
 
       {/* Batch Review Modal */}
+      {/* Version control toolbar */}
+      <div className="cl-version-toolbar">
+        <button className="cl-version-btn" disabled>
+          <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M9 2L4 7l5 5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/></svg>
+        </button>
+        <span className="cl-version-label">v1</span>
+        <button className="cl-version-btn" disabled>
+          <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M5 2l5 5-5 5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/></svg>
+        </button>
+      </div>
+
       {showPreview && (
         <div className="cl-ma-modal-overlay" onClick={function () { setShowPreview(false); }}>
           <div className="cl-ma-modal" onClick={function (e) { e.stopPropagation(); }}>
