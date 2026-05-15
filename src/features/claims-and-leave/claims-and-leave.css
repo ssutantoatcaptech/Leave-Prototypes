@@ -2549,6 +2549,17 @@
   border-radius: 6px;
 }
 
+.cl-ma-cal-hint--prominent {
+  background: #eef5ff;
+  border: 1px solid #c8ddf2;
+  color: #003a70;
+  font-size: 13px;
+  font-weight: 500;
+  padding: 10px 14px;
+  border-radius: 8px;
+  gap: 10px;
+}
+
 .cl-ma-cal-day-check {
   position: absolute;
   bottom: -2px;
@@ -7525,12 +7536,21 @@
   color: #003a70;
 }
 
-.cl-ma-sidebar-cta__dates {
+.cl-ma-sidebar-cta__selection {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 14px;
+  background: #eef5ff;
+  border: 1px solid #c8ddf2;
+  border-radius: 8px;
+}
+
+.cl-ma-sidebar-cta__selection-text {
   font-family: 'Source Sans Pro', sans-serif;
-  font-size: 13px;
-  color: #5d5d5d;
-  padding-bottom: 12px;
-  border-bottom: 1px solid #f0f0f0;
+  font-size: 14px;
+  font-weight: 600;
+  color: #003a70;
 }
 
 .cl-ma-btn-submit-lg {

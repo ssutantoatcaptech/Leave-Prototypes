@@ -469,8 +469,8 @@ export default function EnterMyTimePage() {
                       </div>
 
                       {/* Multi-select hint */}
-                      <div className="cl-ma-cal-hint">
-                        <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><circle cx="7" cy="7" r="6" stroke="#6b7280" strokeWidth="1"/><path d="M7 4v3M7 9h.01" stroke="#6b7280" strokeWidth="1.2" strokeLinecap="round"/></svg>
+                      <div className="cl-ma-cal-hint cl-ma-cal-hint--prominent">
+                        <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><circle cx="8" cy="8" r="7" stroke="#105fa8" strokeWidth="1.3"/><path d="M8 5v3.5M8 11h.01" stroke="#105fa8" strokeWidth="1.4" strokeLinecap="round"/></svg>
                         Click multiple dates to log the same hours across several days
                       </div>
 
@@ -810,15 +810,16 @@ export default function EnterMyTimePage() {
           {/* V2: Form fields in sidebar */}
           {pageVersion === 2 && (
             <div className="cl-ma-sidebar-cta">
+              {selectedDates.length > 0 && (
+                <div className="cl-ma-sidebar-cta__selection">
+                  <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><rect x="2" y="3" width="12" height="10" rx="2" stroke="#105fa8" strokeWidth="1.3"/><path d="M2 6h12" stroke="#105fa8" strokeWidth="1.3"/><path d="M5 1v4M11 1v4" stroke="#105fa8" strokeWidth="1.3" strokeLinecap="round"/></svg>
+                  <span className="cl-ma-sidebar-cta__selection-text">{selectedDates.length} date{selectedDates.length > 1 ? 's' : ''} selected</span>
+                </div>
+              )}
               <div className="cl-ma-sidebar-cta__hours">
                 <span className="cl-ma-sidebar-cta__hours-label">Balance Remaining</span>
                 <span className="cl-ma-sidebar-cta__hours-value">{balance}h</span>
               </div>
-              {selectedDates.length > 0 && (
-                <div className="cl-ma-sidebar-cta__dates">
-                  {selectedDates.length} date{selectedDates.length > 1 ? 's' : ''} selected
-                </div>
-              )}
               <button
                 className="cl-ma-btn-submit-lg"
                 type="button"
