@@ -95,6 +95,7 @@ export default function EnterMyTimePage() {
   var [submittedCount, setSubmittedCount] = useState(0);
   var [submittedHours, setSubmittedHours] = useState('0');
   var [newEntryKey, setNewEntryKey] = useState(null);
+  var NOW_TS = Date.now();
   var [editingIndex, setEditingIndex] = useState(null);
   var [editForm, setEditForm] = useState({ startTime: '', endTime: '', reason: '' });
   var [showPreview, setShowPreview] = useState(false);
@@ -202,6 +203,7 @@ export default function EnterMyTimePage() {
         addedOn: todayStr,
         caseId: selectedCase.id,
         entryKey: entryKey + '-' + idx,
+        submittedAt: Date.now(),
       });
     });
 
@@ -215,7 +217,6 @@ export default function EnterMyTimePage() {
     setPerDayEdits({});
     setShowPreview(false);
     setTimeout(function () { setSubmitted(false); }, 4000);
-    setTimeout(function () { setNewEntryKey(null); }, 8000);
   }
 
   function handleCancel() {
@@ -305,6 +306,7 @@ export default function EnterMyTimePage() {
         addedOn: todayStr,
         caseId: selectedCase.id,
         entryKey: entryKey + '-' + idx,
+        submittedAt: Date.now(),
       });
     });
     if (newEntries.length === 0) return;
@@ -692,7 +694,7 @@ export default function EnterMyTimePage() {
                     <tr><td colSpan="7" style={{ textAlign: 'center', padding: 24, color: '#9ca3af' }}>No absences logged for this case yet.</td></tr>
                   )}
                   {filteredAbsences.map(function (row, i) {
-                    var isNew = row.entryKey && newEntryKey && row.entryKey.startsWith(newEntryKey);
+                    var isNew = row.submittedAt && (NOW_TS - row.submittedAt) < 86400000;
                     var rowStatus = isNew ? 'Submitted' : 'Approved';
                     if (editingIndex === i) {
                       return (
@@ -744,7 +746,7 @@ export default function EnterMyTimePage() {
                 <div style={{ textAlign: 'center', padding: '32px 16px', color: '#5d5d5d' }}>No absences logged for this case yet.</div>
               )}
               {filteredAbsences.map(function (row, i) {
-                var isNew = row.entryKey && newEntryKey && row.entryKey.startsWith(newEntryKey);
+                var isNew = row.submittedAt && (NOW_TS - row.submittedAt) < 86400000;
                 if (editingIndex === i) {
                   return (
                     <div key={i} className="cl-ml-card-mobile" style={{ borderColor: '#105fa8', background: '#f8faff' }}>
