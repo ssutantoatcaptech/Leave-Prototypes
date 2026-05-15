@@ -361,7 +361,7 @@ export default function EnterMyTimePage() {
       <div className="cl-ml-header">
         <div className="cl-ml-header-text">
           <h1 className="cl-ml-title">Enter Missed Time</h1>
-          <p className="cl-ml-subtitle">Record your intermittent leave hours or days for existing claims.</p>
+          <p className="cl-ml-subtitle">Select one or more dates on the calendar, then submit your missed time.</p>
         </div>
       </div>
 
@@ -436,12 +436,6 @@ export default function EnterMyTimePage() {
                         <button className="cl-ma-cal-nav" type="button" onClick={handlePrevMonth}>&lsaquo;</button>
                         <span className="cl-ma-cal-month">{MONTH_NAMES[calMonth]} {calYear}</span>
                         <button className="cl-ma-cal-nav" type="button" onClick={handleNextMonth}>&rsaquo;</button>
-                      </div>
-
-                      {/* Multi-select hint */}
-                      <div className="cl-ma-cal-hint cl-ma-cal-hint--prominent">
-                        <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><circle cx="8" cy="8" r="7" stroke="#105fa8" strokeWidth="1.3"/><path d="M8 5v3.5M8 11h.01" stroke="#105fa8" strokeWidth="1.4" strokeLinecap="round"/></svg>
-                        Click multiple dates to log the same hours across several days
                       </div>
 
                       <div className="cl-ma-cal-grid">
@@ -826,7 +820,12 @@ export default function EnterMyTimePage() {
                 disabled={selectedDates.length === 0}
               >
                 <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M8 3v10M3 8h10" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round"/></svg>
-                Submit Missed Time
+                {selectedDates.length > 0
+                  ? 'Submit ' + selectedDates.length + ' Date' + (selectedDates.length > 1 ? 's' : '')
+                  : 'Submit Missed Time'}
+                {selectedDates.length > 0 && (
+                  <span className="cl-ma-btn-submit-lg__badge">{selectedDates.length}</span>
+                )}
               </button>
             </div>
           )}
