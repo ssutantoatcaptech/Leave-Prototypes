@@ -414,6 +414,43 @@ export default function EnterMyTimePage() {
             </div>
           )}
 
+          {/* Mobile-only: Approved Leave Case above calendar */}
+          <div className="cl-ma-case-mobile">
+            <div className="cl-ma-field" style={{ position: 'relative' }}>
+              <label className="cl-ma-sidebar-cta__hours-label">Approved Leave Case</label>
+              <button
+                type="button"
+                className="cl-ma-case-pill cl-ma-case-pill--sidebar"
+                onClick={function () { setCaseOpen(!caseOpen); }}
+              >
+                <span className="cl-ma-case-pill__id">{selectedCase.id}</span>
+                <span className="cl-ma-case-pill__label">{selectedCase.label.split(' — ')[1]}</span>
+                <svg className="cl-ma-case-pill__chevron" width="10" height="6" viewBox="0 0 10 6" fill="none"><path d="M1 1l4 4 4-4" stroke="currentColor" strokeWidth="1.3" strokeLinecap="round" strokeLinejoin="round"/></svg>
+              </button>
+              {caseOpen && (
+                <div className="cl-ma-dropdown-menu cl-ma-case-menu">
+                  {LEAVE_CASES.map(function (c) {
+                    return (
+                      <button
+                        key={c.id}
+                        type="button"
+                        className={'cl-ma-dropdown-item' + (c.id === selectedCase.id ? ' cl-ma-dropdown-item--active' : '')}
+                        onClick={function () { handleCaseSelect(c); }}
+                      >
+                        <span>{c.label}</span>
+                        <span className="cl-ma-case-balance">{c.balance}h remaining</span>
+                      </button>
+                    );
+                  })}
+                </div>
+              )}
+            </div>
+            <div className="cl-ma-sidebar-cta__hours">
+              <span className="cl-ma-sidebar-cta__hours-label">Balance Remaining</span>
+              <span className="cl-ma-sidebar-cta__hours-value">{balance}h</span>
+            </div>
+          </div>
+
           {/* Form card */}
           <div className="cl-ma-form-card cl-ma-form-card--v2">
               <div className="cl-ma-form-grid">
