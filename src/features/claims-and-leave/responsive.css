@@ -1273,6 +1273,8 @@
 
 .cl-ma-cal-grid {
   gap: 2px;
+  max-width: 100%;
+  overflow: hidden;
 }
 
 .cl-ma-cal-day {
@@ -1281,6 +1283,7 @@
   aspect-ratio: 1 / 1;
   font-size: 13px;
   min-width: 32px;
+  overflow: hidden;
 }
 
 .cl-ma-time-row {
@@ -1305,6 +1308,12 @@
   box-shadow: none;
   border-radius: 0;
   padding: 0;
+  overflow: hidden;
+}
+
+.cl-ma-main {
+  min-width: 0;
+  overflow: hidden;
 }
 
 .cl-ma-form-grid {
@@ -1318,6 +1327,8 @@
   padding: 0;
   box-shadow: none;
   gap: 16px;
+  min-width: 0;
+  overflow: hidden;
 }
 
 .cl-ma-form-left > .cl-ma-field {
@@ -1568,13 +1579,14 @@
   flex-direction: column;
   gap: 12px;
   padding: 0;
+  max-width: 100%;
 }
 
 .cl-ml-card-mobile {
   background: #ffffff;
   border: 1px solid #e5e7eb;
   border-radius: 12px;
-  padding: 16px;
+  padding: 16px 20px 16px 16px;
   display: flex;
   flex-direction: column;
   gap: 10px;
