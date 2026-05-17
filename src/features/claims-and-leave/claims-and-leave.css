@@ -7251,15 +7251,16 @@
 
   .cl-payments-summary-cards {
     flex-direction: row;
+    gap: 12px;
   }
 
   .cl-payments-summary-card {
-    padding: 14px 16px;
+    padding: 16px 20px;
     flex: 1;
   }
 
   .cl-payments-summary-value {
-    font-size: 20px;
+    font-size: 24px;
   }
 
   .cl-payments-table-wrap {
