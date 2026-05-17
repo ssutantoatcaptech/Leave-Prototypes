@@ -5131,6 +5131,30 @@
   margin-top: 0;
 }
 
+.cl-card-mobile-links-row {
+  display: flex;
+  gap: 16px;
+  margin-top: 8px;
+  padding-top: 8px;
+  border-top: 1px solid #f0f0f0;
+}
+
+.cl-card-mobile-tertiary-link {
+  background: none;
+  border: none;
+  padding: 0;
+  font-family: 'Source Sans Pro', sans-serif;
+  font-size: 14px;
+  font-weight: 600;
+  color: #105fa8;
+  cursor: pointer;
+  text-decoration: none;
+}
+
+.cl-card-mobile-tertiary-link:hover {
+  text-decoration: underline;
+}
+
 .cl-card-mobile-expand {
   display: flex;
   flex-direction: column;
@@ -7226,15 +7250,16 @@
   }
 
   .cl-payments-summary-cards {
-    flex-direction: column;
+    flex-direction: row;
   }
 
   .cl-payments-summary-card {
-    padding: 16px 20px;
+    padding: 14px 16px;
+    flex: 1;
   }
 
   .cl-payments-summary-value {
-    font-size: 24px;
+    font-size: 20px;
   }
 
   .cl-payments-table-wrap {

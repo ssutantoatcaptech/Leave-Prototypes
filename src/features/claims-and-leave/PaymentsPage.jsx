@@ -390,9 +390,9 @@ export default function PaymentsPage() {
                 <span className="cl-card-mobile-value">{row.gross}</span>
               </div>
             </div>
-            <div className="cl-card-mobile-actions-row">
-              <button className="cl-card-mobile-action">View Statement</button>
-              <button className="cl-card-mobile-action cl-card-mobile-action--outline" onClick={() => setExpandedRow(expandedRow === i ? -1 : i)}>
+            <div className="cl-card-mobile-links-row">
+              <button className="cl-card-mobile-tertiary-link">View Statement</button>
+              <button className="cl-card-mobile-tertiary-link" onClick={() => setExpandedRow(expandedRow === i ? -1 : i)}>
                 {expandedRow === i ? 'Hide Details' : 'Payment Details'}
               </button>
             </div>
@@ -452,7 +452,7 @@ export default function PaymentsPage() {
           </div>
           <h3 className="cl-payments-info-title">Manage Direct Deposit</h3>
           <p className="cl-payments-info-text">Payments are processed bi-weekly on alternating Mondays. Your next payment is estimated based on your current claim schedule.</p>
-          <button className="cl-payments-info-btn">View Payment Calendar</button>
+          <button className="cl-payments-info-btn">View Direct Deposit</button>
         </div>
         <div className="cl-payments-info-card">
           <div className="cl-payments-info-icon">
