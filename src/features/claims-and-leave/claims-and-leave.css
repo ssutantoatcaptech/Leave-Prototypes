@@ -1810,13 +1810,7 @@
 .cl-ma-cal-header {
   display: flex;
   align-items: center;
-  justify-content: space-between;
-  gap: 8px;
-  margin-bottom: 8px;
-}
-
-.cl-ma-cal-header--toggle {
-  justify-content: center;
+  gap: 12px;
   margin-bottom: 12px;
 }
 
