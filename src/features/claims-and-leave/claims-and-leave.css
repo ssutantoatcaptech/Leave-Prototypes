@@ -7595,6 +7595,18 @@
   justify-content: flex-start;
   border-radius: 8px;
   padding: 10px 14px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  text-align: left;
+}
+
+.cl-ma-case-pill--sidebar .cl-ma-case-pill__label {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  flex: 1;
+  min-width: 0;
 }
 
 /* V2 case selector bar inside calendar (legacy, kept for mobile) */
