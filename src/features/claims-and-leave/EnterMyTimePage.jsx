@@ -564,14 +564,16 @@ export default function EnterMyTimePage() {
                   <div className="cl-ma-field">
                     <div className="cl-ma-calendar">
                       <div className="cl-ma-cal-header">
-                        <button className="cl-ma-cal-nav" type="button" onClick={handleCalPrev}>&lsaquo;</button>
-                        <span className="cl-ma-cal-month">{calHeaderLabel}</span>
+                        <div className="cl-ma-cal-header__left">
+                          <span className="cl-ma-cal-month">{calHeaderLabel}</span>
+                          <button className="cl-ma-cal-nav" type="button" onClick={handleCalPrev}>&lsaquo;</button>
+                          <button className="cl-ma-cal-nav" type="button" onClick={handleCalNext}>&rsaquo;</button>
+                        </div>
                         <div className="cl-ma-view-toggle">
                           <button type="button" className={'cl-ma-view-toggle__btn' + (calView === 'month' ? ' cl-ma-view-toggle__btn--active' : '')} onClick={function () { switchCalView('month'); }}>Month</button>
                           <button type="button" className={'cl-ma-view-toggle__btn' + (calView === 'week' ? ' cl-ma-view-toggle__btn--active' : '')} onClick={function () { switchCalView('week'); }}>Week</button>
                           <button type="button" className={'cl-ma-view-toggle__btn' + (calView === 'day' ? ' cl-ma-view-toggle__btn--active' : '')} onClick={function () { switchCalView('day'); }}>Day</button>
                         </div>
-                        <button className="cl-ma-cal-nav" type="button" onClick={handleCalNext}>&rsaquo;</button>
                       </div>
 
                       {calView === 'month' && (

@@ -1811,8 +1811,14 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 8px;
+  gap: 12px;
   margin-bottom: 12px;
+}
+
+.cl-ma-cal-header__left {
+  display: flex;
+  align-items: center;
+  gap: 8px;
 }
 
 .cl-ma-cal-nav {
@@ -1836,8 +1842,8 @@
 
 .cl-ma-cal-month {
   font-family: 'Source Sans Pro', sans-serif;
-  font-size: 16px;
-  font-weight: 600;
+  font-size: 20px;
+  font-weight: 700;
   color: #003a70;
   white-space: nowrap;
 }
