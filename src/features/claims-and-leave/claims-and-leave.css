@@ -1811,14 +1811,19 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 12px;
+  gap: 8px;
+  margin-bottom: 8px;
+}
+
+.cl-ma-cal-header--toggle {
+  justify-content: center;
   margin-bottom: 12px;
 }
 
-.cl-ma-cal-header__left {
+.cl-ma-cal-header__nav {
   display: flex;
   align-items: center;
-  gap: 8px;
+  gap: 4px;
 }
 
 .cl-ma-cal-nav {
