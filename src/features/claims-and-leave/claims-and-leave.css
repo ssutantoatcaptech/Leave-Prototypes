@@ -7251,12 +7251,24 @@
 
   .cl-payments-summary-cards {
     flex-direction: row;
-    gap: 12px;
+    gap: 0;
+    margin-left: -16px;
+    margin-right: -16px;
   }
 
   .cl-payments-summary-card {
     padding: 16px 20px;
     flex: 1;
+    border-radius: 0;
+    border-left: none;
+    border-right: none;
+    border-bottom: none;
+    box-shadow: none;
+    border-top: 1.5px solid #dfebf6;
+  }
+
+  .cl-payments-summary-card + .cl-payments-summary-card {
+    border-left: 1.5px solid #dfebf6;
   }
 
   .cl-payments-summary-value {
