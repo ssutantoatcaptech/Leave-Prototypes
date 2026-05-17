@@ -811,7 +811,6 @@ export default function EnterMyTimePage() {
                 className="cl-ma-btn-submit-lg"
                 type="button"
                 onClick={openEntryModal}
-                disabled={selectedDates.length === 0}
               >
                 <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M8 3v10M3 8h10" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round"/></svg>
                 {selectedDates.length > 0
@@ -1031,7 +1030,7 @@ export default function EnterMyTimePage() {
                 );
               })}
               <button type="button" style={{ alignSelf: 'flex-start', background: 'none', border: '1px dashed #c8ddf2', borderRadius: '8px', padding: '10px 16px', color: '#105fa8', fontFamily: "'Source Sans Pro', sans-serif", fontSize: '13px', fontWeight: 600, cursor: 'pointer' }} onClick={addModalEntry}>
-                + Add Another Entry
+                + Add Missed Time
               </button>
             </div>
 
