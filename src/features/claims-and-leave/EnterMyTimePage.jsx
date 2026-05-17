@@ -100,7 +100,6 @@ export default function EnterMyTimePage() {
   var [editForm, setEditForm] = useState({ startTime: '', endTime: '', reason: '' });
   var [showPreview, setShowPreview] = useState(false);
   var [perDayEdits, setPerDayEdits] = useState({});
-  var [pageVersion, setPageVersion] = useState(2);
   var [showEntryModal, setShowEntryModal] = useState(false);
   var [modalEntries, setModalEntries] = useState([]);
   var [calTooltip, setCalTooltip] = useState(null);
@@ -416,55 +415,11 @@ export default function EnterMyTimePage() {
           )}
 
           {/* Form card */}
-          <div className={'cl-ma-form-card' + (pageVersion === 2 ? ' cl-ma-form-card--v2' : '')}>
+          <div className="cl-ma-form-card cl-ma-form-card--v2">
               <div className="cl-ma-form-grid">
-                {/* Left: Case selector + Calendar */}
+                {/* Left: Calendar */}
                 <div className="cl-ma-form-left">
-                  {pageVersion !== 2 && (
-                  <div className="cl-ma-field" style={{ position: 'relative' }}>
-                    <label className="cl-ma-label">Select Approved Leave Case</label>
-                    <button
-                      type="button"
-                      className="cl-ma-case-select"
-                      onClick={function () { setCaseOpen(!caseOpen); }}
-                    >
-                      <span style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-                        <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M2 7l3.5 3.5L12 4" stroke="#10b981" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/></svg>
-                        <span>{selectedCase.label}</span>
-                      </span>
-                      <svg width="8" height="12" viewBox="0 0 8 12" fill="none"><path d="M1.5 1l5 5-5 5" stroke="#6b7280" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/></svg>
-                    </button>
-                    {caseOpen && (
-                      <div className="cl-ma-dropdown-menu cl-ma-case-menu">
-                        {LEAVE_CASES.map(function (c) {
-                          return (
-                            <button
-                              key={c.id}
-                              type="button"
-                              className={'cl-ma-dropdown-item' + (c.id === selectedCase.id ? ' cl-ma-dropdown-item--active' : '')}
-                              onClick={function () { handleCaseSelect(c); }}
-                            >
-                              <span>{c.label}</span>
-                              <span className="cl-ma-case-balance">{c.balance}h remaining</span>
-                            </button>
-                          );
-                        })}
-                      </div>
-                    )}
-                  </div>
-                  )}
-
                   <div className="cl-ma-field">
-                    {pageVersion !== 2 && (
-                    <div className="cl-ma-label-row">
-                      <label className="cl-ma-label">Select Date{isBulkMode ? 's' : ''}</label>
-                      {selectedDates.length > 0 && (
-                        <button className="cl-ma-clear-dates" type="button" onClick={clearSelection}>
-                          Clear ({selectedDates.length})
-                        </button>
-                      )}
-                    </div>
-                    )}
                     <div className="cl-ma-calendar">
                       <div className="cl-ma-cal-header">
                         <button className="cl-ma-cal-nav" type="button" onClick={handlePrevMonth}>&lsaquo;</button>
@@ -495,7 +450,7 @@ export default function EnterMyTimePage() {
                               type="button"
                               className={
                                 'cl-ma-cal-day'
-                                + (pageVersion === 2 ? ' cl-ma-cal-day--v2' : '')
+                                + ' cl-ma-cal-day--v2'
                                 + (d.overflow ? ' cl-ma-cal-day--overflow' : '')
                                 + (isSelected ? ' cl-ma-cal-day--selected' : '')
                                 + (isToday && !isSelected ? ' cl-ma-cal-day--today' : '')
@@ -507,7 +462,7 @@ export default function EnterMyTimePage() {
                               title={isLogged ? eventLabel + ' (' + loggedData.hours + 'h)' : ''}
                             >
                               <span className="cl-ma-cal-day-num">{d.day}</span>
-                              {pageVersion === 2 && isLogged && !isSelected && (
+                              {isLogged && !isSelected && (
                                 <span
                                   className={'cl-ma-cal-event-bar cl-ma-cal-event-bar--' + loggedReason.toLowerCase()}
                                   title={eventLabel + ' (' + loggedData.hours + 'h)'}
@@ -527,7 +482,7 @@ export default function EnterMyTimePage() {
                       </div>
 
                       {/* Calendar tooltip popover */}
-                      {pageVersion === 2 && calTooltip && (
+                      {calTooltip && (
                         <div className="cl-ma-cal-tooltip-overlay" onClick={function () { setCalTooltip(null); setCalTooltipEdit(null); }}>
                           <div className="cl-ma-cal-tooltip" onClick={function (e) { e.stopPropagation(); }}>
                             <div className="cl-ma-cal-tooltip__header">
@@ -576,11 +531,11 @@ export default function EnterMyTimePage() {
                         </div>
                       )}
 
-                      <div className={pageVersion === 2 ? 'cl-ma-cal-legend cl-ma-cal-legend--v2' : 'cl-ma-cal-legend'}>
-                        <span className="cl-ma-cal-legend-item"><span className={pageVersion === 2 ? 'cl-ma-cal-legend-stripe cl-ma-cal-legend-stripe--today' : 'cl-ma-cal-legend-dot cl-ma-cal-legend-dot--today'} />Today</span>
-                        <span className="cl-ma-cal-legend-item"><span className={pageVersion === 2 ? 'cl-ma-cal-legend-stripe cl-ma-cal-legend-stripe--selected' : 'cl-ma-cal-legend-dot cl-ma-cal-legend-dot--selected'} />Selected</span>
-                        <span className="cl-ma-cal-legend-item"><span className={pageVersion === 2 ? 'cl-ma-cal-legend-stripe cl-ma-cal-legend-stripe--episode' : 'cl-ma-cal-legend-dot cl-ma-cal-legend-dot--episode'} />Episode</span>
-                        <span className="cl-ma-cal-legend-item"><span className={pageVersion === 2 ? 'cl-ma-cal-legend-stripe cl-ma-cal-legend-stripe--treatment' : 'cl-ma-cal-legend-dot cl-ma-cal-legend-dot--treatment'} />Treatment</span>
+                      <div className="cl-ma-cal-legend cl-ma-cal-legend--v2">
+                        <span className="cl-ma-cal-legend-item"><span className="cl-ma-cal-legend-stripe cl-ma-cal-legend-stripe--today" />Today</span>
+                        <span className="cl-ma-cal-legend-item"><span className="cl-ma-cal-legend-stripe cl-ma-cal-legend-stripe--selected" />Selected</span>
+                        <span className="cl-ma-cal-legend-item"><span className="cl-ma-cal-legend-stripe cl-ma-cal-legend-stripe--episode" />Episode</span>
+                        <span className="cl-ma-cal-legend-item"><span className="cl-ma-cal-legend-stripe cl-ma-cal-legend-stripe--treatment" />Treatment</span>
                       </div>
 
                       {/* Selected dates summary (when multi) */}
@@ -613,121 +568,6 @@ export default function EnterMyTimePage() {
                 </div>
 
                 {/* Right: Hours, warning, times, reason (hidden in v2 — moved to sidebar) */}
-                {pageVersion !== 2 && <div className="cl-ma-form-right">
-                  <div className="cl-ma-field">
-                    <label className="cl-ma-label cl-ma-label--upper">
-                      {isBulkMode ? 'Total Hours (' + selectedDates.length + ' days)' : (pageVersion === 2 ? 'Missed Hours Logged' : 'Hours Logged')}
-                    </label>
-                    <div className={'cl-ma-hours-input' + (totalBulkHours > 0 ? '' : ' cl-ma-hours-input--zero')}>
-                      <span className="cl-ma-hours-value">{isBulkMode ? totalBulkHours.toFixed(1) : hours}</span>
-                      <span className="cl-ma-hours-unit">Hours</span>
-                    </div>
-                  </div>
-
-                  {isBulkMode && (
-                    <div className="cl-ma-bulk-badge">
-                      <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><rect x="2" y="3" width="12" height="10" rx="2" stroke="#0033a0" strokeWidth="1.2"/><path d="M2 6h12" stroke="#0033a0" strokeWidth="1.2"/><path d="M5 1v4M11 1v4" stroke="#0033a0" strokeWidth="1.2" strokeLinecap="round"/></svg>
-                      <span>Bulk entry mode — same hours applied to all {selectedDates.length} selected dates</span>
-                    </div>
-                  )}
-
-                  {pageVersion !== 2 && (
-                  <div className="cl-ma-inline-message">
-                    <span className="cl-ma-inline-message-icon">
-                      <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
-                        <circle cx="12" cy="12" r="10" fill="#105fa8"/>
-                        <path d="M12 8v4M12 16h.01" stroke="#fff" strokeWidth="2" strokeLinecap="round"/>
-                      </svg>
-                    </span>
-                    <div className="cl-ma-inline-message-body">
-                      <span className="cl-ma-inline-message-title">Important</span>
-                      <span className="cl-ma-inline-message-text">Intermittent leave must be reported within 48 hours of the absence occurring to ensure timely payment.</span>
-                    </div>
-                  </div>
-                  )}
-
-                  {selectedDates.length === 1 && (
-                    <div className="cl-ma-field">
-                      <label className="cl-ma-label">Date</label>
-                      <div className="cl-ma-readonly-field">{formatDateKeyToShort(selectedDates[0])}</div>
-                    </div>
-                  )}
-
-                  <div className="cl-ma-time-row">
-                    <div className="cl-ma-field cl-ma-field--half">
-                      <label className="cl-ma-label">Start of Missed Time</label>
-                      <input
-                        type="text"
-                        className="cl-ma-time-input"
-                        value={startTime}
-                        onChange={function (e) { setStartTime(e.target.value); }}
-                      />
-                    </div>
-                    <div className="cl-ma-field cl-ma-field--half">
-                      <label className="cl-ma-label">End of Missed Time</label>
-                      <input
-                        type="text"
-                        className="cl-ma-time-input"
-                        value={endTime}
-                        onChange={function (e) { setEndTime(e.target.value); }}
-                      />
-                    </div>
-                  </div>
-
-                  {isBulkMode && (
-                    <p className="cl-ma-bulk-note">These times will apply to all selected dates. You can adjust individual days in the review step.</p>
-                  )}
-
-                  <div className="cl-ma-field" style={{ position: 'relative' }}>
-                    <label className="cl-ma-label">Reason</label>
-                    <button
-                      type="button"
-                      className="cl-ma-dropdown"
-                      onClick={function () { setReasonOpen(!reasonOpen); }}
-                    >
-                      <span style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-                        <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M2 7l3.5 3.5L12 4" stroke="#10b981" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/></svg>
-                        <span>{reason}</span>
-                      </span>
-                      <svg width="8" height="12" viewBox="0 0 8 12" fill="none"><path d="M1.5 1l5 5-5 5" stroke="#6b7280" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/></svg>
-                    </button>
-                    {reasonOpen && (
-                      <div className="cl-ma-dropdown-menu">
-                        {REASONS.map(function (r) {
-                          return (
-                            <button
-                              key={r.value}
-                              type="button"
-                              className={'cl-ma-dropdown-item' + (r.value === reason ? ' cl-ma-dropdown-item--active' : '')}
-                              onClick={function () { setReason(r.value); setReasonOpen(false); }}
-                            >
-                              {r.value}
-                            </button>
-                          );
-                        })}
-                      </div>
-                    )}
-                    {selectedReasonData && (
-                      <p className="cl-ma-reason-helper">{selectedReasonData.description}</p>
-                    )}
-                  </div>
-
-                  {/* Footer */}
-                  <div className="cl-ma-form-footer">
-                    <p className="cl-ma-disclaimer">By submitting, you certify that {isBulkMode ? 'these absences are' : 'this absence is'} related to your approved claim.</p>
-                    <div className="cl-ma-form-actions">
-                      <button
-                        className="cl-ma-btn-submit"
-                        type="button"
-                        onClick={handleSubmit}
-                        disabled={selectedDates.length === 0 || parseFloat(hours) <= 0}
-                      >
-                        {isBulkMode ? 'Review ' + selectedDates.length + ' Entries' : 'Submit Time Entry'}
-                      </button>
-                      <button className="cl-ma-btn-cancel" type="button" onClick={handleCancel}>Cancel</button>
-                    </div>
-                  </div>
-                </div>}
               </div>
           </div>
 
@@ -870,8 +710,6 @@ export default function EnterMyTimePage() {
 
         {/* Right sidebar */}
         <div className="cl-ma-sidebar">
-          {/* V2: Form fields in sidebar */}
-          {pageVersion === 2 && (
             <div className="cl-ma-sidebar-cta">
               <div className="cl-ma-field" style={{ position: 'relative' }}>
                 <label className="cl-ma-sidebar-cta__hours-label">Approved Leave Case</label>
@@ -920,7 +758,6 @@ export default function EnterMyTimePage() {
                 )}
               </button>
             </div>
-          )}
 
           {/* Reporting Guidance */}
           <div className="cl-ma-guidance-card">
@@ -970,16 +807,6 @@ export default function EnterMyTimePage() {
       </div>
 
       {/* Batch Review Modal */}
-      {/* Version control toolbar */}
-      <div className="cl-version-toolbar">
-        <button className="cl-version-btn" disabled={pageVersion <= 1} onClick={function () { setPageVersion(pageVersion - 1); }}>
-          <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M9 2L4 7l5 5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/></svg>
-        </button>
-        <span className="cl-version-label">v{pageVersion}</span>
-        <button className="cl-version-btn" disabled={pageVersion >= 2} onClick={function () { setPageVersion(pageVersion + 1); }}>
-          <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M5 2l5 5-5 5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/></svg>
-        </button>
-      </div>
 
       {showPreview && (
         <div className="cl-ma-modal-overlay" onClick={function () { setShowPreview(false); }}>
