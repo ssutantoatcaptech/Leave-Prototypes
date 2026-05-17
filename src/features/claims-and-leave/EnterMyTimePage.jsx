@@ -109,7 +109,9 @@ export default function EnterMyTimePage() {
 
   var loggedDateKeys = {};
   absences.forEach(function (a) {
-    if (a.caseId === selectedCase.id) loggedDateKeys[a.dateKey] = a.reason;
+    if (a.caseId === selectedCase.id) {
+      loggedDateKeys[a.dateKey] = { reason: a.reason, hours: a.hours };
+    }
   });
 
   var filteredAbsences = absences.filter(function (a) { return a.caseId === selectedCase.id; });
@@ -450,14 +452,18 @@ export default function EnterMyTimePage() {
                           var dayKey = !d.overflow ? formatDateKey(calYear, calMonth, d.day) : '';
                           var isSelected = selectedDates.includes(dayKey);
                           var isToday = dayKey === todayKey;
-                          var isLogged = !d.overflow && loggedDateKeys[dayKey];
-                          var loggedReason = isLogged ? loggedDateKeys[dayKey] : null;
+                          var loggedData = !d.overflow && loggedDateKeys[dayKey] ? loggedDateKeys[dayKey] : null;
+                          var isLogged = !!loggedData;
+                          var loggedReason = isLogged ? loggedData.reason : null;
+                          var caseName = selectedCase.label.split(' — ')[1] || '';
+                          var eventLabel = isLogged ? caseName.split('(')[0].trim() + ', ' + loggedReason : '';
                           return (
                             <button
                               key={i}
                               type="button"
                               className={
                                 'cl-ma-cal-day'
+                                + (pageVersion === 2 ? ' cl-ma-cal-day--v2' : '')
                                 + (d.overflow ? ' cl-ma-cal-day--overflow' : '')
                                 + (isSelected ? ' cl-ma-cal-day--selected' : '')
                                 + (isToday && !isSelected ? ' cl-ma-cal-day--today' : '')
@@ -466,8 +472,14 @@ export default function EnterMyTimePage() {
                                 + (loggedReason === 'Treatment' && !isSelected ? ' cl-ma-cal-day--treatment' : '')
                               }
                               onClick={function () { handleDayClick(d.day, d.overflow); }}
+                              title={isLogged ? eventLabel + ' (' + loggedData.hours + 'h)' : ''}
                             >
-                              {d.day}
+                              <span className="cl-ma-cal-day-num">{d.day}</span>
+                              {pageVersion === 2 && isLogged && !isSelected && (
+                                <span className={'cl-ma-cal-event-bar cl-ma-cal-event-bar--' + loggedReason.toLowerCase()} title={eventLabel + ' (' + loggedData.hours + 'h)'}>
+                                  {eventLabel}
+                                </span>
+                              )}
                               {isSelected && selectedDates.length > 1 && (
                                 <span className="cl-ma-cal-day-check">
                                   <svg width="10" height="10" viewBox="0 0 10 10" fill="none"><path d="M2 5l2.5 2.5L8 3" stroke="#fff" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/></svg>

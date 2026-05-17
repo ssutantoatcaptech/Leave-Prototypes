@@ -1992,29 +1992,66 @@
   background: #3b82f6;
 }
 
-/* V2 calendar day left-border stripe for logged days */
-.cl-ma-form-card--v2 .cl-ma-cal-day--logged::after {
-  content: '';
-  position: absolute;
-  top: 4px;
-  bottom: 4px;
-  left: 0;
-  width: 3px;
+/* V2 calendar day: taller cells with event bars */
+.cl-ma-cal-day--v2 {
+  aspect-ratio: unset;
   height: auto;
-  border-radius: 0 2px 2px 0;
-  transform: none;
+  min-height: 64px;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  justify-content: flex-start;
+  padding: 4px 3px;
 }
 
-.cl-ma-form-card--v2 .cl-ma-cal-day--episode::after {
-  background: #f59e0b;
+.cl-ma-cal-day--v2 .cl-ma-cal-day-num {
+  align-self: flex-start;
+  font-size: 12px;
+  line-height: 1;
+  margin-bottom: 2px;
+  padding-left: 2px;
 }
 
-.cl-ma-form-card--v2 .cl-ma-cal-day--treatment::after {
-  background: #3b82f6;
+.cl-ma-cal-day--v2.cl-ma-cal-day--overflow {
+  min-height: 64px;
+}
+
+/* V2: hide the ::after dot for logged days — replaced by event bar */
+.cl-ma-form-card--v2 .cl-ma-cal-day--logged::after {
+  display: none;
+}
+
+/* Event bar chip inside calendar cell */
+.cl-ma-cal-event-bar {
+  display: block;
+  font-family: 'Source Sans Pro', sans-serif;
+  font-size: 10px;
+  font-weight: 500;
+  line-height: 1.2;
+  padding: 2px 4px;
+  border-radius: 2px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 100%;
+  text-align: left;
+  cursor: default;
+}
+
+.cl-ma-cal-event-bar--episode {
+  background: #fef3c7;
+  border-left: 3px solid #f59e0b;
+  color: #92400e;
+}
+
+.cl-ma-cal-event-bar--treatment {
+  background: #dbeafe;
+  border-left: 3px solid #3b82f6;
+  color: #1e40af;
 }
 
 .cl-ma-form-card--v2 .cl-ma-cal-day--today {
-  border-left: 3px solid #105fa8;
+  background: #f0f7ff;
 }
 
 .cl-ma-reason-helper {
