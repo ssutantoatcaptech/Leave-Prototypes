@@ -1292,6 +1292,64 @@
   gap: 12px;
 }
 
+/* View toggle mobile */
+.cl-ma-cal-header {
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.cl-ma-view-toggle__btn {
+  padding: 4px 10px;
+  font-size: 11px;
+}
+
+/* Weekly view mobile: vertical stack */
+.cl-ma-cal-week {
+  grid-template-columns: 1fr;
+}
+
+.cl-ma-week-day {
+  flex-direction: row;
+  min-height: auto;
+  padding: 12px 16px;
+  align-items: center;
+  gap: 12px;
+  border-right: none;
+  border-bottom: 1px solid #f0f0f0;
+}
+
+.cl-ma-week-day:last-child {
+  border-bottom: none;
+}
+
+.cl-ma-week-day__header {
+  flex-direction: row;
+  gap: 8px;
+  margin-bottom: 0;
+  min-width: 72px;
+  align-items: center;
+}
+
+.cl-ma-week-day__num {
+  font-size: 16px;
+}
+
+.cl-ma-week-day__events {
+  flex: 1;
+  min-width: 0;
+}
+
+.cl-ma-week-day__check {
+  position: static;
+}
+
+/* Daily view mobile */
+.cl-ma-dayview__slot-label {
+  width: 60px;
+  font-size: 11px;
+  padding: 8px;
+}
+
 .cl-ma-case-select,
 .cl-ma-dropdown {
   font-size: 13px;
@@ -1798,6 +1856,56 @@
 
   .cl-ma-calendar {
     padding: 16px;
+  }
+
+  .cl-ma-cal-header {
+    flex-wrap: nowrap;
+  }
+
+  .cl-ma-view-toggle__btn {
+    padding: 5px 14px;
+    font-size: 12px;
+  }
+
+  .cl-ma-cal-week {
+    grid-template-columns: repeat(7, 1fr);
+  }
+
+  .cl-ma-week-day {
+    flex-direction: column;
+    min-height: 140px;
+    border-right: 1px solid #f0f0f0;
+    border-bottom: none;
+    padding: 10px 8px;
+    align-items: stretch;
+    gap: 0;
+  }
+
+  .cl-ma-week-day:last-child {
+    border-right: none;
+  }
+
+  .cl-ma-week-day__header {
+    flex-direction: column;
+    gap: 2px;
+    min-width: unset;
+    align-items: center;
+  }
+
+  .cl-ma-week-day__num {
+    font-size: 18px;
+  }
+
+  .cl-ma-week-day__check {
+    position: absolute;
+    top: 6px;
+    right: 6px;
+  }
+
+  .cl-ma-dayview__slot-label {
+    width: 72px;
+    font-size: 12px;
+    padding: 10px 12px;
   }
 
   .cl-ma-cal-day {

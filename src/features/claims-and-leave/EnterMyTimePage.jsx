@@ -67,6 +67,41 @@ function buildCalendarDays(year, month) {
 }
 
 var MONTH_NAMES = ['January','February','March','April','May','June','July','August','September','October','November','December'];
+var DAY_SHORT = ['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];
+var DAY_FULL = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
+
+function getWeekStart(dateStr) {
+  var d = new Date(dateStr + 'T00:00:00');
+  d.setDate(d.getDate() - d.getDay());
+  return d;
+}
+
+function buildWeekDays(weekStart) {
+  var days = [];
+  for (var i = 0; i < 7; i++) {
+    var d = new Date(weekStart.getTime() + i * 86400000);
+    days.push({
+      day: d.getDate(),
+      month: d.getMonth(),
+      year: d.getFullYear(),
+      dow: d.getDay(),
+      dateKey: d.getFullYear() + '-' + String(d.getMonth() + 1).padStart(2, '0') + '-' + String(d.getDate()).padStart(2, '0')
+    });
+  }
+  return days;
+}
+
+function formatWeekRange(weekStart) {
+  var end = new Date(weekStart.getTime() + 6 * 86400000);
+  var startMonth = MONTH_NAMES[weekStart.getMonth()];
+  var endMonth = MONTH_NAMES[end.getMonth()];
+  if (weekStart.getMonth() === end.getMonth()) {
+    return startMonth + ' ' + weekStart.getDate() + ' – ' + end.getDate() + ', ' + weekStart.getFullYear();
+  }
+  return startMonth + ' ' + weekStart.getDate() + ' – ' + endMonth + ' ' + end.getDate() + ', ' + end.getFullYear();
+}
+
+var TIME_SLOTS = ['7:00 AM','8:00 AM','9:00 AM','10:00 AM','11:00 AM','12:00 PM','1:00 PM','2:00 PM','3:00 PM','4:00 PM','5:00 PM','6:00 PM'];
 
 export default function EnterMyTimePage() {
   const base = useBasePath();
@@ -74,8 +109,11 @@ export default function EnterMyTimePage() {
 
   var [selectedCase, setSelectedCase] = useState(LEAVE_CASES[0]);
   var [caseOpen, setCaseOpen] = useState(false);
+  var [calView, setCalView] = useState('month');
   var [calYear, setCalYear] = useState(2026);
   var [calMonth, setCalMonth] = useState(4);
+  var [calWeekStart, setCalWeekStart] = useState(getWeekStart('2026-05-11'));
+  var [calDay, setCalDay] = useState(new Date('2026-05-12T00:00:00'));
   var [selectedDates, setSelectedDates] = useState([]);
   var [startTime, setStartTime] = useState('08:00 AM');
   var [endTime, setEndTime] = useState('12:00 PM');
@@ -147,6 +185,73 @@ export default function EnterMyTimePage() {
     if (calMonth === 11) { setCalMonth(0); setCalYear(calYear + 1); }
     else { setCalMonth(calMonth + 1); }
   }
+
+  function handlePrevWeek() {
+    setCalWeekStart(new Date(calWeekStart.getTime() - 7 * 86400000));
+  }
+  function handleNextWeek() {
+    setCalWeekStart(new Date(calWeekStart.getTime() + 7 * 86400000));
+  }
+  function handlePrevDay() {
+    setCalDay(new Date(calDay.getTime() - 86400000));
+  }
+  function handleNextDay() {
+    setCalDay(new Date(calDay.getTime() + 86400000));
+  }
+
+  function handleCalPrev() {
+    if (calView === 'month') handlePrevMonth();
+    else if (calView === 'week') handlePrevWeek();
+    else handlePrevDay();
+  }
+  function handleCalNext() {
+    if (calView === 'month') handleNextMonth();
+    else if (calView === 'week') handleNextWeek();
+    else handleNextDay();
+  }
+
+  function switchCalView(view) {
+    if (view === calView) return;
+    if (view === 'week' && calView === 'month') {
+      setCalWeekStart(getWeekStart(calYear + '-' + String(calMonth + 1).padStart(2, '0') + '-15'));
+    } else if (view === 'day' && calView === 'month') {
+      var dayDate = todayKey.startsWith(calYear + '-' + String(calMonth + 1).padStart(2, '0'))
+        ? new Date(todayKey + 'T00:00:00')
+        : new Date(calYear, calMonth, 15);
+      setCalDay(dayDate);
+    } else if (view === 'week' && calView === 'day') {
+      setCalWeekStart(getWeekStart(calDay.getFullYear() + '-' + String(calDay.getMonth() + 1).padStart(2, '0') + '-' + String(calDay.getDate()).padStart(2, '0')));
+    } else if (view === 'day' && calView === 'week') {
+      setCalDay(new Date(calWeekStart.getTime()));
+    } else if (view === 'month' && calView === 'week') {
+      setCalMonth(calWeekStart.getMonth());
+      setCalYear(calWeekStart.getFullYear());
+    } else if (view === 'month' && calView === 'day') {
+      setCalMonth(calDay.getMonth());
+      setCalYear(calDay.getFullYear());
+    }
+    setCalView(view);
+  }
+
+  function handleDateSelect(dateKey) {
+    if (selectedDates.includes(dateKey)) {
+      setSelectedDates(selectedDates.filter(function (d) { return d !== dateKey; }));
+      var newEdits = Object.assign({}, perDayEdits);
+      delete newEdits[dateKey];
+      setPerDayEdits(newEdits);
+    } else {
+      setSelectedDates(selectedDates.concat([dateKey]).sort());
+    }
+  }
+
+  var weekDays = buildWeekDays(calWeekStart);
+  var calDayKey = calDay.getFullYear() + '-' + String(calDay.getMonth() + 1).padStart(2, '0') + '-' + String(calDay.getDate()).padStart(2, '0');
+
+  var calHeaderLabel = calView === 'month'
+    ? MONTH_NAMES[calMonth] + ' ' + calYear
+    : calView === 'week'
+      ? formatWeekRange(calWeekStart)
+      : DAY_FULL[calDay.getDay()] + ', ' + MONTH_NAMES[calDay.getMonth()] + ' ' + calDay.getDate() + ', ' + calDay.getFullYear();
 
   function handleCaseSelect(c) {
     setSelectedCase(c);
@@ -459,11 +564,17 @@ export default function EnterMyTimePage() {
                   <div className="cl-ma-field">
                     <div className="cl-ma-calendar">
                       <div className="cl-ma-cal-header">
-                        <button className="cl-ma-cal-nav" type="button" onClick={handlePrevMonth}>&lsaquo;</button>
-                        <span className="cl-ma-cal-month">{MONTH_NAMES[calMonth]} {calYear}</span>
-                        <button className="cl-ma-cal-nav" type="button" onClick={handleNextMonth}>&rsaquo;</button>
+                        <button className="cl-ma-cal-nav" type="button" onClick={handleCalPrev}>&lsaquo;</button>
+                        <span className="cl-ma-cal-month">{calHeaderLabel}</span>
+                        <div className="cl-ma-view-toggle">
+                          <button type="button" className={'cl-ma-view-toggle__btn' + (calView === 'month' ? ' cl-ma-view-toggle__btn--active' : '')} onClick={function () { switchCalView('month'); }}>Month</button>
+                          <button type="button" className={'cl-ma-view-toggle__btn' + (calView === 'week' ? ' cl-ma-view-toggle__btn--active' : '')} onClick={function () { switchCalView('week'); }}>Week</button>
+                          <button type="button" className={'cl-ma-view-toggle__btn' + (calView === 'day' ? ' cl-ma-view-toggle__btn--active' : '')} onClick={function () { switchCalView('day'); }}>Day</button>
+                        </div>
+                        <button className="cl-ma-cal-nav" type="button" onClick={handleCalNext}>&rsaquo;</button>
                       </div>
 
+                      {calView === 'month' && (
                       <div className="cl-ma-cal-grid">
                         <span className="cl-ma-cal-dow">Su</span>
                         <span className="cl-ma-cal-dow">Mo</span>
@@ -517,6 +628,104 @@ export default function EnterMyTimePage() {
                           );
                         })}
                       </div>
+                      )}
+
+                      {calView === 'week' && (
+                      <div className="cl-ma-cal-week">
+                        {weekDays.map(function (wd) {
+                          var isSelected = selectedDates.includes(wd.dateKey);
+                          var isToday = wd.dateKey === todayKey;
+                          var loggedData = loggedDateKeys[wd.dateKey] || null;
+                          var caseName = selectedCase.label.split(' — ')[1] || '';
+                          var eventLabel = loggedData ? caseName.split('(')[0].trim() + ', ' + loggedData.reason : '';
+                          return (
+                            <div
+                              key={wd.dateKey}
+                              className={'cl-ma-week-day' + (isSelected ? ' cl-ma-week-day--selected' : '') + (isToday ? ' cl-ma-week-day--today' : '')}
+                              onClick={function () { handleDateSelect(wd.dateKey); }}
+                            >
+                              <div className="cl-ma-week-day__header">
+                                <span className="cl-ma-week-day__name">{DAY_SHORT[wd.dow]}</span>
+                                <span className="cl-ma-week-day__num">{wd.day}</span>
+                              </div>
+                              <div className="cl-ma-week-day__events">
+                                {loggedData && (
+                                  <span
+                                    className={'cl-ma-cal-event-bar cl-ma-cal-event-bar--' + loggedData.reason.toLowerCase()}
+                                    onClick={function (e) { e.stopPropagation(); openCalTooltip(wd.dateKey, e); }}
+                                  >
+                                    {eventLabel} ({loggedData.hours}h)
+                                  </span>
+                                )}
+                              </div>
+                              {isSelected && (
+                                <span className="cl-ma-week-day__check">
+                                  <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3L10 3" stroke="#105fa8" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"/></svg>
+                                </span>
+                              )}
+                            </div>
+                          );
+                        })}
+                      </div>
+                      )}
+
+                      {calView === 'day' && (function () {
+                        var dayLoggedData = loggedDateKeys[calDayKey] || null;
+                        var isDaySelected = selectedDates.includes(calDayKey);
+                        var caseName = selectedCase.label.split(' — ')[1] || '';
+                        var dayEventLabel = dayLoggedData ? caseName.split('(')[0].trim() + ', ' + dayLoggedData.reason : '';
+                        return (
+                      <div className="cl-ma-cal-dayview">
+                        <div className="cl-ma-dayview__date-badge">
+                          <span className="cl-ma-dayview__date-num">{calDay.getDate()}</span>
+                          <span className="cl-ma-dayview__date-day">{DAY_FULL[calDay.getDay()]}</span>
+                        </div>
+                        <div className="cl-ma-dayview__timeline">
+                          {TIME_SLOTS.map(function (slot) {
+                            var slotHour = parseInt(slot);
+                            if (slot.includes('PM') && slotHour !== 12) slotHour += 12;
+                            if (slot.includes('AM') && slotHour === 12) slotHour = 0;
+                            var hasEvent = false;
+                            if (dayLoggedData) {
+                              var startMatch = dayLoggedData.startTime.match(/(\d+):.*?(AM|PM)/i);
+                              var endMatch = dayLoggedData.endTime.match(/(\d+):.*?(AM|PM)/i);
+                              if (startMatch && endMatch) {
+                                var startH = parseInt(startMatch[1]);
+                                if (startMatch[2].toUpperCase() === 'PM' && startH !== 12) startH += 12;
+                                if (startMatch[2].toUpperCase() === 'AM' && startH === 12) startH = 0;
+                                var endH = parseInt(endMatch[1]);
+                                if (endMatch[2].toUpperCase() === 'PM' && endH !== 12) endH += 12;
+                                if (endMatch[2].toUpperCase() === 'AM' && endH === 12) endH = 0;
+                                hasEvent = slotHour >= startH && slotHour < endH;
+                              }
+                            }
+                            return (
+                              <div key={slot} className={'cl-ma-dayview__slot' + (hasEvent ? ' cl-ma-dayview__slot--active' : '')}>
+                                <span className="cl-ma-dayview__slot-label">{slot}</span>
+                                <div className="cl-ma-dayview__slot-content">
+                                  {hasEvent && (
+                                    <span
+                                      className={'cl-ma-cal-event-bar cl-ma-cal-event-bar--' + dayLoggedData.reason.toLowerCase()}
+                                      onClick={function (e) { openCalTooltip(calDayKey, e); }}
+                                    >
+                                      {dayEventLabel} ({dayLoggedData.hours}h)
+                                    </span>
+                                  )}
+                                </div>
+                              </div>
+                            );
+                          })}
+                        </div>
+                        <button
+                          type="button"
+                          className={'cl-ma-dayview__select-btn' + (isDaySelected ? ' cl-ma-dayview__select-btn--active' : '')}
+                          onClick={function () { handleDateSelect(calDayKey); }}
+                        >
+                          {isDaySelected ? 'Deselect This Day' : 'Select This Day'}
+                        </button>
+                      </div>
+                        );
+                      })()}
 
                       {/* Calendar tooltip popover */}
                       {calTooltip && (

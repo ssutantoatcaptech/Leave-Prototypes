@@ -1811,6 +1811,7 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
+  gap: 8px;
   margin-bottom: 12px;
 }
 
@@ -1838,6 +1839,7 @@
   font-size: 16px;
   font-weight: 600;
   color: #003a70;
+  white-space: nowrap;
 }
 
 .cl-ma-cal-grid {
@@ -2048,6 +2050,230 @@
   background: #dbeafe;
   border-left: 3px solid #3b82f6;
   color: #1e40af;
+}
+
+/* View toggle segmented control */
+.cl-ma-view-toggle {
+  display: inline-flex;
+  background: #f3f4f6;
+  border-radius: 8px;
+  padding: 3px;
+  gap: 2px;
+}
+
+.cl-ma-view-toggle__btn {
+  padding: 5px 14px;
+  border: none;
+  background: transparent;
+  border-radius: 6px;
+  font-family: 'Source Sans Pro', sans-serif;
+  font-size: 12px;
+  font-weight: 600;
+  color: #6b7280;
+  cursor: pointer;
+  transition: background 0.15s, color 0.15s, box-shadow 0.15s;
+  line-height: 1.4;
+}
+
+.cl-ma-view-toggle__btn:hover {
+  color: #374151;
+}
+
+.cl-ma-view-toggle__btn--active {
+  background: #ffffff;
+  color: #105fa8;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+/* Weekly view */
+.cl-ma-cal-week {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  border: 1px solid #e5e7eb;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.cl-ma-week-day {
+  display: flex;
+  flex-direction: column;
+  min-height: 140px;
+  border-right: 1px solid #f0f0f0;
+  padding: 10px 8px;
+  cursor: pointer;
+  transition: background 0.12s;
+  position: relative;
+}
+
+.cl-ma-week-day:last-child {
+  border-right: none;
+}
+
+.cl-ma-week-day:hover {
+  background: #eef4fb;
+}
+
+.cl-ma-week-day--selected {
+  background: #e8f0fa;
+}
+
+.cl-ma-week-day--today .cl-ma-week-day__num {
+  background: #105fa8;
+  color: #fff;
+  border-radius: 50%;
+  width: 28px;
+  height: 28px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.cl-ma-week-day__header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 8px;
+  gap: 2px;
+}
+
+.cl-ma-week-day__name {
+  font-family: 'Source Sans Pro', sans-serif;
+  font-size: 11px;
+  font-weight: 600;
+  text-transform: uppercase;
+  color: #6b7280;
+  letter-spacing: 0.03em;
+}
+
+.cl-ma-week-day__num {
+  font-family: 'Source Sans Pro', sans-serif;
+  font-size: 18px;
+  font-weight: 600;
+  color: #222;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.cl-ma-week-day__events {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  flex: 1;
+}
+
+.cl-ma-week-day__events .cl-ma-cal-event-bar {
+  font-size: 10px;
+  white-space: normal;
+  line-height: 1.3;
+}
+
+.cl-ma-week-day__check {
+  position: absolute;
+  top: 6px;
+  right: 6px;
+}
+
+/* Daily view */
+.cl-ma-cal-dayview {
+  border: 1px solid #e5e7eb;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.cl-ma-dayview__date-badge {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 16px 20px;
+  background: #f9fafb;
+  border-bottom: 1px solid #f0f0f0;
+}
+
+.cl-ma-dayview__date-num {
+  font-family: 'Source Sans Pro', sans-serif;
+  font-size: 32px;
+  font-weight: 700;
+  color: #105fa8;
+  line-height: 1;
+}
+
+.cl-ma-dayview__date-day {
+  font-family: 'Source Sans Pro', sans-serif;
+  font-size: 14px;
+  font-weight: 500;
+  color: #6b7280;
+}
+
+.cl-ma-dayview__timeline {
+  display: flex;
+  flex-direction: column;
+}
+
+.cl-ma-dayview__slot {
+  display: flex;
+  align-items: stretch;
+  min-height: 44px;
+  border-bottom: 1px solid #f5f5f5;
+}
+
+.cl-ma-dayview__slot:last-child {
+  border-bottom: none;
+}
+
+.cl-ma-dayview__slot--active {
+  background: #fafcff;
+}
+
+.cl-ma-dayview__slot-label {
+  width: 72px;
+  padding: 10px 12px;
+  font-family: 'Source Sans Pro', sans-serif;
+  font-size: 12px;
+  font-weight: 500;
+  color: #9ca3af;
+  border-right: 1px solid #f0f0f0;
+  flex-shrink: 0;
+  display: flex;
+  align-items: flex-start;
+}
+
+.cl-ma-dayview__slot-content {
+  flex: 1;
+  padding: 6px 12px;
+  display: flex;
+  align-items: center;
+}
+
+.cl-ma-dayview__slot-content .cl-ma-cal-event-bar {
+  font-size: 12px;
+  padding: 4px 8px;
+}
+
+.cl-ma-dayview__select-btn {
+  display: block;
+  width: 100%;
+  padding: 14px;
+  background: #105fa8;
+  color: #ffffff;
+  border: none;
+  font-family: 'Source Sans Pro', sans-serif;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.15s;
+}
+
+.cl-ma-dayview__select-btn:hover {
+  background: #0d4d8a;
+}
+
+.cl-ma-dayview__select-btn--active {
+  background: #dc2626;
+}
+
+.cl-ma-dayview__select-btn--active:hover {
+  background: #b91c1c;
 }
 
 .cl-ma-form-card--v2 .cl-ma-cal-day--today {
