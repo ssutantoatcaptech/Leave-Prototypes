@@ -1969,6 +1969,54 @@
   background: #3b82f6;
 }
 
+/* V2 legend stripes */
+.cl-ma-cal-legend-stripe {
+  width: 3px;
+  height: 14px;
+  border-radius: 2px;
+}
+
+.cl-ma-cal-legend-stripe--today {
+  background: #105fa8;
+}
+
+.cl-ma-cal-legend-stripe--selected {
+  background: #003a70;
+}
+
+.cl-ma-cal-legend-stripe--episode {
+  background: #f59e0b;
+}
+
+.cl-ma-cal-legend-stripe--treatment {
+  background: #3b82f6;
+}
+
+/* V2 calendar day left-border stripe for logged days */
+.cl-ma-form-card--v2 .cl-ma-cal-day--logged::after {
+  content: '';
+  position: absolute;
+  top: 4px;
+  bottom: 4px;
+  left: 0;
+  width: 3px;
+  height: auto;
+  border-radius: 0 2px 2px 0;
+  transform: none;
+}
+
+.cl-ma-form-card--v2 .cl-ma-cal-day--episode::after {
+  background: #f59e0b;
+}
+
+.cl-ma-form-card--v2 .cl-ma-cal-day--treatment::after {
+  background: #3b82f6;
+}
+
+.cl-ma-form-card--v2 .cl-ma-cal-day--today {
+  border-left: 3px solid #105fa8;
+}
+
 .cl-ma-reason-helper {
   margin: 6px 0 0;
   font-family: 'Source Sans Pro', sans-serif;

@@ -477,11 +477,11 @@ export default function EnterMyTimePage() {
                           );
                         })}
                       </div>
-                      <div className="cl-ma-cal-legend">
-                        <span className="cl-ma-cal-legend-item"><span className="cl-ma-cal-legend-dot cl-ma-cal-legend-dot--today" />Today</span>
-                        <span className="cl-ma-cal-legend-item"><span className="cl-ma-cal-legend-dot cl-ma-cal-legend-dot--selected" />Selected</span>
-                        <span className="cl-ma-cal-legend-item"><span className="cl-ma-cal-legend-dot cl-ma-cal-legend-dot--episode" />Episode</span>
-                        <span className="cl-ma-cal-legend-item"><span className="cl-ma-cal-legend-dot cl-ma-cal-legend-dot--treatment" />Treatment</span>
+                      <div className={pageVersion === 2 ? 'cl-ma-cal-legend cl-ma-cal-legend--v2' : 'cl-ma-cal-legend'}>
+                        <span className="cl-ma-cal-legend-item"><span className={pageVersion === 2 ? 'cl-ma-cal-legend-stripe cl-ma-cal-legend-stripe--today' : 'cl-ma-cal-legend-dot cl-ma-cal-legend-dot--today'} />Today</span>
+                        <span className="cl-ma-cal-legend-item"><span className={pageVersion === 2 ? 'cl-ma-cal-legend-stripe cl-ma-cal-legend-stripe--selected' : 'cl-ma-cal-legend-dot cl-ma-cal-legend-dot--selected'} />Selected</span>
+                        <span className="cl-ma-cal-legend-item"><span className={pageVersion === 2 ? 'cl-ma-cal-legend-stripe cl-ma-cal-legend-stripe--episode' : 'cl-ma-cal-legend-dot cl-ma-cal-legend-dot--episode'} />Episode</span>
+                        <span className="cl-ma-cal-legend-item"><span className={pageVersion === 2 ? 'cl-ma-cal-legend-stripe cl-ma-cal-legend-stripe--treatment' : 'cl-ma-cal-legend-dot cl-ma-cal-legend-dot--treatment'} />Treatment</span>
                       </div>
 
                       {/* Selected dates summary (when multi) */}
@@ -782,7 +782,7 @@ export default function EnterMyTimePage() {
                   onClick={function () { setCaseOpen(!caseOpen); }}
                 >
                   <span className="cl-ma-case-pill__id">{selectedCase.id}</span>
-                  <span className="cl-ma-case-pill__label">Paid Family &amp; Medical Leave</span>
+                  <span className="cl-ma-case-pill__label">{selectedCase.label.split(' — ')[1]}</span>
                   <svg className="cl-ma-case-pill__chevron" width="10" height="6" viewBox="0 0 10 6" fill="none"><path d="M1 1l4 4 4-4" stroke="currentColor" strokeWidth="1.3" strokeLinecap="round" strokeLinejoin="round"/></svg>
                 </button>
                 {caseOpen && (
