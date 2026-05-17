@@ -103,14 +103,16 @@ export default function EnterMyTimePage() {
   var [pageVersion, setPageVersion] = useState(2);
   var [showEntryModal, setShowEntryModal] = useState(false);
   var [modalEntries, setModalEntries] = useState([]);
+  var [calTooltip, setCalTooltip] = useState(null);
+  var [calTooltipEdit, setCalTooltipEdit] = useState(null);
 
   var calendarDays = buildCalendarDays(calYear, calMonth);
   var hours = calcHours(startTime, endTime);
 
   var loggedDateKeys = {};
-  absences.forEach(function (a) {
+  absences.forEach(function (a, idx) {
     if (a.caseId === selectedCase.id) {
-      loggedDateKeys[a.dateKey] = { reason: a.reason, hours: a.hours };
+      loggedDateKeys[a.dateKey] = { reason: a.reason, hours: a.hours, startTime: a.startTime, endTime: a.endTime, absIdx: idx };
     }
   });
 
@@ -328,6 +330,36 @@ export default function EnterMyTimePage() {
     return sum + parseFloat(calcHours(e.startTime, e.endTime));
   }, 0);
 
+  function openCalTooltip(dayKey, e) {
+    e.stopPropagation();
+    var data = loggedDateKeys[dayKey];
+    if (!data) return;
+    setCalTooltip({ dateKey: dayKey, data: data });
+    setCalTooltipEdit(null);
+  }
+
+  function startCalTooltipEdit() {
+    if (!calTooltip) return;
+    setCalTooltipEdit({ startTime: calTooltip.data.startTime, endTime: calTooltip.data.endTime, reason: calTooltip.data.reason });
+  }
+
+  function saveCalTooltipEdit() {
+    if (!calTooltip || !calTooltipEdit) return;
+    var idx = calTooltip.data.absIdx;
+    var updated = absences.slice();
+    var h = calcHours(calTooltipEdit.startTime, calTooltipEdit.endTime);
+    updated[idx] = Object.assign({}, updated[idx], {
+      startTime: calTooltipEdit.startTime,
+      endTime: calTooltipEdit.endTime,
+      hours: h,
+      reason: calTooltipEdit.reason,
+      reasonColor: getReasonColor(calTooltipEdit.reason),
+    });
+    setAbsences(updated);
+    setCalTooltip(null);
+    setCalTooltipEdit(null);
+  }
+
   var selectedReasonData = REASONS.find(function (r) { return r.value === reason; });
 
   return (
@@ -476,7 +508,11 @@ export default function EnterMyTimePage() {
                             >
                               <span className="cl-ma-cal-day-num">{d.day}</span>
                               {pageVersion === 2 && isLogged && !isSelected && (
-                                <span className={'cl-ma-cal-event-bar cl-ma-cal-event-bar--' + loggedReason.toLowerCase()} title={eventLabel + ' (' + loggedData.hours + 'h)'}>
+                                <span
+                                  className={'cl-ma-cal-event-bar cl-ma-cal-event-bar--' + loggedReason.toLowerCase()}
+                                  title={eventLabel + ' (' + loggedData.hours + 'h)'}
+                                  onClick={function (e) { openCalTooltip(dayKey, e); }}
+                                >
                                   {eventLabel}
                                 </span>
                               )}
@@ -489,6 +525,57 @@ export default function EnterMyTimePage() {
                           );
                         })}
                       </div>
+
+                      {/* Calendar tooltip popover */}
+                      {pageVersion === 2 && calTooltip && (
+                        <div className="cl-ma-cal-tooltip-overlay" onClick={function () { setCalTooltip(null); setCalTooltipEdit(null); }}>
+                          <div className="cl-ma-cal-tooltip" onClick={function (e) { e.stopPropagation(); }}>
+                            <div className="cl-ma-cal-tooltip__header">
+                              <span className="cl-ma-cal-tooltip__date">{formatDateKeyToDisplay(calTooltip.dateKey)}</span>
+                              <button className="cl-ma-cal-tooltip__close" onClick={function () { setCalTooltip(null); setCalTooltipEdit(null); }}>×</button>
+                            </div>
+                            {!calTooltipEdit ? (
+                              <div className="cl-ma-cal-tooltip__body">
+                                <div className="cl-ma-cal-tooltip__row">
+                                  <span className="cl-ma-cal-tooltip__label">Time</span>
+                                  <span className="cl-ma-cal-tooltip__value">{calTooltip.data.startTime} – {calTooltip.data.endTime}</span>
+                                </div>
+                                <div className="cl-ma-cal-tooltip__row">
+                                  <span className="cl-ma-cal-tooltip__label">Hours</span>
+                                  <span className="cl-ma-cal-tooltip__value">{calTooltip.data.hours}h</span>
+                                </div>
+                                <div className="cl-ma-cal-tooltip__row">
+                                  <span className="cl-ma-cal-tooltip__label">Reason</span>
+                                  <span className="cl-ma-cal-tooltip__value">{calTooltip.data.reason}</span>
+                                </div>
+                                <button className="cl-ma-cal-tooltip__edit-btn" onClick={startCalTooltipEdit}>Edit Entry</button>
+                              </div>
+                            ) : (
+                              <div className="cl-ma-cal-tooltip__body">
+                                <div className="cl-ma-cal-tooltip__field">
+                                  <span className="cl-ma-cal-tooltip__label">Start</span>
+                                  <input type="text" className="cl-ma-cal-tooltip__input" value={calTooltipEdit.startTime} onChange={function (e) { setCalTooltipEdit(Object.assign({}, calTooltipEdit, { startTime: e.target.value })); }} />
+                                </div>
+                                <div className="cl-ma-cal-tooltip__field">
+                                  <span className="cl-ma-cal-tooltip__label">End</span>
+                                  <input type="text" className="cl-ma-cal-tooltip__input" value={calTooltipEdit.endTime} onChange={function (e) { setCalTooltipEdit(Object.assign({}, calTooltipEdit, { endTime: e.target.value })); }} />
+                                </div>
+                                <div className="cl-ma-cal-tooltip__field">
+                                  <span className="cl-ma-cal-tooltip__label">Reason</span>
+                                  <select className="cl-ma-cal-tooltip__input" value={calTooltipEdit.reason} onChange={function (e) { setCalTooltipEdit(Object.assign({}, calTooltipEdit, { reason: e.target.value })); }}>
+                                    {REASONS.map(function (r) { return <option key={r.value} value={r.value}>{r.value}</option>; })}
+                                  </select>
+                                </div>
+                                <div className="cl-ma-cal-tooltip__actions">
+                                  <button className="cl-ma-cal-tooltip__save-btn" onClick={saveCalTooltipEdit}>Save</button>
+                                  <button className="cl-ma-cal-tooltip__cancel-btn" onClick={function () { setCalTooltipEdit(null); }}>Cancel</button>
+                                </div>
+                              </div>
+                            )}
+                          </div>
+                        </div>
+                      )}
+
                       <div className={pageVersion === 2 ? 'cl-ma-cal-legend cl-ma-cal-legend--v2' : 'cl-ma-cal-legend'}>
                         <span className="cl-ma-cal-legend-item"><span className={pageVersion === 2 ? 'cl-ma-cal-legend-stripe cl-ma-cal-legend-stripe--today' : 'cl-ma-cal-legend-dot cl-ma-cal-legend-dot--today'} />Today</span>
                         <span className="cl-ma-cal-legend-item"><span className={pageVersion === 2 ? 'cl-ma-cal-legend-stripe cl-ma-cal-legend-stripe--selected' : 'cl-ma-cal-legend-dot cl-ma-cal-legend-dot--selected'} />Selected</span>
