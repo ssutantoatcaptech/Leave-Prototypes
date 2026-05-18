@@ -353,8 +353,8 @@ export default function LeaveDetailV2ePage() {
                           <button
                             className={'dlp-tl-row' + (hoveredRow === item.id ? ' active' : '')}
                             type="button"
-                            onMouseEnter={function () { setHoveredRow(item.id); }}
-                            onMouseLeave={function () { setHoveredRow(null); }}
+                            onMouseEnter={function () { if (!('ontouchstart' in window)) setHoveredRow(item.id); }}
+                            onMouseLeave={function () { if (!('ontouchstart' in window)) setHoveredRow(null); }}
                             onClick={function () { setHoveredRow(hoveredRow === item.id ? null : item.id); }}
                           >
                             <div className="dlp-tl-row-label">{item.label}</div>
