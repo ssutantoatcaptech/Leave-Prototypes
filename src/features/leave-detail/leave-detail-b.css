@@ -2743,39 +2743,38 @@ select.ldb-detail-input {
   display: none;
 }
 
-/* Tap hint — hidden on desktop */
-.dlp-tl-tap-hint {
+/* Glowing hotspot — hidden on desktop */
+.dlp-tl-tap-hotspot {
   display: none;
 }
 @media (max-width: 768px) {
-  .dlp-tl-tap-hint {
-    display: inline-flex;
-    align-items: center;
-    gap: 4px;
-    position: absolute;
-    right: 8px;
-    top: 50%;
-    transform: translateY(-50%);
-    font-size: 11px;
-    font-weight: 600;
-    color: #105fa8;
-    background: rgba(16, 95, 168, 0.08);
-    padding: 3px 10px;
-    border-radius: 12px;
-    animation: dlp-tap-hint-fade 4s ease-out forwards;
-    pointer-events: none;
-  }
-  .dlp-tl-row.active .dlp-tl-tap-hint {
-    display: none;
-  }
   .dlp-tl-row {
     position: relative;
   }
+  .dlp-tl-tap-hotspot {
+    display: block;
+    position: absolute;
+    right: 12px;
+    top: 50%;
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: rgba(16, 95, 168, 0.6);
+    transform: translateY(-50%);
+    animation: dlp-hotspot-glow 2s ease-in-out infinite, dlp-hotspot-fade 4s ease-out forwards;
+    pointer-events: none;
+  }
+  .dlp-tl-row.active .dlp-tl-tap-hotspot {
+    display: none;
+  }
 }
-@keyframes dlp-tap-hint-fade {
-  0% { opacity: 0; transform: translateY(-50%) scale(0.9); }
-  10% { opacity: 1; transform: translateY(-50%) scale(1); }
-  70% { opacity: 1; }
+@keyframes dlp-hotspot-glow {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(16, 95, 168, 0.4); }
+  50% { box-shadow: 0 0 0 8px rgba(16, 95, 168, 0); }
+}
+@keyframes dlp-hotspot-fade {
+  0% { opacity: 1; }
+  75% { opacity: 1; }
   100% { opacity: 0; }
 }
 

@@ -361,7 +361,7 @@ export default function LeaveDetailV2ePage() {
                             <div className="dlp-tl-row-bar">
                               <div className="dlp-tl-seg" style={{ left: '0%', width: item.width + '%', background: item.accent }}>{item.weeks}</div>
                             </div>
-                            <span className="dlp-tl-tap-hint">Tap</span>
+                            <span className="dlp-tl-tap-hotspot"></span>
                           </button>
                           {hoveredRow === item.id && (
                             <div className="dlp-tl-mobile-accordion">
