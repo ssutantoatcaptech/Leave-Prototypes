@@ -1,5 +1,5 @@
 import React, { useState, useMemo } from 'react';
-import { NavLink, Link, useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import useBasePath from './useBasePath';
 
 const leaveClaimsData = [
@@ -237,14 +237,13 @@ export default function ClaimCenterPage() {
         {/* Category tabs (desktop) */}
         <div className="cl-category-tabs">
           {categoryTabs.map((tab) => (
-            <NavLink
+            <button
               key={tab}
-              to={tab === 'Dental' ? `${base}/dental` : '#'}
               className={`cl-category-tab${tab === activeCategory ? ' cl-category-tab--active' : ''}`}
-              onClick={(e) => { if (tab !== 'Dental') e.preventDefault(); setActiveCategory(tab); if (tab === 'Leave and Disability') setPageVersion(2); }}
+              onClick={() => { setActiveCategory(tab); if (tab === 'Leave and Disability') setPageVersion(2); }}
             >
               {tab}
-            </NavLink>
+            </button>
           ))}
         </div>
 
@@ -254,7 +253,7 @@ export default function ClaimCenterPage() {
           <select
             className="cl-ml-filter-select"
             value={activeCategory}
-            onChange={(e) => { setActiveCategory(e.target.value); if (e.target.value === 'Dental') navigate(`${base}/dental`); if (e.target.value === 'Leave and Disability') setPageVersion(2); }}
+            onChange={(e) => { setActiveCategory(e.target.value); if (e.target.value === 'Leave and Disability') setPageVersion(2); }}
           >
             {categoryTabs.map((tab) => (
               <option key={tab} value={tab}>{tab}</option>
@@ -412,7 +411,7 @@ export default function ClaimCenterPage() {
             <button
               key={tab}
               className={`cl-category-tab${tab === 'Leave and Disability' ? ' cl-category-tab--active' : ''}`}
-              onClick={() => { setActiveCategory(tab); if (tab !== 'Leave and Disability') { setPageVersion(1); if (tab === 'Dental') navigate(`${base}/dental`); } }}
+              onClick={() => { setActiveCategory(tab); if (tab !== 'Leave and Disability') setPageVersion(1); }}
             >
               {tab}
             </button>

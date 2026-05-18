@@ -510,7 +510,11 @@
   font-weight: 500;
   color: #105fa8;
   text-decoration: none;
+  border: none;
   border-bottom: 2.5px solid transparent;
+  background: none;
+  cursor: pointer;
+  font-family: inherit;
   transition: color 0.15s, border-color 0.15s;
   margin-bottom: -1px;
   display: flex;
