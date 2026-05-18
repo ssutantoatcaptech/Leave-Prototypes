@@ -464,6 +464,18 @@ export default function ClaimCenterPage() {
           </select>
         </div>
 
+        {/* Legend */}
+        <div className="cl-claims-v2-legend">
+          <div className="cl-claims-v2-legend__item">
+            <span className="cl-claims-v2-kind cl-claims-v2-kind--leave">Leave</span>
+            <span className="cl-claims-v2-legend__desc">Employer-managed leave of absence with associated benefits (FMLA, PFL, etc.)</span>
+          </div>
+          <div className="cl-claims-v2-legend__item">
+            <span className="cl-claims-v2-kind cl-claims-v2-kind--std">STD Claim</span>
+            <span className="cl-claims-v2-legend__desc">Standalone disability claim not tied to an employer-adjudicated leave case</span>
+          </div>
+        </div>
+
         {/* Leave & Disability table */}
         <table className="cl-ml-table cl-claims-v2-table">
           <thead>

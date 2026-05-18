@@ -8385,6 +8385,29 @@
   color: #92400e;
 }
 
+.cl-claims-v2-legend {
+  display: flex;
+  align-items: flex-start;
+  flex-wrap: wrap;
+  gap: 12px 24px;
+  padding: 12px 20px;
+  margin: 0 0 -1px;
+  background: #f8fafc;
+  border: 1px solid #e8eef4;
+  border-radius: 10px;
+  font-size: 13px;
+}
+
+.cl-claims-v2-legend__item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.cl-claims-v2-legend__desc {
+  color: #64748b;
+}
+
 .cl-claims-v2-expand-btn {
   display: inline-flex;
   align-items: center;
