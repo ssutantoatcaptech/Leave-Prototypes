@@ -256,7 +256,7 @@ export default function ClaimCenterPage() {
       <div className="cl-ml-header">
         <div className="cl-ml-header-text">
           <h1 className="cl-ml-title">Claims Center</h1>
-          <p className="cl-ml-subtitle">Track and manage your insurance claims.</p>
+          <p className="cl-ml-subtitle">Manage your insurance claims, leave cases, and disability benefits.</p>
         </div>
         <div className="cl-ml-header-action">
           <button className="cl-ml-btn-new">Start a New Claim</button>
