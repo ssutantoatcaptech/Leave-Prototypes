@@ -496,10 +496,10 @@ export default function ClaimCenterPage() {
                   <td className="cl-ml-td">
                     {claim.kind === 'leave' ? (
                       <button className="cl-claims-v2-expand-btn" type="button">
+                        {expandedLeave === claim.id ? 'Hide' : 'View'} Details
                         <svg width="12" height="12" viewBox="0 0 12 12" fill="none" style={{ transform: expandedLeave === claim.id ? 'rotate(180deg)' : 'rotate(0)', transition: 'transform 0.2s' }}>
                           <path d="M2 4l4 4 4-4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
                         </svg>
-                        {expandedLeave === claim.id ? 'Hide' : 'View'} Details
                       </button>
                     ) : (
                       <button className="cl-claims-v2-expand-btn" type="button" onClick={(e) => { e.stopPropagation(); navigate(`${base}/std-claim-detail`); }}>
@@ -579,10 +579,10 @@ export default function ClaimCenterPage() {
               {claim.kind === 'leave' ? (
                 <>
                   <button className="cl-claims-v2-expand-btn" type="button" onClick={() => setExpandedLeave(expandedLeave === claim.id ? null : claim.id)}>
+                    {expandedLeave === claim.id ? 'Hide' : 'View'} Benefits
                     <svg width="12" height="12" viewBox="0 0 12 12" fill="none" style={{ transform: expandedLeave === claim.id ? 'rotate(180deg)' : 'rotate(0)', transition: 'transform 0.2s' }}>
                       <path d="M2 4l4 4 4-4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
                     </svg>
-                    {expandedLeave === claim.id ? 'Hide' : 'View'} Benefits
                   </button>
                   {expandedLeave === claim.id && (
                     <div className="cl-claims-v2-accordion">
