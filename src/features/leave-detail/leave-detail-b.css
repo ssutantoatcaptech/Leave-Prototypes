@@ -1701,6 +1701,46 @@
   .ad-section-helper--mobile {
     display: block;
   }
+
+  /* Protection/Payment toggle — left-align */
+  .ldb-card.dt-timeline-wrap .ad-section-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+  }
+  .ldb-card.dt-timeline-wrap .dt-tl-toggle {
+    align-self: flex-start;
+  }
+
+  /* Timeline bar — ensure visible */
+  .ldb-card.dt-timeline-wrap .dlp-tl-row {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 4px;
+  }
+  .ldb-card.dt-timeline-wrap .dlp-tl-row-label {
+    width: auto;
+  }
+  .ldb-card.dt-timeline-wrap .dlp-tl-row-bar {
+    width: 100%;
+    min-height: 32px;
+  }
+
+  /* Leave snapshot — left-align */
+  .ldb-timeline-snapshot {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0;
+  }
+  .ldb-timeline-snapshot-divider {
+    width: 100%;
+    height: 1px;
+    margin: 4px 0;
+  }
+  .ldb-timeline-snapshot-item {
+    padding: 6px 0;
+    text-align: left;
+  }
 }
 
 /* ── EMPTY STATE ── */
@@ -3243,15 +3283,17 @@ select.ldb-detail-input {
 @media (max-width: 600px) {
   .ldb-timeline-snapshot {
     flex-direction: column;
+    align-items: flex-start;
     gap: 0;
   }
   .ldb-timeline-snapshot-divider {
-    width: 80%;
+    width: 100%;
     height: 1px;
-    margin: 4px auto;
+    margin: 4px 0;
   }
   .ldb-timeline-snapshot-item {
-    padding: 6px 12px;
+    padding: 6px 0;
+    text-align: left;
   }
 }
 
