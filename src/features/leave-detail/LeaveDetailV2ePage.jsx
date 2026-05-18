@@ -284,18 +284,18 @@ export default function LeaveDetailV2ePage() {
         <div className="ldb-breadcrumb">
           <Link to={base}>Claims &amp; Leave</Link>
           <svg className="ldb-bc-sep" width="12" height="12" viewBox="0 0 16 16" fill="none"><path d="M6 4l4 4-4 4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/></svg>
-          <Link to={`${base}/my-cases`}>My Leave</Link>
+          <Link to={`${base}/claims`}>Claims Center</Link>
           <svg className="ldb-bc-sep" width="12" height="12" viewBox="0 0 16 16" fill="none"><path d="M6 4l4 4-4 4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/></svg>
-          <span style={{ fontWeight: 600, color: '#5d5d5d' }}>#CLM #12345</span>
+          <span style={{ fontWeight: 600, color: '#5d5d5d' }}>NTN-204871</span>
         </div>
 
         {/* Title */}
         <div className="ldb-title-card">
           <div className="ldb-title-left">
-            <h1 className="ldb-title">Non-Birthing Parent</h1>
+            <h1 className="ldb-title">Birthing Parent</h1>
             <div className="ldb-title-meta">
-              <span style={{ fontWeight: 600 }}>CLM #12290</span>
-              <span style={{ fontWeight: 400 }}>Apr 15 – Jul 8, 2026 · Continuous</span>
+              <span style={{ fontWeight: 600 }}>NTN-204871</span>
+              <span style={{ fontWeight: 400 }}>Mar 15 – Jun 07, 2026 · Continuous</span>
             </div>
           </div>
         </div>
@@ -326,16 +326,16 @@ export default function LeaveDetailV2ePage() {
                   <div className="dlp-tl-weeks-row">
                     <div className="dlp-tl-week-label">Week</div>
                     <div className="dlp-tl-months-above">
+                      <span>Mar</span>
                       <span>Apr</span>
                       <span>May</span>
                       <span>Jun</span>
-                      <span>Jul</span>
                     </div>
                   </div>
                   <div className="dlp-tl-weeks-row">
                     <div className="dlp-tl-week-label"></div>
                     <div className="dlp-tl-weeks">
-                      {Array.from({ length: 13 }, function (_, i) {
+                      {Array.from({ length: 12 }, function (_, i) {
                         return <div key={i} className="dlp-tl-week-tick"><span className="dlp-tl-week-num">{i + 1}</span></div>;
                       })}
                     </div>
@@ -343,10 +343,12 @@ export default function LeaveDetailV2ePage() {
                   <div className="ldb-tl-rows-wrap">
                   <div className="dlp-tl-rows">
                     {(timelineView === 'payment' ? [
-                      { id: 'njfli', label: 'NJ FLI', width: 100, accent: '#0d9488', name: 'NJ Family Leave Insurance (Bonding)', weeks: '12 weeks', range: 'Apr 15 – Jul 08, 2026', pay: '85% AWW up to max', status: 'Approved', paymentValue: '~$1,048/wk' },
+                      { id: 'std', label: 'STD', width: 67, accent: '#2563eb', name: 'Short-Term Disability', weeks: '8 weeks', range: 'Mar 15 – May 10, 2026', pay: '60% of pre-disability earnings', status: 'Approved', paymentValue: '~$1,125/wk' },
+                      { id: 'pfml', label: 'PFML', width: 33, accent: '#0d9488', name: 'Paid Family & Medical Leave', weeks: '4 weeks', range: 'May 11 – Jun 07, 2026', pay: 'State benefit', status: 'Approved', paymentValue: '~$981/wk' },
                     ] : [
-                      { id: 'fmla', label: 'FMLA', width: 100, accent: '#003a70', name: 'Leave Case — FMLA (Bonding)', weeks: '12 weeks', range: 'Apr 15 – Jul 08, 2026', pay: 'Job protection (unpaid)', status: 'Approved' },
-                      { id: 'njfli', label: 'NJ FLI', width: 100, accent: '#0d9488', name: 'NJ Family Leave Insurance (Bonding)', weeks: '12 weeks', range: 'Apr 15 – Jul 08, 2026', pay: '85% AWW up to max', status: 'Approved' },
+                      { id: 'fmla', label: 'FMLA', width: 100, accent: '#003a70', name: 'FMLA (Birthing Parent)', weeks: '12 weeks', range: 'Mar 15 – Jun 07, 2026', pay: 'Job protection (unpaid)', status: 'Approved' },
+                      { id: 'std', label: 'STD', width: 67, accent: '#2563eb', name: 'Short-Term Disability', weeks: '8 weeks', range: 'Mar 15 – May 10, 2026', pay: '60% of pre-disability earnings', status: 'Approved' },
+                      { id: 'pfml', label: 'PFML', width: 33, accent: '#0d9488', name: 'Paid Family & Medical Leave', weeks: '4 weeks', range: 'May 11 – Jun 07, 2026', pay: 'State benefit', status: 'Approved' },
                     ]).map(function (item) {
                       return (
                         <div key={item.id} className="dlp-tl-row-wrap">
@@ -431,13 +433,12 @@ export default function LeaveDetailV2ePage() {
 
                   <div className="dlp-legend">
                     {(timelineView === 'payment' ? [
-                      { id: 'partial-pay', label: 'STD (60%)', accent: '#105fa8' },
-                      { id: 'state', label: 'NJ TDI (85%)', accent: '#007a8a' },
-                      { id: 'unpaid', label: 'Unpaid', accent: '#e4e4e4' },
+                      { id: 'std', label: 'STD (60%)', accent: '#2563eb' },
+                      { id: 'pfml', label: 'PFML', accent: '#0d9488' },
                     ] : [
                       { id: 'fmla', label: 'FMLA', accent: '#003a70' },
-                      { id: 'std', label: 'STD', accent: '#105fa8' },
-                      { id: 'unpaid', label: 'Unpaid', accent: '#e4e4e4' },
+                      { id: 'std', label: 'STD', accent: '#2563eb' },
+                      { id: 'pfml', label: 'PFML', accent: '#0d9488' },
                     ]).map(function (item) {
                       return (
                         <div key={item.id} className="dlp-legend-item">
@@ -451,8 +452,8 @@ export default function LeaveDetailV2ePage() {
                   {timelineView === 'payment' && (
                     <div className="dt-payment-summary">
                       <div className="dt-payment-summary-title">Estimated total income during leave</div>
-                      <div className="dt-payment-summary-value">$21,808</div>
-                      <div className="dt-payment-summary-note">STD ($9,232) + NJ TDI ($12,576) · Based on current salary · Actual amounts may vary</div>
+                      <div className="dt-payment-summary-value">$12,924</div>
+                      <div className="dt-payment-summary-note">STD ($9,000) + PFML ($3,924) · Based on current salary · Actual amounts may vary</div>
                     </div>
                   )}
                 </div>
@@ -461,17 +462,17 @@ export default function LeaveDetailV2ePage() {
                 <div className="ldb-timeline-snapshot">
                   <div className="ldb-timeline-snapshot-item">
                     <div className="ldb-timeline-snapshot-label">Start Date</div>
-                    <div className="ldb-timeline-snapshot-value">April 15, 2026</div>
+                    <div className="ldb-timeline-snapshot-value">March 15, 2026</div>
                   </div>
                   <div className="ldb-timeline-snapshot-divider" />
                   <div className="ldb-timeline-snapshot-item">
                     <div className="ldb-timeline-snapshot-label">End Date</div>
-                    <div className="ldb-timeline-snapshot-value">July 8, 2026</div>
+                    <div className="ldb-timeline-snapshot-value">June 7, 2026</div>
                   </div>
                   <div className="ldb-timeline-snapshot-divider" />
                   <div className="ldb-timeline-snapshot-item">
                     <div className="ldb-timeline-snapshot-label">Return to Work</div>
-                    <div className="ldb-timeline-snapshot-value">July 9, 2026</div>
+                    <div className="ldb-timeline-snapshot-value">June 8, 2026</div>
                   </div>
                 </div>
             </div>
@@ -636,6 +637,29 @@ export default function LeaveDetailV2ePage() {
                 </div>
               </div>
               </>)}
+            </div>
+            {/* ADA Accommodation */}
+            <div className="ldb-card">
+              <h2 className="ldb-card-title">
+                <svg width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M8 1v14M1 8h14" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round"/></svg>
+                ADA Accommodation
+              </h2>
+              <div className="ldb-ada-callout">
+                <div className="ldb-ada-callout-header">
+                  <span className="ldb-ada-callout-type">Ergonomic Workstation</span>
+                  <span className="cl-ml-status-pill cl-ml-status-pill--active">Active</span>
+                </div>
+                <div className="ldb-ada-callout-details">
+                  <div className="ldb-ada-callout-field">
+                    <span className="ldb-ada-callout-label">Period</span>
+                    <span className="ldb-ada-callout-value">Jun 08, 2026 – Sep 08, 2026</span>
+                  </div>
+                  <div className="ldb-ada-callout-field">
+                    <span className="ldb-ada-callout-label">Details</span>
+                    <span className="ldb-ada-callout-value">Standing desk and ergonomic chair upon return</span>
+                  </div>
+                </div>
+              </div>
             </div>
             </>
             )}

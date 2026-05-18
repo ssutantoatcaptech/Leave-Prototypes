@@ -3526,3 +3526,53 @@ select.ldb-detail-input {
     height: 48px;
   }
 }
+
+/* ADA Accommodation callout on leave detail */
+.ldb-ada-callout {
+  background: #f0fdfa;
+  border: 1px solid #ccfbf1;
+  border-left: 3px solid #0d6e63;
+  border-radius: 8px;
+  padding: 16px;
+}
+
+.ldb-ada-callout-header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 12px;
+}
+
+.ldb-ada-callout-type {
+  font-family: 'Source Sans Pro', sans-serif;
+  font-size: 15px;
+  font-weight: 600;
+  color: #0d6e63;
+}
+
+.ldb-ada-callout-details {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+}
+
+.ldb-ada-callout-field {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.ldb-ada-callout-label {
+  font-family: 'Source Sans Pro', sans-serif;
+  font-size: 12px;
+  font-weight: 500;
+  color: #6b7280;
+  text-transform: uppercase;
+  letter-spacing: 0.3px;
+}
+
+.ldb-ada-callout-value {
+  font-family: 'Source Sans Pro', sans-serif;
+  font-size: 14px;
+  color: #1f2937;
+}
