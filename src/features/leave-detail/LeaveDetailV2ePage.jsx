@@ -345,23 +345,47 @@ export default function LeaveDetailV2ePage() {
                     {(timelineView === 'payment' ? [
                       { id: 'njfli', label: 'NJ FLI', width: 100, accent: '#0d9488', name: 'NJ Family Leave Insurance (Bonding)', weeks: '12 weeks', range: 'Apr 15 – Jul 08, 2026', pay: '85% AWW up to max', status: 'Approved', paymentValue: '~$1,048/wk' },
                     ] : [
-                      { id: 'fmla', label: 'FMLA', width: 100, accent: '#003a70', name: 'Leave Case — FMLA (Bonding)', weeks: '12 wk', range: 'Apr 15 – Jul 08, 2026', pay: 'Job protection (unpaid)', status: 'Approved' },
-                      { id: 'njfli', label: 'NJ FLI', width: 100, accent: '#0d9488', name: 'NJ Family Leave Insurance (Bonding)', weeks: '12 wk', range: 'Apr 15 – Jul 08, 2026', pay: '85% AWW up to max', status: 'Approved' },
+                      { id: 'fmla', label: 'FMLA', width: 100, accent: '#003a70', name: 'Leave Case — FMLA (Bonding)', weeks: '12 weeks', range: 'Apr 15 – Jul 08, 2026', pay: 'Job protection (unpaid)', status: 'Approved' },
+                      { id: 'njfli', label: 'NJ FLI', width: 100, accent: '#0d9488', name: 'NJ Family Leave Insurance (Bonding)', weeks: '12 weeks', range: 'Apr 15 – Jul 08, 2026', pay: '85% AWW up to max', status: 'Approved' },
                     ]).map(function (item) {
                       return (
-                        <button
-                          key={item.id}
-                          className={'dlp-tl-row' + (hoveredRow === item.id ? ' active' : '')}
-                          type="button"
-                          onMouseEnter={function () { setHoveredRow(item.id); }}
-                          onMouseLeave={function () { setHoveredRow(null); }}
-                          onClick={function () { setHoveredRow(hoveredRow === item.id ? null : item.id); }}
-                        >
-                          <div className="dlp-tl-row-label">{item.label}</div>
-                          <div className="dlp-tl-row-bar">
-                            <div className="dlp-tl-seg" style={{ left: '0%', width: item.width + '%', background: item.accent }}>{item.weeks}</div>
-                          </div>
-                        </button>
+                        <div key={item.id} className="dlp-tl-row-wrap">
+                          <button
+                            className={'dlp-tl-row' + (hoveredRow === item.id ? ' active' : '')}
+                            type="button"
+                            onMouseEnter={function () { setHoveredRow(item.id); }}
+                            onMouseLeave={function () { setHoveredRow(null); }}
+                            onClick={function () { setHoveredRow(hoveredRow === item.id ? null : item.id); }}
+                          >
+                            <div className="dlp-tl-row-label">{item.label}</div>
+                            <div className="dlp-tl-row-bar">
+                              <div className="dlp-tl-seg" style={{ left: '0%', width: item.width + '%', background: item.accent }}>{item.weeks}</div>
+                            </div>
+                          </button>
+                          {hoveredRow === item.id && (
+                            <div className="dlp-tl-mobile-accordion">
+                              <div className="dlp-tl-mobile-accordion__title">{item.name}</div>
+                              <div className="dlp-tl-mobile-accordion__grid">
+                                <div className="dlp-tl-mobile-accordion__field">
+                                  <span className="dlp-tl-mobile-accordion__label">{timelineView === 'payment' ? 'Est. Weekly' : 'Status'}</span>
+                                  <span className="dlp-tl-mobile-accordion__value">{timelineView === 'payment' ? item.paymentValue : item.status}</span>
+                                </div>
+                                <div className="dlp-tl-mobile-accordion__field">
+                                  <span className="dlp-tl-mobile-accordion__label">Duration</span>
+                                  <span className="dlp-tl-mobile-accordion__value">{item.weeks}</span>
+                                </div>
+                                <div className="dlp-tl-mobile-accordion__field">
+                                  <span className="dlp-tl-mobile-accordion__label">Dates</span>
+                                  <span className="dlp-tl-mobile-accordion__value">{item.range}</span>
+                                </div>
+                                <div className="dlp-tl-mobile-accordion__field">
+                                  <span className="dlp-tl-mobile-accordion__label">Pay</span>
+                                  <span className="dlp-tl-mobile-accordion__value">{item.pay}</span>
+                                </div>
+                              </div>
+                            </div>
+                          )}
+                        </div>
                       );
                     })}
                   </div>
@@ -403,41 +427,6 @@ export default function LeaveDetailV2ePage() {
                     );
                   })()}
                   </div>
-
-                  {/* Mobile: accordion below rows */}
-                  {hoveredRow && (function () {
-                    var allRows = timelineView === 'payment' ? [
-                      { id: 'njfli', name: 'NJ Family Leave Insurance (Bonding)', weeks: '12 weeks', range: 'Apr 15 – Jul 08, 2026', pay: '85% AWW up to max', status: 'Approved', paymentValue: '~$1,048/wk' },
-                    ] : [
-                      { id: 'fmla', name: 'Leave Case — FMLA (Bonding)', weeks: '12 weeks', range: 'Apr 15 – Jul 08, 2026', pay: 'Job protection (unpaid)', status: 'Approved' },
-                      { id: 'njfli', name: 'NJ Family Leave Insurance (Bonding)', weeks: '12 weeks', range: 'Apr 15 – Jul 08, 2026', pay: '85% AWW up to max', status: 'Approved' },
-                    ];
-                    var selected = allRows.find(function (r) { return r.id === hoveredRow; });
-                    if (!selected) return null;
-                    return (
-                      <div className="dlp-tl-mobile-detail">
-                        <div className="dlp-tl-mobile-detail-title">{selected.name}</div>
-                        <div className="dlp-tl-mobile-detail-grid">
-                          <div>
-                            <div className="dlp-tl-mobile-detail-label">{timelineView === 'payment' ? 'Est. Weekly' : 'Status'}</div>
-                            <div className="dlp-tl-mobile-detail-value">{timelineView === 'payment' ? selected.paymentValue : selected.status}</div>
-                          </div>
-                          <div>
-                            <div className="dlp-tl-mobile-detail-label">Duration</div>
-                            <div className="dlp-tl-mobile-detail-value">{selected.weeks}</div>
-                          </div>
-                          <div>
-                            <div className="dlp-tl-mobile-detail-label">Dates</div>
-                            <div className="dlp-tl-mobile-detail-value">{selected.range}</div>
-                          </div>
-                          <div>
-                            <div className="dlp-tl-mobile-detail-label">Pay</div>
-                            <div className="dlp-tl-mobile-detail-value">{selected.pay}</div>
-                          </div>
-                        </div>
-                      </div>
-                    );
-                  })()}
 
                   <div className="dlp-legend">
                     {(timelineView === 'payment' ? [
