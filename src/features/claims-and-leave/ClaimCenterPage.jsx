@@ -622,11 +622,11 @@ export default function ClaimCenterPage() {
         <div className="cl-claims-v2-legend">
           <div className="cl-claims-v2-legend__item">
             <span className="cl-claims-v2-kind cl-claims-v2-kind--leave">Leave</span>
-            <span className="cl-claims-v2-legend__desc">Employer-managed leave of absence with associated benefits (FMLA, PFL, etc.)</span>
+            <span className="cl-claims-v2-legend__desc">MoO is adjudicating the leave of absence — full case management, benefits, documents, and payments</span>
           </div>
           <div className="cl-claims-v2-legend__item">
             <span className="cl-claims-v2-kind cl-claims-v2-kind--std">STD Claim</span>
-            <span className="cl-claims-v2-legend__desc">Standalone disability claim not tied to an employer-adjudicated leave case</span>
+            <span className="cl-claims-v2-legend__desc">MoO is not adjudicating the leave — claim only (payments, document uploads)</span>
           </div>
         </div>
       </div>
