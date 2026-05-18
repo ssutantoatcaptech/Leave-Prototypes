@@ -1395,7 +1395,8 @@
 }
 
 .cl-ma-sidebar-cta > .cl-ma-field,
-.cl-ma-sidebar-cta > .cl-ma-sidebar-cta__hours {
+.cl-ma-sidebar-cta > .cl-ma-sidebar-cta__hours,
+.cl-ma-sidebar-cta > .cl-ma-btn-submit-lg {
   display: none;
 }
 
@@ -1822,6 +1823,10 @@
 
   .cl-ma-sidebar-cta > .cl-ma-sidebar-cta__hours {
     display: flex;
+  }
+
+  .cl-ma-sidebar-cta > .cl-ma-btn-submit-lg {
+    display: inline-flex;
   }
 
   .cl-ma-form-left,
