@@ -591,13 +591,13 @@ export default function EnterMyTimePage() {
 
                       {calView === 'month' && (
                       <div className="cl-ma-cal-grid">
-                        <span className="cl-ma-cal-dow">Su</span>
-                        <span className="cl-ma-cal-dow">Mo</span>
-                        <span className="cl-ma-cal-dow">Tu</span>
-                        <span className="cl-ma-cal-dow">We</span>
-                        <span className="cl-ma-cal-dow">Th</span>
-                        <span className="cl-ma-cal-dow">Fr</span>
-                        <span className="cl-ma-cal-dow">Sa</span>
+                        <span className="cl-ma-cal-dow"><span className="cl-ma-cal-dow__full">Sunday</span><span className="cl-ma-cal-dow__abbr">Su</span></span>
+                        <span className="cl-ma-cal-dow"><span className="cl-ma-cal-dow__full">Monday</span><span className="cl-ma-cal-dow__abbr">Mo</span></span>
+                        <span className="cl-ma-cal-dow"><span className="cl-ma-cal-dow__full">Tuesday</span><span className="cl-ma-cal-dow__abbr">Tu</span></span>
+                        <span className="cl-ma-cal-dow"><span className="cl-ma-cal-dow__full">Wednesday</span><span className="cl-ma-cal-dow__abbr">We</span></span>
+                        <span className="cl-ma-cal-dow"><span className="cl-ma-cal-dow__full">Thursday</span><span className="cl-ma-cal-dow__abbr">Th</span></span>
+                        <span className="cl-ma-cal-dow"><span className="cl-ma-cal-dow__full">Friday</span><span className="cl-ma-cal-dow__abbr">Fr</span></span>
+                        <span className="cl-ma-cal-dow"><span className="cl-ma-cal-dow__full">Saturday</span><span className="cl-ma-cal-dow__abbr">Sa</span></span>
                         {calendarDays.map(function (d, i) {
                           var dayKey = !d.overflow ? formatDateKey(calYear, calMonth, d.day) : '';
                           var isSelected = selectedDates.includes(dayKey);

@@ -1278,6 +1278,14 @@
   overflow: hidden;
 }
 
+.cl-ma-cal-dow__full {
+  display: none;
+}
+
+.cl-ma-cal-dow__abbr {
+  display: inline;
+}
+
 .cl-ma-cal-day {
   width: auto;
   height: auto;
@@ -1929,11 +1937,19 @@
     padding: 10px 12px;
   }
 
+  .cl-ma-cal-dow__full {
+    display: inline;
+  }
+
+  .cl-ma-cal-dow__abbr {
+    display: none;
+  }
+
   .cl-ma-cal-day {
     width: auto;
     height: auto;
     aspect-ratio: 1 / 1;
-    font-size: 14px;
+    font-size: 16px;
   }
 
   .cl-ma-time-row {

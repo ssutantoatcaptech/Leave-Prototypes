@@ -1869,6 +1869,14 @@
   background: #f9fafb;
 }
 
+.cl-ma-cal-dow__full {
+  display: inline;
+}
+
+.cl-ma-cal-dow__abbr {
+  display: none;
+}
+
 .cl-ma-cal-day {
   aspect-ratio: 1 / 1;
   display: grid;
@@ -1876,7 +1884,7 @@
   margin: 0;
   border-radius: 0;
   font-family: 'Source Sans Pro', sans-serif;
-  font-size: 14px;
+  font-size: 16px;
   font-weight: 500;
   color: #222;
   cursor: pointer;
