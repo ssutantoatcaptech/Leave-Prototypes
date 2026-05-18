@@ -1902,14 +1902,14 @@
 }
 
 .cl-ma-cal-day--selected {
-  background: #105fa8;
-  color: #ffffff;
-  font-weight: 600;
-  border-color: #105fa8;
+  background: #e8f0fa;
+  color: #105fa8;
+  font-weight: 700;
+  border-color: #c8ddf2;
 }
 
 .cl-ma-cal-day--selected:hover {
-  background: #003a70;
+  background: #dbe8f8;
 }
 
 .cl-ma-cal-day--today {
@@ -1938,7 +1938,7 @@
 }
 
 .cl-ma-cal-day--selected.cl-ma-cal-day--logged::after {
-  background: #fff;
+  background: #105fa8;
 }
 
 .cl-ma-cal-legend {
