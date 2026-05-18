@@ -634,11 +634,6 @@ export default function EnterMyTimePage() {
                                   {eventLabel}
                                 </span>
                               )}
-                              {isSelected && selectedDates.length > 1 && (
-                                <span className="cl-ma-cal-day-check">
-                                  <svg width="10" height="10" viewBox="0 0 10 10" fill="none"><path d="M2 5l2.5 2.5L8 3" stroke="#fff" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/></svg>
-                                </span>
-                              )}
                             </button>
                           );
                         })}
