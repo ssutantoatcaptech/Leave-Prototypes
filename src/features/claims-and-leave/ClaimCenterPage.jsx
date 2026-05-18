@@ -241,7 +241,7 @@ export default function ClaimCenterPage() {
               key={tab}
               to={tab === 'Dental' ? `${base}/dental` : '#'}
               className={`cl-category-tab${tab === activeCategory ? ' cl-category-tab--active' : ''}`}
-              onClick={(e) => { if (tab !== 'Dental') e.preventDefault(); setActiveCategory(tab); }}
+              onClick={(e) => { if (tab !== 'Dental') e.preventDefault(); setActiveCategory(tab); if (tab === 'Leave and Disability') setPageVersion(2); }}
             >
               {tab}
             </NavLink>
@@ -254,7 +254,7 @@ export default function ClaimCenterPage() {
           <select
             className="cl-ml-filter-select"
             value={activeCategory}
-            onChange={(e) => { setActiveCategory(e.target.value); if (e.target.value === 'Dental') navigate(`${base}/dental`); }}
+            onChange={(e) => { setActiveCategory(e.target.value); if (e.target.value === 'Dental') navigate(`${base}/dental`); if (e.target.value === 'Leave and Disability') setPageVersion(2); }}
           >
             {categoryTabs.map((tab) => (
               <option key={tab} value={tab}>{tab}</option>
@@ -412,7 +412,7 @@ export default function ClaimCenterPage() {
             <button
               key={tab}
               className={`cl-category-tab${tab === 'Leave and Disability' ? ' cl-category-tab--active' : ''}`}
-              onClick={() => { setActiveCategory(tab); if (tab !== 'Leave and Disability') setPageVersion(1); }}
+              onClick={() => { setActiveCategory(tab); if (tab !== 'Leave and Disability') { setPageVersion(1); if (tab === 'Dental') navigate(`${base}/dental`); } }}
             >
               {tab}
             </button>
@@ -484,7 +484,7 @@ export default function ClaimCenterPage() {
                             </div>
                           ))}
                         </div>
-                        <button className="cl-claims-v2-detail-btn" onClick={() => navigate(`${base}/${claim.detailLink}`)}>
+                        <button className="cl-claims-v2-detail-btn" onClick={() => navigate(`/${claim.detailLink}`)}>
                           View Full Leave Details
                           <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M5 2l5 5-5 5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/></svg>
                         </button>
@@ -540,7 +540,7 @@ export default function ClaimCenterPage() {
                       </div>
                     ))}
                   </div>
-                  <button className="cl-claims-v2-detail-btn" onClick={() => navigate(`${base}/${claim.detailLink}`)}>
+                  <button className="cl-claims-v2-detail-btn" onClick={() => navigate(`/${claim.detailLink}`)}>
                     View Full Leave Details
                     <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M5 2l5 5-5 5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/></svg>
                   </button>
