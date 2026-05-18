@@ -482,7 +482,7 @@ export default function ClaimCenterPage() {
                             </div>
                           ))}
                         </div>
-                        <button className="cl-claims-v2-detail-btn" onClick={() => navigate(`/${claim.detailLink}`)}>
+                        <button className="cl-claims-v2-detail-btn" onClick={() => navigate(`${base}/case-detail`)}>
                           View Full Leave Details
                           <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M5 2l5 5-5 5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/></svg>
                         </button>
