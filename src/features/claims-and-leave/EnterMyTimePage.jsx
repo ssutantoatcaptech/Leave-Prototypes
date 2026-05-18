@@ -557,6 +557,7 @@ export default function EnterMyTimePage() {
             <button
               className="cl-ma-btn-submit-lg"
               type="button"
+              disabled={selectedDates.length === 0}
               onClick={openEntryModal}
             >
               <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M8 3v10M3 8h10" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round"/></svg>
@@ -1003,6 +1004,7 @@ export default function EnterMyTimePage() {
               <button
                 className="cl-ma-btn-submit-lg"
                 type="button"
+                disabled={selectedDates.length === 0}
                 onClick={openEntryModal}
               >
                 <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M8 3v10M3 8h10" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round"/></svg>
