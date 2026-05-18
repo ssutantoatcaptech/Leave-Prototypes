@@ -31,7 +31,6 @@ const leaveAndDisabilityData = [
     lastUpdate: 'Apr 08, 2026',
     weeklyBenefit: '$1,125.00',
     duration: '8 weeks',
-    linkedClaim: { id: 'LTD-401822', kind: 'ltd', status: 'Active', label: 'Transitioned to LTD-401822' },
   },
   {
     id: 'LTD-401822',
@@ -44,7 +43,6 @@ const leaveAndDisabilityData = [
     lastUpdate: 'Apr 10, 2026',
     weeklyBenefit: '$900.00',
     duration: '26 weeks',
-    linkedClaim: { id: 'CLM-301822', kind: 'std', status: 'Closed', label: 'Continuation of CLM-301822 (STD — Closed)' },
   },
   {
     id: 'NTN-198432',
@@ -540,9 +538,6 @@ export default function ClaimCenterPage() {
                   <span className={'cl-claims-v2-kind cl-claims-v2-kind--' + claim.kind}>{claim.kind === 'leave' ? 'Leave' : claim.kind === 'ada' ? 'ADA' : claim.kind === 'ltd' ? 'LTD Claim' : 'STD Claim'}</span>
                   {claim.kind === 'leave' && claim.accommodations && claim.accommodations.length > 0 && (
                     <span className="cl-claims-v2-kind cl-claims-v2-kind--ada" style={{ marginLeft: 4 }}>ADA</span>
-                  )}
-                  {claim.linkedClaim && (
-                    <span className={'cl-claims-v2-kind cl-claims-v2-kind--' + claim.linkedClaim.kind} style={{ marginLeft: 4 }}>{claim.linkedClaim.kind === 'ltd' ? 'LTD' : 'STD'}</span>
                   )}
                 </td>
                 <td className="cl-ml-td">{claim.description}{claim.condition ? ` — ${claim.condition}` : ''}</td>
