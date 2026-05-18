@@ -1902,20 +1902,42 @@
 }
 
 .cl-ma-cal-day--selected {
-  background: #e8f0fa;
-  color: #105fa8;
-  font-weight: 700;
-  border-color: #c8ddf2;
+  background: transparent;
+  color: inherit;
+  font-weight: inherit;
+  border-color: transparent;
 }
 
 .cl-ma-cal-day--selected:hover {
-  background: #dbe8f8;
+  background: #f8fbfd;
+}
+
+.cl-ma-cal-day--selected .cl-ma-cal-day-num {
+  background: #105fa8;
+  color: #ffffff;
+  border-radius: 50%;
+  width: 28px;
+  height: 28px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
 }
 
 .cl-ma-cal-day--today {
-  background: #f0f7ff;
-  font-weight: 700;
+  background: transparent;
+}
+
+.cl-ma-cal-day--today .cl-ma-cal-day-num {
+  background: #e8f0fa;
   color: #105fa8;
+  border-radius: 50%;
+  width: 28px;
+  height: 28px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
 }
 
 .cl-ma-cal-day--logged::after {
@@ -1938,7 +1960,7 @@
 }
 
 .cl-ma-cal-day--selected.cl-ma-cal-day--logged::after {
-  background: #105fa8;
+  display: none;
 }
 
 .cl-ma-cal-legend {
@@ -2283,7 +2305,7 @@
 }
 
 .cl-ma-form-card--v2 .cl-ma-cal-day--today {
-  background: #f0f7ff;
+  background: transparent;
 }
 
 /* Calendar tooltip popover */
