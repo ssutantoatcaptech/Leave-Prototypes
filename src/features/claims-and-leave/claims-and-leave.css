@@ -6470,6 +6470,13 @@
   color: #111827;
 }
 
+.cl-std-paid-remaining {
+  font-family: 'Source Sans Pro', sans-serif;
+  font-size: 13px;
+  font-weight: 500;
+  color: #6b7280;
+}
+
 /* Payments grid */
 .cl-std-payments-grid {
   display: grid;

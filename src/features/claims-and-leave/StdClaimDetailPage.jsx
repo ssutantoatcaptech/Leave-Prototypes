@@ -20,12 +20,13 @@ var CLAIM_VARIANTS = {
     maxDuration: '8 weeks',
     weeksRemaining: '0 of 8 weeks (Exhausted)',
     totalPaid: '$8,300.00',
+    remaining: null,
     linkedClaim: { id: 'LTD-401822', kind: 'ltd', label: 'Transitioned to LTD-401822 (Active)' },
     timelineRows: [
       { id: 'std', label: 'STD', width: 100, accent: '#2563eb', name: 'Group Short-Term Disability (Completed)', weeks: '8 of 8 weeks paid', range: 'Feb 17 – Apr 06, 2026', pay: '60% of pre-disability earnings', paymentValue: '~$1,037/wk' },
     ],
     legend: [
-      { id: 'std-paid', label: 'STD paid (8 wks — exhausted)', accent: '#2563eb' },
+      { id: 'std-paid', label: 'STD paid (8 wks)', accent: '#2563eb' },
     ],
     weekCount: 8,
     months: ['Feb', 'Mar', 'Apr'],
@@ -34,30 +35,27 @@ var CLAIM_VARIANTS = {
     title: 'Long-Term Disability (LTD) Claim',
     status: 'Active',
     statusClass: 'cl-std-pill--approved',
-    claimId: 'LTD-401822',
-    filedDate: 'Apr 07, 2026',
-    claimNumber: 'LTD-401822',
+    claimId: 'LTD-387201',
+    filedDate: 'Jan 15, 2026',
+    claimNumber: 'LTD-387201',
     policy: 'Group LTD — Employer Paid',
-    diagnosis: 'Post-surgical recovery (knee)',
-    leaveStart: 'Feb 10, 2026',
-    benefitsBegin: 'Apr 07, 2026',
-    expectedRTW: 'Oct 06, 2026',
-    maxDuration: '26 weeks',
-    weeksRemaining: '20 of 26 weeks',
-    totalPaid: '$5,400.00',
-    linkedClaim: { id: 'CLM-301822', kind: 'std', label: 'Continuation of CLM-301822 (STD — Closed)' },
+    diagnosis: 'Degenerative disc disease',
+    leaveStart: 'Jan 15, 2026',
+    benefitsBegin: 'Jan 15, 2026',
+    expectedRTW: 'Ongoing',
+    maxDuration: '24 months',
+    weeksRemaining: '18 of 24 months',
+    totalPaid: '$16,200.00',
+    remaining: '18 months remaining',
+    linkedClaim: null,
     timelineRows: [
-      { id: 'std', label: 'STD', width: 24, accent: '#94a3b8', name: 'Group Short-Term Disability (Completed)', weeks: '8 weeks (exhausted)', range: 'Feb 17 – Apr 06, 2026', pay: '60% of pre-disability earnings', paymentValue: '~$1,037/wk' },
-      { id: 'ltd', label: 'LTD', width: 18, accent: '#475569', name: 'Long-Term Disability (In Payment)', weeks: '6 of 26 weeks paid', range: 'Apr 07 – May 18, 2026', pay: '60% of pre-disability earnings', paymentValue: '~$900/wk' },
-      { id: 'ltd-remaining', label: 'Remaining', width: 58, accent: '#cbd5e1', name: 'Remaining LTD Benefits', weeks: '20 weeks remaining', range: 'May 19 – Oct 06, 2026', pay: '60% of pre-disability earnings', paymentValue: '~$900/wk' },
+      { id: 'ltd', label: 'LTD', width: 100, accent: '#475569', name: 'Long-Term Disability (In Payment)', weeks: '6 months paid', range: 'Jan 15 – Jul 15, 2026', pay: '60% of pre-disability earnings', paymentValue: '~$900/wk' },
     ],
     legend: [
-      { id: 'std-pay', label: 'STD (8 wks — ended)', accent: '#94a3b8' },
-      { id: 'ltd-pay', label: 'LTD paid (6 wks)', accent: '#475569' },
-      { id: 'ltd-remaining', label: 'LTD remaining (20 wks)', accent: '#cbd5e1' },
+      { id: 'ltd-pay', label: 'LTD paid (6 months)', accent: '#475569' },
     ],
-    weekCount: 34,
-    months: ['Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct'],
+    weekCount: 26,
+    months: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul'],
   },
 };
 
@@ -128,6 +126,7 @@ export default function StdClaimDetailPage() {
               <div className="cl-std-paid-total">
                 <span className="cl-std-paid-total-label">Total paid to date</span>
                 <span className="cl-std-paid-total-value">{variant.totalPaid}</span>
+                {variant.remaining && <span className="cl-std-paid-remaining">{variant.remaining}</span>}
               </div>
             </div>
 
