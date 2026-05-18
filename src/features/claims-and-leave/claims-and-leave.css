@@ -2009,9 +2009,9 @@
 
 /* V2 legend stripes */
 .cl-ma-cal-legend-stripe {
-  width: 3px;
-  height: 14px;
-  border-radius: 2px;
+  width: 14px;
+  height: 10px;
+  border-radius: 3px;
 }
 
 .cl-ma-cal-legend-stripe--today {
