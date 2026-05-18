@@ -532,7 +532,7 @@ export default function ClaimCenterPage() {
           <tbody>
             {leaveAndDisabilityData.map((claim) => (
               <React.Fragment key={claim.id}>
-                <tr className={'cl-ml-row cl-claims-v2-row' + (expandedLeave === claim.id ? ' cl-claims-v2-row--expanded' : '')} onClick={() => { if (claim.kind === 'leave' || claim.kind === 'ada' || claim.kind === 'ltd' || (claim.kind === 'std' && claim.linkedClaim)) setExpandedLeave(expandedLeave === claim.id ? null : claim.id); }}>
+                <tr className={'cl-ml-row cl-claims-v2-row' + (expandedLeave === claim.id ? ' cl-claims-v2-row--expanded' : '')} onClick={() => { if (claim.kind === 'leave' || claim.kind === 'ada') setExpandedLeave(expandedLeave === claim.id ? null : claim.id); }}>
                   <td className="cl-ml-td-first">
                     <span className="cl-claims-v2-id">{claim.id}</span>
                   </td>
@@ -552,7 +552,7 @@ export default function ClaimCenterPage() {
                   </td>
                   <td className="cl-ml-td">{claim.lastUpdate}</td>
                   <td className="cl-ml-td">
-                    {(claim.kind === 'leave' || claim.kind === 'ada' || claim.kind === 'ltd' || (claim.kind === 'std' && claim.linkedClaim)) ? (
+                    {(claim.kind === 'leave' || claim.kind === 'ada') ? (
                       <button className="cl-claims-v2-expand-btn" type="button">
                         {expandedLeave === claim.id ? 'Hide' : 'View'} Details
                         <svg width="12" height="12" viewBox="0 0 12 12" fill="none" style={{ transform: expandedLeave === claim.id ? 'rotate(180deg)' : 'rotate(0)', transition: 'transform 0.2s' }}>
@@ -628,44 +628,6 @@ export default function ClaimCenterPage() {
                               <span className="cl-claims-v2-benefit__field"><span className="cl-claims-v2-benefit__label">Condition</span>{claim.condition}</span>
                               <span className="cl-claims-v2-benefit__field"><span className="cl-claims-v2-benefit__label">Period</span>{claim.startDate} – {claim.endDate}</span>
                               <span className="cl-claims-v2-benefit__field"><span className="cl-claims-v2-benefit__label">Details</span>{claim.notes}</span>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    </td>
-                  </tr>
-                )}
-                {(claim.kind === 'std' || claim.kind === 'ltd') && claim.linkedClaim && expandedLeave === claim.id && (
-                  <tr className="cl-claims-v2-accordion-row">
-                    <td colSpan="7">
-                      <div className="cl-claims-v2-accordion">
-                        <div className="cl-claims-v2-accordion__header">
-                          <h4 className="cl-claims-v2-accordion__title">Linked Claim</h4>
-                        </div>
-                        <div className="cl-claims-v2-benefits">
-                          <div className={'cl-claims-v2-benefit cl-claims-v2-benefit--' + claim.linkedClaim.kind}>
-                            <div className="cl-claims-v2-benefit__type">{claim.linkedClaim.label} <span className={'cl-ml-status-pill cl-ml-status-pill--' + claim.linkedClaim.status.toLowerCase().replace(' ', '')}>{claim.linkedClaim.status}</span></div>
-                          </div>
-                        </div>
-                      </div>
-                    </td>
-                  </tr>
-                )}
-                {claim.kind === 'ltd' && !claim.linkedClaim && expandedLeave === claim.id && (
-                  <tr className="cl-claims-v2-accordion-row">
-                    <td colSpan="7">
-                      <div className="cl-claims-v2-accordion">
-                        <div className="cl-claims-v2-accordion__header">
-                          <h4 className="cl-claims-v2-accordion__title">Claim Details</h4>
-                        </div>
-                        <div className="cl-claims-v2-benefits">
-                          <div className="cl-claims-v2-benefit cl-claims-v2-benefit--ltd">
-                            <div className="cl-claims-v2-benefit__type">{claim.description} <span className={'cl-ml-status-pill cl-ml-status-pill--' + claim.status.toLowerCase().replace(' ', '')}>{claim.status}</span></div>
-                            <div className="cl-claims-v2-benefit__details">
-                              <span className="cl-claims-v2-benefit__field"><span className="cl-claims-v2-benefit__label">Condition</span>{claim.condition}</span>
-                              <span className="cl-claims-v2-benefit__field"><span className="cl-claims-v2-benefit__label">Period</span>{claim.startDate} – {claim.endDate}</span>
-                              <span className="cl-claims-v2-benefit__field"><span className="cl-claims-v2-benefit__label">Duration</span>{claim.duration}</span>
-                              <span className="cl-claims-v2-benefit__field"><span className="cl-claims-v2-benefit__label">Weekly Benefit</span>{claim.weeklyBenefit}</span>
                             </div>
                           </div>
                         </div>
@@ -789,27 +751,6 @@ export default function ClaimCenterPage() {
                             <span className="cl-claims-v2-benefit__field"><span className="cl-claims-v2-benefit__label">Period</span>{claim.startDate} – {claim.endDate}</span>
                             <span className="cl-claims-v2-benefit__field"><span className="cl-claims-v2-benefit__label">Details</span>{claim.notes}</span>
                           </div>
-                        </div>
-                      </div>
-                    </div>
-                  )}
-                </>
-              ) : (claim.linkedClaim || claim.kind === 'ltd') ? (
-                <>
-                  <button className="cl-claims-v2-expand-btn" type="button" onClick={() => setExpandedLeave(expandedLeave === claim.id ? null : claim.id)}>
-                    {expandedLeave === claim.id ? 'Hide' : 'View'} Details
-                    <svg width="12" height="12" viewBox="0 0 12 12" fill="none" style={{ transform: expandedLeave === claim.id ? 'rotate(180deg)' : 'rotate(0)', transition: 'transform 0.2s' }}>
-                      <path d="M2 4l4 4 4-4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
-                    </svg>
-                  </button>
-                  {expandedLeave === claim.id && (
-                    <div className="cl-claims-v2-accordion">
-                      <div className="cl-claims-v2-accordion__header">
-                        <h4 className="cl-claims-v2-accordion__title">Linked Claim</h4>
-                      </div>
-                      <div className="cl-claims-v2-benefits">
-                        <div className={'cl-claims-v2-benefit cl-claims-v2-benefit--' + claim.linkedClaim.kind}>
-                          <div className="cl-claims-v2-benefit__type">{claim.linkedClaim.label} <span className={'cl-ml-status-pill cl-ml-status-pill--' + claim.linkedClaim.status.toLowerCase().replace(' ', '')}>{claim.linkedClaim.status}</span></div>
                         </div>
                       </div>
                     </div>
