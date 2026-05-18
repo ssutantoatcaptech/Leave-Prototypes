@@ -512,6 +512,9 @@ export default function ClaimCenterPage() {
                   </td>
                   <td className="cl-ml-td">
                     <span className={'cl-claims-v2-kind cl-claims-v2-kind--' + claim.kind}>{claim.kind === 'leave' ? 'Leave' : claim.kind === 'ada' ? 'ADA' : 'STD Claim'}</span>
+                    {claim.kind === 'leave' && claim.accommodations && claim.accommodations.length > 0 && (
+                      <span className="cl-claims-v2-kind cl-claims-v2-kind--ada" style={{ marginLeft: 4 }}>ADA</span>
+                    )}
                   </td>
                   <td className="cl-ml-td">{claim.description}{claim.condition ? ` — ${claim.condition}` : ''}</td>
                   <td className="cl-ml-td">{claim.startDate} – {claim.endDate}</td>
@@ -618,6 +621,9 @@ export default function ClaimCenterPage() {
               </div>
               <div className="cl-card-mobile-header" style={{ marginTop: '4px' }}>
                 <span className={'cl-claims-v2-kind cl-claims-v2-kind--' + claim.kind}>{claim.kind === 'leave' ? 'Leave' : claim.kind === 'ada' ? 'ADA' : 'STD Claim'}</span>
+                {claim.kind === 'leave' && claim.accommodations && claim.accommodations.length > 0 && (
+                  <span className="cl-claims-v2-kind cl-claims-v2-kind--ada" style={{ marginLeft: 4 }}>ADA</span>
+                )}
               </div>
               <span className="cl-card-mobile-type">{claim.description}{claim.condition ? ` — ${claim.condition}` : ''}</span>
               <div className="cl-card-mobile-details">
