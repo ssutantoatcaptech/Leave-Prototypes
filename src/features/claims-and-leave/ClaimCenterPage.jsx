@@ -1,6 +1,75 @@
-import { useState, useMemo } from 'react';
+import React, { useState, useMemo } from 'react';
 import { NavLink, Link, useNavigate } from 'react-router-dom';
 import useBasePath from './useBasePath';
+
+const leaveClaimsData = [
+  {
+    id: 'NTN-204871',
+    leaveType: 'Birthing Parent (Continuous)',
+    startDate: 'Mar 15, 2026',
+    endDate: 'Jun 07, 2026',
+    status: 'Approved',
+    lastUpdate: 'Apr 28, 2026',
+    benefits: [
+      { type: 'FMLA', status: 'Approved', startDate: 'Mar 15, 2026', endDate: 'Jun 07, 2026', duration: '12 weeks' },
+      { type: 'Short-Term Disability (STD)', status: 'Approved', startDate: 'Mar 15, 2026', endDate: 'May 10, 2026', weeklyBenefit: '$1,125.00', duration: '8 weeks' },
+      { type: 'Paid Family & Medical Leave (PFML)', status: 'Approved', startDate: 'May 11, 2026', endDate: 'Jun 07, 2026', weeklyBenefit: '$981.00', duration: '4 weeks' },
+    ],
+    detailLink: 'leave-detail',
+  },
+  {
+    id: 'NTN-198432',
+    leaveType: 'Own Serious Health Condition (Intermittent)',
+    startDate: 'Jan 10, 2026',
+    endDate: 'Jul 10, 2026',
+    status: 'Approved',
+    lastUpdate: 'Mar 12, 2026',
+    benefits: [
+      { type: 'FMLA', status: 'Approved', startDate: 'Jan 10, 2026', endDate: 'Jul 10, 2026', duration: '480 hours' },
+      { type: 'Short-Term Disability (STD)', status: 'Approved', startDate: 'Jan 10, 2026', endDate: 'Jul 10, 2026', weeklyBenefit: '$1,125.00', duration: 'Per episode' },
+    ],
+    detailLink: 'leave-detail',
+  },
+  {
+    id: 'NTN-187205',
+    leaveType: 'Cared for Sick Family (Reduced Hours)',
+    startDate: 'Nov 01, 2025',
+    endDate: 'Jan 31, 2026',
+    status: 'Closed',
+    lastUpdate: 'Feb 14, 2026',
+    benefits: [
+      { type: 'FMLA', status: 'Exhausted', startDate: 'Nov 01, 2025', endDate: 'Jan 31, 2026', duration: '12 weeks' },
+      { type: 'Paid Family Leave (PFL)', status: 'Closed', startDate: 'Nov 01, 2025', endDate: 'Dec 15, 2025', weeklyBenefit: '$840.00', duration: '6 weeks' },
+    ],
+    detailLink: 'leave-detail',
+  },
+  {
+    id: 'NTN-175890',
+    leaveType: 'Non-Birthing Parent (Continuous)',
+    startDate: 'Aug 20, 2025',
+    endDate: 'Oct 15, 2025',
+    status: 'Closed',
+    lastUpdate: 'Oct 20, 2025',
+    benefits: [
+      { type: 'FMLA', status: 'Exhausted', startDate: 'Aug 20, 2025', endDate: 'Oct 15, 2025', duration: '8 weeks' },
+      { type: 'Paid Family & Medical Leave (PFML)', status: 'Closed', startDate: 'Aug 20, 2025', endDate: 'Oct 15, 2025', weeklyBenefit: '$981.00', duration: '8 weeks' },
+    ],
+    detailLink: 'leave-detail',
+  },
+  {
+    id: 'NTN-163201',
+    leaveType: 'Own Serious Health Condition (Continuous)',
+    startDate: 'May 05, 2025',
+    endDate: 'Jul 18, 2025',
+    status: 'Denied',
+    lastUpdate: 'May 20, 2025',
+    benefits: [
+      { type: 'FMLA', status: 'Denied', startDate: 'May 05, 2025', endDate: 'Jul 18, 2025', duration: '10 weeks' },
+      { type: 'Long-Term Disability (LTD)', status: 'Denied', startDate: 'May 05, 2025', endDate: 'Jul 18, 2025', weeklyBenefit: '--', duration: '--' },
+    ],
+    detailLink: 'leave-detail',
+  },
+];
 
 const claimsData = [
   {
@@ -113,10 +182,12 @@ const LOAD_MORE_COUNT = 5;
 export default function ClaimCenterPage() {
   const base = useBasePath();
   const navigate = useNavigate();
+  const [pageVersion, setPageVersion] = useState(1);
   const [activeCategory, setActiveCategory] = useState('Dental');
   const [memberFilter, setMemberFilter] = useState('All');
   const [dateFilter, setDateFilter] = useState('All');
   const [visibleCount, setVisibleCount] = useState(INITIAL_VISIBLE);
+  const [expandedLeave, setExpandedLeave] = useState(null);
 
   const filtered = useMemo(() => {
     return claimsData.filter((row) => {
@@ -159,6 +230,8 @@ export default function ClaimCenterPage() {
       {/* Start a New Claim button (mobile) */}
       <button className="cl-ml-btn-new cl-ml-btn-new--mobile">+ Start a New Claim</button>
 
+      {pageVersion === 1 && (
+      <>
       {/* Table Card */}
       <div className="cl-ml-table-card">
         {/* Category tabs (desktop) */}
@@ -327,6 +400,167 @@ export default function ClaimCenterPage() {
             </button>
           </div>
         )}
+      </div>
+      </>
+      )}
+
+      {pageVersion === 2 && (
+      <div className="cl-ml-table-card">
+        {/* Category tabs (desktop) */}
+        <div className="cl-category-tabs">
+          {categoryTabs.map((tab) => (
+            <button
+              key={tab}
+              className={`cl-category-tab${tab === 'Leave and Disability' ? ' cl-category-tab--active' : ''}`}
+              onClick={() => { setActiveCategory(tab); if (tab !== 'Leave and Disability') setPageVersion(1); }}
+            >
+              {tab}
+            </button>
+          ))}
+        </div>
+
+        {/* Category dropdown (mobile) */}
+        <div className="cl-category-dropdown-mobile">
+          <label className="cl-ml-filter-label">CATEGORY</label>
+          <select className="cl-ml-filter-select" value="Leave and Disability" onChange={(e) => { setActiveCategory(e.target.value); if (e.target.value !== 'Leave and Disability') setPageVersion(1); }}>
+            {categoryTabs.map((tab) => (
+              <option key={tab} value={tab}>{tab}</option>
+            ))}
+          </select>
+        </div>
+
+        {/* Leave & Disability accordion table */}
+        <table className="cl-ml-table cl-claims-v2-table">
+          <thead>
+            <tr>
+              <th className="cl-ml-th-first">Claim ID</th>
+              <th>Leave Type</th>
+              <th>Leave Period</th>
+              <th>Status</th>
+              <th>Last Update</th>
+              <th>Action</th>
+            </tr>
+          </thead>
+          <tbody>
+            {leaveClaimsData.map((claim) => (
+              <React.Fragment key={claim.id}>
+                <tr className={'cl-ml-row cl-claims-v2-row' + (expandedLeave === claim.id ? ' cl-claims-v2-row--expanded' : '')} onClick={() => setExpandedLeave(expandedLeave === claim.id ? null : claim.id)}>
+                  <td className="cl-ml-td-first">
+                    <span className="cl-claims-v2-id">{claim.id}</span>
+                  </td>
+                  <td className="cl-ml-td">{claim.leaveType}</td>
+                  <td className="cl-ml-td">{claim.startDate} – {claim.endDate}</td>
+                  <td className="cl-ml-td">
+                    <span className={'cl-ml-status-pill cl-ml-status-pill--' + claim.status.toLowerCase().replace(' ', '')}>{claim.status}</span>
+                  </td>
+                  <td className="cl-ml-td">{claim.lastUpdate}</td>
+                  <td className="cl-ml-td">
+                    <button className="cl-claims-v2-expand-btn" type="button">
+                      <svg width="12" height="12" viewBox="0 0 12 12" fill="none" style={{ transform: expandedLeave === claim.id ? 'rotate(180deg)' : 'rotate(0)', transition: 'transform 0.2s' }}>
+                        <path d="M2 4l4 4 4-4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+                      </svg>
+                      {expandedLeave === claim.id ? 'Hide' : 'View'} Details
+                    </button>
+                  </td>
+                </tr>
+                {expandedLeave === claim.id && (
+                  <tr className="cl-claims-v2-accordion-row">
+                    <td colSpan="6">
+                      <div className="cl-claims-v2-accordion">
+                        <div className="cl-claims-v2-accordion__header">
+                          <h4 className="cl-claims-v2-accordion__title">Associated Benefits</h4>
+                          <span className="cl-claims-v2-accordion__count">{claim.benefits.length} benefit{claim.benefits.length > 1 ? 's' : ''}</span>
+                        </div>
+                        <div className="cl-claims-v2-benefits">
+                          {claim.benefits.map((b, idx) => (
+                            <div key={idx} className="cl-claims-v2-benefit">
+                              <div className="cl-claims-v2-benefit__type">{b.type}</div>
+                              <div className="cl-claims-v2-benefit__details">
+                                <span className="cl-claims-v2-benefit__field"><span className="cl-claims-v2-benefit__label">Status</span><span className={'cl-ml-status-pill cl-ml-status-pill--' + b.status.toLowerCase().replace(' ', '')}>{b.status}</span></span>
+                                <span className="cl-claims-v2-benefit__field"><span className="cl-claims-v2-benefit__label">Period</span>{b.startDate} – {b.endDate}</span>
+                                <span className="cl-claims-v2-benefit__field"><span className="cl-claims-v2-benefit__label">Duration</span>{b.duration}</span>
+                                {b.weeklyBenefit && <span className="cl-claims-v2-benefit__field"><span className="cl-claims-v2-benefit__label">Weekly Benefit</span>{b.weeklyBenefit}</span>}
+                              </div>
+                            </div>
+                          ))}
+                        </div>
+                        <button className="cl-claims-v2-detail-btn" onClick={() => navigate(`${base}/${claim.detailLink}`)}>
+                          View Full Leave Details
+                          <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M5 2l5 5-5 5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/></svg>
+                        </button>
+                      </div>
+                    </td>
+                  </tr>
+                )}
+              </React.Fragment>
+            ))}
+          </tbody>
+        </table>
+
+        {/* Mobile card view for v2 */}
+        <div className="cl-cards-mobile cl-claims-v2-cards">
+          {leaveClaimsData.map((claim) => (
+            <div key={claim.id} className="cl-card-mobile cl-claims-v2-card">
+              <div className="cl-card-mobile-header">
+                <span className="cl-claims-v2-id">{claim.id}</span>
+                <span className={'cl-ml-status-pill cl-ml-status-pill--' + claim.status.toLowerCase().replace(' ', '')}>{claim.status}</span>
+              </div>
+              <span className="cl-card-mobile-type">{claim.leaveType}</span>
+              <div className="cl-card-mobile-details">
+                <div className="cl-card-mobile-field">
+                  <span className="cl-card-mobile-label">Period</span>
+                  <span className="cl-card-mobile-value">{claim.startDate} – {claim.endDate}</span>
+                </div>
+                <div className="cl-card-mobile-field">
+                  <span className="cl-card-mobile-label">Last Update</span>
+                  <span className="cl-card-mobile-value">{claim.lastUpdate}</span>
+                </div>
+              </div>
+              <button className="cl-claims-v2-expand-btn" type="button" onClick={() => setExpandedLeave(expandedLeave === claim.id ? null : claim.id)}>
+                <svg width="12" height="12" viewBox="0 0 12 12" fill="none" style={{ transform: expandedLeave === claim.id ? 'rotate(180deg)' : 'rotate(0)', transition: 'transform 0.2s' }}>
+                  <path d="M2 4l4 4 4-4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+                </svg>
+                {expandedLeave === claim.id ? 'Hide' : 'View'} Details
+              </button>
+              {expandedLeave === claim.id && (
+                <div className="cl-claims-v2-accordion">
+                  <div className="cl-claims-v2-accordion__header">
+                    <h4 className="cl-claims-v2-accordion__title">Associated Benefits</h4>
+                  </div>
+                  <div className="cl-claims-v2-benefits">
+                    {claim.benefits.map((b, idx) => (
+                      <div key={idx} className="cl-claims-v2-benefit">
+                        <div className="cl-claims-v2-benefit__type">{b.type}</div>
+                        <div className="cl-claims-v2-benefit__details">
+                          <span className="cl-claims-v2-benefit__field"><span className="cl-claims-v2-benefit__label">Status</span><span className={'cl-ml-status-pill cl-ml-status-pill--' + b.status.toLowerCase().replace(' ', '')}>{b.status}</span></span>
+                          <span className="cl-claims-v2-benefit__field"><span className="cl-claims-v2-benefit__label">Period</span>{b.startDate} – {b.endDate}</span>
+                          <span className="cl-claims-v2-benefit__field"><span className="cl-claims-v2-benefit__label">Duration</span>{b.duration}</span>
+                          {b.weeklyBenefit && <span className="cl-claims-v2-benefit__field"><span className="cl-claims-v2-benefit__label">Weekly Benefit</span>{b.weeklyBenefit}</span>}
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                  <button className="cl-claims-v2-detail-btn" onClick={() => navigate(`${base}/${claim.detailLink}`)}>
+                    View Full Leave Details
+                    <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M5 2l5 5-5 5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/></svg>
+                  </button>
+                </div>
+              )}
+            </div>
+          ))}
+        </div>
+      </div>
+      )}
+
+      {/* Version toggle */}
+      <div className="cl-version-toolbar">
+        <button className="cl-version-btn" disabled={pageVersion <= 1} onClick={() => setPageVersion(pageVersion - 1)}>
+          <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M9 2L4 7l5 5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/></svg>
+        </button>
+        <span className="cl-version-label">v{pageVersion}</span>
+        <button className="cl-version-btn" disabled={pageVersion >= 2} onClick={() => setPageVersion(pageVersion + 1)}>
+          <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M5 2l5 5-5 5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/></svg>
+        </button>
       </div>
     </div>
   );
