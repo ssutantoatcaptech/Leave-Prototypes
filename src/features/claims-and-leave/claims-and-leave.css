@@ -8365,6 +8365,26 @@
   font-size: 14px;
 }
 
+.cl-claims-v2-kind {
+  display: inline-block;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.03em;
+  padding: 2px 8px;
+  border-radius: 4px;
+  white-space: nowrap;
+}
+
+.cl-claims-v2-kind--leave {
+  background: #e8f4fd;
+  color: #105fa8;
+}
+
+.cl-claims-v2-kind--std {
+  background: #fef3e2;
+  color: #92400e;
+}
+
 .cl-claims-v2-expand-btn {
   display: inline-flex;
   align-items: center;
