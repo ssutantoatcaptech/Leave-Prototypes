@@ -2756,12 +2756,14 @@ select.ldb-detail-input {
     position: absolute;
     right: 12px;
     top: 50%;
-    width: 10px;
-    height: 10px;
+    width: 14px;
+    height: 14px;
     border-radius: 50%;
-    background: rgba(16, 95, 168, 0.6);
+    background: #105fa8;
+    border: 2px solid #fff;
     transform: translateY(-50%);
-    animation: dlp-hotspot-glow 2s ease-in-out infinite, dlp-hotspot-fade 4s ease-out forwards;
+    box-shadow: 0 0 0 0 rgba(16, 95, 168, 0.5);
+    animation: dlp-hotspot-glow 1.8s ease-in-out infinite, dlp-hotspot-fade 5s ease-out forwards;
     pointer-events: none;
   }
   .dlp-tl-row.active .dlp-tl-tap-hotspot {
@@ -2769,12 +2771,12 @@ select.ldb-detail-input {
   }
 }
 @keyframes dlp-hotspot-glow {
-  0%, 100% { box-shadow: 0 0 0 0 rgba(16, 95, 168, 0.4); }
-  50% { box-shadow: 0 0 0 8px rgba(16, 95, 168, 0); }
+  0%, 100% { box-shadow: 0 0 0 0 rgba(16, 95, 168, 0.5); }
+  50% { box-shadow: 0 0 0 10px rgba(16, 95, 168, 0); }
 }
 @keyframes dlp-hotspot-fade {
   0% { opacity: 1; }
-  75% { opacity: 1; }
+  80% { opacity: 1; }
   100% { opacity: 0; }
 }
 
