@@ -622,11 +622,11 @@ export default function ClaimCenterPage() {
         <div className="cl-claims-v2-legend">
           <div className="cl-claims-v2-legend__item">
             <span className="cl-claims-v2-kind cl-claims-v2-kind--leave">Leave</span>
-            <span className="cl-claims-v2-legend__desc">We manage your entire leave — approvals, benefits, documents, and payments</span>
+            <span className="cl-claims-v2-legend__desc">Fully managed by us — leave approval, benefits, and payments</span>
           </div>
           <div className="cl-claims-v2-legend__item">
             <span className="cl-claims-v2-kind cl-claims-v2-kind--std">STD Claim</span>
-            <span className="cl-claims-v2-legend__desc">We handle your disability payments and documents only — your employer manages the leave</span>
+            <span className="cl-claims-v2-legend__desc">Payments and documents only — leave managed by your employer</span>
           </div>
         </div>
       </div>
