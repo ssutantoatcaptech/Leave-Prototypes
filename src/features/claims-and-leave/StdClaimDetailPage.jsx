@@ -7,55 +7,57 @@ import '../absence-details/absence-details-react.css';
 var CLAIM_VARIANTS = {
   std: {
     title: 'Short-Term Disability (STD) Claim',
-    status: 'In Payment',
-    statusClass: 'cl-std-pill--approved',
-    claimId: 'CL-954412',
-    filedDate: 'Apr 7, 2026',
-    claimNumber: 'CLM-94820',
+    status: 'Closed',
+    statusClass: 'cl-std-pill--closed',
+    claimId: 'CLM-301822',
+    filedDate: 'Feb 10, 2026',
+    claimNumber: 'CLM-301822',
     policy: 'Group STD — Employer Paid',
-    diagnosis: 'Lumbar disc herniation',
-    leaveStart: 'Apr 7, 2026',
-    benefitsBegin: 'Apr 14, 2026',
-    expectedRTW: 'Jun 30, 2026',
-    maxDuration: '12 weeks',
-    weeksRemaining: '7 of 12 weeks',
-    totalPaid: '$5,185.00',
+    diagnosis: 'Post-surgical recovery (knee)',
+    leaveStart: 'Feb 10, 2026',
+    benefitsBegin: 'Feb 17, 2026',
+    expectedRTW: 'Apr 06, 2026',
+    maxDuration: '8 weeks',
+    weeksRemaining: '0 of 8 weeks (Exhausted)',
+    totalPaid: '$8,300.00',
+    linkedClaim: { id: 'LTD-401822', kind: 'ltd', label: 'Transitioned to LTD-401822 (Active)' },
     timelineRows: [
-      { id: 'std', label: 'STD', width: 58, accent: '#2563eb', name: 'Group Short-Term Disability (In Progress)', weeks: '5 of 12 weeks paid', range: 'Apr 14 – May 18, 2026', pay: '60% of pre-disability earnings', paymentValue: '~$1,037/wk' },
-      { id: 'std-remaining', label: 'Remaining', width: 42, accent: '#bfdbfe', name: 'Remaining STD Benefits', weeks: '7 weeks remaining', range: 'May 19 – Jul 6, 2026', pay: '60% of pre-disability earnings', paymentValue: '~$1,037/wk' },
+      { id: 'std', label: 'STD', width: 100, accent: '#2563eb', name: 'Group Short-Term Disability (Completed)', weeks: '8 of 8 weeks paid', range: 'Feb 17 – Apr 06, 2026', pay: '60% of pre-disability earnings', paymentValue: '~$1,037/wk' },
     ],
     legend: [
-      { id: 'std-paid', label: 'STD paid (5 wks)', accent: '#2563eb' },
-      { id: 'std-remaining', label: 'Remaining (7 wks)', accent: '#bfdbfe' },
+      { id: 'std-paid', label: 'STD paid (8 wks — exhausted)', accent: '#2563eb' },
     ],
-    weekCount: 12,
-    months: ['Apr', 'May', 'Jun', 'Jul'],
+    weekCount: 8,
+    months: ['Feb', 'Mar', 'Apr'],
   },
   ltd: {
     title: 'Long-Term Disability (LTD) Claim',
-    status: 'Denied',
-    statusClass: 'cl-std-pill--denied',
-    claimId: 'CL-967201',
-    filedDate: 'Jul 8, 2024',
-    claimNumber: 'CLM-96720',
+    status: 'Active',
+    statusClass: 'cl-std-pill--approved',
+    claimId: 'LTD-401822',
+    filedDate: 'Apr 07, 2026',
+    claimNumber: 'LTD-401822',
     policy: 'Group LTD — Employer Paid',
-    diagnosis: 'Lumbar disc herniation',
-    leaveStart: 'Jul 6, 2024',
-    benefitsBegin: 'Jul 6, 2024',
-    expectedRTW: 'N/A',
-    maxDuration: '24 months',
-    weeksRemaining: '0 of 24 months (Denied)',
-    totalPaid: '$8,292.72',
+    diagnosis: 'Post-surgical recovery (knee)',
+    leaveStart: 'Feb 10, 2026',
+    benefitsBegin: 'Apr 07, 2026',
+    expectedRTW: 'Oct 06, 2026',
+    maxDuration: '26 weeks',
+    weeksRemaining: '20 of 26 weeks',
+    totalPaid: '$5,400.00',
+    linkedClaim: { id: 'CLM-301822', kind: 'std', label: 'Continuation of CLM-301822 (STD — Closed)' },
     timelineRows: [
-      { id: 'std', label: 'STD', width: 40, accent: '#2563eb', name: 'Group Short-Term Disability', weeks: '8 weeks', range: 'May 11 – Jul 6, 2024', pay: '60% of pre-disability earnings', paymentValue: '~$1,037/wk' },
-      { id: 'ltd', label: 'LTD', width: 60, accent: '#818cf8', name: 'Long-Term Disability (Denied)', weeks: '12 weeks (denied)', range: 'Jul 6 – Sep 28, 2024', pay: 'Denied — no payment', paymentValue: '$0/wk' },
+      { id: 'std', label: 'STD', width: 24, accent: '#94a3b8', name: 'Group Short-Term Disability (Completed)', weeks: '8 weeks (exhausted)', range: 'Feb 17 – Apr 06, 2026', pay: '60% of pre-disability earnings', paymentValue: '~$1,037/wk' },
+      { id: 'ltd', label: 'LTD', width: 18, accent: '#475569', name: 'Long-Term Disability (In Payment)', weeks: '6 of 26 weeks paid', range: 'Apr 07 – May 18, 2026', pay: '60% of pre-disability earnings', paymentValue: '~$900/wk' },
+      { id: 'ltd-remaining', label: 'Remaining', width: 58, accent: '#cbd5e1', name: 'Remaining LTD Benefits', weeks: '20 weeks remaining', range: 'May 19 – Oct 06, 2026', pay: '60% of pre-disability earnings', paymentValue: '~$900/wk' },
     ],
     legend: [
-      { id: 'std-pay', label: 'STD (60% — ended)', accent: '#2563eb' },
-      { id: 'ltd-pay', label: 'LTD (Denied)', accent: '#818cf8' },
+      { id: 'std-pay', label: 'STD (8 wks — ended)', accent: '#94a3b8' },
+      { id: 'ltd-pay', label: 'LTD paid (6 wks)', accent: '#475569' },
+      { id: 'ltd-remaining', label: 'LTD remaining (20 wks)', accent: '#cbd5e1' },
     ],
-    weekCount: 20,
-    months: ['May', 'Jun', 'Jul', 'Aug', 'Sep'],
+    weekCount: 34,
+    months: ['Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct'],
   },
 };
 
@@ -98,6 +100,20 @@ export default function StdClaimDetailPage() {
         </div>
       </div>
 
+      {/* Linked claim callout */}
+      {variant.linkedClaim && (
+        <div className="cl-std-linked-callout">
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+            <path d="M6.5 3.5h-2a2 2 0 00-2 2v5a2 2 0 002 2h2M9.5 12.5h2a2 2 0 002-2v-5a2 2 0 00-2-2h-2M5 8h6" stroke="#475569" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+          </svg>
+          <span className="cl-std-linked-callout-text">{variant.linkedClaim.label}</span>
+          <Link to={`${base}/${variant.linkedClaim.kind === 'ltd' ? 'ltd' : 'std'}-claim-detail`} className="cl-std-linked-callout-link">
+            View {variant.linkedClaim.kind === 'ltd' ? 'LTD' : 'STD'} Claim
+            <svg width="10" height="10" viewBox="0 0 14 14" fill="none"><path d="M5 2l5 5-5 5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/></svg>
+          </Link>
+        </div>
+      )}
+
       {/* Two-column grid */}
       <div className="cl-std-grid">
         {/* Main column */}
@@ -121,8 +137,13 @@ export default function StdClaimDetailPage() {
             <div className="dlp-timeline">
               <div className="ldb-tl-rows-wrap">
               <div className="dlp-tl-rows">
-                {variant.timelineRows.map(function (item) {
-                  var left = (item.id === 'ltd' || item.id === 'std-remaining') ? (variant.timelineRows[0].width + '%') : '0%';
+                {variant.timelineRows.map(function (item, idx) {
+                  var left = '0%';
+                  if (idx > 0) {
+                    var offset = 0;
+                    for (var j = 0; j < idx; j++) offset += variant.timelineRows[j].width;
+                    left = offset + '%';
+                  }
                   return (
                     <button
                       key={item.id}

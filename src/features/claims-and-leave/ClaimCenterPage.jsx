@@ -560,8 +560,8 @@ export default function ClaimCenterPage() {
                         </svg>
                       </button>
                     ) : (
-                      <button className="cl-claims-v2-expand-btn" type="button" onClick={(e) => { e.stopPropagation(); navigate(`${base}/std-claim-detail`); }}>
-                        View Details
+                      <button className="cl-claims-v2-expand-btn" type="button" onClick={(e) => { e.stopPropagation(); navigate(`${base}/${claim.kind === 'ltd' ? 'ltd' : 'std'}-claim-detail`); }}>
+                        Open Claim
                         <svg width="10" height="10" viewBox="0 0 14 14" fill="none"><path d="M5 2l5 5-5 5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/></svg>
                       </button>
                     )}
@@ -757,8 +757,8 @@ export default function ClaimCenterPage() {
                   )}
                 </>
               ) : (
-                <button className="cl-claims-v2-expand-btn" type="button" onClick={() => navigate(`${base}/std-claim-detail`)}>
-                  View Claim Details
+                <button className="cl-claims-v2-expand-btn" type="button" onClick={() => navigate(`${base}/${claim.kind === 'ltd' ? 'ltd' : 'std'}-claim-detail`)}>
+                  Open Claim
                   <svg width="10" height="10" viewBox="0 0 14 14" fill="none"><path d="M5 2l5 5-5 5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/></svg>
                 </button>
               )}
