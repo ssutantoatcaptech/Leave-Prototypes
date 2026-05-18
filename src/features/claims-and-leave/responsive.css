@@ -1298,6 +1298,14 @@
   gap: 8px;
 }
 
+.cl-ma-cal-month {
+  width: 100%;
+}
+
+.cl-ma-view-toggle {
+  flex: 1;
+}
+
 .cl-ma-view-toggle__btn {
   padding: 4px 10px;
   font-size: 11px;
@@ -1860,6 +1868,14 @@
 
   .cl-ma-cal-header {
     flex-wrap: nowrap;
+  }
+
+  .cl-ma-cal-month {
+    width: auto;
+  }
+
+  .cl-ma-view-toggle {
+    flex: none;
   }
 
   .cl-ma-view-toggle__btn {
