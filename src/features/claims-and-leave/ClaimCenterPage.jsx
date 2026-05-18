@@ -473,9 +473,8 @@ export default function ClaimCenterPage() {
                         <div className="cl-claims-v2-benefits">
                           {claim.benefits.map((b, idx) => (
                             <div key={idx} className="cl-claims-v2-benefit">
-                              <div className="cl-claims-v2-benefit__type">{b.type}</div>
+                              <div className="cl-claims-v2-benefit__type">{b.type} <span className={'cl-ml-status-pill cl-ml-status-pill--' + b.status.toLowerCase().replace(' ', '')}>{b.status}</span></div>
                               <div className="cl-claims-v2-benefit__details">
-                                <span className="cl-claims-v2-benefit__field"><span className="cl-claims-v2-benefit__label">Status</span><span className={'cl-ml-status-pill cl-ml-status-pill--' + b.status.toLowerCase().replace(' ', '')}>{b.status}</span></span>
                                 <span className="cl-claims-v2-benefit__field"><span className="cl-claims-v2-benefit__label">Period</span>{b.startDate} – {b.endDate}</span>
                                 <span className="cl-claims-v2-benefit__field"><span className="cl-claims-v2-benefit__label">Duration</span>{b.duration}</span>
                                 {b.weeklyBenefit && <span className="cl-claims-v2-benefit__field"><span className="cl-claims-v2-benefit__label">Weekly Benefit</span>{b.weeklyBenefit}</span>}

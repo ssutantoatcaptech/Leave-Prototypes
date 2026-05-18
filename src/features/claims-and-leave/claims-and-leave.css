@@ -8441,6 +8441,10 @@
   font-size: 14px;
   font-weight: 700;
   color: #003a70;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
 }
 
 .cl-claims-v2-benefit__details {
