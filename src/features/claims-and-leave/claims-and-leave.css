@@ -8441,6 +8441,50 @@
   border-left: 3px solid #475569;
 }
 
+.cl-v2-th-sort {
+  user-select: none;
+}
+
+.cl-v2-pagination {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  padding: 16px 20px;
+  border-top: 1px solid #e8eef4;
+}
+
+.cl-v2-pagination-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  background: none;
+  border: 1px solid #d1d5db;
+  border-radius: 6px;
+  padding: 6px 12px;
+  font-family: 'Source Sans Pro', sans-serif;
+  font-size: 13px;
+  font-weight: 600;
+  color: #105fa8;
+  cursor: pointer;
+  transition: background 0.12s;
+}
+
+.cl-v2-pagination-btn:hover:not(:disabled) {
+  background: #f0f7ff;
+}
+
+.cl-v2-pagination-btn:disabled {
+  opacity: 0.4;
+  cursor: default;
+}
+
+.cl-v2-pagination-info {
+  font-family: 'Source Sans Pro', sans-serif;
+  font-size: 13px;
+  color: #6b7280;
+}
+
 .cl-claims-v2-legend {
   display: flex;
   align-items: flex-start;

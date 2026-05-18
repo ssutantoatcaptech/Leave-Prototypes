@@ -272,15 +272,32 @@ export default function ClaimCenterPage() {
   const [memberFilter, setMemberFilter] = useState('All');
   const [dateFilter, setDateFilter] = useState('All');
   const [visibleCount, setVisibleCount] = useState(INITIAL_VISIBLE);
+  const [v2SortCol, setV2SortCol] = useState('period');
   const [v2SortAsc, setV2SortAsc] = useState(false);
+  const [v2Page, setV2Page] = useState(0);
+  const V2_PAGE_SIZE = 10;
+
+  const handleV2Sort = (col) => {
+    if (v2SortCol === col) { setV2SortAsc(!v2SortAsc); }
+    else { setV2SortCol(col); setV2SortAsc(false); }
+    setV2Page(0);
+  };
 
   const sortedLeaveData = useMemo(() => {
     return [...leaveAndDisabilityData].sort((a, b) => {
-      const da = new Date(a.startDate);
-      const db = new Date(b.startDate);
-      return v2SortAsc ? da - db : db - da;
+      let cmp = 0;
+      if (v2SortCol === 'id') cmp = a.id.localeCompare(b.id);
+      else if (v2SortCol === 'type') cmp = a.kind.localeCompare(b.kind);
+      else if (v2SortCol === 'description') cmp = (a.description + (a.condition || '')).localeCompare(b.description + (b.condition || ''));
+      else if (v2SortCol === 'period') cmp = new Date(a.startDate) - new Date(b.startDate);
+      else if (v2SortCol === 'status') cmp = a.status.localeCompare(b.status);
+      else if (v2SortCol === 'lastUpdate') cmp = new Date(a.lastUpdate) - new Date(b.lastUpdate);
+      return v2SortAsc ? cmp : -cmp;
     });
-  }, [v2SortAsc]);
+  }, [v2SortCol, v2SortAsc]);
+
+  const v2PageData = sortedLeaveData.slice(v2Page * V2_PAGE_SIZE, (v2Page + 1) * V2_PAGE_SIZE);
+  const v2TotalPages = Math.ceil(sortedLeaveData.length / V2_PAGE_SIZE);
 
   const filtered = useMemo(() => {
     return claimsData.filter((row) => {
@@ -434,7 +451,7 @@ export default function ClaimCenterPage() {
                     onClick={() => { if (row.link) navigate(`${base}/${row.link}`); }}
                   >
                     View Details
-                    <svg width="10" height="6" viewBox="0 0 10 6" fill="none" aria-hidden="true" style={{ marginLeft: '4px' }}><path d="M1 1l4 4 4-4" stroke="#105fa8" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/></svg>
+                    <svg width="10" height="10" viewBox="0 0 14 14" fill="none" aria-hidden="true" style={{ marginLeft: '4px' }}><path d="M5 2l5 5-5 5" stroke="#105fa8" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/></svg>
                   </span>
                 </td>
               </tr>
@@ -526,22 +543,19 @@ export default function ClaimCenterPage() {
         <table className="cl-ml-table cl-claims-v2-table">
           <thead>
             <tr>
-              <th className="cl-ml-th-first">ID</th>
-              <th>Type</th>
-              <th>Description</th>
-              <th className="cl-ml-th-sortable" onClick={() => setV2SortAsc(!v2SortAsc)} style={{ cursor: 'pointer' }}>
-                <span className="cl-ml-th-sortable">
-                  Period
-                  <svg width="10" height="6" viewBox="0 0 10 6" fill="none" aria-hidden="true" style={{ transform: v2SortAsc ? 'rotate(180deg)' : 'rotate(0)', transition: 'transform 0.2s' }}><path d="M1 1l4 4 4-4" stroke="#222" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/></svg>
-                </span>
-              </th>
-              <th>Status</th>
-              <th>Last Update</th>
+              {[{col:'id',label:'ID'},{col:'type',label:'Type'},{col:'description',label:'Description'},{col:'period',label:'Period'},{col:'status',label:'Status'},{col:'lastUpdate',label:'Last Update'}].map(({col,label}) => (
+                <th key={col} className={col === 'id' ? 'cl-ml-th-first cl-v2-th-sort' : 'cl-v2-th-sort'} onClick={() => handleV2Sort(col)} style={{ cursor: 'pointer' }}>
+                  <span className="cl-ml-th-sortable">
+                    {label}
+                    {v2SortCol === col && <svg width="10" height="6" viewBox="0 0 10 6" fill="none" aria-hidden="true" style={{ marginLeft: 4, transform: v2SortAsc ? 'rotate(180deg)' : 'rotate(0)', transition: 'transform 0.2s' }}><path d="M1 1l4 4 4-4" stroke="#222" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/></svg>}
+                  </span>
+                </th>
+              ))}
               <th>Action</th>
             </tr>
           </thead>
           <tbody>
-            {sortedLeaveData.map((claim) => {
+            {v2PageData.map((claim) => {
               const detailPath = claim.kind === 'leave' ? 'case-detail' : claim.kind === 'ada' ? 'ada-requests' : claim.kind === 'ltd' ? 'ltd-claim-detail' : 'std-claim-detail';
               return (
               <tr key={claim.id} className="cl-ml-row cl-claims-v2-row" onClick={() => navigate(`${base}/${detailPath}`)}>
@@ -572,9 +586,24 @@ export default function ClaimCenterPage() {
           </tbody>
         </table>
 
+        {/* Pagination */}
+        {v2TotalPages > 1 && (
+          <div className="cl-v2-pagination">
+            <button className="cl-v2-pagination-btn" disabled={v2Page === 0} onClick={() => setV2Page(v2Page - 1)}>
+              <svg width="12" height="12" viewBox="0 0 14 14" fill="none"><path d="M9 2L4 7l5 5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/></svg>
+              Prev
+            </button>
+            <span className="cl-v2-pagination-info">Page {v2Page + 1} of {v2TotalPages}</span>
+            <button className="cl-v2-pagination-btn" disabled={v2Page >= v2TotalPages - 1} onClick={() => setV2Page(v2Page + 1)}>
+              Next
+              <svg width="12" height="12" viewBox="0 0 14 14" fill="none"><path d="M5 2l5 5-5 5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/></svg>
+            </button>
+          </div>
+        )}
+
         {/* Mobile card view for v2 */}
         <div className="cl-cards-mobile cl-claims-v2-cards">
-          {leaveAndDisabilityData.map((claim) => {
+          {v2PageData.map((claim) => {
             const detailPath = claim.kind === 'leave' ? 'case-detail' : claim.kind === 'ada' ? 'ada-requests' : claim.kind === 'ltd' ? 'ltd-claim-detail' : 'std-claim-detail';
             return (
             <div key={claim.id} className="cl-card-mobile cl-claims-v2-card">
@@ -586,9 +615,6 @@ export default function ClaimCenterPage() {
                 <span className={'cl-claims-v2-kind cl-claims-v2-kind--' + claim.kind}>{claim.kind === 'leave' ? 'Leave' : claim.kind === 'ada' ? 'ADA' : claim.kind === 'ltd' ? 'LTD Claim' : 'STD Claim'}</span>
                 {claim.kind === 'leave' && claim.accommodations && claim.accommodations.length > 0 && (
                   <span className="cl-claims-v2-kind cl-claims-v2-kind--ada" style={{ marginLeft: 4 }}>ADA</span>
-                )}
-                {claim.linkedClaim && (
-                  <span className={'cl-claims-v2-kind cl-claims-v2-kind--' + claim.linkedClaim.kind} style={{ marginLeft: 4 }}>{claim.linkedClaim.kind === 'ltd' ? 'LTD' : 'STD'}</span>
                 )}
               </div>
               <span className="cl-card-mobile-type">{claim.description}{claim.condition ? ` — ${claim.condition}` : ''}</span>
