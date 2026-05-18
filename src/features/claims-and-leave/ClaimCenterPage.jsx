@@ -144,15 +144,16 @@ const leaveAndDisabilityData = [
     notes: '6-hour workday, flexible start time',
   },
   {
-    id: 'ADA-098712',
-    kind: 'ada',
-    description: 'Remote Work',
-    condition: 'Mobility limitation (permanent)',
-    startDate: 'Oct 15, 2025',
-    endDate: 'Ongoing',
-    status: 'Active',
-    lastUpdate: 'Oct 20, 2025',
-    notes: 'Full-time remote, quarterly in-office optional',
+    id: 'NTN-152088',
+    kind: 'leave',
+    description: 'Military Caregiver Leave (Continuous)',
+    startDate: 'Mar 10, 2025',
+    endDate: 'May 02, 2025',
+    status: 'Closed',
+    lastUpdate: 'May 08, 2025',
+    benefits: [
+      { type: 'FMLA', status: 'Exhausted', startDate: 'Mar 10, 2025', endDate: 'May 02, 2025', duration: '8 weeks' },
+    ],
   },
 ];
 
@@ -589,15 +590,20 @@ export default function ClaimCenterPage() {
         {/* Pagination */}
         {v2TotalPages > 1 && (
           <div className="cl-v2-pagination">
-            <button className="cl-v2-pagination-btn" disabled={v2Page === 0} onClick={() => setV2Page(v2Page - 1)}>
-              <svg width="12" height="12" viewBox="0 0 14 14" fill="none"><path d="M9 2L4 7l5 5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/></svg>
-              Prev
-            </button>
-            <span className="cl-v2-pagination-info">Page {v2Page + 1} of {v2TotalPages}</span>
-            <button className="cl-v2-pagination-btn" disabled={v2Page >= v2TotalPages - 1} onClick={() => setV2Page(v2Page + 1)}>
-              Next
-              <svg width="12" height="12" viewBox="0 0 14 14" fill="none"><path d="M5 2l5 5-5 5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/></svg>
-            </button>
+            <span className="cl-v2-pagination-info">Showing <strong>{v2Page * V2_PAGE_SIZE + 1}-{Math.min((v2Page + 1) * V2_PAGE_SIZE, sortedLeaveData.length)}</strong> of <strong>{sortedLeaveData.length}</strong> results</span>
+            <div className="cl-v2-pagination-nav">
+              <button type="button" className="cl-v2-page-btn cl-v2-page-arrow" disabled={v2Page <= 0} onClick={() => setV2Page(v2Page - 1)}>
+                <svg width="10" height="10" viewBox="0 0 14 14" fill="none"><path d="M9 2L4 7l5 5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/></svg>
+              </button>
+              {Array.from({ length: v2TotalPages }, (_, i) => (
+                <button key={i} type="button" className={'cl-v2-page-btn' + (v2Page === i ? ' active' : '')} onClick={() => setV2Page(i)}>
+                  {i + 1}
+                </button>
+              ))}
+              <button type="button" className="cl-v2-page-btn cl-v2-page-arrow" disabled={v2Page >= v2TotalPages - 1} onClick={() => setV2Page(v2Page + 1)}>
+                <svg width="10" height="10" viewBox="0 0 14 14" fill="none"><path d="M5 2l5 5-5 5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/></svg>
+              </button>
+            </div>
           </div>
         )}
 
