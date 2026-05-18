@@ -8390,6 +8390,15 @@
   color: #0d6e63;
 }
 
+.cl-claims-v2-kind--ltd {
+  background: #f1f5f9;
+  color: #334155;
+}
+
+.cl-claims-v2-benefit--ltd {
+  border-left: 3px solid #475569;
+}
+
 .cl-claims-v2-legend {
   display: flex;
   align-items: flex-start;
