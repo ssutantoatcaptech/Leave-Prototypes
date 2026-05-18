@@ -8385,6 +8385,11 @@
   color: #92400e;
 }
 
+.cl-claims-v2-kind--ada {
+  background: #e6f7f5;
+  color: #0d6e63;
+}
+
 .cl-claims-v2-legend {
   display: flex;
   align-items: flex-start;

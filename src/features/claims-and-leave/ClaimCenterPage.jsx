@@ -16,6 +16,9 @@ const leaveAndDisabilityData = [
       { type: 'Short-Term Disability (STD)', status: 'Approved', startDate: 'Mar 15, 2026', endDate: 'May 10, 2026', weeklyBenefit: '$1,125.00', duration: '8 weeks' },
       { type: 'Paid Family & Medical Leave (PFML)', status: 'Approved', startDate: 'May 11, 2026', endDate: 'Jun 07, 2026', weeklyBenefit: '$981.00', duration: '4 weeks' },
     ],
+    accommodations: [
+      { type: 'Ergonomic Workstation', status: 'Active', startDate: 'Jun 08, 2026', endDate: 'Sep 08, 2026', notes: 'Standing desk and ergonomic chair upon return' },
+    ],
   },
   {
     id: 'CLM-301822',
@@ -104,6 +107,28 @@ const leaveAndDisabilityData = [
     lastUpdate: 'Sep 12, 2025',
     weeklyBenefit: '$1,125.00',
     duration: '12 weeks',
+  },
+  {
+    id: 'ADA-110245',
+    kind: 'ada',
+    description: 'Reduced Schedule',
+    condition: 'Chronic migraine management',
+    startDate: 'Mar 01, 2026',
+    endDate: 'Aug 31, 2026',
+    status: 'Active',
+    lastUpdate: 'Mar 05, 2026',
+    notes: '6-hour workday, flexible start time',
+  },
+  {
+    id: 'ADA-098712',
+    kind: 'ada',
+    description: 'Remote Work',
+    condition: 'Mobility limitation (permanent)',
+    startDate: 'Oct 15, 2025',
+    endDate: 'Ongoing',
+    status: 'Active',
+    lastUpdate: 'Oct 20, 2025',
+    notes: 'Full-time remote, quarterly in-office optional',
   },
 ];
 
@@ -485,7 +510,7 @@ export default function ClaimCenterPage() {
                     <span className="cl-claims-v2-id">{claim.id}</span>
                   </td>
                   <td className="cl-ml-td">
-                    <span className={'cl-claims-v2-kind cl-claims-v2-kind--' + claim.kind}>{claim.kind === 'leave' ? 'Leave' : 'STD Claim'}</span>
+                    <span className={'cl-claims-v2-kind cl-claims-v2-kind--' + claim.kind}>{claim.kind === 'leave' ? 'Leave' : claim.kind === 'ada' ? 'ADA' : 'STD Claim'}</span>
                   </td>
                   <td className="cl-ml-td">{claim.description}{claim.condition ? ` — ${claim.condition}` : ''}</td>
                   <td className="cl-ml-td">{claim.startDate} – {claim.endDate}</td>
@@ -500,6 +525,11 @@ export default function ClaimCenterPage() {
                         <svg width="12" height="12" viewBox="0 0 12 12" fill="none" style={{ transform: expandedLeave === claim.id ? 'rotate(180deg)' : 'rotate(0)', transition: 'transform 0.2s' }}>
                           <path d="M2 4l4 4 4-4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
                         </svg>
+                      </button>
+                    ) : claim.kind === 'ada' ? (
+                      <button className="cl-claims-v2-expand-btn" type="button" onClick={(e) => { e.stopPropagation(); navigate(`${base}/ada-requests`); }}>
+                        View Details
+                        <svg width="10" height="10" viewBox="0 0 14 14" fill="none"><path d="M5 2l5 5-5 5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/></svg>
                       </button>
                     ) : (
                       <button className="cl-claims-v2-expand-btn" type="button" onClick={(e) => { e.stopPropagation(); navigate(`${base}/std-claim-detail`); }}>
@@ -529,6 +559,25 @@ export default function ClaimCenterPage() {
                             </div>
                           ))}
                         </div>
+                        {claim.accommodations && claim.accommodations.length > 0 && (
+                          <>
+                            <div className="cl-claims-v2-accordion__header" style={{ marginTop: 16 }}>
+                              <h4 className="cl-claims-v2-accordion__title">ADA Accommodations</h4>
+                              <span className="cl-claims-v2-accordion__count">{claim.accommodations.length}</span>
+                            </div>
+                            <div className="cl-claims-v2-benefits">
+                              {claim.accommodations.map((a, idx) => (
+                                <div key={idx} className="cl-claims-v2-benefit cl-claims-v2-benefit--ada">
+                                  <div className="cl-claims-v2-benefit__type">{a.type} <span className={'cl-ml-status-pill cl-ml-status-pill--' + a.status.toLowerCase().replace(' ', '')}>{a.status}</span></div>
+                                  <div className="cl-claims-v2-benefit__details">
+                                    <span className="cl-claims-v2-benefit__field"><span className="cl-claims-v2-benefit__label">Period</span>{a.startDate} – {a.endDate}</span>
+                                    <span className="cl-claims-v2-benefit__field"><span className="cl-claims-v2-benefit__label">Details</span>{a.notes}</span>
+                                  </div>
+                                </div>
+                              ))}
+                            </div>
+                          </>
+                        )}
                         <button className="cl-claims-v2-detail-btn" onClick={(e) => { e.stopPropagation(); navigate(`${base}/case-detail`); }}>
                           View Full Leave Details
                           <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M5 2l5 5-5 5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/></svg>
@@ -551,7 +600,7 @@ export default function ClaimCenterPage() {
                 <span className={'cl-ml-status-pill cl-ml-status-pill--' + claim.status.toLowerCase().replace(' ', '')}>{claim.status}</span>
               </div>
               <div className="cl-card-mobile-header" style={{ marginTop: '4px' }}>
-                <span className={'cl-claims-v2-kind cl-claims-v2-kind--' + claim.kind}>{claim.kind === 'leave' ? 'Leave' : 'STD Claim'}</span>
+                <span className={'cl-claims-v2-kind cl-claims-v2-kind--' + claim.kind}>{claim.kind === 'leave' ? 'Leave' : claim.kind === 'ada' ? 'ADA' : 'STD Claim'}</span>
               </div>
               <span className="cl-card-mobile-type">{claim.description}{claim.condition ? ` — ${claim.condition}` : ''}</span>
               <div className="cl-card-mobile-details">
@@ -601,6 +650,24 @@ export default function ClaimCenterPage() {
                           </div>
                         ))}
                       </div>
+                      {claim.accommodations && claim.accommodations.length > 0 && (
+                        <>
+                          <div className="cl-claims-v2-accordion__header" style={{ marginTop: 16 }}>
+                            <h4 className="cl-claims-v2-accordion__title">ADA Accommodations</h4>
+                          </div>
+                          <div className="cl-claims-v2-benefits">
+                            {claim.accommodations.map((a, idx) => (
+                              <div key={idx} className="cl-claims-v2-benefit cl-claims-v2-benefit--ada">
+                                <div className="cl-claims-v2-benefit__type">{a.type} <span className={'cl-ml-status-pill cl-ml-status-pill--' + a.status.toLowerCase().replace(' ', '')}>{a.status}</span></div>
+                                <div className="cl-claims-v2-benefit__details">
+                                  <span className="cl-claims-v2-benefit__field"><span className="cl-claims-v2-benefit__label">Period</span>{a.startDate} – {a.endDate}</span>
+                                  <span className="cl-claims-v2-benefit__field"><span className="cl-claims-v2-benefit__label">Details</span>{a.notes}</span>
+                                </div>
+                              </div>
+                            ))}
+                          </div>
+                        </>
+                      )}
                       <button className="cl-claims-v2-detail-btn" onClick={() => navigate(`${base}/case-detail`)}>
                         View Full Leave Details
                         <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M5 2l5 5-5 5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/></svg>
@@ -608,6 +675,11 @@ export default function ClaimCenterPage() {
                     </div>
                   )}
                 </>
+              ) : claim.kind === 'ada' ? (
+                <button className="cl-claims-v2-expand-btn" type="button" onClick={() => navigate(`${base}/ada-requests`)}>
+                  View Details
+                  <svg width="10" height="10" viewBox="0 0 14 14" fill="none"><path d="M5 2l5 5-5 5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/></svg>
+                </button>
               ) : (
                 <button className="cl-claims-v2-expand-btn" type="button" onClick={() => navigate(`${base}/std-claim-detail`)}>
                   View Claim Details
@@ -627,6 +699,10 @@ export default function ClaimCenterPage() {
           <div className="cl-claims-v2-legend__item">
             <span className="cl-claims-v2-kind cl-claims-v2-kind--std">STD Claim</span>
             <span className="cl-claims-v2-legend__desc">Payments and documents only — leave managed by your employer</span>
+          </div>
+          <div className="cl-claims-v2-legend__item">
+            <span className="cl-claims-v2-kind cl-claims-v2-kind--ada">ADA</span>
+            <span className="cl-claims-v2-legend__desc">Workplace accommodation — may be linked to a leave or standalone</span>
           </div>
         </div>
       </div>
