@@ -2751,6 +2751,11 @@ select.ldb-detail-input {
   border: 1px solid #e8eff5;
   border-radius: 8px;
 }
+@media (max-width: 768px) {
+  .dlp-tl-mobile-accordion {
+    display: block;
+  }
+}
 .dlp-tl-mobile-accordion__title {
   font-size: 14px;
   font-weight: 700;
