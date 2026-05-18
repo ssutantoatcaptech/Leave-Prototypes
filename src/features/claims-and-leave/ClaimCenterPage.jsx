@@ -272,6 +272,15 @@ export default function ClaimCenterPage() {
   const [memberFilter, setMemberFilter] = useState('All');
   const [dateFilter, setDateFilter] = useState('All');
   const [visibleCount, setVisibleCount] = useState(INITIAL_VISIBLE);
+  const [v2SortAsc, setV2SortAsc] = useState(false);
+
+  const sortedLeaveData = useMemo(() => {
+    return [...leaveAndDisabilityData].sort((a, b) => {
+      const da = new Date(a.startDate);
+      const db = new Date(b.startDate);
+      return v2SortAsc ? da - db : db - da;
+    });
+  }, [v2SortAsc]);
 
   const filtered = useMemo(() => {
     return claimsData.filter((row) => {
@@ -520,14 +529,19 @@ export default function ClaimCenterPage() {
               <th className="cl-ml-th-first">ID</th>
               <th>Type</th>
               <th>Description</th>
-              <th>Period</th>
+              <th className="cl-ml-th-sortable" onClick={() => setV2SortAsc(!v2SortAsc)} style={{ cursor: 'pointer' }}>
+                <span className="cl-ml-th-sortable">
+                  Period
+                  <svg width="10" height="6" viewBox="0 0 10 6" fill="none" aria-hidden="true" style={{ transform: v2SortAsc ? 'rotate(180deg)' : 'rotate(0)', transition: 'transform 0.2s' }}><path d="M1 1l4 4 4-4" stroke="#222" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/></svg>
+                </span>
+              </th>
               <th>Status</th>
               <th>Last Update</th>
               <th>Action</th>
             </tr>
           </thead>
           <tbody>
-            {leaveAndDisabilityData.map((claim) => {
+            {sortedLeaveData.map((claim) => {
               const detailPath = claim.kind === 'leave' ? 'case-detail' : claim.kind === 'ada' ? 'ada-requests' : claim.kind === 'ltd' ? 'ltd-claim-detail' : 'std-claim-detail';
               return (
               <tr key={claim.id} className="cl-ml-row cl-claims-v2-row" onClick={() => navigate(`${base}/${detailPath}`)}>
