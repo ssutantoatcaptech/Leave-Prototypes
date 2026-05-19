@@ -1486,8 +1486,13 @@
   background: #ffffff;
   border: 1.5px solid #dfebf6;
   border-radius: 12px;
-  padding: 16px 0;
+  padding: 16px;
   box-shadow: 0px 1px 4px rgba(0, 0, 0, 0.06);
+}
+
+/* Move Copy to Figma button above sticky footer on mobile */
+#figma-send-btn {
+  bottom: 80px !important;
 }
 
 /* Mobile sticky submit footer */
