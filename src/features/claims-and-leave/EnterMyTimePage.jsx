@@ -554,20 +554,6 @@ export default function EnterMyTimePage() {
               <span className="cl-ma-sidebar-cta__hours-label">Balance Remaining</span>
               <span className="cl-ma-sidebar-cta__hours-value">{balance}h</span>
             </div>
-            <button
-              className="cl-ma-btn-submit-lg"
-              type="button"
-              disabled={selectedDates.length === 0}
-              onClick={openEntryModal}
-            >
-              <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M8 3v10M3 8h10" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round"/></svg>
-              {selectedDates.length > 0
-                ? 'Submit ' + selectedDates.length + ' Date' + (selectedDates.length > 1 ? 's' : '')
-                : 'Submit Missed Time'}
-              {selectedDates.length > 0 && (
-                <span className="cl-ma-btn-submit-lg__badge">{selectedDates.length}</span>
-              )}
-            </button>
           </div>
 
           {/* Form card */}
@@ -1062,6 +1048,28 @@ export default function EnterMyTimePage() {
           </div>
 
         </div>
+      </div>
+
+      {/* Mobile sticky submit footer */}
+      <div className="cl-ma-sticky-footer">
+        <div className="cl-ma-sticky-footer__info">
+          <span className="cl-ma-sticky-footer__count">
+            {selectedDates.length > 0
+              ? selectedDates.length + ' date' + (selectedDates.length > 1 ? 's' : '') + ' selected'
+              : 'Select dates to submit'}
+          </span>
+          <span className="cl-ma-sticky-footer__balance">{balance}h remaining</span>
+        </div>
+        <button
+          className="cl-ma-sticky-footer__btn"
+          type="button"
+          disabled={selectedDates.length === 0}
+          onClick={openEntryModal}
+        >
+          {selectedDates.length > 0
+            ? 'Submit ' + selectedDates.length + ' Date' + (selectedDates.length > 1 ? 's' : '')
+            : 'Submit Missed Time'}
+        </button>
       </div>
 
       {/* Batch Review Modal */}
