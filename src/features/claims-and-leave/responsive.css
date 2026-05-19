@@ -1352,25 +1352,33 @@
 }
 
 .cl-ma-cal-day.cl-ma-cal-day--v2 {
-  min-height: 44px;
+  min-height: 40px;
   padding: 4px 2px;
   align-items: center;
+  justify-content: center;
 }
 
 .cl-ma-cal-day--v2 .cl-ma-cal-day-num {
   align-self: center;
   padding-left: 0;
-  font-size: 14px;
+  font-size: 13px;
+  width: 28px;
+  height: 28px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  margin: 0;
 }
 
 .cl-ma-cal-day--selected .cl-ma-cal-day-num {
-  width: 26px;
-  height: 26px;
+  width: 28px;
+  height: 28px;
 }
 
 .cl-ma-cal-day--today .cl-ma-cal-day-num {
-  width: 26px;
-  height: 26px;
+  width: 28px;
+  height: 28px;
 }
 
 .cl-ma-time-row {
