@@ -342,6 +342,150 @@ export default function LeaveDetailV2ePage() {
             {detailTab === 'claims' && (
             <>
             {/* Coverage Timeline */}
+            {activeVersion === 'v2' ? (
+            <div className="ldb-card dt-timeline-wrap">
+                <div className="ad-section-header">
+                  <div>
+                    <h3>Coverage Timeline</h3>
+                    <p>How your claims provide protection and income over time</p>
+                  </div>
+                  <div className="dt-tl-toggle">
+                    <button type="button" className={timelineView === 'protection' ? 'active' : ''} onClick={function () { setTimelineView('protection'); }}>Protection</button>
+                    <button type="button" className={timelineView === 'payment' ? 'active' : ''} onClick={function () { setTimelineView('payment'); }}>Payment</button>
+                  </div>
+                </div>
+
+                <p className="ad-section-helper ad-section-helper--desktop">Hover over a benefit to see details.</p>
+                <p className="ad-section-helper ad-section-helper--mobile">Tap a row to see details</p>
+
+                {/* V2 Milestone Timeline — 12 months */}
+                <div style={{ padding: '16px 0 0' }}>
+                  {/* Month labels */}
+                  <div style={{ display: 'flex', marginBottom: 8 }}>
+                    {['Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec','Jan','Feb'].map(function (m) {
+                      return <span key={m} style={{ flex: 1, fontFamily: "'Source Sans Pro', sans-serif", fontSize: 11, color: '#9ca3af', textAlign: 'left' }}>{m}</span>;
+                    })}
+                  </div>
+
+                  {/* Rows */}
+                  <div className="ldb-tl-rows-wrap" style={{ display: 'flex', flexDirection: 'column', gap: 0 }}>
+                  {(timelineView === 'payment' ? [
+                    { id: 'std', label: 'STD', startPct: 0, widthPct: 15.3, accent: '#2563eb', name: 'Short-Term Disability', weeks: '8 weeks', range: 'Mar 15 – May 10, 2026', pay: '60% of pre-disability earnings', status: 'Approved', paymentValue: '~$1,125/wk' },
+                    { id: 'pfml', label: 'PFML', startPct: 15.3, widthPct: 7.7, accent: '#0d9488', name: 'Paid Family & Medical Leave', weeks: '4 weeks', range: 'May 11 – Jun 07, 2026', pay: 'State benefit', status: 'Approved', paymentValue: '~$981/wk' },
+                  ] : [
+                    { id: 'fmla', label: 'FMLA', startPct: 0, widthPct: 23, accent: '#003a70', name: 'FMLA (Birthing Parent)', weeks: '12 weeks', range: 'Mar 15 – Jun 07, 2026', pay: 'Job protection (unpaid)', status: 'Approved' },
+                    { id: 'std', label: 'STD', startPct: 0, widthPct: 15.3, accent: '#2563eb', name: 'Short-Term Disability', weeks: '8 weeks', range: 'Mar 15 – May 10, 2026', pay: '60% of pre-disability earnings', status: 'Approved' },
+                    { id: 'pfml', label: 'PFML', startPct: 15.3, widthPct: 7.7, accent: '#0d9488', name: 'Paid Family & Medical Leave', weeks: '4 weeks', range: 'May 11 – Jun 07, 2026', pay: 'State benefit', status: 'Approved' },
+                  ]).map(function (item) {
+                    return (
+                      <div key={item.id} style={{ position: 'relative' }}>
+                        <button
+                          type="button"
+                          className={hoveredRow === item.id ? 'active' : ''}
+                          onMouseEnter={function () { if (!('ontouchstart' in window)) setHoveredRow(item.id); }}
+                          onMouseLeave={function () { if (!('ontouchstart' in window)) setHoveredRow(null); }}
+                          onClick={function () { setHoveredRow(hoveredRow === item.id ? null : item.id); }}
+                          style={{ display: 'flex', alignItems: 'center', gap: 10, width: '100%', padding: '10px 0', border: 'none', background: hoveredRow === item.id ? '#f8fafc' : 'transparent', cursor: 'pointer', borderRadius: 6, transition: 'background 0.15s' }}
+                        >
+                          <span style={{ fontFamily: "'Source Sans Pro', sans-serif", fontSize: 12, fontWeight: 600, color: '#374151', width: 40, textAlign: 'left', flexShrink: 0 }}>{item.label}</span>
+                          <div style={{ flex: 1, position: 'relative', height: 20, display: 'flex', alignItems: 'center' }}>
+                            {/* Track line */}
+                            <div style={{ position: 'absolute', left: 0, right: 0, height: 2, background: '#f0f0f0', borderRadius: 1 }} />
+                            {/* Active segment */}
+                            <div style={{ position: 'absolute', left: item.startPct + '%', width: item.widthPct + '%', height: 4, background: item.accent, borderRadius: 2 }} />
+                            {/* Start marker */}
+                            <div style={{ position: 'absolute', left: item.startPct + '%', width: 8, height: 8, borderRadius: '50%', background: item.accent, border: '2px solid #fff', boxShadow: '0 0 0 1px ' + item.accent, transform: 'translateX(-50%)' }} />
+                            {/* End marker */}
+                            <div style={{ position: 'absolute', left: (item.startPct + item.widthPct) + '%', width: 8, height: 8, borderRadius: '50%', background: item.accent, border: '2px solid #fff', boxShadow: '0 0 0 1px ' + item.accent, transform: 'translateX(-50%)' }} />
+                          </div>
+                        </button>
+                        {hoveredRow === item.id && (
+                          <div className="dlp-tl-mobile-accordion">
+                            <div className="dlp-tl-mobile-accordion__title">{item.name}</div>
+                            <div className="dlp-tl-mobile-accordion__grid">
+                              <div className="dlp-tl-mobile-accordion__field">
+                                <span className="dlp-tl-mobile-accordion__label">{timelineView === 'payment' ? 'Est. Weekly' : 'Status'}</span>
+                                <span className="dlp-tl-mobile-accordion__value">{timelineView === 'payment' ? item.paymentValue : item.status}</span>
+                              </div>
+                              <div className="dlp-tl-mobile-accordion__field">
+                                <span className="dlp-tl-mobile-accordion__label">Duration</span>
+                                <span className="dlp-tl-mobile-accordion__value">{item.weeks}</span>
+                              </div>
+                              <div className="dlp-tl-mobile-accordion__field">
+                                <span className="dlp-tl-mobile-accordion__label">Dates</span>
+                                <span className="dlp-tl-mobile-accordion__value">{item.range}</span>
+                              </div>
+                              <div className="dlp-tl-mobile-accordion__field">
+                                <span className="dlp-tl-mobile-accordion__label">Pay</span>
+                                <span className="dlp-tl-mobile-accordion__value">{item.pay}</span>
+                              </div>
+                            </div>
+                          </div>
+                        )}
+                      </div>
+                    );
+                  })}
+
+                  {/* Desktop: tooltip on hover */}
+                  {hoveredRow && (function () {
+                    var allRows = timelineView === 'payment' ? [
+                      { id: 'std', name: 'Short-Term Disability', weeks: '8 weeks', range: 'Mar 15 – May 10, 2026', pay: '60% of pre-disability earnings', status: 'Approved', paymentValue: '~$1,125/wk' },
+                      { id: 'pfml', name: 'Paid Family & Medical Leave', weeks: '4 weeks', range: 'May 11 – Jun 07, 2026', pay: 'State benefit', status: 'Approved', paymentValue: '~$981/wk' },
+                    ] : [
+                      { id: 'fmla', name: 'FMLA (Birthing Parent)', weeks: '12 weeks', range: 'Mar 15 – Jun 07, 2026', pay: 'Job protection (unpaid)', status: 'Approved' },
+                      { id: 'std', name: 'Short-Term Disability', weeks: '8 weeks', range: 'Mar 15 – May 10, 2026', pay: '60% of pre-disability earnings', status: 'Approved' },
+                      { id: 'pfml', name: 'Paid Family & Medical Leave', weeks: '4 weeks', range: 'May 11 – Jun 07, 2026', pay: 'State benefit', status: 'Approved' },
+                    ];
+                    var hovered = allRows.find(function (r) { return r.id === hoveredRow; });
+                    if (!hovered) return null;
+                    return (
+                      <div className="ad-coverage-tooltip">
+                        <div className="ad-coverage-tooltip-head">
+                          <div className="title">{hovered.name}</div>
+                        </div>
+                        <div className="ad-coverage-tooltip-grid">
+                          <div>
+                            <div className="label">{timelineView === 'payment' ? 'Est. Weekly' : 'Status'}</div>
+                            <div className="value">{timelineView === 'payment' ? hovered.paymentValue : hovered.status}</div>
+                          </div>
+                          <div>
+                            <div className="label">Duration</div>
+                            <div className="value">{hovered.weeks}</div>
+                          </div>
+                          <div>
+                            <div className="label">Dates</div>
+                            <div className="value">{hovered.range}</div>
+                          </div>
+                          <div>
+                            <div className="label">Pay</div>
+                            <div className="value">{hovered.pay}</div>
+                          </div>
+                        </div>
+                      </div>
+                    );
+                  })()}
+                  </div>
+                </div>
+
+                {/* Leave Snapshot — inline below timeline */}
+                <div className="ldb-timeline-snapshot">
+                  <div className="ldb-timeline-snapshot-item">
+                    <div className="ldb-timeline-snapshot-label">Start Date</div>
+                    <div className="ldb-timeline-snapshot-value">March 15, 2026</div>
+                  </div>
+                  <div className="ldb-timeline-snapshot-divider" />
+                  <div className="ldb-timeline-snapshot-item">
+                    <div className="ldb-timeline-snapshot-label">End Date</div>
+                    <div className="ldb-timeline-snapshot-value">June 7, 2026</div>
+                  </div>
+                  <div className="ldb-timeline-snapshot-divider" />
+                  <div className="ldb-timeline-snapshot-item">
+                    <div className="ldb-timeline-snapshot-label">Return to Work</div>
+                    <div className="ldb-timeline-snapshot-value">June 8, 2026</div>
+                  </div>
+                </div>
+            </div>
+            ) : (
             <div className="ldb-card dt-timeline-wrap">
                 <div className="ad-section-header">
                   <div>
@@ -511,6 +655,7 @@ export default function LeaveDetailV2ePage() {
                   </div>
                 </div>
             </div>
+            )}
 
             <div className="ldb-card">
               <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 20 }}>
