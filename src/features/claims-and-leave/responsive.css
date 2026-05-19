@@ -1390,12 +1390,8 @@
 
 /* View toggle mobile */
 .cl-ma-cal-header {
-  flex-wrap: wrap;
-  gap: 8px;
-}
-
-.cl-ma-cal-month {
-  width: 100%;
+  flex-wrap: nowrap;
+  justify-content: space-between;
 }
 
 .cl-ma-view-toggle {
