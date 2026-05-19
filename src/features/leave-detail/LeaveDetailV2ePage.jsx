@@ -726,61 +726,76 @@ export default function LeaveDetailV2ePage() {
               <table className="ldb-pay-table">
                 <thead>
                   <tr>
-                    <th></th>
-                    <th>Date</th>
-                    <th>Amount</th>
-                    <th>Source</th>
-                    <th>Status</th>
+                    <th>Payment Date</th>
+                    <th>Claim Details</th>
+                    <th>Net Amount</th>
+                    <th>Method</th>
+                    <th>Statement</th>
+                    <th>Action</th>
                   </tr>
                 </thead>
                 <tbody>
                   {[
-                    { id: 1, date: 'May 12, 2026', amount: '$2,308.00', source: 'STD (Short-Term Disability)', status: 'Paid', method: 'Direct Deposit ****4872', period: 'May 5 – May 11, 2026', gross: '$2,692.31', taxes: '-$384.31', net: '$2,308.00', ref: 'PAY-2026-0512-STD' },
-                    { id: 2, date: 'May 5, 2026', amount: '$2,308.00', source: 'STD (Short-Term Disability)', status: 'Paid', method: 'Direct Deposit ****4872', period: 'Apr 28 – May 4, 2026', gross: '$2,692.31', taxes: '-$384.31', net: '$2,308.00', ref: 'PAY-2026-0505-STD' },
-                    { id: 3, date: 'Apr 28, 2026', amount: '$2,308.00', source: 'STD (Short-Term Disability)', status: 'Paid', method: 'Direct Deposit ****4872', period: 'Apr 21 – Apr 27, 2026', gross: '$2,692.31', taxes: '-$384.31', net: '$2,308.00', ref: 'PAY-2026-0428-STD' },
-                    { id: 4, date: 'Apr 21, 2026', amount: '$969.00', source: 'STD (Short-Term Disability)', status: 'Paid', method: 'Direct Deposit ****4872', period: 'Apr 15 – Apr 20, 2026 (partial)', gross: '$1,130.77', taxes: '-$161.77', net: '$969.00', ref: 'PAY-2026-0421-STD' },
-                    { id: 5, date: 'May 19, 2026', amount: '$2,308.00', source: 'STD (Short-Term Disability)', status: 'Scheduled', method: 'Direct Deposit ****4872', period: 'May 12 – May 18, 2026', gross: '$2,692.31', taxes: '-$384.31', net: '$2,308.00', ref: 'PAY-2026-0519-STD' },
+                    { id: 1, date: 'May 12, 2026', claim: 'CLM-12345-GDC', type: 'Short-Term Disability', net: '$2,308.00', method: 'Direct Deposit', status: 'Paid', gross: '$2,692.31', deposit: 'Direct Deposit — Chase ****4872', deductions: [{ label: 'Federal Tax Withholding', amount: '-$230.77' }, { label: 'State Tax Withholding', amount: '-$92.31' }, { label: 'Social Security (FICA)', amount: '-$38.46' }, { label: 'Medicare', amount: '-$22.15' }] },
+                    { id: 2, date: 'May 5, 2026', claim: 'CLM-12345-GDC', type: 'Short-Term Disability', net: '$2,308.00', method: 'Direct Deposit', status: 'Paid', gross: '$2,692.31', deposit: 'Direct Deposit — Chase ****4872', deductions: [{ label: 'Federal Tax Withholding', amount: '-$230.77' }, { label: 'State Tax Withholding', amount: '-$92.31' }, { label: 'Social Security (FICA)', amount: '-$38.46' }, { label: 'Medicare', amount: '-$22.15' }] },
+                    { id: 3, date: 'Apr 28, 2026', claim: 'CLM-12345-GDC', type: 'Short-Term Disability', net: '$2,308.00', method: 'Direct Deposit', status: 'Paid', gross: '$2,692.31', deposit: 'Direct Deposit — Chase ****4872', deductions: [{ label: 'Federal Tax Withholding', amount: '-$230.77' }, { label: 'State Tax Withholding', amount: '-$92.31' }, { label: 'Social Security (FICA)', amount: '-$38.46' }, { label: 'Medicare', amount: '-$22.15' }] },
+                    { id: 4, date: 'Apr 21, 2026', claim: 'CLM-12345-GDC', type: 'Short-Term Disability', net: '$969.00', method: 'Direct Deposit', status: 'Paid', gross: '$1,130.77', deposit: 'Direct Deposit — Chase ****4872', deductions: [{ label: 'Federal Tax Withholding', amount: '-$96.92' }, { label: 'State Tax Withholding', amount: '-$38.77' }, { label: 'Social Security (FICA)', amount: '-$16.15' }, { label: 'Medicare', amount: '-$9.93' }] },
+                    { id: 5, date: 'May 19, 2026', claim: 'CLM-12345-GDC', type: 'Short-Term Disability', net: '$2,308.00', method: 'Direct Deposit', status: 'Scheduled', gross: '$2,692.31', deposit: 'Direct Deposit — Chase ****4872', deductions: [{ label: 'Federal Tax Withholding', amount: '-$230.77' }, { label: 'State Tax Withholding', amount: '-$92.31' }, { label: 'Social Security (FICA)', amount: '-$38.46' }, { label: 'Medicare', amount: '-$22.15' }] },
                   ].map(function (row) {
                     return (
                       <React.Fragment key={row.id}>
                         <tr className={expandedPayment === row.id ? 'ldb-pay-row--expanded' : ''}>
-                          <td className="ldb-pay-expand-cell">
-                            <button type="button" className="ldb-pay-expand-btn" onClick={function () { setExpandedPayment(expandedPayment === row.id ? null : row.id); }}>
-                              <svg className={'ldb-pay-chevron' + (expandedPayment === row.id ? ' open' : '')} width="10" height="6" viewBox="0 0 10 6" fill="none"><path d="M1 1l4 4 4-4" stroke="currentColor" strokeWidth="1.3" strokeLinecap="round" strokeLinejoin="round"/></svg>
+                          <td>{row.date}</td>
+                          <td>
+                            <div className="ldb-pay-claim-cell">
+                              <span className="ldb-pay-claim-id">{row.claim}</span>
+                              <span className="ldb-pay-claim-type">{row.type}</span>
+                            </div>
+                          </td>
+                          <td className="ldb-pay-amount">{row.net}</td>
+                          <td>{row.method}</td>
+                          <td><button type="button" className="ldb-pay-link-btn">View</button></td>
+                          <td>
+                            <button type="button" className="ldb-pay-link-btn ldb-pay-details-btn" onClick={function () { setExpandedPayment(expandedPayment === row.id ? null : row.id); }}>
+                              View Details
+                              <svg width="12" height="12" viewBox="0 0 12 12" fill="none" style={{ marginLeft: 4, transform: expandedPayment === row.id ? 'rotate(180deg)' : 'rotate(0)', transition: 'transform 0.2s' }}>
+                                <path d="M3 4.5l3 3 3-3" stroke="currentColor" strokeWidth="1.3" strokeLinecap="round" strokeLinejoin="round"/>
+                              </svg>
                             </button>
                           </td>
-                          <td>{row.date}</td>
-                          <td className="ldb-pay-amount">{row.amount}</td>
-                          <td>{row.source}</td>
-                          <td><span className={'ldb-status-pill ldb-status-pill--' + (row.status === 'Paid' ? 'approved' : 'pending')}>{row.status}</span></td>
                         </tr>
                         {expandedPayment === row.id && (
                           <tr className="ldb-pay-detail-row">
-                            <td colSpan="5">
-                              <div className="ldb-pay-detail-grid">
-                                <div className="ldb-pay-detail-item">
-                                  <span className="ldb-pay-detail-label">Pay Period</span>
-                                  <span className="ldb-pay-detail-value">{row.period}</span>
-                                </div>
-                                <div className="ldb-pay-detail-item">
-                                  <span className="ldb-pay-detail-label">Gross Amount</span>
-                                  <span className="ldb-pay-detail-value">{row.gross}</span>
-                                </div>
-                                <div className="ldb-pay-detail-item">
-                                  <span className="ldb-pay-detail-label">Taxes & Deductions</span>
-                                  <span className="ldb-pay-detail-value">{row.taxes}</span>
-                                </div>
-                                <div className="ldb-pay-detail-item">
-                                  <span className="ldb-pay-detail-label">Net Payment</span>
-                                  <span className="ldb-pay-detail-value" style={{ fontWeight: 700 }}>{row.net}</span>
-                                </div>
-                                <div className="ldb-pay-detail-item">
-                                  <span className="ldb-pay-detail-label">Payment Method</span>
-                                  <span className="ldb-pay-detail-value">{row.method}</span>
-                                </div>
-                                <div className="ldb-pay-detail-item">
-                                  <span className="ldb-pay-detail-label">Reference #</span>
-                                  <span className="ldb-pay-detail-value">{row.ref}</span>
+                            <td colSpan="6">
+                              <div className="ldb-pay-breakdown">
+                                <h4 className="ldb-pay-breakdown-title">Payment Breakdown</h4>
+                                <div className="ldb-pay-breakdown-rows">
+                                  <div className="ldb-pay-breakdown-row">
+                                    <span>Gross Pay (Weekly Benefit)</span>
+                                    <span>{row.gross}</span>
+                                  </div>
+                                  <div className="ldb-pay-breakdown-section">
+                                    <div className="ldb-pay-breakdown-row ldb-pay-breakdown-row--sub">
+                                      <span>Taxes &amp; Deductions</span>
+                                      <span></span>
+                                    </div>
+                                    {row.deductions.map(function (ded, j) {
+                                      return (
+                                        <div key={j} className="ldb-pay-breakdown-row ldb-pay-breakdown-row--indent">
+                                          <span>{ded.label}</span>
+                                          <span>{ded.amount}</span>
+                                        </div>
+                                      );
+                                    })}
+                                  </div>
+                                  <div className="ldb-pay-breakdown-row ldb-pay-breakdown-row--total">
+                                    <span>Net Amount</span>
+                                    <span>{row.net}</span>
+                                  </div>
+                                  <div className="ldb-pay-breakdown-row ldb-pay-breakdown-row--method">
+                                    <span>Deposit Method</span>
+                                    <span>{row.deposit}</span>
+                                  </div>
                                 </div>
                               </div>
                             </td>
