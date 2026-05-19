@@ -388,11 +388,11 @@ export default function LeaveDetailV2ePage() {
                           style={{ display: 'flex', alignItems: 'center', gap: 10, width: '100%', padding: '10px 0', border: 'none', background: hoveredRow === item.id ? '#f8fafc' : 'transparent', cursor: 'pointer', borderRadius: 6, transition: 'background 0.15s' }}
                         >
                           <span style={{ fontFamily: "'Source Sans Pro', sans-serif", fontSize: 12, fontWeight: 600, color: '#374151', width: 40, textAlign: 'left', flexShrink: 0 }}>{item.label}</span>
-                          <div style={{ flex: 1, position: 'relative', height: 24, display: 'flex', alignItems: 'center' }}>
-                            {/* Track line */}
-                            <div style={{ position: 'absolute', left: 0, right: 0, height: 2, background: '#f0f0f0', borderRadius: 1 }} />
+                          <div style={{ flex: 1, position: 'relative', height: 28, display: 'flex', alignItems: 'center' }}>
+                            {/* Track line (unpaid) */}
+                            <div style={{ position: 'absolute', left: 0, right: 0, height: 8, background: '#e2e5ea', borderRadius: 4 }} />
                             {/* Active segment */}
-                            <div style={{ position: 'absolute', left: item.startPct + '%', width: item.widthPct + '%', height: 6, background: item.accent, borderRadius: 3 }} />
+                            <div style={{ position: 'absolute', left: item.startPct + '%', width: item.widthPct + '%', height: 8, background: item.accent, borderRadius: 4 }} />
                           </div>
                         </button>
                         {/* Tooltip positioned directly below this row */}
@@ -449,6 +449,27 @@ export default function LeaveDetailV2ePage() {
                     );
                   })}
 
+                  </div>
+
+                  {/* Legend */}
+                  <div style={{ display: 'flex', flexWrap: 'wrap', gap: 16, marginTop: 14, paddingLeft: 50 }}>
+                    {(timelineView === 'payment' ? [
+                      { color: '#2563eb', label: 'STD' },
+                      { color: '#0d9488', label: 'PFML' },
+                      { color: '#e2e5ea', label: 'Unpaid' },
+                    ] : [
+                      { color: '#003a70', label: 'FMLA' },
+                      { color: '#2563eb', label: 'STD' },
+                      { color: '#0d9488', label: 'PFML' },
+                      { color: '#e2e5ea', label: 'Unpaid' },
+                    ]).map(function (leg) {
+                      return (
+                        <div key={leg.label} style={{ display: 'flex', alignItems: 'center', gap: 6 }}>
+                          <span style={{ width: 12, height: 8, borderRadius: 3, background: leg.color, display: 'inline-block' }} />
+                          <span style={{ fontFamily: "'Source Sans Pro', sans-serif", fontSize: 12, color: '#6b7280' }}>{leg.label}</span>
+                        </div>
+                      );
+                    })}
                   </div>
                 </div>
 
