@@ -170,28 +170,16 @@ export default function LeaveDetailV2ePage() {
   }
 
 
-  if (activeVersion === 'v2') {
-    return (
-      <div className="ldb-page">
-        {/* Floating version toolbar */}
-        <div style={{ position: 'fixed', bottom: 20, right: 20, zIndex: 9999, display: 'flex', gap: 0, background: '#fff', borderRadius: 8, boxShadow: '0 2px 12px rgba(0,0,0,0.15)', border: '1px solid #e2e2e5', overflow: 'hidden' }}>
-          <button type="button" onClick={function () { setActiveVersion('v1'); }} style={{ padding: '8px 16px', fontSize: 13, fontWeight: 500, fontFamily: "'Source Sans Pro', sans-serif", border: 'none', cursor: 'pointer', background: '#fff', color: '#5d5d5d' }}>V1</button>
-          <button type="button" style={{ padding: '8px 16px', fontSize: 13, fontWeight: 600, fontFamily: "'Source Sans Pro', sans-serif", border: 'none', cursor: 'pointer', background: '#105fa8', color: '#fff' }}>V2</button>
-        </div>
-        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', minHeight: '60vh', color: '#9ca3af', fontFamily: "'Source Sans Pro', sans-serif", fontSize: 16 }}>
-          V2 — Coming soon
-        </div>
-      </div>
-    );
-  }
+  var versionToolbar = (
+    <div style={{ position: 'fixed', bottom: 20, right: 20, zIndex: 9999, display: 'flex', gap: 0, background: '#fff', borderRadius: 8, boxShadow: '0 2px 12px rgba(0,0,0,0.15)', border: '1px solid #e2e2e5', overflow: 'hidden' }}>
+      <button type="button" onClick={function () { setActiveVersion('v1'); }} style={{ padding: '8px 16px', fontSize: 13, fontWeight: activeVersion === 'v1' ? 600 : 500, fontFamily: "'Source Sans Pro', sans-serif", border: 'none', cursor: 'pointer', background: activeVersion === 'v1' ? '#105fa8' : '#fff', color: activeVersion === 'v1' ? '#fff' : '#5d5d5d' }}>V1</button>
+      <button type="button" onClick={function () { setActiveVersion('v2'); }} style={{ padding: '8px 16px', fontSize: 13, fontWeight: activeVersion === 'v2' ? 600 : 500, fontFamily: "'Source Sans Pro', sans-serif", border: 'none', cursor: 'pointer', background: activeVersion === 'v2' ? '#105fa8' : '#fff', color: activeVersion === 'v2' ? '#fff' : '#5d5d5d' }}>V2</button>
+    </div>
+  );
 
   return (
     <div className="ldb-page">
-      {/* Floating version toolbar */}
-      <div style={{ position: 'fixed', bottom: 20, right: 20, zIndex: 9999, display: 'flex', gap: 0, background: '#fff', borderRadius: 8, boxShadow: '0 2px 12px rgba(0,0,0,0.15)', border: '1px solid #e2e2e5', overflow: 'hidden' }}>
-        <button type="button" style={{ padding: '8px 16px', fontSize: 13, fontWeight: 600, fontFamily: "'Source Sans Pro', sans-serif", border: 'none', cursor: 'pointer', background: '#105fa8', color: '#fff' }}>V1</button>
-        <button type="button" onClick={function () { setActiveVersion('v2'); }} style={{ padding: '8px 16px', fontSize: 13, fontWeight: 500, fontFamily: "'Source Sans Pro', sans-serif", border: 'none', cursor: 'pointer', background: '#fff', color: '#5d5d5d' }}>V2</button>
-      </div>
+      {versionToolbar}
 
       <div className="ldb-content">
         {/* Breadcrumb */}
