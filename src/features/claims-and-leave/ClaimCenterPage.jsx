@@ -4,6 +4,21 @@ import useBasePath from './useBasePath';
 
 const leaveAndDisabilityData = [
   {
+    id: 'NTN-210455',
+    kind: 'leave',
+    description: 'Pregnancy, Birth & Bonding (Continuous)',
+    startDate: 'Jun 02, 2026',
+    endDate: 'Sep 22, 2026',
+    status: 'Pending',
+    lastUpdate: 'May 16, 2026',
+    benefits: [
+      { type: 'FMLA', status: 'Pending', startDate: 'Jun 02, 2026', endDate: 'Sep 22, 2026', duration: '12 weeks' },
+      { type: 'Short-Term Disability (STD)', status: 'Pending', startDate: 'Jun 02, 2026', endDate: 'Jul 28, 2026', weeklyBenefit: 'TBD', duration: '8 weeks' },
+      { type: 'Paid Family & Medical Leave (PFML)', status: 'Pending', startDate: 'Jul 29, 2026', endDate: 'Sep 22, 2026', weeklyBenefit: 'TBD', duration: '8 weeks' },
+    ],
+    accommodations: [],
+  },
+  {
     id: 'NTN-204871',
     kind: 'leave',
     description: 'Birthing Parent (Continuous)',
