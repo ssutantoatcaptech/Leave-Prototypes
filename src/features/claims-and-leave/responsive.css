@@ -1490,11 +1490,6 @@
   box-shadow: 0px 1px 4px rgba(0, 0, 0, 0.06);
 }
 
-/* Move Copy to Figma button above sticky footer on mobile */
-#figma-send-btn {
-  bottom: 80px !important;
-}
-
 /* Mobile sticky submit footer */
 .cl-ma-sticky-footer {
   display: flex;
