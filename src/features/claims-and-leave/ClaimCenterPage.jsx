@@ -292,7 +292,7 @@ const LOAD_MORE_COUNT = 5;
 export default function ClaimCenterPage() {
   const base = useBasePath();
   const navigate = useNavigate();
-  const [pageVersion, setPageVersion] = useState(1);
+  const [pageVersion, setPageVersion] = useState(2);
   const [activeCategory, setActiveCategory] = useState('Dental');
   const [memberFilter, setMemberFilter] = useState('All');
   const [dateFilter, setDateFilter] = useState('All');
