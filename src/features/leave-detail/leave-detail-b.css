@@ -2935,14 +2935,21 @@ select.ldb-detail-input {
 }
 
 /* Detail Tabs */
+.ldb-detail-tabs-wrapper {
+  background: #fff;
+  border: 1px solid #e2e2e5;
+  border-radius: 12px;
+  padding: 0 4px;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.04);
+}
 .ldb-detail-tabs {
   display: flex;
   flex-wrap: wrap;
   gap: 32px;
-  border-bottom: 1.5px solid #dfebf6;
+  border-bottom: 1.5px solid #e2e2e5;
   margin-bottom: 0;
   padding: 0 24px;
-  border-radius: 12px 12px 0 0;
+  border-radius: 0;
 }
 
 .ldb-detail-tab {
@@ -3810,4 +3817,158 @@ select.ldb-detail-input {
   font-size: 14px;
   color: #171717;
   margin-top: 4px;
+}
+
+/* ===== Payments Tab ===== */
+.ldb-pay-summary-card {
+  padding: 28px;
+}
+.ldb-pay-summary-stats {
+  display: flex;
+  align-items: stretch;
+  gap: 0;
+  background: #f9fafb;
+  border: 1px solid #e2e2e5;
+  border-radius: 10px;
+  padding: 20px 0;
+}
+.ldb-pay-stat {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  padding: 0 16px;
+}
+.ldb-pay-stat-value {
+  font-family: 'Source Sans Pro', sans-serif;
+  font-size: 18px;
+  font-weight: 700;
+  color: #0f0f14;
+  line-height: 24px;
+}
+.ldb-pay-stat-label {
+  font-family: 'Source Sans Pro', sans-serif;
+  font-size: 12px;
+  color: #737373;
+  text-transform: uppercase;
+  letter-spacing: 0.3px;
+}
+.ldb-pay-stat-divider {
+  width: 1px;
+  background: #e2e2e5;
+  align-self: stretch;
+}
+.ldb-pay-summary-note {
+  font-family: 'Source Sans Pro', sans-serif;
+  font-size: 13px;
+  color: #737373;
+  margin: 16px 0 0;
+}
+.ldb-pay-history-card {
+  padding: 28px;
+}
+.ldb-pay-history-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 20px;
+}
+.ldb-pay-history-count {
+  font-family: 'Source Sans Pro', sans-serif;
+  font-size: 12px;
+  color: #737373;
+}
+.ldb-pay-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-family: 'Source Sans Pro', sans-serif;
+  font-size: 14px;
+}
+.ldb-pay-table thead th {
+  font-size: 12px;
+  font-weight: 600;
+  color: #737373;
+  text-transform: uppercase;
+  letter-spacing: 0.3px;
+  padding: 10px 12px;
+  border-bottom: 1px solid #e2e2e5;
+  text-align: left;
+}
+.ldb-pay-table thead th:first-child {
+  width: 32px;
+  padding-right: 0;
+}
+.ldb-pay-table tbody tr {
+  border-bottom: 1px solid #f0f0f2;
+  transition: background 0.1s;
+}
+.ldb-pay-table tbody tr:hover {
+  background: #fafafa;
+}
+.ldb-pay-table tbody tr.ldb-pay-row--expanded {
+  background: #f5f5f7;
+  border-bottom: none;
+}
+.ldb-pay-table tbody td {
+  padding: 14px 12px;
+  color: #171717;
+  vertical-align: middle;
+}
+.ldb-pay-expand-cell {
+  width: 32px;
+  padding-right: 0 !important;
+}
+.ldb-pay-expand-btn {
+  background: none;
+  border: none;
+  padding: 4px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 4px;
+}
+.ldb-pay-expand-btn:hover {
+  background: #e5e5e5;
+}
+.ldb-pay-chevron {
+  transition: transform 0.2s;
+}
+.ldb-pay-chevron.open {
+  transform: rotate(180deg);
+}
+.ldb-pay-amount {
+  font-weight: 600;
+}
+.ldb-pay-detail-row {
+  background: #f9fafb !important;
+  border-bottom: 1px solid #e2e2e5 !important;
+}
+.ldb-pay-detail-row td {
+  padding: 0 12px 16px 44px !important;
+}
+.ldb-pay-detail-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px 24px;
+  padding: 12px 16px;
+  background: #fff;
+  border: 1px solid #e2e2e5;
+  border-radius: 8px;
+}
+.ldb-pay-detail-item {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+.ldb-pay-detail-label {
+  font-family: 'Source Sans Pro', sans-serif;
+  font-size: 12px;
+  color: #737373;
+}
+.ldb-pay-detail-value {
+  font-family: 'Source Sans Pro', sans-serif;
+  font-size: 14px;
+  color: #171717;
 }

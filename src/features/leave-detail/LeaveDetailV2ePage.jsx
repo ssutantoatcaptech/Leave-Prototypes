@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import React, { useState } from 'react';
 import { Link, useNavigate, useLocation } from 'react-router-dom';
 import './leave-detail-b.css';
 import '../absence-details/absence-details-react.css';
@@ -97,6 +97,7 @@ export default function LeaveDetailV2ePage() {
   var [editingSection, setEditingSection] = useState(null);
   var [detailTab, setDetailTab] = useState('status');
   var [addlBenefitsOpen, setAddlBenefitsOpen] = useState(true);
+  var [expandedPayment, setExpandedPayment] = useState(null);
 
   var viewingCase = (function () {
     try { return JSON.parse(sessionStorage.getItem('viewingCase') || 'null'); } catch (e) { return null; }
@@ -197,12 +198,14 @@ export default function LeaveDetailV2ePage() {
           <div className="ldb-v2-main">
 
             {/* Detail Tabs */}
-            <div className="ldb-detail-tabs">
-              <button type="button" className={'ldb-detail-tab' + (detailTab === 'status' ? ' active' : '')} onClick={function () { setDetailTab('status'); }}>Status Tracker</button>
-              <button type="button" className={'ldb-detail-tab' + (detailTab === 'claims' ? ' active' : '')} onClick={function () { setDetailTab('claims'); }}>Coverage & Benefits</button>
-              <button type="button" className={'ldb-detail-tab' + (detailTab === 'payments' ? ' active' : '')} onClick={function () { setDetailTab('payments'); }}>Payments</button>
-              <button type="button" className={'ldb-detail-tab' + (detailTab === 'about' ? ' active' : '')} onClick={function () { setDetailTab('about'); }}>Leave Details</button>
-              <button type="button" className={'ldb-detail-tab' + (detailTab === 'activity' ? ' active' : '')} onClick={function () { setDetailTab('activity'); }}>Communications & Activity</button>
+            <div className="ldb-detail-tabs-wrapper">
+              <div className="ldb-detail-tabs">
+                <button type="button" className={'ldb-detail-tab' + (detailTab === 'status' ? ' active' : '')} onClick={function () { setDetailTab('status'); }}>Status Tracker</button>
+                <button type="button" className={'ldb-detail-tab' + (detailTab === 'claims' ? ' active' : '')} onClick={function () { setDetailTab('claims'); }}>Coverage & Benefits</button>
+                <button type="button" className={'ldb-detail-tab' + (detailTab === 'payments' ? ' active' : '')} onClick={function () { setDetailTab('payments'); }}>Payments</button>
+                <button type="button" className={'ldb-detail-tab' + (detailTab === 'about' ? ' active' : '')} onClick={function () { setDetailTab('about'); }}>Leave Details</button>
+                <button type="button" className={'ldb-detail-tab' + (detailTab === 'activity' ? ' active' : '')} onClick={function () { setDetailTab('activity'); }}>Communications & Activity</button>
+              </div>
             </div>
 
             {/* Tab: Status Tracker */}
@@ -680,35 +683,50 @@ export default function LeaveDetailV2ePage() {
 
             {/* Tab: Payments */}
             {detailTab === 'payments' && (
-            <div className="ldb-card">
-              <h2 className="ldb-card-title">
+            <>
+            {/* Payment Summary Card */}
+            <div className="ldb-card ldb-pay-summary-card">
+              <h2 className="ldb-card-title" style={{ marginBottom: 16 }}>
                 <svg width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M2 4a2 2 0 012-2h8a2 2 0 012 2v8a2 2 0 01-2 2H4a2 2 0 01-2-2V4z" stroke="currentColor" strokeWidth="1.2"/><path d="M5 8h6M8 5v6" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round"/></svg>
                 Payment Summary
               </h2>
-              <div className="ldb-payments-grid">
-                <div className="ldb-payment-item">
-                  <span className="ldb-payment-label">Total Paid to Date</span>
-                  <span className="ldb-payment-value">$7,893.00</span>
+              <div className="ldb-pay-summary-stats">
+                <div className="ldb-pay-stat">
+                  <span className="ldb-pay-stat-value">$7,893.00</span>
+                  <span className="ldb-pay-stat-label">Total Paid to Date</span>
                 </div>
-                <div className="ldb-payment-item">
-                  <span className="ldb-payment-label">Most Recent Payment</span>
-                  <span className="ldb-payment-value">$2,308.00</span>
+                <div className="ldb-pay-stat-divider" />
+                <div className="ldb-pay-stat">
+                  <span className="ldb-pay-stat-value">$2,308.00</span>
+                  <span className="ldb-pay-stat-label">Most Recent Payment</span>
                 </div>
-                <div className="ldb-payment-item">
-                  <span className="ldb-payment-label">Expected Next Payment</span>
-                  <span className="ldb-payment-value">May 19, 2026</span>
+                <div className="ldb-pay-stat-divider" />
+                <div className="ldb-pay-stat">
+                  <span className="ldb-pay-stat-value">May 19, 2026</span>
+                  <span className="ldb-pay-stat-label">Expected Next Payment</span>
                 </div>
-                <div className="ldb-payment-item">
-                  <span className="ldb-payment-label">Payment Method</span>
-                  <span className="ldb-payment-value">Direct Deposit ****4872</span>
+                <div className="ldb-pay-stat-divider" />
+                <div className="ldb-pay-stat">
+                  <span className="ldb-pay-stat-value">Direct Deposit ****4872</span>
+                  <span className="ldb-pay-stat-label">Payment Method</span>
                 </div>
               </div>
-              <p className="ldb-card-context" style={{ marginTop: 16 }}>Payments from your Short-Term Disability Claim (STD). Paid weekly via direct deposit.</p>
+              <p className="ldb-pay-summary-note">Payments from your Short-Term Disability Claim (STD). Paid weekly via direct deposit.</p>
+            </div>
 
-              <h3 style={{ fontSize: 15, fontWeight: 600, color: '#222', marginTop: 28, marginBottom: 12 }}>Payment History</h3>
-              <table className="ldb-activity-table ldb-activity-table--striped" style={{ fontSize: 13 }}>
+            {/* Payment History Table */}
+            <div className="ldb-card ldb-pay-history-card">
+              <div className="ldb-pay-history-header">
+                <h2 className="ldb-card-title" style={{ marginBottom: 0 }}>
+                  <svg width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M8 14A6 6 0 108 2a6 6 0 000 12z" stroke="currentColor" strokeWidth="1.2"/><path d="M8 5v3l2 2" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round"/></svg>
+                  Payment History
+                </h2>
+                <span className="ldb-pay-history-count">5 payments</span>
+              </div>
+              <table className="ldb-pay-table">
                 <thead>
                   <tr>
+                    <th></th>
                     <th>Date</th>
                     <th>Amount</th>
                     <th>Source</th>
@@ -716,14 +734,65 @@ export default function LeaveDetailV2ePage() {
                   </tr>
                 </thead>
                 <tbody>
-                  <tr><td>May 12, 2026</td><td>$2,308.00</td><td>STD (Short-Term Disability)</td><td><span className="ldb-status-pill ldb-status-pill--approved">Paid</span></td></tr>
-                  <tr><td>May 5, 2026</td><td>$2,308.00</td><td>STD (Short-Term Disability)</td><td><span className="ldb-status-pill ldb-status-pill--approved">Paid</span></td></tr>
-                  <tr><td>Apr 28, 2026</td><td>$2,308.00</td><td>STD (Short-Term Disability)</td><td><span className="ldb-status-pill ldb-status-pill--approved">Paid</span></td></tr>
-                  <tr><td>Apr 21, 2026</td><td>$969.00</td><td>STD (Short-Term Disability)</td><td><span className="ldb-status-pill ldb-status-pill--approved">Paid</span></td></tr>
-                  <tr><td>May 19, 2026</td><td>$2,308.00</td><td>STD (Short-Term Disability)</td><td><span className="ldb-status-pill ldb-status-pill--pending">Scheduled</span></td></tr>
+                  {[
+                    { id: 1, date: 'May 12, 2026', amount: '$2,308.00', source: 'STD (Short-Term Disability)', status: 'Paid', method: 'Direct Deposit ****4872', period: 'May 5 – May 11, 2026', gross: '$2,692.31', taxes: '-$384.31', net: '$2,308.00', ref: 'PAY-2026-0512-STD' },
+                    { id: 2, date: 'May 5, 2026', amount: '$2,308.00', source: 'STD (Short-Term Disability)', status: 'Paid', method: 'Direct Deposit ****4872', period: 'Apr 28 – May 4, 2026', gross: '$2,692.31', taxes: '-$384.31', net: '$2,308.00', ref: 'PAY-2026-0505-STD' },
+                    { id: 3, date: 'Apr 28, 2026', amount: '$2,308.00', source: 'STD (Short-Term Disability)', status: 'Paid', method: 'Direct Deposit ****4872', period: 'Apr 21 – Apr 27, 2026', gross: '$2,692.31', taxes: '-$384.31', net: '$2,308.00', ref: 'PAY-2026-0428-STD' },
+                    { id: 4, date: 'Apr 21, 2026', amount: '$969.00', source: 'STD (Short-Term Disability)', status: 'Paid', method: 'Direct Deposit ****4872', period: 'Apr 15 – Apr 20, 2026 (partial)', gross: '$1,130.77', taxes: '-$161.77', net: '$969.00', ref: 'PAY-2026-0421-STD' },
+                    { id: 5, date: 'May 19, 2026', amount: '$2,308.00', source: 'STD (Short-Term Disability)', status: 'Scheduled', method: 'Direct Deposit ****4872', period: 'May 12 – May 18, 2026', gross: '$2,692.31', taxes: '-$384.31', net: '$2,308.00', ref: 'PAY-2026-0519-STD' },
+                  ].map(function (row) {
+                    return (
+                      <React.Fragment key={row.id}>
+                        <tr className={expandedPayment === row.id ? 'ldb-pay-row--expanded' : ''}>
+                          <td className="ldb-pay-expand-cell">
+                            <button type="button" className="ldb-pay-expand-btn" onClick={function () { setExpandedPayment(expandedPayment === row.id ? null : row.id); }}>
+                              <svg className={'ldb-pay-chevron' + (expandedPayment === row.id ? ' open' : '')} width="10" height="6" viewBox="0 0 10 6" fill="none"><path d="M1 1l4 4 4-4" stroke="currentColor" strokeWidth="1.3" strokeLinecap="round" strokeLinejoin="round"/></svg>
+                            </button>
+                          </td>
+                          <td>{row.date}</td>
+                          <td className="ldb-pay-amount">{row.amount}</td>
+                          <td>{row.source}</td>
+                          <td><span className={'ldb-status-pill ldb-status-pill--' + (row.status === 'Paid' ? 'approved' : 'pending')}>{row.status}</span></td>
+                        </tr>
+                        {expandedPayment === row.id && (
+                          <tr className="ldb-pay-detail-row">
+                            <td colSpan="5">
+                              <div className="ldb-pay-detail-grid">
+                                <div className="ldb-pay-detail-item">
+                                  <span className="ldb-pay-detail-label">Pay Period</span>
+                                  <span className="ldb-pay-detail-value">{row.period}</span>
+                                </div>
+                                <div className="ldb-pay-detail-item">
+                                  <span className="ldb-pay-detail-label">Gross Amount</span>
+                                  <span className="ldb-pay-detail-value">{row.gross}</span>
+                                </div>
+                                <div className="ldb-pay-detail-item">
+                                  <span className="ldb-pay-detail-label">Taxes & Deductions</span>
+                                  <span className="ldb-pay-detail-value">{row.taxes}</span>
+                                </div>
+                                <div className="ldb-pay-detail-item">
+                                  <span className="ldb-pay-detail-label">Net Payment</span>
+                                  <span className="ldb-pay-detail-value" style={{ fontWeight: 700 }}>{row.net}</span>
+                                </div>
+                                <div className="ldb-pay-detail-item">
+                                  <span className="ldb-pay-detail-label">Payment Method</span>
+                                  <span className="ldb-pay-detail-value">{row.method}</span>
+                                </div>
+                                <div className="ldb-pay-detail-item">
+                                  <span className="ldb-pay-detail-label">Reference #</span>
+                                  <span className="ldb-pay-detail-value">{row.ref}</span>
+                                </div>
+                              </div>
+                            </td>
+                          </tr>
+                        )}
+                      </React.Fragment>
+                    );
+                  })}
                 </tbody>
               </table>
             </div>
+            </>
             )}
 
             {/* Tab: About This Leave */}
