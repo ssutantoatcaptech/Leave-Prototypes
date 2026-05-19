@@ -207,12 +207,122 @@ export default function LeaveDetailV2ePage() {
 
             {/* Tab: Status Tracker */}
             {detailTab === 'status' && (
-            <div className="ldb-card">
-              <h2 className="ldb-card-title">
-                <svg width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M2 8h12M8 2v12" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round"/></svg>
-                Status Tracker
-              </h2>
-              <p style={{ color: '#64748b', fontSize: '14px', margin: 0 }}>Status tracking details will be added here.</p>
+            <div className="ldb-card ldb-status-tracker">
+              <div className="ldb-st-header">
+                <h2 className="ldb-card-title" style={{ marginBottom: 0 }}>Status Tracker</h2>
+                <span className="ldb-st-attention-badge">1 item needs attention</span>
+              </div>
+
+              <div className="ldb-st-steps">
+                {/* Step 1: Completed */}
+                <div className="ldb-st-step ldb-st-step--completed">
+                  <div className="ldb-st-step-indicator">
+                    <div className="ldb-st-step-circle ldb-st-step-circle--completed">
+                      <svg width="12" height="10" viewBox="0 0 12 10" fill="none"><path d="M1 5l3.5 3.5L11 1" stroke="#fff" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/></svg>
+                    </div>
+                    <div className="ldb-st-step-line ldb-st-step-line--completed"></div>
+                  </div>
+                  <div className="ldb-st-step-content ldb-st-step-card">
+                    <div className="ldb-st-step-top">
+                      <span className="ldb-st-step-title">Leave Request Submitted — Case NTN-57005</span>
+                      <span className="ldb-st-step-time">Completed Mar 15, 2026</span>
+                    </div>
+                    <p className="ldb-st-step-desc">You have successfully submitted your initial leave request. Associated claims will be filed:</p>
+                    <div className="ldb-st-sub-items">
+                      <div className="ldb-st-sub-item">
+                        <span>FMLA Benefit NTN-57387-GDC-01-01</span>
+                      </div>
+                      <div className="ldb-st-sub-item">
+                        <span>STD Benefit NTN-57387-GDC-01-02</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Step 2: Active */}
+                <div className="ldb-st-step ldb-st-step--active">
+                  <div className="ldb-st-step-indicator">
+                    <div className="ldb-st-step-circle ldb-st-step-circle--active">
+                      <div className="ldb-st-step-dot"></div>
+                    </div>
+                    <div className="ldb-st-step-line"></div>
+                  </div>
+                  <div className="ldb-st-step-content ldb-st-step-card ldb-st-step-card--active">
+                    <div className="ldb-st-step-top">
+                      <span className="ldb-st-step-title">Complete Medical Certification</span>
+                      <div className="ldb-st-step-actions">
+                        <span className="ldb-st-due-badge">Due Apr 15, 2026</span>
+                        <button type="button" className="ldb-st-start-btn">Start Now</button>
+                      </div>
+                    </div>
+                    <p className="ldb-st-step-desc">Have your healthcare provider complete the required medical certification forms.</p>
+                    <div className="ldb-st-sub-items ldb-st-sub-items--actions">
+                      <div className="ldb-st-sub-action">
+                        <div className="ldb-st-sub-action-left">
+                          <svg width="14" height="14" viewBox="0 0 16 16" fill="none"><circle cx="8" cy="8" r="6.5" stroke="#d4d4d4" strokeWidth="1.2"/></svg>
+                          <span>Download certification form</span>
+                        </div>
+                        <button type="button" className="ldb-st-link-btn">Download</button>
+                      </div>
+                      <div className="ldb-st-sub-action">
+                        <div className="ldb-st-sub-action-left">
+                          <svg width="14" height="14" viewBox="0 0 16 16" fill="none"><circle cx="8" cy="8" r="6.5" stroke="#d4d4d4" strokeWidth="1.2"/></svg>
+                          <span>Upload completed form</span>
+                        </div>
+                        <button type="button" className="ldb-st-link-btn">Upload</button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Step 3: Future — Confirm Child's Arrival */}
+                <div className="ldb-st-step ldb-st-step--future">
+                  <div className="ldb-st-step-indicator">
+                    <div className="ldb-st-step-circle ldb-st-step-circle--future"></div>
+                    <div className="ldb-st-step-line"></div>
+                  </div>
+                  <div className="ldb-st-step-content ldb-st-step-card ldb-st-step-card--future">
+                    <div className="ldb-st-step-top">
+                      <span className="ldb-st-step-title">Confirm Child's Arrival</span>
+                      <span className="ldb-st-locked-badge">Locked</span>
+                    </div>
+                    <p className="ldb-st-step-desc">Notify us when your child is born to activate the bonding portion of your leave.</p>
+                  </div>
+                </div>
+
+                {/* Step 4: Future — File CA EDD bonding claim */}
+                <div className="ldb-st-step ldb-st-step--future">
+                  <div className="ldb-st-step-indicator">
+                    <div className="ldb-st-step-circle ldb-st-step-circle--future"></div>
+                    <div className="ldb-st-step-line"></div>
+                  </div>
+                  <div className="ldb-st-step-content ldb-st-step-card ldb-st-step-card--future">
+                    <div className="ldb-st-step-top">
+                      <span className="ldb-st-step-title">File your California EDD bonding claim</span>
+                      <span className="ldb-st-locked-badge">Locked</span>
+                    </div>
+                    <p className="ldb-st-step-desc">At the start of your bonding period, submit your CA EDD bonding claim.</p>
+                    <div className="ldb-st-external-link">
+                      <span>California Benefit Portal</span>
+                      <a href="#" className="ldb-st-link-btn">Start <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M2 10L10 2M10 2H4M10 2v6" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round" strokeLinejoin="round"/></svg></a>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Step 5: Future — Confirm Return to Work */}
+                <div className="ldb-st-step ldb-st-step--future ldb-st-step--last">
+                  <div className="ldb-st-step-indicator">
+                    <div className="ldb-st-step-circle ldb-st-step-circle--future"></div>
+                  </div>
+                  <div className="ldb-st-step-content ldb-st-step-card ldb-st-step-card--future">
+                    <div className="ldb-st-step-top">
+                      <span className="ldb-st-step-title">Confirm Return to Work Date</span>
+                      <span className="ldb-st-locked-badge">Locked</span>
+                    </div>
+                    <p className="ldb-st-step-desc">Confirm your return to work date as your leave end date approaches.</p>
+                  </div>
+                </div>
+              </div>
             </div>
             )}
 
