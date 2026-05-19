@@ -395,9 +395,9 @@ export default function LeaveDetailV2ePage() {
                             <div style={{ position: 'absolute', left: item.startPct + '%', width: item.widthPct + '%', height: 8, background: item.accent, borderRadius: 4 }} />
                           </div>
                         </button>
-                        {/* Tooltip positioned directly below this row */}
+                        {/* Tooltip positioned above this row */}
                         {hoveredRow === item.id && (
-                          <div className="ad-coverage-tooltip" style={{ position: 'absolute', top: '100%', bottom: 'auto', left: item.startPct + '%', transform: 'none', marginTop: 4, marginBottom: 0, zIndex: 10, width: 320 }}>
+                          <div className="ad-coverage-tooltip" style={{ position: 'absolute', bottom: '100%', top: 'auto', left: item.startPct + '%', transform: 'none', marginBottom: 4, marginTop: 0, zIndex: 10, width: 320 }}>
                             <div className="ad-coverage-tooltip-head">
                               <div className="title">{item.name}</div>
                             </div>
