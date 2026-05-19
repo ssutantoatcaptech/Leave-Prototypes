@@ -91,7 +91,7 @@ export default function LeaveDetailV2ePage() {
   var isMobile = location.pathname.startsWith('/claims-and-leave-mobile');
   var base = isMobile ? '/claims-and-leave-mobile' : '/claims-and-leave';
   var navigate = useNavigate();
-  var [activeVersion, setActiveVersion] = useState('v1');
+  var [activeVersion, setActiveVersion] = useState('v2');
   var [timelineView, setTimelineView] = useState('protection');
   var [hoveredRow, setHoveredRow] = useState(null);
   var [expandedClaims, setExpandedClaims] = useState({ absence: false, stateleave: false });
@@ -360,8 +360,8 @@ export default function LeaveDetailV2ePage() {
 
                 {/* V2 Milestone Timeline — 12 months */}
                 <div style={{ padding: '16px 0 0' }}>
-                  {/* Month labels */}
-                  <div style={{ display: 'flex', marginBottom: 8 }}>
+                  {/* Month labels — offset to align with progress bar */}
+                  <div style={{ display: 'flex', marginBottom: 8, paddingLeft: 50 }}>
                     {['Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec','Jan','Feb'].map(function (m) {
                       return <span key={m} style={{ flex: 1, fontFamily: "'Source Sans Pro', sans-serif", fontSize: 11, color: '#9ca3af', textAlign: 'left' }}>{m}</span>;
                     })}
