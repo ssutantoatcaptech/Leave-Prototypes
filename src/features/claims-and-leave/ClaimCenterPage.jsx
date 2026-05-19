@@ -658,59 +658,81 @@ export default function ClaimCenterPage() {
                 <tr className="cl-dental-accordion-row">
                   <td colSpan="7" className="cl-dental-accordion-cell">
                     <div className="cl-dental-accordion-content">
-                      {claim.kind === 'leave' && claim.benefits && (
-                        <>
-                        <h4 className="cl-dental-accordion-title">Benefits</h4>
-                        <table className="cl-dental-payments-table">
-                          <thead>
-                            <tr><th>Benefit Type</th><th>Status</th><th>Period</th><th>Duration</th><th>Weekly Benefit</th></tr>
-                          </thead>
-                          <tbody>
-                            {claim.benefits.map((b, bi) => (
-                              <tr key={bi}>
-                                <td>{b.type}</td>
-                                <td>{b.status}</td>
-                                <td>{b.startDate} – {b.endDate}</td>
-                                <td>{b.duration}</td>
-                                <td>{b.weeklyBenefit || '—'}</td>
-                              </tr>
+                      <div className="cl-v2-accordion-card">
+                        {claim.kind === 'leave' && claim.benefits && (
+                          <>
+                          <h4 className="cl-dental-accordion-title">Benefits</h4>
+                          <table className="cl-dental-payments-table">
+                            <thead>
+                              <tr><th>Benefit Type</th><th>Status</th><th>Period</th><th>Duration</th><th>Weekly Benefit</th></tr>
+                            </thead>
+                            <tbody>
+                              {claim.benefits.map((b, bi) => (
+                                <tr key={bi}>
+                                  <td>{b.type}</td>
+                                  <td>{b.status}</td>
+                                  <td>{b.startDate} – {b.endDate}</td>
+                                  <td>{b.duration}</td>
+                                  <td>{b.weeklyBenefit || '—'}</td>
+                                </tr>
+                              ))}
+                            </tbody>
+                          </table>
+                          </>
+                        )}
+                        {claim.kind === 'leave' && claim.accommodations && claim.accommodations.length > 0 && (
+                          <div style={{ marginTop: 12 }}>
+                            <h4 className="cl-dental-accordion-title">ADA Accommodation</h4>
+                            {claim.accommodations.map((a, ai) => (
+                              <div key={ai} className="cl-v2-accordion-detail-row">
+                                <span><strong>{a.type}</strong> — {a.notes}</span>
+                                <span className="cl-v2-accordion-meta">{a.startDate} – {a.endDate} · {a.status}</span>
+                              </div>
                             ))}
-                          </tbody>
-                        </table>
-                        </>
-                      )}
-                      {claim.kind === 'leave' && claim.accommodations && claim.accommodations.length > 0 && (
-                        <div style={{ marginTop: 12 }}>
-                          <h4 className="cl-dental-accordion-title">ADA Accommodation</h4>
-                          {claim.accommodations.map((a, ai) => (
-                            <div key={ai} className="cl-v2-accordion-detail-row">
-                              <span><strong>{a.type}</strong> — {a.notes}</span>
-                              <span className="cl-v2-accordion-meta">{a.startDate} – {a.endDate} · {a.status}</span>
-                            </div>
-                          ))}
+                          </div>
+                        )}
+                        {(claim.kind === 'std' || claim.kind === 'ltd') && (
+                          <>
+                          <h4 className="cl-dental-accordion-title">{claim.kind === 'std' ? 'Short-Term' : 'Long-Term'} Disability Details</h4>
+                          <div className="cl-v2-accordion-detail-grid">
+                            <div className="cl-v2-accordion-detail-item"><span className="cl-v2-accordion-label">Condition</span><span>{claim.condition}</span></div>
+                            <div className="cl-v2-accordion-detail-item"><span className="cl-v2-accordion-label">Weekly Benefit</span><span>{claim.weeklyBenefit}</span></div>
+                            <div className="cl-v2-accordion-detail-item"><span className="cl-v2-accordion-label">Duration</span><span>{claim.duration}</span></div>
+                            <div className="cl-v2-accordion-detail-item"><span className="cl-v2-accordion-label">Period</span><span>{claim.startDate} – {claim.endDate}</span></div>
+                          </div>
+                          </>
+                        )}
+                        {claim.kind === 'ada' && (
+                          <>
+                          <h4 className="cl-dental-accordion-title">ADA Accommodation Details</h4>
+                          <div className="cl-v2-accordion-detail-grid">
+                            <div className="cl-v2-accordion-detail-item"><span className="cl-v2-accordion-label">Condition</span><span>{claim.condition}</span></div>
+                            <div className="cl-v2-accordion-detail-item"><span className="cl-v2-accordion-label">Accommodation</span><span>{claim.notes}</span></div>
+                            <div className="cl-v2-accordion-detail-item"><span className="cl-v2-accordion-label">Period</span><span>{claim.startDate} – {claim.endDate}</span></div>
+                          </div>
+                          </>
+                        )}
+                        <div className="cl-v2-accordion-actions">
+                          {claim.kind === 'leave' && (
+                            <button className="cl-v2-accordion-btn" type="button" onClick={(e) => { e.stopPropagation(); navigate(`${base}/case-detail`); }}>
+                              View Leave Details
+                              <svg width="10" height="10" viewBox="0 0 14 14" fill="none"><path d="M5 2l5 5-5 5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/></svg>
+                            </button>
+                          )}
+                          {(claim.kind === 'std' || claim.kind === 'ltd') && (
+                            <button className="cl-v2-accordion-btn" type="button" onClick={(e) => { e.stopPropagation(); navigate(`${base}/${claim.kind === 'ltd' ? 'ltd-claim-detail' : 'std-claim-detail'}`); }}>
+                              View Claim Details
+                              <svg width="10" height="10" viewBox="0 0 14 14" fill="none"><path d="M5 2l5 5-5 5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/></svg>
+                            </button>
+                          )}
+                          {claim.kind === 'ada' && (
+                            <button className="cl-v2-accordion-btn cl-v2-accordion-btn--edit" type="button" onClick={(e) => e.stopPropagation()}>
+                              <svg width="12" height="12" viewBox="0 0 14 14" fill="none"><path d="M10.5 1.5l2 2-8 8H2.5v-2l8-8z" stroke="currentColor" strokeWidth="1.3" strokeLinecap="round" strokeLinejoin="round"/></svg>
+                              Edit Accommodation
+                            </button>
+                          )}
                         </div>
-                      )}
-                      {(claim.kind === 'std' || claim.kind === 'ltd') && (
-                        <>
-                        <h4 className="cl-dental-accordion-title">{claim.kind === 'std' ? 'Short-Term' : 'Long-Term'} Disability Details</h4>
-                        <div className="cl-v2-accordion-detail-grid">
-                          <div className="cl-v2-accordion-detail-item"><span className="cl-v2-accordion-label">Condition</span><span>{claim.condition}</span></div>
-                          <div className="cl-v2-accordion-detail-item"><span className="cl-v2-accordion-label">Weekly Benefit</span><span>{claim.weeklyBenefit}</span></div>
-                          <div className="cl-v2-accordion-detail-item"><span className="cl-v2-accordion-label">Duration</span><span>{claim.duration}</span></div>
-                          <div className="cl-v2-accordion-detail-item"><span className="cl-v2-accordion-label">Period</span><span>{claim.startDate} – {claim.endDate}</span></div>
-                        </div>
-                        </>
-                      )}
-                      {claim.kind === 'ada' && (
-                        <>
-                        <h4 className="cl-dental-accordion-title">ADA Accommodation Details</h4>
-                        <div className="cl-v2-accordion-detail-grid">
-                          <div className="cl-v2-accordion-detail-item"><span className="cl-v2-accordion-label">Condition</span><span>{claim.condition}</span></div>
-                          <div className="cl-v2-accordion-detail-item"><span className="cl-v2-accordion-label">Accommodation</span><span>{claim.notes}</span></div>
-                          <div className="cl-v2-accordion-detail-item"><span className="cl-v2-accordion-label">Period</span><span>{claim.startDate} – {claim.endDate}</span></div>
-                        </div>
-                        </>
-                      )}
+                      </div>
                     </div>
                   </td>
                 </tr>
@@ -774,43 +796,65 @@ export default function ClaimCenterPage() {
               </span>
               {isExpanded && (
                 <div className="cl-dental-accordion-content" style={{ marginTop: 12 }}>
-                  {claim.kind === 'leave' && claim.benefits && (
-                    <>
-                    <h4 className="cl-dental-accordion-title">Benefits</h4>
-                    <table className="cl-dental-payments-table">
-                      <thead><tr><th>Type</th><th>Status</th><th>Duration</th><th>Weekly</th></tr></thead>
-                      <tbody>
-                        {claim.benefits.map((b, bi) => (
-                          <tr key={bi}><td>{b.type}</td><td>{b.status}</td><td>{b.duration}</td><td>{b.weeklyBenefit || '—'}</td></tr>
+                  <div className="cl-v2-accordion-card">
+                    {claim.kind === 'leave' && claim.benefits && (
+                      <>
+                      <h4 className="cl-dental-accordion-title">Benefits</h4>
+                      <table className="cl-dental-payments-table">
+                        <thead><tr><th>Type</th><th>Status</th><th>Duration</th><th>Weekly</th></tr></thead>
+                        <tbody>
+                          {claim.benefits.map((b, bi) => (
+                            <tr key={bi}><td>{b.type}</td><td>{b.status}</td><td>{b.duration}</td><td>{b.weeklyBenefit || '—'}</td></tr>
+                          ))}
+                        </tbody>
+                      </table>
+                      </>
+                    )}
+                    {claim.kind === 'leave' && claim.accommodations && claim.accommodations.length > 0 && (
+                      <div style={{ marginTop: 10 }}>
+                        <h4 className="cl-dental-accordion-title">ADA Accommodation</h4>
+                        {claim.accommodations.map((a, ai) => (
+                          <div key={ai} className="cl-v2-accordion-detail-row">
+                            <span><strong>{a.type}</strong> — {a.notes}</span>
+                            <span className="cl-v2-accordion-meta">{a.startDate} – {a.endDate}</span>
+                          </div>
                         ))}
-                      </tbody>
-                    </table>
-                    </>
-                  )}
-                  {claim.kind === 'leave' && claim.accommodations && claim.accommodations.length > 0 && (
-                    <div style={{ marginTop: 10 }}>
-                      <h4 className="cl-dental-accordion-title">ADA Accommodation</h4>
-                      {claim.accommodations.map((a, ai) => (
-                        <div key={ai} className="cl-v2-accordion-detail-row">
-                          <span><strong>{a.type}</strong> — {a.notes}</span>
-                          <span className="cl-v2-accordion-meta">{a.startDate} – {a.endDate}</span>
-                        </div>
-                      ))}
+                      </div>
+                    )}
+                    {(claim.kind === 'std' || claim.kind === 'ltd') && (
+                      <div className="cl-v2-accordion-detail-grid">
+                        <div className="cl-v2-accordion-detail-item"><span className="cl-v2-accordion-label">Condition</span><span>{claim.condition}</span></div>
+                        <div className="cl-v2-accordion-detail-item"><span className="cl-v2-accordion-label">Weekly Benefit</span><span>{claim.weeklyBenefit}</span></div>
+                        <div className="cl-v2-accordion-detail-item"><span className="cl-v2-accordion-label">Duration</span><span>{claim.duration}</span></div>
+                      </div>
+                    )}
+                    {claim.kind === 'ada' && (
+                      <div className="cl-v2-accordion-detail-grid">
+                        <div className="cl-v2-accordion-detail-item"><span className="cl-v2-accordion-label">Condition</span><span>{claim.condition}</span></div>
+                        <div className="cl-v2-accordion-detail-item"><span className="cl-v2-accordion-label">Accommodation</span><span>{claim.notes}</span></div>
+                      </div>
+                    )}
+                    <div className="cl-v2-accordion-actions">
+                      {claim.kind === 'leave' && (
+                        <button className="cl-v2-accordion-btn" type="button" onClick={() => navigate(`${base}/case-detail`)}>
+                          View Leave Details
+                          <svg width="10" height="10" viewBox="0 0 14 14" fill="none"><path d="M5 2l5 5-5 5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/></svg>
+                        </button>
+                      )}
+                      {(claim.kind === 'std' || claim.kind === 'ltd') && (
+                        <button className="cl-v2-accordion-btn" type="button" onClick={() => navigate(`${base}/${claim.kind === 'ltd' ? 'ltd-claim-detail' : 'std-claim-detail'}`)}>
+                          View Claim Details
+                          <svg width="10" height="10" viewBox="0 0 14 14" fill="none"><path d="M5 2l5 5-5 5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/></svg>
+                        </button>
+                      )}
+                      {claim.kind === 'ada' && (
+                        <button className="cl-v2-accordion-btn cl-v2-accordion-btn--edit" type="button">
+                          <svg width="12" height="12" viewBox="0 0 14 14" fill="none"><path d="M10.5 1.5l2 2-8 8H2.5v-2l8-8z" stroke="currentColor" strokeWidth="1.3" strokeLinecap="round" strokeLinejoin="round"/></svg>
+                          Edit Accommodation
+                        </button>
+                      )}
                     </div>
-                  )}
-                  {(claim.kind === 'std' || claim.kind === 'ltd') && (
-                    <div className="cl-v2-accordion-detail-grid">
-                      <div className="cl-v2-accordion-detail-item"><span className="cl-v2-accordion-label">Condition</span><span>{claim.condition}</span></div>
-                      <div className="cl-v2-accordion-detail-item"><span className="cl-v2-accordion-label">Weekly Benefit</span><span>{claim.weeklyBenefit}</span></div>
-                      <div className="cl-v2-accordion-detail-item"><span className="cl-v2-accordion-label">Duration</span><span>{claim.duration}</span></div>
-                    </div>
-                  )}
-                  {claim.kind === 'ada' && (
-                    <div className="cl-v2-accordion-detail-grid">
-                      <div className="cl-v2-accordion-detail-item"><span className="cl-v2-accordion-label">Condition</span><span>{claim.condition}</span></div>
-                      <div className="cl-v2-accordion-detail-item"><span className="cl-v2-accordion-label">Accommodation</span><span>{claim.notes}</span></div>
-                    </div>
-                  )}
+                  </div>
                 </div>
               )}
             </div>

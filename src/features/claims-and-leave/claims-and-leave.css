@@ -8805,3 +8805,50 @@
   letter-spacing: 0.3px;
 }
 
+.cl-v2-accordion-card {
+  background: #fff;
+  border: 1px solid #e2e8f0;
+  border-radius: 8px;
+  padding: 16px 20px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
+}
+
+.cl-v2-accordion-actions {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: 14px;
+  padding-top: 12px;
+  border-top: 1px solid #f1f5f9;
+}
+
+.cl-v2-accordion-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 7px 14px;
+  font-family: 'Source Sans Pro', sans-serif;
+  font-size: 13px;
+  font-weight: 600;
+  color: #fff;
+  background: #105fa8;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background 0.15s;
+}
+
+.cl-v2-accordion-btn:hover {
+  background: #0d4f8a;
+}
+
+.cl-v2-accordion-btn--edit {
+  background: none;
+  color: #105fa8;
+  border: 1px solid #105fa8;
+}
+
+.cl-v2-accordion-btn--edit:hover {
+  background: #f0f7ff;
+}
+
