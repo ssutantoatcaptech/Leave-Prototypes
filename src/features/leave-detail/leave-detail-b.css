@@ -3528,6 +3528,14 @@ select.ldb-detail-input {
 }
 
 /* ADA Accommodation callout on leave detail */
+.ldb-ada-wrapper {
+  background: #fff;
+  border: 1px solid #e2e8f0;
+  border-radius: 10px;
+  padding: 16px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
+}
+
 .ldb-ada-callout {
   background: #f0fdfa;
   border: 1px solid #ccfbf1;

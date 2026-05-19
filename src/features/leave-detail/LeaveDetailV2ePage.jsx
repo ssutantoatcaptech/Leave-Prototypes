@@ -644,19 +644,21 @@ export default function LeaveDetailV2ePage() {
                 <svg width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M8 1v14M1 8h14" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round"/></svg>
                 ADA Accommodation
               </h2>
-              <div className="ldb-ada-callout">
-                <div className="ldb-ada-callout-header">
-                  <span className="ldb-ada-callout-type">Ergonomic Workstation</span>
-                  <span className="cl-ml-status-pill cl-ml-status-pill--active">Active</span>
-                </div>
-                <div className="ldb-ada-callout-details">
-                  <div className="ldb-ada-callout-field">
-                    <span className="ldb-ada-callout-label">Period</span>
-                    <span className="ldb-ada-callout-value">Jun 08, 2026 – Sep 08, 2026</span>
+              <div className="ldb-ada-wrapper">
+                <div className="ldb-ada-callout">
+                  <div className="ldb-ada-callout-header">
+                    <span className="ldb-ada-callout-type">Ergonomic Workstation</span>
+                    <span className="cl-ml-status-pill cl-ml-status-pill--active">Active</span>
                   </div>
-                  <div className="ldb-ada-callout-field">
-                    <span className="ldb-ada-callout-label">Details</span>
-                    <span className="ldb-ada-callout-value">Standing desk and ergonomic chair upon return</span>
+                  <div className="ldb-ada-callout-details">
+                    <div className="ldb-ada-callout-field">
+                      <span className="ldb-ada-callout-label">Period</span>
+                      <span className="ldb-ada-callout-value">Jun 08, 2026 – Sep 08, 2026</span>
+                    </div>
+                    <div className="ldb-ada-callout-field">
+                      <span className="ldb-ada-callout-label">Details</span>
+                      <span className="ldb-ada-callout-value">Standing desk and ergonomic chair upon return</span>
+                    </div>
                   </div>
                 </div>
               </div>
