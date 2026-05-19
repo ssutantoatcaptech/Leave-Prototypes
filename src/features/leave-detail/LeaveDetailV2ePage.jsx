@@ -96,7 +96,7 @@ export default function LeaveDetailV2ePage() {
   var [expandedClaims, setExpandedClaims] = useState({ absence: false, stateleave: false });
   var [showAllTasks, setShowAllTasks] = useState(false);
   var [editingSection, setEditingSection] = useState(null);
-  var [detailTab, setDetailTab] = useState('claims');
+  var [detailTab, setDetailTab] = useState('status');
   var [addlBenefitsOpen, setAddlBenefitsOpen] = useState(true);
 
   var viewingCase = (function () {
@@ -479,13 +479,25 @@ export default function LeaveDetailV2ePage() {
 
             {/* Detail Tabs */}
             <div className="ldb-detail-tabs">
-              <button type="button" className={'ldb-detail-tab' + (detailTab === 'claims' ? ' active' : '')} onClick={function () { setDetailTab('claims'); }}>Claims & Benefits</button>
+              <button type="button" className={'ldb-detail-tab' + (detailTab === 'status' ? ' active' : '')} onClick={function () { setDetailTab('status'); }}>Status Tracker</button>
+              <button type="button" className={'ldb-detail-tab' + (detailTab === 'claims' ? ' active' : '')} onClick={function () { setDetailTab('claims'); }}>Coverage & Benefits</button>
               <button type="button" className={'ldb-detail-tab' + (detailTab === 'payments' ? ' active' : '')} onClick={function () { setDetailTab('payments'); }}>Payments</button>
               <button type="button" className={'ldb-detail-tab' + (detailTab === 'about' ? ' active' : '')} onClick={function () { setDetailTab('about'); }}>Leave Details</button>
-              <button type="button" className={'ldb-detail-tab' + (detailTab === 'activity' ? ' active' : '')} onClick={function () { setDetailTab('activity'); }}>Activity Log (10)</button>
+              <button type="button" className={'ldb-detail-tab' + (detailTab === 'activity' ? ' active' : '')} onClick={function () { setDetailTab('activity'); }}>Communications & Activity</button>
             </div>
 
-            {/* Tab: Claims & Payments */}
+            {/* Tab: Status Tracker */}
+            {detailTab === 'status' && (
+            <div className="ldb-card">
+              <h2 className="ldb-card-title">
+                <svg width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M2 8h12M8 2v12" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round"/></svg>
+                Status Tracker
+              </h2>
+              <p style={{ color: '#64748b', fontSize: '14px', margin: 0 }}>Status tracking details will be added here.</p>
+            </div>
+            )}
+
+            {/* Tab: Coverage & Benefits */}
             {detailTab === 'claims' && (
             <>
             <div className="ldb-card">
@@ -988,7 +1000,7 @@ export default function LeaveDetailV2ePage() {
             </div>
             )}
 
-            {/* Tab: Activity Log */}
+            {/* Tab: Communications & Activity */}
             {detailTab === 'activity' && (
             <div className="ldb-card ldb-activity-log">
               <div className="ldb-activity-filters">
