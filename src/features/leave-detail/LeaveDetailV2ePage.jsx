@@ -196,7 +196,30 @@ export default function LeaveDetailV2ePage() {
           {/* Left: Main content */}
           <div className="ldb-v2-main">
 
-            {/* Leave Timeline */}
+            {/* Detail Tabs */}
+            <div className="ldb-detail-tabs">
+              <button type="button" className={'ldb-detail-tab' + (detailTab === 'status' ? ' active' : '')} onClick={function () { setDetailTab('status'); }}>Status Tracker</button>
+              <button type="button" className={'ldb-detail-tab' + (detailTab === 'claims' ? ' active' : '')} onClick={function () { setDetailTab('claims'); }}>Coverage & Benefits</button>
+              <button type="button" className={'ldb-detail-tab' + (detailTab === 'payments' ? ' active' : '')} onClick={function () { setDetailTab('payments'); }}>Payments</button>
+              <button type="button" className={'ldb-detail-tab' + (detailTab === 'about' ? ' active' : '')} onClick={function () { setDetailTab('about'); }}>Leave Details</button>
+              <button type="button" className={'ldb-detail-tab' + (detailTab === 'activity' ? ' active' : '')} onClick={function () { setDetailTab('activity'); }}>Communications & Activity</button>
+            </div>
+
+            {/* Tab: Status Tracker */}
+            {detailTab === 'status' && (
+            <div className="ldb-card">
+              <h2 className="ldb-card-title">
+                <svg width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M2 8h12M8 2v12" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round"/></svg>
+                Status Tracker
+              </h2>
+              <p style={{ color: '#64748b', fontSize: '14px', margin: 0 }}>Status tracking details will be added here.</p>
+            </div>
+            )}
+
+            {/* Tab: Coverage & Benefits */}
+            {detailTab === 'claims' && (
+            <>
+            {/* Coverage Timeline */}
             <div className="ldb-card dt-timeline-wrap">
                 <div className="ad-section-header">
                   <div>
@@ -367,29 +390,6 @@ export default function LeaveDetailV2ePage() {
                 </div>
             </div>
 
-            {/* Detail Tabs */}
-            <div className="ldb-detail-tabs">
-              <button type="button" className={'ldb-detail-tab' + (detailTab === 'status' ? ' active' : '')} onClick={function () { setDetailTab('status'); }}>Status Tracker</button>
-              <button type="button" className={'ldb-detail-tab' + (detailTab === 'claims' ? ' active' : '')} onClick={function () { setDetailTab('claims'); }}>Coverage & Benefits</button>
-              <button type="button" className={'ldb-detail-tab' + (detailTab === 'payments' ? ' active' : '')} onClick={function () { setDetailTab('payments'); }}>Payments</button>
-              <button type="button" className={'ldb-detail-tab' + (detailTab === 'about' ? ' active' : '')} onClick={function () { setDetailTab('about'); }}>Leave Details</button>
-              <button type="button" className={'ldb-detail-tab' + (detailTab === 'activity' ? ' active' : '')} onClick={function () { setDetailTab('activity'); }}>Communications & Activity</button>
-            </div>
-
-            {/* Tab: Status Tracker */}
-            {detailTab === 'status' && (
-            <div className="ldb-card">
-              <h2 className="ldb-card-title">
-                <svg width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M2 8h12M8 2v12" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round"/></svg>
-                Status Tracker
-              </h2>
-              <p style={{ color: '#64748b', fontSize: '14px', margin: 0 }}>Status tracking details will be added here.</p>
-            </div>
-            )}
-
-            {/* Tab: Coverage & Benefits */}
-            {detailTab === 'claims' && (
-            <>
             <div className="ldb-card">
               <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 20 }}>
                 <h2 className="ldb-card-title" style={{ marginBottom: 0 }}>
