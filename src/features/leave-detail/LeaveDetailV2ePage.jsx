@@ -452,7 +452,7 @@ export default function LeaveDetailV2ePage() {
                   </div>
 
                   {/* Legend */}
-                  <div style={{ display: 'flex', flexWrap: 'wrap', gap: 16, marginTop: 14, paddingLeft: 50 }}>
+                  <div style={{ display: 'flex', flexWrap: 'wrap', gap: 16, marginTop: 14, paddingLeft: 0 }}>
                     {(timelineView === 'payment' ? [
                       { color: '#2563eb', label: 'STD' },
                       { color: '#0d9488', label: 'PFML' },
