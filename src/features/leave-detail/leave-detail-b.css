@@ -4018,3 +4018,9 @@ select.ldb-detail-input {
   border-bottom: none;
   padding-top: 4px;
 }
+
+@media (max-width: 768px) {
+  .v2-month-hide-mobile {
+    visibility: hidden;
+  }
+}

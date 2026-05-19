@@ -361,9 +361,9 @@ export default function LeaveDetailV2ePage() {
                 {/* V2 Milestone Timeline — 12 months */}
                 <div style={{ padding: '16px 0 0' }}>
                   {/* Month labels — offset to align with progress bar */}
-                  <div style={{ display: 'flex', marginBottom: 8, paddingLeft: 50 }}>
-                    {['Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec','Jan','Feb'].map(function (m) {
-                      return <span key={m} style={{ flex: 1, fontFamily: "'Source Sans Pro', sans-serif", fontSize: 11, color: '#9ca3af', textAlign: 'left' }}>{m}</span>;
+                  <div className="v2-month-labels" style={{ display: 'flex', marginBottom: 8, paddingLeft: 50 }}>
+                    {['Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec','Jan','Feb'].map(function (m, i) {
+                      return <span key={m} className={i % 3 !== 0 ? 'v2-month-hide-mobile' : ''} style={{ flex: 1, fontFamily: "'Source Sans Pro', sans-serif", fontSize: 11, color: '#9ca3af', textAlign: 'left' }}>{m}</span>;
                     })}
                   </div>
 
