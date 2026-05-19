@@ -292,7 +292,6 @@ const LOAD_MORE_COUNT = 5;
 export default function ClaimCenterPage() {
   const base = useBasePath();
   const navigate = useNavigate();
-  const [pageVersion, setPageVersion] = useState(2);
   const [activeCategory, setActiveCategory] = useState('Dental');
   const [memberFilter, setMemberFilter] = useState('All');
   const [dateFilter, setDateFilter] = useState('All');
@@ -366,7 +365,7 @@ export default function ClaimCenterPage() {
       {/* Start a New Claim button (mobile) */}
       <button className="cl-ml-btn-new cl-ml-btn-new--mobile">+ Start a New Claim</button>
 
-      {pageVersion === 1 && (
+      {activeCategory !== 'Leave and Disability' && (
       <>
       {/* Table Card */}
       <div className="cl-ml-table-card">
@@ -376,7 +375,7 @@ export default function ClaimCenterPage() {
             <button
               key={tab}
               className={`cl-category-tab${tab === activeCategory ? ' cl-category-tab--active' : ''}`}
-              onClick={() => { setActiveCategory(tab); if (tab === 'Leave and Disability') setPageVersion(2); }}
+              onClick={() => setActiveCategory(tab)}
             >
               {tab}
             </button>
@@ -389,7 +388,7 @@ export default function ClaimCenterPage() {
           <select
             className="cl-ml-filter-select"
             value={activeCategory}
-            onChange={(e) => { setActiveCategory(e.target.value); if (e.target.value === 'Leave and Disability') setPageVersion(2); }}
+            onChange={(e) => setActiveCategory(e.target.value)}
           >
             {categoryTabs.map((tab) => (
               <option key={tab} value={tab}>{tab}</option>
@@ -585,7 +584,7 @@ export default function ClaimCenterPage() {
       </>
       )}
 
-      {pageVersion === 2 && (
+      {activeCategory === 'Leave and Disability' && (
       <>
       <div className="cl-ml-table-card">
         {/* Category tabs (desktop) */}
@@ -594,7 +593,7 @@ export default function ClaimCenterPage() {
             <button
               key={tab}
               className={`cl-category-tab${tab === 'Leave and Disability' ? ' cl-category-tab--active' : ''}`}
-              onClick={() => { setActiveCategory(tab); if (tab !== 'Leave and Disability') setPageVersion(1); }}
+              onClick={() => setActiveCategory(tab)}
             >
               {tab}
             </button>
@@ -604,7 +603,7 @@ export default function ClaimCenterPage() {
         {/* Category dropdown (mobile) */}
         <div className="cl-category-dropdown-mobile">
           <label className="cl-ml-filter-label">CATEGORY</label>
-          <select className="cl-ml-filter-select" value="Leave and Disability" onChange={(e) => { setActiveCategory(e.target.value); if (e.target.value !== 'Leave and Disability') setPageVersion(1); }}>
+          <select className="cl-ml-filter-select" value="Leave and Disability" onChange={(e) => setActiveCategory(e.target.value)}>
             {categoryTabs.map((tab) => (
               <option key={tab} value={tab}>{tab}</option>
             ))}
@@ -750,16 +749,6 @@ export default function ClaimCenterPage() {
       </>
       )}
 
-      {/* Version toggle */}
-      <div className="cl-version-toolbar">
-        <button className="cl-version-btn" disabled={pageVersion <= 1} onClick={() => setPageVersion(pageVersion - 1)}>
-          <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M9 2L4 7l5 5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/></svg>
-        </button>
-        <span className="cl-version-label">v{pageVersion}</span>
-        <button className="cl-version-btn" disabled={pageVersion >= 2} onClick={() => setPageVersion(pageVersion + 1)}>
-          <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M5 2l5 5-5 5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/></svg>
-        </button>
-      </div>
     </div>
   );
 }
