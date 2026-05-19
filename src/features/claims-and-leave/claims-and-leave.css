@@ -8711,3 +8711,59 @@
   text-align: center;
 }
 
+/* ── Dental Accordion ── */
+
+.cl-ml-row--expanded {
+  background: #f8fafc;
+}
+
+.cl-dental-accordion-row td {
+  padding: 0;
+}
+
+.cl-dental-accordion-cell {
+  padding: 0 !important;
+}
+
+.cl-dental-accordion-content {
+  padding: 16px 24px 20px;
+  background: #f8fafc;
+  border-top: 1px solid #e8eef4;
+}
+
+.cl-dental-accordion-title {
+  font-family: 'Source Sans Pro', sans-serif;
+  font-size: 13px;
+  font-weight: 600;
+  color: #334155;
+  margin: 0 0 10px;
+  text-transform: uppercase;
+  letter-spacing: 0.3px;
+}
+
+.cl-dental-payments-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-family: 'Source Sans Pro', sans-serif;
+  font-size: 13px;
+}
+
+.cl-dental-payments-table thead th {
+  text-align: left;
+  padding: 8px 12px;
+  font-weight: 600;
+  color: #475569;
+  background: #fff;
+  border-bottom: 1px solid #e2e8f0;
+}
+
+.cl-dental-payments-table tbody td {
+  padding: 8px 12px;
+  color: #334155;
+  border-bottom: 1px solid #f1f5f9;
+}
+
+.cl-dental-payments-table tbody tr:last-child td {
+  border-bottom: none;
+}
+

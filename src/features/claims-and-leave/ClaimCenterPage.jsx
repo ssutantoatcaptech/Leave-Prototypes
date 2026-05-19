@@ -166,7 +166,11 @@ const claimsData = [
     billedAmount: '$250.00',
     memberPays: '$50.00',
     status: 'Processed',
-    link: 'std-claim-detail',
+    payments: [
+      { service: 'Preventive — Exam', billed: '$95.00', planPaid: '$95.00', youPay: '$0.00' },
+      { service: 'Preventive — Cleaning', billed: '$85.00', planPaid: '$85.00', youPay: '$0.00' },
+      { service: 'Basic — X-Rays (Bitewing)', billed: '$70.00', planPaid: '$20.00', youPay: '$50.00' },
+    ],
   },
   {
     date: 'Dec 08, 2025',
@@ -176,7 +180,9 @@ const claimsData = [
     billedAmount: '$64.00',
     memberPays: 'Pending',
     status: 'Pending',
-    link: 'std-claim-detail',
+    payments: [
+      { service: 'Preventive — Fluoride Treatment', billed: '$64.00', planPaid: 'Pending', youPay: 'Pending' },
+    ],
   },
   {
     date: 'Aug 15, 2025',
@@ -186,7 +192,9 @@ const claimsData = [
     billedAmount: '$145.00',
     memberPays: 'Pending',
     status: 'Pending',
-    link: 'ltd-claim-detail',
+    payments: [
+      { service: 'Basic — Filling (Composite)', billed: '$145.00', planPaid: 'Pending', youPay: 'Pending' },
+    ],
   },
   {
     date: 'May 02, 2025',
@@ -196,7 +204,9 @@ const claimsData = [
     billedAmount: '$128.00',
     memberPays: '$46.00',
     status: 'Reprocessed',
-    link: 'std-claim-detail',
+    payments: [
+      { service: 'Basic — Extraction (Simple)', billed: '$128.00', planPaid: '$82.00', youPay: '$46.00' },
+    ],
   },
   {
     date: 'Nov 08, 2024',
@@ -206,7 +216,9 @@ const claimsData = [
     billedAmount: '$324.00',
     memberPays: '$162.00',
     status: 'Processed',
-    link: 'ltd-claim-detail',
+    payments: [
+      { service: 'Major — Crown (Porcelain)', billed: '$324.00', planPaid: '$162.00', youPay: '$162.00' },
+    ],
   },
   {
     date: 'Sep 22, 2024',
@@ -216,7 +228,9 @@ const claimsData = [
     billedAmount: '$89.00',
     memberPays: '$25.00',
     status: 'Processed',
-    link: 'std-claim-detail',
+    payments: [
+      { service: 'Preventive — Sealant (per tooth)', billed: '$89.00', planPaid: '$64.00', youPay: '$25.00' },
+    ],
   },
   {
     date: 'Jul 14, 2024',
@@ -226,7 +240,9 @@ const claimsData = [
     billedAmount: '$175.00',
     memberPays: '$52.00',
     status: 'Processed',
-    link: 'ltd-claim-detail',
+    payments: [
+      { service: 'Basic — Root Planing (per quadrant)', billed: '$175.00', planPaid: '$123.00', youPay: '$52.00' },
+    ],
   },
   {
     date: 'Jun 03, 2024',
@@ -236,7 +252,10 @@ const claimsData = [
     billedAmount: '$210.00',
     memberPays: '$63.00',
     status: 'Processed',
-    link: 'std-claim-detail',
+    payments: [
+      { service: 'Basic — Filling (Amalgam)', billed: '$110.00', planPaid: '$77.00', youPay: '$33.00' },
+      { service: 'Preventive — X-Rays (Panoramic)', billed: '$100.00', planPaid: '$70.00', youPay: '$30.00' },
+    ],
   },
   {
     date: 'Apr 18, 2024',
@@ -246,7 +265,9 @@ const claimsData = [
     billedAmount: '$412.00',
     memberPays: '$124.00',
     status: 'Processed',
-    link: 'std-claim-detail',
+    payments: [
+      { service: 'Major — Bridge (3-unit)', billed: '$412.00', planPaid: '$288.00', youPay: '$124.00' },
+    ],
   },
   {
     date: 'Feb 05, 2024',
@@ -256,7 +277,10 @@ const claimsData = [
     billedAmount: '$98.00',
     memberPays: '$29.00',
     status: 'Processed',
-    link: 'std-claim-detail',
+    payments: [
+      { service: 'Preventive — Exam', billed: '$55.00', planPaid: '$55.00', youPay: '$0.00' },
+      { service: 'Preventive — X-Rays (Bitewing)', billed: '$43.00', planPaid: '$14.00', youPay: '$29.00' },
+    ],
   },
 ];
 
@@ -273,6 +297,7 @@ export default function ClaimCenterPage() {
   const [memberFilter, setMemberFilter] = useState('All');
   const [dateFilter, setDateFilter] = useState('All');
   const [visibleCount, setVisibleCount] = useState(INITIAL_VISIBLE);
+  const [expandedDentalRow, setExpandedDentalRow] = useState(null);
   const [v2SortCol, setV2SortCol] = useState('period');
   const [v2SortAsc, setV2SortAsc] = useState(false);
   const [v2Page, setV2Page] = useState(0);
@@ -434,7 +459,8 @@ export default function ClaimCenterPage() {
               <tr><td colSpan="8" style={{ textAlign: 'center', padding: '32px 16px', color: '#5d5d5d' }}>No claims match your filters.</td></tr>
             )}
             {visibleItems.map((row, i) => (
-              <tr key={i} className="cl-ml-row">
+              <React.Fragment key={i}>
+              <tr className={'cl-ml-row' + (expandedDentalRow === i ? ' cl-ml-row--expanded' : '')} onClick={() => setExpandedDentalRow(expandedDentalRow === i ? null : i)} style={{ cursor: 'pointer' }}>
                 <td className="cl-ml-td-first">
                   <span style={{ fontSize: '14px', color: '#222' }}>{row.date}</span>
                 </td>
@@ -447,15 +473,42 @@ export default function ClaimCenterPage() {
                   <span className="cl-ml-status-pill">{row.status}</span>
                 </td>
                 <td className="cl-ml-td">
-                  <span
-                    className="cl-ml-action-link"
-                    onClick={() => { if (row.link) navigate(`${base}/${row.link}`); }}
-                  >
+                  <span className="cl-ml-action-link">
                     View Details
-                    <svg width="10" height="10" viewBox="0 0 14 14" fill="none" aria-hidden="true" style={{ marginLeft: '4px' }}><path d="M5 2l5 5-5 5" stroke="#105fa8" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/></svg>
+                    <svg width="10" height="6" viewBox="0 0 10 6" fill="none" aria-hidden="true" style={{ marginLeft: '4px', transform: expandedDentalRow === i ? 'rotate(180deg)' : 'rotate(0)', transition: 'transform 0.2s' }}><path d="M1 1l4 4 4-4" stroke="#105fa8" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/></svg>
                   </span>
                 </td>
               </tr>
+              {expandedDentalRow === i && (
+                <tr className="cl-dental-accordion-row">
+                  <td colSpan="8" className="cl-dental-accordion-cell">
+                    <div className="cl-dental-accordion-content">
+                      <h4 className="cl-dental-accordion-title">Payment Breakdown</h4>
+                      <table className="cl-dental-payments-table">
+                        <thead>
+                          <tr>
+                            <th>Service</th>
+                            <th>Billed</th>
+                            <th>Plan Paid</th>
+                            <th>You Pay</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          {row.payments.map((p, pi) => (
+                            <tr key={pi}>
+                              <td>{p.service}</td>
+                              <td>{p.billed}</td>
+                              <td>{p.planPaid}</td>
+                              <td>{p.youPay}</td>
+                            </tr>
+                          ))}
+                        </tbody>
+                      </table>
+                    </div>
+                  </td>
+                </tr>
+              )}
+              </React.Fragment>
             ))}
           </tbody>
         </table>
@@ -500,7 +553,25 @@ export default function ClaimCenterPage() {
                 <span className="cl-card-mobile-value">{row.memberPays}</span>
               </div>
             </div>
-            <span className="cl-ml-action-link" onClick={() => { if (row.link) navigate(`${base}/${row.link}`); }}>View Details ›</span>
+            <span className="cl-ml-action-link" onClick={() => setExpandedDentalRow(expandedDentalRow === i ? null : i)}>
+              View Details
+              <svg width="10" height="6" viewBox="0 0 10 6" fill="none" aria-hidden="true" style={{ marginLeft: '4px', transform: expandedDentalRow === i ? 'rotate(180deg)' : 'rotate(0)', transition: 'transform 0.2s' }}><path d="M1 1l4 4 4-4" stroke="#105fa8" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/></svg>
+            </span>
+            {expandedDentalRow === i && (
+              <div className="cl-dental-accordion-content" style={{ marginTop: 12 }}>
+                <h4 className="cl-dental-accordion-title">Payment Breakdown</h4>
+                <table className="cl-dental-payments-table">
+                  <thead>
+                    <tr><th>Service</th><th>Billed</th><th>Plan Paid</th><th>You Pay</th></tr>
+                  </thead>
+                  <tbody>
+                    {row.payments.map((p, pi) => (
+                      <tr key={pi}><td>{p.service}</td><td>{p.billed}</td><td>{p.planPaid}</td><td>{p.youPay}</td></tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+            )}
           </div>
         ))}
         {hasMore && (
