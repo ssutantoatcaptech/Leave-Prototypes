@@ -388,15 +388,11 @@ export default function LeaveDetailV2ePage() {
                           style={{ display: 'flex', alignItems: 'center', gap: 10, width: '100%', padding: '10px 0', border: 'none', background: hoveredRow === item.id ? '#f8fafc' : 'transparent', cursor: 'pointer', borderRadius: 6, transition: 'background 0.15s' }}
                         >
                           <span style={{ fontFamily: "'Source Sans Pro', sans-serif", fontSize: 12, fontWeight: 600, color: '#374151', width: 40, textAlign: 'left', flexShrink: 0 }}>{item.label}</span>
-                          <div style={{ flex: 1, position: 'relative', height: 20, display: 'flex', alignItems: 'center' }}>
+                          <div style={{ flex: 1, position: 'relative', height: 24, display: 'flex', alignItems: 'center' }}>
                             {/* Track line */}
                             <div style={{ position: 'absolute', left: 0, right: 0, height: 2, background: '#f0f0f0', borderRadius: 1 }} />
                             {/* Active segment */}
-                            <div style={{ position: 'absolute', left: item.startPct + '%', width: item.widthPct + '%', height: 4, background: item.accent, borderRadius: 2 }} />
-                            {/* Start marker */}
-                            <div style={{ position: 'absolute', left: item.startPct + '%', width: 8, height: 8, borderRadius: '50%', background: item.accent, border: '2px solid #fff', boxShadow: '0 0 0 1px ' + item.accent, transform: 'translateX(-50%)' }} />
-                            {/* End marker */}
-                            <div style={{ position: 'absolute', left: (item.startPct + item.widthPct) + '%', width: 8, height: 8, borderRadius: '50%', background: item.accent, border: '2px solid #fff', boxShadow: '0 0 0 1px ' + item.accent, transform: 'translateX(-50%)' }} />
+                            <div style={{ position: 'absolute', left: item.startPct + '%', width: item.widthPct + '%', height: 6, background: item.accent, borderRadius: 3 }} />
                           </div>
                         </button>
                         {hoveredRow === item.id && (
