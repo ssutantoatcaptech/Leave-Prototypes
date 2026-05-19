@@ -395,6 +395,33 @@ export default function LeaveDetailV2ePage() {
                             <div style={{ position: 'absolute', left: item.startPct + '%', width: item.widthPct + '%', height: 6, background: item.accent, borderRadius: 3 }} />
                           </div>
                         </button>
+                        {/* Tooltip positioned directly below this row */}
+                        {hoveredRow === item.id && (
+                          <div className="ad-coverage-tooltip" style={{ position: 'absolute', top: '100%', bottom: 'auto', left: item.startPct + '%', transform: 'none', marginTop: 4, marginBottom: 0, zIndex: 10, width: 320 }}>
+                            <div className="ad-coverage-tooltip-head">
+                              <div className="title">{item.name}</div>
+                            </div>
+                            <div className="ad-coverage-tooltip-grid">
+                              <div>
+                                <div className="label">{timelineView === 'payment' ? 'Est. Weekly' : 'Status'}</div>
+                                <div className="value">{timelineView === 'payment' ? item.paymentValue : item.status}</div>
+                              </div>
+                              <div>
+                                <div className="label">Duration</div>
+                                <div className="value">{item.weeks}</div>
+                              </div>
+                              <div>
+                                <div className="label">Dates</div>
+                                <div className="value">{item.range}</div>
+                              </div>
+                              <div>
+                                <div className="label">Pay</div>
+                                <div className="value">{item.pay}</div>
+                              </div>
+                            </div>
+                          </div>
+                        )}
+                        {/* Mobile accordion */}
                         {hoveredRow === item.id && (
                           <div className="dlp-tl-mobile-accordion">
                             <div className="dlp-tl-mobile-accordion__title">{item.name}</div>
@@ -422,44 +449,6 @@ export default function LeaveDetailV2ePage() {
                     );
                   })}
 
-                  {/* Desktop: tooltip on hover */}
-                  {hoveredRow && (function () {
-                    var allRows = timelineView === 'payment' ? [
-                      { id: 'std', name: 'Short-Term Disability', weeks: '8 weeks', range: 'Mar 15 – May 10, 2026', pay: '60% of pre-disability earnings', status: 'Approved', paymentValue: '~$1,125/wk' },
-                      { id: 'pfml', name: 'Paid Family & Medical Leave', weeks: '4 weeks', range: 'May 11 – Jun 07, 2026', pay: 'State benefit', status: 'Approved', paymentValue: '~$981/wk' },
-                    ] : [
-                      { id: 'fmla', name: 'FMLA (Birthing Parent)', weeks: '12 weeks', range: 'Mar 15 – Jun 07, 2026', pay: 'Job protection (unpaid)', status: 'Approved' },
-                      { id: 'std', name: 'Short-Term Disability', weeks: '8 weeks', range: 'Mar 15 – May 10, 2026', pay: '60% of pre-disability earnings', status: 'Approved' },
-                      { id: 'pfml', name: 'Paid Family & Medical Leave', weeks: '4 weeks', range: 'May 11 – Jun 07, 2026', pay: 'State benefit', status: 'Approved' },
-                    ];
-                    var hovered = allRows.find(function (r) { return r.id === hoveredRow; });
-                    if (!hovered) return null;
-                    return (
-                      <div className="ad-coverage-tooltip">
-                        <div className="ad-coverage-tooltip-head">
-                          <div className="title">{hovered.name}</div>
-                        </div>
-                        <div className="ad-coverage-tooltip-grid">
-                          <div>
-                            <div className="label">{timelineView === 'payment' ? 'Est. Weekly' : 'Status'}</div>
-                            <div className="value">{timelineView === 'payment' ? hovered.paymentValue : hovered.status}</div>
-                          </div>
-                          <div>
-                            <div className="label">Duration</div>
-                            <div className="value">{hovered.weeks}</div>
-                          </div>
-                          <div>
-                            <div className="label">Dates</div>
-                            <div className="value">{hovered.range}</div>
-                          </div>
-                          <div>
-                            <div className="label">Pay</div>
-                            <div className="value">{hovered.pay}</div>
-                          </div>
-                        </div>
-                      </div>
-                    );
-                  })()}
                   </div>
                 </div>
 
