@@ -550,10 +550,6 @@ export default function EnterMyTimePage() {
                 </div>
               )}
             </div>
-            <div className="cl-ma-sidebar-cta__hours">
-              <span className="cl-ma-sidebar-cta__hours-label">Balance Remaining</span>
-              <span className="cl-ma-sidebar-cta__hours-value">{balance}h</span>
-            </div>
           </div>
 
           {/* Form card */}
@@ -983,10 +979,6 @@ export default function EnterMyTimePage() {
                   </div>
                 )}
               </div>
-              <div className="cl-ma-sidebar-cta__hours">
-                <span className="cl-ma-sidebar-cta__hours-label">Balance Remaining</span>
-                <span className="cl-ma-sidebar-cta__hours-value">{balance}h</span>
-              </div>
               <button
                 className="cl-ma-btn-submit-lg"
                 type="button"
@@ -1058,7 +1050,6 @@ export default function EnterMyTimePage() {
               ? selectedDates.length + ' date' + (selectedDates.length > 1 ? 's' : '') + ' selected'
               : 'Select dates to submit'}
           </span>
-          <span className="cl-ma-sticky-footer__balance">{balance}h remaining</span>
         </div>
         <button
           className="cl-ma-sticky-footer__btn"
