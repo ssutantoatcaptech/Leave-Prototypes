@@ -1403,6 +1403,23 @@
   font-size: 11px;
 }
 
+/* Mobile: show event bars as small color strips (iPhone calendar style) */
+.cl-ma-cal-event-bar {
+  font-size: 0;
+  padding: 0;
+  height: 4px;
+  border-radius: 2px;
+  border-left: none;
+}
+
+.cl-ma-cal-event-bar--episode {
+  background: #f59e0b;
+}
+
+.cl-ma-cal-event-bar--treatment {
+  background: #3b82f6;
+}
+
 /* Weekly view mobile: vertical stack */
 .cl-ma-cal-week {
   grid-template-columns: 1fr;
@@ -2034,6 +2051,23 @@
   .cl-ma-view-toggle__btn {
     padding: 5px 14px;
     font-size: 12px;
+  }
+
+  .cl-ma-cal-event-bar {
+    font-size: 10px;
+    padding: 2px 4px;
+    height: auto;
+    border-radius: 2px;
+  }
+
+  .cl-ma-cal-event-bar--episode {
+    background: #fef3c7;
+    border-left: 3px solid #f59e0b;
+  }
+
+  .cl-ma-cal-event-bar--treatment {
+    background: #dbeafe;
+    border-left: 3px solid #3b82f6;
   }
 
   .cl-ma-cal-week {
