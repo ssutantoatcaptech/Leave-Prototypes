@@ -4024,3 +4024,16 @@ select.ldb-detail-input {
     visibility: hidden;
   }
 }
+
+.ldb-detail-dropdown-mobile {
+  display: none;
+}
+
+@media (max-width: 768px) {
+  .ldb-detail-dropdown-mobile {
+    display: block;
+  }
+  .ldb-detail-tabs-wrapper:has(.ldb-detail-dropdown-mobile) .ldb-detail-tabs {
+    display: none;
+  }
+}

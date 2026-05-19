@@ -206,24 +206,7 @@ export default function LeaveDetailV2ePage() {
           {/* Left: Main content */}
           <div className="ldb-v2-main">
 
-            {/* Detail Tabs / Dropdown */}
-            {activeVersion === 'v2' ? (
-            <div className="ldb-detail-tabs-wrapper">
-              <div className="ldb-detail-dropdown">
-                <select
-                  value={detailTab}
-                  onChange={function (e) { setDetailTab(e.target.value); }}
-                  style={{ fontFamily: "'Source Sans Pro', sans-serif", fontSize: 14, fontWeight: 600, color: '#1e293b', padding: '10px 36px 10px 14px', border: '1px solid #d1d5db', borderRadius: 8, background: '#fff url("data:image/svg+xml,%3Csvg width=\'12\' height=\'8\' viewBox=\'0 0 12 8\' fill=\'none\' xmlns=\'http://www.w3.org/2000/svg\'%3E%3Cpath d=\'M1 1.5L6 6.5L11 1.5\' stroke=\'%236b7280\' stroke-width=\'1.5\' stroke-linecap=\'round\' stroke-linejoin=\'round\'/%3E%3C/svg%3E") no-repeat right 12px center', appearance: 'none', WebkitAppearance: 'none', cursor: 'pointer', minWidth: 220 }}
-                >
-                  <option value="status">Status Tracker</option>
-                  <option value="claims">Coverage & Benefits</option>
-                  <option value="payments">Payments</option>
-                  <option value="about">Leave Details</option>
-                  <option value="activity">Communications & Activity</option>
-                </select>
-              </div>
-            </div>
-            ) : (
+            {/* Detail Tabs (desktop) + Dropdown (mobile, v2 only) */}
             <div className="ldb-detail-tabs-wrapper">
               <div className="ldb-detail-tabs">
                 <button type="button" className={'ldb-detail-tab' + (detailTab === 'status' ? ' active' : '')} onClick={function () { setDetailTab('status'); }}>Status Tracker</button>
@@ -232,8 +215,22 @@ export default function LeaveDetailV2ePage() {
                 <button type="button" className={'ldb-detail-tab' + (detailTab === 'about' ? ' active' : '')} onClick={function () { setDetailTab('about'); }}>Leave Details</button>
                 <button type="button" className={'ldb-detail-tab' + (detailTab === 'activity' ? ' active' : '')} onClick={function () { setDetailTab('activity'); }}>Communications & Activity</button>
               </div>
+              {activeVersion === 'v2' && (
+              <div className="ldb-detail-dropdown-mobile">
+                <select
+                  value={detailTab}
+                  onChange={function (e) { setDetailTab(e.target.value); }}
+                  style={{ fontFamily: "'Source Sans Pro', sans-serif", fontSize: 14, fontWeight: 600, color: '#1e293b', padding: '10px 36px 10px 14px', border: '1px solid #d1d5db', borderRadius: 8, background: '#fff url("data:image/svg+xml,%3Csvg width=\'12\' height=\'8\' viewBox=\'0 0 12 8\' fill=\'none\' xmlns=\'http://www.w3.org/2000/svg\'%3E%3Cpath d=\'M1 1.5L6 6.5L11 1.5\' stroke=\'%236b7280\' stroke-width=\'1.5\' stroke-linecap=\'round\' stroke-linejoin=\'round\'/%3E%3C/svg%3E") no-repeat right 12px center', appearance: 'none', WebkitAppearance: 'none', cursor: 'pointer', width: '100%' }}
+                >
+                  <option value="status">Status Tracker</option>
+                  <option value="claims">Coverage & Benefits</option>
+                  <option value="payments">Payments</option>
+                  <option value="about">Leave Details</option>
+                  <option value="activity">Communications & Activity</option>
+                </select>
+              </div>
+              )}
             </div>
-            )}
 
             {/* Tab: Status Tracker */}
             {detailTab === 'status' && (
