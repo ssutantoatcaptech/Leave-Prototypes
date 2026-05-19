@@ -94,7 +94,6 @@ export default function LeaveDetailV2ePage() {
   var [timelineView, setTimelineView] = useState('protection');
   var [hoveredRow, setHoveredRow] = useState(null);
   var [expandedClaims, setExpandedClaims] = useState({ absence: false, stateleave: false });
-  var [showAllTasks, setShowAllTasks] = useState(false);
   var [editingSection, setEditingSection] = useState(null);
   var [detailTab, setDetailTab] = useState('status');
   var [addlBenefitsOpen, setAddlBenefitsOpen] = useState(true);
@@ -168,113 +167,6 @@ export default function LeaveDetailV2ePage() {
     });
   }
 
-  function renderItemsRequiringAction() {
-    var pendingItems = [];
-    var completedItems = [];
-
-    if (caseScenario === 'medical_self' || caseScenario === 'medical_family') {
-      pendingItems.push({ name: 'Return to Work Certification', due: 'Submit before your return date' });
-      completedItems.push({ name: 'Initial Leave Request Form', date: 'Completed Apr 15' });
-      if (!caseSentCert) {
-        pendingItems.push({ name: 'Medical Certification Form', due: 'Upload within 15 days' });
-        pendingItems.push({ name: 'Attending Physician Statement', due: 'Upload within 15 days' });
-      } else {
-        completedItems.push({ name: 'Medical Certification Form', date: 'Sent to provider' });
-        completedItems.push({ name: 'Attending Physician Statement', date: 'Sent to provider' });
-      }
-      completedItems.push({ name: 'Direct Deposit Authorization', date: 'Completed Apr 16' });
-      if (caseScenario === 'medical_self') {
-        completedItems.push({ name: 'NJ TDI Application', date: 'Completed Apr 17' });
-      }
-    } else if (caseScenario === 'child') {
-      pendingItems.push({ name: 'Return to Work Certification', due: 'Submit before your return date' });
-      completedItems.push({ name: 'Initial Leave Request Form', date: 'Completed Apr 15' });
-      if (!caseSentCert) {
-        pendingItems.push({ name: 'Medical Certification Form', due: 'Upload within 15 days' });
-      } else {
-        completedItems.push({ name: 'Medical Certification Form', date: 'Sent to provider' });
-      }
-      completedItems.push({ name: 'Birth Certificate or Hospital Record', date: 'Completed Apr 20' });
-      completedItems.push({ name: 'Direct Deposit Authorization', date: 'Completed Apr 16' });
-    } else if (caseScenario === 'child_nonbirth') {
-      pendingItems.push({ name: 'Birth Certificate or Adoption Documentation', due: 'Upload within 15 days' });
-      pendingItems.push({ name: 'Return to Work Certification', due: 'Submit before your return date' });
-      completedItems.push({ name: 'Initial Leave Request Form', date: 'Completed Apr 15' });
-      completedItems.push({ name: 'Placement or Court Documentation', date: 'Completed Apr 18' });
-      completedItems.push({ name: 'Direct Deposit Authorization', date: 'Completed Apr 16' });
-    } else if (caseScenario === 'military') {
-      pendingItems.push({ name: 'Military Orders or Active Duty Documentation', due: 'Upload within 15 days' });
-      completedItems.push({ name: 'Initial Leave Request Form', date: 'Completed Apr 15' });
-      completedItems.push({ name: 'Direct Deposit Authorization', date: 'Completed Apr 16' });
-    } else {
-      pendingItems.push({ name: 'Return to Work Certification', due: 'Submit before your return date' });
-      completedItems.push({ name: 'Initial Leave Request Form', date: 'Completed Apr 15' });
-      if (!caseSentCert) {
-        completedItems.push({ name: 'Medical Certification Form', date: 'Completed Apr 18' });
-        completedItems.push({ name: 'Attending Physician Statement', date: 'Completed Apr 20' });
-      } else {
-        completedItems.push({ name: 'Medical Certification Form', date: 'Sent to provider' });
-        completedItems.push({ name: 'Attending Physician Statement', date: 'Sent to provider' });
-      }
-      completedItems.push({ name: 'Direct Deposit Authorization', date: 'Completed Apr 16' });
-      completedItems.push({ name: 'NJ TDI Application', date: 'Completed Apr 17' });
-    }
-
-    return (
-      <div className="ldb-side-card ldb-side-card--shadow">
-        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 16 }}>
-          <h3 className="ldb-side-title" style={{ marginBottom: 0 }}>
-            <svg width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M8 1l1.8 5.4H15l-4.2 3.1 1.6 5-4.4-3.2L3.6 14.5l1.6-5L1 6.4h5.2L8 1z" stroke="currentColor" strokeWidth="1.2" strokeLinejoin="round"/></svg>
-            Items Requiring Action
-          </h3>
-          {pendingItems.length > 0 && (
-            <span style={{ fontSize: 11, fontWeight: 700, color: '#dc2626', background: '#fef2f2', padding: '2px 8px', borderRadius: 10 }}>{pendingItems.length} needed</span>
-          )}
-        </div>
-        {pendingItems.length > 0 && (
-          <div className="ldb-action-list">
-            {pendingItems.map(function (item, i) {
-              return (
-                <div key={i} className="ldb-action-item">
-                  <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><circle cx="8" cy="8" r="7" stroke="#dc2626" strokeWidth="1.4"/><path d="M8 5v3M8 10.5v.5" stroke="#dc2626" strokeWidth="1.4" strokeLinecap="round"/></svg>
-                  <div className="ldb-action-text">
-                    <span className="ldb-action-name">{item.name}</span>
-                    <span className="ldb-action-due">{item.due}</span>
-                  </div>
-                  <button type="button" className="ldb-btn-upload-inline">Upload</button>
-                </div>
-              );
-            })}
-          </div>
-        )}
-        {completedItems.length > 0 && !showAllTasks ? (
-          <button type="button" className="ldb-show-more-btn" onClick={function () { setShowAllTasks(true); }}>
-            <svg width="12" height="12" viewBox="0 0 16 16" fill="none"><path d="M8 4v8M4 8h8" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round"/></svg>
-            {completedItems.length} completed tasks
-          </button>
-        ) : completedItems.length > 0 && showAllTasks ? (
-          <>
-            <div className="ldb-action-list" style={{ marginTop: 8 }}>
-              {completedItems.map(function (item, i) {
-                return (
-                  <div key={i} className="ldb-action-item ldb-action-item--done">
-                    <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><circle cx="8" cy="8" r="7" stroke="#16a34a" strokeWidth="1.4"/><path d="M5.5 8l2 2 3.5-3.5" stroke="#16a34a" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round"/></svg>
-                    <div className="ldb-action-text">
-                      <span className="ldb-action-name">{item.name}</span>
-                      <span className="ldb-action-due" style={{ color: '#16a34a' }}>{item.date}</span>
-                    </div>
-                  </div>
-                );
-              })}
-            </div>
-            <button type="button" className="ldb-show-more-btn" onClick={function () { setShowAllTasks(false); }}>
-              Show less
-            </button>
-          </>
-        ) : null}
-      </div>
-    );
-  }
 
   return (
     <div className="ldb-page">
@@ -303,8 +195,6 @@ export default function LeaveDetailV2ePage() {
         <div className="ldb-v2-layout">
           {/* Left: Main content */}
           <div className="ldb-v2-main">
-
-            {isMobile && renderItemsRequiringAction()}
 
             {/* Leave Timeline */}
             <div className="ldb-card dt-timeline-wrap">
@@ -1215,11 +1105,7 @@ export default function LeaveDetailV2ePage() {
           {/* Right Sidebar — Redesigned */}
           <div className="ldb-sidebar">
 
-            {/* 1. Items Requiring Action (sidebar on desktop) */}
-            {!isMobile && renderItemsRequiringAction()}
-
-
-            {/* 3. Quick Actions */}
+            {/* Quick Actions */}
             <div className="ldb-side-card ldb-side-card--shadow">
               <div className="ldb-quick-actions-label">QUICK ACTIONS</div>
               <div className="ldb-quick-actions-list">
