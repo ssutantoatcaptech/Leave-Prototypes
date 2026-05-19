@@ -681,7 +681,7 @@ export default function ClaimCenterPage() {
                           </>
                         )}
                         {claim.kind === 'leave' && claim.accommodations && claim.accommodations.length > 0 && (
-                          <div style={{ marginTop: 12 }}>
+                          <div className="cl-v2-ada-wrapper">
                             <h4 className="cl-dental-accordion-title">ADA Accommodation</h4>
                             {claim.accommodations.map((a, ai) => (
                               <div key={ai} className="cl-v2-accordion-detail-row">
@@ -811,7 +811,7 @@ export default function ClaimCenterPage() {
                       </>
                     )}
                     {claim.kind === 'leave' && claim.accommodations && claim.accommodations.length > 0 && (
-                      <div style={{ marginTop: 10 }}>
+                      <div className="cl-v2-ada-wrapper">
                         <h4 className="cl-dental-accordion-title">ADA Accommodation</h4>
                         {claim.accommodations.map((a, ai) => (
                           <div key={ai} className="cl-v2-accordion-detail-row">
