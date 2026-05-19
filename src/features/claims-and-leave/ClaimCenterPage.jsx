@@ -292,11 +292,12 @@ const LOAD_MORE_COUNT = 5;
 export default function ClaimCenterPage() {
   const base = useBasePath();
   const navigate = useNavigate();
-  const [activeCategory, setActiveCategory] = useState('Dental');
+  const [activeCategory, setActiveCategory] = useState('Leave and Disability');
   const [memberFilter, setMemberFilter] = useState('All');
   const [dateFilter, setDateFilter] = useState('All');
   const [visibleCount, setVisibleCount] = useState(INITIAL_VISIBLE);
   const [expandedDentalRow, setExpandedDentalRow] = useState(null);
+  const [expandedLeaveRow, setExpandedLeaveRow] = useState(null);
   const [v2SortCol, setV2SortCol] = useState('period');
   const [v2SortAsc, setV2SortAsc] = useState(false);
   const [v2Page, setV2Page] = useState(0);
@@ -627,9 +628,10 @@ export default function ClaimCenterPage() {
           </thead>
           <tbody>
             {v2PageData.map((claim) => {
-              const detailPath = claim.kind === 'leave' ? 'case-detail' : claim.kind === 'ada' ? 'ada-requests' : claim.kind === 'ltd' ? 'ltd-claim-detail' : 'std-claim-detail';
+              const isExpanded = expandedLeaveRow === claim.id;
               return (
-              <tr key={claim.id} className="cl-ml-row cl-claims-v2-row" onClick={() => navigate(`${base}/${detailPath}`)}>
+              <React.Fragment key={claim.id}>
+              <tr className={'cl-ml-row cl-claims-v2-row' + (isExpanded ? ' cl-ml-row--expanded' : '')} onClick={() => setExpandedLeaveRow(isExpanded ? null : claim.id)} style={{ cursor: 'pointer' }}>
                 <td className="cl-ml-td-first">
                   <span className="cl-claims-v2-id">{claim.id}</span>
                 </td>
@@ -646,12 +648,74 @@ export default function ClaimCenterPage() {
                 </td>
                 <td className="cl-ml-td">{claim.lastUpdate}</td>
                 <td className="cl-ml-td">
-                  <button className="cl-claims-v2-expand-btn" type="button" onClick={(e) => { e.stopPropagation(); navigate(`${base}/${detailPath}`); }}>
+                  <span className="cl-ml-action-link">
                     View Details
-                    <svg width="10" height="10" viewBox="0 0 14 14" fill="none"><path d="M5 2l5 5-5 5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/></svg>
-                  </button>
+                    <svg width="10" height="6" viewBox="0 0 10 6" fill="none" aria-hidden="true" style={{ marginLeft: '4px', transform: isExpanded ? 'rotate(180deg)' : 'rotate(0)', transition: 'transform 0.2s' }}><path d="M1 1l4 4 4-4" stroke="#105fa8" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/></svg>
+                  </span>
                 </td>
               </tr>
+              {isExpanded && (
+                <tr className="cl-dental-accordion-row">
+                  <td colSpan="7" className="cl-dental-accordion-cell">
+                    <div className="cl-dental-accordion-content">
+                      {claim.kind === 'leave' && claim.benefits && (
+                        <>
+                        <h4 className="cl-dental-accordion-title">Benefits</h4>
+                        <table className="cl-dental-payments-table">
+                          <thead>
+                            <tr><th>Benefit Type</th><th>Status</th><th>Period</th><th>Duration</th><th>Weekly Benefit</th></tr>
+                          </thead>
+                          <tbody>
+                            {claim.benefits.map((b, bi) => (
+                              <tr key={bi}>
+                                <td>{b.type}</td>
+                                <td>{b.status}</td>
+                                <td>{b.startDate} – {b.endDate}</td>
+                                <td>{b.duration}</td>
+                                <td>{b.weeklyBenefit || '—'}</td>
+                              </tr>
+                            ))}
+                          </tbody>
+                        </table>
+                        </>
+                      )}
+                      {claim.kind === 'leave' && claim.accommodations && claim.accommodations.length > 0 && (
+                        <div style={{ marginTop: 12 }}>
+                          <h4 className="cl-dental-accordion-title">ADA Accommodation</h4>
+                          {claim.accommodations.map((a, ai) => (
+                            <div key={ai} className="cl-v2-accordion-detail-row">
+                              <span><strong>{a.type}</strong> — {a.notes}</span>
+                              <span className="cl-v2-accordion-meta">{a.startDate} – {a.endDate} · {a.status}</span>
+                            </div>
+                          ))}
+                        </div>
+                      )}
+                      {(claim.kind === 'std' || claim.kind === 'ltd') && (
+                        <>
+                        <h4 className="cl-dental-accordion-title">{claim.kind === 'std' ? 'Short-Term' : 'Long-Term'} Disability Details</h4>
+                        <div className="cl-v2-accordion-detail-grid">
+                          <div className="cl-v2-accordion-detail-item"><span className="cl-v2-accordion-label">Condition</span><span>{claim.condition}</span></div>
+                          <div className="cl-v2-accordion-detail-item"><span className="cl-v2-accordion-label">Weekly Benefit</span><span>{claim.weeklyBenefit}</span></div>
+                          <div className="cl-v2-accordion-detail-item"><span className="cl-v2-accordion-label">Duration</span><span>{claim.duration}</span></div>
+                          <div className="cl-v2-accordion-detail-item"><span className="cl-v2-accordion-label">Period</span><span>{claim.startDate} – {claim.endDate}</span></div>
+                        </div>
+                        </>
+                      )}
+                      {claim.kind === 'ada' && (
+                        <>
+                        <h4 className="cl-dental-accordion-title">ADA Accommodation Details</h4>
+                        <div className="cl-v2-accordion-detail-grid">
+                          <div className="cl-v2-accordion-detail-item"><span className="cl-v2-accordion-label">Condition</span><span>{claim.condition}</span></div>
+                          <div className="cl-v2-accordion-detail-item"><span className="cl-v2-accordion-label">Accommodation</span><span>{claim.notes}</span></div>
+                          <div className="cl-v2-accordion-detail-item"><span className="cl-v2-accordion-label">Period</span><span>{claim.startDate} – {claim.endDate}</span></div>
+                        </div>
+                        </>
+                      )}
+                    </div>
+                  </td>
+                </tr>
+              )}
+              </React.Fragment>
               );
             })}
           </tbody>
@@ -680,7 +744,7 @@ export default function ClaimCenterPage() {
         {/* Mobile card view for v2 */}
         <div className="cl-cards-mobile cl-claims-v2-cards">
           {v2PageData.map((claim) => {
-            const detailPath = claim.kind === 'leave' ? 'case-detail' : claim.kind === 'ada' ? 'ada-requests' : claim.kind === 'ltd' ? 'ltd-claim-detail' : 'std-claim-detail';
+            const isExpanded = expandedLeaveRow === claim.id;
             return (
             <div key={claim.id} className="cl-card-mobile cl-claims-v2-card">
               <div className="cl-card-mobile-header">
@@ -703,23 +767,52 @@ export default function ClaimCenterPage() {
                   <span className="cl-card-mobile-label">Last Update</span>
                   <span className="cl-card-mobile-value">{claim.lastUpdate}</span>
                 </div>
-                {(claim.kind === 'std' || claim.kind === 'ltd') && (
-                  <>
-                    <div className="cl-card-mobile-field">
-                      <span className="cl-card-mobile-label">Weekly Benefit</span>
-                      <span className="cl-card-mobile-value">{claim.weeklyBenefit}</span>
-                    </div>
-                    <div className="cl-card-mobile-field">
-                      <span className="cl-card-mobile-label">Duration</span>
-                      <span className="cl-card-mobile-value">{claim.duration}</span>
-                    </div>
-                  </>
-                )}
               </div>
-              <button className="cl-claims-v2-expand-btn" type="button" onClick={() => navigate(`${base}/${detailPath}`)}>
+              <span className="cl-ml-action-link" onClick={() => setExpandedLeaveRow(isExpanded ? null : claim.id)}>
                 View Details
-                <svg width="10" height="10" viewBox="0 0 14 14" fill="none"><path d="M5 2l5 5-5 5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/></svg>
-              </button>
+                <svg width="10" height="6" viewBox="0 0 10 6" fill="none" aria-hidden="true" style={{ marginLeft: '4px', transform: isExpanded ? 'rotate(180deg)' : 'rotate(0)', transition: 'transform 0.2s' }}><path d="M1 1l4 4 4-4" stroke="#105fa8" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/></svg>
+              </span>
+              {isExpanded && (
+                <div className="cl-dental-accordion-content" style={{ marginTop: 12 }}>
+                  {claim.kind === 'leave' && claim.benefits && (
+                    <>
+                    <h4 className="cl-dental-accordion-title">Benefits</h4>
+                    <table className="cl-dental-payments-table">
+                      <thead><tr><th>Type</th><th>Status</th><th>Duration</th><th>Weekly</th></tr></thead>
+                      <tbody>
+                        {claim.benefits.map((b, bi) => (
+                          <tr key={bi}><td>{b.type}</td><td>{b.status}</td><td>{b.duration}</td><td>{b.weeklyBenefit || '—'}</td></tr>
+                        ))}
+                      </tbody>
+                    </table>
+                    </>
+                  )}
+                  {claim.kind === 'leave' && claim.accommodations && claim.accommodations.length > 0 && (
+                    <div style={{ marginTop: 10 }}>
+                      <h4 className="cl-dental-accordion-title">ADA Accommodation</h4>
+                      {claim.accommodations.map((a, ai) => (
+                        <div key={ai} className="cl-v2-accordion-detail-row">
+                          <span><strong>{a.type}</strong> — {a.notes}</span>
+                          <span className="cl-v2-accordion-meta">{a.startDate} – {a.endDate}</span>
+                        </div>
+                      ))}
+                    </div>
+                  )}
+                  {(claim.kind === 'std' || claim.kind === 'ltd') && (
+                    <div className="cl-v2-accordion-detail-grid">
+                      <div className="cl-v2-accordion-detail-item"><span className="cl-v2-accordion-label">Condition</span><span>{claim.condition}</span></div>
+                      <div className="cl-v2-accordion-detail-item"><span className="cl-v2-accordion-label">Weekly Benefit</span><span>{claim.weeklyBenefit}</span></div>
+                      <div className="cl-v2-accordion-detail-item"><span className="cl-v2-accordion-label">Duration</span><span>{claim.duration}</span></div>
+                    </div>
+                  )}
+                  {claim.kind === 'ada' && (
+                    <div className="cl-v2-accordion-detail-grid">
+                      <div className="cl-v2-accordion-detail-item"><span className="cl-v2-accordion-label">Condition</span><span>{claim.condition}</span></div>
+                      <div className="cl-v2-accordion-detail-item"><span className="cl-v2-accordion-label">Accommodation</span><span>{claim.notes}</span></div>
+                    </div>
+                  )}
+                </div>
+              )}
             </div>
             );
           })}
