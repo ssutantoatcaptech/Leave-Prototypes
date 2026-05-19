@@ -1093,6 +1093,62 @@
   .cl-ma-sidebar {
     flex-direction: column;
   }
+
+  /* Entry modal — full-screen on mobile */
+  .cl-ma-entry-modal-overlay {
+    padding: 0;
+    align-items: flex-end;
+  }
+  .cl-ma-entry-modal {
+    max-width: 100%;
+    max-height: 95vh;
+    border-radius: 16px 16px 0 0;
+    width: 100%;
+  }
+  .cl-ma-entry-modal__header {
+    padding: 16px;
+  }
+  .cl-ma-entry-modal__title {
+    font-size: 16px;
+  }
+  .cl-ma-entry-modal__body {
+    padding: 16px;
+    gap: 12px;
+  }
+  .cl-ma-entry-modal__row {
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+    padding: 12px;
+  }
+  .cl-ma-entry-modal__row-date {
+    grid-column: 1 / -1;
+  }
+  .cl-ma-entry-modal__hours-display {
+    grid-column: 1 / -1;
+    text-align: left;
+    padding: 4px 0 0;
+    font-size: 13px;
+  }
+  .cl-ma-entry-modal__footer {
+    flex-direction: column;
+    gap: 12px;
+    padding: 16px;
+    padding-bottom: calc(16px + env(safe-area-inset-bottom, 0px));
+  }
+  .cl-ma-entry-modal__total {
+    flex-direction: row;
+    align-items: center;
+    gap: 8px;
+    width: 100%;
+    justify-content: space-between;
+  }
+  .cl-ma-entry-modal__actions {
+    width: 100%;
+  }
+  .cl-ma-entry-modal__actions .cl-ma-btn-cancel,
+  .cl-ma-entry-modal__actions .cl-ma-btn-submit {
+    flex: 1;
+  }
 }
 
 @media (min-width: 769px) {
