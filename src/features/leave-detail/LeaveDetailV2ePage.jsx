@@ -379,14 +379,22 @@ export default function LeaveDetailV2ePage() {
                 {/* V2 Milestone Timeline — 12 months */}
                 <div style={{ padding: '16px 0 0' }}>
                   {/* Month labels — offset to align with progress bar */}
-                  <div className="v2-month-labels" style={{ display: 'flex', marginBottom: 8, paddingLeft: 50 }}>
+                  <div className="v2-month-labels" style={{ display: 'flex', marginBottom: 8, paddingLeft: 50, position: 'relative' }}>
                     {['Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec','Jan','Feb'].map(function (m, i) {
-                      return <span key={m} className={i % 3 !== 0 ? 'v2-month-hide-mobile' : ''} style={{ flex: 1, fontFamily: "'Source Sans Pro', sans-serif", fontSize: 11, color: '#9ca3af', textAlign: 'left' }}>{m}</span>;
+                      return <span key={m} className={i % 3 !== 0 ? 'v2-month-hide-mobile' : ''} style={{ flex: 1, fontFamily: "'Source Sans Pro', sans-serif", fontSize: 11, color: i >= 10 ? '#6b7280' : '#9ca3af', fontWeight: i >= 10 ? 600 : 400, textAlign: 'left' }}>{m}</span>;
                     })}
+                    <span style={{ position: 'absolute', left: 'calc(50px + 83.33%)', top: -14, fontFamily: "'Source Sans Pro', sans-serif", fontSize: 10, color: '#6b7280', fontWeight: 600 }}>2027</span>
                   </div>
 
-                  {/* Rows */}
-                  <div className="ldb-tl-rows-wrap" style={{ display: 'flex', flexDirection: 'column', gap: 0 }}>
+                  {/* Rows with grid lines */}
+                  <div className="ldb-tl-rows-wrap" style={{ display: 'flex', flexDirection: 'column', gap: 0, position: 'relative' }}>
+                  {/* Vertical grid lines at each month boundary */}
+                  <div style={{ position: 'absolute', top: 0, bottom: 0, left: 50, right: 0, pointerEvents: 'none', zIndex: 0 }}>
+                    {[0,1,2,3,4,5,6,7,8,9,10,11].map(function (i) {
+                      var isYearBoundary = i === 10;
+                      return <div key={i} style={{ position: 'absolute', left: (i / 12 * 100) + '%', top: 0, bottom: 0, width: 1, borderLeft: isYearBoundary ? '1.5px dashed #9ca3af' : '1px dotted #e5e7eb' }} />;
+                    })}
+                  </div>
                   {(timelineView === 'payment' ? [
                     { id: 'std', label: 'STD', startPct: 0, widthPct: 15.3, accent: '#2563eb', name: 'Short-Term Disability', weeks: '8 weeks', range: 'Mar 15 – May 10, 2026', pay: '60% of pre-disability earnings', status: 'Approved', paymentValue: '~$1,125/wk' },
                     { id: 'pfml', label: 'PFML', startPct: 15.3, widthPct: 7.7, accent: '#0d9488', name: 'Paid Family & Medical Leave', weeks: '4 weeks', range: 'May 11 – Jun 07, 2026', pay: 'State benefit', status: 'Approved', paymentValue: '~$981/wk' },
@@ -396,7 +404,7 @@ export default function LeaveDetailV2ePage() {
                     { id: 'pfml', label: 'PFML', startPct: 15.3, widthPct: 7.7, accent: '#0d9488', name: 'Paid Family & Medical Leave', weeks: '4 weeks', range: 'May 11 – Jun 07, 2026', pay: 'State benefit', status: 'Approved' },
                   ]).map(function (item) {
                     return (
-                      <div key={item.id} style={{ position: 'relative' }}>
+                      <div key={item.id} style={{ position: 'relative', zIndex: 1 }}>
                         <button
                           type="button"
                           className={hoveredRow === item.id ? 'active' : ''}
