@@ -170,6 +170,12 @@ export default function LeaveDetailV2ePage() {
   }
 
 
+  var v2Phases = [
+    { id: 'fmla', label: 'FMLA (Birthing Parent)', type: 'Protection', start: 'Mar 15, 2026', end: 'Jun 7, 2026', duration: '12 weeks', status: 'Approved', accent: '#003a70', pay: 'Job protection (unpaid)', progress: 45 },
+    { id: 'std', label: 'Short-Term Disability', type: 'Payment', start: 'Mar 15, 2026', end: 'May 10, 2026', duration: '8 weeks', status: 'Approved', accent: '#2563eb', pay: '60% of pre-disability earnings (~$1,125/wk)', progress: 68 },
+    { id: 'pfml', label: 'Paid Family & Medical Leave', type: 'Payment', start: 'May 11, 2026', end: 'Jun 7, 2026', duration: '4 weeks', status: 'Approved', accent: '#0d9488', pay: 'State benefit (~$981/wk)', progress: 0 },
+  ];
+
   if (activeVersion === 'v2') {
     return (
       <div className="ldb-page">
@@ -178,9 +184,110 @@ export default function LeaveDetailV2ePage() {
           <button type="button" onClick={function () { setActiveVersion('v1'); }} style={{ padding: '8px 16px', fontSize: 13, fontWeight: 500, fontFamily: "'Source Sans Pro', sans-serif", border: 'none', cursor: 'pointer', background: '#fff', color: '#5d5d5d' }}>V1</button>
           <button type="button" style={{ padding: '8px 16px', fontSize: 13, fontWeight: 600, fontFamily: "'Source Sans Pro', sans-serif", border: 'none', cursor: 'pointer', background: '#105fa8', color: '#fff' }}>V2</button>
         </div>
-        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', minHeight: '60vh', color: '#9ca3af', fontFamily: "'Source Sans Pro', sans-serif", fontSize: 16 }}>
-          V2 — Coming soon
+
+        <SiteNav user="Sarah Johnson" initials="SJ" />
+
+        <div className="ldb-content" style={{ maxWidth: 900, margin: '0 auto', padding: '32px 24px' }}>
+          {/* Breadcrumb */}
+          <div className="ldb-breadcrumb">
+            <Link to={base} className="ldb-breadcrumb-link">Claims &amp; Leave</Link>
+            <span className="ldb-breadcrumb-sep">/</span>
+            <span className="ldb-breadcrumb-current">Leave Detail</span>
+          </div>
+
+          {/* Page header */}
+          <div style={{ marginBottom: 32 }}>
+            <h1 style={{ fontFamily: "'Source Sans Pro', sans-serif", fontSize: 28, fontWeight: 700, color: '#171717', margin: '0 0 8px' }}>Coverage Timeline</h1>
+            <p style={{ fontFamily: "'Source Sans Pro', sans-serif", fontSize: 15, color: '#5d5d5d', margin: 0 }}>NTN-204871 · Birthing Parent Leave · Mar 15 – Jun 7, 2026</p>
+          </div>
+
+          {/* Overall progress */}
+          <div style={{ background: '#fff', borderRadius: 12, border: '1px solid #e5e7eb', padding: '20px 24px', marginBottom: 16 }}>
+            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 12 }}>
+              <span style={{ fontFamily: "'Source Sans Pro', sans-serif", fontSize: 13, fontWeight: 600, color: '#5d5d5d', textTransform: 'uppercase', letterSpacing: '0.5px' }}>Overall Leave Progress</span>
+              <span style={{ fontFamily: "'Source Sans Pro', sans-serif", fontSize: 13, color: '#5d5d5d' }}>Day 63 of 84</span>
+            </div>
+            <div style={{ height: 6, background: '#f0f0f0', borderRadius: 3, overflow: 'hidden' }}>
+              <div style={{ height: '100%', width: '75%', background: 'linear-gradient(90deg, #003a70, #105fa8)', borderRadius: 3 }} />
+            </div>
+            <div style={{ display: 'flex', justifyContent: 'space-between', marginTop: 8 }}>
+              <span style={{ fontFamily: "'Source Sans Pro', sans-serif", fontSize: 12, color: '#9ca3af' }}>Mar 15</span>
+              <span style={{ fontFamily: "'Source Sans Pro', sans-serif", fontSize: 12, color: '#9ca3af' }}>Jun 7</span>
+            </div>
+          </div>
+
+          {/* Phase cards */}
+          <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
+            {v2Phases.map(function (phase) {
+              return (
+                <div key={phase.id} style={{ background: '#fff', borderRadius: 12, border: '1px solid #e5e7eb', padding: '20px 24px', position: 'relative', overflow: 'hidden' }}>
+                  {/* Left accent bar */}
+                  <div style={{ position: 'absolute', top: 0, left: 0, bottom: 0, width: 4, background: phase.accent }} />
+
+                  {/* Header row */}
+                  <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: 12, paddingLeft: 12 }}>
+                    <div>
+                      <div style={{ fontFamily: "'Source Sans Pro', sans-serif", fontSize: 16, fontWeight: 600, color: '#171717', marginBottom: 2 }}>{phase.label}</div>
+                      <div style={{ fontFamily: "'Source Sans Pro', sans-serif", fontSize: 12, fontWeight: 500, color: '#5d5d5d', textTransform: 'uppercase', letterSpacing: '0.3px' }}>{phase.type}</div>
+                    </div>
+                    <span style={{ fontFamily: "'Source Sans Pro', sans-serif", fontSize: 12, fontWeight: 600, padding: '3px 10px', borderRadius: 20, background: phase.status === 'Approved' ? '#ecfdf5' : '#fef3c7', color: phase.status === 'Approved' ? '#065f46' : '#92400e' }}>{phase.status}</span>
+                  </div>
+
+                  {/* Details grid */}
+                  <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(140px, 1fr))', gap: '12px 24px', paddingLeft: 12, marginBottom: 12 }}>
+                    <div>
+                      <div style={{ fontFamily: "'Source Sans Pro', sans-serif", fontSize: 12, color: '#9ca3af', marginBottom: 2 }}>Dates</div>
+                      <div style={{ fontFamily: "'Source Sans Pro', sans-serif", fontSize: 14, color: '#171717', fontWeight: 500 }}>{phase.start} – {phase.end}</div>
+                    </div>
+                    <div>
+                      <div style={{ fontFamily: "'Source Sans Pro', sans-serif", fontSize: 12, color: '#9ca3af', marginBottom: 2 }}>Duration</div>
+                      <div style={{ fontFamily: "'Source Sans Pro', sans-serif", fontSize: 14, color: '#171717', fontWeight: 500 }}>{phase.duration}</div>
+                    </div>
+                    <div>
+                      <div style={{ fontFamily: "'Source Sans Pro', sans-serif", fontSize: 12, color: '#9ca3af', marginBottom: 2 }}>Compensation</div>
+                      <div style={{ fontFamily: "'Source Sans Pro', sans-serif", fontSize: 14, color: '#171717', fontWeight: 500 }}>{phase.pay}</div>
+                    </div>
+                  </div>
+
+                  {/* Progress bar */}
+                  {phase.progress > 0 && (
+                    <div style={{ paddingLeft: 12 }}>
+                      <div style={{ height: 4, background: '#f0f0f0', borderRadius: 2, overflow: 'hidden' }}>
+                        <div style={{ height: '100%', width: phase.progress + '%', background: phase.accent, borderRadius: 2 }} />
+                      </div>
+                    </div>
+                  )}
+                </div>
+              );
+            })}
+          </div>
+
+          {/* Leave snapshot */}
+          <div style={{ marginTop: 24, background: '#fff', borderRadius: 12, border: '1px solid #e5e7eb', padding: '20px 24px' }}>
+            <div style={{ fontFamily: "'Source Sans Pro', sans-serif", fontSize: 14, fontWeight: 600, color: '#171717', marginBottom: 16 }}>Leave Summary</div>
+            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(160px, 1fr))', gap: '16px 24px' }}>
+              <div>
+                <div style={{ fontFamily: "'Source Sans Pro', sans-serif", fontSize: 12, color: '#9ca3af', marginBottom: 2 }}>Leave Start</div>
+                <div style={{ fontFamily: "'Source Sans Pro', sans-serif", fontSize: 14, color: '#171717', fontWeight: 500 }}>March 15, 2026</div>
+              </div>
+              <div>
+                <div style={{ fontFamily: "'Source Sans Pro', sans-serif", fontSize: 12, color: '#9ca3af', marginBottom: 2 }}>Expected Return</div>
+                <div style={{ fontFamily: "'Source Sans Pro', sans-serif", fontSize: 14, color: '#171717', fontWeight: 500 }}>June 8, 2026</div>
+              </div>
+              <div>
+                <div style={{ fontFamily: "'Source Sans Pro', sans-serif", fontSize: 12, color: '#9ca3af', marginBottom: 2 }}>Total Duration</div>
+                <div style={{ fontFamily: "'Source Sans Pro', sans-serif", fontSize: 14, color: '#171717', fontWeight: 500 }}>84 days (12 weeks)</div>
+              </div>
+              <div>
+                <div style={{ fontFamily: "'Source Sans Pro', sans-serif", fontSize: 12, color: '#9ca3af', marginBottom: 2 }}>Est. Total Payment</div>
+                <div style={{ fontFamily: "'Source Sans Pro', sans-serif", fontSize: 14, color: '#171717', fontWeight: 500 }}>~$12,924</div>
+              </div>
+            </div>
+          </div>
+
         </div>
+
+        <SiteFooter />
       </div>
     );
   }
