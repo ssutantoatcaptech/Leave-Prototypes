@@ -446,51 +446,53 @@ export default function AbsenceCalendarPage() {
             </>
           )}
 
-          {/* === DAY VIEW (timeline with sticky avatars) === */}
+          {/* === DAY VIEW (timeline with sticky header + sticky avatars) === */}
           {mobileView === 'day' && (
             <>
               <div className="mgr-cal-mobile-timeline-wrap">
-                {/* Day numbers header row */}
-                <div className="mgr-cal-mobile-timeline-header">
-                  <div className="mgr-cal-mobile-timeline-label-col" />
-                  <div className="mgr-cal-mobile-timeline-days">
-                    {dayColumns.map((col) => {
-                      const isToday = col.day === today && month === 4 && year === 2026;
-                      const isSelected = col.day === selectedDay;
-                      return (
-                        <div
-                          key={col.day}
-                          className={`mgr-cal-mobile-timeline-day${isToday ? ' mgr-cal-mobile-timeline-day--today' : ''}${isSelected && !isToday ? ' mgr-cal-mobile-timeline-day--selected' : ''}`}
-                          onClick={() => setSelectedDay(col.day)}
-                        >
-                          <span className="mgr-cal-mobile-timeline-day-dow">{col.dow[0]}</span>
-                          <span className="mgr-cal-mobile-timeline-day-num">{col.day}</span>
-                        </div>
-                      );
-                    })}
-                  </div>
-                </div>
-
-                {/* Employee rows */}
-                {employeesMeta.map((emp) => {
-                  const blocks = getBlocks(emp.id);
-                  const hasAny = blocks.some(b => b > 0);
-                  if (!hasAny) return null;
-                  return (
-                    <div className="mgr-cal-mobile-timeline-row" key={emp.id}>
-                      <div className="mgr-cal-mobile-timeline-label-col" onClick={() => navigate(`/manager/my-team/${emp.id}`)}>
-                        <EmployeeAvatar emp={emp} size="mobile" />
-                      </div>
-                      <div className="mgr-cal-mobile-timeline-cells">
-                        {blocks.map((b, i) => (
-                          <div key={i} className="mgr-cal-mobile-timeline-cell">
-                            {b > 0 && <div className={`mgr-cal-mobile-timeline-bar mgr-cal-mobile-timeline-bar--${b === 1 ? 'full' : b === 2 ? 'partial' : 'returning'}`} />}
+                <div className="mgr-cal-mobile-timeline-inner">
+                  {/* Day numbers header row - sticky top */}
+                  <div className="mgr-cal-mobile-timeline-header">
+                    <div className="mgr-cal-mobile-timeline-label-col" />
+                    <div className="mgr-cal-mobile-timeline-days">
+                      {dayColumns.map((col) => {
+                        const isToday = col.day === today && month === 4 && year === 2026;
+                        const isSelected = col.day === selectedDay;
+                        return (
+                          <div
+                            key={col.day}
+                            className={`mgr-cal-mobile-timeline-day${isToday ? ' mgr-cal-mobile-timeline-day--today' : ''}${isSelected && !isToday ? ' mgr-cal-mobile-timeline-day--selected' : ''}`}
+                            onClick={() => setSelectedDay(col.day)}
+                          >
+                            <span className="mgr-cal-mobile-timeline-day-dow">{col.dow[0]}</span>
+                            <span className="mgr-cal-mobile-timeline-day-num">{col.day}</span>
                           </div>
-                        ))}
-                      </div>
+                        );
+                      })}
                     </div>
-                  );
-                })}
+                  </div>
+
+                  {/* Employee rows */}
+                  {employeesMeta.map((emp) => {
+                    const blocks = getBlocks(emp.id);
+                    const hasAny = blocks.some(b => b > 0);
+                    if (!hasAny) return null;
+                    return (
+                      <div className="mgr-cal-mobile-timeline-row" key={emp.id}>
+                        <div className="mgr-cal-mobile-timeline-label-col" onClick={() => navigate(`/manager/my-team/${emp.id}`)}>
+                          <EmployeeAvatar emp={emp} size="mobile" />
+                        </div>
+                        <div className="mgr-cal-mobile-timeline-cells">
+                          {blocks.map((b, i) => (
+                            <div key={i} className="mgr-cal-mobile-timeline-cell">
+                              {b > 0 && <div className={`mgr-cal-mobile-timeline-bar mgr-cal-mobile-timeline-bar--${b === 1 ? 'full' : b === 2 ? 'partial' : 'returning'}`} />}
+                            </div>
+                          ))}
+                        </div>
+                      </div>
+                    );
+                  })}
+                </div>
               </div>
 
               <div className="mgr-cal-mobile-legend">
