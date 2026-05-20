@@ -98,9 +98,11 @@ export default function AbsenceCalendarPage() {
                   >
                     <td className="mgr-cal-employee-cell" onClick={() => navigate(`/manager/my-team/${emp.id}`)}>
                       <div className="mgr-cal-employee-info">
-                        <div className="mgr-cal-employee-avatar" style={{ background: emp.ada ? '#e8f0fe' : '#f0f4f8' }}>
-                          {emp.name.split(' ').map(n => n[0]).join('')}
-                        </div>
+                        <img
+                          className="mgr-cal-employee-avatar"
+                          src={`https://i.pravatar.cc/68?u=${emp.id}`}
+                          alt={emp.name}
+                        />
                         <div>
                           <div className="mgr-cal-employee-name">
                             {emp.name}
