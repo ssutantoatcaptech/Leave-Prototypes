@@ -209,7 +209,10 @@ export default function LeaveDetailV2dPage() {
                         >
                           <div className="dlp-tl-row-label">{item.label}</div>
                           <div className="dlp-tl-row-bar">
-                            <div className="dlp-tl-seg" style={{ left: '0%', width: item.width + '%', background: item.accent }} />
+                            <div className="dlp-tl-seg" style={{ left: '0%', width: item.width + '%', background: item.accent }}>
+                              <span>{item.label}</span>
+                              <span className="dlp-tl-weeks">{item.weeks}</span>
+                            </div>
                           </div>
                         </button>
                       );

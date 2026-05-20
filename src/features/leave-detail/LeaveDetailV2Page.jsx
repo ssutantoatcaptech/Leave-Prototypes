@@ -163,7 +163,10 @@ export default function LeaveDetailV2Page() {
                   <div className="ld-v2-bar-row">
                     <span className="ld-v2-bar-label">FMLA</span>
                     <div className="ld-v2-bar-track">
-                      <div className="ld-v2-bar fmla" style={{ left: '0%', width: '100%' }} />
+                      <div className="ld-v2-bar fmla" style={{ left: '0%', width: '100%' }}>
+                        <span>FMLA</span>
+                        <span className="ld-v2-bar-weeks">12 wks</span>
+                      </div>
                     </div>
                     <div className="ld-v2-bar-tooltip">
                       <div className="ld-v2-ms-tooltip-title">FMLA Protection</div>
@@ -174,7 +177,10 @@ export default function LeaveDetailV2Page() {
                   <div className="ld-v2-bar-row">
                     <span className="ld-v2-bar-label">STD</span>
                     <div className="ld-v2-bar-track">
-                      <div className="ld-v2-bar std" style={{ left: '0%', width: '55%' }} />
+                      <div className="ld-v2-bar std" style={{ left: '0%', width: '55%' }}>
+                        <span>STD</span>
+                        <span className="ld-v2-bar-weeks">6 wks</span>
+                      </div>
                     </div>
                     <div className="ld-v2-bar-tooltip">
                       <div className="ld-v2-ms-tooltip-title">Short-Term Disability</div>
@@ -185,7 +191,10 @@ export default function LeaveDetailV2Page() {
                   <div className="ld-v2-bar-row">
                     <span className="ld-v2-bar-label">NJ FLI</span>
                     <div className="ld-v2-bar-track">
-                      <div className="ld-v2-bar pfml" style={{ left: '35%', width: '45%' }} />
+                      <div className="ld-v2-bar pfml" style={{ left: '35%', width: '45%' }}>
+                        <span>NJ FLI</span>
+                        <span className="ld-v2-bar-weeks">7 wks</span>
+                      </div>
                     </div>
                     <div className="ld-v2-bar-tooltip">
                       <div className="ld-v2-ms-tooltip-title">NJ Family Leave Insurance (Bonding)</div>
