@@ -7,8 +7,8 @@
 
 /* === Shell & Layout === */
 .fc-wiz-shell {
-  background: var(--color-bg-page);
-  min-height: 100vh;
+  background: transparent;
+  min-height: auto;
   display: flex;
   flex-direction: column;
   color: var(--color-text-primary);
