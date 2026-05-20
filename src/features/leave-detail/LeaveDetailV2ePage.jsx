@@ -382,25 +382,29 @@ export default function LeaveDetailV2ePage() {
 
                 {/* V2 Milestone Timeline — 12 months */}
                 <div style={{ padding: '16px 0 0' }}>
-                  {/* Month labels — offset to align with progress bar */}
-                  <div className="v2-month-labels" style={{ display: 'flex', marginBottom: activeVersion === 'v3' ? 6 : 8, paddingLeft: 50, position: 'relative' }}>
+                  {/* Month + Week header (V3: table-like dual row) */}
+                  {activeVersion === 'v3' ? (
+                  <div style={{ paddingLeft: 50, marginBottom: 10, border: '1px solid #e5e7eb', borderRadius: 6, overflow: 'hidden' }}>
+                    {/* Months row */}
+                    <div style={{ display: 'flex', background: '#f9fafb', borderBottom: '1px solid #e5e7eb', padding: '6px 0' }}>
+                      {['Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec','Jan','Feb'].map(function (m, i) {
+                        return <span key={m} style={{ flex: 1, fontFamily: "'Source Sans Pro', sans-serif", fontSize: 11, fontWeight: 600, color: '#374151', textAlign: 'center' }}>{m}</span>;
+                      })}
+                    </div>
+                    {/* Weeks row */}
+                    <div style={{ display: 'flex', background: '#fff', padding: '4px 0' }}>
+                      {[1,2,3,4,5,6,7,8,9,10,11,12].map(function (w, i) {
+                        var isKey = w % 4 === 0;
+                        return <span key={w} style={{ flex: 1, fontFamily: "'Source Sans Pro', sans-serif", fontSize: 10, fontWeight: isKey ? 600 : 400, color: isKey ? '#6b7280' : '#d1d5db', textAlign: 'center' }}>W{w}</span>;
+                      })}
+                    </div>
+                  </div>
+                  ) : (
+                  <div className="v2-month-labels" style={{ display: 'flex', marginBottom: 8, paddingLeft: 50, position: 'relative' }}>
                     {['Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec','Jan','Feb'].map(function (m, i) {
-                      return <span key={m} className={i % 3 !== 0 ? 'v2-month-hide-mobile' : ''} style={{ flex: 1, fontFamily: "'Source Sans Pro', sans-serif", fontSize: activeVersion === 'v3' ? 12 : 11, color: i >= 10 ? '#374151' : (activeVersion === 'v3' ? '#6b7280' : '#9ca3af'), fontWeight: activeVersion === 'v3' ? 600 : (i >= 10 ? 600 : 400), textAlign: 'left' }}>{m}</span>;
+                      return <span key={m} className={i % 3 !== 0 ? 'v2-month-hide-mobile' : ''} style={{ flex: 1, fontFamily: "'Source Sans Pro', sans-serif", fontSize: 11, color: i >= 10 ? '#6b7280' : '#9ca3af', fontWeight: i >= 10 ? 600 : 400, textAlign: 'left' }}>{m}</span>;
                     })}
                     <span style={{ position: 'absolute', left: 'calc(50px + 83.33%)', top: -14, fontFamily: "'Source Sans Pro', sans-serif", fontSize: 10, color: '#6b7280', fontWeight: 600 }}>2027</span>
-                  </div>
-                  {/* Week milestones (V3 only) */}
-                  {activeVersion === 'v3' && (
-                  <div style={{ display: 'flex', paddingLeft: 50, marginBottom: 10, position: 'relative', height: 18 }}>
-                    {[4, 8, 12].map(function (w) {
-                      var pct = (w / 52) * 100;
-                      return (
-                        <div key={w} style={{ position: 'absolute', left: pct + '%', transform: 'translateX(-50%)', display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 1 }}>
-                          <div style={{ width: 1, height: 6, background: '#d1d5db' }} />
-                          <span style={{ fontFamily: "'Source Sans Pro', sans-serif", fontSize: 10, fontWeight: 500, color: '#9ca3af', letterSpacing: '0.02em' }}>W{w}</span>
-                        </div>
-                      );
-                    })}
                   </div>
                   )}
 
