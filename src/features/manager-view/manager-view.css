@@ -9,7 +9,7 @@
   font-family: 'Source Sans Pro', 'Inter', system-ui, sans-serif;
   color: #222;
   position: relative;
-  overflow-x: hidden;
+  overflow-x: clip;
 }
 
 /* === Header === */
