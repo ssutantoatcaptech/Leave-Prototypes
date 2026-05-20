@@ -2521,6 +2521,31 @@
     font-size: 14px;
   }
 
+  /* --- Top bar (month button) --- */
+  .mgr-cal-mobile-topbar {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+  }
+
+  .mgr-cal-mobile-month-btn {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding: 6px 12px;
+    border: none;
+    background: none;
+    font-family: 'Source Sans Pro', sans-serif;
+    font-size: 16px;
+    font-weight: 700;
+    color: #003a70;
+    cursor: pointer;
+  }
+
+  .mgr-cal-mobile-month-btn--next {
+    padding: 6px 8px;
+  }
+
   /* --- View Toggle --- */
   .mgr-cal-mobile-toggle {
     display: flex;
@@ -2659,100 +2684,132 @@
     gap: 8px;
   }
 
-  /* --- Day View (2-column) --- */
-  .mgr-cal-mobile-day-header {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
+  /* --- Day View (horizontal strip + grid) --- */
+  .mgr-cal-mobile-day-strip-wrap {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    margin: 0 -16px;
+    padding: 0 16px;
   }
 
-  .mgr-cal-mobile-day-cols-header {
+  .mgr-cal-mobile-day-strip {
     display: flex;
-    gap: 16px;
-    flex: 1;
+    gap: 2px;
+    min-width: max-content;
+  }
+
+  .mgr-cal-mobile-day-strip-cell {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 36px;
+    min-width: 36px;
+    height: 48px;
+    border: none;
+    background: transparent;
+    border-radius: 8px;
+    cursor: pointer;
+    gap: 2px;
+    transition: background 0.12s;
+  }
+
+  .mgr-cal-mobile-day-strip-cell--selected {
+    background: #e8f0fa;
+  }
+
+  .mgr-cal-mobile-day-strip-cell--today .mgr-cal-mobile-day-strip-num {
+    background: #d32f2f;
+    color: #fff;
+    border-radius: 50%;
+    width: 24px;
+    height: 24px;
+    display: flex;
+    align-items: center;
     justify-content: center;
   }
 
-  .mgr-cal-mobile-day-col-title {
+  .mgr-cal-mobile-day-strip-dow {
+    font-size: 10px;
+    font-weight: 600;
+    color: #888;
+    text-transform: uppercase;
+  }
+
+  .mgr-cal-mobile-day-strip-num {
     font-size: 13px;
     font-weight: 600;
-    color: #003a70;
-    text-align: center;
-    padding: 4px 12px;
-    border-radius: 4px;
-  }
-
-  .mgr-cal-mobile-day-col-title--today {
-    background: #d32f2f;
-    color: #fff;
-    border-radius: 12px;
-  }
-
-  .mgr-cal-mobile-day-columns {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 8px;
-    min-height: 200px;
-  }
-
-  .mgr-cal-mobile-day-col {
-    display: flex;
-    flex-direction: column;
-    gap: 6px;
-    border-left: 1px solid #edf2f7;
-    padding-left: 8px;
-  }
-
-  .mgr-cal-mobile-day-col:first-child {
-    border-left: none;
-    padding-left: 0;
-  }
-
-  .mgr-cal-mobile-day-col-empty {
-    font-size: 12px;
-    color: #888;
-    padding: 12px 0;
-    text-align: center;
-  }
-
-  .mgr-cal-mobile-day-block {
-    border-radius: 6px;
-    padding: 8px 10px;
-    cursor: pointer;
-    display: flex;
-    flex-direction: column;
-    gap: 2px;
-    transition: opacity 0.12s;
-  }
-
-  .mgr-cal-mobile-day-block:active {
-    opacity: 0.7;
-  }
-
-  .mgr-cal-mobile-day-block--full {
-    background: #DCEBF9;
-    border-left: 3px solid #105fa8;
-  }
-
-  .mgr-cal-mobile-day-block--partial {
-    background: #fef3cd;
-    border-left: 3px solid #c0982a;
-  }
-
-  .mgr-cal-mobile-day-block--returning {
-    background: #d4edda;
-    border-left: 3px solid #2e7d5e;
-  }
-
-  .mgr-cal-mobile-day-block-name {
-    font-size: 12px;
-    font-weight: 600;
     color: #1a1a1a;
+    line-height: 1;
   }
 
-  .mgr-cal-mobile-day-block-type {
-    font-size: 10px;
-    color: #555;
+  .mgr-cal-mobile-day-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    border-top: 1px solid #edf2f7;
+  }
+
+  .mgr-cal-mobile-day-row {
+    display: flex;
+    align-items: center;
+    height: 44px;
+    border-bottom: 1px solid #f5f5f5;
+  }
+
+  .mgr-cal-mobile-day-row-label {
+    position: sticky;
+    left: 0;
+    z-index: 2;
+    width: 44px;
+    min-width: 44px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #fff;
+    cursor: pointer;
+  }
+
+  .mgr-cal-mobile-day-row-cells {
+    display: flex;
+    flex: 1;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .mgr-cal-mobile-day-row-cell {
+    width: 36px;
+    min-width: 36px;
+    height: 36px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .mgr-cal-mobile-day-row-line {
+    width: 3px;
+    height: 28px;
+    border-radius: 1.5px;
+  }
+
+  .mgr-cal-mobile-day-row-line--full {
+    background: #105fa8;
+  }
+
+  .mgr-cal-mobile-day-row-line--partial {
+    background: #c0982a;
+  }
+
+  .mgr-cal-mobile-day-row-line--returning {
+    background: #2e7d5e;
+  }
+
+  .mgr-cal-mobile-legend-line {
+    width: 3px;
+    height: 14px;
+    display: inline-block;
+    margin-right: 4px;
+    vertical-align: middle;
   }
 
   /* --- List View --- */
