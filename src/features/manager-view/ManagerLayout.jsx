@@ -162,31 +162,30 @@ export default function ManagerLayout() {
       )}
 
       <Outlet />
-      <footer className="mgr-footer">
+      {/* Desktop Footer */}
+      <footer className="mgr-footer mgr-footer--desktop">
         <div className="mgr-footer-inner">
-          <div className="mgr-footer-top">
-            <h2 className="mgr-footer-brand">my<strong>Mutual</strong></h2>
-            <div className="mgr-footer-grid">
-              <div className="mgr-footer-col">
-                <h4 className="mgr-footer-heading">Manager Tools</h4>
-                <a href="#" className="mgr-footer-link">Absence Calendar</a>
-                <a href="#" className="mgr-footer-link">My Team</a>
-                <a href="#" className="mgr-footer-link">Tasks & Notifications</a>
-                <a href="#" className="mgr-footer-link">Return to Work</a>
-              </div>
-              <div className="mgr-footer-col">
-                <h4 className="mgr-footer-heading">Support</h4>
-                <a href="#" className="mgr-footer-link">Get Help</a>
-                <a href="#" className="mgr-footer-link">Send a Message</a>
-                <a href="#" className="mgr-footer-link">FAQs</a>
-                <a href="#" className="mgr-footer-link">Live Chat</a>
-              </div>
-              <div className="mgr-footer-col">
-                <h4 className="mgr-footer-heading">Quick Links</h4>
-                <a href="#" className="mgr-footer-link">Employee View</a>
-                <a href="#" className="mgr-footer-link">Company Policies</a>
-                <a href="#" className="mgr-footer-link">Documents & Forms</a>
-              </div>
+          <h2 className="mgr-footer-brand">my<strong>Mutual</strong></h2>
+          <div className="mgr-footer-grid">
+            <div className="mgr-footer-col">
+              <h4 className="mgr-footer-heading">Manager Tools</h4>
+              <a href="#" className="mgr-footer-link">Absence Calendar</a>
+              <a href="#" className="mgr-footer-link">My Team</a>
+              <a href="#" className="mgr-footer-link">Tasks & Notifications</a>
+              <a href="#" className="mgr-footer-link">Return to Work</a>
+            </div>
+            <div className="mgr-footer-col">
+              <h4 className="mgr-footer-heading">Support</h4>
+              <a href="#" className="mgr-footer-link">Get Help</a>
+              <a href="#" className="mgr-footer-link">Send a Message</a>
+              <a href="#" className="mgr-footer-link">FAQs</a>
+              <a href="#" className="mgr-footer-link">Live Chat</a>
+            </div>
+            <div className="mgr-footer-col">
+              <h4 className="mgr-footer-heading">Quick Links</h4>
+              <a href="#" className="mgr-footer-link">Employee View</a>
+              <a href="#" className="mgr-footer-link">Company Policies</a>
+              <a href="#" className="mgr-footer-link">Documents & Forms</a>
             </div>
           </div>
           <div className="mgr-footer-bottom">
@@ -198,6 +197,52 @@ export default function ManagerLayout() {
             </div>
             <span className="mgr-footer-copyright">&copy; 2026 Mutual of Omaha Insurance Company. All rights reserved.</span>
           </div>
+        </div>
+      </footer>
+
+      {/* Mobile Footer */}
+      <footer className="mgr-footer mgr-footer--mobile">
+        <h2 className="mgr-mfooter-brand">my<strong>Mutual</strong></h2>
+        <div className="mgr-mfooter-sections">
+          <div className="mgr-mfooter-section">
+            <h4 className="mgr-mfooter-heading">Support</h4>
+            <div className="mgr-mfooter-link-row">
+              <a href="#" className="mgr-mfooter-link">Send a Message</a>
+              <a href="#" className="mgr-mfooter-link">Live Chat</a>
+            </div>
+          </div>
+          <div className="mgr-mfooter-section">
+            <h4 className="mgr-mfooter-heading">Quick Links</h4>
+            <div className="mgr-mfooter-link-grid">
+              <div className="mgr-mfooter-link-row">
+                <a href="#" className="mgr-mfooter-link">Absence Calendar</a>
+                <a href="#" className="mgr-mfooter-link">My Team</a>
+              </div>
+              <div className="mgr-mfooter-link-row">
+                <a href="#" className="mgr-mfooter-link">Documents & Forms</a>
+                <a href="#" className="mgr-mfooter-link">Employee View</a>
+              </div>
+            </div>
+          </div>
+          <div className="mgr-mfooter-section">
+            <h4 className="mgr-mfooter-heading">Language Preference</h4>
+            <div className="mgr-mfooter-lang">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="10" stroke="#105fa8" strokeWidth="1.5"/><path d="M2 12h20M12 2c2.5 2.5 4 5.5 4 10s-1.5 7.5-4 10M12 2c-2.5 2.5-4 5.5-4 10s1.5 7.5 4 10" stroke="#105fa8" strokeWidth="1.5"/></svg>
+              <span className="mgr-mfooter-lang-text">English</span>
+              <svg width="12" height="8" viewBox="0 0 12 8" fill="none"><path d="M1 1.5l5 5 5-5" stroke="#222" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/></svg>
+            </div>
+          </div>
+        </div>
+        <div className="mgr-mfooter-legal">
+          <div className="mgr-mfooter-legal-row">
+            <a href="#" className="mgr-mfooter-legal-link">Privacy Policy</a>
+            <a href="#" className="mgr-mfooter-legal-link">Manage Cookie Preferences</a>
+          </div>
+          <div className="mgr-mfooter-legal-row">
+            <a href="#" className="mgr-mfooter-legal-link">Terms of Use</a>
+            <a href="#" className="mgr-mfooter-legal-link">Accessibility Services</a>
+          </div>
+          <span className="mgr-mfooter-copyright">&copy; 2026 Mutual of Omaha Insurance Company. All rights reserved.</span>
         </div>
       </footer>
     </div>

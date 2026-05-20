@@ -2088,31 +2088,30 @@
 
 /* === Footer === */
 .mgr-footer {
-  background: #003A70;
   margin-top: auto;
+}
+
+.mgr-footer--desktop {
+  background: #003A70;
   padding: 48px 0 0;
+}
+
+.mgr-footer--mobile {
+  display: none;
 }
 
 .mgr-footer-inner {
   max-width: 1440px;
   margin: 0 auto;
-  padding: 0 32px;
-}
-
-.mgr-footer-top {
-  display: flex;
-  justify-content: space-between;
-  align-items: flex-start;
-  gap: 64px;
-  padding-bottom: 32px;
+  padding: 0 60px;
 }
 
 .mgr-footer-brand {
-  font-size: 22px;
+  font-family: 'Source Sans Pro', sans-serif;
+  font-size: 24px;
   font-weight: 400;
   color: #ffffff;
-  margin: 0;
-  white-space: nowrap;
+  margin: 0 0 32px;
 }
 
 .mgr-footer-brand strong {
@@ -2120,8 +2119,10 @@
 }
 
 .mgr-footer-grid {
-  display: flex;
-  gap: 48px;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 40px;
+  margin-bottom: 40px;
 }
 
 .mgr-footer-col {
@@ -2131,54 +2132,158 @@
 }
 
 .mgr-footer-heading {
-  font-size: 14px;
+  font-family: 'Source Sans Pro', sans-serif;
+  font-size: 16px;
   font-weight: 700;
   color: #ffffff;
-  margin: 0 0 4px;
+  margin: 0 0 8px;
 }
 
 .mgr-footer-link {
-  font-size: 13px;
-  color: rgba(255,255,255,0.8);
-  text-decoration: none;
-  transition: color 0.12s;
+  font-family: 'Source Sans Pro', sans-serif;
+  font-size: 14px;
+  color: rgba(255,255,255,0.85);
+  text-decoration: underline;
+  line-height: 1.7;
 }
 
 .mgr-footer-link:hover {
   color: #ffffff;
-  text-decoration: underline;
 }
 
 .mgr-footer-bottom {
   border-top: 1px solid rgba(255,255,255,0.2);
-  padding: 20px 0;
+  padding: 24px 0;
   display: flex;
   flex-direction: column;
-  align-items: center;
-  gap: 8px;
+  gap: 12px;
 }
 
 .mgr-footer-legal {
   display: flex;
   gap: 24px;
   flex-wrap: wrap;
-  justify-content: center;
 }
 
 .mgr-footer-legal-link {
-  font-size: 12px;
-  color: rgba(255,255,255,0.7);
-  text-decoration: none;
+  font-family: 'Source Sans Pro', sans-serif;
+  font-size: 14px;
+  color: rgba(255,255,255,0.75);
+  text-decoration: underline;
 }
 
 .mgr-footer-legal-link:hover {
   color: #ffffff;
-  text-decoration: underline;
 }
 
 .mgr-footer-copyright {
+  font-family: 'Source Sans Pro', sans-serif;
   font-size: 12px;
   color: rgba(255,255,255,0.5);
+}
+
+/* --- Mobile Footer --- */
+.mgr-mfooter-brand {
+  font-family: 'Source Sans Pro', sans-serif;
+  font-size: 30px;
+  font-weight: 600;
+  line-height: 36px;
+  margin: 0;
+  color: #105fa8;
+}
+
+.mgr-mfooter-brand strong {
+  font-weight: 700;
+}
+
+.mgr-mfooter-sections {
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+  width: 100%;
+}
+
+.mgr-mfooter-section {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.mgr-mfooter-heading {
+  font-family: 'Source Sans Pro', sans-serif;
+  font-size: 18px;
+  font-weight: 600;
+  line-height: 24px;
+  color: #838383;
+  margin: 0;
+}
+
+.mgr-mfooter-link-row {
+  display: flex;
+  gap: 12px;
+}
+
+.mgr-mfooter-link-row > * {
+  flex: 1;
+  min-width: 0;
+}
+
+.mgr-mfooter-link-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.mgr-mfooter-link {
+  font-family: 'Source Sans Pro', sans-serif;
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 20px;
+  color: #105fa8;
+  text-decoration: underline;
+}
+
+.mgr-mfooter-lang {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.mgr-mfooter-lang-text {
+  font-family: 'Source Sans Pro', sans-serif;
+  font-size: 14px;
+  font-weight: 600;
+  color: #222;
+}
+
+.mgr-mfooter-legal {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  padding-top: 25px;
+  border-top: 1px solid #f0f0f0;
+  width: 100%;
+}
+
+.mgr-mfooter-legal-row {
+  display: flex;
+  gap: 24px;
+  align-items: center;
+}
+
+.mgr-mfooter-legal-link {
+  font-family: 'Source Sans Pro', sans-serif;
+  font-size: 12px;
+  font-weight: 600;
+  color: #105fa8;
+  text-decoration: underline;
+}
+
+.mgr-mfooter-copyright {
+  font-family: 'Source Sans Pro', sans-serif;
+  font-size: 12px;
+  font-weight: 400;
+  color: #5d5d5d;
 }
 
 /* === Mobile Absence Calendar === */
@@ -2892,30 +2997,17 @@
   }
 
   /* --- Footer --- */
-  .mgr-footer {
-    padding: 32px 0 0;
+  .mgr-footer--desktop {
+    display: none;
   }
 
-  .mgr-footer-inner {
-    padding: 0 16px;
-  }
-
-  .mgr-footer-top {
+  .mgr-footer--mobile {
+    display: flex;
+    border-top: 4px solid #105fa8;
+    padding: 28px 16px 24px;
     flex-direction: column;
     gap: 24px;
-  }
-
-  .mgr-footer-grid {
-    flex-direction: column;
-    gap: 24px;
-  }
-
-  .mgr-footer-bottom {
-    padding: 16px 0;
-  }
-
-  .mgr-footer-legal {
-    gap: 12px 20px;
+    background: #ffffff;
   }
 
   /* --- Calendar legend (desktop) --- */
