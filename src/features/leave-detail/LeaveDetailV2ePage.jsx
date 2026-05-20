@@ -386,7 +386,7 @@ export default function LeaveDetailV2ePage() {
                   {activeVersion === 'v3' ? (
                   <div style={{ border: '1px solid #e5e7eb', borderRadius: 6, overflow: 'hidden' }}>
                     {/* Months row with Coverage header */}
-                    <div style={{ display: 'flex', background: '#f9fafb', borderBottom: '1px solid #e5e7eb', padding: '8px 0' }}>
+                    <div style={{ display: 'flex', background: '#f9fafb', borderBottom: '1px solid #e5e7eb', padding: '8px 12px 8px 0' }}>
                       <span style={{ width: 60, flexShrink: 0, fontFamily: "'Source Sans Pro', sans-serif", fontSize: 12, fontWeight: 700, color: '#1f2937', paddingLeft: 10 }}>Coverage</span>
                       <div style={{ flex: 1, display: 'flex' }}>
                         {['MAR','APR','MAY','JUN','JUL','AUG','SEP','OCT','NOV','DEC','JAN','FEB'].map(function (m) {
@@ -395,7 +395,7 @@ export default function LeaveDetailV2ePage() {
                       </div>
                     </div>
                     {/* Weeks row */}
-                    <div style={{ display: 'flex', background: '#fff', borderBottom: '1px solid #e5e7eb', padding: '5px 0' }}>
+                    <div style={{ display: 'flex', background: '#fff', borderBottom: '1px solid #e5e7eb', padding: '5px 12px 5px 0' }}>
                       <span style={{ width: 60, flexShrink: 0 }} />
                       <div style={{ flex: 1, display: 'flex' }}>
                         {[4,9,13,17,22,26,30,35,39,44,48,52].map(function (w, i) {
@@ -405,7 +405,7 @@ export default function LeaveDetailV2ePage() {
                       </div>
                     </div>
                     {/* Timeline bars */}
-                    <div className="ldb-tl-rows-wrap" style={{ display: 'flex', flexDirection: 'column', gap: 0, position: 'relative', padding: '8px 12px 8px 0' }}>
+                    <div className="ldb-tl-rows-wrap" style={{ display: 'flex', flexDirection: 'column', gap: 0, position: 'relative', padding: '8px 16px 8px 0' }}>
                       <div style={{ position: 'absolute', top: 0, bottom: 0, left: 60, right: 0, pointerEvents: 'none', zIndex: 0 }}>
                         {[0,1,2,3,4,5,6,7,8,9,10,11].map(function (i) {
                           var isYearBoundary = i === 10;
