@@ -45,9 +45,9 @@
 }
 
 .mgr-header-brand {
-  font-size: 18px;
+  font-size: 20px;
   font-weight: 700;
-  color: #222;
+  color: #105fa8;
   white-space: nowrap;
 }
 
@@ -287,7 +287,7 @@
 /* === Page Content === */
 .mgr-page {
   flex: 1;
-  padding: 32px 24px;
+  padding: 48px 32px 40px;
   max-width: 1440px;
   margin: 0 auto;
   width: 100%;
@@ -295,18 +295,20 @@
 }
 
 .mgr-page-title {
-  font-size: 26px;
+  font-size: 36px;
   font-weight: 700;
-  color: #1a1a1a;
-  margin-bottom: 8px;
+  color: #003a70;
+  margin-bottom: 10px;
+  line-height: 44px;
   font-family: 'Source Sans Pro', 'Inter', system-ui, sans-serif;
 }
 
 .mgr-page-subtitle {
-  font-size: 15px;
-  color: #555;
-  margin-bottom: 28px;
+  font-size: 16px;
+  color: #5d5d5d;
+  margin-bottom: 32px;
   line-height: 1.5;
+  max-width: 640px;
 }
 
 /* === Cards / Containers === */
@@ -580,7 +582,7 @@
 
 /* === Calendar === */
 .mgr-calendar-card {
-  padding: 24px 28px;
+  padding: 28px 32px;
   overflow: hidden;
 }
 
@@ -1486,4 +1488,72 @@
   color: #666;
   font-size: 14px;
   font-style: italic;
+}
+
+/* === Footer === */
+.mgr-footer {
+  background: #003a70;
+  margin-top: auto;
+  padding: 32px 0 24px;
+}
+
+.mgr-footer-inner {
+  max-width: 1440px;
+  margin: 0 auto;
+  padding: 0 32px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.mgr-footer-bottom {
+  margin-top: 16px;
+  padding-top: 16px;
+  border-top: 1px solid rgba(255,255,255,0.15);
+}
+
+.mgr-footer-left {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.mgr-footer-brand {
+  font-size: 15px;
+  font-weight: 700;
+  color: #ffffff;
+}
+
+.mgr-footer-divider {
+  width: 1px;
+  height: 16px;
+  background: rgba(255,255,255,0.3);
+}
+
+.mgr-footer-text {
+  font-size: 13px;
+  color: rgba(255,255,255,0.7);
+}
+
+.mgr-footer-right {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+}
+
+.mgr-footer-link {
+  font-size: 13px;
+  color: rgba(255,255,255,0.8);
+  text-decoration: none;
+  transition: color 0.12s;
+}
+
+.mgr-footer-link:hover {
+  color: #ffffff;
+  text-decoration: underline;
+}
+
+.mgr-footer-copyright {
+  font-size: 12px;
+  color: rgba(255,255,255,0.5);
 }
