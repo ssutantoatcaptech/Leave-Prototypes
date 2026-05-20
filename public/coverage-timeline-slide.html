@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=1920" />
+  <title>Coverage Timeline — 16:9 Slide</title>
+  <link href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@400;600;700&display=swap" rel="stylesheet" />
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: "Source Sans Pro", sans-serif;
+      background: #ffffff;
+      width: 1920px;
+      height: 1080px;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .slide-frame {
+      width: 1920px;
+      padding: 80px 120px;
+      display: flex;
+      flex-direction: column;
+      gap: 48px;
+    }
+
+    .slide-title {
+      font-size: 32px;
+      font-weight: 600;
+      color: #171717;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .slide-title svg { flex-shrink: 0; }
+
+    .timeline-container {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+
+    .bar-row {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+    }
+
+    .bar-label {
+      width: 80px;
+      flex-shrink: 0;
+      font-size: 14px;
+      font-weight: 700;
+      color: #525252;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      text-align: right;
+    }
+
+    .bar-track {
+      flex: 1;
+      height: 48px;
+      background: #f5f5f5;
+      border-radius: 8px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .bar {
+      position: absolute;
+      top: 0;
+      height: 100%;
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 20px;
+      font-size: 14px;
+      font-weight: 600;
+      color: #fff;
+      white-space: nowrap;
+      overflow: hidden;
+    }
+
+    .bar.fmla { background: #0369a1; }
+    .bar.std { background: #0d9488; }
+    .bar.nj-fli { background: #7c3aed; }
+
+    .bar-weeks {
+      font-size: 13px;
+      font-weight: 600;
+      opacity: 0.9;
+    }
+
+    .months-row {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+    }
+
+    .months-spacer {
+      width: 80px;
+      flex-shrink: 0;
+    }
+
+    .months-track {
+      flex: 1;
+      display: flex;
+      justify-content: space-between;
+      padding: 0 4px;
+    }
+
+    .months-track span {
+      font-size: 13px;
+      font-weight: 700;
+      color: #404040;
+    }
+
+    .legend {
+      display: flex;
+      align-items: center;
+      gap: 24px;
+      margin-top: 8px;
+    }
+
+    .legend-spacer {
+      width: 80px;
+      flex-shrink: 0;
+    }
+
+    .legend-item {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 14px;
+      color: #525252;
+    }
+
+    .legend-dot {
+      width: 12px;
+      height: 12px;
+      border-radius: 3px;
+    }
+
+    .legend-dot.fmla { background: #0369a1; }
+    .legend-dot.std { background: #0d9488; }
+    .legend-dot.nj-fli { background: #7c3aed; }
+    .legend-dot.unpaid { background: #d4d4d4; }
+
+    .tooltip-row {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      margin-top: 24px;
+      padding-top: 24px;
+      border-top: 1px solid #e5e5e5;
+    }
+
+    .tooltip-spacer {
+      width: 80px;
+      flex-shrink: 0;
+    }
+
+    .tooltip-cards {
+      display: flex;
+      gap: 24px;
+      flex: 1;
+    }
+
+    .tooltip-card {
+      flex: 1;
+      background: #fafafa;
+      border: 1px solid #e5e5e5;
+      border-radius: 8px;
+      padding: 16px 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+
+    .tooltip-card-title {
+      font-size: 14px;
+      font-weight: 600;
+      color: #171717;
+    }
+
+    .tooltip-card-date {
+      font-size: 13px;
+      color: #737373;
+    }
+
+    .tooltip-card-desc {
+      font-size: 13px;
+      color: #525252;
+      margin-top: 4px;
+      line-height: 1.4;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="slide-frame">
+    <div class="slide-title">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="9" stroke="#171717" stroke-width="1.5"/><path d="M12 7v5l3.5 2" stroke="#171717" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      Current Leave Timeline
+    </div>
+
+    <div class="timeline-container">
+      <!-- FMLA -->
+      <div class="bar-row">
+        <span class="bar-label">FMLA</span>
+        <div class="bar-track">
+          <div class="bar fmla" style="left: 0%; width: 100%;">
+            <span>FMLA</span>
+            <span class="bar-weeks">12 wks</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- STD -->
+      <div class="bar-row">
+        <span class="bar-label">STD</span>
+        <div class="bar-track">
+          <div class="bar std" style="left: 0%; width: 50%;">
+            <span>STD</span>
+            <span class="bar-weeks">6 wks</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- NJ FLI -->
+      <div class="bar-row">
+        <span class="bar-label">NJ FLI</span>
+        <div class="bar-track">
+          <div class="bar nj-fli" style="left: 35%; width: 58%;">
+            <span>NJ FLI</span>
+            <span class="bar-weeks">7 wks</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Months -->
+      <div class="months-row">
+        <span class="months-spacer"></span>
+        <div class="months-track">
+          <span>Jun</span>
+          <span>Jul</span>
+          <span>Aug</span>
+        </div>
+      </div>
+
+      <!-- Legend -->
+      <div class="legend">
+        <span class="legend-spacer"></span>
+        <span class="legend-item"><span class="legend-dot fmla"></span>FMLA (Job Protection)</span>
+        <span class="legend-item"><span class="legend-dot std"></span>STD (60% Income)</span>
+        <span class="legend-item"><span class="legend-dot nj-fli"></span>NJ FLI (85% AWW, max $1,055/wk)</span>
+        <span class="legend-item"><span class="legend-dot unpaid"></span>Unpaid</span>
+      </div>
+
+      <!-- Detail cards -->
+      <div class="tooltip-row">
+        <span class="tooltip-spacer"></span>
+        <div class="tooltip-cards">
+          <div class="tooltip-card">
+            <div class="tooltip-card-title">FMLA Protection</div>
+            <div class="tooltip-card-date">Jun 03 – Aug 24, 2026</div>
+            <div class="tooltip-card-desc">12 weeks federal job protection. Covers entire leave duration.</div>
+          </div>
+          <div class="tooltip-card">
+            <div class="tooltip-card-title">Short-Term Disability</div>
+            <div class="tooltip-card-date">Jun 03 – Jul 15, 2026</div>
+            <div class="tooltip-card-desc">60% income replacement. Biweekly benefit: $1,700. Approved NTN-7729103.</div>
+          </div>
+          <div class="tooltip-card">
+            <div class="tooltip-card-title">NJ Family Leave Insurance</div>
+            <div class="tooltip-card-date">Jun 24 – Aug 12, 2026</div>
+            <div class="tooltip-card-desc">85% of AWW up to state max ($1,055/wk). Bonding period begins after delivery.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</body>
+</html>
