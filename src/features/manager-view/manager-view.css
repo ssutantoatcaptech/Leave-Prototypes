@@ -520,7 +520,7 @@
 .mgr-filter-label {
   font-size: 12px;
   font-weight: 600;
-  color: #555;
+  color: var(--color-brand-navy);
 }
 
 .mgr-filter-input,
@@ -532,6 +532,8 @@
   font-family: 'Source Sans Pro', sans-serif;
   min-width: 160px;
   background: #fff;
+  color: var(--color-brand-navy);
+  -webkit-text-fill-color: var(--color-brand-navy);
 }
 
 .mgr-filter-select {
