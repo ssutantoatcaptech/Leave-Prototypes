@@ -1787,6 +1787,10 @@
     display: block;
   }
 
+  .mgr-cal-mobile-body {
+    padding: 0;
+  }
+
   .mgr-cal-mobile-nav {
     display: flex;
     align-items: center;

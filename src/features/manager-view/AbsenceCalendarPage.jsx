@@ -302,73 +302,75 @@ export default function AbsenceCalendarPage() {
 
       {/* Mobile day-focused view */}
       <div className="mgr-cal-mobile">
-        <div className="mgr-cal-mobile-nav">
-          <button className="mgr-cal-mobile-arrow" onClick={() => setSelectedDay(Math.max(1, selectedDay - 1))} aria-label="Previous day">
-            <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M10 3l-5 5 5 5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/></svg>
-          </button>
-          <div className="mgr-cal-mobile-date">
-            <span className="mgr-cal-mobile-date-text">
-              {new Date(year, month, selectedDay).toLocaleDateString('en-US', { weekday: 'short', month: 'short', day: 'numeric', year: 'numeric' })}
-            </span>
-            {selectedDay === today && month === 4 && year === 2026 && <span className="mgr-sidebar-today">Today</span>}
+        <div className="mgr-cal-mobile-body">
+          <div className="mgr-cal-mobile-nav">
+            <button className="mgr-cal-mobile-arrow" onClick={() => setSelectedDay(Math.max(1, selectedDay - 1))} aria-label="Previous day">
+              <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M10 3l-5 5 5 5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/></svg>
+            </button>
+            <div className="mgr-cal-mobile-date">
+              <span className="mgr-cal-mobile-date-text">
+                {new Date(year, month, selectedDay).toLocaleDateString('en-US', { weekday: 'short', month: 'short', day: 'numeric', year: 'numeric' })}
+              </span>
+              {selectedDay === today && month === 4 && year === 2026 && <span className="mgr-sidebar-today">Today</span>}
+            </div>
+            <button className="mgr-cal-mobile-arrow" onClick={() => setSelectedDay(Math.min(dayColumns.length, selectedDay + 1))} aria-label="Next day">
+              <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M6 3l5 5-5 5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/></svg>
+            </button>
           </div>
-          <button className="mgr-cal-mobile-arrow" onClick={() => setSelectedDay(Math.min(dayColumns.length, selectedDay + 1))} aria-label="Next day">
-            <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M6 3l5 5-5 5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/></svg>
-          </button>
-        </div>
 
-        <div className="mgr-cal-mobile-summary">
-          <span className="mgr-cal-mobile-summary-total">{todayEmployees.length} employee{todayEmployees.length !== 1 ? 's' : ''} with absences</span>
-          <div className="mgr-cal-mobile-summary-breakdown">
-            {fullDay > 0 && <span>{fullDay} Full Day</span>}
-            {partial > 0 && <span>{partial} Partial</span>}
-            {returning > 0 && <span>{returning} Returning</span>}
+          <div className="mgr-cal-mobile-summary">
+            <span className="mgr-cal-mobile-summary-total">{todayEmployees.length} employee{todayEmployees.length !== 1 ? 's' : ''} with absences</span>
+            <div className="mgr-cal-mobile-summary-breakdown">
+              {fullDay > 0 && <span>{fullDay} Full Day</span>}
+              {partial > 0 && <span>{partial} Partial</span>}
+              {returning > 0 && <span>{returning} Returning</span>}
+            </div>
           </div>
-        </div>
 
-        <div className="mgr-cal-mobile-legend">
-          <div className="mgr-calendar-legend-item"><span className="mgr-legend-dot mgr-legend-dot--full" />Full Day</div>
-          <div className="mgr-calendar-legend-item"><span className="mgr-legend-dot mgr-legend-dot--partial" />Partial</div>
-          <div className="mgr-calendar-legend-item"><span className="mgr-legend-dot mgr-legend-dot--returning" />Returning</div>
-        </div>
+          <div className="mgr-cal-mobile-legend">
+            <div className="mgr-calendar-legend-item"><span className="mgr-legend-dot mgr-legend-dot--full" />Full Day</div>
+            <div className="mgr-calendar-legend-item"><span className="mgr-legend-dot mgr-legend-dot--partial" />Partial</div>
+            <div className="mgr-calendar-legend-item"><span className="mgr-legend-dot mgr-legend-dot--returning" />Returning</div>
+          </div>
 
-        <div className="mgr-cal-mobile-list">
-          {todayEmployees.length === 0 && (
-            <div className="mgr-cal-mobile-empty">No absences on this date.</div>
+          <div className="mgr-cal-mobile-list">
+            {todayEmployees.length === 0 && (
+              <div className="mgr-cal-mobile-empty">No absences on this date.</div>
+            )}
+            {todayEmployees.map((emp) => {
+              const blockType = getBlocks(emp.id)[selectedDay - 1];
+              return (
+                <div className="mgr-cal-mobile-card" key={emp.id} onClick={() => navigate(`/manager/my-team/${emp.id}`)}>
+                  <div className="mgr-cal-mobile-card-left">
+                    <div className={`mgr-cal-mobile-indicator mgr-cal-mobile-indicator--${blockType === 1 ? 'full' : blockType === 2 ? 'partial' : 'returning'}`} />
+                    <img className="mgr-cal-mobile-avatar" src={`https://i.pravatar.cc/68?u=${emp.id}`} alt={emp.name} />
+                  </div>
+                  <div className="mgr-cal-mobile-card-content">
+                    <div className="mgr-cal-mobile-card-name">
+                      {emp.name}
+                      {emp.ada && <span className="mgr-ada-tag">ADA</span>}
+                    </div>
+                    <div className="mgr-cal-mobile-card-meta">
+                      <span className="mgr-cal-mobile-card-type">{emp.type}</span>
+                      <span className="mgr-cal-mobile-card-status">{blockLabels[blockType]}</span>
+                    </div>
+                    <div className="mgr-cal-mobile-card-dates">{emp.dates}</div>
+                  </div>
+                  <svg className="mgr-cal-mobile-card-chevron" width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M5 3l4 4-4 4" stroke="#999" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/></svg>
+                </div>
+              );
+            })}
+          </div>
+
+          {returning > 0 && (
+            <button
+              className="mgr-btn mgr-btn-primary mgr-cal-mobile-rtw-btn"
+              onClick={() => navigate('/manager/return-to-work?employee=amy-smith')}
+            >
+              Confirm Return to Work Details
+            </button>
           )}
-          {todayEmployees.map((emp) => {
-            const blockType = getBlocks(emp.id)[selectedDay - 1];
-            return (
-              <div className="mgr-cal-mobile-card" key={emp.id} onClick={() => navigate(`/manager/my-team/${emp.id}`)}>
-                <div className="mgr-cal-mobile-card-left">
-                  <div className={`mgr-cal-mobile-indicator mgr-cal-mobile-indicator--${blockType === 1 ? 'full' : blockType === 2 ? 'partial' : 'returning'}`} />
-                  <img className="mgr-cal-mobile-avatar" src={`https://i.pravatar.cc/68?u=${emp.id}`} alt={emp.name} />
-                </div>
-                <div className="mgr-cal-mobile-card-content">
-                  <div className="mgr-cal-mobile-card-name">
-                    {emp.name}
-                    {emp.ada && <span className="mgr-ada-tag">ADA</span>}
-                  </div>
-                  <div className="mgr-cal-mobile-card-meta">
-                    <span className="mgr-cal-mobile-card-type">{emp.type}</span>
-                    <span className="mgr-cal-mobile-card-status">{blockLabels[blockType]}</span>
-                  </div>
-                  <div className="mgr-cal-mobile-card-dates">{emp.dates}</div>
-                </div>
-                <svg className="mgr-cal-mobile-card-chevron" width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M5 3l4 4-4 4" stroke="#999" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/></svg>
-              </div>
-            );
-          })}
         </div>
-
-        {returning > 0 && (
-          <button
-            className="mgr-btn mgr-btn-primary mgr-cal-mobile-rtw-btn"
-            onClick={() => navigate('/manager/return-to-work?employee=amy-smith')}
-          >
-            Confirm Return to Work Details
-          </button>
-        )}
       </div>
     </div>
   );
