@@ -389,7 +389,7 @@ export default function LeaveDetailV2ePage() {
                     <div style={{ display: 'flex', background: '#f9fafb', borderBottom: '1px solid #e5e7eb', padding: '6px 0' }}>
                       <span style={{ width: 60, flexShrink: 0, fontFamily: "'Source Sans Pro', sans-serif", fontSize: 11, fontWeight: 600, color: '#374151', paddingLeft: 10 }}>Coverage</span>
                       <div style={{ flex: 1, display: 'flex' }}>
-                        {['Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec','Jan','Feb'].map(function (m) {
+                        {['MAR','APR','MAY','JUN','JUL','AUG','SEP','OCT','NOV','DEC','JAN','FEB'].map(function (m) {
                           return <span key={m} style={{ flex: 1, fontFamily: "'Source Sans Pro', sans-serif", fontSize: 11, fontWeight: 600, color: '#374151', textAlign: 'center' }}>{m}</span>;
                         })}
                       </div>
