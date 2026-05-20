@@ -37,7 +37,9 @@ export default function ManagerLayout() {
       <header className="mgr-header">
         <div className="mgr-header-left">
           <button className="mgr-hamburger" aria-label="Toggle navigation" onClick={() => setMobileNavOpen(!mobileNavOpen)}>
-            <span /><span /><span />
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+              <path d="M3 6h18M3 12h18M3 18h18" stroke="currentColor" strokeWidth="2" strokeLinecap="round"/>
+            </svg>
           </button>
           <span className="mgr-header-brand">my<strong>Mutual</strong></span>
           <span className="mgr-header-badge">Manager</span>

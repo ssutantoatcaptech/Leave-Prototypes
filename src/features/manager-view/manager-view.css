@@ -1995,34 +1995,47 @@
 
 /* === Global Mobile Responsive === */
 .mgr-hamburger {
-  display: none;
-  flex-direction: column;
-  gap: 4px;
-  background: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  padding: 0;
   border: none;
+  background: none;
   cursor: pointer;
-  padding: 6px;
+  color: #003a70;
+  border-radius: 6px;
+  transition: background 0.15s;
 }
 
-.mgr-hamburger span {
-  display: block;
-  width: 20px;
-  height: 2px;
-  background: #333;
-  border-radius: 2px;
-  transition: transform 0.2s, opacity 0.2s;
+.mgr-hamburger:hover {
+  background: #f3f4f6;
+}
+
+.mgr-hamburger svg {
+  width: 24px;
+  height: 24px;
+}
+
+@media (min-width: 769px) {
+  .mgr-hamburger {
+    display: none;
+  }
 }
 
 @media (max-width: 768px) {
-  /* --- Hamburger --- */
-  .mgr-hamburger {
-    display: flex;
+  /* --- Header --- */
+  .mgr-header-wrapper {
+    border-bottom: none;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.08);
   }
 
-  /* --- Header --- */
   .mgr-header {
     padding: 0 16px;
-    height: 52px;
+    height: 64px;
+    position: relative;
+    border-bottom: none;
   }
 
   .mgr-header-badge {
@@ -2033,19 +2046,30 @@
     display: none;
   }
 
+  .mgr-header-brand {
+    font-size: 18px;
+    font-weight: 400;
+    color: #003a70;
+  }
+
+  .mgr-header-brand strong {
+    font-weight: 700;
+  }
+
   .mgr-header-nav {
     display: none;
+    flex-direction: column;
     position: absolute;
-    top: 52px;
+    top: 100%;
     left: 0;
     right: 0;
-    background: #fff;
-    border-bottom: 1px solid #edf2f7;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.08);
-    flex-direction: column;
-    padding: 8px 0;
+    background: #ffffff;
+    border-bottom: 1px solid #e5e7eb;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+    padding: 8px 16px 16px;
     margin-left: 0;
-    z-index: 200;
+    z-index: 150;
+    gap: 4px;
   }
 
   .mgr-header-nav.open {
@@ -2053,13 +2077,24 @@
   }
 
   .mgr-header-nav a {
-    padding: 12px 20px;
+    padding: 12px 16px;
     border-radius: 0;
-    font-size: 15px;
+    font-size: 16px;
+    min-height: 44px;
+    display: flex;
+    align-items: center;
   }
 
   .mgr-header-nav a.active {
     background: #f0f4f8;
+  }
+
+  .mgr-header-left {
+    gap: 12px;
+  }
+
+  .mgr-header-right {
+    gap: 16px;
   }
 
   /* --- Page Content --- */
@@ -2270,24 +2305,36 @@
 
   /* --- Footer --- */
   .mgr-footer {
-    padding: 24px 0 20px;
+    padding: 0;
   }
 
   .mgr-footer-inner {
     flex-direction: column;
     align-items: flex-start;
-    gap: 12px;
-    padding: 0 16px;
+    gap: 16px;
+    padding: 32px 16px 24px;
+  }
+
+  .mgr-footer-left {
+    flex-wrap: wrap;
+    gap: 8px;
   }
 
   .mgr-footer-right {
-    flex-wrap: wrap;
-    gap: 16px;
+    flex-direction: column;
+    gap: 0;
+  }
+
+  .mgr-footer-link {
+    min-height: 44px;
+    display: inline-flex;
+    align-items: center;
   }
 
   .mgr-footer-bottom {
-    margin-top: 12px;
-    padding-top: 12px;
+    margin-top: 0;
+    padding-top: 16px;
+    border-top: 1px solid rgba(255,255,255,0.15);
   }
 
   /* --- Calendar legend (desktop) --- */
