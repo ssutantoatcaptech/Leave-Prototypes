@@ -1806,9 +1806,9 @@
 
 /* === Footer === */
 .mgr-footer {
-  background: #003a70;
+  background: #0057A8;
   margin-top: auto;
-  padding: 32px 0 24px;
+  padding: 24px 0;
 }
 
 .mgr-footer-inner {
@@ -1817,7 +1817,7 @@
   padding: 0 32px;
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  justify-content: center;
 }
 
 .mgr-footer-bottom {
@@ -1833,9 +1833,13 @@
 }
 
 .mgr-footer-brand {
-  font-size: 15px;
-  font-weight: 700;
+  font-size: 18px;
+  font-weight: 400;
   color: #ffffff;
+}
+
+.mgr-footer-brand strong {
+  font-weight: 700;
 }
 
 .mgr-footer-divider {

@@ -161,19 +161,7 @@ export default function ManagerLayout() {
       <Outlet />
       <footer className="mgr-footer">
         <div className="mgr-footer-inner">
-          <div className="mgr-footer-left">
-            <span className="mgr-footer-brand">Mutual of Omaha</span>
-            <span className="mgr-footer-divider" />
-            <span className="mgr-footer-text">Manager Portal</span>
-          </div>
-          <div className="mgr-footer-right">
-            <a href="#" className="mgr-footer-link">Privacy Policy</a>
-            <a href="#" className="mgr-footer-link">Terms of Use</a>
-            <a href="#" className="mgr-footer-link">Contact Support</a>
-          </div>
-        </div>
-        <div className="mgr-footer-inner mgr-footer-bottom">
-          <span className="mgr-footer-copyright">&copy; {new Date().getFullYear()} Mutual of Omaha Insurance Company. All rights reserved.</span>
+          <span className="mgr-footer-brand">my<strong>Mutual</strong></span>
         </div>
       </footer>
     </div>
