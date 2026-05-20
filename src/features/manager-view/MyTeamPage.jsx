@@ -1,23 +1,55 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
+const today = new Date(2026, 4, 20);
+
 const teamData = [
-  { id: 'amy-smith', name: 'Amy Smith', leaveType: 'Continuous', startDate: 'Jan 01, 2026', endDate: 'Jan 11, 2026', returnDate: 'Jan 12, 2026', requiredActions: 'Confirm Return to Work' },
-  { id: 'chris-jones', name: 'Chris Jones', leaveType: 'Continuous', startDate: 'Jan 01, 2026', endDate: 'Jan 31, 2026', returnDate: 'Feb 03, 2026', requiredActions: 'None' },
-  { id: 'morgan-lee', name: 'Morgan Lee', leaveType: 'Intermittent', startDate: 'Dec 04, 2025', endDate: 'Feb 04, 2026', returnDate: 'N/A', requiredActions: 'None' },
-  { id: 'kathrine-anderson', name: 'Kathrine Anderson', leaveType: 'Intermittent', startDate: 'Nov 15, 2025', endDate: 'Jan 31, 2026', returnDate: 'N/A', requiredActions: 'None' },
-  { id: 'michael-chen', name: 'Michael Chen', leaveType: 'Reduced Schedule', startDate: 'Oct 30, 2025', endDate: 'None', returnDate: 'N/A', requiredActions: 'None' },
-  { id: 'david-park', name: 'David Park', leaveType: 'Continuous', startDate: 'Jan 06, 2026', endDate: 'Jan 20, 2026', returnDate: 'Jan 21, 2026', requiredActions: 'Confirm Return to Work' },
-  { id: 'lisa-nguyen', name: 'Lisa Nguyen', leaveType: 'Intermittent', startDate: 'Dec 15, 2025', endDate: 'Feb 15, 2026', returnDate: 'N/A', requiredActions: 'None' },
-  { id: 'james-wilson', name: 'James Wilson', leaveType: 'Continuous', startDate: 'Jan 08, 2026', endDate: 'Jan 22, 2026', returnDate: 'Jan 23, 2026', requiredActions: 'None' },
-  { id: 'sarah-martinez', name: 'Sarah Martinez', leaveType: 'Reduced Schedule', startDate: 'Jan 02, 2026', endDate: 'Jan 31, 2026', returnDate: 'N/A', requiredActions: 'None' },
-  { id: 'evan-blue', name: 'Evan Blue', leaveType: 'Continuous', startDate: 'Jan 10, 2026', endDate: 'Jan 24, 2026', returnDate: 'Jan 25, 2026', requiredActions: 'None' },
+  { id: 'chris-jones', name: 'Chris Jones', leaveType: 'Continuous', startDate: '2026-05-01', endDate: '2026-06-05', returnDate: '2026-06-06', requiredActions: 'None' },
+  { id: 'morgan-lee', name: 'Morgan Lee', leaveType: 'Intermittent', startDate: '2026-04-15', endDate: '2026-06-15', returnDate: null, requiredActions: 'None', ada: true },
+  { id: 'michael-chen', name: 'Michael Chen', leaveType: 'Reduced Schedule', startDate: '2026-03-10', endDate: null, returnDate: null, requiredActions: 'None' },
+  { id: 'kathrine-anderson', name: 'Katherine Anderson', leaveType: 'Intermittent', startDate: '2026-04-01', endDate: '2026-06-30', returnDate: null, requiredActions: 'None', ada: true },
+  { id: 'amy-smith', name: 'Amy Smith', leaveType: 'Continuous', startDate: '2026-05-19', endDate: '2026-06-12', returnDate: '2026-06-13', requiredActions: 'Confirm Return to Work' },
+  { id: 'david-park', name: 'David Park', leaveType: 'Continuous', startDate: '2026-05-12', endDate: '2026-06-09', returnDate: '2026-06-10', requiredActions: 'Confirm Return to Work' },
+  { id: 'lisa-nguyen', name: 'Lisa Nguyen', leaveType: 'Intermittent', startDate: '2026-04-20', endDate: '2026-06-20', returnDate: null, requiredActions: 'None' },
+  { id: 'james-wilson', name: 'James Wilson', leaveType: 'Continuous', startDate: '2026-05-01', endDate: '2026-05-20', returnDate: '2026-05-21', requiredActions: 'Confirm Return to Work' },
+  { id: 'sarah-martinez', name: 'Sarah Martinez', leaveType: 'Reduced Schedule', startDate: '2026-04-01', endDate: '2026-06-30', returnDate: null, requiredActions: 'None', ada: true },
+  { id: 'evan-blue', name: 'Evan Blue', leaveType: 'Continuous', startDate: '2026-05-13', endDate: '2026-06-07', returnDate: '2026-06-08', requiredActions: 'None' },
+  { id: 'rachel-kim', name: 'Rachel Kim', leaveType: 'Continuous', startDate: '2026-06-01', endDate: '2026-06-20', returnDate: '2026-06-21', requiredActions: 'None' },
+  { id: 'tom-harris', name: 'Tom Harris', leaveType: 'Intermittent', startDate: '2026-05-28', endDate: '2026-07-15', returnDate: null, requiredActions: 'None' },
+  { id: 'nina-patel', name: 'Nina Patel', leaveType: 'Continuous', startDate: '2026-06-10', endDate: '2026-06-24', returnDate: '2026-06-25', requiredActions: 'None' },
 ];
 
 const adaData = [
-  { id: 'kathrine-anderson', name: 'Kathrine Anderson', adaType: 'Work from Home', startDate: 'Nov 15, 2025', endDate: 'Jan 31, 2026', requiredActions: 'None' },
-  { id: 'morgan-lee', name: 'Morgan Lee', adaType: 'Reduced Schedule', startDate: 'Oct 30, 2025', endDate: 'None', requiredActions: 'None' },
+  { id: 'kathrine-anderson', name: 'Katherine Anderson', adaType: 'Work from Home', startDate: '2026-04-01', endDate: '2026-06-30', requiredActions: 'None' },
+  { id: 'morgan-lee', name: 'Morgan Lee', adaType: 'Reduced Schedule', startDate: '2026-04-15', endDate: '2026-06-15', requiredActions: 'None' },
+  { id: 'sarah-martinez', name: 'Sarah Martinez', adaType: 'Modified Duties', startDate: '2026-04-01', endDate: '2026-06-30', requiredActions: 'Review Accommodation' },
 ];
+
+function parseDate(str) {
+  if (!str) return null;
+  return new Date(str + 'T00:00:00');
+}
+
+function isCurrentlyOnLeave(emp) {
+  const start = parseDate(emp.startDate);
+  const end = parseDate(emp.endDate);
+  if (!start) return false;
+  if (start > today) return false;
+  if (!end) return true;
+  return end >= today;
+}
+
+function isUpcoming(emp) {
+  const start = parseDate(emp.startDate);
+  if (!start) return false;
+  return start > today;
+}
+
+function formatDate(str) {
+  if (!str) return 'N/A';
+  const d = parseDate(str);
+  return d.toLocaleDateString('en-US', { month: 'short', day: '2-digit', year: 'numeric' });
+}
 
 export default function MyTeamPage() {
   const navigate = useNavigate();
@@ -25,18 +57,30 @@ export default function MyTeamPage() {
   const [searchTerm, setSearchTerm] = useState('');
   const [leaveTypeFilter, setLeaveTypeFilter] = useState('');
 
+  const currentLeave = teamData.filter(isCurrentlyOnLeave);
+  const upcoming = teamData.filter(isUpcoming);
+
   const tabs = [
-    { key: 'all', label: 'All Leave', count: 10 },
-    { key: 'current', label: 'Currently on Leave', count: 5 },
-    { key: 'upcoming', label: 'Upcoming', count: 3 },
-    { key: 'ada', label: 'ADA Accommodations', count: 2 },
+    { key: 'all', label: 'All Leave', count: teamData.length },
+    { key: 'current', label: 'Currently on Leave', count: currentLeave.length },
+    { key: 'upcoming', label: 'Upcoming', count: upcoming.length },
+    { key: 'ada', label: 'ADA Accommodations', count: adaData.length },
   ];
 
-  const filteredTeam = teamData.filter(emp => {
-    if (searchTerm && !emp.name.toLowerCase().includes(searchTerm.toLowerCase())) return false;
-    if (leaveTypeFilter && emp.leaveType !== leaveTypeFilter) return false;
-    return true;
-  });
+  function getFilteredData() {
+    let data;
+    if (activeTab === 'current') data = currentLeave;
+    else if (activeTab === 'upcoming') data = upcoming;
+    else data = teamData;
+
+    return data.filter(emp => {
+      if (searchTerm && !emp.name.toLowerCase().includes(searchTerm.toLowerCase())) return false;
+      if (leaveTypeFilter && emp.leaveType !== leaveTypeFilter) return false;
+      return true;
+    });
+  }
+
+  const filteredTeam = getFilteredData();
 
   const filteredAda = adaData.filter(emp => {
     if (searchTerm && !emp.name.toLowerCase().includes(searchTerm.toLowerCase())) return false;
@@ -72,15 +116,17 @@ export default function MyTeamPage() {
               onChange={(e) => setSearchTerm(e.target.value)}
             />
           </div>
-          <div className="mgr-filter-group">
-            <span className="mgr-filter-label">Leave Type</span>
-            <select className="mgr-filter-select" value={leaveTypeFilter} onChange={(e) => setLeaveTypeFilter(e.target.value)}>
-              <option value="">Select</option>
-              <option value="Continuous">Continuous</option>
-              <option value="Intermittent">Intermittent</option>
-              <option value="Reduced Schedule">Reduced Schedule</option>
-            </select>
-          </div>
+          {activeTab !== 'ada' && (
+            <div className="mgr-filter-group">
+              <span className="mgr-filter-label">Leave Type</span>
+              <select className="mgr-filter-select" value={leaveTypeFilter} onChange={(e) => setLeaveTypeFilter(e.target.value)}>
+                <option value="">Select</option>
+                <option value="Continuous">Continuous</option>
+                <option value="Intermittent">Intermittent</option>
+                <option value="Reduced Schedule">Reduced Schedule</option>
+              </select>
+            </div>
+          )}
           <button className="mgr-filter-clear" onClick={() => { setSearchTerm(''); setLeaveTypeFilter(''); }}>Clear</button>
         </div>
 
@@ -103,9 +149,9 @@ export default function MyTeamPage() {
                   <tr key={emp.id}>
                     <td>{emp.name}</td>
                     <td>{emp.leaveType}</td>
-                    <td>{emp.startDate}</td>
-                    <td>{emp.endDate}</td>
-                    <td>{emp.returnDate}</td>
+                    <td>{formatDate(emp.startDate)}</td>
+                    <td>{formatDate(emp.endDate)}</td>
+                    <td>{formatDate(emp.returnDate)}</td>
                     <td>
                       {emp.requiredActions !== 'None' ? (
                         <button className="mgr-table-link" onClick={() => navigate(`/manager/return-to-work?employee=${emp.id}`)}>{emp.requiredActions}</button>
@@ -137,13 +183,17 @@ export default function MyTeamPage() {
                 </tr>
               </thead>
               <tbody>
-                {filteredAda.map((emp, i) => (
-                  <tr key={i}>
+                {filteredAda.map((emp) => (
+                  <tr key={emp.id}>
                     <td>{emp.name}</td>
                     <td>{emp.adaType}</td>
-                    <td>{emp.startDate}</td>
-                    <td>{emp.endDate}</td>
-                    <td>{emp.requiredActions}</td>
+                    <td>{formatDate(emp.startDate)}</td>
+                    <td>{formatDate(emp.endDate)}</td>
+                    <td>
+                      {emp.requiredActions !== 'None' ? (
+                        <button className="mgr-table-link" onClick={() => navigate(`/manager/return-to-work?employee=${emp.id}`)}>{emp.requiredActions}</button>
+                      ) : 'None'}
+                    </td>
                     <td>
                       <button className="mgr-btn mgr-btn-outline mgr-btn-sm" onClick={() => navigate(`/manager/my-team/${emp.id}`)}>View Details</button>
                     </td>
@@ -152,7 +202,8 @@ export default function MyTeamPage() {
               </tbody>
             </table>
             <div className="mgr-pagination">
-              <span className="mgr-pagination-info">Showing 1 to 2 of 2 entries</span>
+              <span className="mgr-pagination-info">Showing 1 to {filteredAda.length} of {filteredAda.length} entries</span>
+              <button className="mgr-pagination-btn active">1</button>
             </div>
           </>
         )}
