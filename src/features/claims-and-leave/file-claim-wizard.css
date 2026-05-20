@@ -1,0 +1,946 @@
+@import '../../design-system/tokens.css';
+
+/* ============================================================
+   File a Claim Wizard — Styles
+   Mirrors request-leave-react.css patterns with fc-wiz prefix
+   ============================================================ */
+
+/* === Shell & Layout === */
+.fc-wiz-shell {
+  background: var(--color-bg-page);
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  color: var(--color-text-primary);
+  font-family: var(--font-family-primary);
+}
+
+.fc-wiz-wrap {
+  width: 900px;
+  max-width: calc(100% - 64px);
+  margin: 0 auto;
+  padding: 40px 0 48px;
+}
+
+/* === Step Progress Indicator === */
+.fc-wiz-stepper {
+  padding: 0;
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  margin-bottom: 12px;
+}
+
+.fc-wiz-stepper-counter {
+  font-size: 16px;
+  font-weight: 400;
+  color: var(--color-text-primary);
+  font-family: var(--font-family-primary);
+}
+
+.fc-wiz-stepper-counter strong {
+  color: var(--color-text-primary);
+  font-weight: 700;
+}
+
+.fc-wiz-progress-bar {
+  height: 6px;
+  background: var(--color-border-separator);
+  border-radius: var(--radius-sm);
+  margin-bottom: 24px;
+  overflow: hidden;
+}
+
+.fc-wiz-progress-fill {
+  height: 100%;
+  background: var(--color-brand-primary);
+  border-radius: var(--radius-sm);
+  transition: width 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+/* === Main Content Card === */
+.fc-wiz-card {
+  background: var(--color-bg-card);
+  border: 1px solid var(--color-border-card);
+  border-radius: var(--radius-xl);
+  padding: 40px;
+  margin-bottom: 60px;
+  overflow: visible;
+  box-shadow: var(--shadow-card);
+}
+
+/* === Step Title === */
+.fc-wiz-card h2 {
+  font-size: 23px;
+  font-weight: 700;
+  color: var(--color-brand-primary);
+  letter-spacing: -0.01em;
+  margin-bottom: 8px;
+  font-family: var(--font-family-primary);
+}
+
+.fc-wiz-card .fc-wiz-subtitle {
+  font-size: 15px;
+  color: var(--color-text-secondary);
+  font-weight: 400;
+  line-height: 1.6;
+  margin-bottom: 24px;
+}
+
+/* === Form Groups === */
+.fc-wiz-shell .form-group {
+  margin-bottom: 20px;
+}
+
+.fc-wiz-shell .form-row {
+  display: grid;
+  gap: 16px;
+  margin-bottom: 20px;
+}
+
+.fc-wiz-shell .form-row.cols-2 {
+  grid-template-columns: 1fr 1fr;
+}
+
+.fc-wiz-shell .form-row.cols-3 {
+  grid-template-columns: 1fr 1fr 1fr;
+}
+
+/* === Labels === */
+.fc-wiz-shell label {
+  display: block;
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--color-text-secondary);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin-bottom: 7px;
+  font-family: var(--font-family-primary);
+}
+
+.fc-wiz-shell label .req {
+  color: var(--color-status-error);
+}
+
+/* === Inputs === */
+.fc-wiz-shell input[type='text'],
+.fc-wiz-shell input[type='email'],
+.fc-wiz-shell input[type='tel'],
+.fc-wiz-shell input[type='date'],
+.fc-wiz-shell input[type='number'],
+.fc-wiz-shell select,
+.fc-wiz-shell textarea {
+  width: 100%;
+  padding: 12px 14px;
+  height: 44px;
+  background: var(--color-bg-card);
+  border: 1px solid var(--color-border-input);
+  border-radius: var(--radius-md);
+  color: var(--color-text-primary);
+  font-size: 14px;
+  font-family: var(--font-family-primary);
+  outline: none;
+  transition: border-color var(--transition-fast);
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+}
+
+.fc-wiz-shell textarea {
+  height: auto;
+  min-height: 100px;
+  resize: vertical;
+}
+
+.fc-wiz-shell input:focus,
+.fc-wiz-shell select:focus,
+.fc-wiz-shell textarea:focus {
+  border-color: var(--color-brand-primary);
+  box-shadow: none;
+}
+
+.fc-wiz-shell input[type='number'] {
+  -moz-appearance: textfield;
+}
+
+.fc-wiz-shell input[type='number']::-webkit-outer-spin-button,
+.fc-wiz-shell input[type='number']::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* === Date Input === */
+.fc-wiz-shell .date-input-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.fc-wiz-shell .date-input-wrapper input[type='text'] {
+  width: 100%;
+  padding-right: 36px;
+  cursor: pointer;
+  border-color: var(--color-border-input);
+}
+
+.fc-wiz-shell .date-input-wrapper:hover input[type='text'] {
+  border-color: var(--color-brand-primary);
+}
+
+.fc-wiz-shell .date-input-wrapper .date-input-hidden {
+  position: absolute;
+  opacity: 0;
+  width: 0;
+  height: 0;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.fc-wiz-shell .date-input-wrapper .input-icon--calendar {
+  position: absolute;
+  right: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  pointer-events: none;
+  flex-shrink: 0;
+  color: var(--color-brand-primary);
+}
+
+/* === Select Input === */
+.fc-wiz-shell .select-input-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.fc-wiz-shell .select-input-wrapper .select-display {
+  width: 100%;
+  padding: 12px 14px;
+  padding-right: 36px;
+  height: 44px;
+  background: var(--color-bg-card);
+  border: 1px solid var(--color-border-input);
+  border-radius: var(--radius-md);
+  color: var(--color-text-primary);
+  font-size: 14px;
+  font-family: var(--font-family-primary);
+  line-height: 1.3;
+  cursor: pointer;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.fc-wiz-shell .select-input-wrapper:hover .select-display {
+  border-color: var(--color-brand-primary);
+}
+
+.fc-wiz-shell .select-input-wrapper .select-hidden {
+  position: absolute;
+  opacity: 0;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  cursor: pointer;
+}
+
+.fc-wiz-shell .select-input-wrapper .input-icon--chevron {
+  position: absolute;
+  right: 14px;
+  top: 50%;
+  transform: translateY(-50%);
+  pointer-events: none;
+  flex-shrink: 0;
+  color: var(--color-brand-primary);
+}
+
+/* === Helper text === */
+.fc-wiz-shell .helper {
+  font-size: 13px;
+  color: var(--color-text-secondary);
+  margin-top: 4px;
+  line-height: 1.5;
+}
+
+/* === Bordered Section === */
+.fc-wiz-shell .bordered-section {
+  border: 1px solid var(--color-border-card);
+  border-radius: 10px;
+  padding: 24px;
+  margin-top: 20px;
+  background: var(--color-bg-card-fill-dark);
+}
+
+.fc-wiz-shell .bordered-section input[type='text'],
+.fc-wiz-shell .bordered-section input[type='email'],
+.fc-wiz-shell .bordered-section input[type='tel'],
+.fc-wiz-shell .bordered-section input[type='number'],
+.fc-wiz-shell .bordered-section select,
+.fc-wiz-shell .bordered-section textarea,
+.fc-wiz-shell .bordered-section .select-display,
+.fc-wiz-shell .bordered-section .date-input-wrapper input[type='text'] {
+  border-color: #d1d5db;
+}
+
+.fc-wiz-shell .section-title {
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--color-brand-primary);
+  margin-bottom: 16px;
+  font-family: var(--font-family-primary);
+}
+
+/* === Readonly Card === */
+.fc-wiz-shell .readonly-card {
+  border: 1px solid var(--color-border-input);
+  border-radius: var(--radius-lg);
+  padding: 20px 24px;
+  background: var(--color-bg-page);
+  margin-bottom: 24px;
+}
+
+.fc-wiz-shell .readonly-card .card-title {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--color-text-primary);
+  margin-bottom: 16px;
+}
+
+.fc-wiz-shell .readonly-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+}
+
+.fc-wiz-shell .readonly-field .field-label {
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--color-text-secondary);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin-bottom: 3px;
+}
+
+.fc-wiz-shell .readonly-field .field-value {
+  font-size: 14px;
+  color: var(--color-text-primary);
+  font-weight: 500;
+}
+
+.fc-wiz-shell .readonly-note {
+  font-size: 13px;
+  color: var(--color-text-secondary);
+  margin-top: 16px;
+  line-height: 1.5;
+  padding-top: 12px;
+  border-top: 1px solid var(--color-border-input);
+}
+
+/* === Radio Cards (landing) === */
+.fc-wiz-radio-cards {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-bottom: 24px;
+}
+
+.fc-wiz-radio-card {
+  border: 1.5px solid var(--color-border-default);
+  border-radius: var(--radius-lg);
+  padding: 18px 20px;
+  cursor: pointer;
+  transition: all var(--transition-normal);
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  background: var(--color-bg-card);
+}
+
+.fc-wiz-radio-card:hover {
+  border-color: var(--color-brand-primary);
+  background: var(--color-bg-page);
+}
+
+.fc-wiz-radio-card.selected {
+  border-color: var(--color-brand-primary);
+  border-width: 2px;
+  background: var(--color-bg-selected);
+}
+
+.fc-wiz-radio-dot {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  border: 2px solid var(--color-border-default);
+  flex-shrink: 0;
+  position: relative;
+  transition: all var(--transition-fast);
+}
+
+.fc-wiz-radio-card.selected .fc-wiz-radio-dot {
+  border-color: var(--color-brand-primary);
+  background: var(--color-brand-primary);
+  box-shadow: inset 0 0 0 4px var(--color-bg-card);
+}
+
+.fc-wiz-radio-card-text h4 {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--color-text-primary);
+  margin: 0;
+}
+
+.fc-wiz-radio-card-text p {
+  font-size: 13px;
+  color: var(--color-text-secondary);
+  margin: 2px 0 0;
+  line-height: 1.4;
+}
+
+/* === Radio List (vertical) === */
+.fc-wiz-shell .radio-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-bottom: 16px;
+}
+
+.fc-wiz-shell .radio-option {
+  display: flex !important;
+  align-items: center;
+  gap: 10px;
+  cursor: pointer;
+  font-size: 14px !important;
+  font-weight: 400 !important;
+  color: var(--color-text-primary) !important;
+  text-transform: none !important;
+  letter-spacing: 0 !important;
+}
+
+.fc-wiz-shell .radio-circle {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  border: 2px solid var(--color-border-default);
+  flex-shrink: 0;
+  position: relative;
+  transition: all var(--transition-fast);
+}
+
+.fc-wiz-shell .radio-circle.selected {
+  border-color: var(--color-brand-primary);
+  background: var(--color-brand-primary);
+  box-shadow: inset 0 0 0 4px var(--color-bg-card);
+}
+
+/* === Checkbox === */
+.fc-wiz-shell .comm-check {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 14px;
+  color: var(--color-text-primary);
+  cursor: pointer;
+}
+
+.fc-wiz-shell .comm-check-box {
+  width: 16px;
+  height: 16px;
+  border-radius: var(--radius-sm);
+  border: 2px solid var(--color-border-default);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.fc-wiz-shell .comm-check-box.checked {
+  background: var(--color-brand-primary);
+  border-color: var(--color-brand-primary);
+}
+
+.fc-wiz-shell .checkbox-row {
+  display: flex;
+  align-items: flex-start;
+  gap: 11px;
+  cursor: pointer;
+  padding: 2px 0;
+}
+
+.fc-wiz-shell .checkbox-box {
+  width: 18px;
+  height: 18px;
+  border-radius: var(--radius-sm);
+  border: 2px solid var(--color-border-default);
+  flex-shrink: 0;
+  margin-top: 2px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.fc-wiz-shell .checkbox-box.checked {
+  background: var(--color-brand-primary);
+  border-color: var(--color-brand-primary);
+}
+
+.fc-wiz-shell .checkbox-box .check-icon {
+  color: var(--color-text-inverse);
+  font-size: 11px;
+  font-weight: 700;
+  opacity: 0;
+}
+
+.fc-wiz-shell .checkbox-box.checked .check-icon {
+  opacity: 1;
+}
+
+.fc-wiz-shell .checkbox-text {
+  font-size: 14px;
+  color: var(--color-text-primary);
+  line-height: 1.5;
+}
+
+.fc-wiz-shell .checkbox-desc {
+  font-size: 13px;
+  color: var(--color-text-secondary);
+  margin-top: 3px;
+  line-height: 1.5;
+}
+
+/* === Toggle === */
+.fc-wiz-shell .toggle {
+  width: var(--size-toggle-width);
+  height: var(--size-toggle-height);
+  border-radius: 12px;
+  background: var(--color-toggle-inactive-bg);
+  cursor: pointer;
+  position: relative;
+  transition: background var(--transition-normal);
+  flex-shrink: 0;
+}
+
+.fc-wiz-shell .toggle.on {
+  background: var(--color-toggle-active-bg);
+}
+
+.fc-wiz-shell .toggle-knob {
+  width: var(--size-toggle-thumb);
+  height: var(--size-toggle-thumb);
+  border-radius: 50%;
+  background: var(--color-toggle-inactive-thumb);
+  position: absolute;
+  top: 2px;
+  left: 2px;
+  transition: left var(--transition-normal);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.15);
+}
+
+.fc-wiz-shell .toggle.on .toggle-knob {
+  left: 22px;
+  background: var(--color-toggle-active-thumb);
+}
+
+/* === Info Callout === */
+.fc-wiz-info-callout {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  padding: 16px 20px;
+  background: var(--color-status-info-bg);
+  border: 1px solid var(--color-border-card);
+  border-left: 4px solid var(--color-brand-primary);
+  border-radius: var(--radius-lg);
+  font-size: 14px;
+  font-weight: 400;
+  color: var(--color-text-primary);
+  line-height: 1.5;
+  margin-top: 16px;
+}
+
+.fc-wiz-info-callout svg {
+  flex-shrink: 0;
+  margin-top: 2px;
+  color: var(--color-brand-primary);
+}
+
+.fc-wiz-info-callout a {
+  color: var(--color-brand-primary);
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.fc-wiz-info-callout a:hover {
+  text-decoration: underline;
+}
+
+/* === Other Income Grid === */
+.fc-wiz-income-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 10px 16px;
+}
+
+.fc-wiz-income-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 13px;
+  color: var(--color-text-primary);
+  cursor: pointer;
+}
+
+.fc-wiz-income-item .checkbox-box {
+  width: 16px;
+  height: 16px;
+  margin-top: 0;
+}
+
+/* === Category Dropdowns (Critical Illness) === */
+.fc-wiz-category-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+}
+
+/* === Review Section === */
+.fc-wiz-shell .br-section {
+  background: var(--color-bg-card);
+  border: 1px solid var(--color-border-input);
+  border-radius: 10px;
+  padding: 20px 24px;
+  margin-bottom: 16px;
+}
+
+.fc-wiz-shell .br-section-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 14px;
+}
+
+.fc-wiz-shell .br-section-header h3 {
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--color-brand-primary);
+  margin: 0;
+}
+
+.fc-wiz-shell .br-section-edit {
+  font-size: 13px;
+  color: var(--color-brand-primary);
+  cursor: pointer;
+  font-weight: 600;
+  border: none;
+  background: none;
+  font-family: var(--font-family-primary);
+}
+
+.fc-wiz-shell .br-section-edit:hover {
+  text-decoration: underline;
+}
+
+.fc-wiz-shell .br-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px 24px;
+}
+
+.fc-wiz-shell .br-field-label {
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--color-text-secondary);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin-bottom: 2px;
+}
+
+.fc-wiz-shell .br-field-value {
+  font-size: 14px;
+  color: var(--color-text-primary);
+  font-weight: 500;
+}
+
+/* === Add Another Button === */
+.fc-wiz-shell .rotation-add {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  height: var(--size-button-height);
+  padding: 0 20px;
+  border: 1.5px dashed var(--color-button-outline-border);
+  border-radius: var(--radius-md);
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--color-button-outline-text);
+  background: transparent;
+  width: 100%;
+  margin-top: 16px;
+  transition: background var(--transition-fast);
+  font-family: var(--font-family-primary);
+}
+
+.fc-wiz-shell .rotation-add:hover {
+  background: var(--color-button-outline-hover-bg);
+}
+
+/* === Footer Buttons === */
+.fc-wiz-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 32px;
+}
+
+.fc-wiz-footer-left {
+  display: flex;
+  gap: 12px;
+}
+
+.fc-wiz-footer-right {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+}
+
+.fc-wiz-shell .btn {
+  padding: 0 24px;
+  border-radius: var(--radius-md);
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  font-family: var(--font-family-primary);
+  transition: all var(--transition-normal);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  height: var(--size-button-height);
+  line-height: 1;
+}
+
+.fc-wiz-shell .btn-back,
+.fc-wiz-shell .btn-secondary {
+  border: 1.5px solid var(--color-button-outline-border);
+  background: transparent;
+  color: var(--color-button-outline-text);
+}
+
+.fc-wiz-shell .btn-back:hover,
+.fc-wiz-shell .btn-secondary:hover {
+  background: var(--color-button-outline-hover-bg);
+}
+
+.fc-wiz-shell .btn-next,
+.fc-wiz-shell .btn-submit {
+  border: none;
+  background: var(--color-button-primary-bg);
+  color: var(--color-button-primary-text);
+}
+
+.fc-wiz-shell .btn-next:hover,
+.fc-wiz-shell .btn-submit:hover {
+  background: var(--color-button-primary-hover);
+}
+
+/* === Confirmation === */
+.fc-wiz-confirmation {
+  text-align: center;
+  max-width: 640px;
+  margin: 0 auto;
+}
+
+.fc-wiz-success-icon {
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  background: var(--color-status-success-bg);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 24px;
+}
+
+.fc-wiz-confirmation h2 {
+  color: var(--color-brand-navy);
+  margin-bottom: 8px;
+}
+
+.fc-wiz-confirmation .fc-wiz-subtitle {
+  color: var(--color-text-secondary);
+  font-size: 14px;
+  margin-bottom: 24px;
+}
+
+.fc-wiz-case-card {
+  background: var(--color-bg-card);
+  border: 1px solid var(--color-border-input);
+  border-radius: 10px;
+  padding: 16px 20px;
+  margin-bottom: 24px;
+  text-align: left;
+}
+
+.fc-wiz-case-card-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 4px;
+}
+
+.fc-wiz-case-card-title {
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--color-text-primary);
+}
+
+.fc-wiz-badge-pending {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--color-status-warning);
+  background: var(--color-status-warning-bg);
+  padding: 4px 10px;
+  border-radius: 10px;
+  border: 1px solid var(--color-status-warning-border);
+}
+
+.fc-wiz-next-steps {
+  background: var(--color-bg-card);
+  border: 1px solid var(--color-border-card);
+  border-radius: 10px;
+  padding: 20px;
+  margin-bottom: 24px;
+  text-align: left;
+}
+
+.fc-wiz-next-steps h3 {
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--color-brand-navy);
+  margin-bottom: 16px;
+}
+
+.fc-wiz-next-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  padding: 10px 0;
+}
+
+.fc-wiz-next-item svg {
+  flex-shrink: 0;
+  margin-top: 2px;
+  color: var(--color-brand-primary);
+}
+
+.fc-wiz-next-item span {
+  font-size: 14px;
+  color: var(--color-text-primary);
+  line-height: 1.5;
+}
+
+.fc-wiz-confirmation-footer {
+  display: flex;
+  gap: 12px;
+  justify-content: center;
+  padding-top: 8px;
+}
+
+/* === Landing Description === */
+.fc-wiz-landing-desc {
+  font-size: 14px;
+  color: var(--color-text-secondary);
+  line-height: 1.7;
+  margin-bottom: 28px;
+  padding: 14px 18px;
+  background: var(--color-status-info-bg);
+  border-radius: var(--radius-lg);
+  border-left: 4px solid var(--color-brand-primary);
+}
+
+/* === Step Content Animation === */
+.fc-wiz-step-content {
+  animation: fcWizFadeIn 0.3s ease-in-out;
+}
+
+@keyframes fcWizFadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+/* === Accordion (review) === */
+.fc-wiz-accordion {
+  margin-top: 14px;
+  border: 1px solid #d1d5db;
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+}
+
+.fc-wiz-accordion-trigger {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  padding: 12px 14px;
+  background: #ffffff;
+  border: none;
+  font-size: 13px;
+  font-family: var(--font-family-primary);
+  font-weight: 700;
+  color: var(--color-text-primary);
+  cursor: pointer;
+}
+
+.fc-wiz-accordion-trigger:hover {
+  background: var(--color-bg-info);
+}
+
+.fc-wiz-accordion-body {
+  padding: 12px 14px 14px;
+  border-top: 1px solid var(--color-border-input);
+  font-size: 13px;
+  color: var(--color-text-secondary);
+  line-height: 1.5;
+}
+
+/* === Responsive === */
+@media (max-width: 960px) {
+  .fc-wiz-wrap {
+    max-width: calc(100% - 32px);
+  }
+
+  .fc-wiz-shell .form-row.cols-2,
+  .fc-wiz-shell .form-row.cols-3,
+  .fc-wiz-shell .br-grid,
+  .fc-wiz-shell .readonly-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .fc-wiz-income-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .fc-wiz-category-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 640px) {
+  .fc-wiz-wrap {
+    max-width: calc(100% - 16px);
+  }
+
+  .fc-wiz-card {
+    padding: 24px 20px;
+  }
+
+  .fc-wiz-income-grid {
+    grid-template-columns: 1fr;
+  }
+}

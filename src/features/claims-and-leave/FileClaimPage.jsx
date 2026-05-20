@@ -101,7 +101,13 @@ export default function FileClaimPage() {
               </p>
             </div>
             <div className="fc-card-footer">
-              <button className="fc-btn-primary">Start a Claim</button>
+              <button
+                className="fc-btn-primary"
+                onClick={() => {
+                  sessionStorage.removeItem('fileClaimWizardDraft');
+                  navigate(`${base}/file-claim/start-claim?step=0`);
+                }}
+              >Start a Claim</button>
               <span className="fc-card-meta">Takes about 10-15 minutes</span>
             </div>
           </div>
