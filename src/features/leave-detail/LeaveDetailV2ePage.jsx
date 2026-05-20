@@ -381,26 +381,26 @@ export default function LeaveDetailV2ePage() {
                 <p className="ad-section-helper ad-section-helper--mobile">Tap a row to see details</p>
 
                 {/* V2 Milestone Timeline — 12 months */}
-                <div style={{ padding: '16px 0 0' }}>
+                <div style={{ padding: activeVersion === 'v3' ? '6px 0 0' : '16px 0 0' }}>
                   {/* V3: unified table container wrapping months + weeks + bars */}
                   {activeVersion === 'v3' ? (
                   <div style={{ border: '1px solid #e5e7eb', borderRadius: 6, overflow: 'hidden' }}>
                     {/* Months row with Coverage header */}
-                    <div style={{ display: 'flex', background: '#f9fafb', borderBottom: '1px solid #e5e7eb', padding: '6px 0' }}>
-                      <span style={{ width: 60, flexShrink: 0, fontFamily: "'Source Sans Pro', sans-serif", fontSize: 11, fontWeight: 600, color: '#374151', paddingLeft: 10 }}>Coverage</span>
+                    <div style={{ display: 'flex', background: '#f9fafb', borderBottom: '1px solid #e5e7eb', padding: '8px 0' }}>
+                      <span style={{ width: 60, flexShrink: 0, fontFamily: "'Source Sans Pro', sans-serif", fontSize: 12, fontWeight: 700, color: '#1f2937', paddingLeft: 10 }}>Coverage</span>
                       <div style={{ flex: 1, display: 'flex' }}>
                         {['MAR','APR','MAY','JUN','JUL','AUG','SEP','OCT','NOV','DEC','JAN','FEB'].map(function (m) {
-                          return <span key={m} style={{ flex: 1, fontFamily: "'Source Sans Pro', sans-serif", fontSize: 11, fontWeight: 600, color: '#374151', textAlign: 'center' }}>{m}</span>;
+                          return <span key={m} style={{ flex: 1, fontFamily: "'Source Sans Pro', sans-serif", fontSize: 11, fontWeight: 700, color: '#1f2937', textAlign: 'center', letterSpacing: '0.02em' }}>{m}</span>;
                         })}
                       </div>
                     </div>
                     {/* Weeks row */}
-                    <div style={{ display: 'flex', background: '#fff', borderBottom: '1px solid #e5e7eb', padding: '4px 0' }}>
+                    <div style={{ display: 'flex', background: '#fff', borderBottom: '1px solid #e5e7eb', padding: '5px 0' }}>
                       <span style={{ width: 60, flexShrink: 0 }} />
                       <div style={{ flex: 1, display: 'flex' }}>
                         {[4,9,13,17,22,26,30,35,39,44,48,52].map(function (w, i) {
                           var isKey = i % 3 === 2;
-                          return <span key={w} style={{ flex: 1, fontFamily: "'Source Sans Pro', sans-serif", fontSize: 10, fontWeight: isKey ? 600 : 400, color: isKey ? '#6b7280' : '#d1d5db', textAlign: 'center' }}>W{w}</span>;
+                          return <span key={w} style={{ flex: 1, fontFamily: "'Source Sans Pro', sans-serif", fontSize: 11, fontWeight: isKey ? 700 : 500, color: isKey ? '#374151' : '#6b7280', textAlign: 'center' }}>W{w}</span>;
                         })}
                       </div>
                     </div>
@@ -430,7 +430,7 @@ export default function LeaveDetailV2ePage() {
                               onClick={function () { setHoveredRow(hoveredRow === item.id ? null : item.id); }}
                               style={{ display: 'flex', alignItems: 'center', gap: 10, width: '100%', padding: '10px 0', border: 'none', background: hoveredRow === item.id ? '#f8fafc' : 'transparent', cursor: 'pointer', borderRadius: 6, transition: 'background 0.15s' }}
                             >
-                              <span style={{ fontFamily: "'Source Sans Pro', sans-serif", fontSize: 12, fontWeight: 600, color: '#374151', width: 48, textAlign: 'left', flexShrink: 0, paddingLeft: 10 }}>{item.label}</span>
+                              <span style={{ fontFamily: "'Source Sans Pro', sans-serif", fontSize: 13, fontWeight: 700, color: '#1f2937', width: 48, textAlign: 'left', flexShrink: 0, paddingLeft: 10 }}>{item.label}</span>
                               <div style={{ flex: 1, position: 'relative', height: 24, display: 'flex', alignItems: 'center' }}>
                                 <div style={{ position: 'absolute', left: 0, right: 0, height: 14, background: '#e2e5ea', borderRadius: 7 }} />
                                 <div style={{ position: 'absolute', left: item.startPct + '%', width: item.widthPct + '%', height: 14, background: item.accent, borderRadius: 7 }} />
