@@ -2404,6 +2404,7 @@
     gap: 12px;
     background: #fff;
     border: 1px solid #edf2f7;
+    border-left: 4px solid #edf2f7;
     border-radius: 10px;
     padding: 14px 16px;
     box-shadow: 0 1px 4px rgba(0,0,0,0.06);
@@ -2411,8 +2412,19 @@
     transition: border-color 0.12s, box-shadow 0.12s;
   }
 
+  .mgr-cal-mobile-card--full {
+    border-left-color: #105fa8;
+  }
+
+  .mgr-cal-mobile-card--partial {
+    border-left-color: #c0982a;
+  }
+
+  .mgr-cal-mobile-card--returning {
+    border-left-color: #2e7d5e;
+  }
+
   .mgr-cal-mobile-card:hover {
-    border-color: #105fa8;
     box-shadow: 0 2px 8px rgba(16,95,168,0.08);
   }
 
@@ -2424,9 +2436,7 @@
   }
 
   .mgr-cal-mobile-indicator {
-    width: 4px;
-    height: 40px;
-    border-radius: 2px;
+    display: none;
   }
 
   .mgr-cal-mobile-indicator--full {

@@ -422,7 +422,7 @@ export default function AbsenceCalendarPage() {
                 {todayEmployees.map((emp) => {
                   const blockType = getBlocks(emp.id)[selectedDay - 1];
                   return (
-                    <div className="mgr-cal-mobile-card" key={emp.id} onClick={() => navigate(`/manager/my-team/${emp.id}`)}>
+                    <div className={`mgr-cal-mobile-card mgr-cal-mobile-card--${blockType === 1 ? "full" : blockType === 2 ? "partial" : "returning"}`} key={emp.id} onClick={() => navigate(`/manager/my-team/${emp.id}`)}>
                       <div className="mgr-cal-mobile-card-left">
                         <div className={`mgr-cal-mobile-indicator mgr-cal-mobile-indicator--${blockType === 1 ? 'full' : blockType === 2 ? 'partial' : 'returning'}`} />
                         <EmployeeAvatar emp={emp} size="mobile" />
@@ -485,7 +485,7 @@ export default function AbsenceCalendarPage() {
                 {todayEmployees.map((emp) => {
                   const blockType = getBlocks(emp.id)[selectedDay - 1];
                   return (
-                    <div className="mgr-cal-mobile-card" key={emp.id} onClick={() => navigate(`/manager/my-team/${emp.id}`)}>
+                    <div className={`mgr-cal-mobile-card mgr-cal-mobile-card--${blockType === 1 ? "full" : blockType === 2 ? "partial" : "returning"}`} key={emp.id} onClick={() => navigate(`/manager/my-team/${emp.id}`)}>
                       <div className="mgr-cal-mobile-card-left">
                         <div className={`mgr-cal-mobile-indicator mgr-cal-mobile-indicator--${blockType === 1 ? 'full' : blockType === 2 ? 'partial' : 'returning'}`} />
                         <EmployeeAvatar emp={emp} size="mobile" />
