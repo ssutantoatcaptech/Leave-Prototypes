@@ -31,6 +31,38 @@ const blockLabels = { 1: 'Out Full Day', 2: 'Partially Missed Day', 3: 'Returnin
 const monthNames = ['January','February','March','April','May','June','July','August','September','October','November','December'];
 const dayAbbrevs = ['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];
 
+const avatarConfig = {
+  'chris-jones': { type: 'photo' },
+  'morgan-lee': { type: 'initials', color: 'teal' },
+  'michael-chen': { type: 'photo' },
+  'kathrine-anderson': { type: 'initials', color: 'amber' },
+  'amy-smith': { type: 'photo' },
+  'david-park': { type: 'initials', color: 'navy' },
+  'lisa-nguyen': { type: 'photo' },
+  'james-wilson': { type: 'initials', color: 'green' },
+  'sarah-martinez': { type: 'initials', color: 'indigo' },
+  'evan-blue': { type: 'photo' },
+};
+
+function getInitials(name) {
+  return name.split(' ').map(w => w[0]).join('').toUpperCase();
+}
+
+function EmployeeAvatar({ emp, size }) {
+  const config = avatarConfig[emp.id];
+  const className = size === 'mobile' ? 'mgr-cal-mobile-avatar' : 'mgr-cal-employee-avatar';
+  const initialsClass = size === 'mobile' ? 'mgr-cal-mobile-avatar-initials' : 'mgr-cal-employee-avatar-initials';
+
+  if (!config || config.type === 'photo') {
+    return <img className={className} src={`https://i.pravatar.cc/68?u=${emp.id}`} alt={emp.name} />;
+  }
+  return (
+    <div className={`${initialsClass} mgr-avatar-color-${config.color}`}>
+      {getInitials(emp.name)}
+    </div>
+  );
+}
+
 function getDaysInMonth(year, month) {
   return new Date(year, month + 1, 0).getDate();
 }
@@ -172,11 +204,7 @@ export default function AbsenceCalendarPage() {
                       >
                         <td className="mgr-cal-employee-cell mgr-cal-sticky-col" onClick={() => navigate(`/manager/my-team/${emp.id}`)}>
                           <div className="mgr-cal-employee-info">
-                            <img
-                              className="mgr-cal-employee-avatar"
-                              src={`https://i.pravatar.cc/68?u=${emp.id}`}
-                              alt={emp.name}
-                            />
+                            <EmployeeAvatar emp={emp} size="desktop" />
                             <div>
                               <div className="mgr-cal-employee-name">
                                 {emp.name}
@@ -343,7 +371,7 @@ export default function AbsenceCalendarPage() {
                 <div className="mgr-cal-mobile-card" key={emp.id} onClick={() => navigate(`/manager/my-team/${emp.id}`)}>
                   <div className="mgr-cal-mobile-card-left">
                     <div className={`mgr-cal-mobile-indicator mgr-cal-mobile-indicator--${blockType === 1 ? 'full' : blockType === 2 ? 'partial' : 'returning'}`} />
-                    <img className="mgr-cal-mobile-avatar" src={`https://i.pravatar.cc/68?u=${emp.id}`} alt={emp.name} />
+                    <EmployeeAvatar emp={emp} size="mobile" />
                   </div>
                   <div className="mgr-cal-mobile-card-content">
                     <div className="mgr-cal-mobile-card-name">
