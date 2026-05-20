@@ -2520,6 +2520,307 @@
     padding: 14px 16px;
     font-size: 14px;
   }
+
+  /* --- View Toggle --- */
+  .mgr-cal-mobile-toggle {
+    display: flex;
+    background: #f5f7fa;
+    border-radius: 8px;
+    padding: 3px;
+    gap: 2px;
+  }
+
+  .mgr-cal-mobile-toggle-btn {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    padding: 8px 12px;
+    border: none;
+    border-radius: 6px;
+    background: transparent;
+    font-family: 'Source Sans Pro', sans-serif;
+    font-size: 13px;
+    font-weight: 600;
+    color: #5d5d5d;
+    cursor: pointer;
+    transition: background 0.15s, color 0.15s;
+  }
+
+  .mgr-cal-mobile-toggle-btn.active {
+    background: #ffffff;
+    color: #003a70;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+  }
+
+  .mgr-cal-mobile-toggle-btn svg {
+    flex-shrink: 0;
+  }
+
+  /* --- Month View Grid --- */
+  .mgr-cal-mobile-month {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+
+  .mgr-cal-mobile-month-header {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    text-align: center;
+  }
+
+  .mgr-cal-mobile-month-dow {
+    font-size: 12px;
+    font-weight: 600;
+    color: #888;
+    padding: 8px 0;
+  }
+
+  .mgr-cal-mobile-month-grid {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 2px;
+  }
+
+  .mgr-cal-mobile-month-cell {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 6px 0;
+    min-height: 44px;
+    border: none;
+    background: transparent;
+    cursor: pointer;
+    border-radius: 8px;
+    transition: background 0.12s;
+  }
+
+  .mgr-cal-mobile-month-cell--empty {
+    cursor: default;
+  }
+
+  .mgr-cal-mobile-month-cell--today .mgr-cal-mobile-month-day {
+    background: #d32f2f;
+    color: #fff;
+    border-radius: 50%;
+    width: 28px;
+    height: 28px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .mgr-cal-mobile-month-cell--selected {
+    background: #e8f0fa;
+  }
+
+  .mgr-cal-mobile-month-day {
+    font-size: 14px;
+    font-weight: 500;
+    color: #1a1a1a;
+    line-height: 1;
+  }
+
+  .mgr-cal-mobile-month-dots {
+    display: flex;
+    gap: 3px;
+    margin-top: 4px;
+    height: 6px;
+    align-items: center;
+  }
+
+  .mgr-cal-mobile-month-dot {
+    width: 5px;
+    height: 5px;
+    border-radius: 50%;
+  }
+
+  .mgr-cal-mobile-month-dot--full {
+    background: #105fa8;
+  }
+
+  .mgr-cal-mobile-month-dot--partial {
+    background: #c0982a;
+  }
+
+  .mgr-cal-mobile-month-dot--returning {
+    background: #2e7d5e;
+  }
+
+  .mgr-cal-mobile-selected-label {
+    font-size: 15px;
+    font-weight: 700;
+    color: #003a70;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  /* --- Day View (2-column) --- */
+  .mgr-cal-mobile-day-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .mgr-cal-mobile-day-cols-header {
+    display: flex;
+    gap: 16px;
+    flex: 1;
+    justify-content: center;
+  }
+
+  .mgr-cal-mobile-day-col-title {
+    font-size: 13px;
+    font-weight: 600;
+    color: #003a70;
+    text-align: center;
+    padding: 4px 12px;
+    border-radius: 4px;
+  }
+
+  .mgr-cal-mobile-day-col-title--today {
+    background: #d32f2f;
+    color: #fff;
+    border-radius: 12px;
+  }
+
+  .mgr-cal-mobile-day-columns {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+    min-height: 200px;
+  }
+
+  .mgr-cal-mobile-day-col {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    border-left: 1px solid #edf2f7;
+    padding-left: 8px;
+  }
+
+  .mgr-cal-mobile-day-col:first-child {
+    border-left: none;
+    padding-left: 0;
+  }
+
+  .mgr-cal-mobile-day-col-empty {
+    font-size: 12px;
+    color: #888;
+    padding: 12px 0;
+    text-align: center;
+  }
+
+  .mgr-cal-mobile-day-block {
+    border-radius: 6px;
+    padding: 8px 10px;
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    transition: opacity 0.12s;
+  }
+
+  .mgr-cal-mobile-day-block:active {
+    opacity: 0.7;
+  }
+
+  .mgr-cal-mobile-day-block--full {
+    background: #DCEBF9;
+    border-left: 3px solid #105fa8;
+  }
+
+  .mgr-cal-mobile-day-block--partial {
+    background: #fef3cd;
+    border-left: 3px solid #c0982a;
+  }
+
+  .mgr-cal-mobile-day-block--returning {
+    background: #d4edda;
+    border-left: 3px solid #2e7d5e;
+  }
+
+  .mgr-cal-mobile-day-block-name {
+    font-size: 12px;
+    font-weight: 600;
+    color: #1a1a1a;
+  }
+
+  .mgr-cal-mobile-day-block-type {
+    font-size: 10px;
+    color: #555;
+  }
+
+  /* --- List View --- */
+  .mgr-cal-mobile-list-group {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .mgr-cal-mobile-list-group-header {
+    font-size: 14px;
+    font-weight: 700;
+    color: #003a70;
+    padding: 12px 0 8px;
+    border-bottom: 1px solid #edf2f7;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .mgr-cal-mobile-list-group-header--today {
+    color: #d32f2f;
+  }
+
+  .mgr-cal-mobile-list-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 12px 0;
+    border-bottom: 1px solid #f5f5f5;
+    cursor: pointer;
+  }
+
+  .mgr-cal-mobile-list-item:active {
+    background: #f8fbfd;
+  }
+
+  .mgr-cal-mobile-list-item-bar {
+    width: 4px;
+    height: 32px;
+    border-radius: 2px;
+    flex-shrink: 0;
+  }
+
+  .mgr-cal-mobile-list-item-content {
+    flex: 1;
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+  }
+
+  .mgr-cal-mobile-list-item-name {
+    font-size: 14px;
+    font-weight: 600;
+    color: #1a1a1a;
+  }
+
+  .mgr-cal-mobile-list-item-type {
+    font-size: 12px;
+    color: #666;
+  }
+
+  .mgr-cal-mobile-list-item-status {
+    font-size: 11px;
+    font-weight: 600;
+    color: #105fa8;
+    white-space: nowrap;
+  }
 }
 
 /* === Global Mobile Responsive === */

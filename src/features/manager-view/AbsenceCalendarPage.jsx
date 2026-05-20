@@ -86,6 +86,7 @@ export default function AbsenceCalendarPage() {
   const [hoveredRow, setHoveredRow] = useState(null);
   const [tooltipPos, setTooltipPos] = useState({ x: 0, y: 0 });
   const [sidebarOpen, setSidebarOpen] = useState(true);
+  const [mobileView, setMobileView] = useState('month');
   const gridRef = useRef(null);
 
   const dayColumns = buildDayColumns(year, month);
@@ -329,67 +330,206 @@ export default function AbsenceCalendarPage() {
         </div>
       )}
 
-      {/* Mobile day-focused view */}
+      {/* Mobile multi-view calendar */}
       <div className="mgr-cal-mobile">
         <div className="mgr-cal-mobile-body">
+          {/* View toggle */}
+          <div className="mgr-cal-mobile-toggle">
+            <button className={`mgr-cal-mobile-toggle-btn${mobileView === 'month' ? ' active' : ''}`} onClick={() => setMobileView('month')}>
+              <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><rect x="1.5" y="2.5" width="13" height="11" rx="1.5" stroke="currentColor" strokeWidth="1.2"/><path d="M1.5 5.5h13" stroke="currentColor" strokeWidth="1.2"/><path d="M5 1.5v2M11 1.5v2" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round"/></svg>
+              Month
+            </button>
+            <button className={`mgr-cal-mobile-toggle-btn${mobileView === 'day' ? ' active' : ''}`} onClick={() => setMobileView('day')}>
+              <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><rect x="2" y="1.5" width="12" height="13" rx="1.5" stroke="currentColor" strokeWidth="1.2"/><path d="M2 5h12M5.5 5v9.5M10.5 5v9.5" stroke="currentColor" strokeWidth="1.2"/></svg>
+              Day
+            </button>
+            <button className={`mgr-cal-mobile-toggle-btn${mobileView === 'list' ? ' active' : ''}`} onClick={() => setMobileView('list')}>
+              <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M4 4h10M4 8h10M4 12h10" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round"/><circle cx="2" cy="4" r="0.8" fill="currentColor"/><circle cx="2" cy="8" r="0.8" fill="currentColor"/><circle cx="2" cy="12" r="0.8" fill="currentColor"/></svg>
+              List
+            </button>
+          </div>
+
+          {/* Month navigation */}
           <div className="mgr-cal-mobile-nav">
-            <button className="mgr-cal-mobile-arrow" onClick={() => setSelectedDay(Math.max(1, selectedDay - 1))} aria-label="Previous day">
+            <button className="mgr-cal-mobile-arrow" onClick={prevMonth} aria-label="Previous month">
               <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M10 3l-5 5 5 5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/></svg>
             </button>
             <div className="mgr-cal-mobile-date">
-              <span className="mgr-cal-mobile-date-text">
-                {new Date(year, month, selectedDay).toLocaleDateString('en-US', { weekday: 'short', month: 'short', day: 'numeric', year: 'numeric' })}
-              </span>
-              {selectedDay === today && month === 4 && year === 2026 && <span className="mgr-sidebar-today">Today</span>}
+              <span className="mgr-cal-mobile-date-text">{monthNames[month]} {year}</span>
             </div>
-            <button className="mgr-cal-mobile-arrow" onClick={() => setSelectedDay(Math.min(dayColumns.length, selectedDay + 1))} aria-label="Next day">
+            <button className="mgr-cal-mobile-arrow" onClick={nextMonth} aria-label="Next month">
               <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M6 3l5 5-5 5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/></svg>
             </button>
           </div>
 
-          <div className="mgr-cal-mobile-summary">
-            <span className="mgr-cal-mobile-summary-total">{todayEmployees.length} employee{todayEmployees.length !== 1 ? 's' : ''} with absences</span>
-            <div className="mgr-cal-mobile-summary-breakdown">
-              {fullDay > 0 && <span>{fullDay} Full Day</span>}
-              {partial > 0 && <span>{partial} Partial</span>}
-              {returning > 0 && <span>{returning} Returning</span>}
-            </div>
-          </div>
-
-          <div className="mgr-cal-mobile-legend">
-            <div className="mgr-calendar-legend-item"><span className="mgr-legend-dot mgr-legend-dot--full" />Full Day</div>
-            <div className="mgr-calendar-legend-item"><span className="mgr-legend-dot mgr-legend-dot--partial" />Partial</div>
-            <div className="mgr-calendar-legend-item"><span className="mgr-legend-dot mgr-legend-dot--returning" />Returning</div>
-          </div>
-
-          <div className="mgr-cal-mobile-list">
-            {todayEmployees.length === 0 && (
-              <div className="mgr-cal-mobile-empty">No absences on this date.</div>
-            )}
-            {todayEmployees.map((emp) => {
-              const blockType = getBlocks(emp.id)[selectedDay - 1];
-              return (
-                <div className="mgr-cal-mobile-card" key={emp.id} onClick={() => navigate(`/manager/my-team/${emp.id}`)}>
-                  <div className="mgr-cal-mobile-card-left">
-                    <div className={`mgr-cal-mobile-indicator mgr-cal-mobile-indicator--${blockType === 1 ? 'full' : blockType === 2 ? 'partial' : 'returning'}`} />
-                    <EmployeeAvatar emp={emp} size="mobile" />
-                  </div>
-                  <div className="mgr-cal-mobile-card-content">
-                    <div className="mgr-cal-mobile-card-name">
-                      {emp.name}
-                      {emp.ada && <span className="mgr-ada-tag">ADA</span>}
-                    </div>
-                    <div className="mgr-cal-mobile-card-meta">
-                      <span className="mgr-cal-mobile-card-type">{emp.type}</span>
-                      <span className="mgr-cal-mobile-card-status">{blockLabels[blockType]}</span>
-                    </div>
-                    <div className="mgr-cal-mobile-card-dates">{emp.dates}</div>
-                  </div>
-                  <svg className="mgr-cal-mobile-card-chevron" width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M5 3l4 4-4 4" stroke="#999" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/></svg>
+          {/* === MONTH VIEW === */}
+          {mobileView === 'month' && (
+            <>
+              <div className="mgr-cal-mobile-month">
+                <div className="mgr-cal-mobile-month-header">
+                  {['S','M','T','W','T','F','S'].map((d, i) => <span key={i} className="mgr-cal-mobile-month-dow">{d}</span>)}
                 </div>
-              );
-            })}
-          </div>
+                <div className="mgr-cal-mobile-month-grid">
+                  {(() => {
+                    const firstDow = new Date(year, month, 1).getDay();
+                    const cells = [];
+                    for (let i = 0; i < firstDow; i++) cells.push(<span key={`pad-${i}`} className="mgr-cal-mobile-month-cell mgr-cal-mobile-month-cell--empty" />);
+                    for (let d = 1; d <= dayColumns.length; d++) {
+                      const absForDay = employeesMeta.filter(e => getBlocks(e.id)[d - 1] > 0);
+                      const hasFullDay = absForDay.some(e => getBlocks(e.id)[d - 1] === 1);
+                      const hasPartial = absForDay.some(e => getBlocks(e.id)[d - 1] === 2);
+                      const hasReturning = absForDay.some(e => getBlocks(e.id)[d - 1] === 3);
+                      const isToday = d === today && month === 4 && year === 2026;
+                      const isSelected = d === selectedDay;
+                      cells.push(
+                        <button
+                          key={d}
+                          className={`mgr-cal-mobile-month-cell${isToday ? ' mgr-cal-mobile-month-cell--today' : ''}${isSelected ? ' mgr-cal-mobile-month-cell--selected' : ''}`}
+                          onClick={() => setSelectedDay(d)}
+                        >
+                          <span className="mgr-cal-mobile-month-day">{d}</span>
+                          {absForDay.length > 0 && (
+                            <span className="mgr-cal-mobile-month-dots">
+                              {hasFullDay && <span className="mgr-cal-mobile-month-dot mgr-cal-mobile-month-dot--full" />}
+                              {hasPartial && <span className="mgr-cal-mobile-month-dot mgr-cal-mobile-month-dot--partial" />}
+                              {hasReturning && <span className="mgr-cal-mobile-month-dot mgr-cal-mobile-month-dot--returning" />}
+                            </span>
+                          )}
+                        </button>
+                      );
+                    }
+                    return cells;
+                  })()}
+                </div>
+              </div>
+
+              <div className="mgr-cal-mobile-legend">
+                <div className="mgr-calendar-legend-item"><span className="mgr-legend-dot mgr-legend-dot--full" />Full Day</div>
+                <div className="mgr-calendar-legend-item"><span className="mgr-legend-dot mgr-legend-dot--partial" />Partial</div>
+                <div className="mgr-calendar-legend-item"><span className="mgr-legend-dot mgr-legend-dot--returning" />Returning</div>
+              </div>
+
+              {/* Absences for selected day below calendar */}
+              <div className="mgr-cal-mobile-selected-label">
+                {new Date(year, month, selectedDay).toLocaleDateString('en-US', { weekday: 'long', month: 'long', day: 'numeric' })}
+                {selectedDay === today && month === 4 && year === 2026 && <span className="mgr-sidebar-today">Today</span>}
+              </div>
+              <div className="mgr-cal-mobile-list">
+                {todayEmployees.length === 0 && (
+                  <div className="mgr-cal-mobile-empty">No absences on this date.</div>
+                )}
+                {todayEmployees.map((emp) => {
+                  const blockType = getBlocks(emp.id)[selectedDay - 1];
+                  return (
+                    <div className="mgr-cal-mobile-card" key={emp.id} onClick={() => navigate(`/manager/my-team/${emp.id}`)}>
+                      <div className="mgr-cal-mobile-card-left">
+                        <div className={`mgr-cal-mobile-indicator mgr-cal-mobile-indicator--${blockType === 1 ? 'full' : blockType === 2 ? 'partial' : 'returning'}`} />
+                        <EmployeeAvatar emp={emp} size="mobile" />
+                      </div>
+                      <div className="mgr-cal-mobile-card-content">
+                        <div className="mgr-cal-mobile-card-name">
+                          {emp.name}
+                          {emp.ada && <span className="mgr-ada-tag">ADA</span>}
+                        </div>
+                        <div className="mgr-cal-mobile-card-meta">
+                          <span className="mgr-cal-mobile-card-type">{emp.type}</span>
+                          <span className="mgr-cal-mobile-card-status">{blockLabels[blockType]}</span>
+                        </div>
+                        <div className="mgr-cal-mobile-card-dates">{emp.dates}</div>
+                      </div>
+                      <svg className="mgr-cal-mobile-card-chevron" width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M5 3l4 4-4 4" stroke="#999" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/></svg>
+                    </div>
+                  );
+                })}
+              </div>
+            </>
+          )}
+
+          {/* === DAY VIEW (2-day column) === */}
+          {mobileView === 'day' && (
+            <>
+              <div className="mgr-cal-mobile-day-header">
+                <button className="mgr-cal-mobile-arrow" onClick={() => setSelectedDay(Math.max(1, selectedDay - 1))} aria-label="Previous day">
+                  <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M10 3l-5 5 5 5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/></svg>
+                </button>
+                <div className="mgr-cal-mobile-day-cols-header">
+                  <span className={`mgr-cal-mobile-day-col-title${selectedDay === today && month === 4 && year === 2026 ? ' mgr-cal-mobile-day-col-title--today' : ''}`}>
+                    {new Date(year, month, selectedDay).toLocaleDateString('en-US', { weekday: 'short', month: 'short', day: 'numeric' })}
+                  </span>
+                  {selectedDay < dayColumns.length && (
+                    <span className={`mgr-cal-mobile-day-col-title${(selectedDay + 1) === today && month === 4 && year === 2026 ? ' mgr-cal-mobile-day-col-title--today' : ''}`}>
+                      {new Date(year, month, selectedDay + 1).toLocaleDateString('en-US', { weekday: 'short', month: 'short', day: 'numeric' })}
+                    </span>
+                  )}
+                </div>
+                <button className="mgr-cal-mobile-arrow" onClick={() => setSelectedDay(Math.min(dayColumns.length - 1, selectedDay + 1))} aria-label="Next day">
+                  <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M6 3l5 5-5 5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/></svg>
+                </button>
+              </div>
+              <div className="mgr-cal-mobile-day-columns">
+                {[selectedDay, selectedDay < dayColumns.length ? selectedDay + 1 : null].filter(Boolean).map((d) => {
+                  const emps = employeesMeta.filter(e => getBlocks(e.id)[d - 1] > 0);
+                  return (
+                    <div className="mgr-cal-mobile-day-col" key={d}>
+                      {emps.length === 0 && <div className="mgr-cal-mobile-day-col-empty">No absences</div>}
+                      {emps.map((emp) => {
+                        const blockType = getBlocks(emp.id)[d - 1];
+                        return (
+                          <div
+                            key={emp.id}
+                            className={`mgr-cal-mobile-day-block mgr-cal-mobile-day-block--${blockType === 1 ? 'full' : blockType === 2 ? 'partial' : 'returning'}`}
+                            onClick={() => navigate(`/manager/my-team/${emp.id}`)}
+                          >
+                            <span className="mgr-cal-mobile-day-block-name">{emp.name.split(' ')[0]}</span>
+                            <span className="mgr-cal-mobile-day-block-type">{blockLabels[blockType]}</span>
+                          </div>
+                        );
+                      })}
+                    </div>
+                  );
+                })}
+              </div>
+              <div className="mgr-cal-mobile-legend">
+                <div className="mgr-calendar-legend-item"><span className="mgr-legend-dot mgr-legend-dot--full" />Full Day</div>
+                <div className="mgr-calendar-legend-item"><span className="mgr-legend-dot mgr-legend-dot--partial" />Partial</div>
+                <div className="mgr-calendar-legend-item"><span className="mgr-legend-dot mgr-legend-dot--returning" />Returning</div>
+              </div>
+            </>
+          )}
+
+          {/* === LIST VIEW === */}
+          {mobileView === 'list' && (
+            <>
+              {(() => {
+                const days = [];
+                for (let d = 1; d <= dayColumns.length; d++) {
+                  const emps = employeesMeta.filter(e => getBlocks(e.id)[d - 1] > 0);
+                  if (emps.length > 0) days.push({ day: d, emps });
+                }
+                return days.map(({ day, emps }) => (
+                  <div key={day} className="mgr-cal-mobile-list-group">
+                    <div className={`mgr-cal-mobile-list-group-header${day === today && month === 4 && year === 2026 ? ' mgr-cal-mobile-list-group-header--today' : ''}`}>
+                      {new Date(year, month, day).toLocaleDateString('en-US', { weekday: 'long' })} &ndash; {monthNames[month]} {day}
+                      {day === today && month === 4 && year === 2026 && <span className="mgr-sidebar-today">Today</span>}
+                    </div>
+                    {emps.map((emp) => {
+                      const blockType = getBlocks(emp.id)[day - 1];
+                      return (
+                        <div className="mgr-cal-mobile-list-item" key={emp.id} onClick={() => navigate(`/manager/my-team/${emp.id}`)}>
+                          <div className={`mgr-cal-mobile-list-item-bar mgr-cal-mobile-indicator--${blockType === 1 ? 'full' : blockType === 2 ? 'partial' : 'returning'}`} />
+                          <div className="mgr-cal-mobile-list-item-content">
+                            <span className="mgr-cal-mobile-list-item-name">{emp.name}</span>
+                            <span className="mgr-cal-mobile-list-item-type">{emp.type}</span>
+                          </div>
+                          <span className="mgr-cal-mobile-list-item-status">{blockLabels[blockType]}</span>
+                        </div>
+                      );
+                    })}
+                  </div>
+                ));
+              })()}
+            </>
+          )}
 
           {returning > 0 && (
             <button
