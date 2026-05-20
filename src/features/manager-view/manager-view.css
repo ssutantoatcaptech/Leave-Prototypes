@@ -589,7 +589,7 @@
   gap: 24px;
   margin-bottom: 24px;
   padding-bottom: 16px;
-  border-bottom: 1px solid #edf2f7;
+  border-bottom: 1px solid #e4eaf0;
 }
 
 .mgr-calendar-legend-item {
@@ -664,14 +664,15 @@
 
 .mgr-cal-employee-col {
   text-align: left;
-  padding: 8px 12px;
+  padding: 8px 10px;
   font-size: 10px;
   font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 0.6px;
   color: #666;
-  min-width: 200px;
-  border-bottom: 1px solid #edf2f7;
+  min-width: 180px;
+  width: 180px;
+  border-bottom: 1px solid #e4eaf0;
   background: #f5f8fc;
 }
 
@@ -679,7 +680,7 @@
   padding: 8px 4px;
   text-align: center;
   cursor: pointer;
-  border-bottom: 1px solid #edf2f7;
+  border-bottom: 1px solid #e4eaf0;
   transition: background 0.12s;
   border-radius: 6px 6px 0 0;
   user-select: none;
@@ -732,11 +733,12 @@
 }
 
 .mgr-cal-employee-cell {
-  padding: 18px 12px;
-  border-bottom: 1px solid #edf2f7;
+  padding: 14px 10px;
+  border-bottom: 1px solid #e4eaf0;
   background: #f5f8fc;
   cursor: pointer;
   transition: background 0.12s;
+  width: 180px;
 }
 
 .mgr-cal-employee-cell:hover {
@@ -746,29 +748,29 @@
 .mgr-cal-employee-info {
   display: flex;
   align-items: center;
-  gap: 10px;
+  gap: 8px;
 }
 
 .mgr-cal-employee-avatar {
-  width: 36px;
-  height: 36px;
+  width: 32px;
+  height: 32px;
   border-radius: 50%;
   object-fit: cover;
   flex-shrink: 0;
-  border: 2px solid #dfebf6;
+  border: 1.5px solid #dfebf6;
 }
 
 .mgr-cal-employee-name {
-  font-size: 14px;
+  font-size: 13px;
   font-weight: 600;
   color: #1a1a1a;
   display: flex;
   align-items: center;
-  gap: 6px;
+  gap: 5px;
 }
 
 .mgr-cal-employee-type {
-  font-size: 12px;
+  font-size: 11px;
   color: #666;
   margin-top: 1px;
 }
@@ -776,7 +778,7 @@
 .mgr-cal-block-cell {
   padding: 18px 3px;
   text-align: center;
-  border-bottom: 1px solid #edf2f7;
+  border-bottom: 1px solid #e4eaf0;
   cursor: pointer;
   transition: background 0.1s;
 }
