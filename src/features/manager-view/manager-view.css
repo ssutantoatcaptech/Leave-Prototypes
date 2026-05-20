@@ -732,7 +732,7 @@
 }
 
 .mgr-cal-employee-cell {
-  padding: 14px 12px;
+  padding: 18px 12px;
   border-bottom: 1px solid #edf2f7;
   background: #f5f8fc;
   cursor: pointer;
@@ -774,7 +774,7 @@
 }
 
 .mgr-cal-block-cell {
-  padding: 10px 3px;
+  padding: 18px 3px;
   text-align: center;
   border-bottom: 1px solid #edf2f7;
   cursor: pointer;
@@ -884,7 +884,7 @@
   flex-shrink: 0;
   border-left: 1px solid #edf2f7;
   padding-left: 28px;
-  max-height: 520px;
+  max-height: 580px;
   overflow-y: auto;
   position: sticky;
   top: 80px;
