@@ -184,7 +184,6 @@ export default function AbsenceCalendarPage() {
                               </div>
                               <div className="mgr-cal-employee-tags">
                                 <span className="mgr-cal-type-pill">{emp.type}</span>
-                                <span className={`mgr-cal-status-dot mgr-cal-status-dot--${emp.status}`} />
                               </div>
                             </div>
                           </div>
@@ -201,7 +200,7 @@ export default function AbsenceCalendarPage() {
                             {block === 2 && <div className="mgr-calendar-block mgr-calendar-block--partial" />}
                             {block === 3 && (
                               <div className="mgr-calendar-block mgr-calendar-block--returning">
-                                <svg width="10" height="10" viewBox="0 0 10 10" fill="none"><path d="M2 5l2.5 2.5L8 3" stroke="#16a34a" strokeWidth="1.3" strokeLinecap="round" strokeLinejoin="round"/></svg>
+                                <svg width="10" height="10" viewBox="0 0 10 10" fill="none"><path d="M2 5l2.5 2.5L8 3" stroke="#2e7d5e" strokeWidth="1.3" strokeLinecap="round" strokeLinejoin="round"/></svg>
                               </div>
                             )}
                           </td>
@@ -259,7 +258,7 @@ export default function AbsenceCalendarPage() {
                           <div className="mgr-sidebar-employee-type">{emp.type}</div>
                         </div>
                         {emp.ada && <span className="mgr-ada-tag">ADA</span>}
-                        {blockType === 3 && <span className="mgr-returning-badge"><svg width="10" height="10" viewBox="0 0 10 10" fill="none"><path d="M2 5l2.5 2.5L8 3" stroke="#16a34a" strokeWidth="1.3" strokeLinecap="round" strokeLinejoin="round"/></svg> Returning</span>}
+                        {blockType === 3 && <span className="mgr-returning-badge"><svg width="10" height="10" viewBox="0 0 10 10" fill="none"><path d="M2 5l2.5 2.5L8 3" stroke="#2e7d5e" strokeWidth="1.3" strokeLinecap="round" strokeLinejoin="round"/></svg> Returning</span>}
                       </div>
                       <div className="mgr-sidebar-employee-meta">
                         {emp.timeframe && blockType !== 3 ? (

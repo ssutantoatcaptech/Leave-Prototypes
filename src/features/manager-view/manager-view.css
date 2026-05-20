@@ -607,9 +607,9 @@
   border-radius: 4px;
 }
 
-.mgr-legend-dot--full { background: var(--color-brand-primary, #105fa8); }
-.mgr-legend-dot--partial { background: var(--color-bg-info, #dcebf9); border: 1px solid var(--color-brand-primary, #105fa8); }
-.mgr-legend-dot--returning { border: 2px dashed var(--color-status-success, #16a34a); background: var(--color-bg-success, #d1fae5); }
+.mgr-legend-dot--full { background: #003a70; }
+.mgr-legend-dot--partial { background: #fdf6e3; border: 1.5px solid #c0982a; }
+.mgr-legend-dot--returning { background: #e6f5ef; border: 2px dashed #2e7d5e; }
 
 .mgr-calendar-container {
   display: flex;
@@ -641,7 +641,7 @@
   left: 0;
   z-index: 2;
   background: #f5f8fc;
-  box-shadow: 2px 0 4px rgba(0,0,0,0.04);
+  border-right: 1px solid #e4eaf0;
 }
 
 .mgr-sidebar-toggle {
@@ -740,7 +740,7 @@
 }
 
 .mgr-cal-day-header.today .mgr-cal-day-num {
-  background: #1a1a1a;
+  background: #003a70;
   color: #fff;
   border-radius: 50%;
   width: 24px;
@@ -875,11 +875,11 @@
   box-shadow: 0 2px 6px rgba(0,0,0,0.12);
 }
 
-.mgr-calendar-block--full { background: var(--color-brand-primary, #105fa8); }
-.mgr-calendar-block--partial { background: var(--color-bg-info, #dcebf9); border: 1.5px solid var(--color-brand-primary, #105fa8); }
+.mgr-calendar-block--full { background: #003a70; }
+.mgr-calendar-block--partial { background: #fdf6e3; border: 1.5px solid #c0982a; }
 .mgr-calendar-block--returning {
-  border: 2px dashed var(--color-status-success, #16a34a);
-  background: var(--color-bg-success, #d1fae5);
+  border: 2px dashed #2e7d5e;
+  background: #e6f5ef;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -989,9 +989,8 @@
   border-radius: 12px;
   font-size: 12px;
   font-weight: 600;
-  background: var(--color-bg-selected, #eff6ff);
-  color: var(--color-brand-primary, #105fa8);
-  border: 1px solid var(--color-brand-primary, #105fa8);
+  background: #003a70;
+  color: #fff;
 }
 
 .mgr-sidebar-day {
@@ -1118,11 +1117,11 @@
   gap: 4px;
   font-size: 11px;
   font-weight: 600;
-  color: var(--color-status-success, #16a34a);
-  background: var(--color-bg-success, #d1fae5);
+  color: #2e7d5e;
+  background: #e6f5ef;
   padding: 2px 8px;
   border-radius: 4px;
-  border: 1px solid var(--color-status-success-border, #16a34a);
+  border: 1px solid #2e7d5e;
 }
 
 .mgr-sidebar-rtw-btn {
