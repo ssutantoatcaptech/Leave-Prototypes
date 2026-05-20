@@ -716,7 +716,7 @@
 /* === Tasks & Notifications === */
 .mgr-tasks-card {
   padding: 0;
-  background: #f9fafb;
+  background: #ffffff;
 }
 
 .mgr-tasks-tabs {
@@ -769,7 +769,7 @@
   padding: 20px 24px;
   border: 1px solid #e5e7eb;
   border-radius: 10px;
-  background: #fff;
+  background: #f9fafb;
   transition: border-color 0.12s, box-shadow 0.12s;
 }
 
