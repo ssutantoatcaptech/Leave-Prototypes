@@ -415,7 +415,7 @@ export default function AbsenceCalendarPage() {
                 {new Date(year, month, selectedDay).toLocaleDateString('en-US', { weekday: 'long', month: 'long', day: 'numeric' })}
                 {selectedDay === today && month === 4 && year === 2026 && <span className="mgr-sidebar-today">Today</span>}
               </div>
-              <div className="mgr-cal-mobile-list">
+              <div className="mgr-cal-mobile-hscroll">
                 {todayEmployees.length === 0 && (
                   <div className="mgr-cal-mobile-empty">No absences on this date.</div>
                 )}
@@ -519,13 +519,23 @@ export default function AbsenceCalendarPage() {
                     {emps.map((emp) => {
                       const blockType = getBlocks(emp.id)[day - 1];
                       return (
-                        <div className="mgr-cal-mobile-list-item" key={emp.id} onClick={() => navigate(`/manager/my-team/${emp.id}`)}>
-                          <div className={`mgr-cal-mobile-list-item-bar mgr-cal-mobile-indicator--${blockType === 1 ? 'full' : blockType === 2 ? 'partial' : 'returning'}`} />
-                          <div className="mgr-cal-mobile-list-item-content">
-                            <span className="mgr-cal-mobile-list-item-name">{emp.name}</span>
-                            <span className="mgr-cal-mobile-list-item-type">{emp.type}</span>
+                        <div className={`mgr-cal-mobile-card mgr-cal-mobile-card--${blockType === 1 ? "full" : blockType === 2 ? "partial" : "returning"}`} key={emp.id} onClick={() => navigate(`/manager/my-team/${emp.id}`)}>
+                          <div className="mgr-cal-mobile-card-left">
+                            <div className={`mgr-cal-mobile-indicator mgr-cal-mobile-indicator--${blockType === 1 ? 'full' : blockType === 2 ? 'partial' : 'returning'}`} />
+                            <EmployeeAvatar emp={emp} size="mobile" />
                           </div>
-                          <span className="mgr-cal-mobile-list-item-status">{blockLabels[blockType]}</span>
+                          <div className="mgr-cal-mobile-card-content">
+                            <div className="mgr-cal-mobile-card-name">
+                              {emp.name}
+                              {emp.ada && <span className="mgr-ada-tag">ADA</span>}
+                            </div>
+                            <div className="mgr-cal-mobile-card-meta">
+                              <span className="mgr-cal-mobile-card-type">{emp.type}</span>
+                              <span className="mgr-cal-mobile-card-status">{blockLabels[blockType]}</span>
+                            </div>
+                            <div className="mgr-cal-mobile-card-dates">{emp.dates}</div>
+                          </div>
+                          <svg className="mgr-cal-mobile-card-chevron" width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M5 3l4 4-4 4" stroke="#999" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/></svg>
                         </div>
                       );
                     })}
