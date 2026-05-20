@@ -2302,13 +2302,10 @@
 
   .mgr-cal-mobile-body {
     background: #ffffff;
-    border: 1px solid #dfebf6;
-    border-radius: 12px;
-    padding: 20px 16px;
-    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.06);
+    padding: 0 16px 16px;
     display: flex;
     flex-direction: column;
-    gap: 20px;
+    gap: 16px;
   }
 
   .mgr-cal-mobile-nav {
@@ -2521,7 +2518,20 @@
     font-size: 14px;
   }
 
-  /* --- Top bar (month button) --- */
+  /* --- Sticky header (month nav + toggle) --- */
+  .mgr-cal-mobile-header-sticky {
+    position: sticky;
+    top: 56px;
+    z-index: 10;
+    background: #ffffff;
+    margin: 0 -16px;
+    padding: 12px 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    border-bottom: 1px solid #edf2f7;
+  }
+
   .mgr-cal-mobile-topbar {
     display: flex;
     align-items: center;
@@ -2581,19 +2591,6 @@
 
   .mgr-cal-mobile-toggle-btn svg {
     flex-shrink: 0;
-  }
-
-  /* --- Month View Sticky Calendar --- */
-  .mgr-cal-mobile-month-sticky {
-    position: sticky;
-    top: 56px;
-    z-index: 10;
-    background: #ffffff;
-    padding-bottom: 12px;
-    margin: 0 -16px;
-    padding-left: 16px;
-    padding-right: 16px;
-    border-bottom: 1px solid #edf2f7;
   }
 
   /* --- Month View Grid --- */
@@ -2697,12 +2694,17 @@
     gap: 8px;
   }
 
-  /* --- Day View (horizontal strip + grid) --- */
+  /* --- Day View (horizontal strip + cards below) --- */
   .mgr-cal-mobile-day-strip-wrap {
     overflow-x: auto;
     -webkit-overflow-scrolling: touch;
     margin: 0 -16px;
     padding: 0 16px;
+    scrollbar-width: none;
+  }
+
+  .mgr-cal-mobile-day-strip-wrap::-webkit-scrollbar {
+    display: none;
   }
 
   .mgr-cal-mobile-day-strip {
@@ -2716,12 +2718,12 @@
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    width: 36px;
-    min-width: 36px;
-    height: 48px;
+    width: 40px;
+    min-width: 40px;
+    height: 52px;
     border: none;
     background: transparent;
-    border-radius: 8px;
+    border-radius: 10px;
     cursor: pointer;
     gap: 2px;
     transition: background 0.12s;
@@ -2735,8 +2737,8 @@
     background: #d32f2f;
     color: #fff;
     border-radius: 50%;
-    width: 24px;
-    height: 24px;
+    width: 26px;
+    height: 26px;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -2750,79 +2752,10 @@
   }
 
   .mgr-cal-mobile-day-strip-num {
-    font-size: 13px;
+    font-size: 14px;
     font-weight: 600;
     color: #1a1a1a;
     line-height: 1;
-  }
-
-  .mgr-cal-mobile-day-grid {
-    display: flex;
-    flex-direction: column;
-    gap: 0;
-    border-top: 1px solid #edf2f7;
-  }
-
-  .mgr-cal-mobile-day-row {
-    display: flex;
-    align-items: center;
-    height: 44px;
-    border-bottom: 1px solid #f5f5f5;
-  }
-
-  .mgr-cal-mobile-day-row-label {
-    position: sticky;
-    left: 0;
-    z-index: 2;
-    width: 44px;
-    min-width: 44px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background: #fff;
-    cursor: pointer;
-  }
-
-  .mgr-cal-mobile-day-row-cells {
-    display: flex;
-    flex: 1;
-    overflow-x: auto;
-    -webkit-overflow-scrolling: touch;
-  }
-
-  .mgr-cal-mobile-day-row-cell {
-    width: 36px;
-    min-width: 36px;
-    height: 36px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
-
-  .mgr-cal-mobile-day-row-line {
-    width: 3px;
-    height: 28px;
-    border-radius: 1.5px;
-  }
-
-  .mgr-cal-mobile-day-row-line--full {
-    background: #105fa8;
-  }
-
-  .mgr-cal-mobile-day-row-line--partial {
-    background: #c0982a;
-  }
-
-  .mgr-cal-mobile-day-row-line--returning {
-    background: #2e7d5e;
-  }
-
-  .mgr-cal-mobile-legend-line {
-    width: 3px;
-    height: 14px;
-    display: inline-block;
-    margin-right: 4px;
-    vertical-align: middle;
   }
 
   /* --- List View --- */
