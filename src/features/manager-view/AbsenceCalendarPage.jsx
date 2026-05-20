@@ -218,10 +218,11 @@ export default function AbsenceCalendarPage() {
             <div className="mgr-calendar-sidebar">
               <div className="mgr-sidebar-date-header">
                 <div className="mgr-sidebar-date">
-                  <span className="mgr-sidebar-date-day">{monthNames[month]} {selectedDay}, {year}</span>
+                  <span className="mgr-sidebar-date-day">
+                    {new Date(year, month, selectedDay).toLocaleDateString('en-US', { weekday: 'long' })}, {monthNames[month]} {selectedDay}, {year}
+                  </span>
                   {selectedDay === today && month === 0 && year === 2026 && <span className="mgr-sidebar-today">Today</span>}
                 </div>
-                <div className="mgr-sidebar-day">{new Date(year, month, selectedDay).toLocaleDateString('en-US', { weekday: 'long' })}</div>
               </div>
 
               <div className="mgr-sidebar-total">
