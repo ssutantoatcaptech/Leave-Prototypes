@@ -42,6 +42,14 @@ import AdaAccommodationPage from './features/ada-accommodation/AdaAccommodationP
 import AdaRequestsPage from './features/ada-accommodation/AdaRequestsPage';
 import FileClaimWizardPage from './features/claims-and-leave/FileClaimWizardPage';
 
+import ManagerLayout from './features/manager-view/ManagerLayout';
+import AbsenceCalendarPage from './features/manager-view/AbsenceCalendarPage';
+import MyTeamPage from './features/manager-view/MyTeamPage';
+import MyActionsPage from './features/manager-view/MyActionsPage';
+import EmployeeDetailPage from './features/manager-view/EmployeeDetailPage';
+import ReturnToWorkWizardPage from './features/manager-view/ReturnToWorkWizardPage';
+import ManagerSupportPage from './features/manager-view/SupportPage';
+
 function Home() {
   return (
     <main className="app-shell app-home">
@@ -167,6 +175,17 @@ export default function App() {
           <Route path="case-detail-caregiver/return-to-work" element={<ReturnToWorkCaregiverEmbeddedPage />} />
           <Route path="std-claim-detail" element={<StdClaimDetailPage />} />
           <Route path="ltd-claim-detail" element={<StdClaimDetailPage />} />
+        </Route>
+
+        {/* Manager View */}
+        <Route path="/manager" element={<ManagerLayout />}>
+          <Route index element={<Navigate to="/manager/absence-calendar" replace />} />
+          <Route path="absence-calendar" element={<AbsenceCalendarPage />} />
+          <Route path="my-team" element={<MyTeamPage />} />
+          <Route path="my-team/:employeeId" element={<EmployeeDetailPage />} />
+          <Route path="my-actions" element={<MyActionsPage />} />
+          <Route path="return-to-work" element={<ReturnToWorkWizardPage />} />
+          <Route path="support" element={<ManagerSupportPage />} />
         </Route>
 
         <Route path="*" element={<Navigate to="/claims-and-leave/file-claim" replace />} />

@@ -1,10 +1,11 @@
 import { useState, useEffect, useRef } from 'react';
-import { NavLink, Outlet, useLocation } from 'react-router-dom';
+import { NavLink, Outlet, useLocation, useNavigate } from 'react-router-dom';
 import './claims-and-leave.css';
 import './responsive.css';
 
 export default function ClaimsAndLeaveLayout() {
   const location = useLocation();
+  const navigate = useNavigate();
   const [mobileNavOpen, setMobileNavOpen] = useState(false);
   const [claimsExpanded, setClaimsExpanded] = useState(false);
   const [dropdownOpen, setDropdownOpen] = useState(false);
@@ -157,13 +158,27 @@ export default function ClaimsAndLeaveLayout() {
             </button>
             <div className={`cl-avatar-dropdown${profileOpen ? ' open' : ''}`} ref={profileRef}>
               <button className="cl-avatar" type="button" onClick={() => setProfileOpen(!profileOpen)}>
-                <span className="cl-avatar-circle">AB</span>
-                <span className="cl-avatar-name">Name Here</span>
+                <span className="cl-avatar-circle">SJ</span>
+                <span className="cl-avatar-name">Sarah Johnson</span>
                 <svg className="cl-avatar-chevron" width="10" height="10" viewBox="0 0 10 10" fill="none"><path d="M2.5 4l2.5 2.5L7.5 4" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round" strokeLinejoin="round"/></svg>
               </button>
               <div className="cl-avatar-dropdown-menu">
-                <button className="cl-avatar-dropdown-item" type="button" onClick={() => { setProfileOpen(false); }}>
-                  Switch to Manager View
+                <div className="cl-avatar-dropdown-profile">
+                  <span className="cl-avatar-circle">SJ</span>
+                  <div className="cl-avatar-dropdown-profile-info">
+                    <strong>Sarah Johnson</strong>
+                    <span>Employee Account</span>
+                    <a href="#" onClick={(e) => e.preventDefault()}>View your profile</a>
+                  </div>
+                </div>
+                <div className="cl-avatar-dropdown-divider" />
+                <button className="cl-avatar-dropdown-item" type="button" onClick={() => { setProfileOpen(false); navigate('/manager'); }}>
+                  <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M4 6l4 4 4-4" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round" strokeLinejoin="round" transform="rotate(-90 8 8)"/></svg>
+                  Switch Account
+                </button>
+                <button className="cl-avatar-dropdown-item" type="button" onClick={() => setProfileOpen(false)}>
+                  <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M6 3h7v7M13 3L3 13" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round" strokeLinejoin="round"/></svg>
+                  Sign Out
                 </button>
               </div>
             </div>
