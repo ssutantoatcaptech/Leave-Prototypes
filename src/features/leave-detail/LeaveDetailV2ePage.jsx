@@ -388,9 +388,9 @@ export default function LeaveDetailV2ePage() {
                     {/* Months row with Coverage header */}
                     <div style={{ display: 'flex', background: '#f9fafb', borderBottom: '1px solid #e5e7eb', padding: '8px 12px 8px 0', borderRadius: '6px 6px 0 0' }}>
                       <span style={{ width: 60, flexShrink: 0, fontFamily: "'Source Sans Pro', sans-serif", fontSize: 12, fontWeight: 700, color: '#1f2937', paddingLeft: 10 }}>Coverage</span>
-                      <div style={{ flex: 1, display: 'flex' }}>
-                        {['MAR','APR','MAY','JUN','JUL','AUG','SEP','OCT','NOV','DEC','JAN','FEB'].map(function (m) {
-                          return <span key={m} style={{ flex: 1, fontFamily: "'Source Sans Pro', sans-serif", fontSize: 11, fontWeight: 700, color: '#1f2937', textAlign: 'center', letterSpacing: '0.02em' }}>{m}</span>;
+                      <div style={{ flex: 1, display: 'flex', position: 'relative' }}>
+                        {['MAR','APR','MAY','JUN','JUL','AUG','SEP','OCT','NOV','DEC','JAN','FEB'].map(function (m, i) {
+                          return <span key={m} style={{ flex: 1, fontFamily: "'Source Sans Pro', sans-serif", fontSize: 11, fontWeight: 700, color: '#1f2937', textAlign: 'center', letterSpacing: '0.02em' }}>{m}{i === 10 ? <span style={{ fontSize: 9, color: '#6b7280', marginLeft: 1 }}>{'\'27'}</span> : null}</span>;
                         })}
                       </div>
                     </div>
@@ -399,8 +399,8 @@ export default function LeaveDetailV2ePage() {
                       <span style={{ width: 60, flexShrink: 0 }} />
                       <div style={{ flex: 1, display: 'flex' }}>
                         {[4,9,13,17,22,26,30,35,39,44,48,52].map(function (w, i) {
-                          var isKey = i % 3 === 2;
-                          return <span key={w} style={{ flex: 1, fontFamily: "'Source Sans Pro', sans-serif", fontSize: 11, fontWeight: isKey ? 700 : 500, color: isKey ? '#374151' : '#6b7280', textAlign: 'center' }}>W{w}</span>;
+                          var inCoverage = i < 3;
+                          return <span key={w} style={{ flex: 1, fontFamily: "'Source Sans Pro', sans-serif", fontSize: 11, fontWeight: inCoverage ? 700 : 400, color: inCoverage ? '#1f2937' : '#9ca3af', textAlign: 'center' }}>W{w}</span>;
                         })}
                       </div>
                     </div>
