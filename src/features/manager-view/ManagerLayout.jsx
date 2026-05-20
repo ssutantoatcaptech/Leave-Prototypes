@@ -6,6 +6,7 @@ export default function ManagerLayout() {
   const navigate = useNavigate();
   const location = useLocation();
   const [profileOpen, setProfileOpen] = useState(false);
+  const [mobileNavOpen, setMobileNavOpen] = useState(false);
   const profileRef = useRef(null);
 
   useEffect(function () {
@@ -17,6 +18,10 @@ export default function ManagerLayout() {
     document.addEventListener('mousedown', handleClickOutside);
     return function () { document.removeEventListener('mousedown', handleClickOutside); };
   }, []);
+
+  useEffect(function () {
+    setMobileNavOpen(false);
+  }, [location.pathname]);
 
   const navLinks = [
     { label: 'Absence Calendar', to: '/manager/absence-calendar' },
@@ -31,9 +36,12 @@ export default function ManagerLayout() {
       <div className="mgr-header-wrapper">
       <header className="mgr-header">
         <div className="mgr-header-left">
+          <button className="mgr-hamburger" aria-label="Toggle navigation" onClick={() => setMobileNavOpen(!mobileNavOpen)}>
+            <span /><span /><span />
+          </button>
           <span className="mgr-header-brand">my<strong>Mutual</strong></span>
           <span className="mgr-header-badge">Manager</span>
-          <nav className="mgr-header-nav">
+          <nav className={`mgr-header-nav${mobileNavOpen ? ' open' : ''}`}>
             {navLinks.map((link) => (
               <NavLink
                 key={link.label}
