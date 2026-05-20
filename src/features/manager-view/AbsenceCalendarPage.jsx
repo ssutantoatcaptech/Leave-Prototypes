@@ -364,58 +364,60 @@ export default function AbsenceCalendarPage() {
           {/* === MONTH VIEW === */}
           {mobileView === 'month' && (
             <>
-              <div className="mgr-cal-mobile-month">
-                <div className="mgr-cal-mobile-month-header">
-                  {['S','M','T','W','T','F','S'].map((d, i) => <span key={i} className="mgr-cal-mobile-month-dow">{d}</span>)}
+              <div className="mgr-cal-mobile-month-sticky">
+                <div className="mgr-cal-mobile-month">
+                  <div className="mgr-cal-mobile-month-header">
+                    {['S','M','T','W','T','F','S'].map((d, i) => <span key={i} className="mgr-cal-mobile-month-dow">{d}</span>)}
+                  </div>
+                  <div className="mgr-cal-mobile-month-grid">
+                    {(() => {
+                      const firstDow = new Date(year, month, 1).getDay();
+                      const cells = [];
+                      for (let i = 0; i < firstDow; i++) cells.push(<span key={`pad-${i}`} className="mgr-cal-mobile-month-cell mgr-cal-mobile-month-cell--empty" />);
+                      for (let d = 1; d <= dayColumns.length; d++) {
+                        const absForDay = employeesMeta.filter(e => getBlocks(e.id)[d - 1] > 0);
+                        const hasFullDay = absForDay.some(e => getBlocks(e.id)[d - 1] === 1);
+                        const hasPartial = absForDay.some(e => getBlocks(e.id)[d - 1] === 2);
+                        const hasReturning = absForDay.some(e => getBlocks(e.id)[d - 1] === 3);
+                        const isToday = d === today && month === 4 && year === 2026;
+                        const isSelected = d === selectedDay;
+                        cells.push(
+                          <button
+                            key={d}
+                            className={`mgr-cal-mobile-month-cell${isToday ? ' mgr-cal-mobile-month-cell--today' : ''}${isSelected ? ' mgr-cal-mobile-month-cell--selected' : ''}`}
+                            onClick={() => {
+                              setSelectedDay(d);
+                              setTimeout(() => { mobileListRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' }); }, 50);
+                            }}
+                          >
+                            <span className="mgr-cal-mobile-month-day">{d}</span>
+                            {absForDay.length > 0 && (
+                              <span className="mgr-cal-mobile-month-dots">
+                                {hasFullDay && <span className="mgr-cal-mobile-month-dot mgr-cal-mobile-month-dot--full" />}
+                                {hasPartial && <span className="mgr-cal-mobile-month-dot mgr-cal-mobile-month-dot--partial" />}
+                                {hasReturning && <span className="mgr-cal-mobile-month-dot mgr-cal-mobile-month-dot--returning" />}
+                              </span>
+                            )}
+                          </button>
+                        );
+                      }
+                      return cells;
+                    })()}
+                  </div>
                 </div>
-                <div className="mgr-cal-mobile-month-grid">
-                  {(() => {
-                    const firstDow = new Date(year, month, 1).getDay();
-                    const cells = [];
-                    for (let i = 0; i < firstDow; i++) cells.push(<span key={`pad-${i}`} className="mgr-cal-mobile-month-cell mgr-cal-mobile-month-cell--empty" />);
-                    for (let d = 1; d <= dayColumns.length; d++) {
-                      const absForDay = employeesMeta.filter(e => getBlocks(e.id)[d - 1] > 0);
-                      const hasFullDay = absForDay.some(e => getBlocks(e.id)[d - 1] === 1);
-                      const hasPartial = absForDay.some(e => getBlocks(e.id)[d - 1] === 2);
-                      const hasReturning = absForDay.some(e => getBlocks(e.id)[d - 1] === 3);
-                      const isToday = d === today && month === 4 && year === 2026;
-                      const isSelected = d === selectedDay;
-                      cells.push(
-                        <button
-                          key={d}
-                          className={`mgr-cal-mobile-month-cell${isToday ? ' mgr-cal-mobile-month-cell--today' : ''}${isSelected ? ' mgr-cal-mobile-month-cell--selected' : ''}`}
-                          onClick={() => {
-                            setSelectedDay(d);
-                            setTimeout(() => { mobileListRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' }); }, 50);
-                          }}
-                        >
-                          <span className="mgr-cal-mobile-month-day">{d}</span>
-                          {absForDay.length > 0 && (
-                            <span className="mgr-cal-mobile-month-dots">
-                              {hasFullDay && <span className="mgr-cal-mobile-month-dot mgr-cal-mobile-month-dot--full" />}
-                              {hasPartial && <span className="mgr-cal-mobile-month-dot mgr-cal-mobile-month-dot--partial" />}
-                              {hasReturning && <span className="mgr-cal-mobile-month-dot mgr-cal-mobile-month-dot--returning" />}
-                            </span>
-                          )}
-                        </button>
-                      );
-                    }
-                    return cells;
-                  })()}
-                </div>
-              </div>
 
-              <div className="mgr-cal-mobile-legend">
-                <div className="mgr-calendar-legend-item"><span className="mgr-cal-mobile-month-dot mgr-cal-mobile-month-dot--full" />Full Day</div>
-                <div className="mgr-calendar-legend-item"><span className="mgr-cal-mobile-month-dot mgr-cal-mobile-month-dot--partial" />Partial</div>
-                <div className="mgr-calendar-legend-item"><span className="mgr-cal-mobile-month-dot mgr-cal-mobile-month-dot--returning" />Returning</div>
+                <div className="mgr-cal-mobile-legend">
+                  <div className="mgr-calendar-legend-item"><span className="mgr-cal-mobile-month-dot mgr-cal-mobile-month-dot--full" />Full Day</div>
+                  <div className="mgr-calendar-legend-item"><span className="mgr-cal-mobile-month-dot mgr-cal-mobile-month-dot--partial" />Partial</div>
+                  <div className="mgr-calendar-legend-item"><span className="mgr-cal-mobile-month-dot mgr-cal-mobile-month-dot--returning" />Returning</div>
+                </div>
               </div>
 
               <div ref={mobileListRef} className="mgr-cal-mobile-selected-label">
                 {new Date(year, month, selectedDay).toLocaleDateString('en-US', { weekday: 'long', month: 'long', day: 'numeric' })}
                 {selectedDay === today && month === 4 && year === 2026 && <span className="mgr-sidebar-today">Today</span>}
               </div>
-              <div className="mgr-cal-mobile-hscroll">
+              <div className="mgr-cal-mobile-list">
                 {todayEmployees.length === 0 && (
                   <div className="mgr-cal-mobile-empty">No absences on this date.</div>
                 )}

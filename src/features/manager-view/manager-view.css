@@ -2388,29 +2388,12 @@
     gap: 10px;
   }
 
-  .mgr-cal-mobile-hscroll {
-    display: flex;
-    gap: 12px;
-    overflow-x: auto;
-    -webkit-overflow-scrolling: touch;
-    scroll-snap-type: x mandatory;
-    padding: 4px 0 12px;
-    scrollbar-width: none;
-  }
-
-  .mgr-cal-mobile-hscroll::-webkit-scrollbar {
-    display: none;
-  }
-
-  .mgr-cal-mobile-hscroll .mgr-cal-mobile-card {
-    min-width: 280px;
-    flex-shrink: 0;
-    scroll-snap-align: start;
-  }
-
-  .mgr-cal-mobile-hscroll .mgr-cal-mobile-empty {
-    min-width: 100%;
-    flex-shrink: 0;
+  .mgr-cal-mobile-month-sticky {
+    position: sticky;
+    top: 0;
+    z-index: 4;
+    background: #fff;
+    padding-bottom: 8px;
   }
 
   .mgr-cal-mobile-empty {
