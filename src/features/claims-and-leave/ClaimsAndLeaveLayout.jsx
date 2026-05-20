@@ -8,12 +8,17 @@ export default function ClaimsAndLeaveLayout() {
   const [mobileNavOpen, setMobileNavOpen] = useState(false);
   const [claimsExpanded, setClaimsExpanded] = useState(false);
   const [dropdownOpen, setDropdownOpen] = useState(false);
+  const [profileOpen, setProfileOpen] = useState(false);
   const dropdownRef = useRef(null);
+  const profileRef = useRef(null);
 
   useEffect(function () {
     function handleClickOutside(e) {
       if (dropdownRef.current && !dropdownRef.current.contains(e.target)) {
         setDropdownOpen(false);
+      }
+      if (profileRef.current && !profileRef.current.contains(e.target)) {
+        setProfileOpen(false);
       }
     }
     document.addEventListener('mousedown', handleClickOutside);
@@ -150,9 +155,17 @@ export default function ClaimsAndLeaveLayout() {
               </svg>
               <span className="cl-bell-dot" />
             </button>
-            <div className="cl-avatar">
-              <span className="cl-avatar-circle">AB</span>
-              <span className="cl-avatar-name">Name Here</span>
+            <div className={`cl-avatar-dropdown${profileOpen ? ' open' : ''}`} ref={profileRef}>
+              <button className="cl-avatar" type="button" onClick={() => setProfileOpen(!profileOpen)}>
+                <span className="cl-avatar-circle">AB</span>
+                <span className="cl-avatar-name">Name Here</span>
+                <svg className="cl-avatar-chevron" width="10" height="10" viewBox="0 0 10 10" fill="none"><path d="M2.5 4l2.5 2.5L7.5 4" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round" strokeLinejoin="round"/></svg>
+              </button>
+              <div className="cl-avatar-dropdown-menu">
+                <button className="cl-avatar-dropdown-item" type="button" onClick={() => { setProfileOpen(false); }}>
+                  Switch to Manager View
+                </button>
+              </div>
             </div>
           </div>
         </div>
