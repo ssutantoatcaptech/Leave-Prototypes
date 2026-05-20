@@ -525,6 +525,104 @@
   background: #f5f5f5;
 }
 
+/* === Table/Mobile toggle === */
+.mgr-table-wrap {
+  display: block;
+}
+
+.mgr-team-mobile-list {
+  display: none;
+}
+
+.mgr-team-mobile-header {
+  padding: 0 0 16px;
+  border-bottom: 1px solid #e5e7eb;
+}
+
+.mgr-team-mobile-header-count {
+  font-size: 14px;
+  color: #6b7280;
+}
+
+.mgr-team-mobile-entry {
+  padding: 20px 0;
+}
+
+.mgr-team-mobile-entry-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 20px;
+}
+
+.mgr-team-mobile-entry-name {
+  font-size: 15px;
+  font-weight: 600;
+  color: #0f0f14;
+}
+
+.mgr-team-mobile-entry-pill {
+  font-size: 12px;
+  font-weight: 500;
+  color: #374151;
+  padding: 4px 12px;
+  border: 1px solid #d1d5db;
+  border-radius: 14px;
+  white-space: nowrap;
+}
+
+.mgr-team-mobile-entry-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 0;
+}
+
+.mgr-team-mobile-entry-label {
+  font-size: 12px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: #6b7280;
+}
+
+.mgr-team-mobile-entry-value {
+  font-size: 14px;
+  color: #0f0f14;
+  text-align: right;
+}
+
+.mgr-team-mobile-entry-action {
+  display: flex;
+  justify-content: flex-end;
+  padding-top: 12px;
+}
+
+.mgr-team-mobile-entry-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 14px;
+  font-weight: 600;
+  color: #105fa8;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  min-height: 44px;
+}
+
+.mgr-team-mobile-entry-link:hover {
+  text-decoration: underline;
+}
+
+.mgr-team-mobile-entry-divider {
+  height: 1px;
+  background: #e5e7eb;
+  margin-top: 0;
+}
+
 /* === Action Cards === */
 .mgr-action-card {
   background: #ffffff;
@@ -2163,50 +2261,13 @@
     align-self: flex-start;
   }
 
-  /* --- Tables → Card layout --- */
-  .mgr-table {
-    display: block;
-  }
-
-  .mgr-table thead {
+  /* --- Tables: hide desktop, show mobile cards --- */
+  .mgr-table-wrap {
     display: none;
   }
 
-  .mgr-table tbody {
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-  }
-
-  .mgr-table tbody tr {
-    display: flex;
-    flex-direction: column;
-    background: #fff;
-    border: 1px solid #edf2f7;
-    border-radius: 10px;
-    padding: 14px 16px;
-    gap: 4px;
-  }
-
-  .mgr-table tbody tr:hover {
-    background: #fff;
-    border-color: #105fa8;
-  }
-
-  .mgr-table td {
-    padding: 2px 0;
-    border-bottom: none;
-    font-size: 13px;
-  }
-
-  .mgr-table td:first-child {
-    font-weight: 600;
-    font-size: 14px;
-    margin-bottom: 2px;
-  }
-
-  .mgr-table td:last-child {
-    margin-top: 8px;
+  .mgr-team-mobile-list {
+    display: block;
   }
 
   /* --- Pagination --- */

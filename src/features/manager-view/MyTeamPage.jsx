@@ -132,78 +132,162 @@ export default function MyTeamPage() {
 
         {activeTab !== 'ada' ? (
           <>
-            <table className="mgr-table">
-              <thead>
-                <tr>
-                  <th>Employee Name</th>
-                  <th>Leave Type</th>
-                  <th>Start Date &darr;</th>
-                  <th>End Date &darr;</th>
-                  <th>Return Date &darr;</th>
-                  <th>Required Actions</th>
-                  <th>Action</th>
-                </tr>
-              </thead>
-              <tbody>
-                {filteredTeam.map((emp) => (
-                  <tr key={emp.id}>
-                    <td>{emp.name}</td>
-                    <td>{emp.leaveType}</td>
-                    <td>{formatDate(emp.startDate)}</td>
-                    <td>{formatDate(emp.endDate)}</td>
-                    <td>{formatDate(emp.returnDate)}</td>
-                    <td>
+            <div className="mgr-table-wrap">
+              <table className="mgr-table">
+                <thead>
+                  <tr>
+                    <th>Employee Name</th>
+                    <th>Leave Type</th>
+                    <th>Start Date &darr;</th>
+                    <th>End Date &darr;</th>
+                    <th>Return Date &darr;</th>
+                    <th>Required Actions</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {filteredTeam.map((emp) => (
+                    <tr key={emp.id}>
+                      <td>{emp.name}</td>
+                      <td>{emp.leaveType}</td>
+                      <td>{formatDate(emp.startDate)}</td>
+                      <td>{formatDate(emp.endDate)}</td>
+                      <td>{formatDate(emp.returnDate)}</td>
+                      <td>
+                        {emp.requiredActions !== 'None' ? (
+                          <button className="mgr-table-link" onClick={() => navigate(`/manager/return-to-work?employee=${emp.id}`)}>{emp.requiredActions}</button>
+                        ) : 'None'}
+                      </td>
+                      <td>
+                        <button className="mgr-btn mgr-btn-outline mgr-btn-sm" onClick={() => navigate(`/manager/my-team/${emp.id}`)}>View Details</button>
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+              <div className="mgr-pagination">
+                <span className="mgr-pagination-info">Showing 1 to {filteredTeam.length} of {filteredTeam.length} entries</span>
+                <button className="mgr-pagination-btn active">1</button>
+              </div>
+            </div>
+
+            {/* Mobile card list */}
+            <div className="mgr-team-mobile-list">
+              <div className="mgr-team-mobile-header">
+                <span className="mgr-team-mobile-header-count">{filteredTeam.length} entries</span>
+              </div>
+              {filteredTeam.map((emp, i) => (
+                <div className="mgr-team-mobile-entry" key={emp.id}>
+                  <div className="mgr-team-mobile-entry-top">
+                    <span className="mgr-team-mobile-entry-name">{emp.name}</span>
+                    <span className="mgr-team-mobile-entry-pill">{emp.leaveType}</span>
+                  </div>
+                  <div className="mgr-team-mobile-entry-row">
+                    <span className="mgr-team-mobile-entry-label">Start Date</span>
+                    <span className="mgr-team-mobile-entry-value">{formatDate(emp.startDate)}</span>
+                  </div>
+                  <div className="mgr-team-mobile-entry-row">
+                    <span className="mgr-team-mobile-entry-label">End Date</span>
+                    <span className="mgr-team-mobile-entry-value">{formatDate(emp.endDate)}</span>
+                  </div>
+                  <div className="mgr-team-mobile-entry-row">
+                    <span className="mgr-team-mobile-entry-label">Return Date</span>
+                    <span className="mgr-team-mobile-entry-value">{formatDate(emp.returnDate)}</span>
+                  </div>
+                  <div className="mgr-team-mobile-entry-row">
+                    <span className="mgr-team-mobile-entry-label">Required Actions</span>
+                    <span className="mgr-team-mobile-entry-value">
                       {emp.requiredActions !== 'None' ? (
                         <button className="mgr-table-link" onClick={() => navigate(`/manager/return-to-work?employee=${emp.id}`)}>{emp.requiredActions}</button>
                       ) : 'None'}
-                    </td>
-                    <td>
-                      <button className="mgr-btn mgr-btn-outline mgr-btn-sm" onClick={() => navigate(`/manager/my-team/${emp.id}`)}>View Details</button>
-                    </td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-            <div className="mgr-pagination">
-              <span className="mgr-pagination-info">Showing 1 to {filteredTeam.length} of {filteredTeam.length} entries</span>
-              <button className="mgr-pagination-btn active">1</button>
+                    </span>
+                  </div>
+                  <div className="mgr-team-mobile-entry-action">
+                    <button className="mgr-team-mobile-entry-link" onClick={() => navigate(`/manager/my-team/${emp.id}`)}>
+                      View Details
+                      <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M3 1h8v8M11 1L1 11" stroke="currentColor" strokeWidth="1.3" strokeLinecap="round" strokeLinejoin="round"/></svg>
+                    </button>
+                  </div>
+                  {i < filteredTeam.length - 1 && <div className="mgr-team-mobile-entry-divider" />}
+                </div>
+              ))}
             </div>
           </>
         ) : (
           <>
-            <table className="mgr-table">
-              <thead>
-                <tr>
-                  <th>Employee Name</th>
-                  <th>ADA Accommodation Type</th>
-                  <th>Start Date &darr;</th>
-                  <th>End Date &darr;</th>
-                  <th>Required Actions</th>
-                  <th>Action</th>
-                </tr>
-              </thead>
-              <tbody>
-                {filteredAda.map((emp) => (
-                  <tr key={emp.id}>
-                    <td>{emp.name}</td>
-                    <td>{emp.adaType}</td>
-                    <td>{formatDate(emp.startDate)}</td>
-                    <td>{formatDate(emp.endDate)}</td>
-                    <td>
+            <div className="mgr-table-wrap">
+              <table className="mgr-table">
+                <thead>
+                  <tr>
+                    <th>Employee Name</th>
+                    <th>ADA Accommodation Type</th>
+                    <th>Start Date &darr;</th>
+                    <th>End Date &darr;</th>
+                    <th>Required Actions</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {filteredAda.map((emp) => (
+                    <tr key={emp.id}>
+                      <td>{emp.name}</td>
+                      <td>{emp.adaType}</td>
+                      <td>{formatDate(emp.startDate)}</td>
+                      <td>{formatDate(emp.endDate)}</td>
+                      <td>
+                        {emp.requiredActions !== 'None' ? (
+                          <button className="mgr-table-link" onClick={() => navigate(`/manager/return-to-work?employee=${emp.id}`)}>{emp.requiredActions}</button>
+                        ) : 'None'}
+                      </td>
+                      <td>
+                        <button className="mgr-btn mgr-btn-outline mgr-btn-sm" onClick={() => navigate(`/manager/my-team/${emp.id}`)}>View Details</button>
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+              <div className="mgr-pagination">
+                <span className="mgr-pagination-info">Showing 1 to {filteredAda.length} of {filteredAda.length} entries</span>
+                <button className="mgr-pagination-btn active">1</button>
+              </div>
+            </div>
+
+            {/* Mobile card list */}
+            <div className="mgr-team-mobile-list">
+              <div className="mgr-team-mobile-header">
+                <span className="mgr-team-mobile-header-count">{filteredAda.length} entries</span>
+              </div>
+              {filteredAda.map((emp, i) => (
+                <div className="mgr-team-mobile-entry" key={emp.id}>
+                  <div className="mgr-team-mobile-entry-top">
+                    <span className="mgr-team-mobile-entry-name">{emp.name}</span>
+                    <span className="mgr-team-mobile-entry-pill">{emp.adaType}</span>
+                  </div>
+                  <div className="mgr-team-mobile-entry-row">
+                    <span className="mgr-team-mobile-entry-label">Start Date</span>
+                    <span className="mgr-team-mobile-entry-value">{formatDate(emp.startDate)}</span>
+                  </div>
+                  <div className="mgr-team-mobile-entry-row">
+                    <span className="mgr-team-mobile-entry-label">End Date</span>
+                    <span className="mgr-team-mobile-entry-value">{formatDate(emp.endDate)}</span>
+                  </div>
+                  <div className="mgr-team-mobile-entry-row">
+                    <span className="mgr-team-mobile-entry-label">Required Actions</span>
+                    <span className="mgr-team-mobile-entry-value">
                       {emp.requiredActions !== 'None' ? (
                         <button className="mgr-table-link" onClick={() => navigate(`/manager/return-to-work?employee=${emp.id}`)}>{emp.requiredActions}</button>
                       ) : 'None'}
-                    </td>
-                    <td>
-                      <button className="mgr-btn mgr-btn-outline mgr-btn-sm" onClick={() => navigate(`/manager/my-team/${emp.id}`)}>View Details</button>
-                    </td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-            <div className="mgr-pagination">
-              <span className="mgr-pagination-info">Showing 1 to {filteredAda.length} of {filteredAda.length} entries</span>
-              <button className="mgr-pagination-btn active">1</button>
+                    </span>
+                  </div>
+                  <div className="mgr-team-mobile-entry-action">
+                    <button className="mgr-team-mobile-entry-link" onClick={() => navigate(`/manager/my-team/${emp.id}`)}>
+                      View Details
+                      <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M3 1h8v8M11 1L1 11" stroke="currentColor" strokeWidth="1.3" strokeLinecap="round" strokeLinejoin="round"/></svg>
+                    </button>
+                  </div>
+                  {i < filteredAda.length - 1 && <div className="mgr-team-mobile-entry-divider" />}
+                </div>
+              ))}
             </div>
           </>
         )}
