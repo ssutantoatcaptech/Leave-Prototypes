@@ -746,6 +746,12 @@
   background: var(--color-button-primary-hover);
 }
 
+.fc-wiz-shell .btn-next:disabled,
+.fc-wiz-shell .btn-submit:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+
 /* === Confirmation === */
 .fc-wiz-confirmation {
   text-align: center;
@@ -907,6 +913,83 @@
   font-size: 13px;
   color: var(--color-text-secondary);
   line-height: 1.5;
+}
+
+/* === Guided Intro Flow === */
+.fc-wiz-guided-heading {
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--color-text-primary);
+  margin: 24px 0 16px;
+  font-family: var(--font-family-primary);
+}
+
+.fc-wiz-guided-question {
+  margin-top: 24px;
+  padding-top: 20px;
+  border-top: 1px solid var(--color-border-card);
+}
+
+.fc-wiz-guided-question-label {
+  display: block;
+  font-size: 14px !important;
+  font-weight: 600 !important;
+  color: var(--color-text-primary) !important;
+  text-transform: none !important;
+  letter-spacing: 0 !important;
+  margin-bottom: 12px !important;
+}
+
+/* Inline radios (horizontal) */
+.fc-wiz-inline-radios {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+}
+
+.fc-wiz-inline-radios .radio-option {
+  display: flex !important;
+  align-items: center;
+  gap: 10px;
+  cursor: pointer;
+  font-size: 14px !important;
+  font-weight: 400 !important;
+  color: var(--color-text-primary) !important;
+  text-transform: none !important;
+  letter-spacing: 0 !important;
+  margin-bottom: 0 !important;
+}
+
+/* Vertical variant for guided Yes/No/Not Sure */
+.fc-wiz-inline-radios--vertical {
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 14px;
+  margin-top: 8px;
+}
+
+/* Recommendation screen */
+.fc-wiz-recommendation {
+  text-align: center;
+  padding: 20px 0;
+}
+
+.fc-wiz-recommendation h2 {
+  font-size: 22px;
+  font-weight: 400;
+  color: var(--color-text-primary);
+  line-height: 1.5;
+  margin-bottom: 12px;
+}
+
+.fc-wiz-recommendation h2 strong {
+  font-weight: 700;
+}
+
+.fc-wiz-recommendation-footer {
+  justify-content: center;
+  margin-top: 32px;
+  gap: 12px;
 }
 
 /* === Responsive === */

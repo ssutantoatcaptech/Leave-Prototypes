@@ -242,6 +242,29 @@ export default function FileClaimWizardPage() {
     return 0;
   });
 
+  // Guided intro flow state
+  // wizardPhase: 'intro' | 'direct' | 'guided' | 'recommendation' | 'wizard'
+  const [wizardPhase, setWizardPhase] = useState(() => {
+    if (isManaged) return 'direct'; // skip intro for managed users
+    // If resuming from a saved step > 0, go straight to wizard phase
+    const urlStep = searchParams.get('step');
+    if (urlStep !== null && parseInt(urlStep, 10) > 0) return 'wizard';
+    try {
+      const saved = JSON.parse(sessionStorage.getItem(DRAFT_KEY));
+      if (saved && saved.step > 0) return 'wizard';
+    } catch { /* ignore */ }
+    return 'intro';
+  });
+  const [introChoice, setIntroChoice] = useState(''); // '' | 'direct' | 'guided'
+  const [guidedStep, setGuidedStep] = useState(1);
+  const [guidedSituation, setGuidedSituation] = useState('');
+  const [guidedWorkAffected, setGuidedWorkAffected] = useState('');
+  const [guidedAccident, setGuidedAccident] = useState('');
+  const [guidedIllness, setGuidedIllness] = useState('');
+  const [guidedHospital, setGuidedHospital] = useState('');
+  const [guidedSupport, setGuidedSupport] = useState('');
+  const [recommendedType, setRecommendedType] = useState('');
+
   const [submitted, setSubmitted] = useState(false);
   const [submitting, setSubmitting] = useState(false);
 
@@ -317,6 +340,63 @@ export default function FileClaimWizardPage() {
     }, 0);
   }
 
+  function computeRecommendation() {
+    // Primary: based on support selection (step 5)
+    if (guidedSupport === 'income') return 'std';
+    if (guidedSupport === 'lump_sum') return 'critical_illness';
+    if (guidedSupport === 'accident_coverage') return 'accident';
+    if (guidedSupport === 'hospital_expenses') return 'hospital_indemnity';
+    // Fallback: based on situation selection (step 1)
+    if (guidedSituation === 'injured') return 'accident';
+    if (guidedSituation === 'illness') return 'critical_illness';
+    if (guidedSituation === 'work_condition') return 'std';
+    if (guidedSituation === 'hospitalized') return 'hospital_indemnity';
+    return 'std'; // default
+  }
+
+  function handleIntroNext() {
+    if (introChoice === 'direct') {
+      setWizardPhase('direct');
+    } else if (introChoice === 'guided') {
+      setWizardPhase('guided');
+      setGuidedStep(1);
+    }
+    scrollToTop();
+  }
+
+  function handleGuidedNext() {
+    if (guidedStep < 5) {
+      setGuidedStep(guidedStep + 1);
+    } else {
+      // Compute recommendation and show result
+      const rec = computeRecommendation();
+      setRecommendedType(rec);
+      setWizardPhase('recommendation');
+    }
+    scrollToTop();
+  }
+
+  function handleGuidedBack() {
+    if (guidedStep > 1) {
+      setGuidedStep(guidedStep - 1);
+    } else {
+      setWizardPhase('intro');
+    }
+    scrollToTop();
+  }
+
+  function handleRecommendationComplete() {
+    updateField('claimType', recommendedType);
+    setWizardPhase('wizard');
+    setCurrentStep(1);
+    scrollToTop();
+  }
+
+  function getRecommendedTypeLabel() {
+    const labels = { std: 'Short Term Disability', accident: 'Accident', critical_illness: 'Critical Illness', hospital_indemnity: 'Hospital Indemnity' };
+    return labels[recommendedType] || 'Claim';
+  }
+
   function goNext() {
     setCurrentStep((s) => Math.min(s + 1, totalSteps));
     scrollToTop();
@@ -325,6 +405,18 @@ export default function FileClaimWizardPage() {
   function goBack() {
     if (currentStep === 0) {
       navigate(`${base}/file-claim`);
+      return;
+    }
+    if (currentStep === 1 && wizardPhase === 'wizard') {
+      // If they came through the guided flow, go back to recommendation
+      // If they came through direct, go back to claim type selection
+      if (recommendedType) {
+        setWizardPhase('recommendation');
+      } else {
+        setCurrentStep(0);
+        setWizardPhase('direct');
+      }
+      scrollToTop();
       return;
     }
     setCurrentStep((s) => Math.max(s - 1, 0));
@@ -425,8 +517,209 @@ export default function FileClaimWizardPage() {
     );
   }
 
-  // Landing screen (step 0)
-  if (currentStep === 0) {
+  // === INTRO PHASE: Initial Choice Screen ===
+  if (currentStep === 0 && wizardPhase === 'intro') {
+    return (
+      <div className="fc-wiz-shell">
+        <div className="fc-wiz-wrap">
+          <div className="fc-wiz-card">
+            <h2>Submit a Claim</h2>
+            <p className="fc-wiz-subtitle">Please allow approximately 10-20 minutes to step through the online application process.</p>
+
+            <h3 className="fc-wiz-guided-heading">Which answer best represents your situation?</h3>
+
+            <div className="fc-wiz-radio-cards">
+              <div
+                className={`fc-wiz-radio-card${introChoice === 'direct' ? ' selected' : ''}`}
+                onClick={() => setIntroChoice('direct')}
+              >
+                <div className="fc-wiz-radio-dot" />
+                <div className="fc-wiz-radio-card-text">
+                  <h4>I know what type of claim I'd like to file</h4>
+                </div>
+              </div>
+              <div
+                className={`fc-wiz-radio-card${introChoice === 'guided' ? ' selected' : ''}`}
+                onClick={() => setIntroChoice('guided')}
+              >
+                <div className="fc-wiz-radio-dot" />
+                <div className="fc-wiz-radio-card-text">
+                  <h4>Help me figure out the right claim for my situation</h4>
+                </div>
+              </div>
+            </div>
+
+            <div className="fc-wiz-footer" style={{ marginTop: 32 }}>
+              <button className="btn btn-secondary" onClick={() => navigate(`${base}/file-claim`)}>Cancel</button>
+              <button className="btn btn-next" disabled={!introChoice} onClick={handleIntroNext}>Next</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
+  // === GUIDED PHASE: 5-step questionnaire ===
+  if (currentStep === 0 && wizardPhase === 'guided') {
+    return (
+      <div className="fc-wiz-shell">
+        <div className="fc-wiz-wrap">
+          {/* Guided Progress */}
+          <div className="fc-wiz-stepper">
+            <span className="fc-wiz-stepper-counter">Step <strong>{guidedStep}</strong> of 5</span>
+          </div>
+          <div className="fc-wiz-progress-bar">
+            <div className="fc-wiz-progress-fill" style={{ width: `${(guidedStep / 5) * 100}%` }} />
+          </div>
+
+          <div className="fc-wiz-card">
+            <div className="fc-wiz-step-content">
+              {guidedStep === 1 && (
+                <>
+                  <h2>Provide details about your situation to get started.</h2>
+                  <p className="fc-wiz-subtitle">Select which option or options best describes your situation related to this claim.</p>
+
+                  <div className="fc-wiz-radio-cards">
+                    <div className={`fc-wiz-radio-card${guidedSituation === 'injured' ? ' selected' : ''}`} onClick={() => setGuidedSituation('injured')}>
+                      <div className="fc-wiz-radio-dot" />
+                      <div className="fc-wiz-radio-card-text"><h4>I was injured in an accident (such as like a fall, car accident, or sports injury)</h4></div>
+                    </div>
+                    <div className={`fc-wiz-radio-card${guidedSituation === 'illness' ? ' selected' : ''}`} onClick={() => setGuidedSituation('illness')}>
+                      <div className="fc-wiz-radio-dot" />
+                      <div className="fc-wiz-radio-card-text"><h4>I've been diagnosed with a serious illness (such as cancer, heart attack, or stroke)</h4></div>
+                    </div>
+                    <div className={`fc-wiz-radio-card${guidedSituation === 'work_condition' ? ' selected' : ''}`} onClick={() => setGuidedSituation('work_condition')}>
+                      <div className="fc-wiz-radio-dot" />
+                      <div className="fc-wiz-radio-card-text"><h4>I have a condition that will effect my ability to work</h4></div>
+                    </div>
+                    <div className={`fc-wiz-radio-card${guidedSituation === 'hospitalized' ? ' selected' : ''}`} onClick={() => setGuidedSituation('hospitalized')}>
+                      <div className="fc-wiz-radio-dot" />
+                      <div className="fc-wiz-radio-card-text"><h4>I was hospitalized or stayed overnight in a hospital</h4></div>
+                    </div>
+                    <div className={`fc-wiz-radio-card${guidedSituation === 'other' ? ' selected' : ''}`} onClick={() => setGuidedSituation('other')}>
+                      <div className="fc-wiz-radio-dot" />
+                      <div className="fc-wiz-radio-card-text"><h4>Something else</h4></div>
+                    </div>
+                  </div>
+
+                  <div className="fc-wiz-guided-question">
+                    <label className="fc-wiz-guided-question-label">Has your ability to work been effected by this situation?</label>
+                    <div className="fc-wiz-inline-radios">
+                      <label className="radio-option" onClick={() => setGuidedWorkAffected('yes')}><span className={`radio-circle${guidedWorkAffected === 'yes' ? ' selected' : ''}`} /> Yes</label>
+                      <label className="radio-option" onClick={() => setGuidedWorkAffected('no')}><span className={`radio-circle${guidedWorkAffected === 'no' ? ' selected' : ''}`} /> No</label>
+                    </div>
+                  </div>
+                </>
+              )}
+
+              {guidedStep === 2 && (
+                <>
+                  <h2>Was this caused by an accident?</h2>
+                  <p className="fc-wiz-subtitle">Was your condition caused by an accidental injury (like a fall, car accident, or sports injury)?</p>
+
+                  <div className="fc-wiz-inline-radios fc-wiz-inline-radios--vertical">
+                    <label className="radio-option" onClick={() => setGuidedAccident('yes')}><span className={`radio-circle${guidedAccident === 'yes' ? ' selected' : ''}`} /> Yes</label>
+                    <label className="radio-option" onClick={() => setGuidedAccident('no')}><span className={`radio-circle${guidedAccident === 'no' ? ' selected' : ''}`} /> No</label>
+                    <label className="radio-option" onClick={() => setGuidedAccident('not_sure')}><span className={`radio-circle${guidedAccident === 'not_sure' ? ' selected' : ''}`} /> Not Sure</label>
+                  </div>
+                </>
+              )}
+
+              {guidedStep === 3 && (
+                <>
+                  <h2>Were you diagnosed with a serious illness?</h2>
+                  <p className="fc-wiz-subtitle">Have you been diagnosed with a serious condition, such as cancer, heart attack, or stroke?</p>
+
+                  <div className="fc-wiz-inline-radios fc-wiz-inline-radios--vertical">
+                    <label className="radio-option" onClick={() => setGuidedIllness('yes')}><span className={`radio-circle${guidedIllness === 'yes' ? ' selected' : ''}`} /> Yes</label>
+                    <label className="radio-option" onClick={() => setGuidedIllness('no')}><span className={`radio-circle${guidedIllness === 'no' ? ' selected' : ''}`} /> No</label>
+                    <label className="radio-option" onClick={() => setGuidedIllness('not_sure')}><span className={`radio-circle${guidedIllness === 'not_sure' ? ' selected' : ''}`} /> Not Sure</label>
+                  </div>
+                </>
+              )}
+
+              {guidedStep === 4 && (
+                <>
+                  <h2>Did you stay in the hospital?</h2>
+                  <p className="fc-wiz-subtitle">Did your situation require a hospital stay or overnight admission?</p>
+
+                  <div className="fc-wiz-inline-radios fc-wiz-inline-radios--vertical">
+                    <label className="radio-option" onClick={() => setGuidedHospital('yes')}><span className={`radio-circle${guidedHospital === 'yes' ? ' selected' : ''}`} /> Yes</label>
+                    <label className="radio-option" onClick={() => setGuidedHospital('no')}><span className={`radio-circle${guidedHospital === 'no' ? ' selected' : ''}`} /> No</label>
+                    <label className="radio-option" onClick={() => setGuidedHospital('not_sure')}><span className={`radio-circle${guidedHospital === 'not_sure' ? ' selected' : ''}`} /> Not Sure</label>
+                  </div>
+                </>
+              )}
+
+              {guidedStep === 5 && (
+                <>
+                  <h2>What kind of support are you looking for?</h2>
+                  <p className="fc-wiz-subtitle">Different types of claims can provide different types of support. Select one or multiple which describes your situation best.</p>
+
+                  <div className="fc-wiz-radio-cards">
+                    <div className={`fc-wiz-radio-card${guidedSupport === 'income' ? ' selected' : ''}`} onClick={() => setGuidedSupport('income')}>
+                      <div className="fc-wiz-radio-dot" />
+                      <div className="fc-wiz-radio-card-text"><h4>Help replacing lost income while I can't work</h4></div>
+                    </div>
+                    <div className={`fc-wiz-radio-card${guidedSupport === 'lump_sum' ? ' selected' : ''}`} onClick={() => setGuidedSupport('lump_sum')}>
+                      <div className="fc-wiz-radio-dot" />
+                      <div className="fc-wiz-radio-card-text"><h4>A lump sum payment for a serious diagnosis</h4></div>
+                    </div>
+                    <div className={`fc-wiz-radio-card${guidedSupport === 'accident_coverage' ? ' selected' : ''}`} onClick={() => setGuidedSupport('accident_coverage')}>
+                      <div className="fc-wiz-radio-dot" />
+                      <div className="fc-wiz-radio-card-text"><h4>Coverage related to an accident</h4></div>
+                    </div>
+                    <div className={`fc-wiz-radio-card${guidedSupport === 'hospital_expenses' ? ' selected' : ''}`} onClick={() => setGuidedSupport('hospital_expenses')}>
+                      <div className="fc-wiz-radio-dot" />
+                      <div className="fc-wiz-radio-card-text"><h4>Help covering hospital-related expenses</h4></div>
+                    </div>
+                  </div>
+                </>
+              )}
+            </div>
+
+            {/* Guided Footer */}
+            <div className="fc-wiz-footer">
+              <div className="fc-wiz-footer-left">
+                <button className="btn btn-back" onClick={handleGuidedBack}>
+                  <svg width="14" height="14" viewBox="0 0 14 14" fill="none" style={{ marginRight: 4 }}><path d="M9 2L4 7l5 5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/></svg>
+                  Back
+                </button>
+              </div>
+              <div className="fc-wiz-footer-right">
+                <button className="btn btn-next" onClick={handleGuidedNext}>Next</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
+  // === RECOMMENDATION PHASE ===
+  if (currentStep === 0 && wizardPhase === 'recommendation') {
+    return (
+      <div className="fc-wiz-shell">
+        <div className="fc-wiz-wrap">
+          <div className="fc-wiz-card">
+            <div className="fc-wiz-recommendation">
+              <h2>Based on your answers, it looks like you may want to file a <strong>{getRecommendedTypeLabel()}</strong> Claim</h2>
+              <p className="fc-wiz-subtitle">Select from the options below to start your claim or select cancel to start over.</p>
+
+              <div className="fc-wiz-footer fc-wiz-recommendation-footer">
+                <button className="btn btn-secondary" onClick={() => { setWizardPhase('intro'); setIntroChoice(''); setGuidedStep(1); setGuidedSituation(''); setGuidedWorkAffected(''); setGuidedAccident(''); setGuidedIllness(''); setGuidedHospital(''); setGuidedSupport(''); setRecommendedType(''); scrollToTop(); }}>Cancel</button>
+                <button className="btn btn-secondary" onClick={() => {}}>Print Form</button>
+                <button className="btn btn-next" onClick={handleRecommendationComplete}>Complete Form Online</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
+  // === DIRECT PHASE: Landing screen (step 0) — existing claim type selection ===
+  if (currentStep === 0 && (wizardPhase === 'direct' || wizardPhase === 'wizard')) {
     const nonManagedOptions = [
       { value: 'std', label: 'Short Term Disability', desc: 'For illness or injury preventing you from working' },
       { value: 'accident', label: 'Accident', desc: 'For accidental injury benefits' },
@@ -482,8 +775,8 @@ export default function FileClaimWizardPage() {
             )}
 
             <div className="fc-wiz-footer" style={{ marginTop: 32 }}>
-              <button className="btn btn-secondary" onClick={() => {}}>Print and Mail a Paper Form</button>
-              <button className="btn btn-next" disabled={!formState.claimType} onClick={goNext}>Complete the Form Online</button>
+              <button className="btn btn-secondary" onClick={() => { if (!isManaged) { setWizardPhase('intro'); scrollToTop(); } else { navigate(`${base}/file-claim`); } }}>Back</button>
+              <button className="btn btn-next" disabled={!formState.claimType} onClick={() => { setWizardPhase('wizard'); goNext(); }}>Complete the Form Online</button>
             </div>
           </div>
         </div>
