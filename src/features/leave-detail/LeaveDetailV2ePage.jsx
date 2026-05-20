@@ -387,7 +387,7 @@ export default function LeaveDetailV2ePage() {
                   <div style={{ border: '1px solid #e5e7eb', borderRadius: 6, overflow: 'hidden' }}>
                     {/* Months row with Coverage header */}
                     <div style={{ display: 'flex', background: '#f9fafb', borderBottom: '1px solid #e5e7eb', padding: '6px 0' }}>
-                      <span style={{ width: 100, flexShrink: 0, fontFamily: "'Source Sans Pro', sans-serif", fontSize: 11, fontWeight: 600, color: '#374151', paddingLeft: 12 }}>Coverage</span>
+                      <span style={{ width: 60, flexShrink: 0, fontFamily: "'Source Sans Pro', sans-serif", fontSize: 11, fontWeight: 600, color: '#374151', paddingLeft: 10 }}>Coverage</span>
                       <div style={{ flex: 1, display: 'flex' }}>
                         {['Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec','Jan','Feb'].map(function (m) {
                           return <span key={m} style={{ flex: 1, fontFamily: "'Source Sans Pro', sans-serif", fontSize: 11, fontWeight: 600, color: '#374151', textAlign: 'center' }}>{m}</span>;
@@ -396,7 +396,7 @@ export default function LeaveDetailV2ePage() {
                     </div>
                     {/* Weeks row */}
                     <div style={{ display: 'flex', background: '#fff', borderBottom: '1px solid #e5e7eb', padding: '4px 0' }}>
-                      <span style={{ width: 100, flexShrink: 0 }} />
+                      <span style={{ width: 60, flexShrink: 0 }} />
                       <div style={{ flex: 1, display: 'flex' }}>
                         {[4,9,13,17,22,26,30,35,39,44,48,52].map(function (w, i) {
                           var isKey = i % 3 === 2;
@@ -406,7 +406,7 @@ export default function LeaveDetailV2ePage() {
                     </div>
                     {/* Timeline bars */}
                     <div className="ldb-tl-rows-wrap" style={{ display: 'flex', flexDirection: 'column', gap: 0, position: 'relative', padding: '8px 12px 8px 0' }}>
-                      <div style={{ position: 'absolute', top: 0, bottom: 0, left: 100, right: 0, pointerEvents: 'none', zIndex: 0 }}>
+                      <div style={{ position: 'absolute', top: 0, bottom: 0, left: 60, right: 0, pointerEvents: 'none', zIndex: 0 }}>
                         {[0,1,2,3,4,5,6,7,8,9,10,11].map(function (i) {
                           var isYearBoundary = i === 10;
                           return <div key={i} style={{ position: 'absolute', left: (i / 12 * 100) + '%', top: 0, bottom: 0, width: 1, borderLeft: isYearBoundary ? '1.5px dashed #9ca3af' : '1px dotted #e5e7eb' }} />;
@@ -430,7 +430,7 @@ export default function LeaveDetailV2ePage() {
                               onClick={function () { setHoveredRow(hoveredRow === item.id ? null : item.id); }}
                               style={{ display: 'flex', alignItems: 'center', gap: 10, width: '100%', padding: '10px 0', border: 'none', background: hoveredRow === item.id ? '#f8fafc' : 'transparent', cursor: 'pointer', borderRadius: 6, transition: 'background 0.15s' }}
                             >
-                              <span style={{ fontFamily: "'Source Sans Pro', sans-serif", fontSize: 12, fontWeight: 600, color: '#374151', width: 88, textAlign: 'left', flexShrink: 0, paddingLeft: 12 }}>{item.label}</span>
+                              <span style={{ fontFamily: "'Source Sans Pro', sans-serif", fontSize: 12, fontWeight: 600, color: '#374151', width: 48, textAlign: 'left', flexShrink: 0, paddingLeft: 10 }}>{item.label}</span>
                               <div style={{ flex: 1, position: 'relative', height: 24, display: 'flex', alignItems: 'center' }}>
                                 <div style={{ position: 'absolute', left: 0, right: 0, height: 14, background: '#e2e5ea', borderRadius: 7 }} />
                                 <div style={{ position: 'absolute', left: item.startPct + '%', width: item.widthPct + '%', height: 14, background: item.accent, borderRadius: 7 }} />
