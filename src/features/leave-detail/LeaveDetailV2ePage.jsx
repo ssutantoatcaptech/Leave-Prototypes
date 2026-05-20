@@ -1548,6 +1548,12 @@ export default function LeaveDetailV2ePage() {
         </div>
 
       </div>
+
+      {/* Version Toolbar */}
+      <div className="ld-version-toolbar">
+        <Link to={location.pathname.replace(/\/case-detail.*/, '/case-detail')} className="active">V2</Link>
+        <Link to={location.pathname.replace(/\/case-detail.*/, '/case-detail-v3')} className="">V3</Link>
+      </div>
     </div>
   );
 }

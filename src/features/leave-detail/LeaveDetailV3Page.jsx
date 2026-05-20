@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import './leave-detail.css';
 
 function GlobalNav({ user, initials }) {
@@ -62,6 +62,7 @@ function GlobalFooter() {
 }
 
 export default function LeaveDetailV3Page() {
+  var location = useLocation();
   var [activeTab, setActiveTab] = useState('payments');
   var [expandedPayments, setExpandedPayments] = useState({});
 
@@ -458,9 +459,18 @@ export default function LeaveDetailV3Page() {
 
       {/* Version Toolbar */}
       <div className="ld-version-toolbar">
-        <Link to="/leave-detail" className="">V1</Link>
-        <Link to="/leave-detail-v2" className="">V2</Link>
-        <Link to="/leave-detail-v3" className="active">V3</Link>
+        {location.pathname.includes('claims-and-leave') ? (
+          <>
+            <Link to={location.pathname.replace(/\/case-detail.*/, '/case-detail')} className="">V2</Link>
+            <Link to={location.pathname.replace(/\/case-detail.*/, '/case-detail-v3')} className="active">V3</Link>
+          </>
+        ) : (
+          <>
+            <Link to="/leave-detail" className="">V1</Link>
+            <Link to="/leave-detail-v2" className="">V2</Link>
+            <Link to="/leave-detail-v3" className="active">V3</Link>
+          </>
+        )}
       </div>
     </div>
   );

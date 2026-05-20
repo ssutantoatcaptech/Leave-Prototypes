@@ -128,6 +128,7 @@ export default function App() {
           <Route path="payments" element={<PaymentsPage />} />
           <Route path="case-detail" element={<LeaveDetailV2ePage />} />
           <Route path="case-detail/return-to-work" element={<ReturnToWorkEmbeddedPage />} />
+          <Route path="case-detail-v3" element={<LeaveDetailV3Page />} />
           <Route path="case-detail-new" element={<LeaveDetailNewCasePage />} />
           <Route path="case-detail-pregnancy" element={<LeaveDetailPregnancyPage />} />
           <Route path="case-detail-pregnancy/return-to-work" element={<ReturnToWorkPregnancyEmbeddedPage />} />
@@ -157,6 +158,7 @@ export default function App() {
           <Route path="payments" element={<PaymentsPage />} />
           <Route path="case-detail" element={<LeaveDetailV2ePage />} />
           <Route path="case-detail/return-to-work" element={<ReturnToWorkEmbeddedPage />} />
+          <Route path="case-detail-v3" element={<LeaveDetailV3Page />} />
           <Route path="case-detail-new" element={<LeaveDetailNewCasePage />} />
           <Route path="case-detail-pregnancy" element={<LeaveDetailPregnancyPage />} />
           <Route path="case-detail-pregnancy/return-to-work" element={<ReturnToWorkPregnancyEmbeddedPage />} />
