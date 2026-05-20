@@ -446,65 +446,52 @@ export default function AbsenceCalendarPage() {
             </>
           )}
 
-          {/* === DAY VIEW (horizontal strip + vertical card list) === */}
+          {/* === DAY VIEW (timeline with sticky avatars) === */}
           {mobileView === 'day' && (
             <>
-              <div className="mgr-cal-mobile-day-strip-wrap">
-                <div className="mgr-cal-mobile-day-strip">
-                  {dayColumns.map((col) => {
-                    const isToday = col.day === today && month === 4 && year === 2026;
-                    const isSelected = col.day === selectedDay;
-                    return (
-                      <button
-                        key={col.day}
-                        className={`mgr-cal-mobile-day-strip-cell${isToday ? ' mgr-cal-mobile-day-strip-cell--today' : ''}${isSelected ? ' mgr-cal-mobile-day-strip-cell--selected' : ''}`}
-                        onClick={() => setSelectedDay(col.day)}
-                      >
-                        <span className="mgr-cal-mobile-day-strip-dow">{col.dow[0]}</span>
-                        <span className="mgr-cal-mobile-day-strip-num">{col.day}</span>
-                      </button>
-                    );
-                  })}
+              <div className="mgr-cal-mobile-timeline-wrap">
+                {/* Day numbers header row */}
+                <div className="mgr-cal-mobile-timeline-header">
+                  <div className="mgr-cal-mobile-timeline-label-col" />
+                  <div className="mgr-cal-mobile-timeline-days">
+                    {dayColumns.map((col) => {
+                      const isToday = col.day === today && month === 4 && year === 2026;
+                      return (
+                        <div key={col.day} className={`mgr-cal-mobile-timeline-day${isToday ? ' mgr-cal-mobile-timeline-day--today' : ''}`}>
+                          <span className="mgr-cal-mobile-timeline-day-dow">{col.dow[0]}</span>
+                          <span className="mgr-cal-mobile-timeline-day-num">{col.day}</span>
+                        </div>
+                      );
+                    })}
+                  </div>
                 </div>
-              </div>
 
-              <div className="mgr-cal-mobile-legend">
-                <div className="mgr-calendar-legend-item"><span className="mgr-cal-mobile-month-dot mgr-cal-mobile-month-dot--full" />Full Day</div>
-                <div className="mgr-calendar-legend-item"><span className="mgr-cal-mobile-month-dot mgr-cal-mobile-month-dot--partial" />Partial</div>
-                <div className="mgr-calendar-legend-item"><span className="mgr-cal-mobile-month-dot mgr-cal-mobile-month-dot--returning" />Returning</div>
-              </div>
-
-              <div className="mgr-cal-mobile-selected-label">
-                {new Date(year, month, selectedDay).toLocaleDateString('en-US', { weekday: 'long', month: 'long', day: 'numeric' })}
-                {selectedDay === today && month === 4 && year === 2026 && <span className="mgr-sidebar-today">Today</span>}
-              </div>
-              <div className="mgr-cal-mobile-list">
-                {todayEmployees.length === 0 && (
-                  <div className="mgr-cal-mobile-empty">No absences on this date.</div>
-                )}
-                {todayEmployees.map((emp) => {
-                  const blockType = getBlocks(emp.id)[selectedDay - 1];
+                {/* Employee rows */}
+                {employeesMeta.map((emp) => {
+                  const blocks = getBlocks(emp.id);
+                  const hasAny = blocks.some(b => b > 0);
+                  if (!hasAny) return null;
                   return (
-                    <div className={`mgr-cal-mobile-card mgr-cal-mobile-card--${blockType === 1 ? "full" : blockType === 2 ? "partial" : "returning"}`} key={emp.id} onClick={() => navigate(`/manager/my-team/${emp.id}`)}>
-                      <div className="mgr-cal-mobile-card-left">
-                        <div className={`mgr-cal-mobile-indicator mgr-cal-mobile-indicator--${blockType === 1 ? 'full' : blockType === 2 ? 'partial' : 'returning'}`} />
+                    <div className="mgr-cal-mobile-timeline-row" key={emp.id}>
+                      <div className="mgr-cal-mobile-timeline-label-col" onClick={() => navigate(`/manager/my-team/${emp.id}`)}>
                         <EmployeeAvatar emp={emp} size="mobile" />
                       </div>
-                      <div className="mgr-cal-mobile-card-content">
-                        <div className="mgr-cal-mobile-card-name">
-                          {emp.name}
-                          {emp.ada && <span className="mgr-ada-tag">ADA</span>}
-                        </div>
-                        <div className="mgr-cal-mobile-card-meta">
-                          <span className="mgr-cal-mobile-card-type">{emp.type}</span>
-                          <span className="mgr-cal-mobile-card-status">{blockLabels[blockType]}</span>
-                        </div>
-                        <div className="mgr-cal-mobile-card-dates">{emp.dates}</div>
+                      <div className="mgr-cal-mobile-timeline-cells">
+                        {blocks.map((b, i) => (
+                          <div key={i} className="mgr-cal-mobile-timeline-cell">
+                            {b > 0 && <div className={`mgr-cal-mobile-timeline-bar mgr-cal-mobile-timeline-bar--${b === 1 ? 'full' : b === 2 ? 'partial' : 'returning'}`} />}
+                          </div>
+                        ))}
                       </div>
-                      <svg className="mgr-cal-mobile-card-chevron" width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M5 3l4 4-4 4" stroke="#999" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/></svg>
                     </div>
                   );
                 })}
+              </div>
+
+              <div className="mgr-cal-mobile-legend">
+                <div className="mgr-calendar-legend-item"><span className="mgr-cal-mobile-timeline-bar mgr-cal-mobile-timeline-bar--full mgr-cal-mobile-timeline-legend-bar" />Full Day</div>
+                <div className="mgr-calendar-legend-item"><span className="mgr-cal-mobile-timeline-bar mgr-cal-mobile-timeline-bar--partial mgr-cal-mobile-timeline-legend-bar" />Partial</div>
+                <div className="mgr-calendar-legend-item"><span className="mgr-cal-mobile-timeline-bar mgr-cal-mobile-timeline-bar--returning mgr-cal-mobile-timeline-legend-bar" />Returning</div>
               </div>
             </>
           )}
