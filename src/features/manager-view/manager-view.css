@@ -1422,6 +1422,19 @@
   padding: 14px 16px;
   box-shadow: 0 1px 4px rgba(0,0,0,0.06);
   transition: border-color 0.12s, box-shadow 0.12s;
+  border-left: 4px solid transparent;
+}
+
+.mgr-sidebar-employee-card--full {
+  border-left-color: #105fa8;
+}
+
+.mgr-sidebar-employee-card--partial {
+  border-left-color: #f59e0b;
+}
+
+.mgr-sidebar-employee-card--returning {
+  border-left-color: #16a34a;
 }
 
 .mgr-sidebar-employee-card:hover {
@@ -1688,7 +1701,7 @@
   font-size: 24px;
   font-weight: 700;
   margin: 0 0 8px;
-  color: #1a1a1a;
+  color: var(--color-brand-navy);
 }
 
 .mgr-rtw-confirm-header p {
@@ -1936,7 +1949,7 @@
   font-size: 22px;
   font-weight: 700;
   margin: 0 0 10px;
-  color: #1a1a1a;
+  color: var(--color-brand-navy);
 }
 
 .mgr-rtw-success-desc {
@@ -2795,36 +2808,11 @@
 
   /* --- Footer --- */
   .mgr-footer {
-    padding: 0;
+    padding: 20px 0;
   }
 
   .mgr-footer-inner {
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 16px;
-    padding: 32px 16px 24px;
-  }
-
-  .mgr-footer-left {
-    flex-wrap: wrap;
-    gap: 8px;
-  }
-
-  .mgr-footer-right {
-    flex-direction: column;
-    gap: 0;
-  }
-
-  .mgr-footer-link {
-    min-height: 44px;
-    display: inline-flex;
-    align-items: center;
-  }
-
-  .mgr-footer-bottom {
-    margin-top: 0;
-    padding-top: 16px;
-    border-top: 1px solid rgba(255,255,255,0.15);
+    padding: 0 16px;
   }
 
   /* --- Calendar legend (desktop) --- */

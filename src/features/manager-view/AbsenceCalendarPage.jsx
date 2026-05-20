@@ -278,8 +278,9 @@ export default function AbsenceCalendarPage() {
                 )}
                 {todayEmployees.map((emp) => {
                   const blockType = getBlocks(emp.id)[selectedDay - 1];
+                  const blockClass = blockType === 1 ? ' mgr-sidebar-employee-card--full' : blockType === 2 ? ' mgr-sidebar-employee-card--partial' : ' mgr-sidebar-employee-card--returning';
                   return (
-                    <div className="mgr-sidebar-employee-card" key={emp.id}>
+                    <div className={`mgr-sidebar-employee-card${blockClass}`} key={emp.id}>
                       <div className="mgr-sidebar-employee-card-header">
                         <div>
                           <div className="mgr-sidebar-employee-name">{emp.name}</div>
