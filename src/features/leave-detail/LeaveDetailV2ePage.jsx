@@ -412,11 +412,14 @@ export default function LeaveDetailV2ePage() {
                           style={{ display: 'flex', alignItems: 'center', gap: 10, width: '100%', padding: '10px 0', border: 'none', background: hoveredRow === item.id ? '#f8fafc' : 'transparent', cursor: 'pointer', borderRadius: 6, transition: 'background 0.15s' }}
                         >
                           <span style={{ fontFamily: "'Source Sans Pro', sans-serif", fontSize: 12, fontWeight: 600, color: '#374151', width: 40, textAlign: 'left', flexShrink: 0 }}>{item.label}</span>
-                          <div style={{ flex: 1, position: 'relative', height: 28, display: 'flex', alignItems: 'center' }}>
+                          <div style={{ flex: 1, position: 'relative', height: activeVersion === 'v3' ? 32 : 28, display: 'flex', alignItems: 'center' }}>
                             {/* Track line (unpaid) */}
-                            <div style={{ position: 'absolute', left: 0, right: 0, height: 8, background: '#e2e5ea', borderRadius: 4 }} />
+                            <div style={{ position: 'absolute', left: 0, right: 0, height: activeVersion === 'v3' ? 32 : 8, background: '#e2e5ea', borderRadius: activeVersion === 'v3' ? 6 : 4 }} />
                             {/* Active segment */}
-                            <div style={{ position: 'absolute', left: item.startPct + '%', width: item.widthPct + '%', height: 8, background: item.accent, borderRadius: 4 }} />
+                            <div style={{ position: 'absolute', left: item.startPct + '%', width: item.widthPct + '%', height: activeVersion === 'v3' ? 32 : 8, background: item.accent, borderRadius: activeVersion === 'v3' ? 6 : 4, display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: activeVersion === 'v3' ? '0 10px' : 0 }}>
+                              {activeVersion === 'v3' && <span style={{ fontFamily: "'Source Sans Pro', sans-serif", fontSize: 11, fontWeight: 600, color: '#fff', whiteSpace: 'nowrap', overflow: 'hidden' }}>{item.label}</span>}
+                              {activeVersion === 'v3' && <span style={{ fontFamily: "'Source Sans Pro', sans-serif", fontSize: 11, fontWeight: 600, color: 'rgba(255,255,255,0.85)', whiteSpace: 'nowrap' }}>{item.weeks}</span>}
+                            </div>
                           </div>
                         </button>
                         {/* Tooltip positioned above this row */}
