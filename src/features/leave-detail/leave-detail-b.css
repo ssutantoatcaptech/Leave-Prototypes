@@ -4054,9 +4054,15 @@ select.ldb-detail-input {
 }
 
 @media (max-width: 768px) {
+  .ldb-card {
+    padding: 16px;
+  }
+  .ldb-card.dt-timeline-wrap {
+    padding: 16px;
+  }
   .ldb-detail-dropdown-mobile {
     display: block;
-    padding-top: 4px;
+    padding: 0 0 4px;
   }
   .ldb-detail-tabs-wrapper:has(.ldb-detail-dropdown-mobile) .ldb-detail-tabs {
     display: none;
