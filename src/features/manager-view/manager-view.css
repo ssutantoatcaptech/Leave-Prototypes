@@ -2878,6 +2878,7 @@
   .mgr-cal-mobile-list-group {
     display: flex;
     flex-direction: column;
+    gap: 10px;
   }
 
   .mgr-cal-mobile-list-group-header {
