@@ -2706,11 +2706,13 @@
 
   /* --- Day View (horizontal timeline with sticky header + avatars) --- */
   .mgr-cal-mobile-timeline-wrap {
-    overflow: auto;
+    overflow: scroll;
     -webkit-overflow-scrolling: touch;
     margin: 0 -16px;
-    max-height: 60vh;
+    height: 55vh;
     scrollbar-width: none;
+    border: 1px solid #edf2f7;
+    border-radius: 8px;
   }
 
   .mgr-cal-mobile-timeline-wrap::-webkit-scrollbar {
@@ -2740,6 +2742,7 @@
     z-index: 6;
     width: 56px;
     min-width: 56px;
+    height: 48px;
     background: #f5f8fc;
     display: flex;
     align-items: center;
@@ -2751,6 +2754,8 @@
   .mgr-cal-mobile-timeline-header .mgr-cal-mobile-timeline-label-col {
     z-index: 7;
     background: #f5f8fc;
+    height: auto;
+    min-height: 48px;
   }
 
   .mgr-cal-mobile-timeline-days {

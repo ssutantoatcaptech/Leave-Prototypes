@@ -475,8 +475,6 @@ export default function AbsenceCalendarPage() {
                   {/* Employee rows */}
                   {employeesMeta.map((emp) => {
                     const blocks = getBlocks(emp.id);
-                    const hasAny = blocks.some(b => b > 0);
-                    if (!hasAny) return null;
                     return (
                       <div className="mgr-cal-mobile-timeline-row" key={emp.id}>
                         <div className="mgr-cal-mobile-timeline-label-col" onClick={() => navigate(`/manager/my-team/${emp.id}`)}>
