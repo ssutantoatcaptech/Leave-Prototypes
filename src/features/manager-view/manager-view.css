@@ -716,6 +716,7 @@
 /* === Tasks & Notifications === */
 .mgr-tasks-card {
   padding: 0;
+  background: #f9fafb;
 }
 
 .mgr-tasks-tabs {
@@ -2042,55 +2043,50 @@
 .mgr-footer {
   background: #0057A8;
   margin-top: auto;
-  padding: 24px 0;
+  padding: 48px 0 0;
 }
 
 .mgr-footer-inner {
   max-width: 1440px;
   margin: 0 auto;
   padding: 0 32px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
 }
 
-.mgr-footer-bottom {
-  margin-top: 16px;
-  padding-top: 16px;
-  border-top: 1px solid rgba(255,255,255,0.15);
-}
-
-.mgr-footer-left {
+.mgr-footer-top {
   display: flex;
-  align-items: center;
-  gap: 12px;
+  gap: 64px;
+  padding-bottom: 32px;
 }
 
 .mgr-footer-brand {
-  font-size: 18px;
+  font-size: 22px;
   font-weight: 400;
   color: #ffffff;
+  margin: 0;
+  white-space: nowrap;
 }
 
 .mgr-footer-brand strong {
   font-weight: 700;
 }
 
-.mgr-footer-divider {
-  width: 1px;
-  height: 16px;
-  background: rgba(255,255,255,0.3);
-}
-
-.mgr-footer-text {
-  font-size: 13px;
-  color: rgba(255,255,255,0.7);
-}
-
-.mgr-footer-right {
+.mgr-footer-grid {
   display: flex;
-  align-items: center;
-  gap: 24px;
+  gap: 48px;
+  flex: 1;
+}
+
+.mgr-footer-col {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.mgr-footer-heading {
+  font-size: 14px;
+  font-weight: 700;
+  color: #ffffff;
+  margin: 0 0 4px;
 }
 
 .mgr-footer-link {
@@ -2101,6 +2097,31 @@
 }
 
 .mgr-footer-link:hover {
+  color: #ffffff;
+  text-decoration: underline;
+}
+
+.mgr-footer-bottom {
+  border-top: 1px solid rgba(255,255,255,0.2);
+  padding: 20px 0;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.mgr-footer-legal {
+  display: flex;
+  gap: 24px;
+  flex-wrap: wrap;
+}
+
+.mgr-footer-legal-link {
+  font-size: 12px;
+  color: rgba(255,255,255,0.7);
+  text-decoration: none;
+}
+
+.mgr-footer-legal-link:hover {
   color: #ffffff;
   text-decoration: underline;
 }
@@ -2808,11 +2829,29 @@
 
   /* --- Footer --- */
   .mgr-footer {
-    padding: 20px 0;
+    padding: 32px 0 0;
   }
 
   .mgr-footer-inner {
     padding: 0 16px;
+  }
+
+  .mgr-footer-top {
+    flex-direction: column;
+    gap: 24px;
+  }
+
+  .mgr-footer-grid {
+    flex-direction: column;
+    gap: 24px;
+  }
+
+  .mgr-footer-bottom {
+    padding: 16px 0;
+  }
+
+  .mgr-footer-legal {
+    gap: 12px 20px;
   }
 
   /* --- Calendar legend (desktop) --- */

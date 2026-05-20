@@ -164,7 +164,40 @@ export default function ManagerLayout() {
       <Outlet />
       <footer className="mgr-footer">
         <div className="mgr-footer-inner">
-          <span className="mgr-footer-brand">my<strong>Mutual</strong></span>
+          <div className="mgr-footer-top">
+            <h2 className="mgr-footer-brand">my<strong>Mutual</strong></h2>
+            <div className="mgr-footer-grid">
+              <div className="mgr-footer-col">
+                <h4 className="mgr-footer-heading">Manager Tools</h4>
+                <a href="#" className="mgr-footer-link">Absence Calendar</a>
+                <a href="#" className="mgr-footer-link">My Team</a>
+                <a href="#" className="mgr-footer-link">Tasks & Notifications</a>
+                <a href="#" className="mgr-footer-link">Return to Work</a>
+              </div>
+              <div className="mgr-footer-col">
+                <h4 className="mgr-footer-heading">Support</h4>
+                <a href="#" className="mgr-footer-link">Get Help</a>
+                <a href="#" className="mgr-footer-link">Send a Message</a>
+                <a href="#" className="mgr-footer-link">FAQs</a>
+                <a href="#" className="mgr-footer-link">Live Chat</a>
+              </div>
+              <div className="mgr-footer-col">
+                <h4 className="mgr-footer-heading">Quick Links</h4>
+                <a href="#" className="mgr-footer-link">Employee View</a>
+                <a href="#" className="mgr-footer-link">Company Policies</a>
+                <a href="#" className="mgr-footer-link">Documents & Forms</a>
+              </div>
+            </div>
+          </div>
+          <div className="mgr-footer-bottom">
+            <div className="mgr-footer-legal">
+              <a href="#" className="mgr-footer-legal-link">Privacy Policy</a>
+              <a href="#" className="mgr-footer-legal-link">Manage Cookie Preferences</a>
+              <a href="#" className="mgr-footer-legal-link">Terms of Use</a>
+              <a href="#" className="mgr-footer-legal-link">Accessibility Services</a>
+            </div>
+            <span className="mgr-footer-copyright">&copy; 2026 Mutual of Omaha Insurance Company. All rights reserved.</span>
+          </div>
         </div>
       </footer>
     </div>
