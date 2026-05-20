@@ -2101,6 +2101,8 @@
 
 .mgr-footer-top {
   display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
   gap: 64px;
   padding-bottom: 32px;
 }
@@ -2120,7 +2122,6 @@
 .mgr-footer-grid {
   display: flex;
   gap: 48px;
-  flex: 1;
 }
 
 .mgr-footer-col {
@@ -2153,6 +2154,7 @@
   padding: 20px 0;
   display: flex;
   flex-direction: column;
+  align-items: center;
   gap: 8px;
 }
 
@@ -2160,6 +2162,7 @@
   display: flex;
   gap: 24px;
   flex-wrap: wrap;
+  justify-content: center;
 }
 
 .mgr-footer-legal-link {
