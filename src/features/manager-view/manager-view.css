@@ -1772,3 +1772,219 @@
   font-size: 12px;
   color: rgba(255,255,255,0.5);
 }
+
+/* === Mobile Absence Calendar === */
+.mgr-cal-mobile {
+  display: none;
+}
+
+@media (max-width: 768px) {
+  .mgr-card.mgr-calendar-card {
+    display: none;
+  }
+
+  .mgr-cal-mobile {
+    display: block;
+  }
+
+  .mgr-cal-mobile-nav {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 14px 0;
+    margin-bottom: 12px;
+  }
+
+  .mgr-cal-mobile-arrow {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    border: 1px solid #dfebf6;
+    background: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    color: #333;
+    transition: background 0.12s, border-color 0.12s;
+  }
+
+  .mgr-cal-mobile-arrow:hover {
+    background: #f0f4f8;
+    border-color: #105fa8;
+    color: #105fa8;
+  }
+
+  .mgr-cal-mobile-date {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .mgr-cal-mobile-date-text {
+    font-size: 16px;
+    font-weight: 700;
+    color: #1a1a1a;
+  }
+
+  .mgr-cal-mobile-summary {
+    background: #f8fbfd;
+    border: 1px solid #edf2f7;
+    border-radius: 10px;
+    padding: 14px 16px;
+    margin-bottom: 12px;
+    text-align: center;
+  }
+
+  .mgr-cal-mobile-summary-total {
+    font-size: 15px;
+    font-weight: 700;
+    color: #1a1a1a;
+    margin-bottom: 4px;
+  }
+
+  .mgr-cal-mobile-summary-breakdown {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    font-size: 12px;
+    color: #555;
+    font-weight: 600;
+  }
+
+  .mgr-cal-mobile-legend {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    margin-bottom: 14px;
+    padding: 0 4px;
+  }
+
+  .mgr-cal-mobile-legend .mgr-calendar-legend-item {
+    font-size: 11px;
+  }
+
+  .mgr-cal-mobile-list {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .mgr-cal-mobile-empty {
+    text-align: center;
+    padding: 32px 16px;
+    font-size: 14px;
+    color: #888;
+    background: #fff;
+    border: 1px solid #edf2f7;
+    border-radius: 10px;
+  }
+
+  .mgr-cal-mobile-card {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    background: #fff;
+    border: 1px solid #edf2f7;
+    border-radius: 10px;
+    padding: 14px 16px;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.06);
+    cursor: pointer;
+    transition: border-color 0.12s, box-shadow 0.12s;
+  }
+
+  .mgr-cal-mobile-card:hover {
+    border-color: #105fa8;
+    box-shadow: 0 2px 8px rgba(16,95,168,0.08);
+  }
+
+  .mgr-cal-mobile-card-left {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex-shrink: 0;
+  }
+
+  .mgr-cal-mobile-indicator {
+    width: 4px;
+    height: 40px;
+    border-radius: 2px;
+  }
+
+  .mgr-cal-mobile-indicator--full {
+    background: #0057A8;
+  }
+
+  .mgr-cal-mobile-indicator--partial {
+    background: #c0982a;
+  }
+
+  .mgr-cal-mobile-indicator--returning {
+    background: #2e7d5e;
+  }
+
+  .mgr-cal-mobile-avatar {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 1.5px solid #dfebf6;
+  }
+
+  .mgr-cal-mobile-card-content {
+    flex: 1;
+    min-width: 0;
+  }
+
+  .mgr-cal-mobile-card-name {
+    font-size: 14px;
+    font-weight: 600;
+    color: #1a1a1a;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    margin-bottom: 2px;
+  }
+
+  .mgr-cal-mobile-card-meta {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 2px;
+  }
+
+  .mgr-cal-mobile-card-type {
+    font-size: 11px;
+    font-weight: 600;
+    color: #5d5d5d;
+    background: #f5f8fc;
+    border: 1px solid #e4e4e4;
+    border-radius: 10px;
+    padding: 1px 7px;
+  }
+
+  .mgr-cal-mobile-card-status {
+    font-size: 11px;
+    font-weight: 600;
+    color: #105fa8;
+  }
+
+  .mgr-cal-mobile-card-dates {
+    font-size: 12px;
+    color: #666;
+  }
+
+  .mgr-cal-mobile-card-chevron {
+    flex-shrink: 0;
+    color: #999;
+  }
+
+  .mgr-cal-mobile-rtw-btn {
+    width: 100%;
+    margin-top: 16px;
+    justify-content: center;
+    padding: 14px 16px;
+    font-size: 14px;
+  }
+}
