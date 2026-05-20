@@ -384,9 +384,9 @@ export default function LeaveDetailV2ePage() {
                 <div style={{ padding: activeVersion === 'v3' ? '6px 0 0' : '16px 0 0' }}>
                   {/* V3: unified table container wrapping months + weeks + bars */}
                   {activeVersion === 'v3' ? (
-                  <div style={{ border: '1px solid #e5e7eb', borderRadius: 6, overflow: 'hidden' }}>
+                  <div style={{ border: '1px solid #e5e7eb', borderRadius: 6, position: 'relative' }}>
                     {/* Months row with Coverage header */}
-                    <div style={{ display: 'flex', background: '#f9fafb', borderBottom: '1px solid #e5e7eb', padding: '8px 12px 8px 0' }}>
+                    <div style={{ display: 'flex', background: '#f9fafb', borderBottom: '1px solid #e5e7eb', padding: '8px 12px 8px 0', borderRadius: '6px 6px 0 0' }}>
                       <span style={{ width: 60, flexShrink: 0, fontFamily: "'Source Sans Pro', sans-serif", fontSize: 12, fontWeight: 700, color: '#1f2937', paddingLeft: 10 }}>Coverage</span>
                       <div style={{ flex: 1, display: 'flex' }}>
                         {['MAR','APR','MAY','JUN','JUL','AUG','SEP','OCT','NOV','DEC','JAN','FEB'].map(function (m) {
