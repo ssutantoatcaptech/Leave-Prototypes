@@ -318,54 +318,61 @@ export default function EmployeeDetailPage() {
             <>
               {emp.accommodations.length > 0 ? (
                 <>
-                  {/* Desktop table */}
+                  {/* Desktop table — nested card matching Figma */}
                   <div className="mgr-detail-desktop-view">
-                    <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: 12 }}>
-                      <h3 style={{ fontSize: 16, fontWeight: 700 }}>Employee ADA Accommodations</h3>
-                      <span style={{ fontSize: 13, color: '#555' }}><strong>{emp.accommodations.length}</strong> Active Accommodation{emp.accommodations.length > 1 ? 's' : ''}</span>
-                    </div>
-                    <table className="mgr-table">
-                      <thead>
-                        <tr>
-                          <th>ADA Accommodation Type</th>
-                          <th>Start Date &darr;</th>
-                          <th>End Date &darr;</th>
-                        </tr>
-                      </thead>
-                      <tbody>
-                        {emp.accommodations.map((a, i) => (
-                          <tr key={i}>
-                            <td>{a.type}</td>
-                            <td>{a.startDate}</td>
-                            <td>{a.endDate}</td>
+                    <div className="mgr-accom-card">
+                      <div className="mgr-accom-card-header">
+                        <h3 className="mgr-accom-card-title">Employee ADA Accommodations</h3>
+                        <span className="mgr-accom-card-count"><strong>{emp.accommodations.length}</strong> Active Accommodation{emp.accommodations.length > 1 ? 's' : ''}</span>
+                      </div>
+                      <table className="mgr-table mgr-table--inner">
+                        <thead>
+                          <tr>
+                            <th>ADA Accommodation Type</th>
+                            <th>Start Date &darr;</th>
+                            <th>End Date &darr;</th>
                           </tr>
-                        ))}
-                      </tbody>
-                    </table>
-                    <div className="mgr-pagination">
-                      <span className="mgr-pagination-info">Showing 1 to {emp.accommodations.length} of {emp.accommodations.length} entries</span>
+                        </thead>
+                        <tbody>
+                          {emp.accommodations.map((a, i) => (
+                            <tr key={i}>
+                              <td>{a.type}</td>
+                              <td>{a.startDate}</td>
+                              <td>{a.endDate}</td>
+                            </tr>
+                          ))}
+                        </tbody>
+                      </table>
+                      <div className="mgr-accom-card-footer">
+                        <span className="mgr-pagination-info">Showing 1 to {emp.accommodations.length} of {emp.accommodations.length} entries</span>
+                      </div>
                     </div>
                   </div>
 
                   {/* Mobile cards */}
                   <div className="mgr-detail-mobile-view">
-                    <div className="mgr-detail-mobile-card-title">ADA Accommodations · {emp.accommodations.length} active</div>
-                    {emp.accommodations.map((a, i) => (
-                      <div className="mgr-detail-mobile-card" key={i}>
-                        <div className="mgr-detail-mobile-row">
-                          <span className="mgr-detail-mobile-label">Type</span>
-                          <span className="mgr-detail-mobile-value">{a.type}</span>
-                        </div>
-                        <div className="mgr-detail-mobile-row">
-                          <span className="mgr-detail-mobile-label">Start Date</span>
-                          <span className="mgr-detail-mobile-value">{a.startDate}</span>
-                        </div>
-                        <div className="mgr-detail-mobile-row">
-                          <span className="mgr-detail-mobile-label">End Date</span>
-                          <span className="mgr-detail-mobile-value">{a.endDate}</span>
-                        </div>
+                    <div className="mgr-accom-card">
+                      <div className="mgr-accom-card-header">
+                        <h3 className="mgr-accom-card-title">Employee ADA Accommodations</h3>
+                        <span className="mgr-accom-card-count"><strong>{emp.accommodations.length}</strong> Active</span>
                       </div>
-                    ))}
+                      {emp.accommodations.map((a, i) => (
+                        <div className="mgr-detail-mobile-card" key={i}>
+                          <div className="mgr-detail-mobile-row">
+                            <span className="mgr-detail-mobile-label">Type</span>
+                            <span className="mgr-detail-mobile-value">{a.type}</span>
+                          </div>
+                          <div className="mgr-detail-mobile-row">
+                            <span className="mgr-detail-mobile-label">Start Date</span>
+                            <span className="mgr-detail-mobile-value">{a.startDate}</span>
+                          </div>
+                          <div className="mgr-detail-mobile-row">
+                            <span className="mgr-detail-mobile-label">End Date</span>
+                            <span className="mgr-detail-mobile-value">{a.endDate}</span>
+                          </div>
+                        </div>
+                      ))}
+                    </div>
                   </div>
                 </>
               ) : (
