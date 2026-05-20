@@ -262,7 +262,7 @@ export default function FileClaimWizardPage() {
   const [guidedAccident, setGuidedAccident] = useState('');
   const [guidedIllness, setGuidedIllness] = useState('');
   const [guidedHospital, setGuidedHospital] = useState('');
-  const [guidedSupport, setGuidedSupport] = useState('');
+  const [guidedSupports, setGuidedSupports] = useState([]);
   const [recommendedType, setRecommendedType] = useState('');
 
   const [submitted, setSubmitted] = useState(false);
@@ -341,11 +341,11 @@ export default function FileClaimWizardPage() {
   }
 
   function computeRecommendation() {
-    // Primary: based on support selection (step 5)
-    if (guidedSupport === 'income') return 'std';
-    if (guidedSupport === 'lump_sum') return 'critical_illness';
-    if (guidedSupport === 'accident_coverage') return 'accident';
-    if (guidedSupport === 'hospital_expenses') return 'hospital_indemnity';
+    // Primary: based on support selections (step 5, multi-select)
+    if (guidedSupports.includes('income')) return 'std';
+    if (guidedSupports.includes('lump_sum')) return 'critical_illness';
+    if (guidedSupports.includes('accident_coverage')) return 'accident';
+    if (guidedSupports.includes('hospital_expenses')) return 'hospital_indemnity';
     // Fallback: based on situation selections (step 1, multi-select)
     if (guidedSituations.includes('injured')) return 'accident';
     if (guidedSituations.includes('illness')) return 'critical_illness';
@@ -655,23 +655,25 @@ export default function FileClaimWizardPage() {
                   <h2>What kind of support are you looking for?</h2>
                   <p className="fc-wiz-subtitle">Different types of claims can provide different types of support. Select one or multiple which describes your situation best.</p>
 
-                  <div className="fc-wiz-radio-cards">
-                    <div className={`fc-wiz-radio-card${guidedSupport === 'income' ? ' selected' : ''}`} onClick={() => setGuidedSupport('income')}>
-                      <div className="fc-wiz-radio-dot" />
-                      <div className="fc-wiz-radio-card-text"><h4>Help replacing lost income while I can't work</h4></div>
-                    </div>
-                    <div className={`fc-wiz-radio-card${guidedSupport === 'lump_sum' ? ' selected' : ''}`} onClick={() => setGuidedSupport('lump_sum')}>
-                      <div className="fc-wiz-radio-dot" />
-                      <div className="fc-wiz-radio-card-text"><h4>A lump sum payment for a serious diagnosis</h4></div>
-                    </div>
-                    <div className={`fc-wiz-radio-card${guidedSupport === 'accident_coverage' ? ' selected' : ''}`} onClick={() => setGuidedSupport('accident_coverage')}>
-                      <div className="fc-wiz-radio-dot" />
-                      <div className="fc-wiz-radio-card-text"><h4>Coverage related to an accident</h4></div>
-                    </div>
-                    <div className={`fc-wiz-radio-card${guidedSupport === 'hospital_expenses' ? ' selected' : ''}`} onClick={() => setGuidedSupport('hospital_expenses')}>
-                      <div className="fc-wiz-radio-dot" />
-                      <div className="fc-wiz-radio-card-text"><h4>Help covering hospital-related expenses</h4></div>
-                    </div>
+                  <div className="fc-wiz-checkbox-cards">
+                    {[
+                      { value: 'income', label: "Help replacing lost income while I can't work" },
+                      { value: 'lump_sum', label: 'A lump sum payment for a serious diagnosis' },
+                      { value: 'accident_coverage', label: 'Coverage related to an accident' },
+                      { value: 'hospital_expenses', label: 'Help covering hospital-related expenses' },
+                    ].map((opt) => {
+                      const isChecked = guidedSupports.includes(opt.value);
+                      return (
+                        <div
+                          key={opt.value}
+                          className={`fc-wiz-checkbox-card${isChecked ? ' selected' : ''}`}
+                          onClick={() => setGuidedSupports((prev) => isChecked ? prev.filter((v) => v !== opt.value) : [...prev, opt.value])}
+                        >
+                          <div className={`checkbox-box${isChecked ? ' checked' : ''}`}><span className="check-icon">{'✓'}</span></div>
+                          <div className="fc-wiz-checkbox-card-text"><h4>{opt.label}</h4></div>
+                        </div>
+                      );
+                    })}
                   </div>
                 </>
               )}
