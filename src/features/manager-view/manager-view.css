@@ -104,6 +104,21 @@
   background: #d32f2f;
 }
 
+.mgr-nav-count {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 18px;
+  height: 18px;
+  padding: 0 5px;
+  border-radius: 9px;
+  background: #d32f2f;
+  color: #fff;
+  font-size: 11px;
+  font-weight: 700;
+  margin-left: 6px;
+}
+
 .mgr-header-right {
   display: flex;
   align-items: center;
@@ -117,6 +132,24 @@
   cursor: pointer;
   padding: 6px;
   color: #444;
+}
+
+.mgr-bell-count {
+  position: absolute;
+  top: 0;
+  right: 0;
+  min-width: 16px;
+  height: 16px;
+  padding: 0 4px;
+  border-radius: 8px;
+  background: #d32f2f;
+  color: #fff;
+  font-size: 10px;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  line-height: 1;
 }
 
 .mgr-bell-dot {

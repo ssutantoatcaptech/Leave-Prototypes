@@ -23,10 +23,12 @@ export default function ManagerLayout() {
     setMobileNavOpen(false);
   }, [location.pathname]);
 
+  const actionCount = 3;
+
   const navLinks = [
     { label: 'Absence Calendar', to: '/manager/absence-calendar' },
     { label: 'My Team', to: '/manager/my-team' },
-    { label: 'My Actions', to: '/manager/my-actions', badge: true },
+    { label: 'My Actions', to: '/manager/my-actions', count: actionCount },
     { label: 'Return to Work', to: '/manager/return-to-work' },
     { label: 'Support', to: '/manager/support' },
   ];
@@ -62,17 +64,18 @@ export default function ManagerLayout() {
                 className={({ isActive }) => isActive ? 'active' : ''}
               >
                 {link.label}
-                {link.badge && <span className="mgr-nav-badge" />}
+                {link.count > 0 && <span className="mgr-nav-count">{link.count}</span>}
               </NavLink>
             ))}
           </nav>
         </div>
         <div className="mgr-header-right">
-          <button className="mgr-header-bell" aria-label="Notifications">
+          <button className="mgr-header-bell" aria-label="Notifications" onClick={() => navigate('/manager/my-actions')}>
             <svg width="18" height="20" viewBox="0 0 18 20" fill="none">
               <path d="M9 1c-1.3 0-2.5.5-3.3 1.3C4.8 3.2 4.2 4.7 4.2 6.2v4L3 12.2V13.5h12v-1.3l-1.2-2V6.2c0-1.5-.6-3-1.5-4C11.5 1.5 10.3 1 9 1z" stroke="currentColor" strokeWidth="1.5" strokeLinejoin="round"/>
               <path d="M6.8 13.5v.3a2.2 2.2 0 004.4 0v-.3" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"/>
             </svg>
+            <span className="mgr-bell-count">{actionCount}</span>
           </button>
           <div className={`mgr-avatar-dropdown${profileOpen ? ' open' : ''}`} ref={profileRef}>
             <button className="mgr-header-avatar" type="button" onClick={() => setProfileOpen(!profileOpen)}>
