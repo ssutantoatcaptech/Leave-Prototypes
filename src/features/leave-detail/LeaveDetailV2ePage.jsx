@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Link, useNavigate, useLocation } from 'react-router-dom';
+import { Link, useNavigate, useLocation, useSearchParams } from 'react-router-dom';
 import './leave-detail-b.css';
 import '../absence-details/absence-details-react.css';
 
@@ -88,10 +88,16 @@ function SiteFooter() {
 
 export default function LeaveDetailV2ePage() {
   var location = useLocation();
+  var [searchParams, setSearchParams] = useSearchParams();
   var isMobile = location.pathname.startsWith('/claims-and-leave-mobile');
   var base = isMobile ? '/claims-and-leave-mobile' : '/claims-and-leave';
   var navigate = useNavigate();
-  var [activeVersion, setActiveVersion] = useState('v2');
+  var initialVersion = searchParams.get('v') || 'v2';
+  var [activeVersion, setActiveVersionState] = useState(initialVersion);
+  function setActiveVersion(v) {
+    setActiveVersionState(v);
+    setSearchParams({ v: v }, { replace: true });
+  }
   var [timelineView, setTimelineView] = useState('protection');
   var [hoveredRow, setHoveredRow] = useState(null);
   var [expandedClaims, setExpandedClaims] = useState({ absence: false, stateleave: false });
