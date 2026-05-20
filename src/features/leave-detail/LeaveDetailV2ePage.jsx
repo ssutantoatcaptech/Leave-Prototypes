@@ -406,6 +406,23 @@ export default function LeaveDetailV2ePage() {
                         })}
                       </div>
                     </div>
+                    {/* Payment summary banner — only in payment view */}
+                    {timelineView === 'payment' && (
+                      <div style={{ display: 'flex', gap: 0, borderBottom: '1px solid #e5e7eb', background: '#f0fdf4' }}>
+                        <div style={{ flex: 1, padding: '12px 16px', borderRight: '1px solid #e5e7eb' }}>
+                          <div style={{ fontFamily: "'Source Sans Pro', sans-serif", fontSize: 11, fontWeight: 600, color: '#6b7280', textTransform: 'uppercase', letterSpacing: '0.03em' }}>Total Received</div>
+                          <div style={{ fontFamily: "'Source Sans Pro', sans-serif", fontSize: 18, fontWeight: 700, color: '#166534', marginTop: 2 }}>$9,000.00</div>
+                        </div>
+                        <div style={{ flex: 1, padding: '12px 16px', borderRight: '1px solid #e5e7eb' }}>
+                          <div style={{ fontFamily: "'Source Sans Pro', sans-serif", fontSize: 11, fontWeight: 600, color: '#6b7280', textTransform: 'uppercase', letterSpacing: '0.03em' }}>Est. Remaining</div>
+                          <div style={{ fontFamily: "'Source Sans Pro', sans-serif", fontSize: 18, fontWeight: 700, color: '#1f2937', marginTop: 2 }}>$3,924.00</div>
+                        </div>
+                        <div style={{ flex: 1, padding: '12px 16px' }}>
+                          <div style={{ fontFamily: "'Source Sans Pro', sans-serif", fontSize: 11, fontWeight: 600, color: '#6b7280', textTransform: 'uppercase', letterSpacing: '0.03em' }}>Next Payment</div>
+                          <div style={{ fontFamily: "'Source Sans Pro', sans-serif", fontSize: 18, fontWeight: 700, color: '#1f2937', marginTop: 2 }}>Jun 07</div>
+                        </div>
+                      </div>
+                    )}
                     {/* Timeline bars */}
                     <div className="ldb-tl-rows-wrap" style={{ display: 'flex', flexDirection: 'column', gap: 0, position: 'relative', padding: '8px 16px 8px 0' }}>
                       <div style={{ position: 'absolute', top: 0, bottom: 0, left: 60, right: 0, pointerEvents: 'none', zIndex: 0 }}>
@@ -494,6 +511,18 @@ export default function LeaveDetailV2ePage() {
 
                   {/* Mobile card view for V3 */}
                   <div className="v3-timeline-mobile" style={{ display: 'none', flexDirection: 'column', gap: 10 }}>
+                    {timelineView === 'payment' && (
+                      <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 10, marginBottom: 4 }}>
+                        <div style={{ padding: '12px 14px', background: '#f0fdf4', borderRadius: 8, border: '1px solid #dcfce7' }}>
+                          <div style={{ fontFamily: "'Source Sans Pro', sans-serif", fontSize: 11, fontWeight: 600, color: '#6b7280', textTransform: 'uppercase' }}>Total Received</div>
+                          <div style={{ fontFamily: "'Source Sans Pro', sans-serif", fontSize: 17, fontWeight: 700, color: '#166534', marginTop: 2 }}>$9,000</div>
+                        </div>
+                        <div style={{ padding: '12px 14px', background: '#f8fafc', borderRadius: 8, border: '1px solid #e5e7eb' }}>
+                          <div style={{ fontFamily: "'Source Sans Pro', sans-serif", fontSize: 11, fontWeight: 600, color: '#6b7280', textTransform: 'uppercase' }}>Est. Remaining</div>
+                          <div style={{ fontFamily: "'Source Sans Pro', sans-serif", fontSize: 17, fontWeight: 700, color: '#1f2937', marginTop: 2 }}>$3,924</div>
+                        </div>
+                      </div>
+                    )}
                     {(timelineView === 'payment' ? [
                       { id: 'std', label: 'STD', name: 'Short-Term Disability', startPct: 0, widthPct: 66.5, accent: '#2563eb', weeks: '8 weeks', range: 'Mar 15 – May 10, 2026', pay: '60% of pre-disability earnings', status: 'Approved', paymentValue: '~$1,125/wk' },
                       { id: 'pfml', label: 'PFML', name: 'Paid Family & Medical Leave', startPct: 66.5, widthPct: 33.5, accent: '#0d9488', weeks: '4 weeks', range: 'May 11 – Jun 07, 2026', pay: 'State benefit', status: 'Approved', paymentValue: '~$981/wk' },
