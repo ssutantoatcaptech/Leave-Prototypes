@@ -7,6 +7,11 @@ const teamData = [
   { id: 'morgan-lee', name: 'Morgan Lee', leaveType: 'Intermittent', startDate: 'Dec 04, 2025', endDate: 'Feb 04, 2026', returnDate: 'N/A', requiredActions: 'None' },
   { id: 'kathrine-anderson', name: 'Kathrine Anderson', leaveType: 'Intermittent', startDate: 'Nov 15, 2025', endDate: 'Jan 31, 2026', returnDate: 'N/A', requiredActions: 'None' },
   { id: 'michael-chen', name: 'Michael Chen', leaveType: 'Reduced Schedule', startDate: 'Oct 30, 2025', endDate: 'None', returnDate: 'N/A', requiredActions: 'None' },
+  { id: 'david-park', name: 'David Park', leaveType: 'Continuous', startDate: 'Jan 06, 2026', endDate: 'Jan 20, 2026', returnDate: 'Jan 21, 2026', requiredActions: 'Confirm Return to Work' },
+  { id: 'lisa-nguyen', name: 'Lisa Nguyen', leaveType: 'Intermittent', startDate: 'Dec 15, 2025', endDate: 'Feb 15, 2026', returnDate: 'N/A', requiredActions: 'None' },
+  { id: 'james-wilson', name: 'James Wilson', leaveType: 'Continuous', startDate: 'Jan 08, 2026', endDate: 'Jan 22, 2026', returnDate: 'Jan 23, 2026', requiredActions: 'None' },
+  { id: 'sarah-martinez', name: 'Sarah Martinez', leaveType: 'Reduced Schedule', startDate: 'Jan 02, 2026', endDate: 'Jan 31, 2026', returnDate: 'N/A', requiredActions: 'None' },
+  { id: 'evan-blue', name: 'Evan Blue', leaveType: 'Continuous', startDate: 'Jan 10, 2026', endDate: 'Jan 24, 2026', returnDate: 'Jan 25, 2026', requiredActions: 'None' },
 ];
 
 const adaData = [
@@ -114,11 +119,8 @@ export default function MyTeamPage() {
               </tbody>
             </table>
             <div className="mgr-pagination">
-              <span className="mgr-pagination-info">Showing 1 to 5 of 10 entries</span>
-              <button className="mgr-pagination-btn">&lsaquo;</button>
+              <span className="mgr-pagination-info">Showing 1 to {filteredTeam.length} of {filteredTeam.length} entries</span>
               <button className="mgr-pagination-btn active">1</button>
-              <button className="mgr-pagination-btn">2</button>
-              <button className="mgr-pagination-btn">&rsaquo;</button>
             </div>
           </>
         ) : (

@@ -314,44 +314,47 @@
 /* === Cards / Containers === */
 .mgr-card {
   background: #ffffff;
-  border: 1px solid #dfebf6;
+  border: 1.5px solid #dfebf6;
   border-radius: 12px;
   padding: 24px;
   margin-bottom: 24px;
-  box-shadow: 0 1px 3px rgba(0,0,0,0.04);
+  box-shadow: 0 1px 8px rgba(0,0,0,0.08);
+  overflow: hidden;
 }
 
 /* === Tabs === */
 .mgr-tabs {
   display: flex;
-  gap: 4px;
-  border-bottom: 1px solid #e8edf2;
+  gap: 0;
+  border-bottom: 1.5px solid #dfebf6;
   margin-bottom: 24px;
 }
 
 .mgr-tab {
-  padding: 10px 16px;
+  padding: 14px 20px;
+  font-family: 'Source Sans Pro', sans-serif;
   font-size: 14px;
-  font-weight: 500;
-  color: #555;
+  font-weight: 400;
+  color: #5d5d5d;
   background: none;
   border: none;
   border-bottom: 2px solid transparent;
   cursor: pointer;
-  transition: color 0.12s, border-color 0.12s;
+  transition: color 0.15s, border-color 0.15s;
   display: flex;
   align-items: center;
-  gap: 6px;
+  gap: 8px;
+  white-space: nowrap;
 }
 
 .mgr-tab:hover {
-  color: #222;
+  color: #003a70;
 }
 
 .mgr-tab.active {
-  color: #222;
+  color: #003a70;
   font-weight: 600;
-  border-bottom-color: #222;
+  border-bottom-color: #003a70;
 }
 
 .mgr-tab-badge {
@@ -362,7 +365,7 @@
   height: 20px;
   padding: 0 6px;
   border-radius: 10px;
-  background: #105fa8;
+  background: #003a70;
   color: #fff;
   font-size: 11px;
   font-weight: 600;
@@ -372,28 +375,39 @@
 .mgr-table {
   width: 100%;
   border-collapse: collapse;
+  font-family: 'Source Sans Pro', sans-serif;
+  font-size: 14px;
+}
+
+.mgr-table thead {
+  background: #f8fbfd;
 }
 
 .mgr-table th {
   text-align: left;
-  padding: 12px 16px;
-  font-size: 11px;
-  font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: 0.5px;
-  color: #555;
-  border-bottom: 1px solid #e8edf2;
+  padding: 18px 24px;
+  font-size: 14px;
+  font-weight: 600;
+  text-transform: none;
+  letter-spacing: 0;
+  color: #222;
+  border-bottom: 1px solid #f0f0f0;
 }
 
 .mgr-table td {
-  padding: 14px 16px;
+  padding: 18px 24px;
   font-size: 14px;
-  color: #333;
-  border-bottom: 1px solid #f0f2f5;
+  color: #222;
+  border-bottom: 1px solid #f0f0f0;
+  vertical-align: middle;
 }
 
-.mgr-table tr:last-child td {
+.mgr-table tbody tr:last-child td {
   border-bottom: none;
+}
+
+.mgr-table tbody tr:hover {
+  background: #f8fbfd;
 }
 
 .mgr-table-link {
@@ -404,6 +418,7 @@
   border: none;
   font-size: 14px;
   font-weight: 500;
+  font-family: inherit;
 }
 
 .mgr-table-link:hover {
