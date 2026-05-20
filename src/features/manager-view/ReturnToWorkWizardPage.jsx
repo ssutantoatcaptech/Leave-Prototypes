@@ -116,51 +116,52 @@ export default function ReturnToWorkWizardPage() {
     setSubmitted(true);
   }
 
+  const confirmationNumber = `RTW-${Date.now().toString(36).toUpperCase().slice(-6)}`;
+
   if (submitted) {
     return (
       <div className="mgr-page">
         <div className="mgr-rtw-page-content">
-          <button className="mgr-rtw-back" type="button" onClick={() => navigate('/manager/my-team')}>
-            <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M9 2L4 7l5 5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/></svg>
-            Back to My Team
-          </button>
-          <div className="mgr-rtw-confirm-card">
+          <div className="mgr-rtw-success-card">
             <div className="mgr-rtw-success-icon">
-              <svg width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M5 12l5 5L19 7" stroke="#fff" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"/></svg>
+              <svg width="28" height="28" viewBox="0 0 28 28" fill="none"><path d="M7 14l5 5L21 9" stroke="#fff" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round"/></svg>
             </div>
-            <h2 className="mgr-rtw-confirm-title">{employeeName}'s return to work details have been recorded</h2>
-            {noPath && <p className="mgr-rtw-confirm-subtitle">Thank you for providing details on this change to your employee's return to work. Mutual of Omaha will reach out to this employee.</p>}
-            <div className="mgr-rtw-summary-grid">
-              <div className="mgr-rtw-summary-item">
-                <dt>Did the Employee Return to Work?</dt>
-                <dd>{yesPath ? 'Yes' : 'No'}</dd>
+            <h2 className="mgr-rtw-success-title">Return to Work Confirmed</h2>
+            <p className="mgr-rtw-success-desc">
+              {noPath
+                ? `Thank you for providing details on ${employeeName}'s return to work status. Mutual of Omaha will reach out to this employee.`
+                : `${employeeName}'s return to work has been submitted. The absence administrator has been notified.`
+              }
+            </p>
+            <div className="mgr-rtw-success-grid">
+              <div>
+                <div className="mgr-rtw-success-label">Employee</div>
+                <div className="mgr-rtw-success-value">{employeeName}</div>
               </div>
               {yesPath && (
                 <>
-                  <div className="mgr-rtw-summary-item">
-                    <dt>Return Date</dt>
-                    <dd>{new Date(returnDate + 'T00:00:00').toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })}</dd>
+                  <div>
+                    <div className="mgr-rtw-success-label">Return Date</div>
+                    <div className="mgr-rtw-success-value">{new Date(returnDate + 'T00:00:00').toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })}</div>
                   </div>
-                  <div className="mgr-rtw-summary-item">
-                    <dt>Return Schedule</dt>
-                    <dd>{schedule}</dd>
+                  <div>
+                    <div className="mgr-rtw-success-label">Schedule</div>
+                    <div className="mgr-rtw-success-value">{schedule}</div>
                   </div>
-                  {adaAccommodation && (
-                    <div className="mgr-rtw-summary-item">
-                      <dt>ADA Accommodation?</dt>
-                      <dd>{adaAccommodation}</dd>
-                    </div>
-                  )}
                 </>
               )}
               {noPath && (
-                <div className="mgr-rtw-summary-item">
-                  <dt>Reason</dt>
-                  <dd>{noReturnReason}</dd>
+                <div>
+                  <div className="mgr-rtw-success-label">Reason</div>
+                  <div className="mgr-rtw-success-value">{noReturnReason}</div>
                 </div>
               )}
+              <div>
+                <div className="mgr-rtw-success-label">Confirmation</div>
+                <div className="mgr-rtw-success-value">{confirmationNumber}</div>
+              </div>
             </div>
-            <button className="mgr-btn mgr-btn-primary mgr-rtw-done-btn" onClick={() => navigate('/manager/my-team')}>Done</button>
+            <button className="mgr-btn mgr-btn-primary mgr-rtw-done-btn" onClick={() => navigate('/manager/my-team')}>Back to My Team</button>
           </div>
         </div>
       </div>

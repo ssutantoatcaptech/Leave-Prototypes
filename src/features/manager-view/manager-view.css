@@ -443,6 +443,13 @@
   background: #333;
 }
 
+.mgr-btn-primary:disabled {
+  background: #d0d5dd;
+  border-color: #d0d5dd;
+  color: #fff;
+  cursor: not-allowed;
+}
+
 .mgr-btn-sm {
   padding: 6px 12px;
   font-size: 12px;
@@ -1570,66 +1577,70 @@
   font-size: 15px;
 }
 
-/* RTW Confirmation */
+/* RTW Success / Confirmation */
+.mgr-rtw-success-card {
+  background: #fff;
+  border: 1px solid #e5e5e5;
+  border-radius: 12px;
+  padding: 48px 28px;
+  text-align: center;
+}
+
 .mgr-rtw-success-icon {
-  width: 48px;
-  height: 48px;
+  width: 56px;
+  height: 56px;
   border-radius: 50%;
   background: #16a34a;
   display: flex;
   align-items: center;
   justify-content: center;
-  margin-bottom: 20px;
+  margin: 0 auto 20px;
 }
 
-.mgr-rtw-confirm-title {
+.mgr-rtw-success-title {
   font-size: 22px;
   font-weight: 700;
-  margin: 0 0 8px;
+  margin: 0 0 10px;
   color: #1a1a1a;
 }
 
-.mgr-rtw-confirm-subtitle {
-  font-size: 14px;
+.mgr-rtw-success-desc {
+  font-size: 15px;
   color: #525252;
-  margin: 0 0 24px;
+  margin: 0 auto 32px;
+  max-width: 460px;
   line-height: 1.5;
 }
 
-.mgr-rtw-summary-grid {
-  display: flex;
-  gap: 24px;
-  flex-wrap: wrap;
-  background: #f8f9fb;
-  border: 1px solid #e8edf2;
-  border-radius: 8px;
-  padding: 20px;
-  margin-bottom: 24px;
+.mgr-rtw-success-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+  text-align: left;
+  max-width: 420px;
+  margin: 0 auto 32px;
 }
 
-.mgr-rtw-summary-item {
-  min-width: 140px;
-}
-
-.mgr-rtw-summary-item dt {
-  font-size: 10px;
-  font-weight: 700;
+.mgr-rtw-success-label {
+  font-size: 12px;
+  color: #737373;
   text-transform: uppercase;
-  letter-spacing: 0.5px;
-  color: #666;
+  font-weight: 600;
+  letter-spacing: 0.3px;
   margin-bottom: 4px;
 }
 
-.mgr-rtw-summary-item dd {
-  font-size: 14px;
+.mgr-rtw-success-value {
+  font-size: 15px;
   font-weight: 600;
-  color: #222;
+  color: #1a1a1a;
 }
 
 .mgr-rtw-done-btn {
-  width: 100%;
+  width: auto;
+  min-width: 200px;
   justify-content: center;
-  padding: 14px 24px;
+  padding: 12px 32px;
 }
 
 /* === Pagination === */
