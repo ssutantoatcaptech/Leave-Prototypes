@@ -609,6 +609,13 @@ export default function LeaveDetailV2Page() {
 
       </div>
       <GlobalFooter />
+
+      {/* Version Toolbar */}
+      <div className="ld-version-toolbar">
+        <Link to="/leave-detail" className="">V1</Link>
+        <Link to="/leave-detail-v2" className="active">V2</Link>
+        <Link to="/leave-detail-v3" className="">V3</Link>
+      </div>
     </div>
   );
 }
