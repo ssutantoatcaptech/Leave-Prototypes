@@ -580,7 +580,8 @@
 
 /* === Calendar === */
 .mgr-calendar-card {
-  padding: 28px;
+  padding: 24px 28px;
+  overflow: hidden;
 }
 
 .mgr-calendar-legend {
@@ -613,6 +614,7 @@
 .mgr-calendar-container {
   display: flex;
   gap: 28px;
+  align-items: flex-start;
 }
 
 .mgr-calendar-grid {
@@ -884,6 +886,10 @@
   flex-shrink: 0;
   border-left: 1px solid #edf2f7;
   padding-left: 28px;
+  max-height: 520px;
+  overflow-y: auto;
+  position: sticky;
+  top: 80px;
 }
 
 .mgr-sidebar-date-header {
