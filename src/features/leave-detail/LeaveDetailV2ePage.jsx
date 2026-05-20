@@ -174,6 +174,7 @@ export default function LeaveDetailV2ePage() {
     <div style={{ position: 'fixed', bottom: 20, right: 20, zIndex: 9999, display: 'flex', gap: 0, background: '#fff', borderRadius: 8, boxShadow: '0 2px 12px rgba(0,0,0,0.15)', border: '1px solid #e2e2e5', overflow: 'hidden' }}>
       <button type="button" onClick={function () { setActiveVersion('v1'); }} style={{ padding: '8px 16px', fontSize: 13, fontWeight: activeVersion === 'v1' ? 600 : 500, fontFamily: "'Source Sans Pro', sans-serif", border: 'none', cursor: 'pointer', background: activeVersion === 'v1' ? '#105fa8' : '#fff', color: activeVersion === 'v1' ? '#fff' : '#5d5d5d' }}>V1</button>
       <button type="button" onClick={function () { setActiveVersion('v2'); }} style={{ padding: '8px 16px', fontSize: 13, fontWeight: activeVersion === 'v2' ? 600 : 500, fontFamily: "'Source Sans Pro', sans-serif", border: 'none', cursor: 'pointer', background: activeVersion === 'v2' ? '#105fa8' : '#fff', color: activeVersion === 'v2' ? '#fff' : '#5d5d5d' }}>V2</button>
+      <button type="button" onClick={function () { setActiveVersion('v3'); }} style={{ padding: '8px 16px', fontSize: 13, fontWeight: activeVersion === 'v3' ? 600 : 500, fontFamily: "'Source Sans Pro', sans-serif", border: 'none', cursor: 'pointer', background: activeVersion === 'v3' ? '#105fa8' : '#fff', color: activeVersion === 'v3' ? '#fff' : '#5d5d5d' }}>V3</button>
     </div>
   );
 
@@ -215,7 +216,7 @@ export default function LeaveDetailV2ePage() {
                 <button type="button" className={'ldb-detail-tab' + (detailTab === 'about' ? ' active' : '')} onClick={function () { setDetailTab('about'); }}>Leave Details</button>
                 <button type="button" className={'ldb-detail-tab' + (detailTab === 'activity' ? ' active' : '')} onClick={function () { setDetailTab('activity'); }}>Communications & Activity</button>
               </div>
-              {activeVersion === 'v2' && (
+              {(activeVersion === 'v2' || activeVersion === 'v3') && (
               <div className="ldb-detail-dropdown-mobile">
                 <select
                   value={detailTab}
@@ -357,7 +358,7 @@ export default function LeaveDetailV2ePage() {
             {detailTab === 'claims' && (
             <>
             {/* Coverage Timeline */}
-            {activeVersion === 'v2' ? (
+            {(activeVersion === 'v2' || activeVersion === 'v3') ? (
             <div className="ldb-card dt-timeline-wrap">
                 <div className="ad-section-header">
                   <div>
