@@ -2583,6 +2583,19 @@
     flex-shrink: 0;
   }
 
+  /* --- Month View Sticky Calendar --- */
+  .mgr-cal-mobile-month-sticky {
+    position: sticky;
+    top: 56px;
+    z-index: 10;
+    background: #ffffff;
+    padding-bottom: 12px;
+    margin: 0 -16px;
+    padding-left: 16px;
+    padding-right: 16px;
+    border-bottom: 1px solid #edf2f7;
+  }
+
   /* --- Month View Grid --- */
   .mgr-cal-mobile-month {
     display: flex;
