@@ -2709,7 +2709,6 @@
     overflow-x: auto;
     -webkit-overflow-scrolling: touch;
     margin: 0 -16px;
-    padding: 0 0 0 0;
     scrollbar-width: none;
   }
 
@@ -2722,19 +2721,20 @@
     align-items: flex-end;
     min-width: max-content;
     border-bottom: 1px solid #edf2f7;
-    padding-bottom: 6px;
+    padding-bottom: 8px;
   }
 
   .mgr-cal-mobile-timeline-label-col {
     position: sticky;
     left: 0;
     z-index: 3;
-    width: 48px;
-    min-width: 48px;
-    background: #fff;
+    width: 52px;
+    min-width: 52px;
+    background: #f5f8fc;
     display: flex;
     align-items: center;
     justify-content: center;
+    box-shadow: 2px 0 4px rgba(0,0,0,0.06);
     cursor: pointer;
   }
 
@@ -2744,23 +2744,40 @@
   }
 
   .mgr-cal-mobile-timeline-day {
-    width: 28px;
-    min-width: 28px;
+    width: 36px;
+    min-width: 36px;
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 1px;
+    gap: 2px;
+    cursor: pointer;
+  }
+
+  .mgr-cal-mobile-timeline-day:active {
+    opacity: 0.6;
   }
 
   .mgr-cal-mobile-timeline-day--today .mgr-cal-mobile-timeline-day-num {
     background: #d32f2f;
     color: #fff;
     border-radius: 50%;
-    width: 20px;
-    height: 20px;
+    width: 22px;
+    height: 22px;
     display: flex;
     align-items: center;
     justify-content: center;
+  }
+
+  .mgr-cal-mobile-timeline-day--selected .mgr-cal-mobile-timeline-day-num {
+    background: #e8f0fa;
+    border-radius: 50%;
+    width: 22px;
+    height: 22px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #003a70;
+    font-weight: 700;
   }
 
   .mgr-cal-mobile-timeline-day-dow {
@@ -2771,7 +2788,7 @@
   }
 
   .mgr-cal-mobile-timeline-day-num {
-    font-size: 11px;
+    font-size: 12px;
     font-weight: 600;
     color: #1a1a1a;
     line-height: 1;
@@ -2781,8 +2798,8 @@
     display: flex;
     align-items: center;
     min-width: max-content;
-    height: 44px;
-    border-bottom: 1px solid #f3f4f6;
+    height: 48px;
+    border-bottom: 1px solid #f0f2f5;
   }
 
   .mgr-cal-mobile-timeline-cells {
@@ -2791,37 +2808,40 @@
   }
 
   .mgr-cal-mobile-timeline-cell {
-    width: 28px;
-    min-width: 28px;
-    height: 32px;
+    width: 36px;
+    min-width: 36px;
+    height: 36px;
     display: flex;
     align-items: center;
     justify-content: center;
   }
 
   .mgr-cal-mobile-timeline-bar {
-    width: 22px;
-    height: 22px;
+    width: 14px;
+    height: 14px;
     border-radius: 50%;
   }
 
   .mgr-cal-mobile-timeline-bar--full {
-    background: #105fa8;
+    background: #DCEBF9;
+    border: 1.5px solid #0057A8;
   }
 
   .mgr-cal-mobile-timeline-bar--partial {
-    background: #c0982a;
+    background: #fdf6e3;
+    border: 1.5px solid #c0982a;
   }
 
   .mgr-cal-mobile-timeline-bar--returning {
-    background: #2e7d5e;
+    background: #e6f5ef;
+    border: 1.5px dashed #2e7d5e;
   }
 
   .mgr-cal-mobile-timeline-legend-bar {
-    width: 12px;
-    height: 12px;
+    width: 10px;
+    height: 10px;
     display: inline-block;
-    margin-right: 4px;
+    margin-right: 6px;
     vertical-align: middle;
   }
 

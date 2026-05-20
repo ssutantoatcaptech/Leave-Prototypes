@@ -456,8 +456,13 @@ export default function AbsenceCalendarPage() {
                   <div className="mgr-cal-mobile-timeline-days">
                     {dayColumns.map((col) => {
                       const isToday = col.day === today && month === 4 && year === 2026;
+                      const isSelected = col.day === selectedDay;
                       return (
-                        <div key={col.day} className={`mgr-cal-mobile-timeline-day${isToday ? ' mgr-cal-mobile-timeline-day--today' : ''}`}>
+                        <div
+                          key={col.day}
+                          className={`mgr-cal-mobile-timeline-day${isToday ? ' mgr-cal-mobile-timeline-day--today' : ''}${isSelected && !isToday ? ' mgr-cal-mobile-timeline-day--selected' : ''}`}
+                          onClick={() => setSelectedDay(col.day)}
+                        >
                           <span className="mgr-cal-mobile-timeline-day-dow">{col.dow[0]}</span>
                           <span className="mgr-cal-mobile-timeline-day-num">{col.day}</span>
                         </div>
