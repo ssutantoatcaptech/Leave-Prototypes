@@ -4056,8 +4056,17 @@ select.ldb-detail-input {
 @media (max-width: 768px) {
   .ldb-detail-dropdown-mobile {
     display: block;
+    padding-top: 4px;
   }
   .ldb-detail-tabs-wrapper:has(.ldb-detail-dropdown-mobile) .ldb-detail-tabs {
     display: none;
+  }
+
+  /* V3 timeline: hide desktop table, show mobile card layout */
+  .v3-timeline-table-desktop {
+    display: none !important;
+  }
+  .v3-timeline-mobile {
+    display: flex !important;
   }
 }

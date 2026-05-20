@@ -384,7 +384,9 @@ export default function LeaveDetailV2ePage() {
                 <div style={{ padding: activeVersion === 'v3' ? '6px 0 0' : '16px 0 0' }}>
                   {/* V3: unified table container wrapping months + weeks + bars */}
                   {activeVersion === 'v3' ? (
-                  <div style={{ border: '1px solid #e5e7eb', borderRadius: 6, position: 'relative' }}>
+                  <>
+                  {/* Desktop table view */}
+                  <div className="v3-timeline-table-desktop" style={{ border: '1px solid #e5e7eb', borderRadius: 6, position: 'relative' }}>
                     {/* Months row with Coverage header */}
                     <div style={{ display: 'flex', background: '#f9fafb', borderBottom: '1px solid #e5e7eb', padding: '8px 12px 8px 0', borderRadius: '6px 6px 0 0' }}>
                       <span style={{ width: 60, flexShrink: 0, fontFamily: "'Source Sans Pro', sans-serif", fontSize: 12, fontWeight: 700, color: '#1f2937', paddingLeft: 10 }}>Coverage</span>
@@ -489,6 +491,58 @@ export default function LeaveDetailV2ePage() {
                       })}
                     </div>
                   </div>
+
+                  {/* Mobile card view for V3 */}
+                  <div className="v3-timeline-mobile" style={{ display: 'none', flexDirection: 'column', gap: 10 }}>
+                    {(timelineView === 'payment' ? [
+                      { id: 'std', label: 'STD', name: 'Short-Term Disability', startPct: 0, widthPct: 66.5, accent: '#2563eb', weeks: '8 weeks', range: 'Mar 15 – May 10, 2026', pay: '60% of pre-disability earnings', status: 'Approved', paymentValue: '~$1,125/wk' },
+                      { id: 'pfml', label: 'PFML', name: 'Paid Family & Medical Leave', startPct: 66.5, widthPct: 33.5, accent: '#0d9488', weeks: '4 weeks', range: 'May 11 – Jun 07, 2026', pay: 'State benefit', status: 'Approved', paymentValue: '~$981/wk' },
+                    ] : [
+                      { id: 'fmla', label: 'FMLA', name: 'FMLA (Birthing Parent)', startPct: 0, widthPct: 100, accent: '#003a70', weeks: '12 weeks', range: 'Mar 15 – Jun 07, 2026', pay: 'Job protection (unpaid)', status: 'Approved' },
+                      { id: 'std', label: 'STD', name: 'Short-Term Disability', startPct: 0, widthPct: 66.5, accent: '#2563eb', weeks: '8 weeks', range: 'Mar 15 – May 10, 2026', pay: '60% of pre-disability earnings', status: 'Approved' },
+                      { id: 'pfml', label: 'PFML', name: 'Paid Family & Medical Leave', startPct: 66.5, widthPct: 33.5, accent: '#0d9488', weeks: '4 weeks', range: 'May 11 – Jun 07, 2026', pay: 'State benefit', status: 'Approved' },
+                    ]).map(function (item) {
+                      var isExpanded = hoveredRow === item.id;
+                      return (
+                        <button
+                          key={item.id}
+                          type="button"
+                          onClick={function () { setHoveredRow(isExpanded ? null : item.id); }}
+                          style={{ display: 'flex', flexDirection: 'column', gap: 8, padding: '14px 16px', border: '1px solid ' + (isExpanded ? item.accent : '#e5e7eb'), borderRadius: 10, background: isExpanded ? '#f8fafc' : '#fff', cursor: 'pointer', textAlign: 'left', width: '100%', transition: 'border-color 0.15s, background 0.15s' }}
+                          aria-expanded={isExpanded}
+                        >
+                          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', width: '100%' }}>
+                            <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
+                              <span style={{ width: 10, height: 10, borderRadius: '50%', background: item.accent, flexShrink: 0 }} />
+                              <span style={{ fontFamily: "'Source Sans Pro', sans-serif", fontSize: 15, fontWeight: 700, color: '#1f2937' }}>{item.name}</span>
+                            </div>
+                            <svg width="16" height="16" viewBox="0 0 16 16" fill="none" style={{ transform: isExpanded ? 'rotate(180deg)' : 'rotate(0)', transition: 'transform 0.2s' }}><path d="M4 6l4 4 4-4" stroke="#6b7280" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/></svg>
+                          </div>
+                          <div style={{ width: '100%', height: 8, background: '#e2e5ea', borderRadius: 4, position: 'relative', overflow: 'hidden' }}>
+                            <div style={{ position: 'absolute', left: item.startPct + '%', width: item.widthPct + '%', height: '100%', background: item.accent, borderRadius: 4 }} />
+                          </div>
+                          <span style={{ fontFamily: "'Source Sans Pro', sans-serif", fontSize: 13, color: '#6b7280' }}>{item.weeks} &middot; {item.range}</span>
+                          {isExpanded && (
+                            <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '10px 16px', width: '100%', paddingTop: 8, borderTop: '1px solid #e5e7eb', marginTop: 4 }}>
+                              <div>
+                                <div style={{ fontFamily: "'Source Sans Pro', sans-serif", fontSize: 11, fontWeight: 600, color: '#6b7280', textTransform: 'uppercase', letterSpacing: '0.03em' }}>{timelineView === 'payment' ? 'Est. Weekly' : 'Status'}</div>
+                                <div style={{ fontFamily: "'Source Sans Pro', sans-serif", fontSize: 14, fontWeight: 600, color: '#1f2937', marginTop: 2 }}>{timelineView === 'payment' ? item.paymentValue : item.status}</div>
+                              </div>
+                              <div>
+                                <div style={{ fontFamily: "'Source Sans Pro', sans-serif", fontSize: 11, fontWeight: 600, color: '#6b7280', textTransform: 'uppercase', letterSpacing: '0.03em' }}>Duration</div>
+                                <div style={{ fontFamily: "'Source Sans Pro', sans-serif", fontSize: 14, fontWeight: 600, color: '#1f2937', marginTop: 2 }}>{item.weeks}</div>
+                              </div>
+                              <div style={{ gridColumn: '1 / -1' }}>
+                                <div style={{ fontFamily: "'Source Sans Pro', sans-serif", fontSize: 11, fontWeight: 600, color: '#6b7280', textTransform: 'uppercase', letterSpacing: '0.03em' }}>Pay</div>
+                                <div style={{ fontFamily: "'Source Sans Pro', sans-serif", fontSize: 14, fontWeight: 600, color: '#1f2937', marginTop: 2 }}>{item.pay}</div>
+                              </div>
+                            </div>
+                          )}
+                        </button>
+                      );
+                    })}
+                  </div>
+                  </>
                   ) : (
                   <>
                   {/* V1/V2: separate month labels + bars */}
