@@ -2088,7 +2088,7 @@
 
 /* === Footer === */
 .mgr-footer {
-  background: #0057A8;
+  background: #003A70;
   margin-top: auto;
   padding: 48px 0 0;
 }
@@ -2537,6 +2537,20 @@
   height: 8px;
   border-radius: 50%;
   background: #d32f2f;
+}
+
+.mgr-mobile-nav-count {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 22px;
+  height: 22px;
+  padding: 0 6px;
+  border-radius: 11px;
+  background: #d32f2f;
+  color: #fff;
+  font-size: 12px;
+  font-weight: 700;
 }
 
 .mgr-mobile-nav-utility {

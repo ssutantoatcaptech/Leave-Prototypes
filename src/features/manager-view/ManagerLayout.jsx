@@ -136,7 +136,7 @@ export default function ManagerLayout() {
                 onClick={() => setMobileNavOpen(false)}
               >
                 <span>{link.label}</span>
-                {link.badge && <span className="mgr-mobile-nav-badge" />}
+                {link.count > 0 && <span className="mgr-mobile-nav-count">{link.count}</span>}
               </NavLink>
             ))}
           </div>
