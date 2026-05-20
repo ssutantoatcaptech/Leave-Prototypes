@@ -95,6 +95,7 @@ export default function LeaveDetailPage() {
                   <div className="ld-timeline-bar-wrap">
                     <div className="ld-timeline-bar std" style={{ width: '45%', left: '0%' }}>
                       <span>ACTIVE COVERAGE</span>
+                      <span>6 wks</span>
                     </div>
                   </div>
                 </div>
@@ -104,6 +105,7 @@ export default function LeaveDetailPage() {
                   <div className="ld-timeline-bar-wrap">
                     <div className="ld-timeline-bar pfml" style={{ width: '40%', left: '35%' }}>
                       <span>BONDING PERIOD</span>
+                      <span>12 wks</span>
                     </div>
                   </div>
                 </div>
