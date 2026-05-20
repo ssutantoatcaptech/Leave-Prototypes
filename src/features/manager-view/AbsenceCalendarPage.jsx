@@ -124,7 +124,7 @@ export default function AbsenceCalendarPage() {
                         {block === 2 && <div className="mgr-calendar-block mgr-calendar-block--partial" />}
                         {block === 3 && (
                           <div className="mgr-calendar-block mgr-calendar-block--returning">
-                            <svg width="10" height="10" viewBox="0 0 10 10" fill="none"><path d="M2 5l2.5 2.5L8 3" stroke="#555" strokeWidth="1.3" strokeLinecap="round" strokeLinejoin="round"/></svg>
+                            <svg width="10" height="10" viewBox="0 0 10 10" fill="none"><path d="M2 5l2.5 2.5L8 3" stroke="#16a34a" strokeWidth="1.3" strokeLinecap="round" strokeLinejoin="round"/></svg>
                           </div>
                         )}
                       </td>

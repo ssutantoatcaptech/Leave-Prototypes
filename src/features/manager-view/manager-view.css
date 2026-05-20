@@ -607,9 +607,9 @@
   border-radius: 4px;
 }
 
-.mgr-legend-dot--full { background: #3d5a80; }
-.mgr-legend-dot--partial { background: #a8c4dc; }
-.mgr-legend-dot--returning { border: 2px dashed #3d5a80; background: #f0f7ff; }
+.mgr-legend-dot--full { background: var(--color-brand-primary, #105fa8); }
+.mgr-legend-dot--partial { background: var(--color-bg-info, #dcebf9); border: 1px solid var(--color-brand-primary, #105fa8); }
+.mgr-legend-dot--returning { border: 2px dashed var(--color-status-success, #16a34a); background: var(--color-bg-success, #d1fae5); }
 
 .mgr-calendar-container {
   display: flex;
@@ -802,11 +802,11 @@
   box-shadow: 0 2px 6px rgba(0,0,0,0.12);
 }
 
-.mgr-calendar-block--full { background: #3d5a80; }
-.mgr-calendar-block--partial { background: #a8c4dc; }
+.mgr-calendar-block--full { background: var(--color-brand-primary, #105fa8); }
+.mgr-calendar-block--partial { background: var(--color-bg-info, #dcebf9); border: 1.5px solid var(--color-brand-primary, #105fa8); }
 .mgr-calendar-block--returning {
-  border: 2px dashed #3d5a80;
-  background: #f0f7ff;
+  border: 2px dashed var(--color-status-success, #16a34a);
+  background: var(--color-bg-success, #d1fae5);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -816,12 +816,12 @@
   display: inline-flex;
   align-items: center;
   padding: 2px 7px;
-  border: 1px solid #a8c4dc;
+  border: 1px solid var(--color-brand-primary, #105fa8);
   border-radius: 4px;
   font-size: 10px;
   font-weight: 700;
-  color: #3d5a80;
-  background: #f0f7ff;
+  color: var(--color-brand-primary, #105fa8);
+  background: var(--color-bg-selected, #eff6ff);
   letter-spacing: 0.3px;
 }
 
@@ -855,7 +855,7 @@
 }
 
 .mgr-cal-tooltip-type {
-  color: #a8c4dc;
+  color: #7ec8e3;
   font-weight: 600;
   opacity: 1 !important;
 }
@@ -1043,11 +1043,11 @@
   gap: 4px;
   font-size: 11px;
   font-weight: 600;
-  color: #3d5a80;
-  background: #f0f7ff;
+  color: var(--color-status-success, #16a34a);
+  background: var(--color-bg-success, #d1fae5);
   padding: 2px 8px;
   border-radius: 4px;
-  border: 1px solid #a8c4dc;
+  border: 1px solid var(--color-status-success-border, #16a34a);
 }
 
 .mgr-sidebar-rtw-btn {
