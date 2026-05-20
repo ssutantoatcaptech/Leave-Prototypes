@@ -391,10 +391,15 @@ export default function LeaveDetailV2ePage() {
                   </div>
                   {/* Week milestones (V3 only) */}
                   {activeVersion === 'v3' && (
-                  <div style={{ display: 'flex', paddingLeft: 50, marginBottom: 12, position: 'relative', height: 14 }}>
+                  <div style={{ display: 'flex', paddingLeft: 50, marginBottom: 10, position: 'relative', height: 18 }}>
                     {[4, 8, 12].map(function (w) {
                       var pct = (w / 52) * 100;
-                      return <span key={w} style={{ position: 'absolute', left: pct + '%', fontFamily: "'Source Sans Pro', sans-serif", fontSize: 11, fontWeight: 600, color: '#9ca3af', transform: 'translateX(-50%)' }}>W{w}</span>;
+                      return (
+                        <div key={w} style={{ position: 'absolute', left: pct + '%', transform: 'translateX(-50%)', display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 1 }}>
+                          <div style={{ width: 1, height: 6, background: '#d1d5db' }} />
+                          <span style={{ fontFamily: "'Source Sans Pro', sans-serif", fontSize: 10, fontWeight: 500, color: '#9ca3af', letterSpacing: '0.02em' }}>W{w}</span>
+                        </div>
+                      );
                     })}
                   </div>
                   )}
@@ -427,13 +432,11 @@ export default function LeaveDetailV2ePage() {
                           style={{ display: 'flex', alignItems: 'center', gap: 10, width: '100%', padding: '10px 0', border: 'none', background: hoveredRow === item.id ? '#f8fafc' : 'transparent', cursor: 'pointer', borderRadius: 6, transition: 'background 0.15s' }}
                         >
                           <span style={{ fontFamily: "'Source Sans Pro', sans-serif", fontSize: 12, fontWeight: 600, color: '#374151', width: 40, textAlign: 'left', flexShrink: 0 }}>{item.label}</span>
-                          <div style={{ flex: 1, position: 'relative', height: activeVersion === 'v3' ? 32 : 28, display: 'flex', alignItems: 'center' }}>
+                          <div style={{ flex: 1, position: 'relative', height: activeVersion === 'v3' ? 24 : 28, display: 'flex', alignItems: 'center' }}>
                             {/* Track line (unpaid) */}
-                            <div style={{ position: 'absolute', left: 0, right: 0, height: activeVersion === 'v3' ? 32 : 8, background: '#e2e5ea', borderRadius: activeVersion === 'v3' ? 16 : 4 }} />
+                            <div style={{ position: 'absolute', left: 0, right: 0, height: activeVersion === 'v3' ? 14 : 8, background: '#e2e5ea', borderRadius: activeVersion === 'v3' ? 7 : 4 }} />
                             {/* Active segment */}
-                            <div style={{ position: 'absolute', left: item.startPct + '%', width: item.widthPct + '%', height: activeVersion === 'v3' ? 32 : 8, background: item.accent, borderRadius: activeVersion === 'v3' ? 16 : 4, display: 'flex', alignItems: 'center', justifyContent: 'center', padding: activeVersion === 'v3' ? '0 10px' : 0 }}>
-                              {activeVersion === 'v3' && <span style={{ fontFamily: "'Source Sans Pro', sans-serif", fontSize: 11, fontWeight: 600, color: '#fff', whiteSpace: 'nowrap' }}>{item.weeks} total</span>}
-                            </div>
+                            <div style={{ position: 'absolute', left: item.startPct + '%', width: item.widthPct + '%', height: activeVersion === 'v3' ? 14 : 8, background: item.accent, borderRadius: activeVersion === 'v3' ? 7 : 4 }} />
                           </div>
                         </button>
                         {/* Tooltip positioned above this row */}
