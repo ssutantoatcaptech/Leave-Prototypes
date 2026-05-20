@@ -613,23 +613,21 @@
 
 .mgr-calendar-container {
   display: flex;
-  gap: 28px;
+  gap: 0;
   align-items: flex-start;
   transition: gap 0.2s ease;
-}
-
-.mgr-calendar-container--collapsed {
-  gap: 0;
 }
 
 .mgr-calendar-container--collapsed .mgr-calendar-grid {
   flex: 1;
   max-width: 100%;
+  padding-right: 0;
 }
 
 .mgr-calendar-grid {
   flex: 1;
   min-width: 0;
+  padding-right: 24px;
 }
 
 .mgr-calendar-scroll-wrapper {
@@ -643,6 +641,7 @@
   left: 0;
   z-index: 2;
   background: #f5f8fc;
+  box-shadow: 2px 0 4px rgba(0,0,0,0.04);
 }
 
 .mgr-sidebar-toggle {
@@ -848,7 +847,7 @@
 }
 
 .mgr-cal-block-cell {
-  padding: 18px 3px;
+  padding: 14px 4px;
   text-align: center;
   border-bottom: 1px solid #e4eaf0;
   cursor: pointer;
@@ -864,9 +863,9 @@
 }
 
 .mgr-calendar-block {
-  width: 26px;
-  height: 26px;
-  border-radius: 5px;
+  width: 22px;
+  height: 22px;
+  border-radius: 4px;
   margin: 0 auto;
   transition: transform 0.12s, box-shadow 0.12s;
 }
@@ -957,7 +956,8 @@
   width: 340px;
   flex-shrink: 0;
   border-left: 1px solid #edf2f7;
-  padding-left: 28px;
+  padding-left: 24px;
+  padding-right: 4px;
   max-height: 820px;
   overflow-y: auto;
   position: sticky;
