@@ -831,99 +831,17 @@
 
 /* File Claim page — redesigned to match Figma node 3742:8319 */
 .fc-page {
-  background: #f8fbfd;
-  min-height: 100vh;
+  background: transparent;
+  min-height: auto;
   position: relative;
   overflow: visible;
   display: flex;
   align-items: flex-start;
   justify-content: center;
-  padding-top: 100px;
+  padding-top: 60px;
   padding-bottom: 80px;
 }
 
-.fc-bg-decoration {
-  position: absolute;
-  width: 998px;
-  height: 1044px;
-  opacity: 0.75;
-  pointer-events: none;
-  z-index: 0;
-}
-
-.fc-bg-decoration--bottom-left {
-  left: -250px;
-  top: 425px;
-}
-
-.fc-bg-decoration--top-right {
-  right: -367px;
-  top: -115px;
-}
-
-.fc-bg-decoration .fc-ellipse {
-  position: absolute;
-  width: 516px;
-  height: 516px;
-  mix-blend-mode: multiply;
-  animation: fc-drift 12s ease-in-out infinite;
-}
-
-@keyframes fc-drift {
-  0%, 100% { transform: rotate(-14deg) translate(0, 0) scale(1); }
-  25% { transform: rotate(-8deg) translate(20px, -15px) scale(1.04); }
-  50% { transform: rotate(-18deg) translate(-10px, 20px) scale(0.97); }
-  75% { transform: rotate(-11deg) translate(15px, 10px) scale(1.02); }
-}
-
-.fc-bg-decoration--bottom-left .fc-ellipse:nth-child(1) {
-  top: 130px;
-  left: 354px;
-  animation-delay: 0s;
-  animation-duration: 14s;
-}
-
-.fc-bg-decoration--bottom-left .fc-ellipse:nth-child(2) {
-  top: 0;
-  left: 0;
-  animation-delay: -4s;
-  animation-duration: 16s;
-}
-
-.fc-bg-decoration--bottom-left .fc-ellipse:nth-child(3) {
-  top: 399px;
-  left: 50px;
-  animation-delay: -8s;
-  animation-duration: 18s;
-}
-
-.fc-bg-decoration--top-right .fc-ellipse:nth-child(1) {
-  top: 130px;
-  left: 354px;
-  animation-delay: -2s;
-  animation-duration: 15s;
-}
-
-.fc-bg-decoration--top-right .fc-ellipse:nth-child(2) {
-  top: 0;
-  left: 0;
-  animation-delay: -6s;
-  animation-duration: 17s;
-}
-
-.fc-bg-decoration--top-right .fc-ellipse:nth-child(3) {
-  top: 399px;
-  left: 50px;
-  animation-delay: -10s;
-  animation-duration: 13s;
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .fc-bg-decoration .fc-ellipse {
-    animation: none;
-    transform: rotate(-14.12deg);
-  }
-}
 
 .fc-content {
   position: relative;
