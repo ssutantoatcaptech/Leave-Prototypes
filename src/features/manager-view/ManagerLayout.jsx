@@ -28,6 +28,7 @@ export default function ManagerLayout() {
 
   return (
     <div className="mgr-shell">
+      <div className="mgr-header-wrapper">
       <header className="mgr-header">
         <div className="mgr-header-left">
           <span className="mgr-header-brand">Benefits Hub</span>
@@ -88,6 +89,7 @@ export default function ManagerLayout() {
           </div>
         </div>
       </header>
+      </div>
       <Outlet />
     </div>
   );
