@@ -398,6 +398,49 @@
   line-height: 1.4;
 }
 
+/* === Checkbox Cards (multi-select) === */
+.fc-wiz-checkbox-cards {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-top: 16px;
+}
+
+.fc-wiz-checkbox-card {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 16px 18px;
+  border: 1.5px solid var(--color-border-input);
+  border-radius: var(--radius-lg);
+  cursor: pointer;
+  transition: var(--transition-fast);
+  background: var(--color-bg-card);
+}
+
+.fc-wiz-checkbox-card:hover {
+  border-color: var(--color-brand-primary);
+  background: var(--color-bg-hover);
+}
+
+.fc-wiz-checkbox-card.selected {
+  border-color: var(--color-brand-primary);
+  background: var(--color-bg-selected);
+  box-shadow: 0 0 0 1px var(--color-brand-primary);
+}
+
+.fc-wiz-checkbox-card .checkbox-box {
+  flex-shrink: 0;
+}
+
+.fc-wiz-checkbox-card-text h4 {
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--color-text-primary);
+  margin: 0;
+  line-height: 1.4;
+}
+
 /* === Radio List (vertical) === */
 .fc-wiz-shell .radio-list {
   display: flex;

@@ -257,7 +257,7 @@ export default function FileClaimWizardPage() {
   });
   const [introChoice, setIntroChoice] = useState(''); // '' | 'direct' | 'guided'
   const [guidedStep, setGuidedStep] = useState(1);
-  const [guidedSituation, setGuidedSituation] = useState('');
+  const [guidedSituations, setGuidedSituations] = useState([]);
   const [guidedWorkAffected, setGuidedWorkAffected] = useState('');
   const [guidedAccident, setGuidedAccident] = useState('');
   const [guidedIllness, setGuidedIllness] = useState('');
@@ -346,11 +346,11 @@ export default function FileClaimWizardPage() {
     if (guidedSupport === 'lump_sum') return 'critical_illness';
     if (guidedSupport === 'accident_coverage') return 'accident';
     if (guidedSupport === 'hospital_expenses') return 'hospital_indemnity';
-    // Fallback: based on situation selection (step 1)
-    if (guidedSituation === 'injured') return 'accident';
-    if (guidedSituation === 'illness') return 'critical_illness';
-    if (guidedSituation === 'work_condition') return 'std';
-    if (guidedSituation === 'hospitalized') return 'hospital_indemnity';
+    // Fallback: based on situation selections (step 1, multi-select)
+    if (guidedSituations.includes('injured')) return 'accident';
+    if (guidedSituations.includes('illness')) return 'critical_illness';
+    if (guidedSituations.includes('work_condition')) return 'std';
+    if (guidedSituations.includes('hospitalized')) return 'hospital_indemnity';
     return 'std'; // default
   }
 
@@ -577,29 +577,28 @@ export default function FileClaimWizardPage() {
               {guidedStep === 1 && (
                 <>
                   <h2>Provide details about your situation to get started.</h2>
-                  <p className="fc-wiz-subtitle">Select which option or options best describes your situation related to this claim.</p>
+                  <p className="fc-wiz-subtitle">Select all that apply to your situation related to this claim.</p>
 
-                  <div className="fc-wiz-radio-cards">
-                    <div className={`fc-wiz-radio-card${guidedSituation === 'injured' ? ' selected' : ''}`} onClick={() => setGuidedSituation('injured')}>
-                      <div className="fc-wiz-radio-dot" />
-                      <div className="fc-wiz-radio-card-text"><h4>I was injured in an accident (such as like a fall, car accident, or sports injury)</h4></div>
-                    </div>
-                    <div className={`fc-wiz-radio-card${guidedSituation === 'illness' ? ' selected' : ''}`} onClick={() => setGuidedSituation('illness')}>
-                      <div className="fc-wiz-radio-dot" />
-                      <div className="fc-wiz-radio-card-text"><h4>I've been diagnosed with a serious illness (such as cancer, heart attack, or stroke)</h4></div>
-                    </div>
-                    <div className={`fc-wiz-radio-card${guidedSituation === 'work_condition' ? ' selected' : ''}`} onClick={() => setGuidedSituation('work_condition')}>
-                      <div className="fc-wiz-radio-dot" />
-                      <div className="fc-wiz-radio-card-text"><h4>I have a condition that will effect my ability to work</h4></div>
-                    </div>
-                    <div className={`fc-wiz-radio-card${guidedSituation === 'hospitalized' ? ' selected' : ''}`} onClick={() => setGuidedSituation('hospitalized')}>
-                      <div className="fc-wiz-radio-dot" />
-                      <div className="fc-wiz-radio-card-text"><h4>I was hospitalized or stayed overnight in a hospital</h4></div>
-                    </div>
-                    <div className={`fc-wiz-radio-card${guidedSituation === 'other' ? ' selected' : ''}`} onClick={() => setGuidedSituation('other')}>
-                      <div className="fc-wiz-radio-dot" />
-                      <div className="fc-wiz-radio-card-text"><h4>Something else</h4></div>
-                    </div>
+                  <div className="fc-wiz-checkbox-cards">
+                    {[
+                      { value: 'injured', label: 'I was injured in an accident (such as like a fall, car accident, or sports injury)' },
+                      { value: 'illness', label: "I've been diagnosed with a serious illness (such as cancer, heart attack, or stroke)" },
+                      { value: 'work_condition', label: 'I have a condition that will effect my ability to work' },
+                      { value: 'hospitalized', label: 'I was hospitalized or stayed overnight in a hospital' },
+                      { value: 'other', label: 'Something else' },
+                    ].map((opt) => {
+                      const isChecked = guidedSituations.includes(opt.value);
+                      return (
+                        <div
+                          key={opt.value}
+                          className={`fc-wiz-checkbox-card${isChecked ? ' selected' : ''}`}
+                          onClick={() => setGuidedSituations((prev) => isChecked ? prev.filter((v) => v !== opt.value) : [...prev, opt.value])}
+                        >
+                          <div className={`checkbox-box${isChecked ? ' checked' : ''}`}><span className="check-icon">{'✓'}</span></div>
+                          <div className="fc-wiz-checkbox-card-text"><h4>{opt.label}</h4></div>
+                        </div>
+                      );
+                    })}
                   </div>
 
                   <div className="fc-wiz-guided-question">
