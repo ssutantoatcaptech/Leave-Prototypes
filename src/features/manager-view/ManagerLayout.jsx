@@ -28,7 +28,7 @@ export default function ManagerLayout() {
   const navLinks = [
     { label: 'Absence Calendar', to: '/manager/absence-calendar' },
     { label: 'My Team', to: '/manager/my-team' },
-    { label: 'My Actions', to: '/manager/my-actions', count: actionCount },
+    { label: 'Tasks', to: '/manager/my-actions', count: actionCount },
     { label: 'Return to Work', to: '/manager/return-to-work' },
     { label: 'Support', to: '/manager/support' },
   ];

@@ -138,35 +138,73 @@ export default function EmployeeDetailPage() {
           {activeTab === 'overview' && (
             <div className="mgr-overview-columns">
               <div className="mgr-overview-main">
-                <h3 style={{ fontSize: 16, fontWeight: 700, marginBottom: 16 }}>Leave Details</h3>
-                <div className="mgr-leave-details-grid">
-                  <div className="mgr-leave-details-row">
-                    <span className="mgr-leave-details-label">Leave Type</span>
-                    <span className="mgr-leave-details-value"><span className="mgr-badge mgr-badge-approved" style={{ fontSize: 11 }}>{emp.leaveType}</span></span>
+                {/* Desktop table view */}
+                <div className="mgr-detail-desktop-view">
+                  <h3 style={{ fontSize: 16, fontWeight: 700, marginBottom: 16 }}>Leave Details</h3>
+                  <div className="mgr-leave-details-grid">
+                    <div className="mgr-leave-details-row">
+                      <span className="mgr-leave-details-label">Leave Type</span>
+                      <span className="mgr-leave-details-value"><span className="mgr-badge mgr-badge-approved" style={{ fontSize: 11 }}>{emp.leaveType}</span></span>
+                    </div>
+                    <div className="mgr-leave-details-row">
+                      <span className="mgr-leave-details-label">Reason</span>
+                      <span className="mgr-leave-details-value">{emp.overview.reason}</span>
+                    </div>
+                    <div className="mgr-leave-details-row">
+                      <span className="mgr-leave-details-label">Start Date</span>
+                      <span className="mgr-leave-details-value">{emp.overview.startDate}</span>
+                    </div>
+                    <div className="mgr-leave-details-row">
+                      <span className="mgr-leave-details-label">End Date</span>
+                      <span className="mgr-leave-details-value">{emp.overview.endDate}</span>
+                    </div>
+                    <div className="mgr-leave-details-row">
+                      <span className="mgr-leave-details-label">Return Date</span>
+                      <span className="mgr-leave-details-value">{emp.overview.returnDate}</span>
+                    </div>
+                    <div className="mgr-leave-details-row">
+                      <span className="mgr-leave-details-label">Case Status</span>
+                      <span className="mgr-leave-details-value"><span className="mgr-badge mgr-badge-approved">{emp.overview.caseStatus}</span></span>
+                    </div>
+                    <div className="mgr-leave-details-row">
+                      <span className="mgr-leave-details-label">Case #</span>
+                      <span className="mgr-leave-details-value">{emp.overview.caseNumber}</span>
+                    </div>
                   </div>
-                  <div className="mgr-leave-details-row">
-                    <span className="mgr-leave-details-label">Reason</span>
-                    <span className="mgr-leave-details-value">{emp.overview.reason}</span>
-                  </div>
-                  <div className="mgr-leave-details-row">
-                    <span className="mgr-leave-details-label">Start Date</span>
-                    <span className="mgr-leave-details-value">{emp.overview.startDate}</span>
-                  </div>
-                  <div className="mgr-leave-details-row">
-                    <span className="mgr-leave-details-label">End Date</span>
-                    <span className="mgr-leave-details-value">{emp.overview.endDate}</span>
-                  </div>
-                  <div className="mgr-leave-details-row">
-                    <span className="mgr-leave-details-label">Return Date</span>
-                    <span className="mgr-leave-details-value">{emp.overview.returnDate}</span>
-                  </div>
-                  <div className="mgr-leave-details-row">
-                    <span className="mgr-leave-details-label">Case Status</span>
-                    <span className="mgr-leave-details-value"><span className="mgr-badge mgr-badge-approved">{emp.overview.caseStatus}</span></span>
-                  </div>
-                  <div className="mgr-leave-details-row">
-                    <span className="mgr-leave-details-label">Case #</span>
-                    <span className="mgr-leave-details-value">{emp.overview.caseNumber}</span>
+                </div>
+
+                {/* Mobile card view */}
+                <div className="mgr-detail-mobile-view">
+                  <div className="mgr-detail-mobile-card">
+                    <div className="mgr-detail-mobile-card-title">Leave Details</div>
+                    <div className="mgr-detail-mobile-row">
+                      <span className="mgr-detail-mobile-label">Leave Type</span>
+                      <span className="mgr-detail-mobile-value">{emp.leaveType}</span>
+                    </div>
+                    <div className="mgr-detail-mobile-row">
+                      <span className="mgr-detail-mobile-label">Reason</span>
+                      <span className="mgr-detail-mobile-value">{emp.overview.reason}</span>
+                    </div>
+                    <div className="mgr-detail-mobile-row">
+                      <span className="mgr-detail-mobile-label">Start Date</span>
+                      <span className="mgr-detail-mobile-value">{emp.overview.startDate}</span>
+                    </div>
+                    <div className="mgr-detail-mobile-row">
+                      <span className="mgr-detail-mobile-label">End Date</span>
+                      <span className="mgr-detail-mobile-value">{emp.overview.endDate}</span>
+                    </div>
+                    <div className="mgr-detail-mobile-row">
+                      <span className="mgr-detail-mobile-label">Return Date</span>
+                      <span className="mgr-detail-mobile-value">{emp.overview.returnDate}</span>
+                    </div>
+                    <div className="mgr-detail-mobile-row">
+                      <span className="mgr-detail-mobile-label">Case Status</span>
+                      <span className="mgr-detail-mobile-value"><span className="mgr-badge mgr-badge-approved">{emp.overview.caseStatus}</span></span>
+                    </div>
+                    <div className="mgr-detail-mobile-row">
+                      <span className="mgr-detail-mobile-label">Case #</span>
+                      <span className="mgr-detail-mobile-value">{emp.overview.caseNumber}</span>
+                    </div>
                   </div>
                 </div>
               </div>
@@ -208,34 +246,66 @@ export default function EmployeeDetailPage() {
               )}
               {emp.absences.length > 0 ? (
                 <>
-                  <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: 12 }}>
-                    <h3 style={{ fontSize: 16, fontWeight: 700 }}>Absence Log</h3>
-                    <span style={{ fontSize: 13, color: '#555' }}>Total hours missed: <strong>32:00</strong> | Total entries: <strong>{emp.absences.length}</strong></span>
-                  </div>
-                  <table className="mgr-table">
-                    <thead>
-                      <tr>
-                        <th>Date</th>
-                        <th>Hours Missed</th>
-                        <th>Time Missed</th>
-                        <th>Reason</th>
-                        <th>Status</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      {emp.absences.map((a, i) => (
-                        <tr key={i}>
-                          <td>{a.date}</td>
-                          <td>{a.hours}</td>
-                          <td>{a.time}</td>
-                          <td>{a.reason}</td>
-                          <td><span className="mgr-badge mgr-badge-approved">{a.status}</span></td>
+                  {/* Desktop table */}
+                  <div className="mgr-detail-desktop-view">
+                    <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: 12 }}>
+                      <h3 style={{ fontSize: 16, fontWeight: 700 }}>Absence Log</h3>
+                      <span style={{ fontSize: 13, color: '#555' }}>Total hours missed: <strong>32:00</strong> | Total entries: <strong>{emp.absences.length}</strong></span>
+                    </div>
+                    <table className="mgr-table">
+                      <thead>
+                        <tr>
+                          <th>Date</th>
+                          <th>Hours Missed</th>
+                          <th>Time Missed</th>
+                          <th>Reason</th>
+                          <th>Status</th>
                         </tr>
-                      ))}
-                    </tbody>
-                  </table>
-                  <div className="mgr-pagination">
-                    <span className="mgr-pagination-info">Showing 1 to {emp.absences.length} of {emp.absences.length} entries</span>
+                      </thead>
+                      <tbody>
+                        {emp.absences.map((a, i) => (
+                          <tr key={i}>
+                            <td>{a.date}</td>
+                            <td>{a.hours}</td>
+                            <td>{a.time}</td>
+                            <td>{a.reason}</td>
+                            <td><span className="mgr-badge mgr-badge-approved">{a.status}</span></td>
+                          </tr>
+                        ))}
+                      </tbody>
+                    </table>
+                    <div className="mgr-pagination">
+                      <span className="mgr-pagination-info">Showing 1 to {emp.absences.length} of {emp.absences.length} entries</span>
+                    </div>
+                  </div>
+
+                  {/* Mobile cards */}
+                  <div className="mgr-detail-mobile-view">
+                    <div className="mgr-detail-mobile-card-title">Absence Log · {emp.absences.length} entries</div>
+                    {emp.absences.map((a, i) => (
+                      <div className="mgr-detail-mobile-card" key={i}>
+                        <div className="mgr-detail-mobile-row">
+                          <span className="mgr-detail-mobile-label">Date</span>
+                          <span className="mgr-detail-mobile-value">{a.date}</span>
+                        </div>
+                        <div className="mgr-detail-mobile-row">
+                          <span className="mgr-detail-mobile-label">Hours Missed</span>
+                          <span className="mgr-detail-mobile-value">{a.hours}</span>
+                        </div>
+                        <div className="mgr-detail-mobile-row">
+                          <span className="mgr-detail-mobile-label">Time Missed</span>
+                          <span className="mgr-detail-mobile-value">{a.time}</span>
+                        </div>
+                        <div className="mgr-detail-mobile-row">
+                          <span className="mgr-detail-mobile-label">Reason</span>
+                          <span className="mgr-detail-mobile-value">{a.reason}</span>
+                        </div>
+                        <div className="mgr-detail-mobile-row">
+                          <span className="mgr-detail-mobile-label">Status</span>
+                          <span className="mgr-detail-mobile-value"><span className="mgr-badge mgr-badge-approved">{a.status}</span></span>
+                        </div>
+                      </div>
+                    ))}
                   </div>
                 </>
               ) : (
@@ -248,30 +318,54 @@ export default function EmployeeDetailPage() {
             <>
               {emp.accommodations.length > 0 ? (
                 <>
-                  <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: 12 }}>
-                    <h3 style={{ fontSize: 16, fontWeight: 700 }}>Employee ADA Accommodations</h3>
-                    <span style={{ fontSize: 13, color: '#555' }}><strong>{emp.accommodations.length}</strong> Active Accommodation{emp.accommodations.length > 1 ? 's' : ''}</span>
-                  </div>
-                  <table className="mgr-table">
-                    <thead>
-                      <tr>
-                        <th>ADA Accommodation Type</th>
-                        <th>Start Date &darr;</th>
-                        <th>End Date &darr;</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      {emp.accommodations.map((a, i) => (
-                        <tr key={i}>
-                          <td>{a.type}</td>
-                          <td>{a.startDate}</td>
-                          <td>{a.endDate}</td>
+                  {/* Desktop table */}
+                  <div className="mgr-detail-desktop-view">
+                    <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: 12 }}>
+                      <h3 style={{ fontSize: 16, fontWeight: 700 }}>Employee ADA Accommodations</h3>
+                      <span style={{ fontSize: 13, color: '#555' }}><strong>{emp.accommodations.length}</strong> Active Accommodation{emp.accommodations.length > 1 ? 's' : ''}</span>
+                    </div>
+                    <table className="mgr-table">
+                      <thead>
+                        <tr>
+                          <th>ADA Accommodation Type</th>
+                          <th>Start Date &darr;</th>
+                          <th>End Date &darr;</th>
                         </tr>
-                      ))}
-                    </tbody>
-                  </table>
-                  <div className="mgr-pagination">
-                    <span className="mgr-pagination-info">Showing 1 to 1 of 1 entries</span>
+                      </thead>
+                      <tbody>
+                        {emp.accommodations.map((a, i) => (
+                          <tr key={i}>
+                            <td>{a.type}</td>
+                            <td>{a.startDate}</td>
+                            <td>{a.endDate}</td>
+                          </tr>
+                        ))}
+                      </tbody>
+                    </table>
+                    <div className="mgr-pagination">
+                      <span className="mgr-pagination-info">Showing 1 to {emp.accommodations.length} of {emp.accommodations.length} entries</span>
+                    </div>
+                  </div>
+
+                  {/* Mobile cards */}
+                  <div className="mgr-detail-mobile-view">
+                    <div className="mgr-detail-mobile-card-title">ADA Accommodations · {emp.accommodations.length} active</div>
+                    {emp.accommodations.map((a, i) => (
+                      <div className="mgr-detail-mobile-card" key={i}>
+                        <div className="mgr-detail-mobile-row">
+                          <span className="mgr-detail-mobile-label">Type</span>
+                          <span className="mgr-detail-mobile-value">{a.type}</span>
+                        </div>
+                        <div className="mgr-detail-mobile-row">
+                          <span className="mgr-detail-mobile-label">Start Date</span>
+                          <span className="mgr-detail-mobile-value">{a.startDate}</span>
+                        </div>
+                        <div className="mgr-detail-mobile-row">
+                          <span className="mgr-detail-mobile-label">End Date</span>
+                          <span className="mgr-detail-mobile-value">{a.endDate}</span>
+                        </div>
+                      </div>
+                    ))}
                   </div>
                 </>
               ) : (
