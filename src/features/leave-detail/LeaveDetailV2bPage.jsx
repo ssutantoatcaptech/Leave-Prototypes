@@ -233,14 +233,14 @@ export default function LeaveDetailV2bPage() {
                     </div>
                   </div>
                   <div className="ldb-v2-bar-row">
-                    <span className="ldb-v2-bar-label">PFML</span>
+                    <span className="ldb-v2-bar-label">NJ FLI</span>
                     <div className="ldb-v2-bar-track">
                       <div className="ldb-v2-bar pfml" style={{ left: '35%', width: '45%' }} />
                     </div>
                     <div className="ldb-v2-bar-tooltip">
-                      <div className="ldb-v2-ms-tooltip-title">Paid Family Medical Leave</div>
+                      <div className="ldb-v2-ms-tooltip-title">NJ Family Leave Insurance (Bonding)</div>
                       <div className="ldb-v2-ms-tooltip-date">Jun 24 – Aug 12, 2026</div>
-                      <div className="ldb-v2-ms-tooltip-desc">State bonding benefit. Begins after birth date, ends 7 weeks post-delivery.</div>
+                      <div className="ldb-v2-ms-tooltip-desc">85% of average weekly wage up to state max ($1,055/wk). Bonding period begins after delivery.</div>
                     </div>
                   </div>
                 </div>
@@ -254,7 +254,7 @@ export default function LeaveDetailV2bPage() {
                 <div className="ldb-v2-timeline-legend">
                   <span className="ldb-legend-item"><span className="ldb-legend-dot fmla" />FMLA</span>
                   <span className="ldb-legend-item"><span className="ldb-legend-dot std" />STD</span>
-                  <span className="ldb-legend-item"><span className="ldb-legend-dot pfml" />PFML</span>
+                  <span className="ldb-legend-item"><span className="ldb-legend-dot pfml" />NJ FLI</span>
                   <span className="ldb-legend-item"><span className="ldb-legend-dot unpaid" />Unpaid</span>
                 </div>
               </div>
@@ -307,15 +307,15 @@ export default function LeaveDetailV2bPage() {
                   <div className="ldb-payment-summary">
                     <div className="ldb-payment-box">
                       <div className="ldb-payment-box-label">TOTAL PAID TO DATE</div>
-                      <div className="ldb-payment-box-value">$7,650.00</div>
+                      <div className="ldb-payment-box-value">$8,265.00</div>
                     </div>
                     <div className="ldb-payment-box">
                       <div className="ldb-payment-box-label">NEXT EXPECTED PAYMENT</div>
                       <div className="ldb-payment-box-value">Jul 26, 2026</div>
                     </div>
                     <div className="ldb-payment-box">
-                      <div className="ldb-payment-box-label">ESTIMATED WEEKLY BENEFIT</div>
-                      <div className="ldb-payment-box-value">$850.00</div>
+                      <div className="ldb-payment-box-label">EST. WEEKLY (NJ FLI)</div>
+                      <div className="ldb-payment-box-value">$1,055.00</div>
                     </div>
                   </div>
 
@@ -387,54 +387,54 @@ export default function LeaveDetailV2bPage() {
                       <tr>
                         <td>May 31, 2026</td>
                         <td>May 18 - May 31</td>
-                        <td>$850.00</td>
+                        <td>$1,055.00</td>
                         <td><span className="ldb-claim-status processed">PROCESSED</span></td>
                         <td><button type="button" className="ldb-link ldb-pmt-toggle" onClick={function () { togglePaymentRow('p4'); }}>{expandedPayments.p4 ? 'Hide' : 'See Details'}</button></td>
                       </tr>
                       {expandedPayments.p4 && (
                         <tr className="ldb-pmt-expand-row"><td colSpan="5">
                           <div className="ldb-pmt-expand-grid">
-                            <div className="ldb-pmt-expand-item"><span className="ldb-pmt-expand-label">Gross Pay</span><span className="ldb-pmt-expand-value">$1,036.59</span></div>
+                            <div className="ldb-pmt-expand-item"><span className="ldb-pmt-expand-label">Gross Pay</span><span className="ldb-pmt-expand-value">$1,055.00</span></div>
                             <div className="ldb-pmt-expand-item"><span className="ldb-pmt-expand-label">Adjustments</span><span className="ldb-pmt-expand-value">$0.00</span></div>
-                            <div className="ldb-pmt-expand-item"><span className="ldb-pmt-expand-label">Tax &amp; Deductions</span><span className="ldb-pmt-expand-value">-$186.59</span></div>
-                            <div className="ldb-pmt-expand-item"><span className="ldb-pmt-expand-label">Net Amount</span><span className="ldb-pmt-expand-value ldb-pmt-net">$850.00</span></div>
-                            <div className="ldb-pmt-expand-item"><span className="ldb-pmt-expand-label">Paid By</span><span className="ldb-pmt-expand-value">State PFML Agency</span></div>
+                            <div className="ldb-pmt-expand-item"><span className="ldb-pmt-expand-label">Tax &amp; Deductions</span><span className="ldb-pmt-expand-value">$0.00</span></div>
+                            <div className="ldb-pmt-expand-item"><span className="ldb-pmt-expand-label">Net Amount</span><span className="ldb-pmt-expand-value ldb-pmt-net">$1,055.00</span></div>
+                            <div className="ldb-pmt-expand-item"><span className="ldb-pmt-expand-label">Paid By</span><span className="ldb-pmt-expand-value">NJ Family Leave Insurance</span></div>
                           </div>
                         </td></tr>
                       )}
                       <tr>
                         <td>May 17, 2026</td>
                         <td>May 04 - May 17</td>
-                        <td>$850.00</td>
+                        <td>$1,055.00</td>
                         <td><span className="ldb-claim-status processed">PROCESSED</span></td>
                         <td><button type="button" className="ldb-link ldb-pmt-toggle" onClick={function () { togglePaymentRow('p5'); }}>{expandedPayments.p5 ? 'Hide' : 'See Details'}</button></td>
                       </tr>
                       {expandedPayments.p5 && (
                         <tr className="ldb-pmt-expand-row"><td colSpan="5">
                           <div className="ldb-pmt-expand-grid">
-                            <div className="ldb-pmt-expand-item"><span className="ldb-pmt-expand-label">Gross Pay</span><span className="ldb-pmt-expand-value">$1,036.59</span></div>
+                            <div className="ldb-pmt-expand-item"><span className="ldb-pmt-expand-label">Gross Pay</span><span className="ldb-pmt-expand-value">$1,055.00</span></div>
                             <div className="ldb-pmt-expand-item"><span className="ldb-pmt-expand-label">Adjustments</span><span className="ldb-pmt-expand-value">$0.00</span></div>
-                            <div className="ldb-pmt-expand-item"><span className="ldb-pmt-expand-label">Tax &amp; Deductions</span><span className="ldb-pmt-expand-value">-$186.59</span></div>
-                            <div className="ldb-pmt-expand-item"><span className="ldb-pmt-expand-label">Net Amount</span><span className="ldb-pmt-expand-value ldb-pmt-net">$850.00</span></div>
-                            <div className="ldb-pmt-expand-item"><span className="ldb-pmt-expand-label">Paid By</span><span className="ldb-pmt-expand-value">State PFML Agency</span></div>
+                            <div className="ldb-pmt-expand-item"><span className="ldb-pmt-expand-label">Tax &amp; Deductions</span><span className="ldb-pmt-expand-value">$0.00</span></div>
+                            <div className="ldb-pmt-expand-item"><span className="ldb-pmt-expand-label">Net Amount</span><span className="ldb-pmt-expand-value ldb-pmt-net">$1,055.00</span></div>
+                            <div className="ldb-pmt-expand-item"><span className="ldb-pmt-expand-label">Paid By</span><span className="ldb-pmt-expand-value">NJ Family Leave Insurance</span></div>
                           </div>
                         </td></tr>
                       )}
                       <tr>
                         <td>May 03, 2026</td>
                         <td>Apr 20 - May 03</td>
-                        <td>$850.00</td>
+                        <td>$1,055.00</td>
                         <td><span className="ldb-claim-status processed">PROCESSED</span></td>
                         <td><button type="button" className="ldb-link ldb-pmt-toggle" onClick={function () { togglePaymentRow('p6'); }}>{expandedPayments.p6 ? 'Hide' : 'See Details'}</button></td>
                       </tr>
                       {expandedPayments.p6 && (
                         <tr className="ldb-pmt-expand-row"><td colSpan="5">
                           <div className="ldb-pmt-expand-grid">
-                            <div className="ldb-pmt-expand-item"><span className="ldb-pmt-expand-label">Gross Pay</span><span className="ldb-pmt-expand-value">$1,036.59</span></div>
+                            <div className="ldb-pmt-expand-item"><span className="ldb-pmt-expand-label">Gross Pay</span><span className="ldb-pmt-expand-value">$1,055.00</span></div>
                             <div className="ldb-pmt-expand-item"><span className="ldb-pmt-expand-label">Adjustments</span><span className="ldb-pmt-expand-value">$0.00</span></div>
-                            <div className="ldb-pmt-expand-item"><span className="ldb-pmt-expand-label">Tax &amp; Deductions</span><span className="ldb-pmt-expand-value">-$186.59</span></div>
-                            <div className="ldb-pmt-expand-item"><span className="ldb-pmt-expand-label">Net Amount</span><span className="ldb-pmt-expand-value ldb-pmt-net">$850.00</span></div>
-                            <div className="ldb-pmt-expand-item"><span className="ldb-pmt-expand-label">Paid By</span><span className="ldb-pmt-expand-value">State PFML Agency</span></div>
+                            <div className="ldb-pmt-expand-item"><span className="ldb-pmt-expand-label">Tax &amp; Deductions</span><span className="ldb-pmt-expand-value">$0.00</span></div>
+                            <div className="ldb-pmt-expand-item"><span className="ldb-pmt-expand-label">Net Amount</span><span className="ldb-pmt-expand-value ldb-pmt-net">$1,055.00</span></div>
+                            <div className="ldb-pmt-expand-item"><span className="ldb-pmt-expand-label">Paid By</span><span className="ldb-pmt-expand-value">NJ Family Leave Insurance</span></div>
                           </div>
                         </td></tr>
                       )}
@@ -572,7 +572,7 @@ export default function LeaveDetailV2bPage() {
               <div className="ldb-task-group">
                 <button type="button" className={'ldb-task-group-header ldb-accordion-toggle' + (openAccordions.pfml ? ' open' : '')} onClick={function () { toggleAccordion('pfml'); }}>
                   <span className="ldb-task-group-dot pfml" />
-                  <span className="ldb-task-group-label">PFML</span>
+                  <span className="ldb-task-group-label">NJ FLI</span>
                   <span className="ldb-task-group-count">1/2 complete</span>
                   <svg className="ldb-accordion-chevron" width="10" height="6" viewBox="0 0 10 6" fill="none"><path d="M1 1l4 4 4-4" stroke="currentColor" strokeWidth="1.3" strokeLinecap="round" strokeLinejoin="round"/></svg>
                 </button>

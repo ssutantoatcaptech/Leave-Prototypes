@@ -78,7 +78,7 @@ export default function LeaveDetailPage() {
                 </h2>
                 <div className="ld-timeline-legend">
                   <span className="ld-legend-item"><span className="ld-legend-dot std" />STD</span>
-                  <span className="ld-legend-item"><span className="ld-legend-dot pfml" />PFML</span>
+                  <span className="ld-legend-item"><span className="ld-legend-dot pfml" />NJ FLI</span>
                   <span className="ld-legend-item"><span className="ld-legend-dot payment" />PAYMENT</span>
                 </div>
               </div>
@@ -100,7 +100,7 @@ export default function LeaveDetailPage() {
                 </div>
 
                 <div className="ld-timeline-row">
-                  <span className="ld-timeline-label">PFML Coverage</span>
+                  <span className="ld-timeline-label">NJ FLI (Bonding)</span>
                   <div className="ld-timeline-bar-wrap">
                     <div className="ld-timeline-bar pfml" style={{ width: '40%', left: '35%' }}>
                       <span>BONDING PERIOD</span>
@@ -170,7 +170,7 @@ export default function LeaveDetailPage() {
               <div className="ld-payment-summary">
                 <div className="ld-payment-box">
                   <div className="ld-payment-box-label">TOTAL PAID TO DATE</div>
-                  <div className="ld-payment-box-value">$4,250.00</div>
+                  <div className="ld-payment-box-value">$4,220.00</div>
                 </div>
                 <div className="ld-payment-box">
                   <div className="ld-payment-box-label">NEXT EXPECTED PAYMENT</div>
@@ -178,7 +178,7 @@ export default function LeaveDetailPage() {
                 </div>
                 <div className="ld-payment-box">
                   <div className="ld-payment-box-label">ESTIMATED WEEKLY BENEFIT</div>
-                  <div className="ld-payment-box-value">$850.00</div>
+                  <div className="ld-payment-box-value">$1,055.00</div>
                 </div>
               </div>
 
@@ -195,13 +195,13 @@ export default function LeaveDetailPage() {
                   <tr>
                     <td>May 29, 2026</td>
                     <td>May 15 - May 28</td>
-                    <td>$1,700.00</td>
+                    <td>$2,110.00</td>
                     <td><span className="ld-claim-status processed">PROCESSED</span></td>
                   </tr>
                   <tr>
                     <td>May 15, 2026</td>
                     <td>May 01 - May 14</td>
-                    <td>$1,700.00</td>
+                    <td>$2,110.00</td>
                     <td><span className="ld-claim-status processed">PROCESSED</span></td>
                   </tr>
                 </tbody>

@@ -183,14 +183,14 @@ export default function LeaveDetailV2Page() {
                     </div>
                   </div>
                   <div className="ld-v2-bar-row">
-                    <span className="ld-v2-bar-label">PFML</span>
+                    <span className="ld-v2-bar-label">NJ FLI</span>
                     <div className="ld-v2-bar-track">
                       <div className="ld-v2-bar pfml" style={{ left: '35%', width: '45%' }} />
                     </div>
                     <div className="ld-v2-bar-tooltip">
-                      <div className="ld-v2-ms-tooltip-title">Paid Family Medical Leave</div>
+                      <div className="ld-v2-ms-tooltip-title">NJ Family Leave Insurance (Bonding)</div>
                       <div className="ld-v2-ms-tooltip-date">Jun 24 – Aug 12, 2026</div>
-                      <div className="ld-v2-ms-tooltip-desc">State bonding benefit. Begins after birth date, ends 7 weeks post-delivery.</div>
+                      <div className="ld-v2-ms-tooltip-desc">85% of average weekly wage up to state max ($1,055/wk). Bonding period begins after delivery.</div>
                     </div>
                   </div>
                 </div>
@@ -204,7 +204,7 @@ export default function LeaveDetailV2Page() {
                 <div className="ld-v2-timeline-legend">
                   <span className="ld-legend-item"><span className="ld-legend-dot fmla" />FMLA</span>
                   <span className="ld-legend-item"><span className="ld-legend-dot std" />STD</span>
-                  <span className="ld-legend-item"><span className="ld-legend-dot pfml" />PFML</span>
+                  <span className="ld-legend-item"><span className="ld-legend-dot pfml" />NJ FLI</span>
                   <span className="ld-legend-item"><span className="ld-legend-dot unpaid" />Unpaid</span>
                 </div>
               </div>
@@ -264,8 +264,8 @@ export default function LeaveDetailV2Page() {
                       <div className="ld-payment-box-value">Jul 26, 2026</div>
                     </div>
                     <div className="ld-payment-box">
-                      <div className="ld-payment-box-label">ESTIMATED WEEKLY BENEFIT</div>
-                      <div className="ld-payment-box-value">$850.00</div>
+                      <div className="ld-payment-box-label">EST. WEEKLY (NJ FLI)</div>
+                      <div className="ld-payment-box-value">$1,055.00</div>
                     </div>
                   </div>
 

@@ -168,8 +168,8 @@ export default function LeaveDetailPregnancyPage() {
                   <div className="dlp-tl-rows">
                     {(timelineView === 'payment' ? [
                       { id: 'std', label: 'STD', width: 36, accent: '#2563eb', name: 'Group Disability Claim (STD)', weeks: '8 weeks', range: 'Jun 16 – Aug 11, 2026', pay: '60% salary (delivery recovery)', status: 'Approved', paymentValue: '~$1,923/wk' },
-                      { id: 'njtdi', label: 'NJ TDI', width: 36, accent: '#818cf8', name: 'NJ Temporary Disability Insurance', weeks: '8 weeks', range: 'Jun 16 – Aug 11, 2026', pay: '85% salary (state program)', status: 'Approved', paymentValue: '~$1,048/wk' },
-                      { id: 'njfli', label: 'NJ FLI', width: 54, accent: '#0d9488', name: 'NJ Family Leave Insurance (Bonding)', weeks: '12 weeks', range: 'Aug 11 – Nov 3, 2026', pay: '85% AWW up to max', status: 'Approved', paymentValue: '~$1,048/wk' },
+                      { id: 'njtdi', label: 'NJ TDI', width: 36, accent: '#818cf8', name: 'NJ Temporary Disability Insurance', weeks: '8 weeks', range: 'Jun 16 – Aug 11, 2026', pay: '85% salary (state program)', status: 'Approved', paymentValue: '~$1,055/wk' },
+                      { id: 'njfli', label: 'NJ FLI', width: 54, accent: '#0d9488', name: 'NJ Family Leave Insurance (Bonding)', weeks: '12 weeks', range: 'Aug 11 – Nov 3, 2026', pay: '85% AWW up to max', status: 'Approved', paymentValue: '~$1,055/wk' },
                     ] : [
                       { id: 'fmla', label: 'FMLA', width: 100, accent: '#105fa8', name: 'Leave Case — FMLA Protection', weeks: '12 weeks', range: 'Jun 16 – Sep 8, 2026', pay: 'Job protection (unpaid)', status: 'Approved' },
                       { id: 'std', label: 'STD', width: 36, accent: '#2563eb', name: 'Group Disability Claim (STD)', weeks: '8 weeks', range: 'Jun 16 – Aug 11, 2026', pay: '60% salary (delivery recovery)', status: 'Approved' },
@@ -199,8 +199,8 @@ export default function LeaveDetailPregnancyPage() {
                   {hoveredRow && (function () {
                     var allRows = timelineView === 'payment' ? [
                       { id: 'std', name: 'Group Disability Claim (STD)', weeks: '8 weeks', range: 'Jun 16 – Aug 11, 2026', pay: '60% salary (delivery recovery)', status: 'Approved', paymentValue: '~$1,923/wk' },
-                      { id: 'njtdi', name: 'NJ Temporary Disability Insurance', weeks: '8 weeks', range: 'Jun 16 – Aug 11, 2026', pay: '85% salary (state program)', status: 'Approved', paymentValue: '~$1,048/wk' },
-                      { id: 'njfli', name: 'NJ Family Leave Insurance (Bonding)', weeks: '12 weeks', range: 'Aug 11 – Nov 3, 2026', pay: '85% AWW up to max', status: 'Approved', paymentValue: '~$1,048/wk' },
+                      { id: 'njtdi', name: 'NJ Temporary Disability Insurance', weeks: '8 weeks', range: 'Jun 16 – Aug 11, 2026', pay: '85% salary (state program)', status: 'Approved', paymentValue: '~$1,055/wk' },
+                      { id: 'njfli', name: 'NJ Family Leave Insurance (Bonding)', weeks: '12 weeks', range: 'Aug 11 – Nov 3, 2026', pay: '85% AWW up to max', status: 'Approved', paymentValue: '~$1,055/wk' },
                     ] : [
                       { id: 'fmla', name: 'Leave Case — FMLA Protection', weeks: '12 weeks', range: 'Jun 16 – Sep 8, 2026', pay: 'Job protection (unpaid)', status: 'Approved' },
                       { id: 'std', name: 'Group Disability Claim (STD)', weeks: '8 weeks', range: 'Jun 16 – Aug 11, 2026', pay: '60% salary (delivery recovery)', status: 'Approved' },
@@ -241,8 +241,8 @@ export default function LeaveDetailPregnancyPage() {
                   {hoveredRow && (function () {
                     var allRows = timelineView === 'payment' ? [
                       { id: 'std', name: 'Group Disability Claim (STD)', weeks: '8 weeks', range: 'Jun 16 – Aug 11, 2026', pay: '60% salary (delivery recovery)', status: 'Approved', paymentValue: '~$1,923/wk' },
-                      { id: 'njtdi', name: 'NJ Temporary Disability Insurance', weeks: '8 weeks', range: 'Jun 16 – Aug 11, 2026', pay: '85% salary (state program)', status: 'Approved', paymentValue: '~$1,048/wk' },
-                      { id: 'njfli', name: 'NJ Family Leave Insurance (Bonding)', weeks: '12 weeks', range: 'Aug 11 – Nov 3, 2026', pay: '85% AWW up to max', status: 'Approved', paymentValue: '~$1,048/wk' },
+                      { id: 'njtdi', name: 'NJ Temporary Disability Insurance', weeks: '8 weeks', range: 'Jun 16 – Aug 11, 2026', pay: '85% salary (state program)', status: 'Approved', paymentValue: '~$1,055/wk' },
+                      { id: 'njfli', name: 'NJ Family Leave Insurance (Bonding)', weeks: '12 weeks', range: 'Aug 11 – Nov 3, 2026', pay: '85% AWW up to max', status: 'Approved', paymentValue: '~$1,055/wk' },
                     ] : [
                       { id: 'fmla', name: 'Leave Case — FMLA Protection', weeks: '12 weeks', range: 'Jun 16 – Sep 8, 2026', pay: 'Job protection (unpaid)', status: 'Approved' },
                       { id: 'std', name: 'Group Disability Claim (STD)', weeks: '8 weeks', range: 'Jun 16 – Aug 11, 2026', pay: '60% salary (delivery recovery)', status: 'Approved' },
@@ -317,8 +317,8 @@ export default function LeaveDetailPregnancyPage() {
                   {timelineView === 'payment' && (
                     <div className="dt-payment-summary">
                       <div className="dt-payment-summary-title">Estimated total income during leave</div>
-                      <div className="dt-payment-summary-value">$36,152</div>
-                      <div className="dt-payment-summary-note">STD ($15,384) + NJ TDI ($8,384) + NJ FLI ($12,576) · Based on current salary · Actual amounts may vary</div>
+                      <div className="dt-payment-summary-value">$36,484</div>
+                      <div className="dt-payment-summary-note">STD ($15,384) + NJ TDI ($8,440) + NJ FLI ($12,660) · Based on current salary · Actual amounts may vary</div>
                     </div>
                   )}
                 </div>
@@ -494,7 +494,7 @@ export default function LeaveDetailPregnancyPage() {
                       </div>
                       <div>
                         <div className="dt-info-field-label">Weekly Benefit</div>
-                        <div className="dt-info-field-value" style={{ fontWeight: 700 }}>$1,048.00</div>
+                        <div className="dt-info-field-value" style={{ fontWeight: 700 }}>$1,055.00</div>
                       </div>
                       <div>
                         <div className="dt-info-field-label">Duration</div>
@@ -560,7 +560,7 @@ export default function LeaveDetailPregnancyPage() {
                       </div>
                       <div>
                         <div className="dt-info-field-label">Weekly Benefit</div>
-                        <div className="dt-info-field-value" style={{ fontWeight: 700 }}>$1,048.00</div>
+                        <div className="dt-info-field-value" style={{ fontWeight: 700 }}>$1,055.00</div>
                       </div>
                       <div>
                         <div className="dt-info-field-label">Duration</div>

@@ -552,11 +552,11 @@ export default function LeaveDetailV2ePage() {
                   <div className="dlp-tl-rows">
                     {(timelineView === 'payment' ? [
                       { id: 'std', label: 'STD', width: 67, accent: '#2563eb', name: 'Short-Term Disability', weeks: '8 weeks', range: 'Mar 15 – May 10, 2026', pay: '60% of pre-disability earnings', status: 'Approved', paymentValue: '~$1,125/wk' },
-                      { id: 'pfml', label: 'PFML', width: 33, accent: '#0d9488', name: 'Paid Family & Medical Leave', weeks: '4 weeks', range: 'May 11 – Jun 07, 2026', pay: 'State benefit', status: 'Approved', paymentValue: '~$981/wk' },
+                      { id: 'njfli', label: 'NJ FLI', width: 33, accent: '#0d9488', name: 'NJ Family Leave Insurance (Bonding)', weeks: '4 weeks', range: 'May 11 – Jun 07, 2026', pay: '85% AWW up to max ($1,055/wk)', status: 'Approved', paymentValue: '~$1,055/wk' },
                     ] : [
                       { id: 'fmla', label: 'FMLA', width: 100, accent: '#003a70', name: 'FMLA (Birthing Parent)', weeks: '12 weeks', range: 'Mar 15 – Jun 07, 2026', pay: 'Job protection (unpaid)', status: 'Approved' },
                       { id: 'std', label: 'STD', width: 67, accent: '#2563eb', name: 'Short-Term Disability', weeks: '8 weeks', range: 'Mar 15 – May 10, 2026', pay: '60% of pre-disability earnings', status: 'Approved' },
-                      { id: 'pfml', label: 'PFML', width: 33, accent: '#0d9488', name: 'Paid Family & Medical Leave', weeks: '4 weeks', range: 'May 11 – Jun 07, 2026', pay: 'State benefit', status: 'Approved' },
+                      { id: 'njfli', label: 'NJ FLI', width: 33, accent: '#0d9488', name: 'NJ Family Leave Insurance (Bonding)', weeks: '4 weeks', range: 'May 11 – Jun 07, 2026', pay: '85% AWW up to max ($1,055/wk)', status: 'Approved' },
                     ]).map(function (item) {
                       return (
                         <div key={item.id} className="dlp-tl-row-wrap">
@@ -604,7 +604,7 @@ export default function LeaveDetailV2ePage() {
                   {/* Desktop: tooltip on hover */}
                   {hoveredRow && (function () {
                     var allRows = timelineView === 'payment' ? [
-                      { id: 'njfli', name: 'NJ Family Leave Insurance (Bonding)', weeks: '12 weeks', range: 'Apr 15 – Jul 08, 2026', pay: '85% AWW up to max', status: 'Approved', paymentValue: '~$1,048/wk' },
+                      { id: 'njfli', name: 'NJ Family Leave Insurance (Bonding)', weeks: '12 weeks', range: 'Apr 15 – Jul 08, 2026', pay: '85% AWW up to max', status: 'Approved', paymentValue: '~$1,055/wk' },
                     ] : [
                       { id: 'fmla', name: 'Leave Case — FMLA (Bonding)', weeks: '12 weeks', range: 'Apr 15 – Jul 08, 2026', pay: 'Job protection (unpaid)', status: 'Approved' },
                       { id: 'njfli', name: 'NJ Family Leave Insurance (Bonding)', weeks: '12 weeks', range: 'Apr 15 – Jul 08, 2026', pay: '85% AWW up to max', status: 'Approved' },
@@ -642,11 +642,11 @@ export default function LeaveDetailV2ePage() {
                   <div className="dlp-legend">
                     {(timelineView === 'payment' ? [
                       { id: 'std', label: 'STD (60%)', accent: '#2563eb' },
-                      { id: 'pfml', label: 'PFML', accent: '#0d9488' },
+                      { id: 'njfli', label: 'NJ FLI (85%)', accent: '#0d9488' },
                     ] : [
                       { id: 'fmla', label: 'FMLA', accent: '#003a70' },
                       { id: 'std', label: 'STD', accent: '#2563eb' },
-                      { id: 'pfml', label: 'PFML', accent: '#0d9488' },
+                      { id: 'njfli', label: 'NJ FLI', accent: '#0d9488' },
                     ]).map(function (item) {
                       return (
                         <div key={item.id} className="dlp-legend-item">
@@ -660,8 +660,8 @@ export default function LeaveDetailV2ePage() {
                   {timelineView === 'payment' && (
                     <div className="dt-payment-summary">
                       <div className="dt-payment-summary-title">Estimated total income during leave</div>
-                      <div className="dt-payment-summary-value">$12,924</div>
-                      <div className="dt-payment-summary-note">STD ($9,000) + PFML ($3,924) · Based on current salary · Actual amounts may vary</div>
+                      <div className="dt-payment-summary-value">$13,220</div>
+                      <div className="dt-payment-summary-note">STD ($9,000) + NJ FLI ($4,220) · Based on current salary · Actual amounts may vary</div>
                     </div>
                   )}
                 </div>
@@ -815,8 +815,8 @@ export default function LeaveDetailV2ePage() {
               <div className="ldb-additional-benefits-list">
                 <div className="ldb-additional-benefit-row">
                   <div className="ldb-additional-benefit-info">
-                    <div className="ldb-additional-benefit-name">CA State Disability Insurance</div>
-                    <div className="ldb-additional-benefit-desc">Apply through your state benefits portal to determine eligibility.</div>
+                    <div className="ldb-additional-benefit-name">NJ Temporary Disability Insurance (TDI)</div>
+                    <div className="ldb-additional-benefit-desc">85% of average weekly wage (max $1,055/wk). Covers your own medical disability period.</div>
                   </div>
                   <div className="ldb-additional-benefit-action">
                     <span className="ldb-additional-benefit-tag">Potential Payment Source</span>
@@ -825,8 +825,8 @@ export default function LeaveDetailV2ePage() {
                 </div>
                 <div className="ldb-additional-benefit-row">
                   <div className="ldb-additional-benefit-info">
-                    <div className="ldb-additional-benefit-name">CA Paid Family Leave</div>
-                    <div className="ldb-additional-benefit-desc">May provide wage replacement during family care or bonding time.</div>
+                    <div className="ldb-additional-benefit-name">NJ Family Leave Insurance (FLI)</div>
+                    <div className="ldb-additional-benefit-desc">85% of average weekly wage (max $1,055/wk). Provides wage replacement during bonding or family care.</div>
                   </div>
                   <div className="ldb-additional-benefit-action">
                     <span className="ldb-additional-benefit-tag">Potential Payment Source</span>

@@ -162,7 +162,7 @@ export default function LeaveDetailCaregiverPage() {
                   <div className="ldb-tl-rows-wrap">
                   <div className="dlp-tl-rows">
                     {(timelineView === 'payment' ? [
-                      { id: 'njfli', label: 'NJ FLI', width: 100, accent: '#0d9488', name: 'NJ Family Leave Insurance (Caregiving)', weeks: '12 weeks', range: 'May 5 – Jul 28, 2026', pay: '85% AWW up to max', status: 'Approved', paymentValue: '~$1,048/wk' },
+                      { id: 'njfli', label: 'NJ FLI', width: 100, accent: '#0d9488', name: 'NJ Family Leave Insurance (Caregiving)', weeks: '12 weeks', range: 'May 5 – Jul 28, 2026', pay: '85% AWW up to max', status: 'Approved', paymentValue: '~$1,055/wk' },
                     ] : [
                       { id: 'fmla', label: 'FMLA', width: 100, accent: '#105fa8', name: 'Leave Case — FMLA Protection', weeks: '12 weeks', range: 'May 5 – Jul 28, 2026', pay: 'Job protection (unpaid)', status: 'Approved' },
                       { id: 'njfli', label: 'NJ FLI', width: 100, accent: '#0d9488', name: 'NJ Family Leave Insurance (Caregiving)', weeks: '12 weeks', range: 'May 5 – Jul 28, 2026', pay: '85% AWW up to max', status: 'Approved' },
@@ -187,7 +187,7 @@ export default function LeaveDetailCaregiverPage() {
 
                   {hoveredRow && (function () {
                     var allRows = timelineView === 'payment' ? [
-                      { id: 'njfli', name: 'NJ Family Leave Insurance (Caregiving)', weeks: '12 weeks', range: 'May 5 – Jul 28, 2026', pay: '85% AWW up to max', status: 'Approved', paymentValue: '~$1,048/wk' },
+                      { id: 'njfli', name: 'NJ Family Leave Insurance (Caregiving)', weeks: '12 weeks', range: 'May 5 – Jul 28, 2026', pay: '85% AWW up to max', status: 'Approved', paymentValue: '~$1,055/wk' },
                     ] : [
                       { id: 'fmla', name: 'Leave Case — FMLA Protection', weeks: '12 weeks', range: 'May 5 – Jul 28, 2026', pay: 'Job protection (unpaid)', status: 'Approved' },
                       { id: 'njfli', name: 'NJ Family Leave Insurance (Caregiving)', weeks: '12 weeks', range: 'May 5 – Jul 28, 2026', pay: '85% AWW up to max', status: 'Approved' },
@@ -223,7 +223,7 @@ export default function LeaveDetailCaregiverPage() {
 
                   {hoveredRow && (function () {
                     var allRows = timelineView === 'payment' ? [
-                      { id: 'njfli', name: 'NJ Family Leave Insurance (Caregiving)', weeks: '12 weeks', range: 'May 5 – Jul 28, 2026', pay: '85% AWW up to max', status: 'Approved', paymentValue: '~$1,048/wk' },
+                      { id: 'njfli', name: 'NJ Family Leave Insurance (Caregiving)', weeks: '12 weeks', range: 'May 5 – Jul 28, 2026', pay: '85% AWW up to max', status: 'Approved', paymentValue: '~$1,055/wk' },
                     ] : [
                       { id: 'fmla', name: 'Leave Case — FMLA Protection', weeks: '12 weeks', range: 'May 5 – Jul 28, 2026', pay: 'Job protection (unpaid)', status: 'Approved' },
                       { id: 'njfli', name: 'NJ Family Leave Insurance (Caregiving)', weeks: '12 weeks', range: 'May 5 – Jul 28, 2026', pay: '85% AWW up to max', status: 'Approved' },
@@ -290,8 +290,8 @@ export default function LeaveDetailCaregiverPage() {
                   {timelineView === 'payment' && (
                     <div className="dt-payment-summary">
                       <div className="dt-payment-summary-title">Estimated total income during leave</div>
-                      <div className="dt-payment-summary-value">$12,576</div>
-                      <div className="dt-payment-summary-note">NJ FLI ($1,048/wk x 12 weeks) · Based on average weekly wage · Actual amounts may vary</div>
+                      <div className="dt-payment-summary-value">$12,660</div>
+                      <div className="dt-payment-summary-note">NJ FLI ($1,055/wk x 12 weeks) · Based on average weekly wage · Actual amounts may vary</div>
                     </div>
                   )}
                 </div>
@@ -405,7 +405,7 @@ export default function LeaveDetailCaregiverPage() {
                       </div>
                       <div>
                         <div className="dt-info-field-label">Weekly Benefit</div>
-                        <div className="dt-info-field-value" style={{ fontWeight: 700 }}>$1,048.00</div>
+                        <div className="dt-info-field-value" style={{ fontWeight: 700 }}>$1,055.00</div>
                       </div>
                       <div>
                         <div className="dt-info-field-label">Duration</div>
@@ -462,7 +462,7 @@ export default function LeaveDetailCaregiverPage() {
                     </div>
                     <div className="ldb-payment-item">
                       <span className="ldb-payment-label">Est. Weekly (Full Week)</span>
-                      <span className="ldb-payment-value">$1,048.00</span>
+                      <span className="ldb-payment-value">$1,055.00</span>
                     </div>
                     <div className="ldb-payment-item">
                       <span className="ldb-payment-label">Payment Method</span>
