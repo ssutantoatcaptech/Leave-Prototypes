@@ -607,7 +607,7 @@
   border-radius: 4px;
 }
 
-.mgr-legend-dot--full { background: #003a70; }
+.mgr-legend-dot--full { background: #DCEBF9; }
 .mgr-legend-dot--partial { background: #fdf6e3; border: 1.5px solid #c0982a; }
 .mgr-legend-dot--returning { background: #e6f5ef; border: 2px dashed #2e7d5e; }
 
@@ -875,7 +875,7 @@
   box-shadow: 0 2px 6px rgba(0,0,0,0.12);
 }
 
-.mgr-calendar-block--full { background: #003a70; }
+.mgr-calendar-block--full { background: #DCEBF9; }
 .mgr-calendar-block--partial { background: #fdf6e3; border: 1.5px solid #c0982a; }
 .mgr-calendar-block--returning {
   border: 2px dashed #2e7d5e;
