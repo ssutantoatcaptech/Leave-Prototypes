@@ -36,14 +36,25 @@ export default function ManagerLayout() {
       <div className="mgr-header-wrapper">
       <header className="mgr-header">
         <div className="mgr-header-left">
-          <button className="mgr-hamburger" aria-label="Toggle navigation" onClick={() => setMobileNavOpen(!mobileNavOpen)}>
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
-              <path d="M3 6h18M3 12h18M3 18h18" stroke="currentColor" strokeWidth="2" strokeLinecap="round"/>
-            </svg>
+          <button
+            className="mgr-hamburger"
+            aria-label={mobileNavOpen ? 'Close menu' : 'Open menu'}
+            aria-expanded={mobileNavOpen}
+            onClick={() => setMobileNavOpen(!mobileNavOpen)}
+          >
+            {mobileNavOpen ? (
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+                <path d="M6 6l12 12M18 6L6 18" stroke="currentColor" strokeWidth="2" strokeLinecap="round"/>
+              </svg>
+            ) : (
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+                <path d="M3 6h18M3 12h18M3 18h18" stroke="currentColor" strokeWidth="2" strokeLinecap="round"/>
+              </svg>
+            )}
           </button>
           <span className="mgr-header-brand">my<strong>Mutual</strong></span>
           <span className="mgr-header-badge">Manager</span>
-          <nav className={`mgr-header-nav${mobileNavOpen ? ' open' : ''}`}>
+          <nav className="mgr-header-nav">
             {navLinks.map((link) => (
               <NavLink
                 key={link.label}
@@ -100,6 +111,53 @@ export default function ManagerLayout() {
         </div>
       </header>
       </div>
+
+      {/* Mobile full-screen nav overlay */}
+      {mobileNavOpen && (
+        <div className="mgr-mobile-nav-overlay">
+          <button className="mgr-mobile-nav-close" aria-label="Close menu" onClick={() => setMobileNavOpen(false)}>
+            <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+              <path d="M4 4l12 12M16 4L4 16" stroke="#0f0f14" strokeWidth="2" strokeLinecap="round"/>
+            </svg>
+          </button>
+          <div className="mgr-mobile-nav-brand">
+            <span className="mgr-mobile-nav-brand-name">my<strong>Mutual</strong></span>
+            <span className="mgr-mobile-nav-brand-tag">Manager Portal</span>
+          </div>
+          <div className="mgr-mobile-nav-primary">
+            {navLinks.map((link) => (
+              <NavLink
+                key={link.label}
+                to={link.to}
+                className={({ isActive }) => `mgr-mobile-nav-item${isActive ? ' mgr-mobile-nav-item--active' : ''}`}
+                onClick={() => setMobileNavOpen(false)}
+              >
+                <span>{link.label}</span>
+                {link.badge && <span className="mgr-mobile-nav-badge" />}
+              </NavLink>
+            ))}
+          </div>
+          <div className="mgr-mobile-nav-utility">
+            <button className="mgr-mobile-nav-utility-item" onClick={() => setMobileNavOpen(false)}>
+              <svg width="24" height="24" viewBox="0 0 20 22" fill="none"><path d="M10 1c-1.5 0-2.8.6-3.8 1.5C5.2 3.6 4.5 5.2 4.5 7v4.5L3 13.5V15h14v-1.5l-1.5-2V7c0-1.8-.7-3.4-1.7-4.5C12.8 1.6 11.5 1 10 1z" stroke="white" strokeWidth="1.5" strokeLinejoin="round"/><path d="M7.5 15v.5a2.5 2.5 0 005 0V15" stroke="white" strokeWidth="1.5" strokeLinecap="round"/></svg>
+              <span>Notifications</span>
+            </button>
+            <button className="mgr-mobile-nav-utility-item" onClick={() => { setMobileNavOpen(false); navigate('/claims-and-leave'); }}>
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M8 7h12M8 12h12M8 17h12M4 7h0M4 12h0M4 17h0" stroke="white" strokeWidth="2" strokeLinecap="round"/></svg>
+              <span>Employee View</span>
+            </button>
+            <button className="mgr-mobile-nav-utility-item" onClick={() => setMobileNavOpen(false)}>
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="8" r="4" stroke="white" strokeWidth="1.5"/><path d="M4 21c0-4 3.5-7 8-7s8 3 8 7" stroke="white" strokeWidth="1.5" strokeLinecap="round"/></svg>
+              <span>Profile</span>
+            </button>
+            <button className="mgr-mobile-nav-utility-item" onClick={() => setMobileNavOpen(false)}>
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M5 2h7v7M12 2L2 12" stroke="white" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/></svg>
+              <span>Sign Out</span>
+            </button>
+          </div>
+        </div>
+      )}
+
       <Outlet />
       <footer className="mgr-footer">
         <div className="mgr-footer-inner">
