@@ -983,14 +983,15 @@
 }
 
 .mgr-sidebar-today {
-  font-size: 10px;
-  font-weight: 700;
-  background: #1a1a1a;
-  color: #fff;
-  padding: 3px 8px;
-  border-radius: 3px;
-  text-transform: uppercase;
-  letter-spacing: 0.5px;
+  display: inline-flex;
+  align-items: center;
+  padding: 3px 10px;
+  border-radius: 12px;
+  font-size: 12px;
+  font-weight: 600;
+  background: var(--color-bg-selected, #eff6ff);
+  color: var(--color-brand-primary, #105fa8);
+  border: 1px solid var(--color-brand-primary, #105fa8);
 }
 
 .mgr-sidebar-day {
