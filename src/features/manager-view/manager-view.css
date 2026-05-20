@@ -304,11 +304,11 @@
 }
 
 .mgr-page-subtitle {
-  font-size: 16px;
+  font-size: 15px;
   color: #5d5d5d;
   margin-bottom: 32px;
   line-height: 1.5;
-  max-width: 640px;
+  max-width: 900px;
 }
 
 /* === Cards / Containers === */
