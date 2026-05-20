@@ -609,7 +609,7 @@
   border-radius: 4px;
 }
 
-.mgr-legend-dot--full { background: #9dc6e8; }
+.mgr-legend-dot--full { background: #b8ced9; border: 1.5px solid #3d6b8a; }
 .mgr-legend-dot--partial { background: #fdf6e3; border: 1.5px solid #c0982a; }
 .mgr-legend-dot--returning { background: #e6f5ef; border: 2px dashed #2e7d5e; }
 
@@ -636,6 +636,25 @@
   overflow-x: auto;
   border-radius: 8px;
   border: 1px solid #e4eaf0;
+  scrollbar-width: none;
+}
+
+.mgr-calendar-scroll-wrapper::-webkit-scrollbar {
+  height: 6px;
+  background: transparent;
+}
+
+.mgr-calendar-scroll-wrapper::-webkit-scrollbar-thumb {
+  background: transparent;
+  border-radius: 3px;
+}
+
+.mgr-calendar-scroll-wrapper:hover {
+  scrollbar-width: thin;
+}
+
+.mgr-calendar-scroll-wrapper:hover::-webkit-scrollbar-thumb {
+  background: rgba(0,0,0,0.2);
 }
 
 .mgr-cal-sticky-col {
@@ -877,7 +896,7 @@
   box-shadow: 0 2px 6px rgba(0,0,0,0.12);
 }
 
-.mgr-calendar-block--full { background: #9dc6e8; }
+.mgr-calendar-block--full { background: #b8ced9; border: 1.5px solid #3d6b8a; }
 .mgr-calendar-block--partial { background: #fdf6e3; border: 1.5px solid #c0982a; }
 .mgr-calendar-block--returning {
   border: 2px dashed #2e7d5e;
@@ -1068,6 +1087,7 @@
   border: 1px solid #edf2f7;
   border-radius: 10px;
   padding: 14px 16px;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.06);
   transition: border-color 0.12s, box-shadow 0.12s;
 }
 
