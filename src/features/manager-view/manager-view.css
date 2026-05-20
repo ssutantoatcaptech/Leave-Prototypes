@@ -769,10 +769,36 @@
   gap: 5px;
 }
 
-.mgr-cal-employee-type {
-  font-size: 11px;
-  color: #666;
-  margin-top: 1px;
+.mgr-cal-employee-tags {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-top: 3px;
+}
+
+.mgr-cal-type-pill {
+  font-size: 10px;
+  font-weight: 600;
+  color: var(--color-text-secondary, #5d5d5d);
+  background: #fff;
+  border: 1px solid var(--color-border-default, #e4e4e4);
+  border-radius: 10px;
+  padding: 1px 7px;
+  letter-spacing: 0.2px;
+}
+
+.mgr-cal-status-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+}
+
+.mgr-cal-status-dot--approved {
+  background: var(--color-status-success, #16a34a);
+}
+
+.mgr-cal-status-dot--pending {
+  background: var(--color-status-warning, #f59e0b);
 }
 
 .mgr-cal-block-cell {
@@ -886,7 +912,7 @@
   flex-shrink: 0;
   border-left: 1px solid #edf2f7;
   padding-left: 28px;
-  max-height: 580px;
+  max-height: 680px;
   overflow-y: auto;
   position: sticky;
   top: 80px;

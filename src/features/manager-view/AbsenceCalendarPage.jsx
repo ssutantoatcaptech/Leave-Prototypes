@@ -2,11 +2,16 @@ import { useState, useRef, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 const employees = [
-  { id: 'chris-jones', name: 'Chris Jones', type: 'Continuous leave', ada: false, dates: 'Jan 1 - Jan 30', returnDate: 'Feb 3', timeframe: null, blocks: [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1] },
-  { id: 'morgan-lee', name: 'Morgan Lee', type: 'Intermittent leave', ada: true, dates: 'Dec 4 - Feb 4', returnDate: 'N/A', timeframe: '12pm - 5pm', blocks: [0,0,0,1,1,0,1,0,1,1,0,1,0,0,0] },
-  { id: 'michael-chen', name: 'Michael Chen', type: 'Reduced schedule leave', ada: false, dates: 'Oct 30 - N/A', returnDate: 'N/A', timeframe: null, blocks: [0,0,0,0,0,0,0,0,0,0,0,2,2,2,2] },
-  { id: 'kathrine-anderson', name: 'Katherine Anderson', type: 'Intermittent leave', ada: true, dates: 'Nov 15 - Jan 31', returnDate: 'N/A', timeframe: null, blocks: [2,0,2,0,2,0,2,0,0,0,0,0,0,0,0] },
-  { id: 'amy-smith', name: 'Amy Smith', type: 'Continuous leave', ada: false, dates: 'Jan 1 - Jan 11', returnDate: 'Jan 12', timeframe: null, blocks: [1,1,1,1,1,1,1,1,1,1,1,1,3,0,0] },
+  { id: 'chris-jones', name: 'Chris Jones', type: 'Continuous', status: 'approved', ada: false, dates: 'Jan 1 - Jan 30', returnDate: 'Feb 3', timeframe: null, blocks: [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1] },
+  { id: 'morgan-lee', name: 'Morgan Lee', type: 'Intermittent', status: 'approved', ada: true, dates: 'Dec 4 - Feb 4', returnDate: 'N/A', timeframe: '12pm - 5pm', blocks: [0,0,0,1,1,0,1,0,1,1,0,1,0,0,0] },
+  { id: 'michael-chen', name: 'Michael Chen', type: 'Reduced Schedule', status: 'approved', ada: false, dates: 'Oct 30 - N/A', returnDate: 'N/A', timeframe: null, blocks: [0,0,0,0,0,0,0,0,0,0,0,2,2,2,2] },
+  { id: 'kathrine-anderson', name: 'Katherine Anderson', type: 'Intermittent', status: 'approved', ada: true, dates: 'Nov 15 - Jan 31', returnDate: 'N/A', timeframe: null, blocks: [2,0,2,0,2,0,2,0,0,0,0,0,0,0,0] },
+  { id: 'amy-smith', name: 'Amy Smith', type: 'Continuous', status: 'approved', ada: false, dates: 'Jan 1 - Jan 11', returnDate: 'Jan 12', timeframe: null, blocks: [1,1,1,1,1,1,1,1,1,1,1,1,3,0,0] },
+  { id: 'david-park', name: 'David Park', type: 'Continuous', status: 'pending', ada: false, dates: 'Jan 6 - Jan 20', returnDate: 'Jan 21', timeframe: null, blocks: [0,0,0,0,0,1,1,1,1,1,1,1,1,1,1] },
+  { id: 'lisa-nguyen', name: 'Lisa Nguyen', type: 'Intermittent', status: 'approved', ada: false, dates: 'Dec 15 - Feb 15', returnDate: 'N/A', timeframe: '8am - 12pm', blocks: [0,2,0,0,0,2,0,0,0,2,0,0,0,2,0] },
+  { id: 'james-wilson', name: 'James Wilson', type: 'Continuous', status: 'approved', ada: false, dates: 'Jan 8 - Jan 22', returnDate: 'Jan 23', timeframe: null, blocks: [0,0,0,0,0,0,0,1,1,1,1,1,1,1,1] },
+  { id: 'sarah-martinez', name: 'Sarah Martinez', type: 'Reduced Schedule', status: 'approved', ada: true, dates: 'Jan 2 - Jan 31', returnDate: 'N/A', timeframe: null, blocks: [0,2,0,0,2,0,0,2,0,0,2,0,0,2,0] },
+  { id: 'evan-blue', name: 'Evan Blue', type: 'Continuous', status: 'pending', ada: false, dates: 'Jan 10 - Jan 24', returnDate: 'Jan 25', timeframe: null, blocks: [0,0,0,0,0,0,0,0,0,1,1,1,1,1,1] },
 ];
 
 const daysOfWeek = ['Thu','Fri','Sat','Sun','Mon','Tue','Wed','Thu','Fri','Sat','Sun','Mon','Tue','Wed','Thu'];
@@ -108,7 +113,10 @@ export default function AbsenceCalendarPage() {
                             {emp.name}
                             {emp.ada && <span className="mgr-ada-tag">ADA</span>}
                           </div>
-                          <div className="mgr-cal-employee-type">{emp.type}</div>
+                          <div className="mgr-cal-employee-tags">
+                            <span className="mgr-cal-type-pill">{emp.type}</span>
+                            <span className={`mgr-cal-status-dot mgr-cal-status-dot--${emp.status}`} />
+                          </div>
                         </div>
                       </div>
                     </td>
