@@ -2,29 +2,29 @@ import { useState, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 const employeeAbsences = {
-  'chris-jones': { '2026-0': [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1], '2026-1': [1,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0] },
-  'morgan-lee': { '2026-0': [0,0,0,1,1,0,1,0,1,1,0,1,0,0,0,1,0,1,1,0,0,0,1,0,1,0,0,1,1,0,0], '2026-1': [1,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0] },
-  'michael-chen': { '2026-0': [0,0,0,0,0,0,0,0,0,0,0,2,2,2,2,0,0,0,0,2,2,2,2,0,0,0,0,2,2,2,2], '2026-1': [0,0,0,2,2,2,2,0,0,0,0,2,2,2,2,0,0,0,0,2,2,2,2,0,0,0,0,0] },
-  'kathrine-anderson': { '2026-0': [2,0,2,0,2,0,2,0,0,0,0,0,0,0,0,2,0,2,0,2,0,0,0,0,0,2,0,2,0,2,0], '2026-1': [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0] },
-  'amy-smith': { '2026-0': [1,1,1,1,1,1,1,1,1,1,1,1,3,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0], '2026-1': [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0] },
-  'david-park': { '2026-0': [0,0,0,0,0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,3,0,0,0,0,0,0,0,0,0,0], '2026-1': [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0] },
-  'lisa-nguyen': { '2026-0': [0,2,0,0,0,2,0,0,0,2,0,0,0,2,0,0,0,2,0,0,0,2,0,0,0,2,0,0,0,2,0], '2026-1': [0,0,2,0,0,0,2,0,0,0,2,0,0,0,2,0,0,0,0,0,0,0,0,0,0,0,0,0] },
-  'james-wilson': { '2026-0': [0,0,0,0,0,0,0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,3,0,0,0,0,0,0,0,0], '2026-1': [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0] },
-  'sarah-martinez': { '2026-0': [0,2,0,0,2,0,0,2,0,0,2,0,0,2,0,0,2,0,0,2,0,0,2,0,0,2,0,0,2,0,0], '2026-1': [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0] },
-  'evan-blue': { '2026-0': [0,0,0,0,0,0,0,0,0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,3,0,0,0,0,0,0], '2026-1': [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0] },
+  'chris-jones': { '2026-4': [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1], '2026-5': [1,1,1,1,1,3,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0] },
+  'morgan-lee': { '2026-4': [0,0,0,1,1,0,1,0,1,1,0,1,0,0,0,1,0,1,1,0,1,0,0,1,0,1,1,0,1,0,0], '2026-5': [1,0,0,1,0,1,0,0,1,0,1,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0] },
+  'michael-chen': { '2026-4': [0,0,0,0,2,2,2,2,0,0,0,0,2,2,2,2,0,0,0,0,2,2,2,2,0,0,0,0,2,2,2], '2026-5': [0,0,0,0,2,2,2,2,0,0,0,0,2,2,2,2,0,0,0,0,2,2,2,2,0,0,0,0,0,0] },
+  'kathrine-anderson': { '2026-4': [2,0,2,0,2,0,0,0,0,2,0,2,0,2,0,0,0,0,2,0,2,0,2,0,0,0,0,2,0,2,0], '2026-5': [2,0,0,0,0,2,0,2,0,2,0,0,0,0,2,0,2,0,2,0,0,0,0,0,0,0,0,0,0,0] },
+  'amy-smith': { '2026-4': [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,1,1,1,1,1,1,1,1,1,1,1], '2026-5': [1,1,1,1,1,1,1,1,1,1,1,1,3,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0] },
+  'david-park': { '2026-4': [0,0,0,0,0,0,0,0,0,0,0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1], '2026-5': [1,1,1,1,1,1,1,1,1,3,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0] },
+  'lisa-nguyen': { '2026-4': [0,2,0,0,0,2,0,0,0,2,0,0,0,2,0,0,0,2,0,0,0,2,0,0,0,2,0,0,0,2,0], '2026-5': [0,0,2,0,0,0,2,0,0,0,2,0,0,0,2,0,0,0,2,0,0,0,2,0,0,0,0,0,0,0] },
+  'james-wilson': { '2026-4': [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,3,0,0,0,0,0,0,0,0,0,0], '2026-5': [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0] },
+  'sarah-martinez': { '2026-4': [0,2,0,0,2,0,0,2,0,0,2,0,0,2,0,0,2,0,0,2,0,0,2,0,0,2,0,0,2,0,0], '2026-5': [2,0,0,2,0,0,2,0,0,2,0,0,2,0,0,2,0,0,2,0,0,2,0,0,2,0,0,0,0,0] },
+  'evan-blue': { '2026-4': [0,0,0,0,0,0,0,0,0,0,0,0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1], '2026-5': [1,1,1,1,1,1,1,3,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0] },
 };
 
 const employeesMeta = [
-  { id: 'chris-jones', name: 'Chris Jones', type: 'Continuous', status: 'approved', ada: false, dates: 'Jan 1 - Jan 30', returnDate: 'Feb 3', timeframe: null },
-  { id: 'morgan-lee', name: 'Morgan Lee', type: 'Intermittent', status: 'approved', ada: true, dates: 'Dec 4 - Feb 4', returnDate: 'N/A', timeframe: '12pm - 5pm' },
-  { id: 'michael-chen', name: 'Michael Chen', type: 'Reduced Schedule', status: 'approved', ada: false, dates: 'Oct 30 - N/A', returnDate: 'N/A', timeframe: null },
-  { id: 'kathrine-anderson', name: 'Katherine Anderson', type: 'Intermittent', status: 'approved', ada: true, dates: 'Nov 15 - Jan 31', returnDate: 'N/A', timeframe: null },
-  { id: 'amy-smith', name: 'Amy Smith', type: 'Continuous', status: 'approved', ada: false, dates: 'Jan 1 - Jan 11', returnDate: 'Jan 12', timeframe: null },
-  { id: 'david-park', name: 'David Park', type: 'Continuous', status: 'pending', ada: false, dates: 'Jan 6 - Jan 20', returnDate: 'Jan 21', timeframe: null },
-  { id: 'lisa-nguyen', name: 'Lisa Nguyen', type: 'Intermittent', status: 'approved', ada: false, dates: 'Dec 15 - Feb 15', returnDate: 'N/A', timeframe: '8am - 12pm' },
-  { id: 'james-wilson', name: 'James Wilson', type: 'Continuous', status: 'approved', ada: false, dates: 'Jan 8 - Jan 22', returnDate: 'Jan 23', timeframe: null },
-  { id: 'sarah-martinez', name: 'Sarah Martinez', type: 'Reduced Schedule', status: 'approved', ada: true, dates: 'Jan 2 - Jan 31', returnDate: 'N/A', timeframe: null },
-  { id: 'evan-blue', name: 'Evan Blue', type: 'Continuous', status: 'pending', ada: false, dates: 'Jan 10 - Jan 24', returnDate: 'Jan 25', timeframe: null },
+  { id: 'chris-jones', name: 'Chris Jones', type: 'Continuous', status: 'approved', ada: false, dates: 'May 1 - Jun 5', returnDate: 'Jun 6', timeframe: null },
+  { id: 'morgan-lee', name: 'Morgan Lee', type: 'Intermittent', status: 'approved', ada: true, dates: 'Apr 15 - Jun 15', returnDate: 'N/A', timeframe: '12pm - 5pm' },
+  { id: 'michael-chen', name: 'Michael Chen', type: 'Reduced Schedule', status: 'approved', ada: false, dates: 'Mar 10 - N/A', returnDate: 'N/A', timeframe: null },
+  { id: 'kathrine-anderson', name: 'Katherine Anderson', type: 'Intermittent', status: 'approved', ada: true, dates: 'Apr 1 - Jun 30', returnDate: 'N/A', timeframe: null },
+  { id: 'amy-smith', name: 'Amy Smith', type: 'Continuous', status: 'approved', ada: false, dates: 'May 19 - Jun 12', returnDate: 'Jun 13', timeframe: null },
+  { id: 'david-park', name: 'David Park', type: 'Continuous', status: 'pending', ada: false, dates: 'May 12 - Jun 9', returnDate: 'Jun 10', timeframe: null },
+  { id: 'lisa-nguyen', name: 'Lisa Nguyen', type: 'Intermittent', status: 'approved', ada: false, dates: 'Apr 20 - Jun 20', returnDate: 'N/A', timeframe: '8am - 12pm' },
+  { id: 'james-wilson', name: 'James Wilson', type: 'Continuous', status: 'approved', ada: false, dates: 'May 1 - May 20', returnDate: 'May 21', timeframe: null },
+  { id: 'sarah-martinez', name: 'Sarah Martinez', type: 'Reduced Schedule', status: 'approved', ada: true, dates: 'Apr 1 - Jun 30', returnDate: 'N/A', timeframe: null },
+  { id: 'evan-blue', name: 'Evan Blue', type: 'Continuous', status: 'pending', ada: false, dates: 'May 13 - Jun 7', returnDate: 'Jun 8', timeframe: null },
 ];
 
 const blockLabels = { 1: 'Out Full Day', 2: 'Partially Missed Day', 3: 'Returning to Work' };
@@ -48,8 +48,8 @@ function buildDayColumns(year, month) {
 export default function AbsenceCalendarPage() {
   const navigate = useNavigate();
   const [year, setYear] = useState(2026);
-  const [month, setMonth] = useState(0);
-  const [selectedDay, setSelectedDay] = useState(12);
+  const [month, setMonth] = useState(4);
+  const [selectedDay, setSelectedDay] = useState(20);
   const [hoveredCell, setHoveredCell] = useState(null);
   const [hoveredRow, setHoveredRow] = useState(null);
   const [tooltipPos, setTooltipPos] = useState({ x: 0, y: 0 });
@@ -58,7 +58,7 @@ export default function AbsenceCalendarPage() {
 
   const dayColumns = buildDayColumns(year, month);
   const monthKey = `${year}-${month}`;
-  const today = 12;
+  const today = 20;
 
   function getBlocks(empId) {
     return employeeAbsences[empId]?.[monthKey] || new Array(dayColumns.length).fill(0);
@@ -150,7 +150,7 @@ export default function AbsenceCalendarPage() {
                     {dayColumns.map((col, i) => (
                       <th
                         key={i}
-                        className={`mgr-cal-day-header${col.day === selectedDay ? ' selected' : ''}${col.day === today && month === 0 && year === 2026 ? ' today' : ''}`}
+                        className={`mgr-cal-day-header${col.day === selectedDay ? ' selected' : ''}${col.day === today && month === 4 && year === 2026 ? ' today' : ''}`}
                         onClick={() => setSelectedDay(col.day)}
                         title={getDateLabel(col.day)}
                       >
@@ -220,7 +220,7 @@ export default function AbsenceCalendarPage() {
                   <span className="mgr-sidebar-date-day">
                     {new Date(year, month, selectedDay).toLocaleDateString('en-US', { weekday: 'long' })}, {monthNames[month]} {selectedDay}, {year}
                   </span>
-                  {selectedDay === today && month === 0 && year === 2026 && <span className="mgr-sidebar-today">Today</span>}
+                  {selectedDay === today && month === 4 && year === 2026 && <span className="mgr-sidebar-today">Today</span>}
                 </div>
               </div>
 
