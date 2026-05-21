@@ -4075,4 +4075,113 @@ select.ldb-detail-input {
   .v3-timeline-mobile {
     display: flex !important;
   }
+
+  /* --- Mobile: Nav secondary 16px padding --- */
+  .ldb-nav-secondary {
+    padding: 0 16px;
+    gap: 0;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+  }
+  .ldb-nav-secondary::-webkit-scrollbar {
+    display: none;
+  }
+  .ldb-nav-tab {
+    padding: 10px 12px 13px;
+    font-size: 13px;
+    white-space: nowrap;
+    flex-shrink: 0;
+  }
+
+  /* --- Mobile: Status Tracker --- */
+  .ldb-status-tracker {
+    padding: 16px;
+  }
+  .ldb-st-header {
+    margin-bottom: 16px;
+  }
+  .ldb-st-header h3 {
+    font-size: 18px;
+  }
+  .ldb-st-step {
+    gap: 12px;
+  }
+  .ldb-st-step-indicator {
+    width: 28px;
+  }
+  .ldb-st-step-circle {
+    width: 28px;
+    height: 28px;
+  }
+  .ldb-st-step-dot {
+    width: 8px;
+    height: 8px;
+  }
+  .ldb-st-step-card {
+    padding: 12px;
+    border-radius: 8px;
+    border-left: 4px solid #e5e5e5;
+  }
+  .ldb-st-step-card--active {
+    border-left: 4px solid #105fa8;
+    background: #f0f7ff;
+    border-top: 1px solid #e5e5e5;
+    border-right: 1px solid #e5e5e5;
+    border-bottom: 1px solid #e5e5e5;
+  }
+  .ldb-st-step-circle--completed {
+    background: #105fa8;
+  }
+  .ldb-st-step-circle--active {
+    border-color: #105fa8;
+  }
+  .ldb-st-step-dot {
+    background: #105fa8;
+  }
+  .ldb-st-step-line--completed {
+    background: #105fa8;
+  }
+  .ldb-st-step-top {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 4px;
+  }
+  .ldb-st-step-title {
+    font-size: 14px;
+    line-height: 18px;
+  }
+  .ldb-st-step-time {
+    font-size: 11px;
+    color: #666;
+  }
+  .ldb-st-step-desc {
+    font-size: 13px;
+    line-height: 20px;
+  }
+  .ldb-st-step-actions {
+    flex-wrap: wrap;
+  }
+  .ldb-st-start-btn {
+    background: #105fa8;
+    border-radius: 6px;
+    padding: 8px 16px;
+    font-size: 13px;
+    font-weight: 600;
+  }
+  .ldb-st-due-badge {
+    font-size: 11px;
+  }
+  .ldb-st-sub-items {
+    border-left-color: #105fa8;
+    padding-left: 12px;
+  }
+  .ldb-st-sub-item {
+    font-size: 13px;
+  }
+  .ldb-st-attention-badge {
+    font-size: 11px;
+    background: #fff3e0;
+    color: #c0982a;
+  }
 }
