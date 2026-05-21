@@ -9272,3 +9272,216 @@
   line-height: 1.4;
 }
 
+/* Claim Center - pagination numbered */
+.cl-pagination-numbered {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 16px 24px;
+}
+
+.cl-page-num {
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid #d1d5db;
+  border-radius: 4px;
+  font-family: 'Source Sans Pro', sans-serif;
+  font-size: 14px;
+  font-weight: 400;
+  color: #222;
+  background: #fff;
+  cursor: pointer;
+}
+
+.cl-page-num:hover {
+  background: #f3f4f6;
+}
+
+.cl-page-num--active {
+  background: #105fa8;
+  color: #fff;
+  border-color: #105fa8;
+}
+
+.cl-page-num--arrow {
+  border: 1px solid #d1d5db;
+}
+
+.cl-page-num--arrow:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+.cl-page-num--ellipsis {
+  border: none;
+  cursor: default;
+  background: none;
+}
+
+.cl-pagination-info {
+  font-family: 'Source Sans Pro', sans-serif;
+  font-size: 13px;
+  color: #5d5d5d;
+  padding: 0 24px 16px;
+}
+
+/* Associated payments sub-table in expanded row */
+.cl-expanded-payments {
+  padding: 24px;
+  background: #fff;
+}
+
+.cl-expanded-payments h4 {
+  font-family: 'Source Sans Pro', sans-serif;
+  font-size: 16px;
+  font-weight: 600;
+  color: #222;
+  margin: 0 0 16px;
+}
+
+.cl-expanded-payments-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-family: 'Source Sans Pro', sans-serif;
+  font-size: 14px;
+}
+
+.cl-expanded-payments-table th {
+  text-align: left;
+  font-size: 12px;
+  font-weight: 600;
+  color: #5d5d5d;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+  padding: 12px 16px;
+  border-bottom: 1px solid #e5e7eb;
+  background: #f9fafb;
+}
+
+.cl-expanded-payments-table td {
+  padding: 14px 16px;
+  color: #222;
+  border-bottom: 1px solid #f0f0f0;
+}
+
+.cl-expanded-payments-table .cl-total-row td {
+  font-weight: 600;
+  border-top: 2px solid #e5e7eb;
+  border-bottom: none;
+}
+
+.cl-expanded-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 24px;
+  padding: 16px 0 0;
+  margin-top: 16px;
+  border-top: 1px solid #f0f0f0;
+}
+
+.cl-expanded-meta-item {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.cl-expanded-meta-label {
+  font-family: 'Source Sans Pro', sans-serif;
+  font-size: 12px;
+  font-weight: 600;
+  color: #5d5d5d;
+  text-transform: uppercase;
+}
+
+.cl-expanded-meta-value {
+  font-family: 'Source Sans Pro', sans-serif;
+  font-size: 14px;
+  color: #222;
+}
+
+.cl-expanded-doc-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-family: 'Source Sans Pro', sans-serif;
+  font-size: 14px;
+  font-weight: 600;
+  color: #105fa8;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.cl-expanded-doc-link:hover {
+  text-decoration: underline;
+}
+
+.cl-expanded-actions {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16px 0 0;
+  margin-top: 16px;
+  border-top: 1px solid #f0f0f0;
+}
+
+.cl-btn-view-details {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 20px;
+  border: 1.5px solid #105fa8;
+  border-radius: 4px;
+  background: #fff;
+  font-family: 'Source Sans Pro', sans-serif;
+  font-size: 14px;
+  font-weight: 600;
+  color: #105fa8;
+  cursor: pointer;
+  transition: background 0.15s;
+}
+
+.cl-btn-view-details:hover {
+  background: #f0f7fe;
+}
+
+.cl-eob-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-family: 'Source Sans Pro', sans-serif;
+  font-size: 13px;
+  font-weight: 600;
+  color: #105fa8;
+  cursor: pointer;
+}
+
+.cl-eob-link + .cl-eob-link {
+  margin-left: 8px;
+  padding-left: 8px;
+  border-left: 1px solid #d1d5db;
+}
+
+/* Leave type text in claim type column */
+.cl-claim-type-text {
+  font-family: 'Source Sans Pro', sans-serif;
+  font-size: 14px;
+  color: #222;
+}
+
+/* Associated case link */
+.cl-associated-case-link {
+  font-family: 'Source Sans Pro', sans-serif;
+  font-size: 14px;
+  font-weight: 600;
+  color: #105fa8;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.cl-associated-case-link:hover {
+  text-decoration: underline;
+}
+

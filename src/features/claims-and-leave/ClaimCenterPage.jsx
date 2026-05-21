@@ -172,6 +172,26 @@ const leaveAndDisabilityData = [
   },
 ];
 
+const paymentsData = {
+  'CLM-301822': [
+    { date: 'Feb 21, 2026', period: 'Feb 21 - Feb 27', gross: '$1,456.00', deductions: '$212.00', net: '$1,244.00', status: 'Processed' },
+    { date: 'Mar 5, 2026', period: 'Feb 28 - Mar 6', gross: '$1,456.00', deductions: '$212.00', net: '$1,244.00', status: 'Processed' },
+    { date: 'Mar 19, 2026', period: 'Mar 7 - Mar 20', gross: '$1,456.00', deductions: '$212.00', net: '$1,244.00', status: 'Processed' },
+    { date: 'Apr 2, 2026', period: 'Mar 21 - Apr 3', gross: '$1,456.00', deductions: '$212.00', net: '$1,244.00', status: 'Processed' },
+  ],
+  'NTN-210455': [
+    { date: 'Jun 13, 2026', period: 'Jun 02 - Jun 13', gross: '$1,312.00', deductions: '$198.00', net: '$1,114.00', status: 'Scheduled' },
+    { date: 'Jun 27, 2026', period: 'Jun 14 - Jun 27', gross: '$1,312.00', deductions: '$198.00', net: '$1,114.00', status: 'Scheduled' },
+  ],
+  'NTN-204871': [
+    { date: 'Mar 28, 2026', period: 'Mar 15 - Mar 28', gross: '$1,125.00', deductions: '$168.00', net: '$957.00', status: 'Processed' },
+    { date: 'Apr 11, 2026', period: 'Mar 29 - Apr 11', gross: '$1,125.00', deductions: '$168.00', net: '$957.00', status: 'Processed' },
+    { date: 'Apr 25, 2026', period: 'Apr 12 - Apr 25', gross: '$1,125.00', deductions: '$168.00', net: '$957.00', status: 'Processed' },
+    { date: 'May 9, 2026', period: 'Apr 26 - May 9', gross: '$1,125.00', deductions: '$168.00', net: '$957.00', status: 'Processed' },
+    { date: 'May 23, 2026', period: 'May 10 - May 23', gross: '$981.00', deductions: '$147.00', net: '$834.00', status: 'Processed' },
+  ],
+};
+
 const claimsData = [
   {
     date: 'Feb 23, 2026',
@@ -301,8 +321,95 @@ const claimsData = [
 
 const categoryTabs = ['Dental', 'Vision', 'Supplemental', 'Leave and Disability', 'Life'];
 
-const INITIAL_VISIBLE = 5;
-const LOAD_MORE_COUNT = 5;
+const DENTAL_PAGE_SIZE = 10;
+const LEAVE_PAGE_SIZE = 10;
+
+function getClaimTypeLabel(kind) {
+  switch (kind) {
+    case 'std': return 'Short Term Disability';
+    case 'ltd': return 'Long Term Disability';
+    case 'leave': return 'Leave';
+    case 'ada': return 'ADA Accommodation';
+    default: return kind;
+  }
+}
+
+function truncateText(text, maxLen = 30) {
+  if (!text) return '';
+  if (text.length <= maxLen) return text;
+  return text.substring(0, maxLen) + '...';
+}
+
+function PaginationNumbered({ currentPage, totalPages, onPageChange, totalItems, pageSize }) {
+  const startItem = currentPage * pageSize + 1;
+  const endItem = Math.min((currentPage + 1) * pageSize, totalItems);
+
+  const renderPageNumbers = () => {
+    const pages = [];
+    if (totalPages <= 5) {
+      for (let i = 0; i < totalPages; i++) {
+        pages.push(i);
+      }
+    } else {
+      pages.push(0);
+      if (currentPage > 2) {
+        pages.push('ellipsis-start');
+      }
+      const start = Math.max(1, currentPage - 1);
+      const end = Math.min(totalPages - 2, currentPage + 1);
+      for (let i = start; i <= end; i++) {
+        if (!pages.includes(i)) pages.push(i);
+      }
+      if (currentPage < totalPages - 3) {
+        pages.push('ellipsis-end');
+      }
+      if (!pages.includes(totalPages - 1)) {
+        pages.push(totalPages - 1);
+      }
+    }
+    return pages;
+  };
+
+  return (
+    <>
+      <div className="cl-pagination-numbered">
+        <button
+          className="cl-page-num cl-page-num--arrow"
+          disabled={currentPage <= 0}
+          onClick={() => onPageChange(currentPage - 1)}
+          aria-label="Previous page"
+        >
+          <svg width="10" height="10" viewBox="0 0 14 14" fill="none"><path d="M9 2L4 7l5 5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/></svg>
+        </button>
+        {renderPageNumbers().map((page, idx) => {
+          if (page === 'ellipsis-start' || page === 'ellipsis-end') {
+            return <span key={page} className="cl-page-num cl-page-num--ellipsis">...</span>;
+          }
+          return (
+            <button
+              key={idx}
+              className={`cl-page-num${currentPage === page ? ' cl-page-num--active' : ''}`}
+              onClick={() => onPageChange(page)}
+            >
+              {page + 1}
+            </button>
+          );
+        })}
+        <button
+          className="cl-page-num cl-page-num--arrow"
+          disabled={currentPage >= totalPages - 1}
+          onClick={() => onPageChange(currentPage + 1)}
+          aria-label="Next page"
+        >
+          <svg width="10" height="10" viewBox="0 0 14 14" fill="none"><path d="M5 2l5 5-5 5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/></svg>
+        </button>
+      </div>
+      <div className="cl-pagination-info">
+        Showing {startItem} to {endItem} of {totalItems} entries
+      </div>
+    </>
+  );
+}
 
 export default function ClaimCenterPage() {
   const base = useBasePath();
@@ -310,13 +417,12 @@ export default function ClaimCenterPage() {
   const [activeCategory, setActiveCategory] = useState('Leave and Disability');
   const [memberFilter, setMemberFilter] = useState('All');
   const [dateFilter, setDateFilter] = useState('All');
-  const [visibleCount, setVisibleCount] = useState(INITIAL_VISIBLE);
+  const [dentalPage, setDentalPage] = useState(0);
   const [expandedDentalRow, setExpandedDentalRow] = useState(null);
   const [expandedLeaveRow, setExpandedLeaveRow] = useState(null);
   const [v2SortCol, setV2SortCol] = useState('period');
   const [v2SortAsc, setV2SortAsc] = useState(false);
   const [v2Page, setV2Page] = useState(0);
-  const V2_PAGE_SIZE = 10;
 
   const handleV2Sort = (col) => {
     if (v2SortCol === col) { setV2SortAsc(!v2SortAsc); }
@@ -337,8 +443,8 @@ export default function ClaimCenterPage() {
     });
   }, [v2SortCol, v2SortAsc]);
 
-  const v2PageData = sortedLeaveData.slice(v2Page * V2_PAGE_SIZE, (v2Page + 1) * V2_PAGE_SIZE);
-  const v2TotalPages = Math.ceil(sortedLeaveData.length / V2_PAGE_SIZE);
+  const v2PageData = sortedLeaveData.slice(v2Page * LEAVE_PAGE_SIZE, (v2Page + 1) * LEAVE_PAGE_SIZE);
+  const v2TotalPages = Math.ceil(sortedLeaveData.length / LEAVE_PAGE_SIZE);
 
   const filtered = useMemo(() => {
     return claimsData.filter((row) => {
@@ -355,8 +461,8 @@ export default function ClaimCenterPage() {
     });
   }, [memberFilter, dateFilter]);
 
-  const visibleItems = filtered.slice(0, visibleCount);
-  const hasMore = visibleCount < filtered.length;
+  const dentalTotalPages = Math.ceil(filtered.length / DENTAL_PAGE_SIZE);
+  const dentalPageData = filtered.slice(dentalPage * DENTAL_PAGE_SIZE, (dentalPage + 1) * DENTAL_PAGE_SIZE);
 
   return (
     <div className="cl-page cl-ml-page" style={{ position: 'relative', overflow: 'clip' }}>
@@ -371,7 +477,7 @@ export default function ClaimCenterPage() {
       <div className="cl-ml-header">
         <div className="cl-ml-header-text">
           <h1 className="cl-ml-title">Claims Center</h1>
-          <p className="cl-ml-subtitle">Manage your insurance claims, leave cases, and disability benefits.</p>
+          <p className="cl-ml-subtitle">View and manage your claims across all benefit types.</p>
         </div>
         <div className="cl-ml-header-action">
           <button className="cl-ml-btn-new">Start a New Claim</button>
@@ -419,7 +525,7 @@ export default function ClaimCenterPage() {
             <select
               className="cl-ml-filter-select"
               value={memberFilter}
-              onChange={(e) => { setMemberFilter(e.target.value); }}
+              onChange={(e) => { setMemberFilter(e.target.value); setDentalPage(0); }}
             >
               <option value="All">All Members</option>
               <option value="Sarah Johnson">Sarah Johnson</option>
@@ -432,7 +538,7 @@ export default function ClaimCenterPage() {
             <select
               className="cl-ml-filter-select"
               value={dateFilter}
-              onChange={(e) => { setDateFilter(e.target.value); }}
+              onChange={(e) => { setDateFilter(e.target.value); setDentalPage(0); }}
             >
               <option value="All">All</option>
               <option value="Last 30 Days">Last 30 Days</option>
@@ -460,7 +566,7 @@ export default function ClaimCenterPage() {
                   <svg width="10" height="6" viewBox="0 0 10 6" fill="none" aria-hidden="true"><path d="M1 1l4 4 4-4" stroke="#222" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/></svg>
                 </span>
               </th>
-              <th>Claim Type</th>
+              <th>Claim ID</th>
               <th>Member Name</th>
               <th>Provider</th>
               <th>Billed Amount</th>
@@ -473,9 +579,11 @@ export default function ClaimCenterPage() {
             {filtered.length === 0 && (
               <tr><td colSpan="8" style={{ textAlign: 'center', padding: '32px 16px', color: '#5d5d5d' }}>No claims match your filters.</td></tr>
             )}
-            {visibleItems.map((row, i) => (
-              <React.Fragment key={i}>
-              <tr className={'cl-ml-row' + (expandedDentalRow === i ? ' cl-ml-row--expanded' : '')} onClick={() => setExpandedDentalRow(expandedDentalRow === i ? null : i)} style={{ cursor: 'pointer' }}>
+            {dentalPageData.map((row, i) => {
+              const globalIndex = dentalPage * DENTAL_PAGE_SIZE + i;
+              return (
+              <React.Fragment key={globalIndex}>
+              <tr className={'cl-ml-row' + (expandedDentalRow === globalIndex ? ' cl-ml-row--expanded' : '')} onClick={() => setExpandedDentalRow(expandedDentalRow === globalIndex ? null : globalIndex)} style={{ cursor: 'pointer' }}>
                 <td className="cl-ml-td-first">
                   <span style={{ fontSize: '14px', color: '#222' }}>{row.date}</span>
                 </td>
@@ -490,11 +598,11 @@ export default function ClaimCenterPage() {
                 <td className="cl-ml-td">
                   <span className="cl-ml-action-link">
                     View Details
-                    <svg width="10" height="6" viewBox="0 0 10 6" fill="none" aria-hidden="true" style={{ marginLeft: '4px', transform: expandedDentalRow === i ? 'rotate(180deg)' : 'rotate(0)', transition: 'transform 0.2s' }}><path d="M1 1l4 4 4-4" stroke="#105fa8" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/></svg>
+                    <svg width="10" height="6" viewBox="0 0 10 6" fill="none" aria-hidden="true" style={{ marginLeft: '4px', transform: expandedDentalRow === globalIndex ? 'rotate(180deg)' : 'rotate(0)', transition: 'transform 0.2s' }}><path d="M1 1l4 4 4-4" stroke="#105fa8" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/></svg>
                   </span>
                 </td>
               </tr>
-              {expandedDentalRow === i && (
+              {expandedDentalRow === globalIndex && (
                 <tr className="cl-dental-accordion-row">
                   <td colSpan="8" className="cl-dental-accordion-cell">
                     <div className="cl-dental-accordion-content">
@@ -524,17 +632,20 @@ export default function ClaimCenterPage() {
                 </tr>
               )}
               </React.Fragment>
-            ))}
+              );
+            })}
           </tbody>
         </table>
 
-        {/* Load More */}
-        {hasMore && (
-          <div className="cl-ml-load-more">
-            <button className="cl-ml-load-more-btn" onClick={() => setVisibleCount((c) => c + LOAD_MORE_COUNT)}>
-              Load More
-            </button>
-          </div>
+        {/* Pagination */}
+        {dentalTotalPages > 0 && (
+          <PaginationNumbered
+            currentPage={dentalPage}
+            totalPages={dentalTotalPages}
+            onPageChange={(p) => { setDentalPage(p); setExpandedDentalRow(null); }}
+            totalItems={filtered.length}
+            pageSize={DENTAL_PAGE_SIZE}
+          />
         )}
       </div>
 
@@ -543,8 +654,10 @@ export default function ClaimCenterPage() {
         {filtered.length === 0 && (
           <div className="cl-card-empty-mobile">No claims match your filters.</div>
         )}
-        {visibleItems.map((row, i) => (
-          <div key={i} className="cl-card-mobile">
+        {dentalPageData.map((row, i) => {
+          const globalIndex = dentalPage * DENTAL_PAGE_SIZE + i;
+          return (
+          <div key={globalIndex} className="cl-card-mobile">
             <div className="cl-card-mobile-header">
               <span className="cl-card-mobile-primary">{row.claimType}</span>
               <span className="cl-ml-status-pill">{row.status}</span>
@@ -568,11 +681,11 @@ export default function ClaimCenterPage() {
                 <span className="cl-card-mobile-value">{row.memberPays}</span>
               </div>
             </div>
-            <span className="cl-ml-action-link" onClick={() => setExpandedDentalRow(expandedDentalRow === i ? null : i)}>
+            <span className="cl-ml-action-link" onClick={() => setExpandedDentalRow(expandedDentalRow === globalIndex ? null : globalIndex)}>
               View Details
-              <svg width="10" height="6" viewBox="0 0 10 6" fill="none" aria-hidden="true" style={{ marginLeft: '4px', transform: expandedDentalRow === i ? 'rotate(180deg)' : 'rotate(0)', transition: 'transform 0.2s' }}><path d="M1 1l4 4 4-4" stroke="#105fa8" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/></svg>
+              <svg width="10" height="6" viewBox="0 0 10 6" fill="none" aria-hidden="true" style={{ marginLeft: '4px', transform: expandedDentalRow === globalIndex ? 'rotate(180deg)' : 'rotate(0)', transition: 'transform 0.2s' }}><path d="M1 1l4 4 4-4" stroke="#105fa8" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/></svg>
             </span>
-            {expandedDentalRow === i && (
+            {expandedDentalRow === globalIndex && (
               <div className="cl-dental-accordion-content" style={{ marginTop: 12 }}>
                 <h4 className="cl-dental-accordion-title">Payment Breakdown</h4>
                 <table className="cl-dental-payments-table">
@@ -588,13 +701,16 @@ export default function ClaimCenterPage() {
               </div>
             )}
           </div>
-        ))}
-        {hasMore && (
-          <div className="cl-ml-load-more">
-            <button className="cl-ml-load-more-btn" onClick={() => setVisibleCount((c) => c + LOAD_MORE_COUNT)}>
-              Load More
-            </button>
-          </div>
+          );
+        })}
+        {dentalTotalPages > 0 && (
+          <PaginationNumbered
+            currentPage={dentalPage}
+            totalPages={dentalTotalPages}
+            onPageChange={(p) => { setDentalPage(p); setExpandedDentalRow(null); }}
+            totalItems={filtered.length}
+            pageSize={DENTAL_PAGE_SIZE}
+          />
         )}
       </div>
       </>
@@ -630,20 +746,49 @@ export default function ClaimCenterPage() {
         <table className="cl-ml-table cl-claims-v2-table">
           <thead>
             <tr>
-              {[{col:'id',label:'ID'},{col:'type',label:'Type'},{col:'description',label:'Description'},{col:'period',label:'Period'},{col:'status',label:'Status'},{col:'lastUpdate',label:'Last Update'}].map(({col,label}) => (
-                <th key={col} className={col === 'id' ? 'cl-ml-th-first cl-v2-th-sort' : 'cl-v2-th-sort'} onClick={() => handleV2Sort(col)} style={{ cursor: 'pointer' }}>
-                  <span className="cl-ml-th-sortable">
-                    {label}
-                    {v2SortCol === col && <svg width="10" height="6" viewBox="0 0 10 6" fill="none" aria-hidden="true" style={{ marginLeft: 4, transform: v2SortAsc ? 'rotate(180deg)' : 'rotate(0)', transition: 'transform 0.2s' }}><path d="M1 1l4 4 4-4" stroke="#222" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/></svg>}
-                  </span>
-                </th>
-              ))}
+              <th className="cl-ml-th-first cl-v2-th-sort" onClick={() => handleV2Sort('id')} style={{ cursor: 'pointer' }}>
+                <span className="cl-ml-th-sortable">
+                  Claim ID
+                  {v2SortCol === 'id' && <svg width="10" height="6" viewBox="0 0 10 6" fill="none" aria-hidden="true" style={{ marginLeft: 4, transform: v2SortAsc ? 'rotate(180deg)' : 'rotate(0)', transition: 'transform 0.2s' }}><path d="M1 1l4 4 4-4" stroke="#222" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/></svg>}
+                </span>
+              </th>
+              <th className="cl-v2-th-sort" onClick={() => handleV2Sort('type')} style={{ cursor: 'pointer' }}>
+                <span className="cl-ml-th-sortable">
+                  Claim Type
+                  {v2SortCol === 'type' && <svg width="10" height="6" viewBox="0 0 10 6" fill="none" aria-hidden="true" style={{ marginLeft: 4, transform: v2SortAsc ? 'rotate(180deg)' : 'rotate(0)', transition: 'transform 0.2s' }}><path d="M1 1l4 4 4-4" stroke="#222" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/></svg>}
+                </span>
+              </th>
+              <th className="cl-v2-th-sort" onClick={() => handleV2Sort('description')} style={{ cursor: 'pointer' }}>
+                <span className="cl-ml-th-sortable">
+                  Associated Case
+                  {v2SortCol === 'description' && <svg width="10" height="6" viewBox="0 0 10 6" fill="none" aria-hidden="true" style={{ marginLeft: 4, transform: v2SortAsc ? 'rotate(180deg)' : 'rotate(0)', transition: 'transform 0.2s' }}><path d="M1 1l4 4 4-4" stroke="#222" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/></svg>}
+                </span>
+              </th>
+              <th className="cl-v2-th-sort" onClick={() => handleV2Sort('lastUpdate')} style={{ cursor: 'pointer' }}>
+                <span className="cl-ml-th-sortable">
+                  Filed Date
+                  {v2SortCol === 'lastUpdate' && <svg width="10" height="6" viewBox="0 0 10 6" fill="none" aria-hidden="true" style={{ marginLeft: 4, transform: v2SortAsc ? 'rotate(180deg)' : 'rotate(0)', transition: 'transform 0.2s' }}><path d="M1 1l4 4 4-4" stroke="#222" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/></svg>}
+                </span>
+              </th>
+              <th className="cl-v2-th-sort" onClick={() => handleV2Sort('period')} style={{ cursor: 'pointer' }}>
+                <span className="cl-ml-th-sortable">
+                  Benefit Period
+                  {v2SortCol === 'period' && <svg width="10" height="6" viewBox="0 0 10 6" fill="none" aria-hidden="true" style={{ marginLeft: 4, transform: v2SortAsc ? 'rotate(180deg)' : 'rotate(0)', transition: 'transform 0.2s' }}><path d="M1 1l4 4 4-4" stroke="#222" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/></svg>}
+                </span>
+              </th>
+              <th className="cl-v2-th-sort" onClick={() => handleV2Sort('status')} style={{ cursor: 'pointer' }}>
+                <span className="cl-ml-th-sortable">
+                  Status
+                  {v2SortCol === 'status' && <svg width="10" height="6" viewBox="0 0 10 6" fill="none" aria-hidden="true" style={{ marginLeft: 4, transform: v2SortAsc ? 'rotate(180deg)' : 'rotate(0)', transition: 'transform 0.2s' }}><path d="M1 1l4 4 4-4" stroke="#222" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/></svg>}
+                </span>
+              </th>
               <th>Action</th>
             </tr>
           </thead>
           <tbody>
             {v2PageData.map((claim) => {
               const isExpanded = expandedLeaveRow === claim.id;
+              const claimPayments = paymentsData[claim.id];
               return (
               <React.Fragment key={claim.id}>
               <tr className={'cl-ml-row cl-claims-v2-row' + (isExpanded ? ' cl-ml-row--expanded' : '')} onClick={() => setExpandedLeaveRow(isExpanded ? null : claim.id)} style={{ cursor: 'pointer' }}>
@@ -651,17 +796,30 @@ export default function ClaimCenterPage() {
                   <span className="cl-claims-v2-id">{claim.id}</span>
                 </td>
                 <td className="cl-ml-td">
-                  <span className={'cl-claims-v2-kind cl-claims-v2-kind--' + claim.kind}>{claim.kind === 'leave' ? 'Leave' : claim.kind === 'ada' ? 'ADA' : claim.kind === 'ltd' ? 'LTD Claim' : 'STD Claim'}</span>
-                  {claim.kind === 'leave' && claim.accommodations && claim.accommodations.length > 0 && (
-                    <span className="cl-claims-v2-kind cl-claims-v2-kind--ada" style={{ marginLeft: 4 }}>ADA</span>
-                  )}
+                  <span className="cl-claim-type-text">{getClaimTypeLabel(claim.kind)}</span>
                 </td>
-                <td className="cl-ml-td">{claim.description}{claim.condition ? ` — ${claim.condition}` : ''}</td>
-                <td className="cl-ml-td">{claim.startDate} – {claim.endDate}</td>
+                <td className="cl-ml-td">
+                  <span
+                    className="cl-associated-case-link"
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      if (claim.kind === 'leave') {
+                        navigate(`${base}/case-detail`);
+                      } else if (claim.kind === 'std') {
+                        navigate(`${base}/std-claim-detail`);
+                      } else if (claim.kind === 'ltd') {
+                        navigate(`${base}/ltd-claim-detail`);
+                      }
+                    }}
+                  >
+                    {truncateText(claim.description + (claim.condition ? ` — ${claim.condition}` : ''))}
+                  </span>
+                </td>
+                <td className="cl-ml-td">{claim.startDate}</td>
+                <td className="cl-ml-td">{claim.startDate} - {claim.endDate}</td>
                 <td className="cl-ml-td">
                   <span className={'cl-ml-status-pill cl-ml-status-pill--' + claim.status.toLowerCase().replace(' ', '')}>{claim.status}</span>
                 </td>
-                <td className="cl-ml-td">{claim.lastUpdate}</td>
                 <td className="cl-ml-td">
                   <span className="cl-ml-action-link">
                     View Details
@@ -672,79 +830,88 @@ export default function ClaimCenterPage() {
               {isExpanded && (
                 <tr className="cl-dental-accordion-row">
                   <td colSpan="7" className="cl-dental-accordion-cell">
-                    <div className="cl-dental-accordion-content">
-                      {claim.kind === 'leave' && claim.benefits && (
-                        <div className="cl-v2-accordion-card">
-                          <h4 className="cl-dental-accordion-title">Benefits</h4>
-                          <table className="cl-dental-payments-table">
+                    <div className="cl-expanded-payments">
+                      <h4>Associated Payments</h4>
+                      {claimPayments && claimPayments.length > 0 ? (
+                        <>
+                          <table className="cl-expanded-payments-table">
                             <thead>
-                              <tr><th>Benefit Type</th><th>Status</th><th>Period</th><th>Duration</th><th>Weekly Benefit</th></tr>
+                              <tr>
+                                <th>Payment Date</th>
+                                <th>Period Covered</th>
+                                <th>Gross Amount</th>
+                                <th>Deductions</th>
+                                <th>Net Amount</th>
+                                <th>Status</th>
+                                <th>Actions</th>
+                              </tr>
                             </thead>
                             <tbody>
-                              {claim.benefits.map((b, bi) => (
-                                <tr key={bi}>
-                                  <td>{b.type}</td>
-                                  <td>{b.status}</td>
-                                  <td>{b.startDate} – {b.endDate}</td>
-                                  <td>{b.duration}</td>
-                                  <td>{b.weeklyBenefit || '—'}</td>
+                              {claimPayments.map((pmt, pi) => (
+                                <tr key={pi}>
+                                  <td>{pmt.date}</td>
+                                  <td>{pmt.period}</td>
+                                  <td>{pmt.gross}</td>
+                                  <td>{pmt.deductions}</td>
+                                  <td>{pmt.net}</td>
+                                  <td>
+                                    <span className={'cl-ml-status-pill cl-ml-status-pill--' + pmt.status.toLowerCase()}>{pmt.status}</span>
+                                  </td>
+                                  <td>
+                                    <span className="cl-eob-link">View EOB</span>
+                                  </td>
                                 </tr>
                               ))}
+                              <tr className="cl-total-row">
+                                <td colSpan="2"><strong>Total</strong></td>
+                                <td><strong>${claimPayments.reduce((sum, p) => sum + parseFloat(p.gross.replace(/[$,]/g, '')), 0).toLocaleString('en-US', { minimumFractionDigits: 2 })}</strong></td>
+                                <td><strong>${claimPayments.reduce((sum, p) => sum + parseFloat(p.deductions.replace(/[$,]/g, '')), 0).toLocaleString('en-US', { minimumFractionDigits: 2 })}</strong></td>
+                                <td><strong>${claimPayments.reduce((sum, p) => sum + parseFloat(p.net.replace(/[$,]/g, '')), 0).toLocaleString('en-US', { minimumFractionDigits: 2 })}</strong></td>
+                                <td></td>
+                                <td></td>
+                              </tr>
                             </tbody>
                           </table>
-                        </div>
-                      )}
-                      {claim.kind === 'leave' && claim.accommodations && claim.accommodations.length > 0 && (
-                        <div className="cl-v2-accordion-card">
-                          <h4 className="cl-dental-accordion-title">ADA Accommodation</h4>
-                          {claim.accommodations.map((a, ai) => (
-                            <div key={ai} className="cl-v2-accordion-detail-row">
-                              <span><strong>{a.type}</strong> — {a.notes}</span>
-                              <span className="cl-v2-accordion-meta">{a.startDate} – {a.endDate} · {a.status}</span>
+
+                          <div className="cl-expanded-meta">
+                            <div className="cl-expanded-meta-item">
+                              <span className="cl-expanded-meta-label">Last updated</span>
+                              <span className="cl-expanded-meta-value">{claim.id} - {claim.lastUpdate}</span>
                             </div>
-                          ))}
-                        </div>
-                      )}
-                      {(claim.kind === 'std' || claim.kind === 'ltd') && (
-                        <div className="cl-v2-accordion-card">
-                          <h4 className="cl-dental-accordion-title">{claim.kind === 'std' ? 'Short-Term' : 'Long-Term'} Disability Details</h4>
-                          <div className="cl-v2-accordion-detail-grid">
-                            <div className="cl-v2-accordion-detail-item"><span className="cl-v2-accordion-label">Condition</span><span>{claim.condition}</span></div>
-                            <div className="cl-v2-accordion-detail-item"><span className="cl-v2-accordion-label">Weekly Benefit</span><span>{claim.weeklyBenefit}</span></div>
-                            <div className="cl-v2-accordion-detail-item"><span className="cl-v2-accordion-label">Duration</span><span>{claim.duration}</span></div>
-                            <div className="cl-v2-accordion-detail-item"><span className="cl-v2-accordion-label">Period</span><span>{claim.startDate} – {claim.endDate}</span></div>
                           </div>
-                        </div>
-                      )}
-                      {claim.kind === 'ada' && (
-                        <div className="cl-v2-accordion-card">
-                          <h4 className="cl-dental-accordion-title">ADA Accommodation Details</h4>
-                          <div className="cl-v2-accordion-detail-grid">
-                            <div className="cl-v2-accordion-detail-item"><span className="cl-v2-accordion-label">Condition</span><span>{claim.condition}</span></div>
-                            <div className="cl-v2-accordion-detail-item"><span className="cl-v2-accordion-label">Accommodation</span><span>{claim.notes}</span></div>
-                            <div className="cl-v2-accordion-detail-item"><span className="cl-v2-accordion-label">Period</span><span>{claim.startDate} – {claim.endDate}</span></div>
+
+                          <div className="cl-expanded-meta" style={{ borderTop: 'none', paddingTop: 8, marginTop: 8 }}>
+                            <div className="cl-expanded-meta-item">
+                              <span className="cl-expanded-meta-label">Documents</span>
+                              <a className="cl-expanded-doc-link" href="#" onClick={(e) => e.stopPropagation()}>
+                                Explanation of Benefits (PDF)
+                                <svg width="12" height="12" viewBox="0 0 14 14" fill="none"><path d="M11 8v3a1 1 0 01-1 1H3a1 1 0 01-1-1V4a1 1 0 011-1h3M8 2h4v4M6 8l6-6" stroke="currentColor" strokeWidth="1.3" strokeLinecap="round" strokeLinejoin="round"/></svg>
+                              </a>
+                            </div>
                           </div>
-                        </div>
+                        </>
+                      ) : (
+                        <p style={{ fontSize: '14px', color: '#5d5d5d', margin: '0 0 16px' }}>No payment records available.</p>
                       )}
-                      <div className="cl-v2-accordion-actions">
-                        {claim.kind === 'leave' && (
-                          <button className="cl-v2-accordion-btn" type="button" onClick={(e) => { e.stopPropagation(); navigate(`${base}/case-detail`); }}>
-                            View Leave Details
-                            <svg width="10" height="10" viewBox="0 0 14 14" fill="none"><path d="M5 2l5 5-5 5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/></svg>
-                            </button>
-                          )}
-                          {(claim.kind === 'std' || claim.kind === 'ltd') && (
-                            <button className="cl-v2-accordion-btn" type="button" onClick={(e) => { e.stopPropagation(); navigate(`${base}/${claim.kind === 'ltd' ? 'ltd-claim-detail' : 'std-claim-detail'}`); }}>
-                              View Claim Details
-                              <svg width="10" height="10" viewBox="0 0 14 14" fill="none"><path d="M5 2l5 5-5 5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/></svg>
-                            </button>
-                          )}
-                          {claim.kind === 'ada' && (
-                            <button className="cl-v2-accordion-btn cl-v2-accordion-btn--edit" type="button" onClick={(e) => e.stopPropagation()}>
-                              <svg width="12" height="12" viewBox="0 0 14 14" fill="none"><path d="M10.5 1.5l2 2-8 8H2.5v-2l8-8z" stroke="currentColor" strokeWidth="1.3" strokeLinecap="round" strokeLinejoin="round"/></svg>
-                              Edit Accommodation
-                            </button>
-                          )}
+
+                      <div className="cl-expanded-actions">
+                        <button
+                          className="cl-btn-view-details"
+                          type="button"
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            if (claim.kind === 'leave') {
+                              navigate(`${base}/case-detail`);
+                            } else if (claim.kind === 'std') {
+                              navigate(`${base}/std-claim-detail`);
+                            } else if (claim.kind === 'ltd') {
+                              navigate(`${base}/ltd-claim-detail`);
+                            }
+                          }}
+                        >
+                          View Claim Details
+                          <svg width="10" height="10" viewBox="0 0 14 14" fill="none"><path d="M5 2l5 5-5 5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/></svg>
+                        </button>
                       </div>
                     </div>
                   </td>
@@ -757,29 +924,21 @@ export default function ClaimCenterPage() {
         </table>
 
         {/* Pagination */}
-        {v2TotalPages > 1 && (
-          <div className="cl-v2-pagination">
-            <span className="cl-v2-pagination-info">Showing <strong>{v2Page * V2_PAGE_SIZE + 1}-{Math.min((v2Page + 1) * V2_PAGE_SIZE, sortedLeaveData.length)}</strong> of <strong>{sortedLeaveData.length}</strong> results</span>
-            <div className="cl-v2-pagination-nav">
-              <button type="button" className="cl-v2-page-btn cl-v2-page-arrow" disabled={v2Page <= 0} onClick={() => setV2Page(v2Page - 1)}>
-                <svg width="10" height="10" viewBox="0 0 14 14" fill="none"><path d="M9 2L4 7l5 5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/></svg>
-              </button>
-              {Array.from({ length: v2TotalPages }, (_, i) => (
-                <button key={i} type="button" className={'cl-v2-page-btn' + (v2Page === i ? ' active' : '')} onClick={() => setV2Page(i)}>
-                  {i + 1}
-                </button>
-              ))}
-              <button type="button" className="cl-v2-page-btn cl-v2-page-arrow" disabled={v2Page >= v2TotalPages - 1} onClick={() => setV2Page(v2Page + 1)}>
-                <svg width="10" height="10" viewBox="0 0 14 14" fill="none"><path d="M5 2l5 5-5 5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/></svg>
-              </button>
-            </div>
-          </div>
+        {v2TotalPages > 0 && (
+          <PaginationNumbered
+            currentPage={v2Page}
+            totalPages={v2TotalPages}
+            onPageChange={(p) => { setV2Page(p); setExpandedLeaveRow(null); }}
+            totalItems={sortedLeaveData.length}
+            pageSize={LEAVE_PAGE_SIZE}
+          />
         )}
 
         {/* Mobile card view for v2 */}
         <div className="cl-cards-mobile cl-claims-v2-cards">
           {v2PageData.map((claim) => {
             const isExpanded = expandedLeaveRow === claim.id;
+            const claimPayments = paymentsData[claim.id];
             return (
             <div key={claim.id} className="cl-card-mobile cl-claims-v2-card">
               <div className="cl-card-mobile-header">
@@ -787,20 +946,28 @@ export default function ClaimCenterPage() {
                 <span className={'cl-ml-status-pill cl-ml-status-pill--' + claim.status.toLowerCase().replace(' ', '')}>{claim.status}</span>
               </div>
               <div className="cl-card-mobile-header" style={{ marginTop: '4px' }}>
-                <span className={'cl-claims-v2-kind cl-claims-v2-kind--' + claim.kind}>{claim.kind === 'leave' ? 'Leave' : claim.kind === 'ada' ? 'ADA' : claim.kind === 'ltd' ? 'LTD Claim' : 'STD Claim'}</span>
-                {claim.kind === 'leave' && claim.accommodations && claim.accommodations.length > 0 && (
-                  <span className="cl-claims-v2-kind cl-claims-v2-kind--ada" style={{ marginLeft: 4 }}>ADA</span>
-                )}
+                <span className="cl-claim-type-text">{getClaimTypeLabel(claim.kind)}</span>
               </div>
-              <span className="cl-card-mobile-type">{claim.description}{claim.condition ? ` — ${claim.condition}` : ''}</span>
+              <span className="cl-card-mobile-type">
+                <span
+                  className="cl-associated-case-link"
+                  onClick={() => {
+                    if (claim.kind === 'leave') navigate(`${base}/case-detail`);
+                    else if (claim.kind === 'std') navigate(`${base}/std-claim-detail`);
+                    else if (claim.kind === 'ltd') navigate(`${base}/ltd-claim-detail`);
+                  }}
+                >
+                  {truncateText(claim.description + (claim.condition ? ` — ${claim.condition}` : ''))}
+                </span>
+              </span>
               <div className="cl-card-mobile-details">
                 <div className="cl-card-mobile-field">
-                  <span className="cl-card-mobile-label">Period</span>
-                  <span className="cl-card-mobile-value">{claim.startDate} – {claim.endDate}</span>
+                  <span className="cl-card-mobile-label">Filed Date</span>
+                  <span className="cl-card-mobile-value">{claim.startDate}</span>
                 </div>
                 <div className="cl-card-mobile-field">
-                  <span className="cl-card-mobile-label">Last Update</span>
-                  <span className="cl-card-mobile-value">{claim.lastUpdate}</span>
+                  <span className="cl-card-mobile-label">Benefit Period</span>
+                  <span className="cl-card-mobile-value">{claim.startDate} - {claim.endDate}</span>
                 </div>
               </div>
               <span className="cl-ml-action-link" onClick={() => setExpandedLeaveRow(isExpanded ? null : claim.id)}>
@@ -808,67 +975,61 @@ export default function ClaimCenterPage() {
                 <svg width="10" height="6" viewBox="0 0 10 6" fill="none" aria-hidden="true" style={{ marginLeft: '4px', transform: isExpanded ? 'rotate(180deg)' : 'rotate(0)', transition: 'transform 0.2s' }}><path d="M1 1l4 4 4-4" stroke="#105fa8" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/></svg>
               </span>
               {isExpanded && (
-                <div className="cl-dental-accordion-content" style={{ marginTop: 12 }}>
-                  {claim.kind === 'leave' && claim.benefits && (
-                    <div className="cl-v2-accordion-card">
-                      <h4 className="cl-dental-accordion-title">Benefits</h4>
-                      <table className="cl-dental-payments-table">
-                        <thead><tr><th>Type</th><th>Status</th><th>Duration</th><th>Weekly</th></tr></thead>
-                        <tbody>
-                          {claim.benefits.map((b, bi) => (
-                            <tr key={bi}><td>{b.type}</td><td>{b.status}</td><td>{b.duration}</td><td>{b.weeklyBenefit || '—'}</td></tr>
-                          ))}
-                        </tbody>
-                      </table>
-                    </div>
-                  )}
-                  {claim.kind === 'leave' && claim.accommodations && claim.accommodations.length > 0 && (
-                    <div className="cl-v2-accordion-card">
-                      <h4 className="cl-dental-accordion-title">ADA Accommodation</h4>
-                      {claim.accommodations.map((a, ai) => (
-                        <div key={ai} className="cl-v2-accordion-detail-row">
-                          <span><strong>{a.type}</strong> — {a.notes}</span>
-                          <span className="cl-v2-accordion-meta">{a.startDate} – {a.endDate}</span>
+                <div className="cl-expanded-payments" style={{ marginTop: 12, padding: '16px 0' }}>
+                  <h4>Associated Payments</h4>
+                  {claimPayments && claimPayments.length > 0 ? (
+                    <>
+                      <div style={{ overflowX: 'auto' }}>
+                        <table className="cl-expanded-payments-table">
+                          <thead>
+                            <tr>
+                              <th>Date</th>
+                              <th>Period</th>
+                              <th>Gross</th>
+                              <th>Net</th>
+                              <th>Status</th>
+                            </tr>
+                          </thead>
+                          <tbody>
+                            {claimPayments.map((pmt, pi) => (
+                              <tr key={pi}>
+                                <td>{pmt.date}</td>
+                                <td>{pmt.period}</td>
+                                <td>{pmt.gross}</td>
+                                <td>{pmt.net}</td>
+                                <td><span className={'cl-ml-status-pill cl-ml-status-pill--' + pmt.status.toLowerCase()}>{pmt.status}</span></td>
+                              </tr>
+                            ))}
+                          </tbody>
+                        </table>
+                      </div>
+                      <div className="cl-expanded-meta">
+                        <div className="cl-expanded-meta-item">
+                          <span className="cl-expanded-meta-label">Documents</span>
+                          <a className="cl-expanded-doc-link" href="#" onClick={(e) => e.stopPropagation()}>
+                            Explanation of Benefits (PDF)
+                            <svg width="12" height="12" viewBox="0 0 14 14" fill="none"><path d="M11 8v3a1 1 0 01-1 1H3a1 1 0 01-1-1V4a1 1 0 011-1h3M8 2h4v4M6 8l6-6" stroke="currentColor" strokeWidth="1.3" strokeLinecap="round" strokeLinejoin="round"/></svg>
+                          </a>
                         </div>
-                      ))}
-                    </div>
-                  )}
-                  {(claim.kind === 'std' || claim.kind === 'ltd') && (
-                    <div className="cl-v2-accordion-card">
-                      <div className="cl-v2-accordion-detail-grid">
-                        <div className="cl-v2-accordion-detail-item"><span className="cl-v2-accordion-label">Condition</span><span>{claim.condition}</span></div>
-                        <div className="cl-v2-accordion-detail-item"><span className="cl-v2-accordion-label">Weekly Benefit</span><span>{claim.weeklyBenefit}</span></div>
-                        <div className="cl-v2-accordion-detail-item"><span className="cl-v2-accordion-label">Duration</span><span>{claim.duration}</span></div>
                       </div>
-                    </div>
+                    </>
+                  ) : (
+                    <p style={{ fontSize: '14px', color: '#5d5d5d', margin: '0 0 16px' }}>No payment records available.</p>
                   )}
-                  {claim.kind === 'ada' && (
-                    <div className="cl-v2-accordion-card">
-                      <div className="cl-v2-accordion-detail-grid">
-                        <div className="cl-v2-accordion-detail-item"><span className="cl-v2-accordion-label">Condition</span><span>{claim.condition}</span></div>
-                        <div className="cl-v2-accordion-detail-item"><span className="cl-v2-accordion-label">Accommodation</span><span>{claim.notes}</span></div>
-                      </div>
-                    </div>
-                  )}
-                  <div className="cl-v2-accordion-actions">
-                    {claim.kind === 'leave' && (
-                      <button className="cl-v2-accordion-btn" type="button" onClick={() => navigate(`${base}/case-detail`)}>
-                        View Leave Details
-                        <svg width="10" height="10" viewBox="0 0 14 14" fill="none"><path d="M5 2l5 5-5 5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/></svg>
-                      </button>
-                    )}
-                    {(claim.kind === 'std' || claim.kind === 'ltd') && (
-                      <button className="cl-v2-accordion-btn" type="button" onClick={() => navigate(`${base}/${claim.kind === 'ltd' ? 'ltd-claim-detail' : 'std-claim-detail'}`)}>
-                        View Claim Details
-                        <svg width="10" height="10" viewBox="0 0 14 14" fill="none"><path d="M5 2l5 5-5 5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/></svg>
-                      </button>
-                    )}
-                    {claim.kind === 'ada' && (
-                      <button className="cl-v2-accordion-btn cl-v2-accordion-btn--edit" type="button">
-                        <svg width="12" height="12" viewBox="0 0 14 14" fill="none"><path d="M10.5 1.5l2 2-8 8H2.5v-2l8-8z" stroke="currentColor" strokeWidth="1.3" strokeLinecap="round" strokeLinejoin="round"/></svg>
-                        Edit Accommodation
-                      </button>
-                    )}
+                  <div className="cl-expanded-actions">
+                    <button
+                      className="cl-btn-view-details"
+                      type="button"
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        if (claim.kind === 'leave') navigate(`${base}/case-detail`);
+                        else if (claim.kind === 'std') navigate(`${base}/std-claim-detail`);
+                        else if (claim.kind === 'ltd') navigate(`${base}/ltd-claim-detail`);
+                      }}
+                    >
+                      View Claim Details
+                      <svg width="10" height="10" viewBox="0 0 14 14" fill="none"><path d="M5 2l5 5-5 5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/></svg>
+                    </button>
                   </div>
                 </div>
               )}
@@ -877,26 +1038,6 @@ export default function ClaimCenterPage() {
           })}
         </div>
 
-      </div>
-
-      {/* Legend — outside table card */}
-      <div className="cl-claims-v2-legend">
-        <div className="cl-claims-v2-legend__item">
-          <span className="cl-claims-v2-kind cl-claims-v2-kind--leave">Leave</span>
-          <span className="cl-claims-v2-legend__desc">Fully managed by us — leave approval, benefits, and payments</span>
-        </div>
-        <div className="cl-claims-v2-legend__item">
-          <span className="cl-claims-v2-kind cl-claims-v2-kind--std">STD Claim</span>
-          <span className="cl-claims-v2-legend__desc">Payments and documents only — leave managed by your employer</span>
-        </div>
-        <div className="cl-claims-v2-legend__item">
-          <span className="cl-claims-v2-kind cl-claims-v2-kind--ltd">LTD Claim</span>
-          <span className="cl-claims-v2-legend__desc">Long-term disability — often follows an STD claim</span>
-        </div>
-        <div className="cl-claims-v2-legend__item">
-          <span className="cl-claims-v2-kind cl-claims-v2-kind--ada">ADA</span>
-          <span className="cl-claims-v2-legend__desc">Workplace accommodation — may be linked to a leave or standalone</span>
-        </div>
       </div>
       </>
       )}
