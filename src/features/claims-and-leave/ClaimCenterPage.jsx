@@ -202,9 +202,9 @@ const claimsData = [
     memberPays: '$50.00',
     status: 'Processed',
     payments: [
-      { service: 'Preventive — Exam', billed: '$95.00', planPaid: '$95.00', youPay: '$0.00' },
-      { service: 'Preventive — Cleaning', billed: '$85.00', planPaid: '$85.00', youPay: '$0.00' },
-      { service: 'Basic — X-Rays (Bitewing)', billed: '$70.00', planPaid: '$20.00', youPay: '$50.00' },
+      { code: 'D0120', service: 'Periodic Oral Evaluation (Established) Patient', billed: '$100.00', planPaid: '$100.00', youPay: '$0.00' },
+      { code: 'D1110', service: 'Routine Cleaning', billed: '$100.00', planPaid: '$100.00', youPay: '$0.00' },
+      { code: 'D0274', service: 'X-Rays', billed: '$50.00', planPaid: '$0.00', youPay: '$50.00' },
     ],
   },
   {
@@ -216,7 +216,7 @@ const claimsData = [
     memberPays: 'Pending',
     status: 'Pending',
     payments: [
-      { service: 'Preventive — Fluoride Treatment', billed: '$64.00', planPaid: 'Pending', youPay: 'Pending' },
+      { code: 'D1208', service: 'Fluoride Treatment', billed: '$64.00', planPaid: 'Pending', youPay: 'Pending' },
     ],
   },
   {
@@ -228,7 +228,7 @@ const claimsData = [
     memberPays: 'Pending',
     status: 'Pending',
     payments: [
-      { service: 'Basic — Filling (Composite)', billed: '$145.00', planPaid: 'Pending', youPay: 'Pending' },
+      { code: 'D2391', service: 'Filling (Composite)', billed: '$145.00', planPaid: 'Pending', youPay: 'Pending' },
     ],
   },
   {
@@ -240,7 +240,7 @@ const claimsData = [
     memberPays: '$46.00',
     status: 'Reprocessed',
     payments: [
-      { service: 'Basic — Extraction (Simple)', billed: '$128.00', planPaid: '$82.00', youPay: '$46.00' },
+      { code: 'D7140', service: 'Extraction (Simple)', billed: '$128.00', planPaid: '$82.00', youPay: '$46.00' },
     ],
   },
   {
@@ -252,7 +252,7 @@ const claimsData = [
     memberPays: '$162.00',
     status: 'Processed',
     payments: [
-      { service: 'Major — Crown (Porcelain)', billed: '$324.00', planPaid: '$162.00', youPay: '$162.00' },
+      { code: 'D2740', service: 'Crown (Porcelain)', billed: '$324.00', planPaid: '$162.00', youPay: '$162.00' },
     ],
   },
   {
@@ -264,7 +264,7 @@ const claimsData = [
     memberPays: '$25.00',
     status: 'Processed',
     payments: [
-      { service: 'Preventive — Sealant (per tooth)', billed: '$89.00', planPaid: '$64.00', youPay: '$25.00' },
+      { code: 'D1351', service: 'Sealant (per tooth)', billed: '$89.00', planPaid: '$64.00', youPay: '$25.00' },
     ],
   },
   {
@@ -276,7 +276,7 @@ const claimsData = [
     memberPays: '$52.00',
     status: 'Processed',
     payments: [
-      { service: 'Basic — Root Planing (per quadrant)', billed: '$175.00', planPaid: '$123.00', youPay: '$52.00' },
+      { code: 'D4341', service: 'Root Planing (per quadrant)', billed: '$175.00', planPaid: '$123.00', youPay: '$52.00' },
     ],
   },
   {
@@ -288,8 +288,8 @@ const claimsData = [
     memberPays: '$63.00',
     status: 'Processed',
     payments: [
-      { service: 'Basic — Filling (Amalgam)', billed: '$110.00', planPaid: '$77.00', youPay: '$33.00' },
-      { service: 'Preventive — X-Rays (Panoramic)', billed: '$100.00', planPaid: '$70.00', youPay: '$30.00' },
+      { code: 'D2140', service: 'Filling (Amalgam)', billed: '$110.00', planPaid: '$77.00', youPay: '$33.00' },
+      { code: 'D0330', service: 'X-Rays (Panoramic)', billed: '$100.00', planPaid: '$70.00', youPay: '$30.00' },
     ],
   },
   {
@@ -301,7 +301,7 @@ const claimsData = [
     memberPays: '$124.00',
     status: 'Processed',
     payments: [
-      { service: 'Major — Bridge (3-unit)', billed: '$412.00', planPaid: '$288.00', youPay: '$124.00' },
+      { code: 'D6740', service: 'Bridge (3-unit)', billed: '$412.00', planPaid: '$288.00', youPay: '$124.00' },
     ],
   },
   {
@@ -313,8 +313,8 @@ const claimsData = [
     memberPays: '$29.00',
     status: 'Processed',
     payments: [
-      { service: 'Preventive — Exam', billed: '$55.00', planPaid: '$55.00', youPay: '$0.00' },
-      { service: 'Preventive — X-Rays (Bitewing)', billed: '$43.00', planPaid: '$14.00', youPay: '$29.00' },
+      { code: 'D0120', service: 'Periodic Oral Evaluation', billed: '$55.00', planPaid: '$55.00', youPay: '$0.00' },
+      { code: 'D0272', service: 'X-Rays (Bitewing)', billed: '$43.00', planPaid: '$14.00', youPay: '$29.00' },
     ],
   },
 ];
@@ -597,7 +597,7 @@ export default function ClaimCenterPage() {
                 </td>
                 <td className="cl-ml-td">
                   <span className="cl-ml-action-link">
-                    View Details
+                    {expandedDentalRow === globalIndex ? 'Hide Details' : 'View Details'}
                     <svg width="10" height="6" viewBox="0 0 10 6" fill="none" aria-hidden="true" style={{ marginLeft: '4px', transform: expandedDentalRow === globalIndex ? 'rotate(180deg)' : 'rotate(0)', transition: 'transform 0.2s' }}><path d="M1 1l4 4 4-4" stroke="#105fa8" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/></svg>
                   </span>
                 </td>
@@ -606,27 +606,54 @@ export default function ClaimCenterPage() {
                 <tr className="cl-dental-accordion-row">
                   <td colSpan="8" className="cl-dental-accordion-cell">
                     <div className="cl-dental-accordion-content">
-                      <h4 className="cl-dental-accordion-title">Payment Breakdown</h4>
-                      <table className="cl-dental-payments-table">
+                      <table className="cl-dental-detail-table">
                         <thead>
                           <tr>
-                            <th>Service</th>
-                            <th>Billed</th>
-                            <th>Plan Paid</th>
-                            <th>You Pay</th>
+                            <th>DATE</th>
+                            <th>CODE</th>
+                            <th>SERVICE</th>
+                            <th>TOTAL BILLED</th>
+                            <th>PLAN PAYS</th>
+                            <th>YOU PAY</th>
                           </tr>
                         </thead>
                         <tbody>
                           {row.payments.map((p, pi) => (
                             <tr key={pi}>
+                              <td>{row.date}</td>
+                              <td><span className="cl-detail-code">{p.code}</span></td>
                               <td>{p.service}</td>
                               <td>{p.billed}</td>
                               <td>{p.planPaid}</td>
                               <td>{p.youPay}</td>
                             </tr>
                           ))}
+                          <tr className="cl-detail-total-row">
+                            <td><strong>Total</strong></td>
+                            <td></td>
+                            <td></td>
+                            <td><strong>{row.billedAmount}</strong></td>
+                            <td><strong>{(() => { const nums = row.payments.map(p => parseFloat(p.planPaid.replace(/[^0-9.]/g, '')) || 0); return '$' + nums.reduce((a, b) => a + b, 0).toFixed(2); })()}</strong></td>
+                            <td><strong>{row.memberPays}</strong></td>
+                          </tr>
                         </tbody>
                       </table>
+                      <div className="cl-detail-footer">
+                        <div className="cl-detail-documents">
+                          <span className="cl-detail-documents-label">Documents</span>
+                          <div className="cl-detail-documents-row">
+                            <span className="cl-detail-documents-date">Feb 29, 2026:</span>
+                            <a href="#" className="cl-detail-eob-link" onClick={(e) => e.stopPropagation()}>
+                              <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true"><path d="M3 1h5l3 3v8a1 1 0 01-1 1H3a1 1 0 01-1-1V2a1 1 0 011-1z" stroke="#105fa8" strokeWidth="1.2" strokeLinecap="round" strokeLinejoin="round"/><path d="M8 1v3h3M5 7h4M5 9h4" stroke="#105fa8" strokeWidth="1.2" strokeLinecap="round" strokeLinejoin="round"/></svg>
+                              Explanation of Benefits (PDF)
+                            </a>
+                          </div>
+                        </div>
+                        <button className="cl-detail-view-btn" onClick={(e) => e.stopPropagation()}>
+                          View Claim Details
+                          <svg width="8" height="12" viewBox="0 0 8 12" fill="none" aria-hidden="true"><path d="M1.5 1l5 5-5 5" stroke="#fff" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/></svg>
+                        </button>
+                      </div>
                     </div>
                   </td>
                 </tr>
