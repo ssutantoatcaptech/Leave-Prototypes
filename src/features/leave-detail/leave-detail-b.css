@@ -3733,7 +3733,7 @@ select.ldb-detail-input {
 .ldb-st-step-content {
   flex: 1;
   min-width: 0;
-  padding-bottom: 16px;
+  padding-bottom: 24px;
 }
 .ldb-st-step-card {
   background: #fafafa;
