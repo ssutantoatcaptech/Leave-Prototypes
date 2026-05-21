@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { useParams, useNavigate } from 'react-router-dom';
+import { useParams, useNavigate, useSearchParams } from 'react-router-dom';
 
 const employeeData = {
   'amy-smith': {
@@ -101,7 +101,9 @@ const employeeData = {
 export default function EmployeeDetailPage() {
   const { employeeId } = useParams();
   const navigate = useNavigate();
-  const [activeTab, setActiveTab] = useState('overview');
+  const [searchParams] = useSearchParams();
+  const initialTab = searchParams.get('tab') || 'overview';
+  const [activeTab, setActiveTab] = useState(initialTab);
 
   const emp = employeeData[employeeId] || employeeData['amy-smith'];
   const tabs = ['Overview', 'Absences', 'Accommodations', 'Actions'];

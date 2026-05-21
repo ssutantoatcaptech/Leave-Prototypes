@@ -232,11 +232,11 @@ export default function MyTeamPage() {
                       <td>{formatDate(emp.endDate)}</td>
                       <td>
                         {emp.requiredActions !== 'None' ? (
-                          <button className="mgr-table-link" onClick={() => navigate(`/manager/return-to-work?employee=${emp.id}`)}>{emp.requiredActions}</button>
+                          <button className="mgr-table-link" onClick={() => navigate(`/manager/my-team/${emp.id}?tab=accommodations`)}>{emp.requiredActions}</button>
                         ) : 'None'}
                       </td>
                       <td>
-                        <button className="mgr-btn mgr-btn-outline mgr-btn-sm" onClick={() => navigate(`/manager/my-team/${emp.id}`)}>View Details</button>
+                        <button className="mgr-btn mgr-btn-outline mgr-btn-sm" onClick={() => navigate(`/manager/my-team/${emp.id}?tab=accommodations`)}>View Details</button>
                       </td>
                     </tr>
                   ))}
@@ -267,12 +267,12 @@ export default function MyTeamPage() {
                     <span className="mgr-team-mobile-entry-label">Required Actions</span>
                     <span className="mgr-team-mobile-entry-value">
                       {emp.requiredActions !== 'None' ? (
-                        <button className="mgr-table-link" onClick={() => navigate(`/manager/return-to-work?employee=${emp.id}`)}>{emp.requiredActions}</button>
+                        <button className="mgr-table-link" onClick={() => navigate(`/manager/my-team/${emp.id}?tab=accommodations`)}>{emp.requiredActions}</button>
                       ) : 'None'}
                     </span>
                   </div>
                   <div className="mgr-team-mobile-entry-action">
-                    <button className="mgr-team-mobile-entry-link" onClick={() => navigate(`/manager/my-team/${emp.id}`)}>
+                    <button className="mgr-team-mobile-entry-link" onClick={() => navigate(`/manager/my-team/${emp.id}?tab=accommodations`)}>
                       View Details
                       <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M3 1h8v8M11 1L1 11" stroke="currentColor" strokeWidth="1.3" strokeLinecap="round" strokeLinejoin="round"/></svg>
                     </button>
