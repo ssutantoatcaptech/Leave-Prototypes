@@ -3666,10 +3666,12 @@ select.ldb-detail-input {
 }
 .ldb-st-attention-badge {
   font-size: 12px;
-  color: #525252;
-  background: #f0f0f2;
+  color: #5d5d5d;
+  background: #fff;
+  border: 1px solid #e4e4e4;
   border-radius: 999px;
-  padding: 2px 8px;
+  padding: 4px 12px;
+  font-weight: 500;
 }
 .ldb-st-steps {
   display: flex;
@@ -3700,17 +3702,17 @@ select.ldb-detail-input {
   box-shadow: 0 0 0 4px #fff;
 }
 .ldb-st-step-circle--completed {
-  background: #171717;
+  background: #002547;
 }
 .ldb-st-step-circle--active {
   background: #fff;
-  border: 2px solid #171717;
+  border: 2px solid #002547;
 }
 .ldb-st-step-dot {
   width: 10px;
   height: 10px;
   border-radius: 9999px;
-  background: #171717;
+  background: #002547;
 }
 .ldb-st-step-circle--future {
   background: #fff;
@@ -3719,11 +3721,11 @@ select.ldb-detail-input {
 .ldb-st-step-line {
   width: 2px;
   flex: 1;
-  background: #eee;
+  background: #e4e4e4;
   min-height: 16px;
 }
 .ldb-st-step-line--completed {
-  background: #171717;
+  background: #002547;
 }
 .ldb-st-step--last .ldb-st-step-indicator .ldb-st-step-line {
   display: none;
@@ -3741,8 +3743,8 @@ select.ldb-detail-input {
 }
 .ldb-st-step-card--active {
   background: #fff;
-  border: 2px solid #171717;
-  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+  border: 2px solid #105fa8;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.08);
 }
 .ldb-st-step-card--future {
   background: #fff;
@@ -3759,16 +3761,16 @@ select.ldb-detail-input {
   font-family: 'Source Sans Pro', sans-serif;
   font-weight: 600;
   font-size: 16px;
-  color: #171717;
+  color: #105fa8;
   line-height: 20px;
 }
 .ldb-st-step-card--future .ldb-st-step-title {
-  color: #404040;
+  color: #105fa8;
 }
 .ldb-st-step-time {
   font-family: 'Source Sans Pro', sans-serif;
-  font-size: 12px;
-  color: #737373;
+  font-size: 13px;
+  color: #5d5d5d;
   white-space: nowrap;
 }
 .ldb-st-step-actions {
@@ -3778,20 +3780,20 @@ select.ldb-detail-input {
 }
 .ldb-st-due-badge {
   font-family: 'Source Sans Pro', sans-serif;
-  font-size: 12px;
-  color: #525252;
-  background: #f5f5f5;
+  font-size: 13px;
+  color: #5d5d5d;
+  background: #fff;
   border-radius: 6px;
-  padding: 4px 8px;
+  padding: 4px 10px;
   line-height: 16px;
-  box-shadow: inset 0 0 0 1px rgba(115, 115, 115, 0.1);
+  white-space: nowrap;
 }
 .ldb-st-start-btn {
   font-family: 'Source Sans Pro', sans-serif;
   font-size: 12px;
   font-weight: 400;
   color: #fff;
-  background: #171717;
+  background: #105fa8;
   border: none;
   border-radius: 4px;
   padding: 4px 12px;
@@ -3799,28 +3801,27 @@ select.ldb-detail-input {
   cursor: pointer;
 }
 .ldb-st-start-btn:hover {
-  background: #333;
+  background: #0d4d8a;
 }
 .ldb-st-locked-badge {
   font-family: 'Source Sans Pro', sans-serif;
   font-size: 12px;
-  color: #737373;
-  background: #fafafa;
+  color: #5d5d5d;
+  background: #f7f7f7;
   border-radius: 6px;
   padding: 4px 8px;
   line-height: 16px;
-  box-shadow: inset 0 0 0 1px rgba(115, 115, 115, 0.1);
   white-space: nowrap;
 }
 .ldb-st-step-desc {
   font-family: 'Source Sans Pro', sans-serif;
   font-size: 14px;
-  color: #737373;
+  color: #5d5d5d;
   line-height: 24px;
   margin: 0 0 8px;
 }
 .ldb-st-step-card--active .ldb-st-step-desc {
-  color: #525252;
+  color: #333;
 }
 .ldb-st-sub-items {
   border-left: 2px solid #e5e7eb;
@@ -3832,7 +3833,7 @@ select.ldb-detail-input {
 .ldb-st-sub-item {
   font-family: 'Source Sans Pro', sans-serif;
   font-size: 14px;
-  color: #404040;
+  color: #333;
   line-height: 20px;
 }
 .ldb-st-sub-items--actions {
@@ -3849,27 +3850,47 @@ select.ldb-detail-input {
   gap: 12px;
   font-family: 'Source Sans Pro', sans-serif;
   font-size: 14px;
-  color: #404040;
+  color: #333;
 }
 .ldb-st-link-btn {
   font-family: 'Source Sans Pro', sans-serif;
-  font-size: 14px;
-  color: #171717;
-  background: none;
-  border: none;
-  padding: 0;
-  text-decoration: underline;
+  font-size: 13px;
+  font-weight: 600;
+  color: #105fa8;
+  background: #fff;
+  border: 1.5px solid #105fa8;
+  border-radius: 4px;
+  padding: 6px 14px;
   cursor: pointer;
   display: inline-flex;
   align-items: center;
   gap: 4px;
+  text-decoration: none;
 }
 .ldb-st-link-btn:hover {
-  color: #000;
+  background: #f0f6fd;
+}
+.ldb-st-link-btn--filled {
+  color: #fff;
+  background: #105fa8;
+  border-color: #105fa8;
+}
+.ldb-st-link-btn--filled:hover {
+  background: #0d4d8a;
+}
+.ldb-st-link-btn--disabled {
+  color: #999;
+  background: #f0f0f0;
+  border-color: #d4d4d4;
+  cursor: not-allowed;
+  opacity: 0.7;
+}
+.ldb-st-link-btn--disabled:hover {
+  background: #f0f0f0;
 }
 .ldb-st-external-link {
-  background: #fafafa;
-  border: 1px solid #e5e5e5;
+  background: #f7f7f7;
+  border: 1px solid #e4e4e4;
   border-radius: 6px;
   padding: 14px 17px;
   display: flex;

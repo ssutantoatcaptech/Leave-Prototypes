@@ -275,17 +275,15 @@ export default function LeaveDetailV2ePage() {
                     <div className="ldb-st-sub-items ldb-st-sub-items--actions">
                       <div className="ldb-st-sub-action">
                         <div className="ldb-st-sub-action-left">
-                          <svg width="14" height="14" viewBox="0 0 16 16" fill="none"><circle cx="8" cy="8" r="6.5" stroke="#d4d4d4" strokeWidth="1.2"/></svg>
                           <span>Download certification form</span>
                         </div>
                         <button type="button" className="ldb-st-link-btn">Download</button>
                       </div>
                       <div className="ldb-st-sub-action">
                         <div className="ldb-st-sub-action-left">
-                          <svg width="14" height="14" viewBox="0 0 16 16" fill="none"><circle cx="8" cy="8" r="6.5" stroke="#d4d4d4" strokeWidth="1.2"/></svg>
                           <span>Upload completed form</span>
                         </div>
-                        <button type="button" className="ldb-st-link-btn">Upload</button>
+                        <button type="button" className="ldb-st-link-btn ldb-st-link-btn--filled">Upload <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M6 2v8M2 6l4-4 4 4" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round" strokeLinejoin="round"/></svg></button>
                       </div>
                     </div>
                   </div>
@@ -300,7 +298,7 @@ export default function LeaveDetailV2ePage() {
                   <div className="ldb-st-step-content ldb-st-step-card ldb-st-step-card--future">
                     <div className="ldb-st-step-top">
                       <span className="ldb-st-step-title">Confirm Child's Arrival</span>
-                      <span className="ldb-st-locked-badge">Locked</span>
+                      <button type="button" className="ldb-st-link-btn ldb-st-link-btn--disabled" disabled>Confirm Arrival</button>
                     </div>
                     <p className="ldb-st-step-desc">Notify us when your child is born to activate the bonding portion of your leave.</p>
                   </div>
@@ -315,12 +313,11 @@ export default function LeaveDetailV2ePage() {
                   <div className="ldb-st-step-content ldb-st-step-card ldb-st-step-card--future">
                     <div className="ldb-st-step-top">
                       <span className="ldb-st-step-title">File your California EDD bonding claim</span>
-                      <span className="ldb-st-locked-badge">Locked</span>
                     </div>
                     <p className="ldb-st-step-desc">At the start of your bonding period, submit your CA EDD bonding claim.</p>
                     <div className="ldb-st-external-link">
                       <span>California Benefit Portal</span>
-                      <a href="#" className="ldb-st-link-btn">Start <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M2 10L10 2M10 2H4M10 2v6" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round" strokeLinejoin="round"/></svg></a>
+                      <button type="button" className="ldb-st-link-btn ldb-st-link-btn--disabled" disabled>Start <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M2 10L10 2M10 2H4M10 2v6" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round" strokeLinejoin="round"/></svg></button>
                     </div>
                   </div>
                 </div>
@@ -333,9 +330,9 @@ export default function LeaveDetailV2ePage() {
                   <div className="ldb-st-step-content ldb-st-step-card ldb-st-step-card--future">
                     <div className="ldb-st-step-top">
                       <span className="ldb-st-step-title">Confirm Return to Work Date</span>
-                      <span className="ldb-st-locked-badge">Locked</span>
+                      <button type="button" className="ldb-st-link-btn ldb-st-link-btn--disabled" disabled>Confirm Return</button>
                     </div>
-                    <p className="ldb-st-step-desc">Confirm your return to work date as your leave end date approaches.</p>
+                    <p className="ldb-st-step-desc">Notify us when your child is born to activate the bonding portion of your leave.</p>
                   </div>
                 </div>
               </div>
