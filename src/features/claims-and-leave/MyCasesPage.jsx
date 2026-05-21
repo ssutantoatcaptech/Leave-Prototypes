@@ -4,42 +4,53 @@ import useBasePath from './useBasePath';
 
 var initialCases = [
   {
-    type: 'Birthing parent pregnancy',
+    date: 'Nov 15, 2026',
+    type: 'Pregnancy, Birth & Bonding',
     id: 'CLM #12345',
-    lastUpdate: '04 / 28 / 2026',
+    leaveType: 'Leave',
     status: 'Pending',
-    requiredActions: 'Return to Work',
+    associatedClaims: 'Short Term Disability',
+    requiredActions: 'Upload Medical Certification',
     linkPath: '/case-detail-pregnancy',
   },
   {
-    type: 'Illness or Injury',
+    date: 'Oct 14, 2026',
+    type: 'Injury or Illness',
     id: 'CLM #12345',
-    lastUpdate: '05 / 01 / 2026',
-    status: 'Decisioned',
+    leaveType: 'Leave',
+    status: 'Approved',
+    associatedClaims: 'N/A',
     requiredActions: 'N/A',
     linkPath: '/case-detail',
   },
   {
-    type: 'Caring for family member',
-    id: 'N/A',
-    lastUpdate: '03 / 22 / 2026',
-    status: 'Saved',
+    date: 'Sep 26, 2025',
+    type: 'Ergonomic Assessment &',
+    id: 'ADA MODIFICATION',
+    leaveType: 'Accommodation',
+    status: 'Approved leave',
+    associatedClaims: 'N/A',
     requiredActions: 'N/A',
-    linkPath: '/case-detail-caregiver',
+    linkPath: '/case-detail',
+    actionLabel: 'Resume',
   },
   {
-    type: 'Military-related',
-    id: 'NTN #09881',
-    lastUpdate: '04 / 30 / 2026',
-    status: 'Decisioned',
+    date: 'Aug 15, 2025',
+    type: 'Injury or Illness',
+    id: 'CLM #12345',
+    leaveType: 'Leave',
+    status: 'Approved',
+    associatedClaims: 'Short Term Disability',
     requiredActions: 'N/A',
     linkPath: '/case-detail',
   },
   {
-    type: 'Military-related',
-    id: 'NTN #098331',
-    lastUpdate: '01 / 10 / 2026',
+    date: 'Aug 15, 2025',
+    type: 'Injury or Illness',
+    id: 'CLM #12345',
+    leaveType: 'Leave',
     status: 'Closed',
+    associatedClaims: 'Short Term Disability',
     requiredActions: 'N/A',
     linkPath: null,
   },
@@ -66,7 +77,7 @@ export default function MyCasesPage() {
   var filtered = useMemo(function () {
     return casesData.filter(function (row) {
       if (statusFilter !== 'All' && row.status !== statusFilter) return false;
-      if (typeFilter !== 'All' && row.type !== typeFilter) return false;
+      if (typeFilter !== 'All' && row.leaveType !== typeFilter) return false;
       return true;
     });
   }, [statusFilter, typeFilter, hiddenIds]);
@@ -126,7 +137,7 @@ export default function MyCasesPage() {
       <div className="cl-ml-breadcrumb">
         <Link to={base} className="cl-ml-breadcrumb-link">Claims &amp; Leave</Link>
         <span className="cl-ml-breadcrumb-sep">&gt;</span>
-        <span className="cl-ml-breadcrumb-current">My Leave</span>
+        <span className="cl-ml-breadcrumb-current">My Cases</span>
       </div>
 
       {/* Page Header */}
@@ -136,12 +147,12 @@ export default function MyCasesPage() {
           <p className="cl-ml-subtitle">Manage your active, saved, and historical leave requests.</p>
         </div>
         <div className="cl-ml-header-action">
-          <button className="cl-ml-btn-new" onClick={function () { navigate(base + '/file-claim'); }}>+ Request New Leave</button>
+          <button className="cl-ml-btn-new" onClick={function () { navigate(base + '/file-claim'); }}>+ Request New Leave or Claim</button>
         </div>
       </div>
 
       {/* Request New Leave button (mobile) */}
-      <button className="cl-ml-btn-new cl-ml-btn-new--mobile" onClick={function () { navigate(base + '/file-claim'); }}>+ Request New Leave</button>
+      <button className="cl-ml-btn-new cl-ml-btn-new--mobile" onClick={function () { navigate(base + '/file-claim'); }}>+ Request New Leave or Claim</button>
 
       {/* Table Card */}
       <div className="cl-ml-table-card">
@@ -156,8 +167,7 @@ export default function MyCasesPage() {
             >
               <option value="All">All</option>
               <option value="Pending">Pending</option>
-              <option value="Decisioned">Decisioned</option>
-              <option value="Saved">Saved</option>
+              <option value="Approved">Approved</option>
               <option value="Closed">Closed</option>
             </select>
           </div>
@@ -169,10 +179,8 @@ export default function MyCasesPage() {
               onChange={function (e) { setTypeFilter(e.target.value); setCurrentPage(1); }}
             >
               <option value="All">All</option>
-              <option value="Birthing parent pregnancy">Birthing Parent Pregnancy</option>
-              <option value="Illness or Injury">Illness or Injury</option>
-              <option value="Caring for family member">Caring for Family Member</option>
-              <option value="Military-related">Military-related</option>
+              <option value="Leave">Leave</option>
+              <option value="Accommodation">Accommodation</option>
             </select>
           </div>
         </div>
@@ -181,31 +189,44 @@ export default function MyCasesPage() {
         <table className="cl-ml-table">
           <thead>
             <tr>
-              <th className="cl-ml-th-first">Leave Type &amp; ID</th>
-              <th>Last Update</th>
+              <th>Date</th>
+              <th className="cl-ml-th-first">Case &amp; Type</th>
+              <th>Leave Type</th>
               <th>Status</th>
+              <th>Associated Claims</th>
               <th>Required Actions</th>
               <th>Action</th>
             </tr>
           </thead>
           <tbody>
             {pageData.length === 0 && (
-              <tr><td colSpan="5" style={{ textAlign: 'center', padding: '32px 16px', color: '#5d5d5d' }}>No cases match your filters.</td></tr>
+              <tr><td colSpan="7" style={{ textAlign: 'center', padding: '32px 16px', color: '#5d5d5d' }}>No cases match your filters.</td></tr>
             )}
             {pageData.map(function (row, i) {
               return (
                 <tr key={startIdx + i} className="cl-ml-row">
+                  <td className="cl-ml-td">{row.date || row.lastUpdate}</td>
                   <td className="cl-ml-td-first">
                     <div className="cl-ml-cell-stacked">
                       <span className="cl-ml-cell-type">{row.type}</span>
                       <span className="cl-ml-cell-id">{row.id}</span>
                     </div>
                   </td>
-                  <td className="cl-ml-td">{row.lastUpdate}</td>
+                  <td className="cl-ml-td">{row.leaveType || 'Leave'}</td>
                   <td className="cl-ml-td">
                     <span className="cl-ml-status-pill">{row.status}</span>
                   </td>
-                  <td className="cl-ml-td">{row.requiredActions || 'N/A'}</td>
+                  <td className="cl-ml-td">{row.associatedClaims || 'N/A'}</td>
+                  <td className="cl-ml-td">
+                    {row.requiredActions && row.requiredActions !== 'N/A' ? (
+                      <span className="cl-ml-action-link" onClick={function () {
+                        if (row.linkPath) {
+                          sessionStorage.setItem('viewingCase', JSON.stringify(row));
+                          navigate(base + row.linkPath);
+                        }
+                      }}>{row.requiredActions}</span>
+                    ) : 'N/A'}
+                  </td>
                   <td className="cl-ml-td">
                     {row.status === 'Saved' ? (
                       <div className="cl-ml-action-group">
@@ -218,8 +239,18 @@ export default function MyCasesPage() {
                               navigate(base + row.linkPath);
                             }
                           }}
-                        >Resume ›</span>
+                        >Resume &rsaquo;</span>
                       </div>
+                    ) : row.actionLabel === 'Resume' ? (
+                      <span
+                        className="cl-ml-action-link"
+                        onClick={function () {
+                          if (row.linkPath) {
+                            sessionStorage.setItem('viewingCase', JSON.stringify(row));
+                            navigate(base + row.linkPath);
+                          }
+                        }}
+                      >Resume &rsaquo;</span>
                     ) : (
                       <span
                         className="cl-ml-action-link"
@@ -229,7 +260,7 @@ export default function MyCasesPage() {
                             navigate(base + row.linkPath);
                           }
                         }}
-                      >View Details ›</span>
+                      >View Details &rsaquo;</span>
                     )}
                   </td>
                 </tr>
@@ -292,14 +323,22 @@ export default function MyCasesPage() {
                 <div className="cl-ml-card-mobile__id">{row.id}</div>
               </div>
               <div className="cl-ml-card-mobile__row">
-                <span className="cl-ml-card-mobile__label">Last Update</span>
-                <span className="cl-ml-card-mobile__value">{row.lastUpdate}</span>
+                <span className="cl-ml-card-mobile__label">Date</span>
+                <span className="cl-ml-card-mobile__value">{row.date || row.lastUpdate}</span>
+              </div>
+              <div className="cl-ml-card-mobile__row">
+                <span className="cl-ml-card-mobile__label">Leave Type</span>
+                <span className="cl-ml-card-mobile__value">{row.leaveType || 'Leave'}</span>
               </div>
               <div className="cl-ml-card-mobile__row">
                 <span className="cl-ml-card-mobile__label">Status</span>
                 <span className="cl-ml-card-mobile__value">
                   <span className="cl-ml-status-pill">{row.status}</span>
                 </span>
+              </div>
+              <div className="cl-ml-card-mobile__row">
+                <span className="cl-ml-card-mobile__label">Associated Claims</span>
+                <span className="cl-ml-card-mobile__value">{row.associatedClaims || 'N/A'}</span>
               </div>
               <div className="cl-ml-card-mobile__row">
                 <span className="cl-ml-card-mobile__label">Required Actions</span>
@@ -317,7 +356,7 @@ export default function MyCasesPage() {
                           navigate(base + row.linkPath);
                         }
                       }}
-                    >Resume ›</button>
+                    >Resume &rsaquo;</button>
                   </>
                 ) : (
                   <button
@@ -328,7 +367,7 @@ export default function MyCasesPage() {
                         navigate(base + row.linkPath);
                       }
                     }}
-                  >View Details ›</button>
+                  >View Details &rsaquo;</button>
                 )}
               </div>
             </div>

@@ -4455,3 +4455,496 @@ select.ldb-detail-input {
     padding-top: 6px;
   }
 }
+
+/* ══════════════════════════════════════════════════════════════
+   Case Detail V2 — Tabbed Layout (Pregnancy, Birth & Bonding)
+   ══════════════════════════════════════════════════════════════ */
+
+/* ── TITLE SECTION ── */
+.ldb-detail-title-section {
+  margin-bottom: 24px;
+}
+.ldb-detail-title-row {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 8px;
+}
+.ldb-detail-title {
+  font-family: 'Source Sans Pro', sans-serif;
+  font-size: 36px;
+  font-weight: 700;
+  color: #003a70;
+  margin: 0;
+  line-height: 1.2;
+}
+.ldb-detail-status-badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 4px 14px;
+  background: #fef3c7;
+  color: #92400e;
+  border-radius: 999px;
+  font-size: 13px;
+  font-weight: 600;
+}
+.ldb-detail-meta {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 14px;
+  color: #525252;
+}
+.ldb-detail-meta-id {
+  font-weight: 600;
+  color: #003a70;
+}
+.ldb-detail-meta-dates {
+  color: #525252;
+}
+.ldb-detail-meta-sep {
+  color: #d4d4d4;
+}
+.ldb-detail-meta-type {
+  color: #525252;
+}
+
+/* ── TABS ── */
+.ldb-detail-tabs {
+  display: flex;
+  gap: 0;
+  border-bottom: 2px solid #e2e2e5;
+  margin-bottom: 32px;
+}
+.ldb-detail-tab {
+  padding: 12px 20px;
+  font-family: 'Source Sans Pro', sans-serif;
+  font-size: 14px;
+  font-weight: 600;
+  color: #105fa8;
+  background: none;
+  border: none;
+  border-bottom: 2px solid transparent;
+  margin-bottom: -2px;
+  cursor: pointer;
+  transition: border-color 0.15s, color 0.15s;
+}
+.ldb-detail-tab:hover {
+  color: #003a70;
+}
+.ldb-detail-tab.active {
+  color: #003a70;
+  border-bottom-color: #003a70;
+}
+
+/* ── STATUS TRACKER ── */
+.ldb-status-tracker {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  padding: 0;
+  position: relative;
+}
+.ldb-status-step {
+  display: flex;
+  gap: 16px;
+  padding: 20px 0;
+  position: relative;
+}
+.ldb-status-step:not(:last-child)::after {
+  content: '';
+  position: absolute;
+  left: 7px;
+  top: 36px;
+  bottom: 0;
+  width: 2px;
+  background: #e2e2e5;
+}
+.ldb-status-step--complete:not(:last-child)::after {
+  background: #105fa8;
+}
+.ldb-status-step-icon {
+  flex-shrink: 0;
+  width: 16px;
+  height: 16px;
+  position: relative;
+  z-index: 1;
+}
+.ldb-status-step-content {
+  flex: 1;
+}
+.ldb-status-step-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 12px;
+  margin-bottom: 4px;
+}
+.ldb-status-step-title {
+  font-family: 'Source Sans Pro', sans-serif;
+  font-size: 15px;
+  font-weight: 600;
+  color: #171717;
+}
+.ldb-status-step--pending .ldb-status-step-title {
+  color: #737373;
+}
+.ldb-status-step-date {
+  font-size: 13px;
+  color: #737373;
+  white-space: nowrap;
+}
+.ldb-status-step-desc {
+  font-size: 14px;
+  color: #525252;
+  margin: 0;
+  line-height: 1.5;
+}
+.ldb-status-step-meta {
+  font-size: 12px;
+  color: #737373;
+  margin-top: 4px;
+}
+.ldb-status-step-action {
+  margin-top: 12px;
+}
+.ldb-status-step-btn {
+  display: inline-flex;
+  align-items: center;
+  padding: 8px 16px;
+  background: #fff;
+  border: 1px solid #e2e2e5;
+  border-radius: 6px;
+  font-family: 'Source Sans Pro', sans-serif;
+  font-size: 13px;
+  font-weight: 600;
+  color: #171717;
+  cursor: pointer;
+}
+.ldb-status-step-btn:hover {
+  background: #f8fbfd;
+}
+
+/* ── SIDEBAR: Leave Snapshot — stacked fields ── */
+.ldb-snapshot-fields {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+.ldb-snapshot-field {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+.ldb-snapshot-field-label {
+  font-size: 11px;
+  font-weight: 600;
+  color: #737373;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+.ldb-snapshot-field-value {
+  font-size: 15px;
+  font-weight: 700;
+  color: #003a70;
+}
+
+/* ── PAYMENTS TAB ── */
+.ldb-payments-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 24px;
+}
+.ldb-payments-all-btn {
+  display: inline-flex;
+  align-items: center;
+  padding: 8px 16px;
+  background: #105fa8;
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  font-family: 'Source Sans Pro', sans-serif;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+}
+.ldb-payments-all-btn:hover {
+  background: #0a4a85;
+}
+.ldb-payment-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 16px 0;
+  border-bottom: 1px solid #f0f0f2;
+}
+.ldb-payment-row:last-of-type {
+  border-bottom: none;
+}
+.ldb-payment-row-left {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+.ldb-payment-row-date {
+  font-size: 14px;
+  font-weight: 600;
+  color: #171717;
+}
+.ldb-payment-row-period {
+  font-size: 13px;
+  color: #737373;
+}
+.ldb-payment-row-right {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+.ldb-payment-row-amount {
+  font-size: 16px;
+  font-weight: 700;
+  color: #171717;
+}
+.ldb-payment-row-btn {
+  display: inline-flex;
+  align-items: center;
+  padding: 6px 12px;
+  background: #fff;
+  border: 1px solid #e2e2e5;
+  border-radius: 6px;
+  font-family: 'Source Sans Pro', sans-serif;
+  font-size: 13px;
+  font-weight: 600;
+  color: #105fa8;
+  cursor: pointer;
+}
+.ldb-payment-row-btn:hover {
+  background: #f8fbfd;
+}
+
+/* Payment Breakdown */
+.ldb-payment-breakdown {
+  margin-top: 16px;
+  padding: 20px 24px;
+  background: #f8fbfd;
+  border: 1px solid #e2e2e5;
+  border-radius: 8px;
+}
+.ldb-payment-breakdown-title {
+  font-size: 14px;
+  font-weight: 700;
+  color: #171717;
+  margin: 0 0 4px;
+}
+.ldb-payment-breakdown-sub {
+  font-size: 13px;
+  color: #737373;
+  margin: 0 0 16px;
+}
+.ldb-payment-breakdown-line {
+  display: flex;
+  justify-content: space-between;
+  padding: 8px 0;
+  font-size: 14px;
+  color: #525252;
+  border-bottom: 1px solid #f0f0f2;
+}
+.ldb-payment-breakdown-line:last-child {
+  border-bottom: none;
+}
+.ldb-payment-breakdown-total {
+  font-weight: 700;
+  color: #171717;
+  border-top: 1px solid #e2e2e5;
+  margin-top: 4px;
+  padding-top: 12px;
+}
+
+/* ── COMMUNICATIONS ACTIVITY TAB ── */
+.ldb-activity-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-family: 'Source Sans Pro', sans-serif;
+}
+.ldb-activity-table thead {
+  background: #f8fbfd;
+}
+.ldb-activity-table th {
+  padding: 12px 20px;
+  text-align: left;
+  font-size: 13px;
+  font-weight: 600;
+  color: #525252;
+  border-bottom: 1px solid #e2e2e5;
+}
+.ldb-activity-table td {
+  padding: 16px 20px;
+  vertical-align: top;
+  border-bottom: 1px solid #f0f0f2;
+}
+.ldb-activity-date {
+  font-size: 14px;
+  color: #525252;
+  white-space: nowrap;
+}
+.ldb-activity-name {
+  font-size: 14px;
+  font-weight: 600;
+  color: #171717;
+  margin-bottom: 2px;
+}
+.ldb-activity-desc {
+  font-size: 13px;
+  color: #525252;
+  line-height: 1.5;
+}
+.ldb-activity-link {
+  font-size: 13px;
+  color: #105fa8;
+  text-decoration: underline;
+  margin-top: 4px;
+  display: inline-block;
+}
+.ldb-activity-completed {
+  font-size: 14px;
+  color: #171717;
+}
+.ldb-activity-role {
+  font-size: 12px;
+  color: #737373;
+}
+
+/* ── ADDITIONAL BENEFITS SECTION ── */
+.ldb-additional-benefits {
+  background: #f8fbfd;
+  border: 1px solid #e2e2e5;
+}
+.ldb-additional-info {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 14px;
+  color: #525252;
+  margin-bottom: 20px;
+}
+.ldb-additional-benefit-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 16px 20px;
+  background: #fff;
+  border: 1px solid #e2e2e5;
+  border-radius: 8px;
+  margin-bottom: 12px;
+}
+.ldb-additional-benefit-item:last-child {
+  margin-bottom: 0;
+}
+.ldb-additional-benefit-title {
+  font-size: 15px;
+  font-weight: 600;
+  color: #171717;
+  margin-bottom: 2px;
+}
+.ldb-additional-benefit-desc {
+  font-size: 13px;
+  color: #525252;
+}
+.ldb-additional-benefit-action {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.ldb-additional-benefit-source {
+  font-size: 12px;
+  color: #737373;
+}
+.ldb-additional-benefit-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 16px;
+  background: #105fa8;
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  font-family: 'Source Sans Pro', sans-serif;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  white-space: nowrap;
+}
+.ldb-additional-benefit-btn:hover {
+  background: #0a4a85;
+}
+
+/* ── TIMELINE HEADER ROW ── */
+.dlp-tl-header-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 12px;
+  padding: 0 0 8px;
+  border-bottom: 1px solid #f0f0f2;
+}
+.dlp-tl-header-label {
+  font-size: 11px;
+  font-weight: 700;
+  color: #737373;
+  letter-spacing: 0.05em;
+}
+.dlp-tl-header-months {
+  display: flex;
+  gap: 40px;
+  font-size: 11px;
+  font-weight: 600;
+  color: #737373;
+}
+
+/* ── RESPONSIVE TABS ── */
+@media (max-width: 768px) {
+  .ldb-detail-title {
+    font-size: 24px;
+  }
+  .ldb-detail-title-row {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+  }
+  .ldb-detail-meta {
+    flex-wrap: wrap;
+    font-size: 13px;
+  }
+  .ldb-detail-tabs {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    margin-bottom: 20px;
+  }
+  .ldb-detail-tab {
+    padding: 10px 14px;
+    font-size: 13px;
+    white-space: nowrap;
+  }
+  .ldb-activity-table {
+    font-size: 13px;
+  }
+  .ldb-activity-table th,
+  .ldb-activity-table td {
+    padding: 12px;
+  }
+  .ldb-additional-benefit-item {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+  }
+  .ldb-payment-row {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+  }
+  .ldb-payment-row-right {
+    width: 100%;
+    justify-content: space-between;
+  }
+}
