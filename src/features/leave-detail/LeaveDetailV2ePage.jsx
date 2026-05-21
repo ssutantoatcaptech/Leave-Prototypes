@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Link, useNavigate, useLocation, useSearchParams } from 'react-router-dom';
+import { Link, useNavigate, useLocation } from 'react-router-dom';
 import './leave-detail-b.css';
 import '../absence-details/absence-details-react.css';
 
@@ -88,16 +88,9 @@ function SiteFooter() {
 
 export default function LeaveDetailV2ePage() {
   var location = useLocation();
-  var [searchParams, setSearchParams] = useSearchParams();
   var isMobile = location.pathname.startsWith('/claims-and-leave-mobile');
   var base = isMobile ? '/claims-and-leave-mobile' : '/claims-and-leave';
   var navigate = useNavigate();
-  var initialVersion = searchParams.get('v') || 'v2';
-  var [activeVersion, setActiveVersionState] = useState(initialVersion);
-  function setActiveVersion(v) {
-    setActiveVersionState(v);
-    setSearchParams({ v: v }, { replace: true });
-  }
   var [timelineView, setTimelineView] = useState('protection');
   var [hoveredRow, setHoveredRow] = useState(null);
   var [expandedClaims, setExpandedClaims] = useState({ absence: false, stateleave: false });
@@ -176,18 +169,9 @@ export default function LeaveDetailV2ePage() {
   }
 
 
-  var versionToolbar = (
-    <div style={{ position: 'fixed', bottom: 20, right: 20, zIndex: 9999, display: 'flex', gap: 0, background: '#fff', borderRadius: 8, boxShadow: '0 2px 12px rgba(0,0,0,0.15)', border: '1px solid #e2e2e5', overflow: 'hidden' }}>
-      <button type="button" onClick={function () { setActiveVersion('v1'); }} style={{ padding: '8px 16px', fontSize: 13, fontWeight: activeVersion === 'v1' ? 600 : 500, fontFamily: "'Source Sans Pro', sans-serif", border: 'none', cursor: 'pointer', background: activeVersion === 'v1' ? '#105fa8' : '#fff', color: activeVersion === 'v1' ? '#fff' : '#5d5d5d' }}>V1</button>
-      <button type="button" onClick={function () { setActiveVersion('v2'); }} style={{ padding: '8px 16px', fontSize: 13, fontWeight: activeVersion === 'v2' ? 600 : 500, fontFamily: "'Source Sans Pro', sans-serif", border: 'none', cursor: 'pointer', background: activeVersion === 'v2' ? '#105fa8' : '#fff', color: activeVersion === 'v2' ? '#fff' : '#5d5d5d' }}>V2</button>
-      <button type="button" onClick={function () { setActiveVersion('v3'); }} style={{ padding: '8px 16px', fontSize: 13, fontWeight: activeVersion === 'v3' ? 600 : 500, fontFamily: "'Source Sans Pro', sans-serif", border: 'none', cursor: 'pointer', background: activeVersion === 'v3' ? '#105fa8' : '#fff', color: activeVersion === 'v3' ? '#fff' : '#5d5d5d' }}>V3</button>
-    </div>
-  );
 
   return (
     <div className="ldb-page">
-      {versionToolbar}
-
       <div className="ldb-content">
         {/* Breadcrumb */}
         <div className="ldb-breadcrumb">
@@ -222,7 +206,6 @@ export default function LeaveDetailV2ePage() {
                 <button type="button" className={'ldb-detail-tab' + (detailTab === 'about' ? ' active' : '')} onClick={function () { setDetailTab('about'); }}>Leave Details</button>
                 <button type="button" className={'ldb-detail-tab' + (detailTab === 'activity' ? ' active' : '')} onClick={function () { setDetailTab('activity'); }}>Communications & Activity</button>
               </div>
-              {(activeVersion === 'v2' || activeVersion === 'v3') && (
               <div className="ldb-detail-dropdown-mobile">
                 <select
                   value={detailTab}
@@ -236,7 +219,6 @@ export default function LeaveDetailV2ePage() {
                   <option value="activity">Communications & Activity</option>
                 </select>
               </div>
-              )}
             </div>
 
             {/* Tab: Status Tracker */}
@@ -364,7 +346,6 @@ export default function LeaveDetailV2ePage() {
             {detailTab === 'claims' && (
             <>
             {/* Coverage Timeline */}
-            {(activeVersion === 'v2' || activeVersion === 'v3') ? (
             <div className="ldb-card dt-timeline-wrap">
                 <div className="ad-section-header">
                   <div>
@@ -380,11 +361,7 @@ export default function LeaveDetailV2ePage() {
                 <p className="ad-section-helper ad-section-helper--desktop">Hover over a benefit to see details.</p>
                 <p className="ad-section-helper ad-section-helper--mobile">Tap a row to see details</p>
 
-                {/* V2 Milestone Timeline — 12 months */}
-                <div style={{ padding: activeVersion === 'v3' ? '6px 0 0' : '16px 0 0' }}>
-                  {/* V3: unified table container wrapping months + weeks + bars */}
-                  {activeVersion === 'v3' ? (
-                  <>
+                <div style={{ padding: '6px 0 0' }}>
                   {/* Desktop table view */}
                   <div className="v3-timeline-table-desktop" style={{ border: '1px solid #e5e7eb', borderRadius: 6, position: 'relative' }}>
                     {/* Months row with Coverage header */}
@@ -571,101 +548,6 @@ export default function LeaveDetailV2ePage() {
                       );
                     })}
                   </div>
-                  </>
-                  ) : (
-                  <>
-                  {/* V1/V2: separate month labels + bars */}
-                  <div className="v2-month-labels" style={{ display: 'flex', marginBottom: 8, paddingLeft: 50, position: 'relative' }}>
-                    {['Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec','Jan','Feb'].map(function (m, i) {
-                      return <span key={m} className={i % 3 !== 0 ? 'v2-month-hide-mobile' : ''} style={{ flex: 1, fontFamily: "'Source Sans Pro', sans-serif", fontSize: 11, color: i >= 10 ? '#6b7280' : '#9ca3af', fontWeight: i >= 10 ? 600 : 400, textAlign: 'left' }}>{m}</span>;
-                    })}
-                    <span style={{ position: 'absolute', left: 'calc(50px + 83.33%)', top: -14, fontFamily: "'Source Sans Pro', sans-serif", fontSize: 10, color: '#6b7280', fontWeight: 600 }}>2027</span>
-                  </div>
-                  <div className="ldb-tl-rows-wrap" style={{ display: 'flex', flexDirection: 'column', gap: 0, position: 'relative' }}>
-                    <div style={{ position: 'absolute', top: 0, bottom: 0, left: 50, right: 0, pointerEvents: 'none', zIndex: 0 }}>
-                      {[0,1,2,3,4,5,6,7,8,9,10,11].map(function (i) {
-                        var isYearBoundary = i === 10;
-                        return <div key={i} style={{ position: 'absolute', left: (i / 12 * 100) + '%', top: 0, bottom: 0, width: 1, borderLeft: isYearBoundary ? '1.5px dashed #9ca3af' : '1px dotted #e5e7eb' }} />;
-                      })}
-                    </div>
-                    {(timelineView === 'payment' ? [
-                      { id: 'std', label: 'STD', startPct: 0, widthPct: 15.3, accent: '#2563eb', name: 'Short-Term Disability', weeks: '8 weeks', range: 'Mar 15 – May 10, 2026', pay: '60% of pre-disability earnings', status: 'Approved', paymentValue: '~$1,125/wk' },
-                      { id: 'pfml', label: 'PFML', startPct: 15.3, widthPct: 7.7, accent: '#0d9488', name: 'Paid Family & Medical Leave', weeks: '4 weeks', range: 'May 11 – Jun 07, 2026', pay: 'State benefit', status: 'Approved', paymentValue: '~$981/wk' },
-                    ] : [
-                      { id: 'fmla', label: 'FMLA', startPct: 0, widthPct: 23, accent: '#003a70', name: 'FMLA (Birthing Parent)', weeks: '12 weeks', range: 'Mar 15 – Jun 07, 2026', pay: 'Job protection (unpaid)', status: 'Approved' },
-                      { id: 'std', label: 'STD', startPct: 0, widthPct: 15.3, accent: '#2563eb', name: 'Short-Term Disability', weeks: '8 weeks', range: 'Mar 15 – May 10, 2026', pay: '60% of pre-disability earnings', status: 'Approved' },
-                      { id: 'pfml', label: 'PFML', startPct: 15.3, widthPct: 7.7, accent: '#0d9488', name: 'Paid Family & Medical Leave', weeks: '4 weeks', range: 'May 11 – Jun 07, 2026', pay: 'State benefit', status: 'Approved' },
-                    ]).map(function (item) {
-                      return (
-                        <div key={item.id} style={{ position: 'relative', zIndex: 1 }}>
-                          <button
-                            type="button"
-                            className={hoveredRow === item.id ? 'active' : ''}
-                            onMouseEnter={function () { if (!('ontouchstart' in window)) setHoveredRow(item.id); }}
-                            onMouseLeave={function () { if (!('ontouchstart' in window)) setHoveredRow(null); }}
-                            onClick={function () { setHoveredRow(hoveredRow === item.id ? null : item.id); }}
-                            style={{ display: 'flex', alignItems: 'center', gap: 10, width: '100%', padding: '10px 0', border: 'none', background: hoveredRow === item.id ? '#f8fafc' : 'transparent', cursor: 'pointer', borderRadius: 6, transition: 'background 0.15s' }}
-                          >
-                            <span style={{ fontFamily: "'Source Sans Pro', sans-serif", fontSize: 12, fontWeight: 600, color: '#374151', width: 40, textAlign: 'left', flexShrink: 0 }}>{item.label}</span>
-                            <div style={{ flex: 1, position: 'relative', height: 28, display: 'flex', alignItems: 'center' }}>
-                              <div style={{ position: 'absolute', left: 0, right: 0, height: 8, background: '#e2e5ea', borderRadius: 4 }} />
-                              <div style={{ position: 'absolute', left: item.startPct + '%', width: item.widthPct + '%', height: 8, background: item.accent, borderRadius: 4 }} />
-                            </div>
-                          </button>
-                          {hoveredRow === item.id && (
-                            <div className="ad-coverage-tooltip" style={{ position: 'absolute', bottom: '100%', top: 'auto', left: item.startPct + '%', transform: 'none', marginBottom: 4, marginTop: 0, zIndex: 10, width: 320 }}>
-                              <div className="ad-coverage-tooltip-head">
-                                <div className="title">{item.name}</div>
-                              </div>
-                              <div className="ad-coverage-tooltip-grid">
-                                <div>
-                                  <div className="label">{timelineView === 'payment' ? 'Est. Weekly' : 'Status'}</div>
-                                  <div className="value">{timelineView === 'payment' ? item.paymentValue : item.status}</div>
-                                </div>
-                                <div>
-                                  <div className="label">Duration</div>
-                                  <div className="value">{item.weeks}</div>
-                                </div>
-                                <div>
-                                  <div className="label">Dates</div>
-                                  <div className="value">{item.range}</div>
-                                </div>
-                                <div>
-                                  <div className="label">Pay</div>
-                                  <div className="value">{item.pay}</div>
-                                </div>
-                              </div>
-                            </div>
-                          )}
-                          {hoveredRow === item.id && (
-                            <div className="dlp-tl-mobile-accordion">
-                              <div className="dlp-tl-mobile-accordion__title">{item.name}</div>
-                              <div className="dlp-tl-mobile-accordion__grid">
-                                <div className="dlp-tl-mobile-accordion__field">
-                                  <span className="dlp-tl-mobile-accordion__label">{timelineView === 'payment' ? 'Est. Weekly' : 'Status'}</span>
-                                  <span className="dlp-tl-mobile-accordion__value">{timelineView === 'payment' ? item.paymentValue : item.status}</span>
-                                </div>
-                                <div className="dlp-tl-mobile-accordion__field">
-                                  <span className="dlp-tl-mobile-accordion__label">Duration</span>
-                                  <span className="dlp-tl-mobile-accordion__value">{item.weeks}</span>
-                                </div>
-                                <div className="dlp-tl-mobile-accordion__field">
-                                  <span className="dlp-tl-mobile-accordion__label">Dates</span>
-                                  <span className="dlp-tl-mobile-accordion__value">{item.range}</span>
-                                </div>
-                                <div className="dlp-tl-mobile-accordion__field">
-                                  <span className="dlp-tl-mobile-accordion__label">Pay</span>
-                                  <span className="dlp-tl-mobile-accordion__value">{item.pay}</span>
-                                </div>
-                              </div>
-                            </div>
-                          )}
-                        </div>
-                      );
-                    })}
-                  </div>
-                  </>
-                  )}
 
                   {/* Legend */}
                   <div style={{ display: 'flex', flexWrap: 'wrap', gap: 16, marginTop: 14, paddingLeft: 0 }}>
@@ -877,7 +759,6 @@ export default function LeaveDetailV2ePage() {
                   </div>
                 </div>
             </div>
-            )}
 
             <div className="ldb-card">
               <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 20 }}>
