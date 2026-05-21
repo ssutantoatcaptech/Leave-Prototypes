@@ -165,30 +165,8 @@ export default function ManagerLayout() {
       {/* Desktop Footer */}
       <footer className="mgr-footer mgr-footer--desktop">
         <div className="mgr-footer-inner">
-          <h2 className="mgr-footer-brand">my<strong>Mutual</strong></h2>
-          <div className="mgr-footer-grid">
-            <div className="mgr-footer-col">
-              <h4 className="mgr-footer-heading">Manager Tools</h4>
-              <a href="#" className="mgr-footer-link">Absence Calendar</a>
-              <a href="#" className="mgr-footer-link">My Team</a>
-              <a href="#" className="mgr-footer-link">Tasks & Notifications</a>
-              <a href="#" className="mgr-footer-link">Return to Work</a>
-            </div>
-            <div className="mgr-footer-col">
-              <h4 className="mgr-footer-heading">Support</h4>
-              <a href="#" className="mgr-footer-link">Get Help</a>
-              <a href="#" className="mgr-footer-link">Send a Message</a>
-              <a href="#" className="mgr-footer-link">FAQs</a>
-              <a href="#" className="mgr-footer-link">Live Chat</a>
-            </div>
-            <div className="mgr-footer-col">
-              <h4 className="mgr-footer-heading">Quick Links</h4>
-              <a href="#" className="mgr-footer-link">Employee View</a>
-              <a href="#" className="mgr-footer-link">Company Policies</a>
-              <a href="#" className="mgr-footer-link">Documents & Forms</a>
-            </div>
-          </div>
           <div className="mgr-footer-bottom">
+            <h2 className="mgr-footer-brand">my<strong>Mutual</strong></h2>
             <div className="mgr-footer-legal">
               <a href="#" className="mgr-footer-legal-link">Privacy Policy</a>
               <a href="#" className="mgr-footer-legal-link">Manage Cookie Preferences</a>
