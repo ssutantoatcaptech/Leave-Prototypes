@@ -122,7 +122,7 @@ export default function ClaimsAndLeaveLayout() {
           {/* Right: utility icons + avatar */}
           <div className="cl-header-right">
             <div className="cl-header-lang">
-              <svg width="20" height="20" viewBox="0 0 20 20" fill="none"><circle cx="10" cy="10" r="8.5" stroke="#222" strokeWidth="1.3"/><ellipse cx="10" cy="10" rx="4" ry="8.5" stroke="#222" strokeWidth="1.3"/><path d="M2 10h16M10 1.5c2 2 3.2 4.8 3.2 8.5s-1.2 6.5-3.2 8.5M10 1.5c-2 2-3.2 4.8-3.2 8.5s1.2 6.5 3.2 8.5" stroke="#222" strokeWidth="1.3"/></svg>
+              <svg width="20" height="20" viewBox="0 0 20 20" fill="none"><circle cx="10" cy="10" r="8.5" stroke="#002547" strokeWidth="1.3"/><ellipse cx="10" cy="10" rx="4" ry="8.5" stroke="#002547" strokeWidth="1.3"/><path d="M2 10h16M10 1.5c2 2 3.2 4.8 3.2 8.5s-1.2 6.5-3.2 8.5M10 1.5c-2 2-3.2 4.8-3.2 8.5s1.2 6.5 3.2 8.5" stroke="#002547" strokeWidth="1.3"/></svg>
               <span>ENG</span>
               <svg width="10" height="10" viewBox="0 0 10 10" fill="none"><path d="M2.5 4l2.5 2.5L7.5 4" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round" strokeLinejoin="round"/></svg>
             </div>
