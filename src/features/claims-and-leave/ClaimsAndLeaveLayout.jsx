@@ -45,30 +45,16 @@ export default function ClaimsAndLeaveLayout() {
   ];
 
   const subNavTabs = [
-    { label: 'Claims Center', to: base },
-    { label: 'My Leave', to: `${base}/my-cases` },
-    { label: 'Leave Planning Tool', to: `${base}/leave-planning` },
+    { label: 'Claim Center', to: base },
     { label: 'File a Claim or Leave', to: `${base}/file-claim` },
-    { label: 'Enter Missed Time', to: `${base}/enter-time` },
+    { label: 'My Cases', to: `${base}/my-cases` },
+    { label: 'Leave Planning Tool', to: `${base}/leave-planning` },
+    { label: 'Enter My Time', to: `${base}/enter-time` },
     { label: 'Payments', to: `${base}/payments` },
   ];
 
   return (
     <div className="cl-layout">
-      {/* Brand Header Bar */}
-      <div className="cl-brand-bar">
-        <div className="cl-brand-bar-inner">
-          <div className="cl-brand-bar-logo">
-            <svg width="20" height="20" viewBox="0 0 20 20" fill="none"><circle cx="10" cy="10" r="9" stroke="white" strokeWidth="1.5"/><path d="M5 10c0-2.8 2.2-5 5-5s5 2.2 5 5-2.2 5-5 5-5-2.2-5-5z" stroke="white" strokeWidth="1"/><path d="M7 8l3 2 3-2" stroke="white" strokeWidth="1" strokeLinecap="round"/></svg>
-            <span className="cl-brand-bar-name">Mutual of Omaha</span>
-          </div>
-          <div className="cl-brand-bar-right">
-            <span className="cl-brand-bar-label">GROUP ID:</span>
-            <span className="cl-brand-bar-value">G000CSM5</span>
-          </div>
-        </div>
-      </div>
-
       {/* Main Navigation Header */}
       <header className="cl-header">
         <div className="cl-header-inner">
@@ -90,7 +76,7 @@ export default function ClaimsAndLeaveLayout() {
                 </svg>
               )}
             </button>
-            <NavLink to={`${base}/dashboard`} className="cl-brand">my<strong>Mutual</strong></NavLink>
+            <NavLink to={`${base}/dashboard`} className="cl-brand">Benefit Hub</NavLink>
             {/* Desktop nav */}
             <nav className="cl-main-nav">
               {navLinks.map((link) => (
@@ -136,12 +122,12 @@ export default function ClaimsAndLeaveLayout() {
           {/* Right: utility icons + avatar */}
           <div className="cl-header-right">
             <div className="cl-header-lang">
-              <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><circle cx="8" cy="8" r="6.5" stroke="currentColor" strokeWidth="1.2"/><ellipse cx="8" cy="8" rx="3" ry="6.5" stroke="currentColor" strokeWidth="1.2"/><path d="M1.5 8h13" stroke="currentColor" strokeWidth="1.2"/></svg>
+              <svg width="20" height="20" viewBox="0 0 20 20" fill="none"><circle cx="10" cy="10" r="8.5" stroke="#222" strokeWidth="1.3"/><ellipse cx="10" cy="10" rx="4" ry="8.5" stroke="#222" strokeWidth="1.3"/><path d="M2 10h16M10 1.5c2 2 3.2 4.8 3.2 8.5s-1.2 6.5-3.2 8.5M10 1.5c-2 2-3.2 4.8-3.2 8.5s1.2 6.5 3.2 8.5" stroke="#222" strokeWidth="1.3"/></svg>
               <span>ENG</span>
               <svg width="10" height="10" viewBox="0 0 10 10" fill="none"><path d="M2.5 4l2.5 2.5L7.5 4" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round" strokeLinejoin="round"/></svg>
             </div>
-            <button className="cl-header-icon-btn" aria-label="ID Cards">
-              <svg width="22" height="16" viewBox="0 0 22 16" fill="none">
+            <button className="cl-header-icon-btn cl-header-icon-btn--labeled" aria-label="ID Cards">
+              <svg width="20" height="16" viewBox="0 0 22 16" fill="none">
                 <rect x="1" y="1" width="20" height="14" rx="2" stroke="currentColor" strokeWidth="1.5"/>
                 <circle cx="8.5" cy="7" r="2" stroke="currentColor" strokeWidth="1.2"/>
                 <path d="M5 13c0-2 1.5-3 3.5-3s3.5 1 3.5 3" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round"/>
@@ -158,13 +144,12 @@ export default function ClaimsAndLeaveLayout() {
             </button>
             <div className={`cl-avatar-dropdown${profileOpen ? ' open' : ''}`} ref={profileRef}>
               <button className="cl-avatar" type="button" onClick={() => setProfileOpen(!profileOpen)}>
-                <span className="cl-avatar-circle">SJ</span>
+                <span className="cl-avatar-circle">AB</span>
                 <span className="cl-avatar-name">Sarah Johnson</span>
-                <svg className="cl-avatar-chevron" width="10" height="10" viewBox="0 0 10 10" fill="none"><path d="M2.5 4l2.5 2.5L7.5 4" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round" strokeLinejoin="round"/></svg>
               </button>
               <div className="cl-avatar-dropdown-menu">
                 <div className="cl-avatar-dropdown-profile">
-                  <span className="cl-avatar-circle">SJ</span>
+                  <span className="cl-avatar-circle">AB</span>
                   <div className="cl-avatar-dropdown-profile-info">
                     <strong>Sarah Johnson</strong>
                     <span>Employee Account</span>
@@ -326,7 +311,7 @@ export default function ClaimsAndLeaveLayout() {
       {/* Desktop Footer */}
       <footer className="cl-footer cl-footer--desktop">
         <div className="cl-footer-inner">
-          <h2 className="cl-footer-brand">my<strong>Mutual</strong></h2>
+          <h2 className="cl-footer-brand">Benefit Hub</h2>
           <div className="cl-footer-grid">
             <div className="cl-footer-col">
               <h4 className="cl-footer-heading">Benefits</h4>

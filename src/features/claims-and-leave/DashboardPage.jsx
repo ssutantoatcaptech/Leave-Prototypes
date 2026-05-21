@@ -32,10 +32,10 @@ export default function DashboardPage() {
   ];
 
   const subNavTabs = [
-    { label: 'Claims Center', to: base },
-    { label: 'My Leave', to: `${base}/my-cases` },
-    { label: 'Leave Planning Tool', to: `${base}/leave-planning` },
+    { label: 'Claim Center', to: base },
     { label: 'File a Claim or Leave', to: `${base}/file-claim` },
+    { label: 'My Cases', to: `${base}/my-cases` },
+    { label: 'Leave Planning Tool', to: `${base}/leave-planning` },
     { label: 'Enter My Time', to: `${base}/enter-time` },
     { label: 'Payments', to: `${base}/payments` },
   ];
@@ -61,7 +61,7 @@ export default function DashboardPage() {
                 </svg>
               )}
             </button>
-            <NavLink to="/" className="cl-brand">my<strong>Mutual</strong></NavLink>
+            <NavLink to="/" className="cl-brand">Benefit Hub</NavLink>
             <nav className="cl-main-nav">
               {navLinks.map((link) => (
                 link.dropdown ? (
@@ -103,23 +103,29 @@ export default function DashboardPage() {
             </nav>
           </div>
           <div className="cl-header-right">
-            <button className="cl-header-icon-btn" aria-label="ID Cards">
-              <svg width="26" height="20" viewBox="0 0 26 20" fill="none">
-                <rect x="1" y="1" width="24" height="18" rx="2" stroke="currentColor" strokeWidth="1.5"/>
-                <circle cx="10" cy="9" r="2.5" stroke="currentColor" strokeWidth="1.2"/>
-                <path d="M5.5 16c0-2.5 2-4 4.5-4s4.5 1.5 4.5 4" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round"/>
-                <path d="M17 7h4M17 10h4M17 13h3" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round"/>
+            <div className="cl-header-lang">
+              <svg width="20" height="20" viewBox="0 0 20 20" fill="none"><circle cx="10" cy="10" r="8.5" stroke="#222" strokeWidth="1.3"/><ellipse cx="10" cy="10" rx="4" ry="8.5" stroke="#222" strokeWidth="1.3"/><path d="M2 10h16M10 1.5c2 2 3.2 4.8 3.2 8.5s-1.2 6.5-3.2 8.5M10 1.5c-2 2-3.2 4.8-3.2 8.5s1.2 6.5 3.2 8.5" stroke="#222" strokeWidth="1.3"/></svg>
+              <span>ENG</span>
+              <svg width="10" height="10" viewBox="0 0 10 10" fill="none"><path d="M2.5 4l2.5 2.5L7.5 4" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round" strokeLinejoin="round"/></svg>
+            </div>
+            <button className="cl-header-icon-btn cl-header-icon-btn--labeled" aria-label="ID Cards">
+              <svg width="20" height="16" viewBox="0 0 22 16" fill="none">
+                <rect x="1" y="1" width="20" height="14" rx="2" stroke="currentColor" strokeWidth="1.5"/>
+                <circle cx="8.5" cy="7" r="2" stroke="currentColor" strokeWidth="1.2"/>
+                <path d="M5 13c0-2 1.5-3 3.5-3s3.5 1 3.5 3" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round"/>
+                <path d="M14 5h4M14 7.5h4M14 10h3" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round"/>
               </svg>
+              <span className="cl-header-icon-label">ID Cards</span>
             </button>
             <button className="cl-header-icon-btn cl-header-bell" aria-label="Notifications">
-              <svg width="20" height="22" viewBox="0 0 20 22" fill="none">
-                <path d="M10 1c-1.5 0-2.8.6-3.8 1.5C5.2 3.6 4.5 5.2 4.5 7v4.5L3 13.5V15h14v-1.5l-1.5-2V7c0-1.8-.7-3.4-1.7-4.5C12.8 1.6 11.5 1 10 1z" stroke="currentColor" strokeWidth="1.5" strokeLinejoin="round"/>
-                <path d="M7.5 15v.5a2.5 2.5 0 005 0V15" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"/>
+              <svg width="18" height="20" viewBox="0 0 18 20" fill="none">
+                <path d="M9 1c-1.3 0-2.5.5-3.3 1.3C4.8 3.2 4.2 4.7 4.2 6.2v4L3 12.2V13.5h12v-1.3l-1.2-2V6.2c0-1.5-.6-3-1.5-4C11.5 1.5 10.3 1 9 1z" stroke="currentColor" strokeWidth="1.5" strokeLinejoin="round"/>
+                <path d="M6.8 13.5v.3a2.2 2.2 0 004.4 0v-.3" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"/>
               </svg>
               <span className="cl-bell-dot" />
             </button>
             <div className="cl-avatar">
-              <span className="cl-avatar-circle">SJ</span>
+              <span className="cl-avatar-circle">AB</span>
               <span className="cl-avatar-name">Sarah Johnson</span>
             </div>
           </div>
