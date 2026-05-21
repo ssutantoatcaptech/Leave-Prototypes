@@ -4538,6 +4538,23 @@ select.ldb-detail-input {
 }
 
 /* ── STATUS TRACKER ── */
+.ldb-status-card {
+  padding: 28px 32px;
+}
+.ldb-status-card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 24px;
+}
+.ldb-status-remaining-badge {
+  font-size: 12px;
+  font-weight: 600;
+  color: #525252;
+  background: #f0f0f2;
+  padding: 4px 12px;
+  border-radius: 999px;
+}
 .ldb-status-tracker {
   display: flex;
   flex-direction: column;
@@ -4547,51 +4564,70 @@ select.ldb-detail-input {
 }
 .ldb-status-step {
   display: flex;
-  gap: 16px;
-  padding: 20px 0;
+  gap: 20px;
+  padding: 0;
   position: relative;
 }
-.ldb-status-step:not(:last-child)::after {
-  content: '';
-  position: absolute;
-  left: 7px;
-  top: 36px;
-  bottom: 0;
-  width: 2px;
-  background: #e2e2e5;
-}
-.ldb-status-step--complete:not(:last-child)::after {
-  background: #105fa8;
+.ldb-status-step-line-wrap {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  flex-shrink: 0;
+  width: 24px;
 }
 .ldb-status-step-icon {
   flex-shrink: 0;
-  width: 16px;
-  height: 16px;
+  width: 24px;
+  height: 24px;
   position: relative;
   z-index: 1;
 }
+.ldb-status-step-line {
+  flex: 1;
+  width: 2px;
+  background: #e2e2e5;
+  min-height: 24px;
+}
+.ldb-status-step-line--filled {
+  background: #105fa8;
+}
+.ldb-status-step--last .ldb-status-step-line-wrap .ldb-status-step-line {
+  display: none;
+}
 .ldb-status-step-content {
   flex: 1;
+  padding-bottom: 28px;
+}
+.ldb-status-step--last .ldb-status-step-content {
+  padding-bottom: 0;
 }
 .ldb-status-step-header {
   display: flex;
   justify-content: space-between;
   align-items: flex-start;
   gap: 12px;
-  margin-bottom: 4px;
+  margin-bottom: 6px;
 }
 .ldb-status-step-title {
   font-family: 'Source Sans Pro', sans-serif;
   font-size: 15px;
   font-weight: 600;
   color: #171717;
+  line-height: 1.4;
 }
 .ldb-status-step--pending .ldb-status-step-title {
-  color: #737373;
+  color: #525252;
 }
 .ldb-status-step-date {
   font-size: 13px;
-  color: #737373;
+  font-weight: 400;
+  color: #525252;
+  white-space: nowrap;
+}
+.ldb-status-step-date-muted {
+  font-size: 13px;
+  font-weight: 400;
+  color: #a3a3a3;
   white-space: nowrap;
 }
 .ldb-status-step-desc {
@@ -4600,28 +4636,78 @@ select.ldb-detail-input {
   margin: 0;
   line-height: 1.5;
 }
+.ldb-status-step--pending .ldb-status-step-desc {
+  color: #737373;
+}
 .ldb-status-step-meta {
-  font-size: 12px;
+  font-size: 13px;
   color: #737373;
   margin-top: 4px;
 }
-.ldb-status-step-action {
-  margin-top: 12px;
+.ldb-status-step--active .ldb-status-step-content {
+  background: #f8fbfd;
+  border: 1px solid #dfebf6;
+  border-radius: 10px;
+  padding: 16px 20px 20px;
+  margin-top: -4px;
+  margin-bottom: 28px;
 }
-.ldb-status-step-btn {
+.ldb-status-step-actions {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: 14px;
+}
+.ldb-status-action-btn {
   display: inline-flex;
   align-items: center;
+  gap: 6px;
   padding: 8px 16px;
-  background: #fff;
-  border: 1px solid #e2e2e5;
   border-radius: 6px;
   font-family: 'Source Sans Pro', sans-serif;
   font-size: 13px;
   font-weight: 600;
+  cursor: pointer;
+  border: none;
+}
+.ldb-status-action-btn--outline {
+  background: #fff;
+  border: 1px solid #e2e2e5;
+  color: #171717;
+}
+.ldb-status-action-btn--outline:hover {
+  background: #f8fbfd;
+}
+.ldb-status-action-btn--primary {
+  background: #105fa8;
+  color: #fff;
+}
+.ldb-status-action-btn--primary:hover {
+  background: #0a4a85;
+}
+.ldb-status-step-upload-hint {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-top: 12px;
+  font-size: 13px;
+  color: #737373;
+}
+.ldb-status-step-sub-card {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 12px;
+  padding: 10px 16px;
+  background: #fff;
+  border: 1px solid #e2e2e5;
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: 500;
   color: #171717;
   cursor: pointer;
 }
-.ldb-status-step-btn:hover {
+.ldb-status-step-sub-card:hover {
   background: #f8fbfd;
 }
 

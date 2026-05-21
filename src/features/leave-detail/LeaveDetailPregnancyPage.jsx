@@ -109,71 +109,112 @@ export default function LeaveDetailPregnancyPage() {
 
   function renderStatusTab() {
     return (
-      <div className="ldb-card">
-        <h2 className="ldb-card-title">Status Tracker</h2>
+      <div className="ldb-card ldb-status-card">
+        <div className="ldb-status-card-header">
+          <h2 className="ldb-card-title">Status Tracker</h2>
+          <span className="ldb-status-remaining-badge">5 Task Results Remaining</span>
+        </div>
         <div className="ldb-status-tracker">
+          {/* Step 1: Complete */}
           <div className="ldb-status-step ldb-status-step--complete">
-            <div className="ldb-status-step-icon">
-              <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><circle cx="8" cy="8" r="7" fill="#105fa8"/><path d="M5 8l2 2 4-4" stroke="#fff" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/></svg>
+            <div className="ldb-status-step-line-wrap">
+              <div className="ldb-status-step-icon">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="11" fill="#105fa8"/><path d="M7 12l3.5 3.5 6.5-6.5" stroke="#fff" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/></svg>
+              </div>
+              <div className="ldb-status-step-line ldb-status-step-line--filled"></div>
             </div>
             <div className="ldb-status-step-content">
               <div className="ldb-status-step-header">
                 <span className="ldb-status-step-title">Leave Request Submitted — Case NTN 17892</span>
-                <span className="ldb-status-step-date">May 14, 2024</span>
+                <span className="ldb-status-step-date">Completed: Jul 15, 2024</span>
               </div>
-              <p className="ldb-status-step-desc">Your leave request has been submitted. Estimated initial determination: 5 business days from submission.</p>
-              <div className="ldb-status-step-meta">File closed NTN 7300 12.23</div>
+              <p className="ldb-status-step-desc">You have successfully submitted a new leave request to Mutual of Omaha. Associated claims will be filed.</p>
+              <div className="ldb-status-step-meta">File closed NTN 87M 500 43.10</div>
+              <div className="ldb-status-step-meta">STD Benefit NTN 5747 500 42.12</div>
             </div>
           </div>
 
+          {/* Step 2: Active */}
           <div className="ldb-status-step ldb-status-step--active">
-            <div className="ldb-status-step-icon">
-              <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><circle cx="8" cy="8" r="7" stroke="#105fa8" strokeWidth="1.5" fill="#fff"/><circle cx="8" cy="8" r="3" fill="#105fa8"/></svg>
+            <div className="ldb-status-step-line-wrap">
+              <div className="ldb-status-step-icon">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="10.5" stroke="#105fa8" strokeWidth="1.5" fill="#fff"/><circle cx="12" cy="12" r="5" fill="#105fa8"/></svg>
+              </div>
+              <div className="ldb-status-step-line"></div>
             </div>
             <div className="ldb-status-step-content">
               <div className="ldb-status-step-header">
                 <span className="ldb-status-step-title">Complete Medical Certification</span>
-                <span className="ldb-status-step-date">Due by Jun 10, 2024</span>
+                <span className="ldb-status-step-date">Due Jul 30, 2024</span>
               </div>
-              <p className="ldb-status-step-desc">Your healthcare provider to complete the required medical certification form.</p>
+              <p className="ldb-status-step-desc">Have your healthcare provider complete the required medical certification form.</p>
+              <div className="ldb-status-step-actions">
+                <button type="button" className="ldb-status-action-btn ldb-status-action-btn--outline">
+                  <svg width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M8 12V4M8 4l-3.5 3.5M8 4l3.5 3.5" stroke="currentColor" strokeWidth="1.3" strokeLinecap="round" strokeLinejoin="round"/><path d="M3 14h10" stroke="currentColor" strokeWidth="1.3" strokeLinecap="round"/></svg>
+                  Download
+                </button>
+                <button type="button" className="ldb-status-action-btn ldb-status-action-btn--primary">
+                  <svg width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M8 4v8M8 4l-3.5 3.5M8 4l3.5 3.5" stroke="currentColor" strokeWidth="1.3" strokeLinecap="round" strokeLinejoin="round"/><path d="M3 14h10" stroke="currentColor" strokeWidth="1.3" strokeLinecap="round"/></svg>
+                  Upload
+                </button>
+              </div>
+              <div className="ldb-status-step-upload-hint">
+                <svg width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M8 4v8M8 4l-3 3M8 4l3 3" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round" strokeLinejoin="round"/></svg>
+                Upload completed form
+              </div>
             </div>
           </div>
 
+          {/* Step 3: Pending */}
           <div className="ldb-status-step ldb-status-step--pending">
-            <div className="ldb-status-step-icon">
-              <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><circle cx="8" cy="8" r="7" stroke="#d4d4d4" strokeWidth="1.5" fill="#fff"/></svg>
+            <div className="ldb-status-step-line-wrap">
+              <div className="ldb-status-step-icon">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="10.5" stroke="#d4d4d8" strokeWidth="1.5" fill="#fff"/></svg>
+              </div>
+              <div className="ldb-status-step-line"></div>
             </div>
             <div className="ldb-status-step-content">
               <div className="ldb-status-step-header">
                 <span className="ldb-status-step-title">Confirm Child&rsquo;s Arrival</span>
+                <span className="ldb-status-step-date-muted">Confirm birth date</span>
               </div>
               <p className="ldb-status-step-desc">Notify us when your child is born to activate the bonding portion of your leave.</p>
             </div>
           </div>
 
+          {/* Step 4: Pending */}
           <div className="ldb-status-step ldb-status-step--pending">
-            <div className="ldb-status-step-icon">
-              <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><circle cx="8" cy="8" r="7" stroke="#d4d4d4" strokeWidth="1.5" fill="#fff"/></svg>
+            <div className="ldb-status-step-line-wrap">
+              <div className="ldb-status-step-icon">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="10.5" stroke="#d4d4d8" strokeWidth="1.5" fill="#fff"/></svg>
+              </div>
+              <div className="ldb-status-step-line"></div>
             </div>
             <div className="ldb-status-step-content">
               <div className="ldb-status-step-header">
                 <span className="ldb-status-step-title">File your California EDD bonding claim</span>
+                <span className="ldb-status-step-date-muted">Start EDD</span>
               </div>
-              <div className="ldb-status-step-action">
-                <button type="button" className="ldb-status-step-btn">California Benefit Portal</button>
+              <p className="ldb-status-step-desc">Apply to file your own your EDD bonding claim.</p>
+              <div className="ldb-status-step-sub-card">
+                <svg width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M4 2h10v10M14 2L2 14" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round" strokeLinejoin="round"/></svg>
+                <span>California Benefit Portal</span>
               </div>
             </div>
           </div>
 
-          <div className="ldb-status-step ldb-status-step--pending">
-            <div className="ldb-status-step-icon">
-              <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><circle cx="8" cy="8" r="7" stroke="#d4d4d4" strokeWidth="1.5" fill="#fff"/></svg>
+          {/* Step 5: Pending */}
+          <div className="ldb-status-step ldb-status-step--pending ldb-status-step--last">
+            <div className="ldb-status-step-line-wrap">
+              <div className="ldb-status-step-icon">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="10.5" stroke="#d4d4d8" strokeWidth="1.5" fill="#fff"/></svg>
+              </div>
             </div>
             <div className="ldb-status-step-content">
               <div className="ldb-status-step-header">
                 <span className="ldb-status-step-title">Confirm Return to Work Date</span>
               </div>
-              <p className="ldb-status-step-desc">Confirm your return date as the end of leave approaches.</p>
+              <p className="ldb-status-step-desc">Notify us when your child is born to activate the bonding portion of your leave.</p>
             </div>
           </div>
         </div>
