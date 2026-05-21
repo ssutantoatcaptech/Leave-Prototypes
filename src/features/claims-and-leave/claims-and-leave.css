@@ -6371,6 +6371,11 @@
   border-color: #94a3b8;
 }
 
+.cl-std-pill--pending {
+  border-color: #f59e0b;
+  color: #92400e;
+}
+
 .cl-std-linked-callout {
   display: flex;
   align-items: center;

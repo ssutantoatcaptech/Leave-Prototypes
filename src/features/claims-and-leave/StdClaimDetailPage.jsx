@@ -7,8 +7,8 @@ import '../absence-details/absence-details-react.css';
 var CLAIM_VARIANTS = {
   std: {
     title: 'Short-Term Disability (STD) Claim',
-    status: 'Closed',
-    statusClass: 'cl-std-pill--closed',
+    status: 'Pending',
+    statusClass: 'cl-std-pill--pending',
     claimId: 'CLM-301822',
     filedDate: 'Feb 10, 2026',
     claimNumber: 'CLM-301822',
