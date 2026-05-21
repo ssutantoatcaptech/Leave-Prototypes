@@ -1063,6 +1063,61 @@ export default function LeaveDetailV2ePage() {
                   })}
                 </tbody>
               </table>
+
+              {/* Mobile Payment Cards */}
+              <div className="ldb-pay-mobile-list">
+                {[
+                  { id: 1, date: 'May 12, 2026', claim: 'CLM-12345-GDC', type: 'Short-Term Disability', net: '$2,308.00', method: 'Direct Deposit', status: 'Paid', gross: '$2,692.31', deposit: 'Chase ****4872', deductions: [{ label: 'Federal Tax', amount: '-$230.77' }, { label: 'State Tax', amount: '-$92.31' }, { label: 'FICA', amount: '-$38.46' }, { label: 'Medicare', amount: '-$22.15' }] },
+                  { id: 2, date: 'May 5, 2026', claim: 'CLM-12345-GDC', type: 'Short-Term Disability', net: '$2,308.00', method: 'Direct Deposit', status: 'Paid', gross: '$2,692.31', deposit: 'Chase ****4872', deductions: [{ label: 'Federal Tax', amount: '-$230.77' }, { label: 'State Tax', amount: '-$92.31' }, { label: 'FICA', amount: '-$38.46' }, { label: 'Medicare', amount: '-$22.15' }] },
+                  { id: 3, date: 'Apr 28, 2026', claim: 'CLM-12345-GDC', type: 'Short-Term Disability', net: '$2,308.00', method: 'Direct Deposit', status: 'Paid', gross: '$2,692.31', deposit: 'Chase ****4872', deductions: [{ label: 'Federal Tax', amount: '-$230.77' }, { label: 'State Tax', amount: '-$92.31' }, { label: 'FICA', amount: '-$38.46' }, { label: 'Medicare', amount: '-$22.15' }] },
+                  { id: 4, date: 'Apr 21, 2026', claim: 'CLM-12345-GDC', type: 'Short-Term Disability', net: '$969.00', method: 'Direct Deposit', status: 'Paid', gross: '$1,130.77', deposit: 'Chase ****4872', deductions: [{ label: 'Federal Tax', amount: '-$96.92' }, { label: 'State Tax', amount: '-$38.77' }, { label: 'FICA', amount: '-$16.15' }, { label: 'Medicare', amount: '-$9.93' }] },
+                  { id: 5, date: 'May 19, 2026', claim: 'CLM-12345-GDC', type: 'Short-Term Disability', net: '$2,308.00', method: 'Direct Deposit', status: 'Scheduled', gross: '$2,692.31', deposit: 'Chase ****4872', deductions: [{ label: 'Federal Tax', amount: '-$230.77' }, { label: 'State Tax', amount: '-$92.31' }, { label: 'FICA', amount: '-$38.46' }, { label: 'Medicare', amount: '-$22.15' }] },
+                ].map(function (row) {
+                  return (
+                    <div key={row.id} className={'ldb-pay-mobile-card' + (row.status === 'Scheduled' ? ' ldb-pay-mobile-card--scheduled' : '')}>
+                      <div className="ldb-pay-mobile-card-top">
+                        <span className="ldb-pay-mobile-card-amount">{row.net}</span>
+                        <span className={'ldb-pay-mobile-card-status' + (row.status === 'Scheduled' ? ' ldb-pay-mobile-card-status--scheduled' : '')}>{row.status}</span>
+                      </div>
+                      <div className="ldb-pay-mobile-card-meta">
+                        <span><strong>{row.date}</strong></span>
+                        <span>{row.type} &middot; {row.claim}</span>
+                        <span>{row.method} &middot; {row.deposit}</span>
+                      </div>
+                      <div className="ldb-pay-mobile-card-actions">
+                        <button type="button">View Statement</button>
+                        <button type="button" onClick={function () { setExpandedPayment(expandedPayment === row.id ? null : row.id); }}>
+                          {expandedPayment === row.id ? 'Hide' : 'Details'}
+                          <svg width="12" height="12" viewBox="0 0 12 12" fill="none" style={{ transform: expandedPayment === row.id ? 'rotate(180deg)' : 'rotate(0)', transition: 'transform 0.2s' }}>
+                            <path d="M3 4.5l3 3 3-3" stroke="currentColor" strokeWidth="1.3" strokeLinecap="round" strokeLinejoin="round"/>
+                          </svg>
+                        </button>
+                      </div>
+                      {expandedPayment === row.id && (
+                        <div className="ldb-pay-mobile-breakdown">
+                          <h4 className="ldb-pay-mobile-breakdown-title">Payment Breakdown</h4>
+                          <div className="ldb-pay-mobile-breakdown-row">
+                            <span>Gross Pay</span><span>{row.gross}</span>
+                          </div>
+                          {row.deductions.map(function (ded, j) {
+                            return (
+                              <div key={j} className="ldb-pay-mobile-breakdown-row">
+                                <span>{ded.label}</span><span>{ded.amount}</span>
+                              </div>
+                            );
+                          })}
+                          <div className="ldb-pay-mobile-breakdown-row ldb-pay-mobile-breakdown-row--total">
+                            <span>Net Amount</span><span>{row.net}</span>
+                          </div>
+                          <div className="ldb-pay-mobile-breakdown-row ldb-pay-mobile-breakdown-row--method">
+                            <span>Deposit</span><span>Direct Deposit — {row.deposit}</span>
+                          </div>
+                        </div>
+                      )}
+                    </div>
+                  );
+                })}
+              </div>
             </div>
             </>
             )}

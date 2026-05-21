@@ -3900,6 +3900,9 @@ select.ldb-detail-input {
 .ldb-pay-history-card {
   padding: 28px;
 }
+.ldb-pay-mobile-list {
+  display: none;
+}
 .ldb-pay-history-header {
   display: flex;
   align-items: center;
@@ -4115,7 +4118,7 @@ select.ldb-detail-input {
     padding: 16px;
   }
   .ldb-st-steps {
-    gap: 12px;
+    gap: 20px;
   }
   .ldb-st-header {
     margin-bottom: 16px;
@@ -4202,5 +4205,154 @@ select.ldb-detail-input {
     font-size: 11px;
     background: #fff3e0;
     color: #c0982a;
+  }
+
+  /* --- Mobile: Payments --- */
+  .ldb-pay-summary-card {
+    padding: 16px;
+  }
+  .ldb-pay-summary-stats {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1px;
+    background: #e2e2e5;
+    border-radius: 10px;
+    overflow: hidden;
+    padding: 0;
+    border: 1px solid #e2e2e5;
+  }
+  .ldb-pay-stat {
+    padding: 14px 12px;
+    background: #f9fafb;
+    align-items: flex-start;
+  }
+  .ldb-pay-stat-value {
+    font-size: 15px;
+    line-height: 20px;
+  }
+  .ldb-pay-stat-label {
+    font-size: 11px;
+  }
+  .ldb-pay-stat-divider {
+    display: none;
+  }
+  .ldb-pay-summary-note {
+    font-size: 12px;
+    margin-top: 12px;
+  }
+  .ldb-pay-history-card {
+    padding: 16px;
+  }
+  .ldb-pay-table {
+    display: none;
+  }
+  .ldb-pay-mobile-list {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+  .ldb-pay-mobile-card {
+    background: #fff;
+    border: 1px solid #e2e2e5;
+    border-left: 4px solid #105fa8;
+    border-radius: 8px;
+    padding: 14px;
+  }
+  .ldb-pay-mobile-card--scheduled {
+    border-left-color: #c0982a;
+  }
+  .ldb-pay-mobile-card-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 8px;
+  }
+  .ldb-pay-mobile-card-amount {
+    font-family: 'Source Sans Pro', sans-serif;
+    font-size: 18px;
+    font-weight: 700;
+    color: #0f0f14;
+  }
+  .ldb-pay-mobile-card-status {
+    font-family: 'Source Sans Pro', sans-serif;
+    font-size: 11px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.3px;
+    padding: 3px 8px;
+    border-radius: 4px;
+    background: #e8f5e9;
+    color: #2e7d32;
+  }
+  .ldb-pay-mobile-card-status--scheduled {
+    background: #fff3e0;
+    color: #c0982a;
+  }
+  .ldb-pay-mobile-card-meta {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    margin-bottom: 10px;
+  }
+  .ldb-pay-mobile-card-meta span {
+    font-family: 'Source Sans Pro', sans-serif;
+    font-size: 13px;
+    color: #525252;
+  }
+  .ldb-pay-mobile-card-meta strong {
+    color: #171717;
+    font-weight: 600;
+  }
+  .ldb-pay-mobile-card-actions {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-top: 10px;
+    border-top: 1px solid #f0f0f2;
+  }
+  .ldb-pay-mobile-card-actions button {
+    font-family: 'Source Sans Pro', sans-serif;
+    font-size: 13px;
+    font-weight: 500;
+    color: #003a70;
+    background: none;
+    border: none;
+    padding: 0;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+  }
+  .ldb-pay-mobile-breakdown {
+    margin-top: 12px;
+    padding-top: 12px;
+    border-top: 1px solid #f0f0f2;
+  }
+  .ldb-pay-mobile-breakdown-title {
+    font-family: 'Source Sans Pro', sans-serif;
+    font-size: 13px;
+    font-weight: 600;
+    color: #171717;
+    margin: 0 0 8px;
+  }
+  .ldb-pay-mobile-breakdown-row {
+    display: flex;
+    justify-content: space-between;
+    font-family: 'Source Sans Pro', sans-serif;
+    font-size: 13px;
+    color: #525252;
+    padding: 4px 0;
+  }
+  .ldb-pay-mobile-breakdown-row--total {
+    font-weight: 700;
+    color: #171717;
+    border-top: 1px solid #e2e2e5;
+    margin-top: 6px;
+    padding-top: 8px;
+  }
+  .ldb-pay-mobile-breakdown-row--method {
+    font-size: 12px;
+    color: #737373;
+    padding-top: 6px;
   }
 }
