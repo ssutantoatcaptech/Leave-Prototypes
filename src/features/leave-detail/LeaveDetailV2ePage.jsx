@@ -1438,9 +1438,9 @@ export default function LeaveDetailV2ePage() {
           {/* Right Sidebar — Redesigned */}
           <div className="ldb-sidebar">
 
-            {/* Quick Actions */}
+            {/* Quick Links */}
             <div className="ldb-side-card ldb-side-card--shadow">
-              <div className="ldb-quick-actions-label">QUICK ACTIONS</div>
+              <div className="ldb-quick-actions-label">Quick Links</div>
               <div className="ldb-quick-actions-list">
                 <button type="button" className="ldb-quick-action-item" onClick={function () { navigate(`${base}/enter-time`); }}>
                   <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><circle cx="8" cy="8" r="6" stroke="currentColor" strokeWidth="1.2"/><path d="M8 5v3l2 1.5" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round" strokeLinejoin="round"/></svg>
@@ -1470,6 +1470,25 @@ export default function LeaveDetailV2ePage() {
               </div>
             </div>
 
+            {/* Leave Snapshot */}
+            <div className="ldb-side-card">
+              <h3 className="ldb-side-title" style={{ marginBottom: 16 }}>Leave Snapshot</h3>
+              <div className="ldb-snapshot-list">
+                <div className="ldb-snapshot-item">
+                  <span className="ldb-snapshot-label">START DATE</span>
+                  <span className="ldb-snapshot-value">March 1, 2025</span>
+                </div>
+                <div className="ldb-snapshot-item">
+                  <span className="ldb-snapshot-label">END DATE</span>
+                  <span className="ldb-snapshot-value">April 25, 2025</span>
+                </div>
+                <div className="ldb-snapshot-item">
+                  <span className="ldb-snapshot-label">RETURN DATE</span>
+                  <span className="ldb-snapshot-value">April 26, 2025</span>
+                </div>
+              </div>
+            </div>
+
             {/* 4. Uploaded Documents */}
             <div className="ldb-side-card">
               <div className="ldb-docs-header">
@@ -1484,8 +1503,8 @@ export default function LeaveDetailV2ePage() {
                     <div className="ldb-doc-name">Medical_Certification.pdf</div>
                     <div className="ldb-doc-meta">Uploaded on Jul 29, 2026</div>
                   </div>
-                  <button type="button" className="ldb-doc-download-btn" aria-label="Download">
-                    <svg width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M8 4v8" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round"/><path d="M4.5 9.5L8 13l3.5-3.5" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round" strokeLinejoin="round"/><path d="M3 14h10" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round"/></svg>
+                  <button type="button" className="ldb-doc-more-btn" aria-label="More options">
+                    <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><circle cx="8" cy="3" r="1.2" fill="#105fa8"/><circle cx="8" cy="8" r="1.2" fill="#105fa8"/><circle cx="8" cy="13" r="1.2" fill="#105fa8"/></svg>
                   </button>
                 </div>
                 <div className="ldb-doc-item">
@@ -1493,8 +1512,8 @@ export default function LeaveDetailV2ePage() {
                     <div className="ldb-doc-name">Attending_Physician_Statement.pdf</div>
                     <div className="ldb-doc-meta">Uploaded on Jul 29, 2026</div>
                   </div>
-                  <button type="button" className="ldb-doc-download-btn" aria-label="Download">
-                    <svg width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M8 4v8" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round"/><path d="M4.5 9.5L8 13l3.5-3.5" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round" strokeLinejoin="round"/><path d="M3 14h10" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round"/></svg>
+                  <button type="button" className="ldb-doc-more-btn" aria-label="More options">
+                    <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><circle cx="8" cy="3" r="1.2" fill="#105fa8"/><circle cx="8" cy="8" r="1.2" fill="#105fa8"/><circle cx="8" cy="13" r="1.2" fill="#105fa8"/></svg>
                   </button>
                 </div>
               </div>
