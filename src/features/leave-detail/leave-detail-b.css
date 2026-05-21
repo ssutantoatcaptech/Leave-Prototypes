@@ -3266,6 +3266,14 @@ select.ldb-detail-input {
 .ldb-activity-cards {
   display: none;
 }
+@media (max-width: 768px) {
+  .ldb-activity-cards {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    padding: 0;
+  }
+}
 
 .ldb-activity-filters {
   display: flex;
