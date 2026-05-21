@@ -4155,7 +4155,7 @@ select.ldb-detail-input {
     padding: 3px 8px;
   }
   .ldb-st-steps {
-    gap: 0;
+    gap: 14px;
   }
   .ldb-st-step {
     gap: 12px;
@@ -4190,34 +4190,29 @@ select.ldb-detail-input {
     background: #105fa8;
   }
   .ldb-st-step-content {
-    padding-bottom: 16px;
-  }
-  .ldb-st-step--last .ldb-st-step-content {
     padding-bottom: 0;
   }
   .ldb-st-step-card {
-    padding: 0;
-    border-radius: 0;
-    border: none;
-    background: transparent;
-    box-shadow: none;
+    padding: 12px;
+    border-radius: 8px;
+    border: 1px solid #e5e5e5;
+    background: #fafafa;
   }
   .ldb-st-step-card--active {
-    border: none;
-    background: transparent;
+    border: 1px solid #105fa8;
+    background: #f0f7ff;
     box-shadow: none;
-    padding: 0;
   }
   .ldb-st-step-card--future {
-    opacity: 0.5;
-    background: transparent;
-    border: none;
+    opacity: 0.6;
+    background: #fff;
+    border: 1px solid #e5e5e5;
   }
   .ldb-st-step-top {
     flex-direction: column;
     align-items: flex-start;
     gap: 2px;
-    margin-bottom: 2px;
+    margin-bottom: 4px;
   }
   .ldb-st-step-title {
     font-size: 14px;
@@ -4276,7 +4271,7 @@ select.ldb-detail-input {
   }
   .ldb-st-sub-action {
     font-size: 13px;
-    background: #f9fafb;
+    background: #fff;
     border: 1px solid #e5e5e5;
     border-radius: 8px;
     padding: 10px 12px;
