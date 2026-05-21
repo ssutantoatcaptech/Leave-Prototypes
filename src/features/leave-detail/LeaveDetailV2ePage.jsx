@@ -514,7 +514,7 @@ export default function LeaveDetailV2ePage() {
                           key={item.id}
                           type="button"
                           onClick={function () { setHoveredRow(isExpanded ? null : item.id); }}
-                          style={{ display: 'flex', flexDirection: 'column', gap: 8, padding: '14px 16px', border: '1px solid ' + (isExpanded ? item.accent : '#e2e2e5'), borderRadius: 10, background: isExpanded ? '#f8fbfd' : '#fff', cursor: 'pointer', textAlign: 'left', width: '100%', transition: 'border-color 0.15s, background 0.15s' }}
+                          style={{ display: 'flex', flexDirection: 'column', gap: 10, padding: '18px 20px', border: '1px solid ' + (isExpanded ? item.accent : '#e2e2e5'), borderRadius: 10, background: isExpanded ? '#f0f4f8' : '#f8fafb', cursor: 'pointer', textAlign: 'left', width: '100%', transition: 'border-color 0.15s, background 0.15s' }}
                           aria-expanded={isExpanded}
                         >
                           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', width: '100%' }}>
