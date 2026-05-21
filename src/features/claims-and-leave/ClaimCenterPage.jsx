@@ -649,7 +649,7 @@ export default function ClaimCenterPage() {
                             </a>
                           </div>
                         </div>
-                        <button className="cl-detail-view-btn" onClick={(e) => e.stopPropagation()}>
+                        <button className="cl-detail-view-btn" onClick={(e) => { e.stopPropagation(); navigate(`${base}/dental-claim-detail`); }}>
                           View Claim Details
                           <svg width="8" height="12" viewBox="0 0 8 12" fill="none" aria-hidden="true"><path d="M1.5 1l5 5-5 5" stroke="#fff" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/></svg>
                         </button>

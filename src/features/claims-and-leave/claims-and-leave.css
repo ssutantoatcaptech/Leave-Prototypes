@@ -9564,3 +9564,333 @@
   text-decoration: underline;
 }
 
+/* ===========================
+   Dental Claim Detail Page
+   =========================== */
+
+.cl-dental-detail-page {
+  padding: 0;
+}
+
+.cl-dental-detail-card {
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 1px 8px rgba(0, 0, 0, 0.08);
+  padding: 24px;
+}
+
+/* Badge / Pill */
+.cl-dental-detail-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 13px;
+  font-weight: 600;
+  padding: 5px 12px;
+  border-radius: 999px;
+  background: #fff;
+}
+
+.cl-dental-detail-badge--in {
+  border: 1px solid #1fa668;
+  color: #1fa668;
+}
+
+.cl-dental-detail-badge--oon {
+  border: 1px solid #dc3545;
+  color: #dc3545;
+}
+
+.cl-dental-detail-badge-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+}
+
+.cl-dental-detail-badge-dot--green {
+  background: #1fa668;
+}
+
+.cl-dental-detail-badge-dot--red {
+  background: #dc3545;
+}
+
+/* Network Banners */
+.cl-dental-detail-banner {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  padding: 16px;
+  border-radius: 8px;
+  margin-bottom: 20px;
+}
+
+.cl-dental-detail-banner--green {
+  background: #e8f5e9;
+  border-left: 4px solid #1fa668;
+}
+
+.cl-dental-detail-banner--orange {
+  background: #fff3e0;
+  border-left: 4px solid #e65100;
+}
+
+/* Cost Summary Row */
+.cl-dental-detail-cost-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 24px;
+  align-items: flex-start;
+  padding-top: 20px;
+  border-top: 1px solid #eee;
+}
+
+.cl-dental-detail-cost-item {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.cl-dental-detail-cost-label {
+  font-size: 11px;
+  font-weight: 600;
+  text-transform: uppercase;
+  color: #5d5d5d;
+  letter-spacing: 0.5px;
+}
+
+/* Buttons */
+.cl-dental-detail-btn-primary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: #105fa8;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  padding: 10px 20px;
+  font-size: 14px;
+  font-weight: 600;
+  font-family: 'Source Sans Pro', sans-serif;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.cl-dental-detail-btn-primary:hover {
+  background: #0d4d8a;
+}
+
+.cl-dental-detail-btn-outline {
+  display: block;
+  width: 100%;
+  background: #fff;
+  color: #105fa8;
+  border: 1.5px solid #105fa8;
+  border-radius: 4px;
+  padding: 12px;
+  font-size: 14px;
+  font-weight: 600;
+  font-family: 'Source Sans Pro', sans-serif;
+  cursor: pointer;
+  text-align: center;
+  transition: background 0.2s;
+}
+
+.cl-dental-detail-btn-outline:hover {
+  background: #f0f6fd;
+}
+
+/* Progress Bar */
+.cl-dental-detail-progress-bar {
+  width: 100%;
+  height: 12px;
+  background: #e8eef4;
+  border-radius: 6px;
+  overflow: hidden;
+  margin-bottom: 10px;
+}
+
+.cl-dental-detail-progress-bar--sm {
+  height: 8px;
+  border-radius: 4px;
+  margin-bottom: 8px;
+}
+
+.cl-dental-detail-progress-fill {
+  height: 100%;
+  background: #105fa8;
+  border-radius: 6px;
+  transition: width 0.3s ease;
+}
+
+.cl-dental-detail-progress-fill--warn {
+  background: #e65100;
+}
+
+/* Summary of Costs Grid */
+.cl-dental-detail-costs-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+}
+
+.cl-dental-detail-cost-box {
+  display: flex;
+  flex-direction: column;
+  padding: 16px;
+  background: #f9fafb;
+  border-radius: 8px;
+  border: 1px solid #eee;
+}
+
+.cl-dental-detail-cost-box-label {
+  font-size: 13px;
+  font-weight: 600;
+  color: #5d5d5d;
+  text-transform: uppercase;
+  letter-spacing: 0.3px;
+  margin-bottom: 4px;
+}
+
+.cl-dental-detail-cost-box-amount {
+  font-size: 24px;
+  font-weight: 700;
+  color: #002547;
+  margin-bottom: 8px;
+}
+
+.cl-dental-detail-cost-box-desc {
+  font-size: 13px;
+  color: #5d5d5d;
+  line-height: 1.5;
+}
+
+/* Cost Breakdown Table */
+.cl-dental-detail-table-wrap {
+  overflow-x: auto;
+}
+
+.cl-dental-detail-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 14px;
+}
+
+.cl-dental-detail-table th {
+  font-size: 12px;
+  font-weight: 600;
+  text-transform: uppercase;
+  color: #5d5d5d;
+  padding: 10px 12px;
+  border-bottom: 2px solid #e8eef4;
+  text-align: left;
+  white-space: nowrap;
+}
+
+.cl-dental-detail-table td {
+  padding: 14px 12px;
+  border-bottom: 1px solid #f0f0f0;
+  vertical-align: top;
+  color: #002547;
+}
+
+.cl-dental-detail-code-link {
+  color: #105fa8;
+  font-weight: 600;
+  cursor: pointer;
+  text-decoration: none;
+}
+
+.cl-dental-detail-code-link:hover {
+  text-decoration: underline;
+}
+
+/* Benefit Use Sidebar */
+.cl-dental-detail-benefit-section {
+  margin-bottom: 20px;
+  padding-bottom: 20px;
+  border-bottom: 1px solid #f0f0f0;
+}
+
+.cl-dental-detail-benefit-section:last-of-type {
+  border-bottom: none;
+  margin-bottom: 0;
+  padding-bottom: 0;
+}
+
+.cl-dental-detail-benefit-desc {
+  font-size: 12px;
+  color: #5d5d5d;
+  line-height: 1.5;
+  margin: 6px 0 0;
+}
+
+/* FAQ Accordion */
+.cl-dental-detail-faq-item {
+  border-bottom: 1px solid #f0f0f0;
+}
+
+.cl-dental-detail-faq-item:last-child {
+  border-bottom: none;
+}
+
+.cl-dental-detail-faq-toggle {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  padding: 14px 0;
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 14px;
+  font-family: 'Source Sans Pro', sans-serif;
+  gap: 12px;
+}
+
+.cl-dental-detail-faq-toggle:hover {
+  background: #f9fafb;
+}
+
+.cl-dental-detail-faq-answer {
+  font-size: 14px;
+  color: #5d5d5d;
+  line-height: 1.6;
+  padding: 0 0 14px;
+}
+
+.cl-dental-detail-costs-grid--3col {
+  grid-template-columns: 1fr 1fr 1fr;
+}
+
+.cl-dental-detail-oon-callout {
+  display: flex;
+  gap: 12px;
+  margin-top: 20px;
+  padding: 16px;
+  background: #f8fbfd;
+  border: 1px solid #dfebf6;
+  border-radius: 8px;
+}
+
+/* Responsive */
+@media (max-width: 900px) {
+  .cl-dental-detail-page > div:last-child {
+    flex-direction: column;
+  }
+
+  .cl-dental-detail-page > div:last-child > div {
+    flex: 1 1 100% !important;
+    min-width: 0 !important;
+  }
+
+  .cl-dental-detail-costs-grid,
+  .cl-dental-detail-costs-grid--3col {
+    grid-template-columns: 1fr;
+  }
+
+  .cl-dental-detail-cost-row {
+    flex-direction: column;
+    gap: 12px;
+  }
+}
+

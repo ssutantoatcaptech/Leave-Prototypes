@@ -37,6 +37,7 @@ import EnterMyTimePage from './features/claims-and-leave/EnterMyTimePage';
 import PaymentsPage from './features/claims-and-leave/PaymentsPage';
 import DashboardPage from './features/claims-and-leave/DashboardPage';
 import StdClaimDetailPage from './features/claims-and-leave/StdClaimDetailPage';
+import DentalClaimDetailPage from './features/claims-and-leave/DentalClaimDetailPage';
 import MobileFrameWrapper from './features/claims-and-leave/MobileFrameWrapper';
 import AdaAccommodationPage from './features/ada-accommodation/AdaAccommodationPage';
 import AdaRequestsPage from './features/ada-accommodation/AdaRequestsPage';
@@ -145,6 +146,7 @@ export default function App() {
           <Route path="case-detail-caregiver/return-to-work" element={<ReturnToWorkCaregiverEmbeddedPage />} />
           <Route path="std-claim-detail" element={<StdClaimDetailPage />} />
           <Route path="ltd-claim-detail" element={<StdClaimDetailPage />} />
+          <Route path="dental-claim-detail" element={<DentalClaimDetailPage />} />
         </Route>
 
         {/* Claims & Leave Dashboard (standalone, no subnav) */}
@@ -175,6 +177,7 @@ export default function App() {
           <Route path="case-detail-caregiver/return-to-work" element={<ReturnToWorkCaregiverEmbeddedPage />} />
           <Route path="std-claim-detail" element={<StdClaimDetailPage />} />
           <Route path="ltd-claim-detail" element={<StdClaimDetailPage />} />
+          <Route path="dental-claim-detail" element={<DentalClaimDetailPage />} />
         </Route>
 
         {/* Manager View */}
