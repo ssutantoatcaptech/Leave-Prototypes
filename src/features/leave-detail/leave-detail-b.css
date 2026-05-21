@@ -2832,7 +2832,7 @@ select.ldb-detail-input {
   padding: 12px 16px;
   margin-top: 4px;
   background: #f8fbfd;
-  border: 1px solid #e8eff5;
+  border: 1px solid #e2e2e5;
   border-radius: 8px;
 }
 @media (max-width: 768px) {
@@ -2861,12 +2861,12 @@ select.ldb-detail-input {
   font-weight: 600;
   text-transform: uppercase;
   letter-spacing: 0.3px;
-  color: #5d5d5d;
+  color: #737373;
 }
 .dlp-tl-mobile-accordion__value {
   font-size: 14px;
   font-weight: 600;
-  color: #222;
+  color: #171717;
 }
 
 /* Helper text variants */
@@ -3404,7 +3404,7 @@ select.ldb-detail-input {
   margin-top: 20px;
   padding: 14px 16px;
   background: #f8fbfd;
-  border: 1px solid #e8eff5;
+  border: 1px solid #e2e2e5;
   border-radius: 8px;
   gap: 0;
 }
@@ -3418,18 +3418,18 @@ select.ldb-detail-input {
   font-weight: 600;
   text-transform: uppercase;
   letter-spacing: 0.4px;
-  color: #5d5d5d;
+  color: #737373;
   margin-bottom: 4px;
 }
 .ldb-timeline-snapshot-value {
   font-size: 15px;
   font-weight: 700;
-  color: #222;
+  color: #171717;
 }
 .ldb-timeline-snapshot-divider {
   width: 1px;
   height: 36px;
-  background: #e4e4e4;
+  background: #e2e2e5;
   flex-shrink: 0;
 }
 @media (max-width: 600px) {
