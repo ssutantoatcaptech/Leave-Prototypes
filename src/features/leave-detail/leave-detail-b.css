@@ -4062,7 +4062,21 @@ select.ldb-detail-input {
   }
   .ldb-detail-dropdown-mobile {
     display: block;
-    padding: 0 0 4px;
+    padding: 0;
+  }
+  .ldb-detail-tabs-wrapper {
+    border: none;
+    border-radius: 0;
+    box-shadow: none;
+    padding: 16px;
+    margin: 0 -16px;
+    background: #f8fbfd;
+    border-bottom: 1px solid #e5e5e5;
+  }
+  .ldb-detail-tabs-wrapper + .ldb-card {
+    border-radius: 12px;
+    border-top: 1px solid #e2e2e5;
+    margin-top: 0;
   }
   .ldb-detail-tabs-wrapper:has(.ldb-detail-dropdown-mobile) .ldb-detail-tabs {
     display: none;
@@ -4097,6 +4111,9 @@ select.ldb-detail-input {
   /* --- Mobile: Status Tracker --- */
   .ldb-status-tracker {
     padding: 16px;
+  }
+  .ldb-st-steps {
+    gap: 12px;
   }
   .ldb-st-header {
     margin-bottom: 16px;
