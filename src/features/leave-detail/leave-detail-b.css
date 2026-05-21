@@ -4075,7 +4075,7 @@ select.ldb-detail-input {
   }
   .ldb-detail-tabs-wrapper + .ldb-card {
     border-radius: 12px;
-    border-top: 1px solid #e2e2e5;
+    border-top: none;
     margin-top: 0;
   }
   .ldb-detail-tabs-wrapper:has(.ldb-detail-dropdown-mobile) .ldb-detail-tabs {
