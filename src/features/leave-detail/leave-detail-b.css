@@ -1615,10 +1615,26 @@
     flex-shrink: 0;
   }
 
+  .ldb-activity-log {
+    padding: 0;
+  }
   .ldb-activity-filters {
-    flex-wrap: wrap;
-    gap: 10px;
-    padding: 12px 14px 10px;
+    display: flex;
+    gap: 8px;
+    padding: 12px 16px;
+    border-bottom: 1px solid #f0f0f2;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+  .ldb-activity-filter {
+    flex-shrink: 0;
+  }
+  .ldb-activity-filter label {
+    font-size: 11px;
+  }
+  .ldb-filter-select {
+    font-size: 13px;
+    padding: 6px 10px;
   }
 
   .ldb-activity-table--striped {
@@ -1628,36 +1644,41 @@
   .ldb-activity-cards {
     display: flex;
     flex-direction: column;
-    gap: 12px;
-    padding: 16px;
+    gap: 0;
+    padding: 0;
   }
 
   .ldb-activity-card {
     background: #fff;
-    border: 1px solid #e5e7eb;
-    border-radius: 10px;
+    border: none;
+    border-bottom: 1px solid #f0f0f2;
+    border-radius: 0;
     padding: 14px 16px;
   }
 
+  .ldb-activity-card:last-child {
+    border-bottom: none;
+  }
+
   .ldb-activity-card:nth-child(even) {
-    background: #f8f9fb;
+    background: #fafbfc;
   }
 
   .ldb-activity-card-header {
     display: flex;
     justify-content: space-between;
-    align-items: flex-start;
-    margin-bottom: 8px;
+    align-items: baseline;
+    margin-bottom: 6px;
   }
 
   .ldb-activity-card-date {
     font-size: 12px;
-    color: #6b7280;
+    color: #737373;
   }
 
   .ldb-activity-card-person {
     font-size: 12px;
-    color: #374151;
+    color: #525252;
     font-weight: 500;
     text-align: right;
   }
@@ -1670,17 +1691,19 @@
   }
 
   .ldb-activity-card-body {
-    font-size: 14px;
-    line-height: 1.5;
+    font-size: 13px;
+    line-height: 1.45;
     color: #374151;
   }
 
   .ldb-activity-card-body strong {
-    color: #1f2937;
+    color: #171717;
+    font-weight: 600;
   }
 
   .ldb-activity-card .ldb-activity-doc-link {
-    margin-top: 8px;
+    margin-top: 6px;
+    font-size: 12px;
   }
 
   .ldb-comms-item {
@@ -4123,18 +4146,19 @@ select.ldb-detail-input {
     padding: 16px;
   }
   .ldb-st-header {
-    margin-bottom: 14px;
+    margin-bottom: 16px;
   }
   .ldb-st-attention-badge {
     font-size: 11px;
     background: #fff3e0;
     color: #c0982a;
+    padding: 3px 8px;
   }
   .ldb-st-steps {
     gap: 0;
   }
   .ldb-st-step {
-    gap: 10px;
+    gap: 12px;
   }
   .ldb-st-step-indicator {
     width: 24px;
@@ -4142,7 +4166,7 @@ select.ldb-detail-input {
   .ldb-st-step-circle {
     width: 24px;
     height: 24px;
-    box-shadow: none;
+    box-shadow: 0 0 0 3px #fff;
   }
   .ldb-st-step-circle--completed {
     background: #105fa8;
@@ -4166,68 +4190,70 @@ select.ldb-detail-input {
     background: #105fa8;
   }
   .ldb-st-step-content {
-    padding-bottom: 14px;
+    padding-bottom: 16px;
+  }
+  .ldb-st-step--last .ldb-st-step-content {
+    padding-bottom: 0;
   }
   .ldb-st-step-card {
-    padding: 10px 12px;
-    border-radius: 8px;
+    padding: 0;
+    border-radius: 0;
     border: none;
     background: transparent;
-    border-left: 3px solid #e0e0e0;
+    box-shadow: none;
   }
   .ldb-st-step-card--active {
-    border-left: 3px solid #105fa8;
-    background: #f0f7ff;
-    border-radius: 8px;
-    padding: 12px 14px;
+    border: none;
+    background: transparent;
+    box-shadow: none;
+    padding: 0;
   }
   .ldb-st-step-card--future {
-    opacity: 0.6;
+    opacity: 0.5;
     background: transparent;
     border: none;
-    border-left: 3px solid #e0e0e0;
   }
   .ldb-st-step-top {
-    flex-direction: row;
-    align-items: center;
-    justify-content: space-between;
-    gap: 8px;
-    margin-bottom: 4px;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 2px;
+    margin-bottom: 2px;
   }
   .ldb-st-step-title {
     font-size: 14px;
     font-weight: 600;
-    line-height: 18px;
+    line-height: 20px;
+    color: #171717;
   }
   .ldb-st-step-time {
-    font-size: 11px;
+    font-size: 12px;
     color: #737373;
-    white-space: nowrap;
   }
   .ldb-st-step-desc {
     font-size: 13px;
     line-height: 18px;
-    margin: 0 0 6px;
+    margin: 2px 0 0;
     color: #525252;
   }
   .ldb-st-step-card--active .ldb-st-step-desc {
-    margin-bottom: 10px;
+    margin-bottom: 8px;
   }
   .ldb-st-step-actions {
     flex-direction: row;
     align-items: center;
-    gap: 8px;
+    gap: 10px;
+    margin-top: 6px;
   }
   .ldb-st-start-btn {
     background: #105fa8;
     border-radius: 6px;
-    padding: 6px 14px;
+    padding: 8px 16px;
     font-size: 13px;
     font-weight: 600;
   }
   .ldb-st-due-badge {
     font-size: 11px;
-    padding: 2px 6px;
+    padding: 3px 8px;
   }
   .ldb-st-locked-badge {
     font-size: 11px;
@@ -4236,33 +4262,43 @@ select.ldb-detail-input {
   .ldb-st-sub-items {
     border-left-color: #d1d5db;
     padding-left: 12px;
-    margin-top: 4px;
+    margin-top: 6px;
   }
   .ldb-st-sub-item {
     font-size: 13px;
-    line-height: 18px;
+    line-height: 20px;
   }
   .ldb-st-sub-items--actions {
-    gap: 8px;
+    gap: 10px;
+    margin-top: 8px;
+    border-left: none;
+    padding-left: 0;
   }
   .ldb-st-sub-action {
     font-size: 13px;
+    background: #f9fafb;
+    border: 1px solid #e5e5e5;
+    border-radius: 8px;
+    padding: 10px 12px;
   }
   .ldb-st-sub-action-left {
     gap: 8px;
     font-size: 13px;
   }
   .ldb-st-sub-action-left svg {
-    width: 12px;
-    height: 12px;
+    width: 14px;
+    height: 14px;
   }
   .ldb-st-link-btn {
     font-size: 13px;
+    font-weight: 600;
+    color: #105fa8;
   }
   .ldb-st-external-link {
     padding: 10px 12px;
     font-size: 13px;
-    margin-top: 6px;
+    margin-top: 8px;
+    border-radius: 8px;
   }
 
   /* --- Mobile: Payments --- */
