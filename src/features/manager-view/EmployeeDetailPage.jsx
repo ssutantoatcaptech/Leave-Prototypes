@@ -247,59 +247,6 @@ export default function EmployeeDetailPage() {
                 )}
               </div>
 
-              {emp.accommodations && emp.accommodations.length > 0 && (
-                <div className="mgr-overview-ada-section">
-                  <div className="mgr-accom-card">
-                    <div className="mgr-accom-card-header">
-                      <h3 className="mgr-accom-card-title">Employee ADA Accommodations</h3>
-                      <span className="mgr-accom-card-count"><strong>{emp.accommodations.length}</strong> Active Accommodation{emp.accommodations.length > 1 ? 's' : ''}</span>
-                    </div>
-                    {/* Desktop table */}
-                    <div className="mgr-detail-desktop-view">
-                      <table className="mgr-table mgr-table--inner">
-                        <thead>
-                          <tr>
-                            <th>ADA Accommodation Type</th>
-                            <th>Start Date &darr;</th>
-                            <th>End Date &darr;</th>
-                          </tr>
-                        </thead>
-                        <tbody>
-                          {emp.accommodations.map((a, i) => (
-                            <tr key={i}>
-                              <td>{a.type}</td>
-                              <td>{a.startDate}</td>
-                              <td>{a.endDate}</td>
-                            </tr>
-                          ))}
-                        </tbody>
-                      </table>
-                      <div className="mgr-accom-card-footer">
-                        <span className="mgr-pagination-info">Showing 1 to {emp.accommodations.length} of {emp.accommodations.length} entries</span>
-                      </div>
-                    </div>
-                    {/* Mobile cards */}
-                    <div className="mgr-detail-mobile-view" style={{ padding: '0 16px 16px' }}>
-                      {emp.accommodations.map((a, i) => (
-                        <div className="mgr-detail-mobile-card" key={i}>
-                          <div className="mgr-detail-mobile-row">
-                            <span className="mgr-detail-mobile-label">Type</span>
-                            <span className="mgr-detail-mobile-value">{a.type}</span>
-                          </div>
-                          <div className="mgr-detail-mobile-row">
-                            <span className="mgr-detail-mobile-label">Start Date</span>
-                            <span className="mgr-detail-mobile-value">{a.startDate}</span>
-                          </div>
-                          <div className="mgr-detail-mobile-row">
-                            <span className="mgr-detail-mobile-label">End Date</span>
-                            <span className="mgr-detail-mobile-value">{a.endDate}</span>
-                          </div>
-                        </div>
-                      ))}
-                    </div>
-                  </div>
-                </div>
-              )}
             </>
           )}
 
