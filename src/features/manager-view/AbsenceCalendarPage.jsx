@@ -85,7 +85,7 @@ export default function AbsenceCalendarPage() {
   const [hoveredCell, setHoveredCell] = useState(null);
   const [hoveredRow, setHoveredRow] = useState(null);
   const [tooltipPos, setTooltipPos] = useState({ x: 0, y: 0 });
-  const [sidebarOpen, setSidebarOpen] = useState(true);
+  const [sidebarOpen, setSidebarOpen] = useState(false);
   const [mobileView, setMobileView] = useState('month');
   const gridRef = useRef(null);
   const mobileListRef = useRef(null);
