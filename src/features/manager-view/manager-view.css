@@ -14,20 +14,22 @@
 
 /* === Header === */
 .mgr-header {
-  background: transparent;
-  border-bottom: none;
+  background: #ffffff;
+  border-bottom: 1px solid #f0f0f0;
+  height: 56px;
   display: flex;
   align-items: center;
   justify-content: space-between;
   max-width: 1440px;
   width: 100%;
   margin: 0 auto;
-  padding: 16px 24px;
+  padding: 0 24px;
   box-sizing: border-box;
 }
 
 .mgr-header-wrapper {
-  background: #105fa8;
+  background: #ffffff;
+  border-bottom: 1px solid #f0f0f0;
   position: sticky;
   top: 0;
   z-index: 150;
@@ -36,61 +38,56 @@
 .mgr-header-left {
   display: flex;
   align-items: center;
-  gap: 32px;
+  gap: 16px;
 }
 
 .mgr-header-brand {
   font-size: 20px;
   font-weight: 700;
-  color: #fff;
+  color: #105fa8;
   white-space: nowrap;
-  letter-spacing: -0.3px;
-}
-
-.mgr-header-brand strong {
-  color: rgba(255,255,255,0.9);
 }
 
 .mgr-header-badge {
   display: inline-flex;
   align-items: center;
   padding: 3px 10px;
-  border: 1.5px solid rgba(255,255,255,0.5);
+  border: 1.5px solid #222;
   border-radius: 4px;
   font-size: 11px;
   font-weight: 700;
   letter-spacing: 0.5px;
   text-transform: uppercase;
-  color: rgba(255,255,255,0.9);
+  color: #222;
 }
 
 .mgr-header-nav {
   display: flex;
   align-items: center;
-  gap: 4px;
-  margin-left: 0;
+  gap: 0;
+  margin-left: 24px;
 }
 
 .mgr-header-nav a {
-  padding: 10px 12px;
-  border-radius: 4px;
+  padding: 8px 16px;
+  border-radius: 6px;
   font-size: 14px;
-  font-weight: 600;
-  color: rgba(255,255,255,0.85);
+  font-weight: 500;
+  color: #555;
   text-decoration: none;
-  transition: background 0.15s;
+  transition: background 0.12s, color 0.12s;
   position: relative;
   white-space: nowrap;
 }
 
 .mgr-header-nav a:hover {
-  background: rgba(255,255,255,0.1);
-  color: #fff;
+  background: #f0f4f8;
+  color: #222;
 }
 
 .mgr-header-nav a.active {
-  background: rgba(255,255,255,0.15);
-  color: #fff;
+  background: #edf2f7;
+  color: #222;
   font-weight: 600;
 }
 
@@ -112,7 +109,7 @@
   height: 18px;
   padding: 0 5px;
   border-radius: 9px;
-  background: rgba(255,255,255,0.25);
+  background: #d32f2f;
   color: #fff;
   font-size: 11px;
   font-weight: 700;
@@ -122,7 +119,7 @@
 .mgr-header-right {
   display: flex;
   align-items: center;
-  gap: 4px;
+  gap: 16px;
 }
 
 .mgr-header-bell {
@@ -165,7 +162,7 @@
 .mgr-header-avatar {
   display: flex;
   align-items: center;
-  gap: 12px;
+  gap: 8px;
   cursor: pointer;
   background: none;
   border: none;
@@ -173,21 +170,20 @@
   border-radius: 6px;
   transition: background 0.12s;
   position: relative;
-  padding-left: 12px;
 }
 
 .mgr-header-avatar:hover {
-  background: rgba(255,255,255,0.1);
+  background: #f0f4f8;
 }
 
 .mgr-avatar-circle {
-  width: 40px;
-  height: 40px;
+  width: 32px;
+  height: 32px;
   border-radius: 50%;
-  background: rgba(255,255,255,0.15);
-  border: 2px solid rgba(255,255,255,0.2);
+  background: #105fa8;
+  border: 2px solid #dfebf6;
   color: #fff;
-  font-size: 14px;
+  font-size: 12px;
   font-weight: 600;
   display: flex;
   align-items: center;
@@ -196,8 +192,8 @@
 
 .mgr-avatar-name {
   font-size: 14px;
-  font-weight: 600;
-  color: #fff;
+  font-weight: 500;
+  color: #222;
 }
 
 /* Avatar dropdown (manager) */
@@ -2959,13 +2955,13 @@
   border: none;
   background: none;
   cursor: pointer;
-  color: #fff;
+  color: #003a70;
   border-radius: 6px;
   transition: background 0.15s;
 }
 
 .mgr-hamburger:hover {
-  background: rgba(255,255,255,0.1);
+  background: #f3f4f6;
 }
 
 .mgr-hamburger svg {
