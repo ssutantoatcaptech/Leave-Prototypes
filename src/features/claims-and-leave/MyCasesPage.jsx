@@ -132,7 +132,7 @@ export default function MyCasesPage() {
       {/* Page Header */}
       <div className="cl-ml-header">
         <div className="cl-ml-header-text">
-          <h1 className="cl-ml-title">My Leaves</h1>
+          <h1 className="cl-ml-title">My Cases</h1>
           <p className="cl-ml-subtitle">Manage your active, saved, and historical leave requests.</p>
         </div>
         <div className="cl-ml-header-action">
