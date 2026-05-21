@@ -66,6 +66,7 @@ export default function StdClaimDetailPage() {
   const variant = isLtd ? CLAIM_VARIANTS.ltd : CLAIM_VARIANTS.std;
   const [completedExpanded, setCompletedExpanded] = useState(false);
   const [hoveredRow, setHoveredRow] = useState(null);
+  const [detailTab, setDetailTab] = useState('status');
 
   return (
     <div className="cl-std-page">
@@ -112,201 +113,328 @@ export default function StdClaimDetailPage() {
         </div>
       )}
 
-      {/* Two-column grid */}
-      <div className="cl-std-grid">
-        {/* Main column */}
-        <div className="cl-std-main">
-          {/* Payment Timeline — V3 card style */}
-          <div className="ldb-card dt-timeline-wrap">
-            <div className="ad-section-header">
-              <div>
-                <h3>Payment Schedule</h3>
-                <p>How your disability claim provides income during your leave</p>
-              </div>
+      {/* Tabbed layout */}
+      <div className="ldb-v2-layout">
+        <div className="ldb-v2-main">
+          {/* Tabs (desktop) + Dropdown (mobile) */}
+          <div className="ldb-detail-tabs-wrapper">
+            <div className="ldb-detail-tabs">
+              <button type="button" className={'ldb-detail-tab' + (detailTab === 'status' ? ' active' : '')} onClick={function () { setDetailTab('status'); }}>Status Tracker</button>
+              <button type="button" className={'ldb-detail-tab' + (detailTab === 'coverage' ? ' active' : '')} onClick={function () { setDetailTab('coverage'); }}>Coverage & Benefits</button>
+              <button type="button" className={'ldb-detail-tab' + (detailTab === 'details' ? ' active' : '')} onClick={function () { setDetailTab('details'); }}>Claim Details</button>
+              <button type="button" className={'ldb-detail-tab' + (detailTab === 'activity' ? ' active' : '')} onClick={function () { setDetailTab('activity'); }}>Communications & Activity</button>
             </div>
-
-            {/* Payment summary banner */}
-            <div className="cl-std-payment-summary-mobile">
-              <div className="cl-std-payment-summary-item cl-std-payment-summary-item--green">
-                <div className="cl-std-payment-summary-label">Total Paid</div>
-                <div className="cl-std-payment-summary-value cl-std-payment-summary-value--green">{variant.totalPaid}</div>
-              </div>
-              <div className="cl-std-payment-summary-item">
-                <div className="cl-std-payment-summary-label">{variant.remaining ? 'Remaining' : 'Status'}</div>
-                <div className="cl-std-payment-summary-value">{variant.remaining || 'Exhausted'}</div>
-              </div>
-            </div>
-
-            {/* V3 card-style timeline */}
-            <div className="cl-std-v3-timeline-cards">
-              {variant.timelineRows.map(function (item) {
-                var isExpanded = hoveredRow === item.id;
-                return (
-                  <button
-                    key={item.id}
-                    type="button"
-                    onClick={function () { setHoveredRow(isExpanded ? null : item.id); }}
-                    className={'cl-std-v3-card' + (isExpanded ? ' cl-std-v3-card--expanded' : '')}
-                    style={{ borderColor: isExpanded ? item.accent : undefined }}
-                    aria-expanded={isExpanded}
-                  >
-                    <div className="cl-std-v3-card-top">
-                      <div className="cl-std-v3-card-name-row">
-                        <span className="cl-std-v3-card-dot" style={{ background: item.accent }} />
-                        <span className="cl-std-v3-card-name">{item.name}</span>
-                      </div>
-                      <svg width="16" height="16" viewBox="0 0 16 16" fill="none" style={{ transform: isExpanded ? 'rotate(180deg)' : 'rotate(0)', transition: 'transform 0.2s', flexShrink: 0 }}><path d="M4 6l4 4 4-4" stroke="#737373" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/></svg>
-                    </div>
-                    <div className="cl-std-v3-card-bar">
-                      <div className="cl-std-v3-card-bar-fill" style={{ width: item.width + '%', background: item.accent }} />
-                    </div>
-                    <span className="cl-std-v3-card-meta">{item.weeks} &middot; {item.range}</span>
-                    {isExpanded && (
-                      <div className="cl-std-v3-card-details">
-                        <div className="cl-std-v3-card-detail-field">
-                          <span className="cl-std-v3-card-detail-label">Est. Weekly</span>
-                          <span className="cl-std-v3-card-detail-value">{item.paymentValue}</span>
-                        </div>
-                        <div className="cl-std-v3-card-detail-field">
-                          <span className="cl-std-v3-card-detail-label">Duration</span>
-                          <span className="cl-std-v3-card-detail-value">{item.weeks}</span>
-                        </div>
-                        <div className="cl-std-v3-card-detail-field cl-std-v3-card-detail-field--full">
-                          <span className="cl-std-v3-card-detail-label">Pay</span>
-                          <span className="cl-std-v3-card-detail-value">{item.pay}</span>
-                        </div>
-                      </div>
-                    )}
-                  </button>
-                );
-              })}
+            <div className="ldb-detail-dropdown-mobile">
+              <select
+                value={detailTab}
+                onChange={function (e) { setDetailTab(e.target.value); }}
+                style={{ fontFamily: "'Source Sans Pro', sans-serif", fontSize: 14, fontWeight: 600, color: '#1e293b', padding: '10px 36px 10px 14px', border: '1px solid #d1d5db', borderRadius: 8, background: '#fff url("data:image/svg+xml,%3Csvg width=\'12\' height=\'8\' viewBox=\'0 0 12 8\' fill=\'none\' xmlns=\'http://www.w3.org/2000/svg\'%3E%3Cpath d=\'M1 1.5L6 6.5L11 1.5\' stroke=\'%236b7280\' stroke-width=\'1.5\' stroke-linecap=\'round\' stroke-linejoin=\'round\'/%3E%3C/svg%3E") no-repeat right 12px center', appearance: 'none', WebkitAppearance: 'none', cursor: 'pointer', width: '100%' }}
+              >
+                <option value="status">Status Tracker</option>
+                <option value="coverage">Coverage & Benefits</option>
+                <option value="details">Claim Details</option>
+                <option value="activity">Communications & Activity</option>
+              </select>
             </div>
           </div>
 
-          {/* Claim Details Card */}
-          <div className="cl-std-card">
-            <h2 className="cl-std-card-title">Claim Details</h2>
+          {/* Tab: Status Tracker */}
+          {detailTab === 'status' && (
+            <div className="ldb-card ldb-status-tracker">
+              <div className="ldb-st-header">
+                <h2 className="ldb-card-title" style={{ marginBottom: 0 }}>Status Tracker</h2>
+                <span className="ldb-st-attention-badge">1 item needs attention</span>
+              </div>
 
-            <div className="cl-std-details-subcard">
-              <div className="cl-std-details-grid">
-                <div className="cl-std-field">
-                  <span className="cl-std-field-label">Claim Number</span>
-                  <span className="cl-std-field-value">{variant.claimNumber}</span>
+              <div className="cl-std-stepper">
+                <div className="cl-std-step cl-std-step--completed">
+                  <div className="cl-std-step-icon">
+                    <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><circle cx="7" cy="7" r="6" fill="#1fa668"/><path d="M4 7l2 2 4-4" stroke="#fff" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/></svg>
+                  </div>
+                  <div className="cl-std-step-content">
+                    <span className="cl-std-step-title">Claim Filed</span>
+                    <span className="cl-std-step-desc">{variant.filedDate}</span>
+                  </div>
                 </div>
-                <div className="cl-std-field">
-                  <span className="cl-std-field-label">Policy</span>
-                  <span className="cl-std-field-value">{variant.policy}</span>
+                <div className="cl-std-step cl-std-step--completed">
+                  <div className="cl-std-step-icon">
+                    <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><circle cx="7" cy="7" r="6" fill="#1fa668"/><path d="M4 7l2 2 4-4" stroke="#fff" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/></svg>
+                  </div>
+                  <div className="cl-std-step-content">
+                    <span className="cl-std-step-title">Employer Verification</span>
+                    <span className="cl-std-step-desc">Received and confirmed</span>
+                  </div>
                 </div>
-                <div className="cl-std-field">
-                  <span className="cl-std-field-label">Diagnosis</span>
-                  <span className="cl-std-field-value">{variant.diagnosis}</span>
+                <div className="cl-std-step cl-std-step--active">
+                  <div className="cl-std-step-icon">
+                    <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><circle cx="7" cy="7" r="6" fill="#dc2626"/><path d="M7 4.5v3M7 9.5h.01" stroke="#fff" strokeWidth="1.5" strokeLinecap="round"/></svg>
+                  </div>
+                  <div className="cl-std-step-content">
+                    <span className="cl-std-step-title">Upload Medical Certification</span>
+                    <span className="cl-std-step-desc">Due Jul 25 &middot; Required to continue benefits past Aug 3</span>
+                    <button className="cl-std-btn-upload" style={{ marginTop: 8 }}>Upload Document</button>
+                  </div>
                 </div>
-                <div className="cl-std-field">
-                  <span className="cl-std-field-label">Leave Start</span>
-                  <span className="cl-std-field-value">{variant.leaveStart}</span>
+                <div className="cl-std-step cl-std-step--upcoming">
+                  <div className="cl-std-step-icon">
+                    <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><circle cx="7" cy="7" r="6" stroke="#d1d5db" strokeWidth="1.5" fill="none"/></svg>
+                  </div>
+                  <div className="cl-std-step-content">
+                    <span className="cl-std-step-title">Claim Decision</span>
+                    <span className="cl-std-step-desc">Pending medical review</span>
+                  </div>
                 </div>
-                <div className="cl-std-field">
-                  <span className="cl-std-field-label">Benefits Begin</span>
-                  <span className="cl-std-field-value">{variant.benefitsBegin}</span>
-                </div>
-                <div className="cl-std-field">
-                  <span className="cl-std-field-label">Expected RTW</span>
-                  <span className="cl-std-field-value">{variant.expectedRTW}</span>
-                </div>
-                <div className="cl-std-field cl-std-field--border-bottom">
-                  <span className="cl-std-field-label">Max Benefit Duration</span>
-                  <span className="cl-std-field-value">{variant.maxDuration}</span>
-                </div>
-                <div className="cl-std-field cl-std-field--border-bottom">
-                  <span className="cl-std-field-label">Weeks Remaining</span>
-                  <span className="cl-std-field-value">{variant.weeksRemaining}</span>
+                <div className="cl-std-step cl-std-step--upcoming">
+                  <div className="cl-std-step-icon">
+                    <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><circle cx="7" cy="7" r="6" stroke="#d1d5db" strokeWidth="1.5" fill="none"/></svg>
+                  </div>
+                  <div className="cl-std-step-content">
+                    <span className="cl-std-step-title">Return to Work</span>
+                    <span className="cl-std-step-desc">Expected {variant.expectedRTW}</span>
+                  </div>
                 </div>
               </div>
-            </div>
-          </div>
 
-          {/* Associated Payments Card */}
-          <div className="cl-std-card">
-            <h2 className="cl-std-card-title">Associated Payments</h2>
-            <p className="cl-std-card-subtitle">Bi-weekly payments via direct deposit. Net of federal &amp; state tax withholding.</p>
-
-            <div className="cl-std-payments-grid">
-              <div className="cl-std-field">
-                <span className="cl-std-field-label">Most Recent Payment</span>
-                <span className="cl-std-field-value">$1,036.59</span>
-              </div>
-              <div className="cl-std-field">
-                <span className="cl-std-field-label">Total Paid to Date</span>
-                <span className="cl-std-field-value">$6,219.51</span>
-              </div>
-              <div className="cl-std-field">
-                <span className="cl-std-field-label">Expected Next Payment</span>
-                <span className="cl-std-field-value">Jul 26, 2024</span>
-              </div>
-              <div className="cl-std-field">
-                <span className="cl-std-field-label">Expected Weekly Benefit</span>
-                <span className="cl-std-field-value">$1,036.59</span>
-              </div>
-            </div>
-
-            <div className="cl-std-card-action">
-              <Link to={`${base}/payments`} className="cl-std-btn-primary">View All Payments</Link>
-            </div>
-          </div>
-        </div>
-
-        {/* Sidebar */}
-        <div className="cl-std-sidebar">
-          {/* Items Requiring Action */}
-          <div className="cl-std-sidebar-card cl-std-sidebar-card--action">
-            <div className="cl-std-sidebar-header">
-              <h2 className="cl-std-sidebar-title">Items Requiring Action</h2>
-              <span className="cl-std-needed-count">1 Needed</span>
-            </div>
-
-            <div className="cl-std-action-item">
-              <div className="cl-std-action-item-row">
-                <svg className="cl-std-action-icon" width="24" height="24" viewBox="0 0 24 24" fill="none">
-                  <circle cx="12" cy="12" r="10" fill="#dc2626"/>
-                  <path d="M12 8v4M12 16h.01" stroke="#fff" strokeWidth="2" strokeLinecap="round"/>
+              {/* Completed items */}
+              <button
+                className="cl-std-completed-toggle"
+                onClick={() => setCompletedExpanded(!completedExpanded)}
+              >
+                <svg width="12" height="12" viewBox="0 0 12 12" fill="none" style={{ transform: completedExpanded ? 'rotate(90deg)' : 'none', transition: 'transform 0.2s' }}>
+                  <path d="M4 2l4 4-4 4" stroke="#105fa8" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
                 </svg>
-                <div className="cl-std-action-text">
-                  <span className="cl-std-action-title">Upload Medical Certification</span>
-                  <span className="cl-std-action-desc">Due Jul 25 &middot; Required to continue benefits past Aug 3</span>
+                +2 Completed items
+              </button>
+
+              {completedExpanded && (
+                <div className="cl-std-completed-list">
+                  <div className="cl-std-completed-item">
+                    <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
+                      <circle cx="7" cy="7" r="6" fill="#1fa668"/>
+                      <path d="M4 7l2 2 4-4" stroke="#fff" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+                    </svg>
+                    <span>Initial medical documentation submitted</span>
+                  </div>
+                  <div className="cl-std-completed-item">
+                    <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
+                      <circle cx="7" cy="7" r="6" fill="#1fa668"/>
+                      <path d="M4 7l2 2 4-4" stroke="#fff" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+                    </svg>
+                    <span>Employer verification received</span>
+                  </div>
                 </div>
-                <button className="cl-std-btn-upload">Upload</button>
+              )}
+            </div>
+          )}
+
+          {/* Tab: Coverage & Benefits */}
+          {detailTab === 'coverage' && (
+            <div className="ldb-card dt-timeline-wrap">
+              <div className="ad-section-header">
+                <div>
+                  <h3>Payment Schedule</h3>
+                  <p>How your disability claim provides income during your leave</p>
+                </div>
+              </div>
+
+              <div className="cl-std-payment-summary-mobile">
+                <div className="cl-std-payment-summary-item cl-std-payment-summary-item--green">
+                  <div className="cl-std-payment-summary-label">Total Paid</div>
+                  <div className="cl-std-payment-summary-value cl-std-payment-summary-value--green">{variant.totalPaid}</div>
+                </div>
+                <div className="cl-std-payment-summary-item">
+                  <div className="cl-std-payment-summary-label">{variant.remaining ? 'Remaining' : 'Status'}</div>
+                  <div className="cl-std-payment-summary-value">{variant.remaining || 'Exhausted'}</div>
+                </div>
+              </div>
+
+              <div className="cl-std-v3-timeline-cards">
+                {variant.timelineRows.map(function (item) {
+                  var isExpanded = hoveredRow === item.id;
+                  return (
+                    <button
+                      key={item.id}
+                      type="button"
+                      onClick={function () { setHoveredRow(isExpanded ? null : item.id); }}
+                      className={'cl-std-v3-card' + (isExpanded ? ' cl-std-v3-card--expanded' : '')}
+                      style={{ borderColor: isExpanded ? item.accent : undefined }}
+                      aria-expanded={isExpanded}
+                    >
+                      <div className="cl-std-v3-card-top">
+                        <div className="cl-std-v3-card-name-row">
+                          <span className="cl-std-v3-card-dot" style={{ background: item.accent }} />
+                          <span className="cl-std-v3-card-name">{item.name}</span>
+                        </div>
+                        <svg width="16" height="16" viewBox="0 0 16 16" fill="none" style={{ transform: isExpanded ? 'rotate(180deg)' : 'rotate(0)', transition: 'transform 0.2s', flexShrink: 0 }}><path d="M4 6l4 4 4-4" stroke="#737373" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/></svg>
+                      </div>
+                      <div className="cl-std-v3-card-bar">
+                        <div className="cl-std-v3-card-bar-fill" style={{ width: item.width + '%', background: item.accent }} />
+                      </div>
+                      <span className="cl-std-v3-card-meta">{item.weeks} &middot; {item.range}</span>
+                      {isExpanded && (
+                        <div className="cl-std-v3-card-details">
+                          <div className="cl-std-v3-card-detail-field">
+                            <span className="cl-std-v3-card-detail-label">Est. Weekly</span>
+                            <span className="cl-std-v3-card-detail-value">{item.paymentValue}</span>
+                          </div>
+                          <div className="cl-std-v3-card-detail-field">
+                            <span className="cl-std-v3-card-detail-label">Duration</span>
+                            <span className="cl-std-v3-card-detail-value">{item.weeks}</span>
+                          </div>
+                          <div className="cl-std-v3-card-detail-field cl-std-v3-card-detail-field--full">
+                            <span className="cl-std-v3-card-detail-label">Pay</span>
+                            <span className="cl-std-v3-card-detail-value">{item.pay}</span>
+                          </div>
+                        </div>
+                      )}
+                    </button>
+                  );
+                })}
+              </div>
+
+              <div className="cl-std-card" style={{ marginTop: 24 }}>
+                <h2 className="cl-std-card-title">Associated Payments</h2>
+                <p className="cl-std-card-subtitle">Bi-weekly payments via direct deposit. Net of federal &amp; state tax withholding.</p>
+
+                <div className="cl-std-payments-grid">
+                  <div className="cl-std-field">
+                    <span className="cl-std-field-label">Most Recent Payment</span>
+                    <span className="cl-std-field-value">$1,036.59</span>
+                  </div>
+                  <div className="cl-std-field">
+                    <span className="cl-std-field-label">Total Paid to Date</span>
+                    <span className="cl-std-field-value">$6,219.51</span>
+                  </div>
+                  <div className="cl-std-field">
+                    <span className="cl-std-field-label">Expected Next Payment</span>
+                    <span className="cl-std-field-value">Jul 26, 2024</span>
+                  </div>
+                  <div className="cl-std-field">
+                    <span className="cl-std-field-label">Expected Weekly Benefit</span>
+                    <span className="cl-std-field-value">$1,036.59</span>
+                  </div>
+                </div>
+
+                <div className="cl-std-card-action">
+                  <Link to={`${base}/payments`} className="cl-std-btn-primary">View All Payments</Link>
+                </div>
               </div>
             </div>
+          )}
 
-            <button
-              className="cl-std-completed-toggle"
-              onClick={() => setCompletedExpanded(!completedExpanded)}
-            >
-              <svg width="12" height="12" viewBox="0 0 12 12" fill="none" style={{ transform: completedExpanded ? 'rotate(90deg)' : 'none', transition: 'transform 0.2s' }}>
-                <path d="M4 2l4 4-4 4" stroke="#105fa8" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
-              </svg>
-              +2 Completed
-            </button>
+          {/* Tab: Claim Details */}
+          {detailTab === 'details' && (
+            <div className="cl-std-card">
+              <h2 className="cl-std-card-title">Claim Details</h2>
 
-            {completedExpanded && (
-              <div className="cl-std-completed-list">
-                <div className="cl-std-completed-item">
-                  <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
-                    <circle cx="7" cy="7" r="6" fill="#1fa668"/>
-                    <path d="M4 7l2 2 4-4" stroke="#fff" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
-                  </svg>
-                  <span>Initial medical documentation submitted</span>
-                </div>
-                <div className="cl-std-completed-item">
-                  <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
-                    <circle cx="7" cy="7" r="6" fill="#1fa668"/>
-                    <path d="M4 7l2 2 4-4" stroke="#fff" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
-                  </svg>
-                  <span>Employer verification received</span>
+              <div className="cl-std-details-subcard">
+                <div className="cl-std-details-grid">
+                  <div className="cl-std-field">
+                    <span className="cl-std-field-label">Claim Number</span>
+                    <span className="cl-std-field-value">{variant.claimNumber}</span>
+                  </div>
+                  <div className="cl-std-field">
+                    <span className="cl-std-field-label">Policy</span>
+                    <span className="cl-std-field-value">{variant.policy}</span>
+                  </div>
+                  <div className="cl-std-field">
+                    <span className="cl-std-field-label">Diagnosis</span>
+                    <span className="cl-std-field-value">{variant.diagnosis}</span>
+                  </div>
+                  <div className="cl-std-field">
+                    <span className="cl-std-field-label">Leave Start</span>
+                    <span className="cl-std-field-value">{variant.leaveStart}</span>
+                  </div>
+                  <div className="cl-std-field">
+                    <span className="cl-std-field-label">Benefits Begin</span>
+                    <span className="cl-std-field-value">{variant.benefitsBegin}</span>
+                  </div>
+                  <div className="cl-std-field">
+                    <span className="cl-std-field-label">Expected RTW</span>
+                    <span className="cl-std-field-value">{variant.expectedRTW}</span>
+                  </div>
+                  <div className="cl-std-field">
+                    <span className="cl-std-field-label">Max Benefit Duration</span>
+                    <span className="cl-std-field-value">{variant.maxDuration}</span>
+                  </div>
+                  <div className="cl-std-field">
+                    <span className="cl-std-field-label">Weeks Remaining</span>
+                    <span className="cl-std-field-value">{variant.weeksRemaining}</span>
+                  </div>
                 </div>
               </div>
-            )}
-          </div>
+
+              <div className="cl-std-details-subcard" style={{ marginTop: 20 }}>
+                <h3 className="cl-std-card-title" style={{ fontSize: 15, marginBottom: 12 }}>Key Contacts</h3>
+                <div className="cl-std-details-grid">
+                  <div className="cl-std-field">
+                    <span className="cl-std-field-label">Claims Examiner</span>
+                    <span className="cl-std-field-value">Sarah Mitchell</span>
+                  </div>
+                  <div className="cl-std-field">
+                    <span className="cl-std-field-label">Phone</span>
+                    <span className="cl-std-field-value">1-800-555-0142</span>
+                  </div>
+                  <div className="cl-std-field">
+                    <span className="cl-std-field-label">Email</span>
+                    <span className="cl-std-field-value">s.mitchell@benefits.com</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          )}
+
+          {/* Tab: Communications & Activity */}
+          {detailTab === 'activity' && (
+            <div className="ldb-card">
+              <h2 className="ldb-card-title">Communications & Activity</h2>
+
+              <div className="cl-std-activity-timeline">
+                <div className="cl-std-activity-item">
+                  <div className="cl-std-activity-dot cl-std-activity-dot--info" />
+                  <div className="cl-std-activity-content">
+                    <span className="cl-std-activity-date">May 15, 2026</span>
+                    <span className="cl-std-activity-text">Reminder sent: Medical certification due Jul 25</span>
+                  </div>
+                </div>
+                <div className="cl-std-activity-item">
+                  <div className="cl-std-activity-dot cl-std-activity-dot--success" />
+                  <div className="cl-std-activity-content">
+                    <span className="cl-std-activity-date">Mar 20, 2026</span>
+                    <span className="cl-std-activity-text">Payment issued — $1,036.59 via direct deposit</span>
+                  </div>
+                </div>
+                <div className="cl-std-activity-item">
+                  <div className="cl-std-activity-dot cl-std-activity-dot--success" />
+                  <div className="cl-std-activity-content">
+                    <span className="cl-std-activity-date">Mar 06, 2026</span>
+                    <span className="cl-std-activity-text">Payment issued — $1,036.59 via direct deposit</span>
+                  </div>
+                </div>
+                <div className="cl-std-activity-item">
+                  <div className="cl-std-activity-dot cl-std-activity-dot--success" />
+                  <div className="cl-std-activity-content">
+                    <span className="cl-std-activity-date">Feb 20, 2026</span>
+                    <span className="cl-std-activity-text">Employer verification received and confirmed</span>
+                  </div>
+                </div>
+                <div className="cl-std-activity-item">
+                  <div className="cl-std-activity-dot" />
+                  <div className="cl-std-activity-content">
+                    <span className="cl-std-activity-date">Feb 12, 2026</span>
+                    <span className="cl-std-activity-text">Initial medical documentation submitted</span>
+                  </div>
+                </div>
+                <div className="cl-std-activity-item">
+                  <div className="cl-std-activity-dot" />
+                  <div className="cl-std-activity-content">
+                    <span className="cl-std-activity-date">{variant.filedDate}</span>
+                    <span className="cl-std-activity-text">Claim filed — {variant.claimId}</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          )}
 
         </div>
       </div>

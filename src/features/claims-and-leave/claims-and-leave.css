@@ -9119,3 +9119,132 @@
   margin-top: 2px;
 }
 
+/* ===== Stepper (Status Tracker tab) ===== */
+.cl-std-stepper {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  padding: 16px 0;
+}
+
+.cl-std-step {
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+  padding: 14px 0;
+  position: relative;
+}
+
+.cl-std-step:not(:last-child)::after {
+  content: '';
+  position: absolute;
+  left: 6px;
+  top: 36px;
+  bottom: -14px;
+  width: 2px;
+  background: #e5e7eb;
+}
+
+.cl-std-step--completed:not(:last-child)::after {
+  background: #1fa668;
+}
+
+.cl-std-step--active:not(:last-child)::after {
+  background: #e5e7eb;
+}
+
+.cl-std-step-icon {
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.cl-std-step-content {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.cl-std-step-title {
+  font-size: 14px;
+  font-weight: 600;
+  color: #1e293b;
+}
+
+.cl-std-step--upcoming .cl-std-step-title {
+  color: #9ca3af;
+}
+
+.cl-std-step-desc {
+  font-size: 13px;
+  color: #64748b;
+}
+
+.cl-std-step--upcoming .cl-std-step-desc {
+  color: #bfc6d0;
+}
+
+/* ===== Activity Timeline (Communications tab) ===== */
+.cl-std-activity-timeline {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  padding: 8px 0;
+}
+
+.cl-std-activity-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+  padding: 14px 0;
+  position: relative;
+}
+
+.cl-std-activity-item:not(:last-child)::after {
+  content: '';
+  position: absolute;
+  left: 5px;
+  top: 28px;
+  bottom: -14px;
+  width: 2px;
+  background: #e5e7eb;
+}
+
+.cl-std-activity-dot {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: #d1d5db;
+  flex-shrink: 0;
+  margin-top: 3px;
+}
+
+.cl-std-activity-dot--success {
+  background: #1fa668;
+}
+
+.cl-std-activity-dot--info {
+  background: #2563eb;
+}
+
+.cl-std-activity-content {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.cl-std-activity-date {
+  font-size: 12px;
+  font-weight: 600;
+  color: #64748b;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+}
+
+.cl-std-activity-text {
+  font-size: 14px;
+  color: #1e293b;
+  line-height: 1.4;
+}
+
