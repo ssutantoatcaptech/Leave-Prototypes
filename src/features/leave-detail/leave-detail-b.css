@@ -3656,7 +3656,7 @@ select.ldb-detail-input {
 
 /* ===== Status Tracker ===== */
 .ldb-status-tracker {
-  padding: 28px;
+  padding: 32px 40px;
 }
 .ldb-st-header {
   display: flex;
