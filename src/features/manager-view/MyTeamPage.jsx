@@ -165,10 +165,6 @@ export default function MyTeamPage() {
                   ))}
                 </tbody>
               </table>
-              <div className="mgr-pagination">
-                <span className="mgr-pagination-info">Showing 1 to {filteredTeam.length} of {filteredTeam.length} entries</span>
-                <button className="mgr-pagination-btn active">1</button>
-              </div>
             </div>
 
             {/* Mobile card list */}
@@ -246,10 +242,6 @@ export default function MyTeamPage() {
                   ))}
                 </tbody>
               </table>
-              <div className="mgr-pagination">
-                <span className="mgr-pagination-info">Showing 1 to {filteredAda.length} of {filteredAda.length} entries</span>
-                <button className="mgr-pagination-btn active">1</button>
-              </div>
             </div>
 
             {/* Mobile card list */}
