@@ -3655,7 +3655,7 @@ select.ldb-detail-input {
 }
 
 /* ===== Status Tracker ===== */
-.ldb-status-tracker {
+.ldb-card.ldb-status-tracker {
   padding: 32px 40px;
 }
 .ldb-st-header {
@@ -4173,7 +4173,7 @@ select.ldb-detail-input {
   }
 
   /* --- Mobile: Status Tracker --- */
-  .ldb-status-tracker {
+  .ldb-card.ldb-status-tracker {
     padding: 16px;
   }
   .ldb-st-header {
