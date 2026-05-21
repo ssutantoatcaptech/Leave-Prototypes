@@ -1620,9 +1620,9 @@
   }
   .ldb-activity-filters {
     display: flex;
-    gap: 8px;
-    padding: 12px 16px;
-    border-bottom: 1px solid #f0f0f2;
+    gap: 10px;
+    padding: 14px 16px;
+    border-bottom: 1px solid #e2e2e5;
     overflow-x: auto;
     -webkit-overflow-scrolling: touch;
   }
@@ -1631,10 +1631,12 @@
   }
   .ldb-activity-filter label {
     font-size: 11px;
+    color: #737373;
   }
   .ldb-filter-select {
     font-size: 13px;
     padding: 6px 10px;
+    border-color: #e2e2e5;
   }
 
   .ldb-activity-table--striped {
@@ -1644,31 +1646,26 @@
   .ldb-activity-cards {
     display: flex;
     flex-direction: column;
-    gap: 0;
-    padding: 0;
+    gap: 12px;
+    padding: 16px;
   }
 
   .ldb-activity-card {
-    background: #fff;
-    border: none;
-    border-bottom: 1px solid #f0f0f2;
-    border-radius: 0;
+    background: #f9fafb;
+    border: 1px solid #e2e2e5;
+    border-radius: 8px;
     padding: 14px 16px;
   }
 
-  .ldb-activity-card:last-child {
-    border-bottom: none;
-  }
-
   .ldb-activity-card:nth-child(even) {
-    background: #fafbfc;
+    background: #f9fafb;
   }
 
   .ldb-activity-card-header {
     display: flex;
     justify-content: space-between;
     align-items: baseline;
-    margin-bottom: 6px;
+    margin-bottom: 8px;
   }
 
   .ldb-activity-card-date {
@@ -1686,14 +1683,15 @@
   .ldb-activity-card-role {
     display: block;
     font-size: 11px;
-    color: #9ca3af;
+    color: #737373;
     font-weight: 400;
+    margin-top: 1px;
   }
 
   .ldb-activity-card-body {
     font-size: 13px;
-    line-height: 1.45;
-    color: #374151;
+    line-height: 1.5;
+    color: #525252;
   }
 
   .ldb-activity-card-body strong {
@@ -1702,8 +1700,9 @@
   }
 
   .ldb-activity-card .ldb-activity-doc-link {
-    margin-top: 6px;
+    margin-top: 8px;
     font-size: 12px;
+    color: #105fa8;
   }
 
   .ldb-comms-item {
@@ -3270,8 +3269,8 @@ select.ldb-detail-input {
   .ldb-activity-cards {
     display: flex;
     flex-direction: column;
-    gap: 0;
-    padding: 0;
+    gap: 12px;
+    padding: 16px;
   }
 }
 
