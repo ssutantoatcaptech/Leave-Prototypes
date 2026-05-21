@@ -2092,7 +2092,8 @@
 }
 
 .mgr-footer--desktop {
-  background: #003A70;
+  background: #ffffff;
+  border-top: 1px solid #e2e2e5;
   padding: 48px 0 0;
 }
 
@@ -2110,7 +2111,7 @@
   font-family: 'Source Sans Pro', sans-serif;
   font-size: 24px;
   font-weight: 400;
-  color: #ffffff;
+  color: #003a70;
   margin: 0 0 32px;
 }
 
@@ -2135,24 +2136,24 @@
   font-family: 'Source Sans Pro', sans-serif;
   font-size: 16px;
   font-weight: 700;
-  color: #ffffff;
+  color: #171717;
   margin: 0 0 8px;
 }
 
 .mgr-footer-link {
   font-family: 'Source Sans Pro', sans-serif;
   font-size: 14px;
-  color: rgba(255,255,255,0.85);
-  text-decoration: underline;
+  color: #525252;
+  text-decoration: none;
   line-height: 1.7;
 }
 
 .mgr-footer-link:hover {
-  color: #ffffff;
+  color: #105fa8;
 }
 
 .mgr-footer-bottom {
-  border-top: 1px solid rgba(255,255,255,0.2);
+  border-top: 1px solid #e2e2e5;
   padding: 24px 0;
   display: flex;
   flex-direction: column;
@@ -2168,18 +2169,18 @@
 .mgr-footer-legal-link {
   font-family: 'Source Sans Pro', sans-serif;
   font-size: 14px;
-  color: rgba(255,255,255,0.75);
-  text-decoration: underline;
+  color: #737373;
+  text-decoration: none;
 }
 
 .mgr-footer-legal-link:hover {
-  color: #ffffff;
+  color: #105fa8;
 }
 
 .mgr-footer-copyright {
   font-family: 'Source Sans Pro', sans-serif;
   font-size: 12px;
-  color: rgba(255,255,255,0.5);
+  color: #a3a3a3;
 }
 
 /* --- Mobile Footer --- */
