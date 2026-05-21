@@ -4090,6 +4090,9 @@ select.ldb-detail-input {
   .ldb-card {
     padding: 16px;
   }
+  .ldb-card.ldb-activity-log {
+    padding: 0;
+  }
   .ldb-card.dt-timeline-wrap {
     padding: 16px;
   }
