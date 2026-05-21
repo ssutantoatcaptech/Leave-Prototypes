@@ -116,137 +116,70 @@ export default function StdClaimDetailPage() {
       <div className="cl-std-grid">
         {/* Main column */}
         <div className="cl-std-main">
-          {/* Payment Timeline */}
+          {/* Payment Timeline — V3 card style */}
           <div className="ldb-card dt-timeline-wrap">
             <div className="ad-section-header">
               <div>
                 <h3>Payment Schedule</h3>
                 <p>How your disability claim provides income during your leave</p>
               </div>
-              <div className="cl-std-paid-total">
-                <span className="cl-std-paid-total-label">Total paid to date</span>
-                <span className="cl-std-paid-total-value">{variant.totalPaid}</span>
-                {variant.remaining && <span className="cl-std-paid-remaining">{variant.remaining}</span>}
+            </div>
+
+            {/* Payment summary banner */}
+            <div className="cl-std-payment-summary-mobile">
+              <div className="cl-std-payment-summary-item cl-std-payment-summary-item--green">
+                <div className="cl-std-payment-summary-label">Total Paid</div>
+                <div className="cl-std-payment-summary-value cl-std-payment-summary-value--green">{variant.totalPaid}</div>
+              </div>
+              <div className="cl-std-payment-summary-item">
+                <div className="cl-std-payment-summary-label">{variant.remaining ? 'Remaining' : 'Status'}</div>
+                <div className="cl-std-payment-summary-value">{variant.remaining || 'Exhausted'}</div>
               </div>
             </div>
 
-            <p className="ad-section-helper ad-section-helper--desktop">Hover over a row to see details</p>
-            <p className="ad-section-helper ad-section-helper--mobile">Tap a row to see details</p>
-
-            <div className="dlp-timeline">
-              <div className="ldb-tl-rows-wrap">
-              <div className="dlp-tl-rows">
-                {variant.timelineRows.map(function (item, idx) {
-                  var left = '0%';
-                  if (idx > 0) {
-                    var offset = 0;
-                    for (var j = 0; j < idx; j++) offset += variant.timelineRows[j].width;
-                    left = offset + '%';
-                  }
-                  return (
-                    <button
-                      key={item.id}
-                      className={'dlp-tl-row' + (hoveredRow === item.id ? ' active' : '')}
-                      type="button"
-                      onMouseEnter={function () { setHoveredRow(item.id); }}
-                      onMouseLeave={function () { setHoveredRow(null); }}
-                      onClick={function () { setHoveredRow(hoveredRow === item.id ? null : item.id); }}
-                    >
-                      <div className="dlp-tl-row-label">{item.label}</div>
-                      <div className="dlp-tl-row-bar">
-                        <div className="dlp-tl-seg" style={{ left: left, width: item.width + '%', background: item.accent }} />
-                      </div>
-                    </button>
-                  );
-                })}
-              </div>
-
-              {/* Desktop: tooltip on hover */}
-              {hoveredRow && (function () {
-                var allRows = variant.timelineRows;
-                var hovered = allRows.find(function (r) { return r.id === hoveredRow; });
-                if (!hovered) return null;
+            {/* V3 card-style timeline */}
+            <div className="cl-std-v3-timeline-cards">
+              {variant.timelineRows.map(function (item) {
+                var isExpanded = hoveredRow === item.id;
                 return (
-                  <div className="ad-coverage-tooltip">
-                    <div className="ad-coverage-tooltip-head">
-                      <div className="title">{hovered.name}</div>
+                  <button
+                    key={item.id}
+                    type="button"
+                    onClick={function () { setHoveredRow(isExpanded ? null : item.id); }}
+                    className={'cl-std-v3-card' + (isExpanded ? ' cl-std-v3-card--expanded' : '')}
+                    style={{ borderColor: isExpanded ? item.accent : undefined }}
+                    aria-expanded={isExpanded}
+                  >
+                    <div className="cl-std-v3-card-top">
+                      <div className="cl-std-v3-card-name-row">
+                        <span className="cl-std-v3-card-dot" style={{ background: item.accent }} />
+                        <span className="cl-std-v3-card-name">{item.name}</span>
+                      </div>
+                      <svg width="16" height="16" viewBox="0 0 16 16" fill="none" style={{ transform: isExpanded ? 'rotate(180deg)' : 'rotate(0)', transition: 'transform 0.2s', flexShrink: 0 }}><path d="M4 6l4 4 4-4" stroke="#737373" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/></svg>
                     </div>
-                    <div className="ad-coverage-tooltip-grid">
-                      <div>
-                        <div className="label">Est. Weekly</div>
-                        <div className="value">{hovered.paymentValue}</div>
-                      </div>
-                      <div>
-                        <div className="label">Duration</div>
-                        <div className="value">{hovered.weeks}</div>
-                      </div>
-                      <div>
-                        <div className="label">Dates</div>
-                        <div className="value">{hovered.range}</div>
-                      </div>
-                      <div>
-                        <div className="label">Pay</div>
-                        <div className="value">{hovered.pay}</div>
-                      </div>
+                    <div className="cl-std-v3-card-bar">
+                      <div className="cl-std-v3-card-bar-fill" style={{ width: item.width + '%', background: item.accent }} />
                     </div>
-                  </div>
+                    <span className="cl-std-v3-card-meta">{item.weeks} &middot; {item.range}</span>
+                    {isExpanded && (
+                      <div className="cl-std-v3-card-details">
+                        <div className="cl-std-v3-card-detail-field">
+                          <span className="cl-std-v3-card-detail-label">Est. Weekly</span>
+                          <span className="cl-std-v3-card-detail-value">{item.paymentValue}</span>
+                        </div>
+                        <div className="cl-std-v3-card-detail-field">
+                          <span className="cl-std-v3-card-detail-label">Duration</span>
+                          <span className="cl-std-v3-card-detail-value">{item.weeks}</span>
+                        </div>
+                        <div className="cl-std-v3-card-detail-field cl-std-v3-card-detail-field--full">
+                          <span className="cl-std-v3-card-detail-label">Pay</span>
+                          <span className="cl-std-v3-card-detail-value">{item.pay}</span>
+                        </div>
+                      </div>
+                    )}
+                  </button>
                 );
-              })()}
-              </div>
-
-              {/* Mobile: detail below rows */}
-              {hoveredRow && (function () {
-                var allRows = variant.timelineRows;
-                var selected = allRows.find(function (r) { return r.id === hoveredRow; });
-                if (!selected) return null;
-                return (
-                  <div className="dlp-tl-mobile-detail">
-                    <div className="dlp-tl-mobile-detail-title">{selected.name}</div>
-                    <div className="dlp-tl-mobile-detail-grid">
-                      <div>
-                        <div className="dlp-tl-mobile-detail-label">Est. Weekly</div>
-                        <div className="dlp-tl-mobile-detail-value">{selected.paymentValue}</div>
-                      </div>
-                      <div>
-                        <div className="dlp-tl-mobile-detail-label">Duration</div>
-                        <div className="dlp-tl-mobile-detail-value">{selected.weeks}</div>
-                      </div>
-                      <div>
-                        <div className="dlp-tl-mobile-detail-label">Dates</div>
-                        <div className="dlp-tl-mobile-detail-value">{selected.range}</div>
-                      </div>
-                      <div>
-                        <div className="dlp-tl-mobile-detail-label">Pay</div>
-                        <div className="dlp-tl-mobile-detail-value">{selected.pay}</div>
-                      </div>
-                    </div>
-                  </div>
-                );
-              })()}
-
-              <div className="dlp-tl-weeks-row">
-                <div className="dlp-tl-week-label">Week</div>
-                <div className="dlp-tl-weeks">
-                  {Array.from({ length: variant.weekCount }, function (_, i) {
-                    return <div key={i} className="dlp-tl-week-tick"><span className="dlp-tl-week-num">{i + 1}</span></div>;
-                  })}
-                </div>
-              </div>
-              <div className="dlp-tl-months">
-                {variant.months.map(function (m) { return <span key={m}>{m}</span>; })}
-              </div>
-
-              <div className="dlp-legend">
-                {variant.legend.map(function (item) {
-                  return (
-                    <div key={item.id} className="dlp-legend-item">
-                      <div className="dlp-legend-dot" style={{ background: item.accent }} />
-                      {item.label}
-                    </div>
-                  );
-                })}
-              </div>
-
+              })}
             </div>
           </div>
 
@@ -375,106 +308,6 @@ export default function StdClaimDetailPage() {
             )}
           </div>
 
-          {/* Claim Status */}
-          <div className="cl-std-sidebar-card">
-            <div className="cl-std-sidebar-header">
-              <h2 className="cl-std-sidebar-title">Claim Status</h2>
-              <span className="cl-std-pill cl-std-pill--approved">
-                <span className="cl-std-pill-dot cl-std-pill-dot--green"></span>
-                Approved
-              </span>
-            </div>
-            <p className="cl-std-status-since">Since May 10, 2024</p>
-
-            <div className="cl-std-status-list">
-              <div className="cl-std-status-item">
-                <svg className="cl-std-status-icon" width="24" height="24" viewBox="0 0 24 24" fill="none">
-                  <circle cx="12" cy="12" r="10" fill="#1fa668"/>
-                  <path d="M8 12l3 3 5-5" stroke="#fff" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-                </svg>
-                <div className="cl-std-status-text">
-                  <span className="cl-std-status-title">Claim Filed</span>
-                  <span className="cl-std-status-date">May 4, 2024</span>
-                </div>
-              </div>
-              <div className="cl-std-status-item">
-                <svg className="cl-std-status-icon" width="24" height="24" viewBox="0 0 24 24" fill="none">
-                  <circle cx="12" cy="12" r="10" fill="#1fa668"/>
-                  <path d="M8 12l3 3 5-5" stroke="#fff" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-                </svg>
-                <div className="cl-std-status-text">
-                  <span className="cl-std-status-title">Documentation Received</span>
-                  <span className="cl-std-status-date">May 7, 2024</span>
-                </div>
-              </div>
-              <div className="cl-std-status-item">
-                <svg className="cl-std-status-icon" width="24" height="24" viewBox="0 0 24 24" fill="none">
-                  <circle cx="12" cy="12" r="10" fill="#1fa668"/>
-                  <path d="M8 12l3 3 5-5" stroke="#fff" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-                </svg>
-                <div className="cl-std-status-text">
-                  <span className="cl-std-status-title">Claim Approved</span>
-                  <span className="cl-std-status-date">May 10, 2024</span>
-                  <span className="cl-std-status-note">7-day elimination period waived.</span>
-                </div>
-              </div>
-              <div className="cl-std-status-item">
-                <svg className="cl-std-status-icon" width="24" height="24" viewBox="0 0 24 24" fill="none">
-                  <circle cx="12" cy="12" r="10" fill="#1fa668"/>
-                  <path d="M8 12l3 3 5-5" stroke="#fff" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-                </svg>
-                <div className="cl-std-status-text">
-                  <span className="cl-std-status-title">Benefits In Payment</span>
-                  <span className="cl-std-status-date">Since May 11, 2024</span>
-                  <span className="cl-std-status-note">Next payment Jul 26.</span>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          {/* Documents & EOBs */}
-          <div className="cl-std-sidebar-card cl-std-sidebar-card--docs">
-            <h2 className="cl-std-sidebar-title">Documents &amp; EOBs</h2>
-
-            <div className="cl-std-doc-list">
-              <div className="cl-std-doc-item">
-                <div className="cl-std-doc-info">
-                  <span className="cl-std-doc-name">Explanation of Benefits — Jul 12</span>
-                  <span className="cl-std-doc-meta">PDF &middot; Generated Jul 12, 2024</span>
-                </div>
-                <button className="cl-std-doc-download">
-                  <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
-                    <path d="M8 2v8M8 10l-3-3M8 10l3-3" stroke="#222" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
-                    <path d="M3 13h10" stroke="#222" strokeWidth="1.5" strokeLinecap="round"/>
-                  </svg>
-                </button>
-              </div>
-              <div className="cl-std-doc-item">
-                <div className="cl-std-doc-info">
-                  <span className="cl-std-doc-name">Explanation of Benefits — Jun 28</span>
-                  <span className="cl-std-doc-meta">PDF &middot; Generated Jun 28, 2024</span>
-                </div>
-                <button className="cl-std-doc-download">
-                  <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
-                    <path d="M8 2v8M8 10l-3-3M8 10l3-3" stroke="#222" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
-                    <path d="M3 13h10" stroke="#222" strokeWidth="1.5" strokeLinecap="round"/>
-                  </svg>
-                </button>
-              </div>
-              <div className="cl-std-doc-item">
-                <div className="cl-std-doc-info">
-                  <span className="cl-std-doc-name">Explanation of Benefits — Jun 14</span>
-                  <span className="cl-std-doc-meta">PDF &middot; Generated Jun 14, 2024</span>
-                </div>
-                <button className="cl-std-doc-download">
-                  <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
-                    <path d="M8 2v8M8 10l-3-3M8 10l3-3" stroke="#222" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
-                    <path d="M3 13h10" stroke="#222" strokeWidth="1.5" strokeLinecap="round"/>
-                  </svg>
-                </button>
-              </div>
-            </div>
-          </div>
         </div>
       </div>
     </div>

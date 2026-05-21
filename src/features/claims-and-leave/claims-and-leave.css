@@ -6898,9 +6898,9 @@
   }
 
   .cl-std-header-title-row {
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 8px;
+    flex-direction: row;
+    align-items: center;
+    gap: 12px;
   }
 
   .cl-std-header-meta {
@@ -8969,5 +8969,148 @@
 
 .cl-v2-accordion-btn--edit:hover {
   background: #f0f7ff;
+}
+
+/* STD Claim V3 Payment Cards (mobile) */
+.cl-std-payment-summary-mobile {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+  margin-bottom: 16px;
+}
+
+.cl-std-payment-summary-item {
+  padding: 12px 14px;
+  background: #f8fafb;
+  border-radius: 8px;
+  border: 1px solid #e2e2e5;
+}
+
+.cl-std-payment-summary-item--green {
+  background: #e8f5e9;
+  border-color: #c8e6c9;
+}
+
+.cl-std-payment-summary-label {
+  font-family: 'Source Sans Pro', sans-serif;
+  font-size: 11px;
+  font-weight: 600;
+  color: #737373;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+}
+
+.cl-std-payment-summary-value {
+  font-family: 'Source Sans Pro', sans-serif;
+  font-size: 17px;
+  font-weight: 700;
+  color: #171717;
+  margin-top: 2px;
+}
+
+.cl-std-payment-summary-value--green {
+  color: #2e7d32;
+}
+
+.cl-std-v3-timeline-cards {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.cl-std-v3-card {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 18px 20px;
+  border: 1px solid #e2e2e5;
+  border-radius: 10px;
+  background: #f8fafb;
+  cursor: pointer;
+  text-align: left;
+  width: 100%;
+  transition: border-color 0.15s, background 0.15s;
+  font-family: 'Source Sans Pro', sans-serif;
+}
+
+.cl-std-v3-card--expanded {
+  background: #f0f4f8;
+}
+
+.cl-std-v3-card-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+}
+
+.cl-std-v3-card-name-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.cl-std-v3-card-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+.cl-std-v3-card-name {
+  font-size: 15px;
+  font-weight: 700;
+  color: #171717;
+}
+
+.cl-std-v3-card-bar {
+  width: 100%;
+  height: 8px;
+  background: #e2e2e5;
+  border-radius: 4px;
+  position: relative;
+  overflow: hidden;
+}
+
+.cl-std-v3-card-bar-fill {
+  position: absolute;
+  left: 0;
+  top: 0;
+  height: 100%;
+  border-radius: 4px;
+}
+
+.cl-std-v3-card-meta {
+  font-size: 13px;
+  color: #737373;
+}
+
+.cl-std-v3-card-details {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px 16px;
+  width: 100%;
+  padding-top: 10px;
+  border-top: 1px solid #e2e2e5;
+  margin-top: 4px;
+}
+
+.cl-std-v3-card-detail-field--full {
+  grid-column: 1 / -1;
+}
+
+.cl-std-v3-card-detail-label {
+  font-size: 11px;
+  font-weight: 600;
+  color: #737373;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+}
+
+.cl-std-v3-card-detail-value {
+  font-size: 14px;
+  font-weight: 600;
+  color: #171717;
+  margin-top: 2px;
 }
 
