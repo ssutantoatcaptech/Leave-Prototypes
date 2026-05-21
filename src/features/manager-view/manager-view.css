@@ -1500,6 +1500,10 @@
 }
 
 /* === Accommodations nested card === */
+.mgr-overview-ada-section {
+  margin-top: 28px;
+}
+
 .mgr-accom-card {
   border: 1px solid #e5e7eb;
   border-radius: 12px;
