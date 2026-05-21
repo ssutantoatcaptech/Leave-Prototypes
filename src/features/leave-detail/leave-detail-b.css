@@ -3776,7 +3776,10 @@ select.ldb-detail-input {
 .ldb-st-step-content {
   flex: 1;
   min-width: 0;
-  padding-bottom: 24px;
+  margin-bottom: 24px;
+}
+.ldb-st-step--last .ldb-st-step-content {
+  margin-bottom: 0;
 }
 .ldb-st-step-card {
   background: #fafafa;
