@@ -445,12 +445,23 @@
   color: var(--color-text-tertiary);
 }
 
-/* === Bottom Actions === */
+/* === Bottom Section === */
+.cs-bottom-section {
+  margin-top: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  padding-bottom: 40px;
+}
+
+.cs-bottom-section .cs-signin-callout {
+  margin-top: 0;
+}
+
 .cs-bottom-actions {
   display: flex;
   gap: 12px;
   justify-content: center;
-  padding-bottom: 40px;
 }
 
 /* === Sign In Callout === */

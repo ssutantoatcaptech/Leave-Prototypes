@@ -263,20 +263,20 @@ export default function ClaimStatusPage() {
                 </div>
               </div>
 
-              {/* Sign In Encouragement */}
-              <div className="cs-signin-callout">
-                <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="8" r="4" stroke="currentColor" strokeWidth="1.5"/><path d="M4 21c0-4 3.5-7 8-7s8 3 8 7" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"/></svg>
-                <div>
-                  <strong>Want easier access?</strong>
-                  <span>Sign in or create an account to track claims, upload documents, and get notifications.</span>
+              {/* Bottom Section */}
+              <div className="cs-bottom-section">
+                <div className="cs-signin-callout">
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="8" r="4" stroke="currentColor" strokeWidth="1.5"/><path d="M4 21c0-4 3.5-7 8-7s8 3 8 7" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"/></svg>
+                  <div>
+                    <strong>Want easier access?</strong>
+                    <span>Sign in or create an account to track claims, upload documents, and get notifications.</span>
+                  </div>
+                  <a href="/claims-and-leave" className="cs-signin-callout-link">Sign In</a>
                 </div>
-                <a href="/claims-and-leave" className="cs-signin-callout-link">Sign In</a>
-              </div>
-
-              {/* Bottom Actions */}
-              <div className="cs-bottom-actions">
-                <button className="btn btn-next" onClick={() => navigate('/guest-claim')}>File Another Claim</button>
-                <button className="btn btn-secondary" onClick={() => setPhase('lookup')}>Look Up Another Claim</button>
+                <div className="cs-bottom-actions">
+                  <button className="btn btn-next" onClick={() => navigate('/guest-claim')}>File Another Claim</button>
+                  <button className="btn btn-secondary" onClick={() => setPhase('lookup')}>Look Up Another Claim</button>
+                </div>
               </div>
             </div>
           </div>
