@@ -4,7 +4,7 @@ import { fileURLToPath } from 'url';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const dist = resolve(__dirname, '..', 'dist');
-const base = process.env.VITE_BASE || '/';
+const base = '/Leave-Prototypes/';
 
 // Create a 404.html that routes to the correct SPA based on path
 const fallbackHtml = `<!DOCTYPE html>
