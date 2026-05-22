@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { useNavigate, useSearchParams, useLocation } from 'react-router-dom';
+import { useNavigate, useSearchParams } from 'react-router-dom';
 import './file-claim-wizard.css';
 import './guest-file-claim.css';
 
@@ -931,20 +931,13 @@ function GuestFileClaimContent() {
 }
 
 export default function GuestFileClaimPage() {
-  const location = useLocation();
-  const isStandalone = location.pathname === '/guest-claim' || location.pathname.startsWith('/guest-claim');
-
-  if (isStandalone) {
-    return (
-      <div className="gc-shell">
-        <GuestHeader />
-        <main className="gc-main">
-          <GuestFileClaimContent />
-        </main>
-        <GuestFooter />
-      </div>
-    );
-  }
-
-  return <GuestFileClaimContent />;
+  return (
+    <div className="gc-shell">
+      <GuestHeader />
+      <main className="gc-main">
+        <GuestFileClaimContent />
+      </main>
+      <GuestFooter />
+    </div>
+  );
 }

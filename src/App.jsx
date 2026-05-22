@@ -132,7 +132,6 @@ export default function App() {
           <Route path="file-claim" element={<FileClaimPage />} />
           <Route path="file-claim/request-leave" element={<RequestLeaveReactPage />} />
           <Route path="file-claim/start-claim" element={<FileClaimWizardPage />} />
-          <Route path="file-claim/guest-claim" element={<GuestFileClaimPage />} />
           <Route path="file-claim/ada-accommodation" element={<AdaAccommodationPage />} />
           <Route path="ada-requests" element={<AdaRequestsPage />} />
           <Route path="dental" element={<DentalClaimsPage />} />
@@ -164,7 +163,6 @@ export default function App() {
           <Route path="file-claim" element={<FileClaimPage />} />
           <Route path="file-claim/request-leave" element={<RequestLeaveReactPage />} />
           <Route path="file-claim/start-claim" element={<FileClaimWizardPage />} />
-          <Route path="file-claim/guest-claim" element={<GuestFileClaimPage />} />
           <Route path="file-claim/ada-accommodation" element={<AdaAccommodationPage />} />
           <Route path="ada-requests" element={<AdaRequestsPage />} />
           <Route path="dental" element={<DentalClaimsPage />} />
