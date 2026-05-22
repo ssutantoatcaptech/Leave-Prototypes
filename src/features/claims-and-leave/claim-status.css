@@ -1,0 +1,493 @@
+/* ============================================================
+   Claim Status Lookup — Styles
+   ============================================================ */
+
+/* === Lookup Card === */
+.cs-lookup-card {
+  text-align: center;
+  padding: 48px 40px;
+}
+
+.cs-lookup-header {
+  margin-bottom: 32px;
+}
+
+.cs-lookup-icon {
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  background: var(--color-bg-info);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 16px;
+}
+
+.cs-lookup-card h2 {
+  text-align: center;
+}
+
+.cs-lookup-form {
+  max-width: 380px;
+  margin: 0 auto;
+  text-align: left;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.cs-lookup-btn {
+  margin-top: 8px;
+  width: 100%;
+  justify-content: center;
+}
+
+.cs-lookup-alt {
+  margin-top: 28px;
+  padding-top: 20px;
+  border-top: 1px solid var(--color-border-separator);
+  font-size: 14px;
+  color: var(--color-text-secondary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+}
+
+.cs-lookup-alt-link {
+  background: none;
+  border: none;
+  color: var(--color-brand-primary);
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  text-decoration: underline;
+  font-family: var(--font-family-primary);
+}
+
+.cs-lookup-alt-link:hover {
+  color: var(--color-brand-primary-hover);
+}
+
+/* === Result Header === */
+.cs-result-header {
+  margin-bottom: 24px;
+}
+
+.cs-back-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: none;
+  border: none;
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--color-brand-primary);
+  cursor: pointer;
+  padding: 0;
+  margin-bottom: 16px;
+  font-family: var(--font-family-primary);
+}
+
+.cs-back-btn:hover {
+  text-decoration: underline;
+}
+
+.cs-result-title {
+  font-size: 28px;
+  font-weight: 700;
+  color: var(--color-brand-navy);
+  margin: 0 0 6px;
+  font-family: var(--font-family-primary);
+}
+
+.cs-result-claim-id {
+  font-size: 14px;
+  color: var(--color-text-secondary);
+  margin: 0;
+}
+
+.cs-result-claim-id strong {
+  color: var(--color-text-primary);
+}
+
+/* === Status Card === */
+.cs-status-card {
+  margin-bottom: 16px;
+}
+
+.cs-status-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 24px;
+}
+
+.cs-status-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 12px;
+  border-radius: 20px;
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.cs-status-badge--review {
+  background: var(--color-bg-warning);
+  color: #92400e;
+  border: 1px solid var(--color-status-warning);
+}
+
+.cs-status-badge--approved {
+  background: var(--color-status-success-bg);
+  color: #166534;
+  border: 1px solid var(--color-status-success);
+}
+
+.cs-status-badge--submitted {
+  background: var(--color-bg-info);
+  color: var(--color-brand-primary);
+  border: 1px solid var(--color-brand-primary);
+}
+
+.cs-status-date {
+  font-size: 13px;
+  color: var(--color-text-tertiary);
+}
+
+/* === Status Tracker === */
+.cs-tracker {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  position: relative;
+}
+
+.cs-tracker-step {
+  display: flex;
+  align-items: flex-start;
+  gap: 16px;
+  position: relative;
+  padding-bottom: 24px;
+}
+
+.cs-tracker-step:last-child {
+  padding-bottom: 0;
+}
+
+.cs-tracker-dot {
+  width: 28px;
+  height: 28px;
+  min-width: 28px;
+  border-radius: 50%;
+  background: var(--color-bg-muted);
+  border: 2px solid var(--color-border-input);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  z-index: 2;
+}
+
+.cs-tracker-step--done .cs-tracker-dot {
+  background: var(--color-status-success);
+  border-color: var(--color-status-success);
+}
+
+.cs-tracker-step--active .cs-tracker-dot {
+  background: var(--color-brand-primary);
+  border-color: var(--color-brand-primary);
+  box-shadow: 0 0 0 4px rgba(16, 95, 168, 0.15);
+}
+
+.cs-tracker-step--active .cs-tracker-dot::after {
+  content: '';
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #fff;
+}
+
+.cs-tracker-line {
+  position: absolute;
+  left: 13px;
+  top: 28px;
+  bottom: 0;
+  width: 2px;
+  background: var(--color-border-input);
+}
+
+.cs-tracker-line--done {
+  background: var(--color-status-success);
+}
+
+.cs-tracker-step:last-child .cs-tracker-line {
+  display: none;
+}
+
+.cs-tracker-content {
+  padding-top: 3px;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.cs-tracker-content strong {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--color-text-primary);
+}
+
+.cs-tracker-content span {
+  font-size: 13px;
+  color: var(--color-text-secondary);
+}
+
+/* === Details Card === */
+.cs-details-card {
+  margin-bottom: 16px;
+}
+
+.cs-section-title {
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--color-text-primary);
+  margin: 0 0 16px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.cs-details-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+}
+
+.cs-detail-item {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+
+.cs-detail-label {
+  font-size: 11px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--color-text-tertiary);
+}
+
+.cs-detail-value {
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--color-text-primary);
+}
+
+/* === Actions Card === */
+.cs-actions-card {
+  margin-bottom: 16px;
+}
+
+.cs-actions-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 20px;
+  height: 20px;
+  padding: 0 6px;
+  border-radius: 10px;
+  background: var(--color-status-error);
+  color: #fff;
+  font-size: 11px;
+  font-weight: 700;
+}
+
+.cs-action-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+  padding: 16px;
+  background: var(--color-bg-muted);
+  border: 1px solid var(--color-border-card);
+  border-radius: var(--radius-md);
+}
+
+.cs-action-icon {
+  width: 36px;
+  height: 36px;
+  min-width: 36px;
+  border-radius: 8px;
+  background: var(--color-bg-warning);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #92400e;
+}
+
+.cs-action-content {
+  flex: 1;
+  min-width: 0;
+}
+
+.cs-action-content strong {
+  display: block;
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--color-text-primary);
+  margin-bottom: 4px;
+}
+
+.cs-action-content p {
+  font-size: 13px;
+  color: var(--color-text-secondary);
+  margin: 0 0 6px;
+  line-height: 1.5;
+}
+
+.cs-action-due {
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--color-status-warning);
+}
+
+.cs-action-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 16px;
+  border-radius: var(--radius-md);
+  border: 1.5px solid var(--color-brand-primary);
+  background: var(--color-bg-card);
+  color: var(--color-brand-primary);
+  font-size: 13px;
+  font-weight: 600;
+  font-family: var(--font-family-primary);
+  cursor: pointer;
+  white-space: nowrap;
+  align-self: flex-start;
+  margin-top: 4px;
+  transition: background 0.12s;
+}
+
+.cs-action-btn:hover {
+  background: var(--color-bg-selected);
+}
+
+/* === Timeline Card === */
+.cs-timeline-card {
+  margin-bottom: 24px;
+}
+
+.cs-timeline {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  position: relative;
+}
+
+.cs-timeline-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+  padding-bottom: 20px;
+  position: relative;
+}
+
+.cs-timeline-item:last-child {
+  padding-bottom: 0;
+}
+
+.cs-timeline-item::before {
+  content: '';
+  position: absolute;
+  left: 5px;
+  top: 14px;
+  bottom: 0;
+  width: 1px;
+  background: var(--color-border-separator);
+}
+
+.cs-timeline-item:last-child::before {
+  display: none;
+}
+
+.cs-timeline-dot {
+  width: 11px;
+  height: 11px;
+  min-width: 11px;
+  border-radius: 50%;
+  background: var(--color-border-input);
+  margin-top: 3px;
+  position: relative;
+  z-index: 2;
+}
+
+.cs-timeline-item:first-child .cs-timeline-dot {
+  background: var(--color-brand-primary);
+}
+
+.cs-timeline-text {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.cs-timeline-text strong {
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--color-text-primary);
+}
+
+.cs-timeline-text span {
+  font-size: 12px;
+  color: var(--color-text-tertiary);
+}
+
+/* === Bottom Actions === */
+.cs-bottom-actions {
+  display: flex;
+  gap: 12px;
+  justify-content: center;
+  padding-bottom: 40px;
+}
+
+/* === Mobile === */
+@media (max-width: 768px) {
+  .cs-lookup-card {
+    padding: 32px 20px;
+  }
+
+  .cs-lookup-form {
+    max-width: 100%;
+  }
+
+  .cs-status-top {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+  }
+
+  .cs-details-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .cs-action-item {
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .cs-action-btn {
+    width: 100%;
+    justify-content: center;
+  }
+
+  .cs-bottom-actions {
+    flex-direction: column;
+  }
+
+  .cs-result-title {
+    font-size: 22px;
+  }
+}

@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { useNavigate, useSearchParams } from 'react-router-dom';
 import './file-claim-wizard.css';
 import './guest-file-claim.css';
+import './claim-status.css';
 
 const DRAFT_KEY = 'guestFileClaimDraft';
 
@@ -285,12 +286,12 @@ function GuestFileClaimContent() {
                     </div>
                     <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M6 3l5 5-5 5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/></svg>
                   </div>
-                  <div className="gc-path-card" onClick={() => goToPhase('claim-lookup')}>
+                  <div className="gc-path-card" onClick={() => navigate('/claim-status')}>
                     <div className="gc-path-card-icon">
                       <svg width="24" height="24" viewBox="0 0 24 24" fill="none"><circle cx="11" cy="11" r="7" stroke="currentColor" strokeWidth="1.5"/><path d="M16 16l4.5 4.5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"/></svg>
                     </div>
                     <div className="gc-path-card-text">
-                      <strong>Check Claim Status Later</strong>
+                      <strong>Check Claim Status</strong>
                       <span>Use your Claim ID and Date of Birth anytime</span>
                     </div>
                     <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M6 3l5 5-5 5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/></svg>
@@ -367,6 +368,11 @@ function GuestFileClaimContent() {
               <div className="fc-wiz-footer-right">
                 <button className="btn btn-next" disabled={!formState.role || !formState.stateLocation} onClick={() => goToPhase('landing')}>Continue</button>
               </div>
+            </div>
+
+            <div className="cs-lookup-alt">
+              <span>Already filed?</span>
+              <button className="cs-lookup-alt-link" onClick={() => navigate('/claim-status')}>Check claim status</button>
             </div>
 
             <div className="gc-entry-address">
@@ -915,7 +921,7 @@ function GuestFileClaimContent() {
 
             <div className="fc-wiz-footer">
               <div className="fc-wiz-footer-left">
-                <button className="btn btn-secondary" onClick={() => goToPhase('claim-lookup')}>Skip for now</button>
+                <button className="btn btn-secondary" onClick={() => navigate('/claim-status')}>Skip for now</button>
               </div>
               <div className="fc-wiz-footer-right">
                 <button className="btn btn-next">Create Account</button>
