@@ -1,0 +1,204 @@
+import { useState, useEffect, useRef } from 'react';
+import { NavLink, Outlet, useLocation } from 'react-router-dom';
+import './manager-view.css';
+
+export default function ManagerPortalLayout() {
+  const location = useLocation();
+  const [profileOpen, setProfileOpen] = useState(false);
+  const [mobileNavOpen, setMobileNavOpen] = useState(false);
+  const profileRef = useRef(null);
+
+  useEffect(function () {
+    function handleClickOutside(e) {
+      if (profileRef.current && !profileRef.current.contains(e.target)) {
+        setProfileOpen(false);
+      }
+    }
+    document.addEventListener('mousedown', handleClickOutside);
+    return function () { document.removeEventListener('mousedown', handleClickOutside); };
+  }, []);
+
+  useEffect(function () {
+    setMobileNavOpen(false);
+  }, [location.pathname]);
+
+  const actionCount = 3;
+
+  const navLinks = [
+    { label: 'Absence Calendar', to: '/manager/absence-calendar' },
+    { label: 'My Team', to: '/manager/my-team' },
+    { label: 'Tasks', to: '/manager/my-actions', count: actionCount },
+    { label: 'Support', to: '/manager/support' },
+  ];
+
+  return (
+    <div className="mgr-shell">
+      <div className="mgr-header-wrapper">
+      <header className="mgr-header">
+        <div className="mgr-header-left">
+          <button
+            className="mgr-hamburger"
+            aria-label={mobileNavOpen ? 'Close menu' : 'Open menu'}
+            aria-expanded={mobileNavOpen}
+            onClick={() => setMobileNavOpen(!mobileNavOpen)}
+          >
+            {mobileNavOpen ? (
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+                <path d="M6 6l12 12M18 6L6 18" stroke="currentColor" strokeWidth="2" strokeLinecap="round"/>
+              </svg>
+            ) : (
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+                <path d="M3 6h18M3 12h18M3 18h18" stroke="currentColor" strokeWidth="2" strokeLinecap="round"/>
+              </svg>
+            )}
+          </button>
+          <span className="mgr-header-brand">my<strong>Mutual</strong></span>
+          <span className="mgr-header-badge">Manager</span>
+          <nav className="mgr-header-nav">
+            {navLinks.map((link) => (
+              <NavLink
+                key={link.label}
+                to={link.to}
+                className={({ isActive }) => isActive ? 'active' : ''}
+              >
+                {link.label}
+                {link.count > 0 && <span className="mgr-nav-count">{link.count}</span>}
+              </NavLink>
+            ))}
+          </nav>
+        </div>
+        <div className="mgr-header-right">
+          <div className={`mgr-avatar-dropdown${profileOpen ? ' open' : ''}`} ref={profileRef}>
+            <button className="mgr-header-avatar" type="button" onClick={() => setProfileOpen(!profileOpen)}>
+              <span className="mgr-avatar-circle">SJ</span>
+              <span className="mgr-avatar-name">Sarah Johnson</span>
+            </button>
+            <div className="mgr-avatar-dropdown-menu">
+              <button className="mgr-avatar-dropdown-account" type="button" onClick={() => setProfileOpen(false)}>
+                <span className="mgr-avatar-circle">SJ</span>
+                <div className="mgr-avatar-dropdown-account-info">
+                  <strong>Sarah Johnson</strong>
+                  <span>Manager Account</span>
+                </div>
+                <span className="mgr-avatar-dropdown-selected">
+                  Selected <svg viewBox="0 0 10 10" fill="none"><path d="M2 5l2.5 2.5L8 3" stroke="currentColor" strokeWidth="1.3" strokeLinecap="round" strokeLinejoin="round"/></svg>
+                </span>
+              </button>
+              <div className="mgr-avatar-dropdown-divider" />
+              <button className="mgr-avatar-dropdown-item" type="button" onClick={() => setProfileOpen(false)}>
+                <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M5 2h7v7M12 2L2 12" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round" strokeLinejoin="round"/></svg>
+                Sign Out
+              </button>
+            </div>
+          </div>
+        </div>
+      </header>
+      </div>
+
+      {/* Mobile full-screen nav overlay */}
+      {mobileNavOpen && (
+        <div className="mgr-mobile-nav-overlay">
+          <button className="mgr-mobile-nav-close" aria-label="Close menu" onClick={() => setMobileNavOpen(false)}>
+            <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+              <path d="M4 4l12 12M16 4L4 16" stroke="#0f0f14" strokeWidth="2" strokeLinecap="round"/>
+            </svg>
+          </button>
+          <div className="mgr-mobile-nav-brand">
+            <span className="mgr-mobile-nav-brand-name">my<strong>Mutual</strong></span>
+            <span className="mgr-mobile-nav-brand-tag">Manager Portal</span>
+          </div>
+          <div className="mgr-mobile-nav-primary">
+            {navLinks.map((link) => (
+              <NavLink
+                key={link.label}
+                to={link.to}
+                className={({ isActive }) => `mgr-mobile-nav-item${isActive ? ' mgr-mobile-nav-item--active' : ''}`}
+                onClick={() => setMobileNavOpen(false)}
+              >
+                <span>{link.label}</span>
+                {link.count > 0 && <span className="mgr-mobile-nav-count">{link.count}</span>}
+              </NavLink>
+            ))}
+          </div>
+          <div className="mgr-mobile-nav-utility">
+            <button className="mgr-mobile-nav-utility-item" onClick={() => setMobileNavOpen(false)}>
+              <svg width="24" height="24" viewBox="0 0 20 22" fill="none"><path d="M10 1c-1.5 0-2.8.6-3.8 1.5C5.2 3.6 4.5 5.2 4.5 7v4.5L3 13.5V15h14v-1.5l-1.5-2V7c0-1.8-.7-3.4-1.7-4.5C12.8 1.6 11.5 1 10 1z" stroke="white" strokeWidth="1.5" strokeLinejoin="round"/><path d="M7.5 15v.5a2.5 2.5 0 005 0V15" stroke="white" strokeWidth="1.5" strokeLinecap="round"/></svg>
+              <span>Notifications</span>
+            </button>
+            <button className="mgr-mobile-nav-utility-item" onClick={() => setMobileNavOpen(false)}>
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="8" r="4" stroke="white" strokeWidth="1.5"/><path d="M4 21c0-4 3.5-7 8-7s8 3 8 7" stroke="white" strokeWidth="1.5" strokeLinecap="round"/></svg>
+              <span>Profile</span>
+            </button>
+            <button className="mgr-mobile-nav-utility-item" onClick={() => setMobileNavOpen(false)}>
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M5 2h7v7M12 2L2 12" stroke="white" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/></svg>
+              <span>Sign Out</span>
+            </button>
+          </div>
+        </div>
+      )}
+
+      <Outlet />
+      {/* Desktop Footer */}
+      <footer className="mgr-footer mgr-footer--desktop">
+        <div className="mgr-footer-inner">
+          <div className="mgr-footer-bottom">
+            <h2 className="mgr-footer-brand">my<strong>Mutual</strong></h2>
+            <div className="mgr-footer-legal">
+              <a href="#" className="mgr-footer-legal-link">Privacy Policy</a>
+              <a href="#" className="mgr-footer-legal-link">Manage Cookie Preferences</a>
+              <a href="#" className="mgr-footer-legal-link">Terms of Use</a>
+              <a href="#" className="mgr-footer-legal-link">Accessibility Services</a>
+            </div>
+            <span className="mgr-footer-copyright">&copy; 2026 Mutual of Omaha Insurance Company. All rights reserved.</span>
+          </div>
+        </div>
+      </footer>
+
+      {/* Mobile Footer */}
+      <footer className="mgr-footer mgr-footer--mobile">
+        <h2 className="mgr-mfooter-brand">my<strong>Mutual</strong></h2>
+        <div className="mgr-mfooter-sections">
+          <div className="mgr-mfooter-section">
+            <h4 className="mgr-mfooter-heading">Support</h4>
+            <div className="mgr-mfooter-link-row">
+              <a href="#" className="mgr-mfooter-link">Send a Message</a>
+              <a href="#" className="mgr-mfooter-link">Live Chat</a>
+            </div>
+          </div>
+          <div className="mgr-mfooter-section">
+            <h4 className="mgr-mfooter-heading">Quick Links</h4>
+            <div className="mgr-mfooter-link-grid">
+              <div className="mgr-mfooter-link-row">
+                <a href="#" className="mgr-mfooter-link">Absence Calendar</a>
+                <a href="#" className="mgr-mfooter-link">My Team</a>
+              </div>
+              <div className="mgr-mfooter-link-row">
+                <a href="#" className="mgr-mfooter-link">Documents & Forms</a>
+                <a href="#" className="mgr-mfooter-link">Resources</a>
+              </div>
+            </div>
+          </div>
+          <div className="mgr-mfooter-section">
+            <h4 className="mgr-mfooter-heading">Language Preference</h4>
+            <div className="mgr-mfooter-lang">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="10" stroke="#105fa8" strokeWidth="1.5"/><path d="M2 12h20M12 2c2.5 2.5 4 5.5 4 10s-1.5 7.5-4 10M12 2c-2.5 2.5-4 5.5-4 10s1.5 7.5 4 10" stroke="#105fa8" strokeWidth="1.5"/></svg>
+              <span className="mgr-mfooter-lang-text">English</span>
+              <svg width="12" height="8" viewBox="0 0 12 8" fill="none"><path d="M1 1.5l5 5 5-5" stroke="#222" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/></svg>
+            </div>
+          </div>
+        </div>
+        <div className="mgr-mfooter-legal">
+          <div className="mgr-mfooter-legal-row">
+            <a href="#" className="mgr-mfooter-legal-link">Privacy Policy</a>
+            <a href="#" className="mgr-mfooter-legal-link">Manage Cookie Preferences</a>
+          </div>
+          <div className="mgr-mfooter-legal-row">
+            <a href="#" className="mgr-mfooter-legal-link">Terms of Use</a>
+            <a href="#" className="mgr-mfooter-legal-link">Accessibility Services</a>
+          </div>
+          <span className="mgr-mfooter-copyright">&copy; 2026 Mutual of Omaha Insurance Company. All rights reserved.</span>
+        </div>
+      </footer>
+    </div>
+  );
+}
