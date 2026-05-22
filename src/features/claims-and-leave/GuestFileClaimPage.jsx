@@ -7,25 +7,25 @@ const DRAFT_KEY = 'guestFileClaimDraft';
 
 const initialState = {
   // Entry
-  role: '',
-  stateLocation: '',
+  role: 'member',
+  stateLocation: 'Missouri',
   // Identity verification
-  firstName: '',
-  lastName: '',
-  dob: '',
-  ssn4: '',
-  employerName: '',
-  groupId: '',
+  firstName: 'Jane',
+  lastName: 'Mitchell',
+  dob: '1990-04-15',
+  ssn4: '7842',
+  employerName: 'EnterpriseCorp Inc.',
+  groupId: 'GOOO-12RF',
   // Claim intake
-  claimType: '',
-  dateOfEvent: '',
-  description: '',
-  providerName: '',
-  consent: false,
+  claimType: 'std',
+  dateOfEvent: '2026-05-08',
+  description: 'I am experiencing severe lower back pain due to a herniated disc that is preventing me from sitting or standing for extended periods, making it impossible to perform my normal work duties.',
+  providerName: 'Dr. Julia Kelly, MD — Orthopedic Spine',
+  consent: true,
   // Guided triage
-  whatHappened: '',
-  unableToWork: '',
-  howLong: '',
+  whatHappened: 'work_condition',
+  unableToWork: 'yes',
+  howLong: '7_90',
 };
 
 const stateOptions = ['Alabama','Alaska','Arizona','Arkansas','California','Colorado','Connecticut','Delaware','Florida','Georgia','Hawaii','Idaho','Illinois','Indiana','Iowa','Kansas','Kentucky','Louisiana','Maine','Maryland','Massachusetts','Michigan','Minnesota','Mississippi','Missouri','Montana','Nebraska','Nevada','New Hampshire','New Jersey','New Mexico','New York','North Carolina','North Dakota','Ohio','Oklahoma','Oregon','Pennsylvania','Rhode Island','South Carolina','South Dakota','Tennessee','Texas','Utah','Vermont','Virginia','Washington','West Virginia','Wisconsin','Wyoming','District of Columbia'];
