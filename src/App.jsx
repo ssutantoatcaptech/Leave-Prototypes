@@ -42,6 +42,7 @@ import MobileFrameWrapper from './features/claims-and-leave/MobileFrameWrapper';
 import AdaAccommodationPage from './features/ada-accommodation/AdaAccommodationPage';
 import AdaRequestsPage from './features/ada-accommodation/AdaRequestsPage';
 import FileClaimWizardPage from './features/claims-and-leave/FileClaimWizardPage';
+import GuestFileClaimPage from './features/claims-and-leave/GuestFileClaimPage';
 
 import ManagerLayout from './features/manager-view/ManagerLayout';
 import AbsenceCalendarPage from './features/manager-view/AbsenceCalendarPage';
@@ -128,6 +129,7 @@ export default function App() {
           <Route path="file-claim" element={<FileClaimPage />} />
           <Route path="file-claim/request-leave" element={<RequestLeaveReactPage />} />
           <Route path="file-claim/start-claim" element={<FileClaimWizardPage />} />
+          <Route path="file-claim/guest-claim" element={<GuestFileClaimPage />} />
           <Route path="file-claim/ada-accommodation" element={<AdaAccommodationPage />} />
           <Route path="ada-requests" element={<AdaRequestsPage />} />
           <Route path="dental" element={<DentalClaimsPage />} />
@@ -159,6 +161,7 @@ export default function App() {
           <Route path="file-claim" element={<FileClaimPage />} />
           <Route path="file-claim/request-leave" element={<RequestLeaveReactPage />} />
           <Route path="file-claim/start-claim" element={<FileClaimWizardPage />} />
+          <Route path="file-claim/guest-claim" element={<GuestFileClaimPage />} />
           <Route path="file-claim/ada-accommodation" element={<AdaAccommodationPage />} />
           <Route path="ada-requests" element={<AdaRequestsPage />} />
           <Route path="dental" element={<DentalClaimsPage />} />

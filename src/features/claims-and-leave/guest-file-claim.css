@@ -1,0 +1,749 @@
+/* ============================================================
+   Guest File a Claim — Additional Styles
+   Extends fc-wiz-* base patterns with gc- prefix
+   ============================================================ */
+
+/* === Landing Card === */
+.gc-landing-card {
+  text-align: center;
+  padding: 48px 40px;
+}
+
+.gc-landing-header {
+  margin-bottom: 36px;
+}
+
+.gc-landing-icon {
+  width: 72px;
+  height: 72px;
+  border-radius: 50%;
+  background: var(--color-bg-info);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 20px;
+}
+
+.gc-landing-card h2 {
+  text-align: center;
+}
+
+.gc-landing-card .fc-wiz-subtitle {
+  max-width: 500px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.gc-landing-footer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  font-size: 13px;
+  color: var(--color-text-tertiary);
+  margin-top: 32px;
+  padding-top: 20px;
+  border-top: 1px solid var(--color-border-separator);
+}
+
+.gc-landing-footer svg {
+  flex-shrink: 0;
+  color: var(--color-text-tertiary);
+}
+
+/* === Gate Options (Sign In vs Guest) === */
+.gc-gate-options {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  max-width: 520px;
+  margin: 0 auto;
+  text-align: left;
+}
+
+.gc-gate-btn {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 20px 24px;
+  border-radius: var(--radius-lg);
+  cursor: pointer;
+  transition: border-color 0.15s, background 0.15s, box-shadow 0.15s;
+  font-family: var(--font-family-primary);
+  text-align: left;
+  width: 100%;
+}
+
+.gc-gate-btn--primary {
+  background: var(--color-bg-card);
+  border: 2px solid var(--color-brand-primary);
+  box-shadow: 0 2px 8px rgba(16, 95, 168, 0.08);
+}
+
+.gc-gate-btn--primary:hover {
+  background: var(--color-bg-selected);
+  box-shadow: 0 4px 12px rgba(16, 95, 168, 0.12);
+}
+
+.gc-gate-btn--secondary {
+  background: var(--color-bg-card);
+  border: 1.5px solid var(--color-border-card);
+}
+
+.gc-gate-btn--secondary:hover {
+  border-color: var(--color-brand-primary);
+  background: var(--color-bg-hover);
+}
+
+.gc-gate-btn > svg:first-child {
+  flex-shrink: 0;
+  color: var(--color-brand-primary);
+}
+
+.gc-gate-btn > svg:last-child {
+  flex-shrink: 0;
+  margin-left: auto;
+  color: var(--color-text-tertiary);
+}
+
+.gc-gate-btn-text {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+
+.gc-gate-btn-text strong {
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--color-text-primary);
+}
+
+.gc-gate-btn-text span {
+  font-size: 13px;
+  color: var(--color-text-secondary);
+}
+
+/* === Error Banner === */
+.gc-error-banner {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  padding: 14px 16px;
+  background: var(--color-bg-error);
+  border: 1px solid var(--color-status-error);
+  border-radius: var(--radius-md);
+  margin-bottom: 24px;
+  font-size: 14px;
+  color: var(--color-status-error);
+}
+
+.gc-error-banner svg {
+  flex-shrink: 0;
+  margin-top: 1px;
+}
+
+/* === Optional Divider === */
+.gc-optional-divider {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin: 28px 0 20px;
+}
+
+.gc-optional-divider::before,
+.gc-optional-divider::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: var(--color-border-separator);
+}
+
+.gc-optional-divider span {
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--color-text-tertiary);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+/* === Claim Type Selection === */
+.gc-claim-type-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-bottom: 24px;
+}
+
+.gc-claim-type-card {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 16px 20px;
+  border: 1.5px solid var(--color-border-card);
+  border-radius: var(--radius-md);
+  cursor: pointer;
+  transition: border-color 0.15s, background 0.15s;
+}
+
+.gc-claim-type-card:hover {
+  border-color: var(--color-brand-primary);
+  background: var(--color-bg-hover);
+}
+
+.gc-claim-type-card.selected {
+  border-color: var(--color-brand-primary);
+  background: var(--color-bg-selected);
+}
+
+.gc-claim-type-radio {
+  width: 18px;
+  height: 18px;
+  min-width: 18px;
+  border-radius: 50%;
+  border: 2px solid var(--color-border-input);
+  transition: border-color 0.15s, box-shadow 0.15s;
+  position: relative;
+}
+
+.gc-claim-type-card.selected .gc-claim-type-radio {
+  border-color: var(--color-brand-primary);
+  box-shadow: inset 0 0 0 4px var(--color-brand-primary);
+}
+
+.gc-claim-type-text {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.gc-claim-type-text strong {
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--color-text-primary);
+}
+
+.gc-claim-type-text span {
+  font-size: 13px;
+  color: var(--color-text-secondary);
+}
+
+/* === Not Sure Section === */
+.gc-not-sure-section {
+  margin-top: 4px;
+}
+
+.gc-not-sure-divider {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 16px;
+}
+
+.gc-not-sure-divider::before,
+.gc-not-sure-divider::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: var(--color-border-separator);
+}
+
+.gc-not-sure-divider span {
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--color-text-tertiary);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.gc-not-sure-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  width: 100%;
+  padding: 14px 20px;
+  border: 1.5px dashed var(--color-brand-primary);
+  border-radius: var(--radius-md);
+  background: transparent;
+  color: var(--color-brand-primary);
+  font-size: 14px;
+  font-weight: 600;
+  font-family: var(--font-family-primary);
+  cursor: pointer;
+  transition: background 0.15s;
+}
+
+.gc-not-sure-btn:hover {
+  background: var(--color-bg-selected);
+}
+
+/* === Triage Questions === */
+.gc-triage-questions {
+  display: flex;
+  flex-direction: column;
+  gap: 28px;
+  margin-bottom: 24px;
+}
+
+.gc-triage-question h3 {
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--color-text-primary);
+  margin-bottom: 12px;
+}
+
+/* === Recommendation === */
+.gc-recommendation {
+  text-align: center;
+  padding: 8px 0;
+}
+
+.gc-recommendation-icon {
+  margin-bottom: 16px;
+}
+
+.gc-recommendation h2 {
+  text-align: center;
+}
+
+.gc-recommendation-card {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  padding: 20px 24px;
+  background: var(--color-bg-info);
+  border: 1px solid var(--color-brand-primary);
+  border-radius: var(--radius-md);
+  margin: 24px auto;
+  max-width: 400px;
+  text-align: center;
+}
+
+.gc-recommendation-card strong {
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--color-brand-primary);
+}
+
+.gc-recommendation-card span {
+  font-size: 13px;
+  color: var(--color-text-secondary);
+}
+
+.gc-recommendation-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  align-items: center;
+  margin-top: 28px;
+}
+
+.gc-recommendation-actions .btn {
+  min-width: 260px;
+}
+
+/* === Intake === */
+.gc-claim-type-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 12px;
+  border: 1px solid var(--color-border-card);
+  border-radius: 16px;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--color-brand-primary);
+  background: var(--color-bg-selected);
+  margin-bottom: 24px;
+}
+
+.gc-char-count {
+  display: block;
+  text-align: right;
+  font-size: 12px;
+  color: var(--color-text-tertiary);
+  margin-top: 4px;
+}
+
+.gc-upload-section {
+  margin-bottom: 24px;
+}
+
+.gc-upload-section > label {
+  display: block;
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--color-text-secondary);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin-bottom: 7px;
+}
+
+.gc-upload-area {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  padding: 32px 24px;
+  border: 2px dashed var(--color-border-input);
+  border-radius: var(--radius-md);
+  text-align: center;
+  color: var(--color-text-secondary);
+  font-size: 14px;
+  cursor: pointer;
+  transition: border-color 0.15s, background 0.15s;
+}
+
+.gc-upload-area:hover {
+  border-color: var(--color-brand-primary);
+  background: var(--color-bg-hover);
+}
+
+.gc-upload-area svg {
+  color: var(--color-text-tertiary);
+}
+
+.gc-upload-area strong {
+  color: var(--color-brand-primary);
+  text-decoration: underline;
+}
+
+.gc-upload-hint {
+  font-size: 12px;
+  color: var(--color-text-tertiary);
+}
+
+.gc-consent-section {
+  margin-bottom: 24px;
+  padding: 16px 20px;
+  background: var(--color-bg-muted);
+  border-radius: var(--radius-md);
+}
+
+.gc-consent-section .comm-check {
+  font-size: 13px;
+  line-height: 1.5;
+  color: var(--color-text-secondary);
+}
+
+/* === Review Section === */
+.gc-review-section {
+  border: 1px solid var(--color-border-card);
+  border-radius: var(--radius-md);
+  padding: 20px 24px;
+  margin-bottom: 16px;
+}
+
+.gc-review-section-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 16px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid var(--color-border-separator);
+}
+
+.gc-review-section-header h3 {
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--color-text-primary);
+  margin: 0;
+}
+
+.gc-review-edit {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--color-brand-primary);
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 4px 8px;
+  border-radius: 4px;
+  transition: background 0.12s;
+}
+
+.gc-review-edit:hover {
+  background: var(--color-bg-selected);
+}
+
+.gc-review-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+}
+
+.gc-review-field {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+
+.gc-review-field--full {
+  grid-column: 1 / -1;
+}
+
+.gc-review-label {
+  font-size: 11px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--color-text-tertiary);
+}
+
+.gc-review-value {
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--color-text-primary);
+}
+
+/* === Confirmation === */
+.gc-confirm-id-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  padding: 24px;
+  background: var(--color-bg-info);
+  border: 1px solid var(--color-brand-primary);
+  border-radius: var(--radius-lg);
+  margin: 24px 0;
+}
+
+.gc-confirm-id-label {
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--color-text-secondary);
+}
+
+.gc-confirm-id-value {
+  font-size: 28px;
+  font-weight: 700;
+  color: var(--color-brand-primary);
+  letter-spacing: 0.02em;
+  font-family: var(--font-family-primary);
+}
+
+.gc-confirm-id-hint {
+  font-size: 13px;
+  color: var(--color-text-secondary);
+}
+
+.gc-case-card-detail {
+  padding: 12px 16px 0;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.gc-case-detail-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.gc-case-detail-label {
+  font-size: 13px;
+  color: var(--color-text-tertiary);
+}
+
+.gc-case-detail-value {
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--color-text-primary);
+}
+
+/* === Post-Submit Paths === */
+.gc-post-submit-paths {
+  margin-top: 32px;
+  text-align: left;
+}
+
+.gc-post-submit-paths h3 {
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--color-text-primary);
+  margin-bottom: 12px;
+}
+
+.gc-path-cards {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.gc-path-card {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 16px 20px;
+  border: 1px solid var(--color-border-card);
+  border-radius: var(--radius-md);
+  cursor: pointer;
+  transition: border-color 0.15s, background 0.15s;
+}
+
+.gc-path-card:hover {
+  border-color: var(--color-brand-primary);
+  background: var(--color-bg-hover);
+}
+
+.gc-path-card-icon {
+  flex-shrink: 0;
+  color: var(--color-brand-primary);
+}
+
+.gc-path-card-text {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.gc-path-card-text strong {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--color-text-primary);
+}
+
+.gc-path-card-text span {
+  font-size: 13px;
+  color: var(--color-text-secondary);
+}
+
+.gc-path-card > svg:last-child {
+  flex-shrink: 0;
+  color: var(--color-text-tertiary);
+}
+
+/* === Claim Lookup === */
+.gc-lookup-info {
+  margin-top: 8px;
+}
+
+.gc-lookup-card {
+  background: var(--color-bg-muted);
+  border: 1px solid var(--color-border-card);
+  border-radius: var(--radius-md);
+  padding: 20px 24px;
+  margin-bottom: 24px;
+}
+
+.gc-lookup-card-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 8px 0;
+}
+
+.gc-lookup-card-row + .gc-lookup-card-row {
+  border-top: 1px solid var(--color-border-separator);
+}
+
+.gc-lookup-card-label {
+  font-size: 13px;
+  color: var(--color-text-secondary);
+}
+
+.gc-lookup-card-value {
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--color-text-primary);
+}
+
+.gc-lookup-instructions {
+  margin-bottom: 24px;
+}
+
+.gc-lookup-instructions h3 {
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--color-text-primary);
+  margin-bottom: 12px;
+}
+
+.gc-lookup-instructions ol {
+  padding-left: 20px;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.gc-lookup-instructions li {
+  font-size: 14px;
+  color: var(--color-text-secondary);
+  line-height: 1.5;
+}
+
+.gc-lookup-reminder {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  padding: 12px 16px;
+  background: var(--color-bg-warning);
+  border: 1px solid var(--color-status-warning);
+  border-radius: var(--radius-md);
+  font-size: 13px;
+  color: var(--color-text-secondary);
+}
+
+.gc-lookup-reminder svg {
+  flex-shrink: 0;
+  margin-top: 1px;
+  color: var(--color-status-warning);
+}
+
+/* === Create Account === */
+.gc-create-account-benefits {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding: 20px 24px;
+  background: var(--color-bg-muted);
+  border-radius: var(--radius-md);
+  margin-bottom: 28px;
+}
+
+.gc-benefit-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 14px;
+  color: var(--color-text-primary);
+}
+
+.gc-benefit-item svg {
+  flex-shrink: 0;
+}
+
+/* === Mobile === */
+@media (max-width: 768px) {
+  .gc-landing-card {
+    padding: 32px 20px;
+  }
+
+  .gc-gate-btn {
+    padding: 16px 18px;
+    gap: 12px;
+  }
+
+  .gc-claim-type-grid {
+    gap: 8px;
+  }
+
+  .gc-review-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .gc-confirm-id-value {
+    font-size: 22px;
+  }
+
+  .gc-recommendation-actions .btn {
+    min-width: unset;
+    width: 100%;
+  }
+}
