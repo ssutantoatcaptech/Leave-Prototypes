@@ -165,48 +165,15 @@ export default function ClaimStatusPage() {
                 <p className="cs-result-claim-id">Claim ID: <strong>GC-2026-48291</strong></p>
               </div>
 
-              {/* Status Tracker */}
-              <div className="fc-wiz-card cs-status-card">
+              {/* Claim Details */}
+              <div className="fc-wiz-card cs-details-card">
                 <div className="cs-status-top">
+                  <h3 className="cs-section-title" style={{ margin: 0 }}>Claim Details</h3>
                   <div className="cs-status-badge cs-status-badge--review">
                     <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><circle cx="7" cy="7" r="5.5" stroke="currentColor" strokeWidth="1.2"/><path d="M7 4.5v3l2 1" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round" strokeLinejoin="round"/></svg>
                     Under Review
                   </div>
-                  <span className="cs-status-date">Filed May 22, 2026</span>
                 </div>
-
-                <div className="cs-tracker">
-                  <div className="cs-tracker-step cs-tracker-step--done">
-                    <div className="cs-tracker-dot">
-                      <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M2.5 6l2.5 2.5L9.5 4" stroke="#fff" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/></svg>
-                    </div>
-                    <div className="cs-tracker-line cs-tracker-line--done" />
-                    <div className="cs-tracker-content">
-                      <strong>Submitted</strong>
-                      <span>May 22, 2026</span>
-                    </div>
-                  </div>
-                  <div className="cs-tracker-step cs-tracker-step--active">
-                    <div className="cs-tracker-dot" />
-                    <div className="cs-tracker-line" />
-                    <div className="cs-tracker-content">
-                      <strong>Under Review</strong>
-                      <span>Being reviewed by claims team</span>
-                    </div>
-                  </div>
-                  <div className="cs-tracker-step">
-                    <div className="cs-tracker-dot" />
-                    <div className="cs-tracker-content">
-                      <strong>Decision</strong>
-                      <span>Expected by May 27, 2026</span>
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              {/* Claim Details */}
-              <div className="fc-wiz-card cs-details-card">
-                <h3 className="cs-section-title">Claim Details</h3>
                 <div className="cs-details-grid">
                   <div className="cs-detail-item">
                     <span className="cs-detail-label">Claim Type</span>
@@ -223,6 +190,14 @@ export default function ClaimStatusPage() {
                   <div className="cs-detail-item">
                     <span className="cs-detail-label">Provider</span>
                     <span className="cs-detail-value">Dr. Julia Kelly, MD</span>
+                  </div>
+                  <div className="cs-detail-item">
+                    <span className="cs-detail-label">Filed</span>
+                    <span className="cs-detail-value">May 22, 2026</span>
+                  </div>
+                  <div className="cs-detail-item">
+                    <span className="cs-detail-label">Expected Decision</span>
+                    <span className="cs-detail-value">May 27, 2026</span>
                   </div>
                 </div>
               </div>
@@ -246,36 +221,43 @@ export default function ClaimStatusPage() {
                 </div>
               </div>
 
-              {/* Timeline */}
+              {/* Status */}
               <div className="fc-wiz-card cs-timeline-card">
-                <h3 className="cs-section-title">Activity</h3>
-                <div className="cs-timeline">
-                  <div className="cs-timeline-item">
-                    <div className="cs-timeline-dot" />
-                    <div className="cs-timeline-text">
-                      <strong>Claim assigned to reviewer</strong>
-                      <span>May 22, 2026 — 2:45 PM</span>
+                <h3 className="cs-section-title">Status</h3>
+                <div className="cs-tracker">
+                  <div className="cs-tracker-step cs-tracker-step--done">
+                    <div className="cs-tracker-dot">
+                      <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M2.5 6l2.5 2.5L9.5 4" stroke="#fff" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/></svg>
+                    </div>
+                    <div className="cs-tracker-line cs-tracker-line--done" />
+                    <div className="cs-tracker-content">
+                      <strong>Submitted</strong>
+                      <span>May 22, 2026 — 12:03 PM</span>
                     </div>
                   </div>
-                  <div className="cs-timeline-item">
-                    <div className="cs-timeline-dot" />
-                    <div className="cs-timeline-text">
-                      <strong>Document request sent</strong>
-                      <span>May 22, 2026 — 2:30 PM</span>
+                  <div className="cs-tracker-step cs-tracker-step--done">
+                    <div className="cs-tracker-dot">
+                      <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M2.5 6l2.5 2.5L9.5 4" stroke="#fff" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/></svg>
                     </div>
-                  </div>
-                  <div className="cs-timeline-item">
-                    <div className="cs-timeline-dot" />
-                    <div className="cs-timeline-text">
-                      <strong>Eligibility confirmed</strong>
+                    <div className="cs-tracker-line cs-tracker-line--done" />
+                    <div className="cs-tracker-content">
+                      <strong>Eligibility Confirmed</strong>
                       <span>May 22, 2026 — 1:15 PM</span>
                     </div>
                   </div>
-                  <div className="cs-timeline-item">
-                    <div className="cs-timeline-dot" />
-                    <div className="cs-timeline-text">
-                      <strong>Claim submitted</strong>
-                      <span>May 22, 2026 — 12:03 PM</span>
+                  <div className="cs-tracker-step cs-tracker-step--active">
+                    <div className="cs-tracker-dot" />
+                    <div className="cs-tracker-line" />
+                    <div className="cs-tracker-content">
+                      <strong>Under Review</strong>
+                      <span>Being reviewed by claims team</span>
+                    </div>
+                  </div>
+                  <div className="cs-tracker-step">
+                    <div className="cs-tracker-dot" />
+                    <div className="cs-tracker-content">
+                      <strong>Decision</strong>
+                      <span>Expected by May 27, 2026</span>
                     </div>
                   </div>
                 </div>
