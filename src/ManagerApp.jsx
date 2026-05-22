@@ -8,7 +8,7 @@ import EmployeeDetailPage from './features/manager-view/EmployeeDetailPage';
 import ReturnToWorkWizardPage from './features/manager-view/ReturnToWorkWizardPage';
 import ManagerSupportPage from './features/manager-view/SupportPage';
 
-const PASS = 'absencemanager';
+const PASS = 'absencemanager2026!';
 const SESSION_KEY = 'manager_portal_auth';
 
 function PasswordGate({ children }) {
