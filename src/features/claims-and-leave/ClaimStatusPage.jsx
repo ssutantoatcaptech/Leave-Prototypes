@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import './file-claim-wizard.css';
 import './guest-file-claim.css';
 import './claim-status.css';
+import './claims-and-leave.css';
 
 function GuestHeader() {
   return (
@@ -203,21 +204,20 @@ export default function ClaimStatusPage() {
               </div>
 
               {/* Pending Actions */}
-              <div className="fc-wiz-card cs-actions-card">
-                <h3 className="cs-section-title">
-                  Action Required
-                  <span className="cs-actions-badge">1</span>
-                </h3>
-                <div className="cs-action-item">
-                  <div className="cs-action-icon">
-                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4M17 8l-5-5-5 5M12 3v12" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/></svg>
+              <div className="cldb-v2-action-item">
+                <div className="cldb-v2-action-body">
+                  <div className="cldb-v2-action-tag">
+                    <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><circle cx="7" cy="7" r="6" fill="#dc2626"/><path d="M7 4.5v3M7 9.5h.01" stroke="#fff" strokeWidth="1.5" strokeLinecap="round"/></svg>
+                    <span className="cldb-v2-action-tag-label cldb-v2-action-tag--red">Action Required</span>
                   </div>
-                  <div className="cs-action-content">
-                    <strong>Upload Supporting Documents</strong>
-                    <p>Please upload medical certification or provider records to support your claim.</p>
-                    <span className="cs-action-due">Due by May 29, 2026</span>
+                  <div className="cldb-v2-action-title-row">
+                    <h3 className="cldb-v2-action-title">Upload Supporting Documents</h3>
                   </div>
-                  <button className="cs-action-btn">Upload</button>
+                  <p className="cldb-v2-action-desc">Please upload medical certification or provider records to support your claim.</p>
+                  <p className="cldb-v2-action-meta">Due: May 29, 2026</p>
+                </div>
+                <div className="cldb-v2-action-cta">
+                  <button className="cldb-v2-btn-outline">Upload</button>
                 </div>
               </div>
 
