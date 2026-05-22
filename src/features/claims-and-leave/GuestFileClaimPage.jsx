@@ -1,11 +1,14 @@
 import { useEffect, useState } from 'react';
-import { useNavigate, useSearchParams } from 'react-router-dom';
+import { useNavigate, useSearchParams, useLocation } from 'react-router-dom';
 import './file-claim-wizard.css';
 import './guest-file-claim.css';
 
 const DRAFT_KEY = 'guestFileClaimDraft';
 
 const initialState = {
+  // Entry
+  role: '',
+  stateLocation: '',
   // Identity verification
   firstName: '',
   lastName: '',
@@ -24,6 +27,15 @@ const initialState = {
   unableToWork: '',
   howLong: '',
 };
+
+const stateOptions = ['Alabama','Alaska','Arizona','Arkansas','California','Colorado','Connecticut','Delaware','Florida','Georgia','Hawaii','Idaho','Illinois','Indiana','Iowa','Kansas','Kentucky','Louisiana','Maine','Maryland','Massachusetts','Michigan','Minnesota','Mississippi','Missouri','Montana','Nebraska','Nevada','New Hampshire','New Jersey','New Mexico','New York','North Carolina','North Dakota','Ohio','Oklahoma','Oregon','Pennsylvania','Rhode Island','South Carolina','South Dakota','Tennessee','Texas','Utah','Vermont','Virginia','Washington','West Virginia','Wisconsin','Wyoming','District of Columbia'];
+
+const roleOptions = [
+  { id: 'individual', label: 'an Individual Policyholder' },
+  { id: 'administrator', label: 'a Plan Administrator (Employer)' },
+  { id: 'member', label: 'a Plan Member (Employee)' },
+  { id: 'beneficiary', label: 'a Beneficiary' },
+];
 
 const claimTypes = [
   { id: 'std', label: 'Short-Term Disability', desc: 'Income replacement when you can\'t work due to illness or injury' },
@@ -64,7 +76,41 @@ function CommCheckbox({ checked, onChange, label }) {
   );
 }
 
-export default function GuestFileClaimPage() {
+function GuestHeader() {
+  return (
+    <div className="gc-header-wrapper">
+      <header className="gc-header">
+        <div className="gc-header-left">
+          <span className="gc-header-brand">my<strong>Mutual</strong></span>
+        </div>
+        <div className="gc-header-right">
+          <a href="/claims-and-leave" className="gc-header-signin">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="8" r="4" stroke="currentColor" strokeWidth="1.5"/><path d="M4 21c0-4 3.5-7 8-7s8 3 8 7" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"/></svg>
+            Sign In
+          </a>
+        </div>
+      </header>
+    </div>
+  );
+}
+
+function GuestFooter() {
+  return (
+    <footer className="gc-footer">
+      <div className="gc-footer-inner">
+        <span className="gc-footer-brand">my<strong>Mutual</strong></span>
+        <div className="gc-footer-legal">
+          <a href="#">Privacy Policy</a>
+          <a href="#">Terms of Use</a>
+          <a href="#">Accessibility Services</a>
+        </div>
+        <span className="gc-footer-copyright">&copy; 2026 Mutual of Omaha Insurance Company. All rights reserved.</span>
+      </div>
+    </footer>
+  );
+}
+
+function GuestFileClaimContent() {
   const navigate = useNavigate();
   const [searchParams, setSearchParams] = useSearchParams();
 
@@ -79,7 +125,7 @@ export default function GuestFileClaimPage() {
   const [phase, setPhase] = useState(() => {
     const urlPhase = searchParams.get('phase');
     if (urlPhase) return urlPhase;
-    return 'landing';
+    return 'entry';
   });
 
   const [verificationError, setVerificationError] = useState('');
@@ -249,7 +295,7 @@ export default function GuestFileClaimPage() {
                     </div>
                     <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M6 3l5 5-5 5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/></svg>
                   </div>
-                  <div className="gc-path-card" onClick={() => { sessionStorage.removeItem(DRAFT_KEY); setFormState(initialState); goToPhase('landing'); }}>
+                  <div className="gc-path-card" onClick={() => { sessionStorage.removeItem(DRAFT_KEY); setFormState(initialState); goToPhase('entry'); }}>
                     <div className="gc-path-card-icon">
                       <svg width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M3 12h18M3 12l6-6M3 12l6 6" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/></svg>
                     </div>
@@ -268,7 +314,76 @@ export default function GuestFileClaimPage() {
     );
   }
 
-  // === LANDING / ENTRY POINT ===
+  // === ENTRY / ROLE SELECTION ===
+  if (phase === 'entry') {
+    return (
+      <div className="fc-wiz-shell">
+        <div className="fc-wiz-wrap">
+          <div className="fc-wiz-card gc-entry-card">
+            <div className="gc-entry-header">
+              <h2>File a Claim</h2>
+              <p className="fc-wiz-subtitle">Tell us a bit about yourself so we can guide you to the right place.</p>
+            </div>
+
+            <div className="gc-entry-form">
+              <div className="gc-entry-field">
+                <label className="gc-entry-label">I am...</label>
+                <div className="gc-role-options">
+                  {roleOptions.map((role) => (
+                    <div
+                      key={role.id}
+                      className={`gc-role-option${formState.role === role.id ? ' selected' : ''}`}
+                      onClick={() => updateField('role', role.id)}
+                    >
+                      <div className="gc-role-radio" />
+                      <span>{role.label}</span>
+                    </div>
+                  ))}
+                </div>
+              </div>
+
+              <div className="gc-entry-field">
+                <label className="gc-entry-label">My state is...</label>
+                <select
+                  className="gc-entry-select"
+                  value={formState.stateLocation}
+                  onChange={(e) => updateField('stateLocation', e.target.value)}
+                >
+                  <option value="">Select a state</option>
+                  {stateOptions.map((s) => (
+                    <option key={s} value={s}>{s}</option>
+                  ))}
+                </select>
+              </div>
+
+              <button className="gc-forms-link">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/><path d="M14 2v6h6M16 13H8M16 17H8M10 9H8" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/></svg>
+                <span>View Forms</span>
+              </button>
+            </div>
+
+            <div className="fc-wiz-footer">
+              <div className="fc-wiz-footer-left" />
+              <div className="fc-wiz-footer-right">
+                <button className="btn btn-next" disabled={!formState.role || !formState.stateLocation} onClick={() => goToPhase('landing')}>Continue</button>
+              </div>
+            </div>
+
+            <div className="gc-entry-address">
+              <h4>Our Address</h4>
+              <p>
+                Mutual of Omaha Insurance Company (Mutual of Omaha)<br />
+                3300 Mutual of Omaha Plaza<br />
+                Omaha, Nebraska 68175
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
+  // === LANDING / ACCOUNT GATE ===
   if (phase === 'landing') {
     return (
       <div className="fc-wiz-shell">
@@ -750,7 +865,7 @@ export default function GuestFileClaimPage() {
             <div className="fc-wiz-footer">
               <div className="fc-wiz-footer-left" />
               <div className="fc-wiz-footer-right">
-                <button className="btn btn-next" onClick={() => { sessionStorage.removeItem(DRAFT_KEY); setFormState(initialState); goToPhase('landing'); }}>Done</button>
+                <button className="btn btn-next" onClick={() => { sessionStorage.removeItem(DRAFT_KEY); setFormState(initialState); goToPhase('entry'); }}>Done</button>
               </div>
             </div>
           </div>
@@ -813,4 +928,23 @@ export default function GuestFileClaimPage() {
   }
 
   return null;
+}
+
+export default function GuestFileClaimPage() {
+  const location = useLocation();
+  const isStandalone = location.pathname === '/guest-claim' || location.pathname.startsWith('/guest-claim');
+
+  if (isStandalone) {
+    return (
+      <div className="gc-shell">
+        <GuestHeader />
+        <main className="gc-main">
+          <GuestFileClaimContent />
+        </main>
+        <GuestFooter />
+      </div>
+    );
+  }
+
+  return <GuestFileClaimContent />;
 }

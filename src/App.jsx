@@ -121,6 +121,9 @@ export default function App() {
         <Route path="/supplemental-health" element={<LeaveDetailSupplementalPage />} />
         <Route path="/leave-payments" element={<LeavePaymentsPage />} />
 
+        {/* Guest Claim Filing — standalone, no authenticated layout */}
+        <Route path="/guest-claim" element={<GuestFileClaimPage />} />
+
         {/* Claims & Leave Mobile — mirrors desktop, wrapped in mobile phone frame */}
         <Route path="/claims-and-leave-mobile/dashboard" element={<MobileFrameWrapper><DashboardPage /></MobileFrameWrapper>} />
         <Route path="/claims-and-leave-mobile" element={<MobileFrameWrapper><ClaimsAndLeaveLayout /></MobileFrameWrapper>}>
