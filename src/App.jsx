@@ -44,6 +44,7 @@ import AdaRequestsPage from './features/ada-accommodation/AdaRequestsPage';
 import FileClaimWizardPage from './features/claims-and-leave/FileClaimWizardPage';
 import GuestFileClaimPage from './features/claims-and-leave/GuestFileClaimPage';
 import ClaimStatusPage from './features/claims-and-leave/ClaimStatusPage';
+import GuestClaimWizardPage from './features/claims-and-leave/GuestClaimWizardPage';
 
 import ManagerLayout from './features/manager-view/ManagerLayout';
 import AbsenceCalendarPage from './features/manager-view/AbsenceCalendarPage';
@@ -125,6 +126,7 @@ export default function App() {
         {/* Guest Claim Filing — standalone, no authenticated layout */}
         <Route path="/guest-claim" element={<GuestFileClaimPage />} />
         <Route path="/claim-status" element={<ClaimStatusPage />} />
+        <Route path="/guest-claim-wizard" element={<GuestClaimWizardPage />} />
 
         {/* Claims & Leave Mobile — mirrors desktop, wrapped in mobile phone frame */}
         <Route path="/claims-and-leave-mobile/dashboard" element={<MobileFrameWrapper><DashboardPage /></MobileFrameWrapper>} />

@@ -373,6 +373,15 @@ function GuestFileClaimContent() {
               <button className="cs-lookup-alt-link" onClick={() => navigate('/claim-status')}>Check claim status</button>
             </div>
 
+            <div className="cs-signin-callout">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="8" r="4" stroke="currentColor" strokeWidth="1.5"/><path d="M4 21c0-4 3.5-7 8-7s8 3 8 7" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"/></svg>
+              <div>
+                <strong>Have an account?</strong>
+                <span>Sign in for a faster experience with pre-filled information and claim tracking.</span>
+              </div>
+              <a href="/claims-and-leave" className="cs-signin-callout-link">Sign In</a>
+            </div>
+
             <div className="gc-entry-address">
               <h4>Our Address</h4>
               <p>
@@ -550,7 +559,7 @@ function GuestFileClaimContent() {
                 <button className="btn btn-secondary" onClick={() => goToPhase('verify')}>Back</button>
               </div>
               <div className="fc-wiz-footer-right">
-                <button className="btn btn-next" disabled={!formState.claimType} onClick={() => goToPhase('intake')}>Continue</button>
+                <button className="btn btn-next" disabled={!formState.claimType} onClick={() => navigate(`/guest-claim-wizard?type=${formState.claimType}`)}>Continue</button>
               </div>
             </div>
           </div>
@@ -669,7 +678,7 @@ function GuestFileClaimContent() {
               </div>
 
               <div className="gc-recommendation-actions">
-                <button className="btn btn-next" onClick={() => goToPhase('intake')}>Continue with {getClaimLabel(triageResult)}</button>
+                <button className="btn btn-next" onClick={() => navigate(`/guest-claim-wizard?type=${triageResult}`)}>Continue with {getClaimLabel(triageResult)}</button>
                 <button className="btn btn-secondary" onClick={() => goToPhase('claim-type')}>Choose a different type</button>
               </div>
             </div>

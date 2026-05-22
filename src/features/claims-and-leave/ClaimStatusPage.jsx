@@ -108,6 +108,15 @@ export default function ClaimStatusPage() {
                   <span>Don't have a Claim ID?</span>
                   <button className="cs-lookup-alt-link" onClick={() => navigate('/guest-claim')}>File a new claim</button>
                 </div>
+
+                <div className="cs-signin-callout">
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="8" r="4" stroke="currentColor" strokeWidth="1.5"/><path d="M4 21c0-4 3.5-7 8-7s8 3 8 7" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"/></svg>
+                  <div>
+                    <strong>Have an account?</strong>
+                    <span>Sign in to track all your claims, upload documents, and receive real-time updates.</span>
+                  </div>
+                  <a href="/claims-and-leave" className="cs-signin-callout-link">Sign In</a>
+                </div>
               </div>
             </div>
           </div>
@@ -270,6 +279,16 @@ export default function ClaimStatusPage() {
                     </div>
                   </div>
                 </div>
+              </div>
+
+              {/* Sign In Encouragement */}
+              <div className="cs-signin-callout">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="8" r="4" stroke="currentColor" strokeWidth="1.5"/><path d="M4 21c0-4 3.5-7 8-7s8 3 8 7" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"/></svg>
+                <div>
+                  <strong>Want easier access?</strong>
+                  <span>Sign in or create an account to track claims, upload documents, and get notifications.</span>
+                </div>
+                <a href="/claims-and-leave" className="cs-signin-callout-link">Sign In</a>
               </div>
 
               {/* Bottom Actions */}

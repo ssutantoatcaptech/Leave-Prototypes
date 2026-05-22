@@ -217,14 +217,19 @@ function InfoIcon() {
 
 /* ======= Main Component ======= */
 
-export default function FileClaimWizardPage() {
+export default function FileClaimWizardPage({ guestMode = false, guestClaimType = '' }) {
   const navigate = useNavigate();
   const location = useLocation();
   const [searchParams, setSearchParams] = useSearchParams();
-  const base = useBasePath();
-  const isManaged = searchParams.get('managed') === 'true';
+  const detectedBase = useBasePath();
+  const base = guestMode ? '/guest-claim' : detectedBase;
+  const isManaged = !guestMode && searchParams.get('managed') === 'true';
 
   const [formState, setFormState] = useState(() => {
+    if (guestMode && guestClaimType) {
+      const typeMap = { std: 'std', accident: 'accident', hospital: 'hospital_indemnity', critical: 'critical_illness' };
+      return { ...initialState, claimType: typeMap[guestClaimType] || guestClaimType };
+    }
     try {
       const saved = JSON.parse(sessionStorage.getItem(DRAFT_KEY));
       if (saved && saved.formState) return { ...initialState, ...saved.formState };
@@ -233,6 +238,7 @@ export default function FileClaimWizardPage() {
   });
 
   const [currentStep, setCurrentStep] = useState(() => {
+    if (guestMode) return 1;
     const urlStep = searchParams.get('step');
     if (urlStep !== null) return parseInt(urlStep, 10);
     try {
@@ -245,6 +251,7 @@ export default function FileClaimWizardPage() {
   // Guided intro flow state
   // wizardPhase: 'intro' | 'direct' | 'guided' | 'recommendation' | 'wizard'
   const [wizardPhase, setWizardPhase] = useState(() => {
+    if (guestMode) return 'wizard';
     if (isManaged) return 'direct'; // skip intro for managed users
     // If resuming from a saved step > 0, go straight to wizard phase
     const urlStep = searchParams.get('step');
@@ -404,10 +411,14 @@ export default function FileClaimWizardPage() {
 
   function goBack() {
     if (currentStep === 0) {
-      navigate(`${base}/file-claim`);
+      navigate(guestMode ? '/guest-claim?phase=claim-type' : `${base}/file-claim`);
       return;
     }
     if (currentStep === 1 && wizardPhase === 'wizard') {
+      if (guestMode) {
+        navigate('/guest-claim?phase=claim-type');
+        return;
+      }
       // If they came through the guided flow, go back to recommendation
       // If they came through direct, go back to claim type selection
       if (recommendedType) {
@@ -507,8 +518,17 @@ export default function FileClaimWizardPage() {
               </div>
 
               <div className="fc-wiz-confirmation-footer">
-                <button className="btn btn-next" onClick={() => navigate(`${base}/claims`)}>View Claim Details</button>
-                <button className="btn btn-secondary" onClick={() => navigate(`${base}/file-claim`)}>Back to File a Claim or Leave</button>
+                {guestMode ? (
+                  <>
+                    <button className="btn btn-next" onClick={() => navigate('/claim-status')}>Check Claim Status</button>
+                    <button className="btn btn-secondary" onClick={() => navigate('/guest-claim')}>File Another Claim</button>
+                  </>
+                ) : (
+                  <>
+                    <button className="btn btn-next" onClick={() => navigate(`${base}/claims`)}>View Claim Details</button>
+                    <button className="btn btn-secondary" onClick={() => navigate(`${base}/file-claim`)}>Back to File a Claim or Leave</button>
+                  </>
+                )}
               </div>
             </div>
           </div>

@@ -453,6 +453,64 @@
   padding-bottom: 40px;
 }
 
+/* === Sign In Callout === */
+.cs-signin-callout {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 16px 20px;
+  background: var(--color-bg-info);
+  border: 1px solid var(--color-brand-primary);
+  border-radius: var(--radius-md);
+  margin-top: 24px;
+  text-align: left;
+}
+
+.cs-signin-callout > svg {
+  flex-shrink: 0;
+  color: var(--color-brand-primary);
+}
+
+.cs-signin-callout > div {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.cs-signin-callout > div strong {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--color-text-primary);
+}
+
+.cs-signin-callout > div span {
+  font-size: 13px;
+  color: var(--color-text-secondary);
+}
+
+.cs-signin-callout-link {
+  flex-shrink: 0;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 16px;
+  border-radius: var(--radius-md);
+  border: 1.5px solid var(--color-brand-primary);
+  background: var(--color-bg-card);
+  color: var(--color-brand-primary);
+  font-size: 13px;
+  font-weight: 600;
+  font-family: var(--font-family-primary);
+  text-decoration: none;
+  cursor: pointer;
+  transition: background 0.12s;
+}
+
+.cs-signin-callout-link:hover {
+  background: var(--color-bg-selected);
+}
+
 /* === Mobile === */
 @media (max-width: 768px) {
   .cs-lookup-card {
@@ -489,5 +547,16 @@
 
   .cs-result-title {
     font-size: 22px;
+  }
+
+  .cs-signin-callout {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+  }
+
+  .cs-signin-callout-link {
+    width: 100%;
+    justify-content: center;
   }
 }
