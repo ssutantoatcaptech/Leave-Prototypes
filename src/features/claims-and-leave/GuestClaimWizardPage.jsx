@@ -2,6 +2,7 @@ import { useSearchParams } from 'react-router-dom';
 import FileClaimWizardPage from './FileClaimWizardPage';
 import './file-claim-wizard.css';
 import './guest-file-claim.css';
+import './claim-status.css';
 
 function GuestHeader() {
   return (

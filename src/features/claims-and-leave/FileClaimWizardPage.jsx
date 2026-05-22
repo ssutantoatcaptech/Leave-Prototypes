@@ -517,6 +517,17 @@ export default function FileClaimWizardPage({ guestMode = false, guestClaimType 
                 </div>
               </div>
 
+              {guestMode && (
+                <div className="cs-signin-callout" style={{ marginTop: 24, textAlign: 'left' }}>
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="8" r="4" stroke="currentColor" strokeWidth="1.5"/><path d="M4 21c0-4 3.5-7 8-7s8 3 8 7" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"/></svg>
+                  <div>
+                    <strong>Create an account</strong>
+                    <span>Sign in to track your claim in real-time, upload documents, and receive notifications.</span>
+                  </div>
+                  <a href="/claims-and-leave" className="cs-signin-callout-link">Sign In</a>
+                </div>
+              )}
+
               <div className="fc-wiz-confirmation-footer">
                 {guestMode ? (
                   <>
