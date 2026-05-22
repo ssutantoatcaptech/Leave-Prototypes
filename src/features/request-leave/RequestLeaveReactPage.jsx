@@ -25,6 +25,7 @@ const initialState = {
   commSMS: true,
   tempAddress: false,
   tempStreet: '8827 SW 8th Street',
+  tempApt: '',
   tempCity: 'Lee Summit',
   tempState: 'MO',
   tempZip: '64086',
@@ -229,33 +230,44 @@ function SiteFooter() {
 function SiteNav() {
   return (
     <div className="top-nav">
+      <div className="nav-header-bar">
+        <div className="nav-header-left">
+          <span className="nav-logo-moo">Mutual of Omaha</span>
+          <span className="nav-logo-divider">|</span>
+          <span className="nav-logo-captech">CapTech</span>
+        </div>
+        <div className="nav-header-right">
+          <span className="nav-group-id">GROUP ID: G000CSM5</span>
+        </div>
+      </div>
       <div className="nav-main">
         <div className="nav-main-left">
-          <a href="/" style={{ textDecoration: "none" }}><div className="nav-brand">my<span>Benefits</span></div></a>
+          <div className="nav-brand">Benefit Hub</div>
           <nav className="nav-links">
             <button className="nav-link" type="button">Dashboard</button>
-            <button className="nav-link" type="button">My Coverages <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M3 4.5L6 7.5L9 4.5" stroke="currentColor" strokeWidth="1.3" strokeLinecap="round" strokeLinejoin="round"/></svg></button>
-            <button className="nav-link" type="button">Claims</button>
-            <button className="nav-link active" type="button">Leaves</button>
-            <button className="nav-link" type="button">Support</button>
+            <button className="nav-link" type="button">Benefits <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M3 4.5L6 7.5L9 4.5" stroke="currentColor" strokeWidth="1.3" strokeLinecap="round" strokeLinejoin="round"/></svg></button>
+            <button className="nav-link active" type="button">Claims &amp; Leave <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M3 4.5L6 7.5L9 4.5" stroke="currentColor" strokeWidth="1.3" strokeLinecap="round" strokeLinejoin="round"/></svg></button>
+            <button className="nav-link" type="button">Documents</button>
+            <button className="nav-link" type="button">Support <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M3 4.5L6 7.5L9 4.5" stroke="currentColor" strokeWidth="1.3" strokeLinecap="round" strokeLinejoin="round"/></svg></button>
           </nav>
         </div>
         <div className="nav-utilities">
-          <button className="nav-util" type="button">Find ID Card</button>
-          <button className="nav-util" type="button">Messages</button>
+          <button className="nav-util" type="button"><svg width="16" height="16" viewBox="0 0 16 16" fill="none"><circle cx="8" cy="8" r="7" stroke="currentColor" strokeWidth="1.2"/><path d="M1.5 12.5c1.5-2 3.5-3 6.5-3s5 1 6.5 3" stroke="currentColor" strokeWidth="1.2"/></svg> ENG <svg width="10" height="10" viewBox="0 0 12 12" fill="none"><path d="M3 4.5L6 7.5L9 4.5" stroke="currentColor" strokeWidth="1.3" strokeLinecap="round" strokeLinejoin="round"/></svg></button>
+          <button className="nav-util" type="button"><svg width="16" height="16" viewBox="0 0 16 16" fill="none"><rect x="2" y="3" width="12" height="10" rx="1.5" stroke="currentColor" strokeWidth="1.2"/><path d="M5 7h6M5 9.5h4" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round"/></svg> ID Cards</button>
           <button className="nav-bell" type="button"><span className="nav-bell-dot"/></button>
           <div className="nav-avatar">
-            <div className="nav-avatar-circle">SJ</div>
+            <div className="nav-avatar-circle">AB</div>
             <span className="nav-avatar-name">Sarah Johnson</span>
           </div>
         </div>
       </div>
       <div className="nav-secondary">
-        <Link className="nav-tab" to="/overview-react">My Leave</Link>
-        <Link className="nav-tab" to="/plan-absence">Plan Leave</Link>
-        <Link className="nav-tab active" to="/wizard">Request Leave</Link>
-        <Link className="nav-tab" to="/absence-history">Leave History</Link>
-        <Link className="nav-tab" to="/leave-documents">Leave Documents</Link>
+        <button className="nav-tab" type="button">Claim Center</button>
+        <button className="nav-tab active" type="button">File a Claim or Leave</button>
+        <button className="nav-tab" type="button">My Cases</button>
+        <button className="nav-tab" type="button">Leave Planning Tool</button>
+        <button className="nav-tab" type="button">Enter My Time</button>
+        <button className="nav-tab" type="button">Payments</button>
       </div>
     </div>
   );
@@ -332,17 +344,7 @@ export default function RequestLeaveReactPage() {
     }
     return initialState;
   });
-  const [started, setStarted] = useState(() => {
-    var session = null;
-    var saved = null;
-    var isResume = searchParams.get('resume') === '1';
-    try { session = JSON.parse(sessionStorage.getItem(DRAFT_KEY)); } catch (e) { /* ignore */ }
-    try { saved = JSON.parse(localStorage.getItem(DRAFT_KEY)); } catch (e) { /* ignore */ }
-    if (session && session.stepIndex > 0) return true;
-    if (saved && saved.stepIndex > 0 && isResume) return true;
-    const urlStep = searchParams.get('step');
-    return !!fromPlan || (urlStep && urlStep !== '0');
-  });
+  const [started, setStarted] = useState(true);
   const [submittedCase, setSubmittedCase] = useState(() => {
     if (searchParams.get('submitted') === '1') {
       return { id: 'NTN-4821', startDate: '2026-06-01', endDate: '2026-09-15', durationDays: 106, leaveType: 'continuous', reason: 'Illness or Injury', provider: 'Dr. Dempsey', facility: "St. Luke's Medical Center", leaveScenario: 'medical_self' };
@@ -901,25 +903,17 @@ export default function RequestLeaveReactPage() {
           <>
             <h2 style={{ marginBottom: 20 }}>Why are you taking leave?</h2>
             <div className="option-cards">
-              {renderOptionCard('leaveScenario', 'medical_self', "Employee's Own Illness or Injury", '', true)}
-              {renderOptionCard('leaveScenario', 'medical_family', 'Care for Sick Family Member with Health Condition', '', true)}
-              {renderOptionCard('leaveScenario', 'child_nonbirth', 'Non-Birthing Parent, Adoption, or Foster Care Placement (Bonding)', '', true, 'right')}
+              {renderOptionCard('leaveScenario', 'medical_self', "My Own Illness or Injury", '', true)}
+              {renderOptionCard('leaveScenario', 'medical_family', 'Caring for Family Member with Health Condition', '', true)}
+              {renderOptionCard('leaveScenario', 'child_nonbirth', 'Non-Birthing Parent, Adoption, or Foster Care (Bonding)', '', true, 'right')}
               {renderOptionCard('leaveScenario', 'child', 'Birthing Parent, Pregnancy, or Bonding', '', true)}
               {renderOptionCard('leaveScenario', 'military', 'Military Related Activity', '', true)}
               {renderOptionCard('leaveScenario', 'other', 'Other', '', true)}
             </div>
             {formState.leaveScenario && reasonDescriptions[formState.leaveScenario] ? (
-              <div className="rl-inline-message" style={{ marginTop: 16 }}>
-                <div className="rl-inline-message-bar">
-                  <div className="rl-inline-message-icon">
-                    <svg width="22" height="22" viewBox="0 0 22 22" fill="none"><circle cx="11" cy="11" r="10" fill="#fff"/><path d="M11 10v5" stroke="#105fa8" strokeWidth="1.6" strokeLinecap="round"/><circle cx="11" cy="7" r="1" fill="#105fa8"/></svg>
-                  </div>
-                </div>
-                <div className="rl-inline-message-body">
-                  <span className="rl-inline-message-date">{new Date().toLocaleDateString('en-US', { month: '2-digit', day: '2-digit', year: '2-digit' }).replace(/\//g, '/')}</span>
-                  <strong className="rl-inline-message-title">{({ medical_self: "Illness or Injury Selected", medical_family: "Family Care Selected", child: "Birthing Parent Selected", child_nonbirth: "Bonding Leave Selected", military: "Military Leave Selected", other: "Other Leave Selected" })[formState.leaveScenario] || "Selection Made"}</strong>
-                  <p className="rl-inline-message-text">{reasonDescriptions[formState.leaveScenario]}</p>
-                </div>
+              <div className="rl-reason-hint">
+                <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><circle cx="8" cy="8" r="7" stroke="#105fa8" strokeWidth="1.2"/><path d="M8 7v4" stroke="#105fa8" strokeWidth="1.2" strokeLinecap="round"/><circle cx="8" cy="5" r="0.75" fill="#105fa8"/></svg>
+                <span>{reasonDescriptions[formState.leaveScenario]}</span>
               </div>
             ) : null}
             {formState.leaveScenario === 'other' && (
@@ -1407,7 +1401,7 @@ export default function RequestLeaveReactPage() {
               </div>
               <div style={{ marginTop: '4px' }}>
                 <label className="comm-section-label">Preferred Communication Method</label>
-                <div style={{ display: 'flex', gap: '16px', flexWrap: 'wrap' }}>
+                <div className="comm-check-list">
                   <CommCheckbox checked={formState.commEmail} onChange={(event) => updateField('commEmail', event.target.checked)} label="Email" />
                   <CommCheckbox checked={formState.commPhone} onChange={(event) => updateField('commPhone', event.target.checked)} label="Phone (Call)" />
                   <CommCheckbox checked={formState.commSMS} onChange={(event) => updateField('commSMS', event.target.checked)} label="SMS" />
@@ -1424,12 +1418,16 @@ export default function RequestLeaveReactPage() {
               </div>
               {formState.tempAddress ? (
                 <div className="comm-divider">
-                  <div className="form-group"><label>Street Address</label><input type="text" value={formState.tempStreet} onChange={(event) => updateField('tempStreet', event.target.value)}/></div>
+                  <div className="form-row cols-2">
+                    <div className="form-group"><label>Street Address</label><input type="text" value={formState.tempStreet} onChange={(event) => updateField('tempStreet', event.target.value)}/></div>
+                    <div className="form-group"><label>Apartment, Suite, Etc.</label><input type="text" value={formState.tempApt || ''} onChange={(event) => updateField('tempApt', event.target.value)}/></div>
+                  </div>
                   <div className="form-row cols-3">
                     <div className="form-group"><label>City</label><input type="text" value={formState.tempCity} onChange={(event) => updateField('tempCity', event.target.value)}/></div>
                     <div className="form-group"><label>State</label><SelectInput value={formState.tempState} onChange={(event) => updateField('tempState', event.target.value)}>{stateOptions.map((option) => <option key={option} value={option}>{option}</option>)}</SelectInput></div>
                     <div className="form-group"><label>ZIP</label><input type="text" value={formState.tempZip} onChange={(event) => updateField('tempZip', event.target.value)}/></div>
                   </div>
+                  <h3 className="section-title" style={{ marginTop: 16, marginBottom: 12 }}>Temporary Address Dates</h3>
                   <div className="form-row cols-2" style={{ marginBottom: 0 }}>
                     <div className="form-group" style={{ marginBottom: 0 }}><label>Start Date</label><DateInput value={formState.tempStart} onChange={(event) => updateField('tempStart', event.target.value)}/></div>
                     <div className="form-group" style={{ marginBottom: 0 }}><label>End Date</label><DateInput value={formState.tempEnd} onChange={(event) => updateField('tempEnd', event.target.value)}/></div>
@@ -1751,11 +1749,12 @@ export default function RequestLeaveReactPage() {
   }
 
   function renderFooter() {
+    const canContinue = currentStep.id === 'leaveReason' ? !!formState.leaveScenario : true;
     if (currentStep.id === 'review') {
       return (
         <div className="wizard-footer">
           <div className="footer-left">
-            <button type="button" className="btn btn-cancel-leave" onClick={handleSaveAndExit}>Save & Exit</button>
+            <button type="button" className="btn-cancel-link" onClick={handleSaveAndExit}>Cancel</button>
           </div>
           <div className="footer-right">
             <button type="button" className="btn btn-back" onClick={goBack}>Back</button>
@@ -1767,13 +1766,13 @@ export default function RequestLeaveReactPage() {
     return (
       <div className="wizard-footer">
         <div className="footer-left">
-          <button type="button" className="btn btn-cancel-leave" onClick={handleSaveAndExit}>Save & Exit</button>
+          <button type="button" className="btn-cancel-link" onClick={handleSaveAndExit}>Cancel</button>
         </div>
         <div className="footer-right">
           {currentStepIndex > 0 ? <button type="button" className="btn btn-back" onClick={goBack}>Back</button> : null}
-          <button type="button" className="btn btn-next" onClick={goNext}>Continue</button>
+          <button type="button" className="btn btn-next" disabled={!canContinue} onClick={goNext}>Continue</button>
         </div>
-        <div className="footer-save-note"><svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M7 1v6l3 3" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round"/><circle cx="7" cy="7" r="6" stroke="currentColor" strokeWidth="1.2"/></svg> All updates saved</div>
+        <div className="footer-save-note"><svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M3 7l3 3 5-5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/></svg> All updates saved</div>
       </div>
     );
   }
@@ -1802,19 +1801,18 @@ export default function RequestLeaveReactPage() {
 
   if (submittedCase) {
     if (isMedicalSelf) {
-      const returnWorkDate = new Date(new Date(`${submittedCase.endDate}T00:00:00`).getTime() + 3 * 24 * 60 * 60 * 1000);
-      const returnWorkStr = returnWorkDate.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
+      const durationDays = Math.max(0, Math.round((new Date(`${submittedCase.endDate}T00:00:00`) - new Date(`${submittedCase.startDate}T00:00:00`)) / (1000 * 60 * 60 * 24)));
       return (
         <div className="request-leave-shell">
           <SiteNav />
           <div className="wizard-wrap">
-            <div className="wizard-card" style={{ marginTop: 32 }}>
+            <div className="wizard-card wizard-card--success">
               <div className="success-state">
                 <div className="success-header">
                   <div className="success-icon"><svg width="32" height="32" viewBox="0 0 32 32" fill="none"><path d="M9 16L14 21L23 11" stroke="#16a34a" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round"/></svg></div>
                   <h2>Leave request submitted</h2>
-                  <p>{submittedCase.id}</p>
-                  <p className="success-case-review">Your Case In Review</p>
+                  <p className="success-ref">{submittedCase.id}</p>
+                  <p className="success-review-text">Your case is under review</p>
                 </div>
                 <div className="success-dates-grid">
                   <div className="success-date-box">
@@ -1822,76 +1820,69 @@ export default function RequestLeaveReactPage() {
                     <div className="success-date-value">{shortDate(submittedCase.startDate)}</div>
                   </div>
                   <div className="success-date-box">
-                    <div className="success-date-label">End Date</div>
+                    <div className="success-date-label">Expected Return</div>
                     <div className="success-date-value">{shortDate(submittedCase.endDate)}</div>
                   </div>
                   <div className="success-date-box">
-                    <div className="success-date-label">Return to Work Date</div>
-                    <div className="success-date-value">{returnWorkStr}</div>
+                    <div className="success-date-label">Duration</div>
+                    <div className="success-date-value">{durationDays} days</div>
+                  </div>
+                </div>
+                <div className="success-cases-flat">
+                  <div className="success-case-flat-item">
+                    <div className="success-case-flat-left">
+                      <div className="success-case-flat-type">LEAVE CASE - {submittedCase.id}-ABC-01</div>
+                      <div className="success-case-flat-title">Medical Leave (Own Illness)</div>
+                    </div>
+                    <span className="success-case-flat-badge">Pending</span>
+                  </div>
+                  <div className="success-case-flat-item">
+                    <div className="success-case-flat-left">
+                      <div className="success-case-flat-type">CLAIM CASE - {submittedCase.id}-GDC-02</div>
+                      <div className="success-case-flat-title">Short-Term Disability</div>
+                    </div>
+                    <span className="success-case-flat-badge">Pending</span>
+                  </div>
+                  <div className="success-case-flat-item">
+                    <div className="success-case-flat-left">
+                      <div className="success-case-flat-type">SUPPLEMENTAL HEALTH - {submittedCase.id}-ABC-03</div>
+                      <div className="success-case-flat-title">Hospital Indemnity</div>
+                    </div>
+                    <span className="success-case-flat-badge">Pending</span>
                   </div>
                 </div>
                 <div className="success-next-steps">
                   <h3>What happens next</h3>
-                  {[
-                    { icon: <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M9 12l2 2 4-4" stroke="#16a34a" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/><circle cx="12" cy="12" r="10" stroke="#16a34a" strokeWidth="1.5"/></svg>, text: 'Your manager will be notified of your upcoming absence' },
-                    { icon: <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="10" stroke="#6366f1" strokeWidth="1.5"/><path d="M12 7v5l3 2" stroke="#6366f1" strokeWidth="1.5" strokeLinecap="round"/></svg>, text: "We're reviewing your eligibility \u2014 we'll update you within 1\u20132 business days" },
-                    { icon: <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z" stroke="#f59e0b" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/><path d="M14 2v6h6" stroke="#f59e0b" strokeWidth="1.5"/></svg>, text: 'You may be asked to upload supporting documents (medical certification, etc.)' },
-                    { icon: <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><rect x="3" y="4" width="18" height="17" rx="2" stroke="#3b82f6" strokeWidth="1.5"/><path d="M3 9h18" stroke="#3b82f6" strokeWidth="1.5"/></svg>, text: 'Track your absence status anytime from the overview' },
-                  ].map((item) => (
-                    <div key={item.text} className="success-next-item">
-                      <div className="success-next-icon">{item.icon}</div>
-                      <span className="success-next-text">{item.text}</span>
-                    </div>
-                  ))}
-                </div>
-                <div className="success-cases">
-                  <div className="success-case-card">
-                    <div className="success-case-header">
-                      <div className="success-case-id">Absence Case - {submittedCase.id}-ABC-01</div>
-                      <span className="success-case-badge"><span className="success-case-badge-dot"/> Pending</span>
-                    </div>
-                    <div className="success-case-title">Medical Absence  (Own Illness)</div>
-                  </div>
-                  <div className="success-case-card">
-                    <div className="success-case-header">
-                      <div className="success-case-id">Claim Case - {submittedCase.id.replace('NTN', 'NTN')}-GDC-02</div>
-                      <span className="success-case-badge"><span className="success-case-badge-dot"/> Pending</span>
-                    </div>
-                    <div className="success-case-title">Short-Term Disability</div>
-                  </div>
-                </div>
-                <div className="success-enrollment-banner">
-                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="10" stroke="#105fa8" strokeWidth="1.5"/><path d="M12 8v4" stroke="#105fa8" strokeWidth="1.5" strokeLinecap="round"/><circle cx="12" cy="16" r="0.75" fill="#105fa8"/></svg>
-                  <div className="success-enrollment-text">
-                    <span>You're enrolled in Hospital Indemnity and may be eligible for additional benefits.</span>
-                    <a href="#" className="success-enrollment-link">Learn more →</a>
-                  </div>
+                  <ul className="success-next-list">
+                    <li>Your manager will be notified of your upcoming Leave</li>
+                    <li>We're reviewing your eligibility — we'll update you within 1–2 business days</li>
+                    <li>You may be asked to upload supporting documents (medical certification, etc.)</li>
+                    <li>Track your Leave status anytime from the overview</li>
+                  </ul>
                 </div>
                 <div className="success-footer">
-                  <button type="button" className="btn btn-next" onClick={() => navigate(`${rlBase}/case-detail-new`, { state: submittedCase })}>View Leave Details</button>
-                  {!isMobileRequest && <button type="button" className="btn btn-back" onClick={() => navigate(`${rlBase}/my-cases`)}>Back to My Leaves</button>}
+                  <button type="button" className="btn btn-back" onClick={() => navigate(`${rlBase}/my-cases`)}>View All Cases</button>
+                  <button type="button" className="btn btn-next" onClick={() => navigate(`${rlBase}/case-detail-new`, { state: submittedCase })}>View Case Details</button>
                 </div>
               </div>
             </div>
           </div>
-          <SiteFooter />
         </div>
       );
     }
     if (isBirthingParent) {
-      const returnWorkDate = new Date(new Date(`${submittedCase.endDate}T00:00:00`).getTime() + 1 * 24 * 60 * 60 * 1000);
-      const returnWorkStr = returnWorkDate.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
+      const durationDaysBirth = Math.max(0, Math.round((new Date(`${submittedCase.endDate}T00:00:00`) - new Date(`${submittedCase.startDate}T00:00:00`)) / (1000 * 60 * 60 * 24)));
       return (
         <div className="request-leave-shell">
           <SiteNav />
           <div className="wizard-wrap">
-            <div className="wizard-card" style={{ marginTop: 32 }}>
+            <div className="wizard-card wizard-card--success">
               <div className="success-state">
                 <div className="success-header">
                   <div className="success-icon"><svg width="32" height="32" viewBox="0 0 32 32" fill="none"><path d="M9 16L14 21L23 11" stroke="#16a34a" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round"/></svg></div>
                   <h2>Leave request submitted</h2>
-                  <p>{submittedCase.id}</p>
-                  <p className="success-case-review">Your Case In Review</p>
+                  <p className="success-ref">{submittedCase.id}</p>
+                  <p className="success-review-text">Your case is under review</p>
                 </div>
                 <div className="success-dates-grid">
                   <div className="success-date-box">
@@ -1899,76 +1890,68 @@ export default function RequestLeaveReactPage() {
                     <div className="success-date-value">{shortDate(submittedCase.startDate)}</div>
                   </div>
                   <div className="success-date-box">
-                    <div className="success-date-label">Expected Return to Work Date</div>
+                    <div className="success-date-label">Expected Return</div>
                     <div className="success-date-value">{shortDate(submittedCase.endDate)}</div>
                   </div>
                   <div className="success-date-box">
-                    <div className="success-date-label">Return to Work Date</div>
-                    <div className="success-date-value">{returnWorkStr}</div>
+                    <div className="success-date-label">Duration</div>
+                    <div className="success-date-value">{durationDaysBirth} days</div>
+                  </div>
+                </div>
+                <div className="success-cases-flat">
+                  <div className="success-case-flat-item">
+                    <div className="success-case-flat-left">
+                      <div className="success-case-flat-type">LEAVE CASE - {submittedCase.id}-ABC-01</div>
+                      <div className="success-case-flat-title">Parental Leave (Birthing)</div>
+                    </div>
+                    <span className="success-case-flat-badge">Pending</span>
+                  </div>
+                  <div className="success-case-flat-item">
+                    <div className="success-case-flat-left">
+                      <div className="success-case-flat-type">CLAIM CASE - {submittedCase.id}-GDC-02</div>
+                      <div className="success-case-flat-title">Short Term Disability, NY Paid Family Leave & FMLA</div>
+                    </div>
+                    <span className="success-case-flat-badge">Pending</span>
+                  </div>
+                  <div className="success-case-flat-item">
+                    <div className="success-case-flat-left">
+                      <div className="success-case-flat-type">SUPPLEMENTAL HEALTH - {submittedCase.id}-ABC-03</div>
+                      <div className="success-case-flat-title">Hospital Indemnity</div>
+                    </div>
+                    <span className="success-case-flat-badge">Pending</span>
                   </div>
                 </div>
                 <div className="success-next-steps">
                   <h3>What happens next</h3>
-                  {[
-                    { icon: <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M9 12l2 2 4-4" stroke="#16a34a" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/><circle cx="12" cy="12" r="10" stroke="#16a34a" strokeWidth="1.5"/></svg>, text: 'Your manager will be notified of your upcoming absence' },
-                    { icon: <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="10" stroke="#6366f1" strokeWidth="1.5"/><path d="M12 7v5l3 2" stroke="#6366f1" strokeWidth="1.5" strokeLinecap="round"/></svg>, text: "We're reviewing your eligibility — we'll update you within 1–2 business days" },
-                    { icon: <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z" stroke="#f59e0b" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/><path d="M14 2v6h6" stroke="#f59e0b" strokeWidth="1.5"/></svg>, text: 'You may be asked to upload supporting documents (medical certification, etc.)' },
-                    { icon: <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><rect x="3" y="4" width="18" height="17" rx="2" stroke="#3b82f6" strokeWidth="1.5"/><path d="M3 9h18" stroke="#3b82f6" strokeWidth="1.5"/></svg>, text: 'Track your absence status anytime from the overview' },
-                  ].map((item) => (
-                    <div key={item.text} className="success-next-item">
-                      <div className="success-next-icon">{item.icon}</div>
-                      <span className="success-next-text">{item.text}</span>
-                    </div>
-                  ))}
-                </div>
-                <div className="success-cases">
-                  <div className="success-case-card">
-                    <div className="success-case-header">
-                      <div className="success-case-id">Absence Case - {submittedCase.id}-ABC-01</div>
-                      <span className="success-case-badge"><span className="success-case-badge-dot"/> Pending</span>
-                    </div>
-                    <div className="success-case-title">Parental Leave (Birthing)</div>
-                  </div>
-                  <div className="success-case-card">
-                    <div className="success-case-header">
-                      <div className="success-case-id">Claim Case - {submittedCase.id.replace('NTN', 'NTN')}-GDC-02</div>
-                      <span className="success-case-badge"><span className="success-case-badge-dot"/> Pending</span>
-                    </div>
-                    <div className="success-case-title">Short Term Disability, NY Paid Family Leave & FMLA</div>
-                  </div>
-                </div>
-                <div className="success-enrollment-banner">
-                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="10" stroke="#105fa8" strokeWidth="1.5"/><path d="M12 8v4" stroke="#105fa8" strokeWidth="1.5" strokeLinecap="round"/><circle cx="12" cy="16" r="0.75" fill="#105fa8"/></svg>
-                  <div className="success-enrollment-text">
-                    <span>You're enrolled in Hospital Indemnity and may be eligible for additional benefits.</span>
-                    <a href="#" className="success-enrollment-link">Learn more →</a>
-                  </div>
+                  <ul className="success-next-list">
+                    <li>Your manager will be notified of your upcoming Leave</li>
+                    <li>We’re reviewing your eligibility — we’ll update you within 1–2 business days</li>
+                    <li>You may be asked to upload supporting documents (medical certification, etc.)</li>
+                    <li>Track your Leave status anytime from the overview</li>
+                  </ul>
                 </div>
                 <div className="success-footer">
-                  <button type="button" className="btn btn-next" onClick={() => navigate(`${rlBase}/case-detail-new`, { state: submittedCase })}>View Leave Details</button>
-                  {!isMobileRequest && <button type="button" className="btn btn-back" onClick={() => navigate(`${rlBase}/my-cases`)}>Back to My Leaves</button>}
+                  <button type="button" className="btn btn-back" onClick={() => navigate(`${rlBase}/my-cases`)}>View All Cases</button>
+                  <button type="button" className="btn btn-next" onClick={() => navigate(`${rlBase}/case-detail-new`, { state: submittedCase })}>View Case Details</button>
                 </div>
               </div>
             </div>
           </div>
-          <SiteFooter />
         </div>
       );
     }
     if (isFamilyCare) {
-      const returnWorkDate = new Date(new Date(`${submittedCase.endDate}T00:00:00`).getTime() + 1 * 24 * 60 * 60 * 1000);
-      const returnWorkStr = returnWorkDate.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
       return (
         <div className="request-leave-shell">
           <SiteNav />
           <div className="wizard-wrap">
-            <div className="wizard-card" style={{ marginTop: 32 }}>
+            <div className="wizard-card wizard-card--success">
               <div className="success-state">
                 <div className="success-header">
                   <div className="success-icon"><svg width="32" height="32" viewBox="0 0 32 32" fill="none"><path d="M9 16L14 21L23 11" stroke="#16a34a" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round"/></svg></div>
                   <h2>Leave request submitted</h2>
-                  <p>{submittedCase.id}</p>
-                  <p className="success-case-review">Your Case In Review</p>
+                  <p className="success-ref">{submittedCase.id}</p>
+                  <p className="success-review-text">Your case is under review</p>
                 </div>
                 <div className="success-dates-grid">
                   <div className="success-date-box">
@@ -1976,76 +1959,68 @@ export default function RequestLeaveReactPage() {
                     <div className="success-date-value">{shortDate(submittedCase.startDate)}</div>
                   </div>
                   <div className="success-date-box">
-                    <div className="success-date-label">End Date</div>
+                    <div className="success-date-label">Expected Return</div>
                     <div className="success-date-value">{shortDate(submittedCase.endDate)}</div>
                   </div>
                   <div className="success-date-box">
-                    <div className="success-date-label">Return to Work Date</div>
-                    <div className="success-date-value">{returnWorkStr}</div>
+                    <div className="success-date-label">Duration</div>
+                    <div className="success-date-value">{Math.max(0, Math.round((new Date(`${submittedCase.endDate}T00:00:00`) - new Date(`${submittedCase.startDate}T00:00:00`)) / (1000 * 60 * 60 * 24)))} days</div>
+                  </div>
+                </div>
+                <div className="success-cases-flat">
+                  <div className="success-case-flat-item">
+                    <div className="success-case-flat-left">
+                      <div className="success-case-flat-type">LEAVE CASE - {submittedCase.id}-ABC-01</div>
+                      <div className="success-case-flat-title">Family Care Leave</div>
+                    </div>
+                    <span className="success-case-flat-badge">Pending</span>
+                  </div>
+                  <div className="success-case-flat-item">
+                    <div className="success-case-flat-left">
+                      <div className="success-case-flat-type">CLAIM CASE - {submittedCase.id}-GDC-02</div>
+                      <div className="success-case-flat-title">NY Paid Family Leave & FMLA</div>
+                    </div>
+                    <span className="success-case-flat-badge">Pending</span>
+                  </div>
+                  <div className="success-case-flat-item">
+                    <div className="success-case-flat-left">
+                      <div className="success-case-flat-type">SUPPLEMENTAL HEALTH - {submittedCase.id}-ABC-03</div>
+                      <div className="success-case-flat-title">Hospital Indemnity</div>
+                    </div>
+                    <span className="success-case-flat-badge">Pending</span>
                   </div>
                 </div>
                 <div className="success-next-steps">
                   <h3>What happens next</h3>
-                  {[
-                    { icon: <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M9 12l2 2 4-4" stroke="#16a34a" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/><circle cx="12" cy="12" r="10" stroke="#16a34a" strokeWidth="1.5"/></svg>, text: 'Your manager will be notified of your upcoming absence' },
-                    { icon: <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="10" stroke="#6366f1" strokeWidth="1.5"/><path d="M12 7v5l3 2" stroke="#6366f1" strokeWidth="1.5" strokeLinecap="round"/></svg>, text: "We're reviewing your eligibility — we'll update you within 1–2 business days" },
-                    { icon: <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z" stroke="#f59e0b" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/><path d="M14 2v6h6" stroke="#f59e0b" strokeWidth="1.5"/></svg>, text: 'You may be asked to upload supporting documents (medical certification, etc.)' },
-                    { icon: <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><rect x="3" y="4" width="18" height="17" rx="2" stroke="#3b82f6" strokeWidth="1.5"/><path d="M3 9h18" stroke="#3b82f6" strokeWidth="1.5"/></svg>, text: 'Track your absence status anytime from the overview' },
-                  ].map((item) => (
-                    <div key={item.text} className="success-next-item">
-                      <div className="success-next-icon">{item.icon}</div>
-                      <span className="success-next-text">{item.text}</span>
-                    </div>
-                  ))}
-                </div>
-                <div className="success-cases">
-                  <div className="success-case-card">
-                    <div className="success-case-header">
-                      <div className="success-case-id">Absence Case - {submittedCase.id}-ABC-01</div>
-                      <span className="success-case-badge"><span className="success-case-badge-dot"/> Pending</span>
-                    </div>
-                    <div className="success-case-title">Care for Sick Family Member with Health Condition</div>
-                  </div>
-                  <div className="success-case-card">
-                    <div className="success-case-header">
-                      <div className="success-case-id">Claim Case - {submittedCase.id.replace('NTN', 'NTN')}-GDC-02</div>
-                      <span className="success-case-badge"><span className="success-case-badge-dot"/> Pending</span>
-                    </div>
-                    <div className="success-case-title">NY Paid Family Leave & FMLA</div>
-                  </div>
-                </div>
-                <div className="success-enrollment-banner">
-                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="10" stroke="#105fa8" strokeWidth="1.5"/><path d="M12 8v4" stroke="#105fa8" strokeWidth="1.5" strokeLinecap="round"/><circle cx="12" cy="16" r="0.75" fill="#105fa8"/></svg>
-                  <div className="success-enrollment-text">
-                    <span>You're enrolled in Hospital Indemnity and may be eligible for additional benefits.</span>
-                    <a href="#" className="success-enrollment-link">Learn more →</a>
-                  </div>
+                  <ul className="success-next-list">
+                    <li>Your manager will be notified of your upcoming Leave</li>
+                    <li>We’re reviewing your eligibility — we’ll update you within 1–2 business days</li>
+                    <li>You may be asked to upload supporting documents (medical certification, etc.)</li>
+                    <li>Track your Leave status anytime from the overview</li>
+                  </ul>
                 </div>
                 <div className="success-footer">
-                  <button type="button" className="btn btn-next" onClick={() => navigate(`${rlBase}/case-detail-new`, { state: submittedCase })}>View Leave Details</button>
-                  {!isMobileRequest && <button type="button" className="btn btn-back" onClick={() => navigate(`${rlBase}/my-cases`)}>Back to My Leaves</button>}
+                  <button type="button" className="btn btn-back" onClick={() => navigate(`${rlBase}/my-cases`)}>View All Cases</button>
+                  <button type="button" className="btn btn-next" onClick={() => navigate(`${rlBase}/case-detail-new`, { state: submittedCase })}>View Case Details</button>
                 </div>
               </div>
             </div>
           </div>
-          <SiteFooter />
         </div>
       );
     }
     if (isChildScenario && !isBirthingParent) {
-      const returnWorkDate = new Date(new Date(`${submittedCase.endDate}T00:00:00`).getTime() + 1 * 24 * 60 * 60 * 1000);
-      const returnWorkStr = returnWorkDate.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
       return (
         <div className="request-leave-shell">
           <SiteNav />
           <div className="wizard-wrap">
-            <div className="wizard-card" style={{ marginTop: 32 }}>
+            <div className="wizard-card wizard-card--success">
               <div className="success-state">
                 <div className="success-header">
                   <div className="success-icon"><svg width="32" height="32" viewBox="0 0 32 32" fill="none"><path d="M9 16L14 21L23 11" stroke="#16a34a" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round"/></svg></div>
                   <h2>Leave request submitted</h2>
-                  <p>{submittedCase.id}</p>
-                  <p className="success-case-review">Your Case In Review</p>
+                  <p className="success-ref">{submittedCase.id}</p>
+                  <p className="success-review-text">Your case is under review</p>
                 </div>
                 <div className="success-dates-grid">
                   <div className="success-date-box">
@@ -2053,76 +2028,68 @@ export default function RequestLeaveReactPage() {
                     <div className="success-date-value">{shortDate(submittedCase.startDate)}</div>
                   </div>
                   <div className="success-date-box">
-                    <div className="success-date-label">Expected Return to Work Date</div>
+                    <div className="success-date-label">Expected Return</div>
                     <div className="success-date-value">{shortDate(submittedCase.endDate)}</div>
                   </div>
                   <div className="success-date-box">
-                    <div className="success-date-label">Return to Work Date</div>
-                    <div className="success-date-value">{returnWorkStr}</div>
+                    <div className="success-date-label">Duration</div>
+                    <div className="success-date-value">{Math.max(0, Math.round((new Date(`${submittedCase.endDate}T00:00:00`) - new Date(`${submittedCase.startDate}T00:00:00`)) / (1000 * 60 * 60 * 24)))} days</div>
+                  </div>
+                </div>
+                <div className="success-cases-flat">
+                  <div className="success-case-flat-item">
+                    <div className="success-case-flat-left">
+                      <div className="success-case-flat-type">LEAVE CASE - {submittedCase.id}-ABC-01</div>
+                      <div className="success-case-flat-title">Non-Birthing Parent Bonding Leave</div>
+                    </div>
+                    <span className="success-case-flat-badge">Pending</span>
+                  </div>
+                  <div className="success-case-flat-item">
+                    <div className="success-case-flat-left">
+                      <div className="success-case-flat-type">CLAIM CASE - {submittedCase.id}-GDC-02</div>
+                      <div className="success-case-flat-title">Short Term Disability & NY Paid Family Leave</div>
+                    </div>
+                    <span className="success-case-flat-badge">Pending</span>
+                  </div>
+                  <div className="success-case-flat-item">
+                    <div className="success-case-flat-left">
+                      <div className="success-case-flat-type">SUPPLEMENTAL HEALTH - {submittedCase.id}-ABC-03</div>
+                      <div className="success-case-flat-title">Hospital Indemnity</div>
+                    </div>
+                    <span className="success-case-flat-badge">Pending</span>
                   </div>
                 </div>
                 <div className="success-next-steps">
                   <h3>What happens next</h3>
-                  {[
-                    { icon: <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M9 12l2 2 4-4" stroke="#16a34a" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/><circle cx="12" cy="12" r="10" stroke="#16a34a" strokeWidth="1.5"/></svg>, text: 'Your manager will be notified of your upcoming absence' },
-                    { icon: <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="10" stroke="#6366f1" strokeWidth="1.5"/><path d="M12 7v5l3 2" stroke="#6366f1" strokeWidth="1.5" strokeLinecap="round"/></svg>, text: "We're reviewing your eligibility — we'll update you within 1–2 business days" },
-                    { icon: <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z" stroke="#f59e0b" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/><path d="M14 2v6h6" stroke="#f59e0b" strokeWidth="1.5"/></svg>, text: 'You may be asked to upload supporting documents (medical certification, etc.)' },
-                    { icon: <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><rect x="3" y="4" width="18" height="17" rx="2" stroke="#3b82f6" strokeWidth="1.5"/><path d="M3 9h18" stroke="#3b82f6" strokeWidth="1.5"/></svg>, text: 'Track your absence status anytime from the overview' },
-                  ].map((item) => (
-                    <div key={item.text} className="success-next-item">
-                      <div className="success-next-icon">{item.icon}</div>
-                      <span className="success-next-text">{item.text}</span>
-                    </div>
-                  ))}
-                </div>
-                <div className="success-cases">
-                  <div className="success-case-card">
-                    <div className="success-case-header">
-                      <div className="success-case-id">Absence Case - {submittedCase.id}-ABC-01</div>
-                      <span className="success-case-badge"><span className="success-case-badge-dot"/> Pending</span>
-                    </div>
-                    <div className="success-case-title">Non-Birthing Parent, Adoption, or Foster Care Placement (Bonding)</div>
-                  </div>
-                  <div className="success-case-card">
-                    <div className="success-case-header">
-                      <div className="success-case-id">Claim Case - {submittedCase.id.replace('NTN', 'NTN')}-GDC-02</div>
-                      <span className="success-case-badge"><span className="success-case-badge-dot"/> Pending</span>
-                    </div>
-                    <div className="success-case-title">Short Term Disability & NY Paid Family Leave</div>
-                  </div>
-                </div>
-                <div className="success-enrollment-banner">
-                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="10" stroke="#105fa8" strokeWidth="1.5"/><path d="M12 8v4" stroke="#105fa8" strokeWidth="1.5" strokeLinecap="round"/><circle cx="12" cy="16" r="0.75" fill="#105fa8"/></svg>
-                  <div className="success-enrollment-text">
-                    <span>You're enrolled in Hospital Indemnity and may be eligible for additional benefits.</span>
-                    <a href="#" className="success-enrollment-link">Learn more →</a>
-                  </div>
+                  <ul className="success-next-list">
+                    <li>Your manager will be notified of your upcoming Leave</li>
+                    <li>We’re reviewing your eligibility — we’ll update you within 1–2 business days</li>
+                    <li>You may be asked to upload supporting documents (medical certification, etc.)</li>
+                    <li>Track your Leave status anytime from the overview</li>
+                  </ul>
                 </div>
                 <div className="success-footer">
-                  <button type="button" className="btn btn-next" onClick={() => navigate(`${rlBase}/case-detail-new`, { state: submittedCase })}>View Leave Details</button>
-                  {!isMobileRequest && <button type="button" className="btn btn-back" onClick={() => navigate(`${rlBase}/my-cases`)}>Back to My Leaves</button>}
+                  <button type="button" className="btn btn-back" onClick={() => navigate(`${rlBase}/my-cases`)}>View All Cases</button>
+                  <button type="button" className="btn btn-next" onClick={() => navigate(`${rlBase}/case-detail-new`, { state: submittedCase })}>View Case Details</button>
                 </div>
               </div>
             </div>
           </div>
-          <SiteFooter />
         </div>
       );
     }
     if (isMilitary) {
-      const returnWorkDate = new Date(new Date(`${submittedCase.endDate}T00:00:00`).getTime() + 1 * 24 * 60 * 60 * 1000);
-      const returnWorkStr = returnWorkDate.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
       return (
         <div className="request-leave-shell">
           <SiteNav />
           <div className="wizard-wrap">
-            <div className="wizard-card" style={{ marginTop: 32 }}>
+            <div className="wizard-card wizard-card--success">
               <div className="success-state">
                 <div className="success-header">
                   <div className="success-icon"><svg width="32" height="32" viewBox="0 0 32 32" fill="none"><path d="M9 16L14 21L23 11" stroke="#16a34a" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round"/></svg></div>
                   <h2>Leave request submitted</h2>
-                  <p>{submittedCase.id}</p>
-                  <p className="success-case-review">Your Case In Review</p>
+                  <p className="success-ref">{submittedCase.id}</p>
+                  <p className="success-review-text">Your case is under review</p>
                 </div>
                 <div className="success-dates-grid">
                   <div className="success-date-box">
@@ -2130,69 +2097,61 @@ export default function RequestLeaveReactPage() {
                     <div className="success-date-value">{shortDate(submittedCase.startDate)}</div>
                   </div>
                   <div className="success-date-box">
-                    <div className="success-date-label">Expected Return to Work Date</div>
+                    <div className="success-date-label">Expected Return</div>
                     <div className="success-date-value">{shortDate(submittedCase.endDate)}</div>
                   </div>
                   <div className="success-date-box">
-                    <div className="success-date-label">Return to Work Date</div>
-                    <div className="success-date-value">{returnWorkStr}</div>
+                    <div className="success-date-label">Duration</div>
+                    <div className="success-date-value">{Math.max(0, Math.round((new Date(`${submittedCase.endDate}T00:00:00`) - new Date(`${submittedCase.startDate}T00:00:00`)) / (1000 * 60 * 60 * 24)))} days</div>
+                  </div>
+                </div>
+                <div className="success-cases-flat">
+                  <div className="success-case-flat-item">
+                    <div className="success-case-flat-left">
+                      <div className="success-case-flat-type">LEAVE CASE - {submittedCase.id}-ABC-01</div>
+                      <div className="success-case-flat-title">Military Leave</div>
+                    </div>
+                    <span className="success-case-flat-badge">Pending</span>
+                  </div>
+                  <div className="success-case-flat-item">
+                    <div className="success-case-flat-left">
+                      <div className="success-case-flat-type">CLAIM CASE - {submittedCase.id}-GDC-02</div>
+                      <div className="success-case-flat-title">FMLA</div>
+                    </div>
+                    <span className="success-case-flat-badge">Pending</span>
                   </div>
                 </div>
                 <div className="success-next-steps">
                   <h3>What happens next</h3>
-                  {[
-                    { icon: <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M9 12l2 2 4-4" stroke="#16a34a" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/><circle cx="12" cy="12" r="10" stroke="#16a34a" strokeWidth="1.5"/></svg>, text: 'Your manager will be notified of your upcoming absence' },
-                    { icon: <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="10" stroke="#6366f1" strokeWidth="1.5"/><path d="M12 7v5l3 2" stroke="#6366f1" strokeWidth="1.5" strokeLinecap="round"/></svg>, text: "We're reviewing your eligibility — we'll update you within 1–2 business days" },
-                    { icon: <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z" stroke="#f59e0b" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/><path d="M14 2v6h6" stroke="#f59e0b" strokeWidth="1.5"/></svg>, text: 'You may be asked to upload supporting documents (medical certification, etc.)' },
-                    { icon: <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><rect x="3" y="4" width="18" height="17" rx="2" stroke="#3b82f6" strokeWidth="1.5"/><path d="M3 9h18" stroke="#3b82f6" strokeWidth="1.5"/></svg>, text: 'Track your absence status anytime from the overview' },
-                  ].map((item) => (
-                    <div key={item.text} className="success-next-item">
-                      <div className="success-next-icon">{item.icon}</div>
-                      <span className="success-next-text">{item.text}</span>
-                    </div>
-                  ))}
-                </div>
-                <div className="success-cases">
-                  <div className="success-case-card">
-                    <div className="success-case-header">
-                      <div className="success-case-id">Absence Case - {submittedCase.id}-ABC-01</div>
-                      <span className="success-case-badge"><span className="success-case-badge-dot"/> Pending</span>
-                    </div>
-                    <div className="success-case-title">Military Leave</div>
-                  </div>
-                  <div className="success-case-card">
-                    <div className="success-case-header">
-                      <div className="success-case-id">Claim Case - {submittedCase.id.replace('NTN', 'NTN')}-GDC-02</div>
-                      <span className="success-case-badge"><span className="success-case-badge-dot"/> Pending</span>
-                    </div>
-                    <div className="success-case-title">FMLA</div>
-                  </div>
+                  <ul className="success-next-list">
+                    <li>Your manager will be notified of your upcoming Leave</li>
+                    <li>We’re reviewing your eligibility — we’ll update you within 1–2 business days</li>
+                    <li>You may be asked to upload supporting documents (medical certification, etc.)</li>
+                    <li>Track your Leave status anytime from the overview</li>
+                  </ul>
                 </div>
                 <div className="success-footer">
-                  <button type="button" className="btn btn-next" onClick={() => navigate(`${rlBase}/case-detail-new`, { state: submittedCase })}>View Leave Details</button>
-                  {!isMobileRequest && <button type="button" className="btn btn-back" onClick={() => navigate(`${rlBase}/my-cases`)}>Back to My Leaves</button>}
+                  <button type="button" className="btn btn-back" onClick={() => navigate(`${rlBase}/my-cases`)}>View All Cases</button>
+                  <button type="button" className="btn btn-next" onClick={() => navigate(`${rlBase}/case-detail-new`, { state: submittedCase })}>View Case Details</button>
                 </div>
               </div>
             </div>
           </div>
-          <SiteFooter />
         </div>
       );
     }
     if (isOther) {
-      const returnWorkDate = new Date(new Date(`${submittedCase.endDate}T00:00:00`).getTime() + 1 * 24 * 60 * 60 * 1000);
-      const returnWorkStr = returnWorkDate.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
       return (
         <div className="request-leave-shell">
           <SiteNav />
           <div className="wizard-wrap">
-            <div className="wizard-card" style={{ marginTop: 32 }}>
+            <div className="wizard-card wizard-card--success">
               <div className="success-state">
                 <div className="success-header">
                   <div className="success-icon"><svg width="32" height="32" viewBox="0 0 32 32" fill="none"><path d="M9 16L14 21L23 11" stroke="#16a34a" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round"/></svg></div>
                   <h2>Leave request submitted</h2>
-                  <p>{submittedCase.id}</p>
-                  <p className="success-case-review">Your Case In Review</p>
+                  <p className="success-ref">{submittedCase.id}</p>
+                  <p className="success-review-text">Your case is under review</p>
                 </div>
                 <div className="success-dates-grid">
                   <div className="success-date-box">
@@ -2200,52 +2159,46 @@ export default function RequestLeaveReactPage() {
                     <div className="success-date-value">{shortDate(submittedCase.startDate)}</div>
                   </div>
                   <div className="success-date-box">
-                    <div className="success-date-label">Expected Return to Work Date</div>
+                    <div className="success-date-label">Expected Return</div>
                     <div className="success-date-value">{shortDate(submittedCase.endDate)}</div>
                   </div>
                   <div className="success-date-box">
-                    <div className="success-date-label">Return to Work Date</div>
-                    <div className="success-date-value">{returnWorkStr}</div>
+                    <div className="success-date-label">Duration</div>
+                    <div className="success-date-value">{Math.max(0, Math.round((new Date(`${submittedCase.endDate}T00:00:00`) - new Date(`${submittedCase.startDate}T00:00:00`)) / (1000 * 60 * 60 * 24)))} days</div>
+                  </div>
+                </div>
+                <div className="success-cases-flat">
+                  <div className="success-case-flat-item">
+                    <div className="success-case-flat-left">
+                      <div className="success-case-flat-type">LEAVE CASE - {submittedCase.id}-ABC-01</div>
+                      <div className="success-case-flat-title">Other Leave</div>
+                    </div>
+                    <span className="success-case-flat-badge">Pending</span>
+                  </div>
+                  <div className="success-case-flat-item">
+                    <div className="success-case-flat-left">
+                      <div className="success-case-flat-type">CLAIM CASE - {submittedCase.id}-GDC-02</div>
+                      <div className="success-case-flat-title">FMLA</div>
+                    </div>
+                    <span className="success-case-flat-badge">Pending</span>
                   </div>
                 </div>
                 <div className="success-next-steps">
                   <h3>What happens next</h3>
-                  {[
-                    { icon: <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M9 12l2 2 4-4" stroke="#16a34a" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/><circle cx="12" cy="12" r="10" stroke="#16a34a" strokeWidth="1.5"/></svg>, text: 'Your manager will be notified of your upcoming absence' },
-                    { icon: <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="10" stroke="#6366f1" strokeWidth="1.5"/><path d="M12 7v5l3 2" stroke="#6366f1" strokeWidth="1.5" strokeLinecap="round"/></svg>, text: "We're reviewing your eligibility — we'll update you within 1–2 business days" },
-                    { icon: <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z" stroke="#f59e0b" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/><path d="M14 2v6h6" stroke="#f59e0b" strokeWidth="1.5"/></svg>, text: 'You may be asked to upload supporting documents (medical certification, etc.)' },
-                    { icon: <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><rect x="3" y="4" width="18" height="17" rx="2" stroke="#3b82f6" strokeWidth="1.5"/><path d="M3 9h18" stroke="#3b82f6" strokeWidth="1.5"/></svg>, text: 'Track your absence status anytime from the overview' },
-                  ].map((item) => (
-                    <div key={item.text} className="success-next-item">
-                      <div className="success-next-icon">{item.icon}</div>
-                      <span className="success-next-text">{item.text}</span>
-                    </div>
-                  ))}
-                </div>
-                <div className="success-cases">
-                  <div className="success-case-card">
-                    <div className="success-case-header">
-                      <div className="success-case-id">Absence Case - {submittedCase.id}-ABC-01</div>
-                      <span className="success-case-badge"><span className="success-case-badge-dot"/> Pending</span>
-                    </div>
-                    <div className="success-case-title">Other</div>
-                  </div>
-                  <div className="success-case-card">
-                    <div className="success-case-header">
-                      <div className="success-case-id">Claim Case - {submittedCase.id.replace('NTN', 'NTN')}-GDC-02</div>
-                      <span className="success-case-badge"><span className="success-case-badge-dot"/> Pending</span>
-                    </div>
-                    <div className="success-case-title">FMLA</div>
-                  </div>
+                  <ul className="success-next-list">
+                    <li>Your manager will be notified of your upcoming Leave</li>
+                    <li>We’re reviewing your eligibility — we’ll update you within 1–2 business days</li>
+                    <li>You may be asked to upload supporting documents (medical certification, etc.)</li>
+                    <li>Track your Leave status anytime from the overview</li>
+                  </ul>
                 </div>
                 <div className="success-footer">
-                  <button type="button" className="btn btn-next" onClick={() => navigate(`${rlBase}/case-detail-new`, { state: submittedCase })}>View Leave Details</button>
-                  {!isMobileRequest && <button type="button" className="btn btn-back" onClick={() => navigate(`${rlBase}/my-cases`)}>Back to My Leaves</button>}
+                  <button type="button" className="btn btn-back" onClick={() => navigate(`${rlBase}/my-cases`)}>View All Cases</button>
+                  <button type="button" className="btn btn-next" onClick={() => navigate(`${rlBase}/case-detail-new`, { state: submittedCase })}>View Case Details</button>
                 </div>
               </div>
             </div>
           </div>
-          <SiteFooter />
         </div>
       );
     }
@@ -2309,7 +2262,6 @@ export default function RequestLeaveReactPage() {
             </div>
           </div>
         </div>
-        <SiteFooter />
       </div>
     );
   }
@@ -2317,50 +2269,25 @@ export default function RequestLeaveReactPage() {
   return (
     <div className="request-leave-shell">
       {!hideChrome && <SiteNav />}
-      {!started ? (
-        <div className="wizard-wrap">
-          <div className="req-welcome-card">
-            <div className="landing-eyebrow">Request Leave</div>
-            <h2 className="landing-title">Start your leave request</h2>
-            <p className="landing-subtitle">Enter your reason for leave, details, and work schedule. You'll be able to review and verify everything before you submit.</p>
-            <div className="req-welcome-journey">
-              {[
-                { label: 'Reason', icon: <svg width="20" height="20" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="9" stroke="#4b5563" strokeWidth="1.5"/><path d="M9 9a3 3 0 015.12 1.5c0 1.5-2.12 2-2.12 3.5" stroke="#4b5563" strokeWidth="1.5" strokeLinecap="round"/><circle cx="12" cy="17" r="0.75" fill="#4b5563"/></svg> },
-                { label: 'Details', icon: <svg width="20" height="20" viewBox="0 0 24 24" fill="none"><rect x="3" y="4" width="18" height="17" rx="2" stroke="#4b5563" strokeWidth="1.5"/><path d="M3 9h18M8 2v4M16 2v4" stroke="#4b5563" strokeWidth="1.5" strokeLinecap="round"/></svg> },
-                { label: 'Schedule', icon: <svg width="20" height="20" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="10" stroke="#4b5563" strokeWidth="1.5"/><path d="M12 6v6l4 2" stroke="#4b5563" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/></svg> },
-                { label: 'Review', icon: <svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M9 11l3 3L22 4" stroke="#4b5563" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/><path d="M21 12v7a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h11" stroke="#4b5563" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/></svg> },
-              ].map((phase, index) => (
-                <div key={phase.label} style={{ display: 'contents' }}>
-                  {index > 0 ? <div className="req-welcome-arrow"><svg width="16" height="16" viewBox="0 0 20 20" fill="none"><path d="M7 4l6 6-6 6" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/></svg></div> : null}
-                  <div className="req-welcome-step">
-                    <div className="req-welcome-step-icon">{phase.icon}</div>
-                    <div className="landing-phase-label">{phase.label}</div>
-                  </div>
-                </div>
-              ))}
-            </div>
-            <button type="button" className="btn btn-next btn-lg" onClick={() => setStarted(true)}>Get Started</button>
-            <div className="landing-footer-note">Not sure where to start? <Link to="/plan-absence">Plan your leave first →</Link></div>
+      <div className="wizard-wrap">
+        {fromPlan && !hidePlanBar && (
+          <div className="rq-from-plan-bar">
+            <svg className="rq-from-plan-icon" width="18" height="18" viewBox="0 0 18 18" fill="none"><circle cx="9" cy="9" r="7.5" fill="#105fa8"/><path d="M9 6v3" stroke="#fff" strokeWidth="1.5" strokeLinecap="round"/><circle cx="9" cy="12" r="0.75" fill="#fff"/></svg>
+            <span>Pre-filled from your leave plan. Review and adjust as needed.</span>
+            <button type="button" className="rq-from-plan-close" onClick={() => setHidePlanBar(true)} aria-label="Dismiss">
+              <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M3 3l8 8M11 3l-8 8" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"/></svg>
+            </button>
           </div>
+        )}
+        <div className="stepper">
+          <div className="stepper-title"><strong>Request a Leave:</strong> {formState.leaveScenario ? ({ medical_self: 'Own Illness or Injury', medical_family: 'Caring for Family Member', child: 'Birthing Parent, Pregnancy, or Bonding', child_nonbirth: 'Non-Birthing Parent, Adoption, or Foster Care', military: 'Military Related Activity', other: 'Other' })[formState.leaveScenario] || '' : ''}</div>
+          <div className="stepper-counter">Step {currentStepIndex + 1} of {steps.length}</div>
         </div>
-      ) : (
-        <div className="wizard-wrap">
-          {fromPlan && !hidePlanBar && (
-            <div className="rq-from-plan-bar">
-              <svg className="rq-from-plan-icon" width="18" height="18" viewBox="0 0 18 18" fill="none"><circle cx="9" cy="9" r="7.5" fill="#105fa8"/><path d="M9 6v3" stroke="#fff" strokeWidth="1.5" strokeLinecap="round"/><circle cx="9" cy="12" r="0.75" fill="#fff"/></svg>
-              <span>Pre-filled from your leave plan. Review and adjust as needed.</span>
-              <button type="button" className="rq-from-plan-close" onClick={() => setHidePlanBar(true)} aria-label="Dismiss">
-                <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M3 3l8 8M11 3l-8 8" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"/></svg>
-              </button>
-            </div>
-          )}
-          <div className="stepper"><div className="stepper-progress-label">Overall progress</div><div className="stepper-counter">Step <strong>{currentStepIndex + 1}</strong> of <strong>{steps.length}</strong></div></div>
-          <div className="progress-bar"><div className="progress-fill" style={{ width: `${((currentStepIndex + 1) / steps.length) * 100}%` }}/></div>
-          <div className="wizard-card">
-            <div className="step-content">{renderStepContent()}{renderFooter()}</div>
-          </div>
+        <div className="progress-bar"><div className="progress-fill" style={{ width: `${((currentStepIndex + 1) / steps.length) * 100}%` }}/><div className="progress-remaining"/></div>
+        <div className="wizard-card">
+          <div className="step-content">{renderStepContent()}{renderFooter()}</div>
         </div>
-      )}
+      </div>
       {showCancelModal && (
         <div className="pr-modal-backdrop" onClick={() => setShowCancelModal(false)}>
           <div className="cancel-confirm-modal" onClick={(e) => e.stopPropagation()}>
@@ -2376,7 +2303,6 @@ export default function RequestLeaveReactPage() {
           </div>
         </div>
       )}
-      {!hideChrome && <SiteFooter />}
       {showSaveToast && (
         <div className="rl-toast">
           <div className="rl-toast-icon">
