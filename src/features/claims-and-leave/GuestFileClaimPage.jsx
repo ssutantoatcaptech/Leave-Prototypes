@@ -43,7 +43,6 @@ const claimTypes = [
   { id: 'accident', label: 'Accident', desc: 'Coverage for injuries resulting from an accident' },
   { id: 'hospital', label: 'Hospital Indemnity', desc: 'Benefits for hospital stays and related expenses' },
   { id: 'critical', label: 'Critical Illness', desc: 'Lump-sum benefit for diagnosis of a covered illness' },
-  { id: 'dental', label: 'Dental', desc: 'Coverage for dental procedures and treatments' },
 ];
 
 function CalendarIcon() {
@@ -175,7 +174,6 @@ function GuestFileClaimContent() {
     if (formState.whatHappened === 'injury') return 'accident';
     if (formState.whatHappened === 'hospitalization') return 'hospital';
     if (formState.whatHappened === 'illness') return 'critical';
-    if (formState.whatHappened === 'dental') return 'dental';
     return 'std';
   }
 
@@ -198,7 +196,7 @@ function GuestFileClaimContent() {
 
   function getClaimLabel(type) {
     const t = type || formState.claimType;
-    const labels = { std: 'Short-Term Disability', accident: 'Accident', hospital: 'Hospital Indemnity', critical: 'Critical Illness', dental: 'Dental' };
+    const labels = { std: 'Short-Term Disability', accident: 'Accident', hospital: 'Hospital Indemnity', critical: 'Critical Illness' };
     return labels[t] || 'Claim';
   }
 
@@ -583,7 +581,6 @@ function GuestFileClaimContent() {
                     { id: 'illness', label: 'I was diagnosed with a serious illness' },
                     { id: 'injury', label: 'I was injured in an accident' },
                     { id: 'hospitalization', label: 'I was hospitalized' },
-                    { id: 'dental', label: 'I need dental treatment' },
                     { id: 'work_condition', label: 'A health condition is preventing me from working' },
                   ].map((opt) => (
                     <div key={opt.id} className={`fc-wiz-radio-card${formState.whatHappened === opt.id ? ' selected' : ''}`} onClick={() => updateField('whatHappened', opt.id)}>
