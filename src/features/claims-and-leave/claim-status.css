@@ -69,9 +69,16 @@
   color: var(--color-brand-primary-hover);
 }
 
+/* === Result Content === */
+.cs-result-content {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
 /* === Result Header === */
 .cs-result-header {
-  margin-bottom: 24px;
+  margin-bottom: 0;
 }
 
 .cs-back-btn {
@@ -113,7 +120,7 @@
 
 /* === Status Card === */
 .cs-status-card {
-  margin-bottom: 16px;
+  margin-bottom: 0;
 }
 
 .cs-status-top {
@@ -246,7 +253,7 @@
 
 /* === Details Card === */
 .cs-details-card {
-  margin-bottom: 16px;
+  margin-bottom: 0;
 }
 
 .cs-section-title {
@@ -287,7 +294,7 @@
 
 /* === Actions Card === */
 .cs-actions-card {
-  margin-bottom: 16px;
+  margin-bottom: 0;
 }
 
 .cs-actions-badge {
@@ -377,7 +384,7 @@
 
 /* === Timeline Card === */
 .cs-timeline-card {
-  margin-bottom: 24px;
+  margin-bottom: 0;
 }
 
 .cs-timeline {
@@ -445,23 +452,12 @@
   color: var(--color-text-tertiary);
 }
 
-/* === Bottom Section === */
-.cs-bottom-section {
-  margin-top: 24px;
-  display: flex;
-  flex-direction: column;
-  gap: 20px;
-  padding-bottom: 40px;
-}
-
-.cs-bottom-section .cs-signin-callout {
-  margin-top: 0;
-}
-
+/* === Bottom Actions === */
 .cs-bottom-actions {
   display: flex;
   gap: 12px;
   justify-content: center;
+  padding-bottom: 24px;
 }
 
 /* === Sign In Callout === */
@@ -473,7 +469,6 @@
   background: var(--color-bg-info);
   border: 1px solid var(--color-brand-primary);
   border-radius: var(--radius-md);
-  margin-top: 24px;
   text-align: left;
 }
 
