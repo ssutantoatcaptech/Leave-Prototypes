@@ -127,6 +127,10 @@ export default function AbsenceCalendarPage() {
     setHoveredCell({ employee: emp.name, day: dayColumns[dayIdx].day, type: blockLabels[block] });
   }
 
+  function handleCellFocus(e, emp, dayIdx) {
+    handleCellHover(e, emp, dayIdx);
+  }
+
   function getDateLabel(day) {
     const date = new Date(year, month, day);
     return date.toLocaleDateString('en-US', { weekday: 'long', month: 'long', day: 'numeric', year: 'numeric' });
@@ -222,8 +226,14 @@ export default function AbsenceCalendarPage() {
                           <td
                             key={dayIdx}
                             className={`mgr-cal-block-cell${dayColumns[dayIdx].day === selectedDay ? ' selected-col' : ''}`}
+                            tabIndex={block > 0 ? 0 : undefined}
+                            role={block > 0 ? 'button' : undefined}
+                            aria-label={block > 0 ? `${emp.name}, ${monthNames[month]} ${dayColumns[dayIdx].day}: ${blockLabels[block]}` : undefined}
                             onMouseEnter={(e) => handleCellHover(e, emp, dayIdx)}
                             onMouseLeave={() => setHoveredCell(null)}
+                            onFocus={(e) => handleCellFocus(e, emp, dayIdx)}
+                            onBlur={() => setHoveredCell(null)}
+                            onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); setSelectedDay(dayColumns[dayIdx].day); } }}
                             onClick={() => setSelectedDay(dayColumns[dayIdx].day)}
                           >
                             {block === 1 && <div className="mgr-calendar-block mgr-calendar-block--full" />}
@@ -323,6 +333,8 @@ export default function AbsenceCalendarPage() {
       {hoveredCell && (
         <div
           className="mgr-cal-tooltip"
+          role="tooltip"
+          aria-live="polite"
           style={{ left: tooltipPos.x, top: tooltipPos.y }}
         >
           <strong>{hoveredCell.employee}</strong>

@@ -1208,8 +1208,15 @@
   transition: background 0.1s;
 }
 
-.mgr-cal-block-cell:hover {
+.mgr-cal-block-cell:hover,
+.mgr-cal-block-cell:focus-visible {
   background: #f0f7ff;
+}
+
+.mgr-cal-block-cell:focus-visible {
+  outline: 2px solid #0057A8;
+  outline-offset: -2px;
+  border-radius: 4px;
 }
 
 .mgr-cal-block-cell.selected-col {
@@ -1224,7 +1231,8 @@
   transition: transform 0.12s, box-shadow 0.12s;
 }
 
-.mgr-cal-block-cell:hover .mgr-calendar-block {
+.mgr-cal-block-cell:hover .mgr-calendar-block,
+.mgr-cal-block-cell:focus-visible .mgr-calendar-block {
   transform: scale(1.15);
   box-shadow: 0 2px 6px rgba(0,0,0,0.12);
 }
