@@ -1,4 +1,60 @@
+import { useState } from 'react';
 import { NavLink, Navigate, Route, Routes } from 'react-router-dom';
+
+const PASSWORD = 'letmein';
+
+function PasswordGate({ children }) {
+  const [unlocked, setUnlocked] = useState(() => sessionStorage.getItem('app-unlocked') === '1');
+  const [value, setValue] = useState('');
+  const [error, setError] = useState(false);
+
+  if (unlocked) return children;
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    if (value === PASSWORD) {
+      sessionStorage.setItem('app-unlocked', '1');
+      setUnlocked(true);
+    } else {
+      setError(true);
+    }
+  };
+
+  return (
+    <div style={{
+      position: 'fixed', inset: 0, zIndex: 9999,
+      display: 'flex', alignItems: 'center', justifyContent: 'center',
+      background: '#f4f6f8',
+    }}>
+      <form onSubmit={handleSubmit} style={{
+        background: '#fff', borderRadius: 12, padding: '40px 36px',
+        boxShadow: '0 4px 24px rgba(0,0,0,0.10)', textAlign: 'center',
+        maxWidth: 360, width: '100%',
+      }}>
+        <h2 style={{ margin: '0 0 8px', color: '#1a2b4a', fontSize: 20 }}>Enter Password</h2>
+        <p style={{ margin: '0 0 20px', color: '#5a6a7a', fontSize: 14 }}>This page is password-protected.</p>
+        <input
+          type="password"
+          value={value}
+          onChange={(e) => { setValue(e.target.value); setError(false); }}
+          placeholder="Password"
+          style={{
+            width: '100%', padding: '10px 14px', fontSize: 15,
+            border: `1px solid ${error ? '#d32f2f' : '#cfd8e3'}`,
+            borderRadius: 8, outline: 'none', boxSizing: 'border-box',
+          }}
+          autoFocus
+        />
+        {error && <p style={{ color: '#d32f2f', fontSize: 13, margin: '8px 0 0' }}>Incorrect password</p>}
+        <button type="submit" style={{
+          marginTop: 16, width: '100%', padding: '10px 0',
+          background: '#105FA6', color: '#fff', border: 'none',
+          borderRadius: 8, fontSize: 15, fontWeight: 600, cursor: 'pointer',
+        }}>Unlock</button>
+      </form>
+    </div>
+  );
+}
 import OverviewReactPage from './features/overview/OverviewReactPage';
 import PlanAbsenceReactPage from './features/plan-absence/PlanAbsenceReactPage';
 import RequestLeaveReactPage from './features/request-leave/RequestLeaveReactPage';
@@ -97,7 +153,7 @@ function Home() {
 
 export default function App() {
   return (
-    <>
+    <PasswordGate>
       <Routes>
         <Route path="/" element={<Navigate to="/claims-and-leave/file-claim" replace />} />
         <Route path="/overview" element={<Navigate to="/overview-react" replace />} />
@@ -201,6 +257,6 @@ export default function App() {
 
         <Route path="*" element={<Navigate to="/claims-and-leave/file-claim" replace />} />
       </Routes>
-    </>
+    </PasswordGate>
   );
 }
