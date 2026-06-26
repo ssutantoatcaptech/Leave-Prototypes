@@ -1,5 +1,58 @@
+import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import useBasePath from './useBasePath';
+
+const PASSWORD = 'letmein';
+
+function PasswordGate({ onUnlock }) {
+  const [value, setValue] = useState('');
+  const [error, setError] = useState(false);
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    if (value === PASSWORD) {
+      sessionStorage.setItem('fc-unlocked', '1');
+      onUnlock();
+    } else {
+      setError(true);
+    }
+  };
+
+  return (
+    <div style={{
+      position: 'fixed', inset: 0, zIndex: 9999,
+      display: 'flex', alignItems: 'center', justifyContent: 'center',
+      background: '#f4f6f8',
+    }}>
+      <form onSubmit={handleSubmit} style={{
+        background: '#fff', borderRadius: 12, padding: '40px 36px',
+        boxShadow: '0 4px 24px rgba(0,0,0,0.10)', textAlign: 'center',
+        maxWidth: 360, width: '100%',
+      }}>
+        <h2 style={{ margin: '0 0 8px', color: '#1a2b4a', fontSize: 20 }}>Enter Password</h2>
+        <p style={{ margin: '0 0 20px', color: '#5a6a7a', fontSize: 14 }}>This page is password-protected.</p>
+        <input
+          type="password"
+          value={value}
+          onChange={(e) => { setValue(e.target.value); setError(false); }}
+          placeholder="Password"
+          style={{
+            width: '100%', padding: '10px 14px', fontSize: 15,
+            border: `1px solid ${error ? '#d32f2f' : '#cfd8e3'}`,
+            borderRadius: 8, outline: 'none', boxSizing: 'border-box',
+          }}
+          autoFocus
+        />
+        {error && <p style={{ color: '#d32f2f', fontSize: 13, margin: '8px 0 0' }}>Incorrect password</p>}
+        <button type="submit" style={{
+          marginTop: 16, width: '100%', padding: '10px 0',
+          background: '#105FA6', color: '#fff', border: 'none',
+          borderRadius: 8, fontSize: 15, fontWeight: 600, cursor: 'pointer',
+        }}>Unlock</button>
+      </form>
+    </div>
+  );
+}
 
 function EllipseGroup() {
   return (
@@ -38,6 +91,11 @@ function EllipseGroup() {
 export default function FileClaimPage() {
   const navigate = useNavigate();
   const base = useBasePath();
+  const [unlocked, setUnlocked] = useState(() => sessionStorage.getItem('fc-unlocked') === '1');
+
+  if (!unlocked) {
+    return <PasswordGate onUnlock={() => setUnlocked(true)} />;
+  }
 
   return (
     <div className="fc-page">
